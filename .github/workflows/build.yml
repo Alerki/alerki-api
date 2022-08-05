@@ -1,33 +1,13 @@
-name: CI
-
+name: Build
 on:
-  push:
-    branches:
-      - main
-
-  pull_request:
+ push:
+   branches:
+     - main
+ pull_request:
+   types: [opened, synchronize, reopened]
 
 jobs:
-  # lint-code:
-  #   name: Lint code
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 16.x
-  #         cache: yarn
-
-  #     - name: Install packages
-  #       run: yarn install
-
-  #     - name: Lint code
-  #       run: yarn run lint
-
-  api-testing:
-    name: Unit and integration testing
-    # needs: lint-code
-    runs-on: ubuntu-latest
+  sonarcloud:
     services:
       postgres:
         image: postgres:10.10
@@ -40,6 +20,8 @@ jobs:
         ports:
           - 5552:5432
 
+    name: SonarCloud
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -50,3 +32,9 @@ jobs:
         run: |
           cd api
           yarn test:e2e
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
