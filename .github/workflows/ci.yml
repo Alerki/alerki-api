@@ -50,6 +50,7 @@ jobs:
         run: |
           cd api
           yarn test:e2e
+          ls coverage
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
