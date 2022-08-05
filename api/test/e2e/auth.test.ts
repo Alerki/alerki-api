@@ -181,15 +181,12 @@ describe('Auth testing', () => {
 
     describe('log-out', () => {
       test('should log-out user', async () => {
-        console.log(`refreshToken=${clientUser.tokens.refreshToken}`);
-        const r = await request(app)
+        await sleep(1);
+
+        await request(app)
           .get('/auth/log-out')
           .set('Cookie', [`refreshToken=${clientUser.tokens.refreshToken}`])
-          // .expect(200);
-
-        console.log(r.body, r.statusCode);
-
-        expect(r.statusCode).toBe(200);
+          .expect(200);
       });
 
       test('check sessions count', async () => {
