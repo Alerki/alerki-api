@@ -32,7 +32,6 @@ jobs:
         run: |
           cd api
           yarn test:e2e
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
