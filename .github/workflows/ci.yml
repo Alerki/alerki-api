@@ -8,25 +8,25 @@ on:
   pull_request:
 
 jobs:
-  lint-code:
-    name: Lint code
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          cache: yarn
+  # lint-code:
+  #   name: Lint code
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 16.x
+  #         cache: yarn
 
-      - name: Install packages
-        run: yarn install
+  #     - name: Install packages
+  #       run: yarn install
 
-      - name: Lint code
-        run: yarn run lint
+  #     - name: Lint code
+  #       run: yarn run lint
 
   api-testing:
     name: Unit and integration testing
-    needs: lint-code
+    # needs: lint-code
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -40,31 +40,16 @@ jobs:
         ports:
           - 5552:5432
 
-    # strategy:
-    #   matrix:
-    #     node-version: [14.x, 16.x, 17.x]
-
     steps:
-    - uses: actions/checkout@v2
-    # - name: Setup Node.js ${{ matrix.node-version }}
-    - name: Setup Node.js v16
-      uses: actions/setup-node@v2
-      with:
-        # node-version: ${{ matrix.node-version }}
-        node-version: 16
-        cache: yarn
-
-    - name: Install packages
-      run: |
-        yarn install
-
-    - name: Test the code
-      run: |
-        cd api
-        yarn test:e2e
-
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: yarn
+      - name: Test and coverage
+        run: yarn test:e2e
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
