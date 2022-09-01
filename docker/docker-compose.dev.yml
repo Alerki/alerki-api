@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  dev_postgres:
+    container_name: dev-postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: alerki_dev
+    ports:
+      - 5551:5432
+  test_postgres:
+    container_name: test_postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: alerki_test
+    ports:
+      - 5552:5432
