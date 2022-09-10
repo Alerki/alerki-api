@@ -4,9 +4,7 @@
     "es2021": true,
     "jest": true
   },
-  "extends": [
-    "google"
-  ],
+  "extends": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest"
@@ -15,5 +13,10 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "indent": ["error", 2],
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": ["error", "always"],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"]
   }
 }
