@@ -13,12 +13,20 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "test": "jest --config ./jest.config.ts",
-    "test:e2e": "jest --config --coverage ./jest.e2e.config.ts"
+    "test:e2e": "jest --config --coverage ./jest.e2e.config.ts",
+    "format:prisma": "prisma format",
+    "studio:dev": "dotenv -e ../docker/.env.dev prisma studio",
+    "studio:test": "dotenv -e ../docker/.env.test prisma studio",
+    "make:migrations": "dotenv -e ../docker/.env.dev prisma migrate dev --create-only",
+    "migrate:dev": "dotenv -e ../docker/.env.dev prisma migrate dev",
+    "migrate:test": "dotenv -e ../docker/.env.test prisma migrate reset --force",
+    "migrate:prod": "dotenv -e ../docker/.env.prod prisma migrate"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@prisma/client": "^4.3.0",
     "cross-env": "^7.0.3",
     "dotenv-cli": "^6.0.0",
     "prisma": "^4.3.0",
@@ -50,21 +58,7 @@
     "tsconfig-paths": "4.1.0",
     "typescript": "~4.7.4"
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
   }
 }
