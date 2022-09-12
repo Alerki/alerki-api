@@ -15,7 +15,7 @@ jobs:
           cache: yarn
 
       - name: Install packages
-        run: yarn Install
+        run: yarn install
       - name: Lint
         run: yarn lint
 
@@ -28,7 +28,7 @@ jobs:
           node_version: 16.x
           cache: yarn
       - name: Install packages
-        run: yarn Install
+        run: yarn install
       - name: Ent to end testing
         run: |
           cd api
