@@ -12,32 +12,13 @@ datasource db {
 }
 
 model UserPicture {
-  id        String   @id @default(uuid())
-  picture   Bytes    @db.ByteA()
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User?
+  id          String       @id @default(uuid())
+  picture     Bytes        @db.ByteA()
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  userProfile UserProfile?
 
   @@map("UserPictures")
-}
-
-model User {
-  id          String               @id @default(uuid())
-  username    String               @unique @db.VarChar(15)
-  email       String               @unique @db.VarChar(320)
-  firstName   String?              @db.VarChar(30)
-  lastName    String?              @db.VarChar(30)
-  picture     UserPicture?         @relation(fields: [pictureId], references: [id])
-  pictureId   String?              @unique @db.VarChar(36)
-  profiles    UserProfileOnUsers[]
-  sessions    AuthSession[]
-  phoneNumber String?              @unique @db.VarChar(16)
-  password    String?              @db.VarChar(60)
-  banned      Boolean              @default(false)
-  createdAt   DateTime             @default(now())
-  updatedAt   DateTime             @updatedAt
-
-  @@map("Users")
 }
 
 model Roles {
@@ -48,27 +29,46 @@ model Roles {
   updatedAt    DateTime      @updatedAt
 }
 
+model User {
+  id          String                @id @default(uuid())
+  email       String                @unique @db.VarChar(320)
+  profiles    UserProfilesToUsers[]
+  sessions    AuthSession[]
+  phoneNumber String?               @unique @db.VarChar(16)
+  password    String?               @db.VarChar(60)
+  banned      Boolean               @default(false)
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+
+  @@map("Users")
+}
+
 model UserProfile {
-  id                     String               @id @default(uuid())
+  id                     String                @id @default(uuid())
+  username               String                @unique @db.VarChar(15)
+  firstName              String?               @db.VarChar(30)
+  lastName               String?               @db.VarChar(30)
+  picture                UserPicture?          @relation(fields: [pictureId], references: [id])
+  pictureId              String?               @unique @db.VarChar(36)
   roles                  Roles[]
-  users                  UserProfileOnUsers[]
-  notificationsRecipient Notification[]       @relation("recipient")
-  notificationsSender    Notification[]       @relation("sender")
-  clientProfile          ClientProfile        @relation(fields: [clientProfileId], references: [id])
-  clientProfileId        String               @unique @db.VarChar(36)
-  masterProfile          MasterProfile        @relation(fields: [masterProfileId], references: [id])
-  masterProfileId        String               @unique @db.VarChar(36)
-  createdAt              DateTime             @default(now())
-  updatedAt              DateTime             @updatedAt
+  users                  UserProfilesToUsers[]
+  notificationsRecipient Notification[]
+  notificationsSender    Notification[]        @relation("sender")
+  clientProfile          ClientProfile         @relation(fields: [clientProfileId], references: [id])
+  clientProfileId        String                @unique @db.VarChar(36)
+  masterProfile          MasterProfile?        @relation(fields: [masterProfileId], references: [id])
+  masterProfileId        String?               @unique @db.VarChar(36)
+  createdAt              DateTime              @default(now())
+  updatedAt              DateTime              @updatedAt
 
   @@map("UserProfiles")
 }
 
-model UserProfileOnUsers {
+model UserProfilesToUsers {
   userProfile   UserProfile @relation(fields: [userProfileId], references: [id])
   userProfileId String      @unique @db.VarChar(36)
   user          User        @relation(fields: [userId], references: [id])
-  userId        String      @db.VarChar(36)
+  userId        String      @unique @db.VarChar(36)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
@@ -88,17 +88,27 @@ model AuthSession {
 }
 
 model MasterProfile {
-  id           String           @id @default(uuid())
+  id           String                           @id @default(uuid())
   userProfile  UserProfile?
   services     MasterService[]
-  schedule     MasterSchedule[]
-  workDays     MasterWorkDay    @relation(fields: [workDaysId], references: [id])
-  workDaysId   String           @unique @db.VarChar(36)
+  schedules    MasterProfilesToMasterSchedule[]
+  workDays     MasterWorkDay                    @relation(fields: [workDaysId], references: [id])
+  workDaysId   String                           @unique @db.VarChar(36)
   appointments Appointment[]
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
+  createdAt    DateTime                         @default(now())
+  updatedAt    DateTime                         @updatedAt
 
   @@map("MasterProfiles")
+}
+
+model MasterProfilesToMasterSchedule {
+  id         String         @id @default(uuid())
+  master     MasterProfile  @relation(fields: [masterId], references: [id])
+  masterId   String         @db.VarChar(36)
+  schedule   MasterSchedule @relation(fields: [scheduleId], references: [id])
+  scheduleId String         @unique @db.VarChar(36)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
 }
 
 model ClientProfile {
@@ -129,7 +139,7 @@ model MasterService {
   masterId    String        @db.VarChar(36)
   currency    String        @db.VarChar(3)
   price       Int
-  duration    DateTime      @db.Time()
+  duration    DateTime      @db.Timetz
   locationLat Float
   locationLng Float
   createdAt   DateTime      @default(now())
@@ -139,15 +149,14 @@ model MasterService {
 }
 
 model MasterSchedule {
-  id        String        @id @default(uuid())
-  startTime DateTime      @db.Timetz()
-  endTime   DateTime      @db.Timetz()
-  date      DateTime      @db.Date
-  dayOff    Boolean       @default(false)
-  master    MasterProfile @relation(fields: [masterId], references: [id])
-  masterId  String        @db.VarChar(36)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id        String                          @id @default(uuid())
+  startTime DateTime                        @db.Timetz()
+  endTime   DateTime                        @db.Timetz()
+  date      DateTime                        @db.Date
+  dayOff    Boolean                         @default(false)
+  master    MasterProfilesToMasterSchedule?
+  createdAt DateTime                        @default(now())
+  updatedAt DateTime                        @updatedAt
 
   @@map("MasterSchedules")
 }
@@ -174,6 +183,8 @@ model Appointment {
   masterId  String        @db.VarChar(36)
   client    ClientProfile @relation(fields: [clientId], references: [id])
   clientId  String        @db.VarChar(36)
+  startTime DateTime
+  endTime   DateTime
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
@@ -195,8 +206,7 @@ model Notification {
   id                 String           @id @default(uuid())
   notificationType   NotificationType @relation(fields: [notificationTypeId], references: [id])
   notificationTypeId String           @db.VarChar(36)
-  recipient          UserProfile      @relation(fields: [recipientId], references: [id], name: "recipient")
-  recipientId        String           @db.VarChar(36)
+  recipients         UserProfile[]
   sender             UserProfile      @relation(fields: [senderId], references: [id], name: "sender")
   senderId           String           @db.VarChar(36)
   createdAt          DateTime         @default(now())
