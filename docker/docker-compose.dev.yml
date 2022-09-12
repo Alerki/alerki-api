@@ -11,7 +11,7 @@ services:
     ports:
       - 5551:5432
   test_postgres:
-    container_name: test_postgres
+    container_name: test-postgres
     image: postgres
     environment:
       POSTGRES_USER: root
