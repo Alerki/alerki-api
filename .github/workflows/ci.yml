@@ -1,0 +1,35 @@
+name: "CI"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node_version: 16.x
+          cache: yarn
+
+      - name: Install packages
+        run: yarn install
+      - name: Lint
+        run: yarn lint
+
+  api_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node_version: 16.x
+          cache: yarn
+      - name: Install packages
+        run: yarn install
+      - name: Ent to end testing
+        run: |
+          cd api
+          yarn test:e2e

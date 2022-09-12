@@ -1,4 +1,4 @@
-import jestConfig from '@Config/jest.config';
+import jestConfig from './config/jest.config';
 
 export default {
   ...jestConfig,

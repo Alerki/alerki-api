@@ -1,6 +1,9 @@
-# compiled output
+# Compiled output
 dist/
 node_modules/
+
+# Tests outputs
+coverage/
 
 # OS
 .DS_Store

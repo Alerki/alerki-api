@@ -5,6 +5,6 @@ export default {
     '^@Module/(.*)$': '<rootDir>/src/modules/$1',
   },
   testEnvironment: 'node',
-  testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+  testMatch: ['**/?(*.)+(spec|test|e2e-spec).[jt]s?(x)'],
   preset: 'ts-jest',
 };
