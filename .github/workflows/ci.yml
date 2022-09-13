@@ -21,6 +21,17 @@ jobs:
 
   api_test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:10.10
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: 1234
+          POSTGRES_DB: alerki_test
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+        ports:
+          - 5552:5432
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
