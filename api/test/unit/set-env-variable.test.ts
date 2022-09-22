@@ -46,7 +46,10 @@ describe('SetEnvVariable testing', () => {
       }
 
       new Z();
-    }).toThrow('Env variable `XClass` is not a number, but we got value: abcd, type: string');
+    }).toThrow(
+      // eslint-disable-next-line max-len
+      'Env variable `XClass` is not a number, but we got value: abcd, type: string',
+    );
   });
 
   test('should throw error when try to set undefined variable', () => {

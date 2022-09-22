@@ -17,12 +17,18 @@ export enum SetAs {
  * @param type parse to type
  * @returns prepared and checked value
  */
-export function SetEnvVariable(variableName: string, type: SetAs = SetAs.string, required: boolean = false): PropertyDecorator {
+export function SetEnvVariable(
+  variableName: string,
+  type: SetAs = SetAs.string,
+  required: boolean = false,
+): PropertyDecorator {
   return (target: Record<string, any>, key: string | symbol) => {
     const variable = process.env[variableName];
 
     if (!variable && required) {
-      throw new Error(`${variableName} not exists, please set it in the .env file`);
+      throw new Error(
+        `${variableName} not exists, please set it in the .env file`,
+      );
     }
 
     let prepared: string | number | any;
@@ -36,7 +42,10 @@ export function SetEnvVariable(variableName: string, type: SetAs = SetAs.string,
       prepared = Number(variable);
 
       if (isNaN(prepared)) {
-        throw new Error(`Env variable \`${variableName}\` is not a number, but we got value: ${variable}, type: ${typeof variable}`);
+        throw new Error(
+          // eslint-disable-next-line max-len
+          `Env variable \`${variableName}\` is not a number, but we got value: ${variable}, type: ${typeof variable}`,
+        );
       }
 
       break;
