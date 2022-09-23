@@ -23,7 +23,7 @@
     "migrate:prod": "dotenv -e ../docker/.env.prod -- prisma migrate"
   },
   "dependencies": {
-    "@nestjs/common": "^9.1.1",
+    "@nestjs/common": "^9.1.2",
     "@nestjs/core": "^9.1.1",
     "@nestjs/platform-express": "^9.1.1",
     "@prisma/client": "^4.3.0",
