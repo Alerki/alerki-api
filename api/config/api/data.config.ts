@@ -29,11 +29,5 @@ export namespace User {
       type: 'string',
       example: 'dIda*20/fa',
     },
-    fingerprint: {
-      description: 'Fingerprint (FingerprintJS)',
-      length: 32,
-      type: 'string',
-      example: '103c090c2641a3976d2d4984bb659d69',
-    },
   };
 }

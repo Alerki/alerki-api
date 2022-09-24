@@ -13,6 +13,16 @@ export class UserService {
   ) {}
 
   /**
+   * Find first user
+   *
+   * @param args find by arguments
+   * @returns
+   */
+  async findFirst(args: Prisma.Prisma.UserFindFirstArgs) {
+    return this.prismaService.user.findFirst(args);
+  }
+
+  /**
    * Find unique user
    *
    * @param args find by arguments

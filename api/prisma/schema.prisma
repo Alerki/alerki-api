@@ -59,7 +59,6 @@ model AuthSession {
   users        User[]
   refreshToken String   @db.VarChar(1024)
   deviceName   String   @db.VarChar(20)
-  fingerprint  String   @db.VarChar(256)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -71,8 +70,8 @@ model MasterProfile {
   user         User?
   services     MasterService[]
   schedules    MasterProfilesToMasterSchedule[]
-  workDays     MasterWorkDay                    @relation(fields: [workDaysId], references: [id])
-  workDaysId   String                           @unique @db.VarChar(36)
+  workDays     MasterWorkDay?                   @relation(fields: [workDaysId], references: [id])
+  workDaysId   String?                          @unique @db.VarChar(36)
   appointments Appointment[]
   createdAt    DateTime                         @default(now())
   updatedAt    DateTime                         @updatedAt

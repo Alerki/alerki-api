@@ -1,12 +1,4 @@
 /**
- * Parse options
- */
-export enum SetAs {
-  string = 'string',
-  number = 'number',
-}
-
-/**
  * Set environment variable
  *
  * Checks:
@@ -19,7 +11,7 @@ export enum SetAs {
  */
 export function SetEnvVariable(
   variableName: string,
-  type: SetAs = SetAs.string,
+  type: 'string' | 'number' = 'string',
   required: boolean = false,
 ): PropertyDecorator {
   return (target: Record<string, any>, key: string | symbol) => {
@@ -34,11 +26,11 @@ export function SetEnvVariable(
     let prepared: string | number | any;
 
     switch (type) {
-    case SetAs.string:
+    case 'string':
       prepared = variable;
       break;
 
-    case SetAs.number:
+    case 'number':
       prepared = Number(variable);
 
       if (isNaN(prepared)) {

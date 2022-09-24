@@ -45,11 +45,6 @@ export namespace SignIn {
     @MinLength(User.config.password.minLength)
     @MaxLength(User.config.password.maxLength)
     readonly password: string;
-
-    @ApiProperty(User.config.fingerprint)
-    @IsString()
-    @Length(User.config.fingerprint.length)
-    readonly fingerprint: string;
   }
 }
 
@@ -87,27 +82,5 @@ export namespace SignUp {
     @MinLength(User.config.password.minLength)
     @MaxLength(User.config.password.maxLength)
     readonly password: string;
-
-    @ApiProperty(User.config.fingerprint)
-    @IsString()
-    @Length(User.config.fingerprint.length)
-    readonly fingerprint: string;
-  }
-}
-
-export namespace Refresh {
-  /*
-  * Refresh token DTO interface
-  */
-  interface I extends Pick<Prisma.AuthSession, 'fingerprint'> {}
-
-  /*
-  * Refresh token DTO interface
-  */
-  export class Dto implements I {
-    @ApiProperty(User.config.fingerprint)
-    @IsString()
-    @Length(User.config.fingerprint.length)
-    readonly fingerprint: string;
   }
 }
