@@ -10,22 +10,15 @@ export class SessionService {
   ) {}
 
   async create(
-    userId: string,
     data: Pick<
       Prisma.AuthSession,
+      'userId' |
       'refreshToken' |
       'deviceName'
     >,
   ) {
     return this.prismaService.authSession.create({
-      data: {
-        ...data,
-        users: {
-          connect: {
-            id: userId,
-          },
-        },
-      },
+      data,
     });
   }
 

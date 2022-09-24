@@ -20,7 +20,7 @@ export class AuthService {
   /**
    * Slat for password hashing
    */
-  @SetEnvVariable('PASSWORD_SALT', 'string')
+  @SetEnvVariable('PASSWORD_SALT', 'number')
   private readonly passwordSalt: string;
 
   /**
@@ -50,11 +50,11 @@ export class AuthService {
       email,
       username,
       password,
-    }: SignUp.Dto,
+    }: SignUp.SignUpDto,
     deviceName: string,
   ) {
-    if (!usernameBlackList.has(username.toLowerCase())) {
-      throw new BadRequestException('Username bot allowed');
+    if (usernameBlackList.has(username.toLowerCase())) {
+      throw new BadRequestException('Username not allowed');
     }
 
     const emailOrUsernameExists = await this.userService.findMany({
@@ -108,7 +108,8 @@ export class AuthService {
       { id: user.id },
     );
 
-    await this.sessionService.create(user.id, {
+    await this.sessionService.create({
+      userId: user.id,
       deviceName,
       refreshToken: tokens.refreshToken,
     });

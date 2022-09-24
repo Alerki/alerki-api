@@ -23,7 +23,7 @@ export namespace SignIn {
   /**
    * Log-in DTO
    */
-  export class Dto implements I {
+  export class SignInDto implements I {
     @ApiProperty(User.config.email)
     @IsString()
     @IsOptional()
@@ -62,7 +62,7 @@ export namespace SignUp {
   /**
    * Register DTO
    */
-  export class Dto implements I {
+  export class SignUpDto implements I {
     @ApiProperty(User.config.email)
     @IsString()
     @MinLength(User.config.email.minLength)

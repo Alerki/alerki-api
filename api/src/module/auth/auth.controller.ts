@@ -1,6 +1,12 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
+  Request,
   Response,
 } from 'express';
 
@@ -15,6 +21,7 @@ import { AuthService } from '@Module/auth/auth.service';
 import { DeviceName } from '@Shared/decorators/device-name.decorator';
 import { JwtTokensPair } from '@Module/auth/tokens.service';
 
+@ApiTags('Authentication / authorization')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -26,10 +33,12 @@ export class AuthController {
    *
    * @param body required data to register user
    */
+  @ApiResponse({ status: 201, description: 'Successful registration' })
+  @ApiResponse({ status: 400, description: 'Username or email already exists' })
   @Post('sign-up')
   async signUp(
     @Res() res: Response,
-    @Body() body: SignUp.Dto,
+    @Body() body: SignUp.SignUpDto,
     @DeviceName() deviceName: string,
   ) {
     await this.authService.signUp(body, deviceName);
@@ -40,24 +49,25 @@ export class AuthController {
   /**
    * Sign-in user
    *
-   * @param body
    * @param user
    * @param res
    * @param deviceName
    */
+  @ApiResponse({ status: 200, description: 'Successful log-in' })
+  @ApiResponse({ status: 400, description: 'Bad password' })
+  @ApiResponse({ status: 404, description: 'Username or email not exists' })
+  @ApiBody({ description: 'Sign-in body', type: SignIn.SignInDto })
+  @UsePipes(ValidationPipe)
   @UseGuards(LocalAuthGuard)
   @Post('sign-in')
   async signIn(
-    @Body() body: SignIn.Dto,
-    @Body('user') user: Prisma.User,
+    @Req() req: Request,
     @Res() res: Response,
     @DeviceName() deviceName: string,
   ) {
-    // @ts-ignore
-    const tokens = await this.authService.singIn({
-      user,
-      deviceName,
-    });
+    const tokens = await this.authService.singIn(
+      req.user as Prisma.User, deviceName,
+    );
 
     this.sendRefreshAndAccessTokens(res, tokens);
   }

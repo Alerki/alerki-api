@@ -40,9 +40,9 @@ CREATE TABLE "Users" (
 -- CreateTable
 CREATE TABLE "AuthSessions" (
     "id" TEXT NOT NULL,
+    "userId" VARCHAR(16) NOT NULL,
     "refreshToken" VARCHAR(1024) NOT NULL,
     "deviceName" VARCHAR(20) NOT NULL,
-    "fingerprint" VARCHAR(256) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -52,7 +52,7 @@ CREATE TABLE "AuthSessions" (
 -- CreateTable
 CREATE TABLE "MasterProfiles" (
     "id" TEXT NOT NULL,
-    "workDaysId" VARCHAR(36) NOT NULL,
+    "workDaysId" VARCHAR(36),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -176,12 +176,6 @@ CREATE TABLE "_RolesToUser" (
 );
 
 -- CreateTable
-CREATE TABLE "_AuthSessionToUser" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL
-);
-
--- CreateTable
 CREATE TABLE "_NotificationToUser" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL
@@ -209,6 +203,9 @@ CREATE UNIQUE INDEX "Users_masterProfileId_key" ON "Users"("masterProfileId");
 CREATE UNIQUE INDEX "Users_phoneNumber_key" ON "Users"("phoneNumber");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "AuthSessions_userId_key" ON "AuthSessions"("userId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "MasterProfiles_workDaysId_key" ON "MasterProfiles"("workDaysId");
 
 -- CreateIndex
@@ -222,12 +219,6 @@ CREATE UNIQUE INDEX "_RolesToUser_AB_unique" ON "_RolesToUser"("A", "B");
 
 -- CreateIndex
 CREATE INDEX "_RolesToUser_B_index" ON "_RolesToUser"("B");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_AuthSessionToUser_AB_unique" ON "_AuthSessionToUser"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_AuthSessionToUser_B_index" ON "_AuthSessionToUser"("B");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_NotificationToUser_AB_unique" ON "_NotificationToUser"("A", "B");
@@ -245,7 +236,10 @@ ALTER TABLE "Users" ADD CONSTRAINT "Users_clientProfileId_fkey" FOREIGN KEY ("cl
 ALTER TABLE "Users" ADD CONSTRAINT "Users_masterProfileId_fkey" FOREIGN KEY ("masterProfileId") REFERENCES "MasterProfiles"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MasterProfiles" ADD CONSTRAINT "MasterProfiles_workDaysId_fkey" FOREIGN KEY ("workDaysId") REFERENCES "MasterWorkDays"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AuthSessions" ADD CONSTRAINT "AuthSessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MasterProfiles" ADD CONSTRAINT "MasterProfiles_workDaysId_fkey" FOREIGN KEY ("workDaysId") REFERENCES "MasterWorkDays"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MasterProfilesToMasterSchedule" ADD CONSTRAINT "MasterProfilesToMasterSchedule_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -276,12 +270,6 @@ ALTER TABLE "_RolesToUser" ADD CONSTRAINT "_RolesToUser_A_fkey" FOREIGN KEY ("A"
 
 -- AddForeignKey
 ALTER TABLE "_RolesToUser" ADD CONSTRAINT "_RolesToUser_B_fkey" FOREIGN KEY ("B") REFERENCES "Users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_AuthSessionToUser" ADD CONSTRAINT "_AuthSessionToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "AuthSessions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_AuthSessionToUser" ADD CONSTRAINT "_AuthSessionToUser_B_fkey" FOREIGN KEY ("B") REFERENCES "Users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_NotificationToUser" ADD CONSTRAINT "_NotificationToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Notifications"("id") ON DELETE CASCADE ON UPDATE CASCADE;
