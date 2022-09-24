@@ -10,6 +10,7 @@ import { PrismaService } from '@Shared/services/prisma.service';
 import { TokensService } from '@Module/auth/tokens.service';
 import { AuthService } from '@Module/auth/auth.service';
 import { SessionService } from '@Module/auth/session.service';
+import { JwtStrategy } from '@Module/auth/jwt.strategy';
 
 @Module({
   controllers: [AuthController],
@@ -17,6 +18,7 @@ import { SessionService } from '@Module/auth/session.service';
     PrismaService, LocalStrategy,
     JwtService, TokensService,
     AuthService, SessionService,
+    JwtStrategy,
   ],
   imports: [forwardRef(() => UserModule), PassportModule, ProfileModule],
   exports: [],

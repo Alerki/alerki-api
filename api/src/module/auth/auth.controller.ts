@@ -1,8 +1,14 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+/* eslint-disable max-len */
+import { Body, Controller, Get, HttpStatus, Post, Req, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import {
   ApiTags,
   ApiResponse,
   ApiBody,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiHeader,
+  ApiOAuth2,
+  ApiCookieAuth,
 } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
@@ -10,8 +16,6 @@ import {
   Response,
 } from 'express';
 
-import { PrismaService } from '@Shared/services/prisma.service';
-import { UserService } from '@Module/user/user.service';
 import {
   SignIn,
   SignUp,
@@ -20,6 +24,7 @@ import { LocalAuthGuard } from '@Module/auth/local-auth.guard';
 import { AuthService } from '@Module/auth/auth.service';
 import { DeviceName } from '@Shared/decorators/device-name.decorator';
 import { JwtTokensPair } from '@Module/auth/tokens.service';
+import { JwtAuthGuard } from '@Module/auth/auth.guard';
 
 @ApiTags('Authentication / authorization')
 @Controller('auth')
@@ -35,8 +40,9 @@ export class AuthController {
    * @param body sign-up required data
    * @param deviceName device name
    */
-  @ApiResponse({ status: 201, description: 'Successful registration' })
-  @ApiResponse({ status: 400, description: 'Username or email already exists' })
+  @ApiOperation({ description: 'Sign-up' })
+  @ApiResponse({ status: HttpStatus.CREATED, description: 'Successful registration' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Username or email already exists' })
   @Post('sign-up')
   async signUp(
     @Res() res: Response,
@@ -55,9 +61,10 @@ export class AuthController {
    * @param res response
    * @param deviceName device name
    */
-  @ApiResponse({ status: 200, description: 'Successful log-in' })
-  @ApiResponse({ status: 400, description: 'Bad password' })
-  @ApiResponse({ status: 404, description: 'Username or email not exists' })
+  @ApiOperation({ description: 'Sign-in' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful log-in' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad password' })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Username or email not exists' })
   @ApiBody({ description: 'Sign-in body', type: SignIn.SignInDto })
   @UsePipes(ValidationPipe)
   @UseGuards(LocalAuthGuard)
@@ -74,8 +81,16 @@ export class AuthController {
     this.sendRefreshAndAccessTokens(res, tokens);
   }
 
+  @ApiOperation({ description: 'Log-out' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Log-out user' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'User unauthorized or has a bad access token' })
+  @UseGuards(JwtAuthGuard)
   @Get('log-out')
-  async logOut() {}
+  async logOut(
+    @Req() req: Request,
+  ) {
+    return req.user;
+  }
 
   @Get('refresh')
   async refresh() {}
