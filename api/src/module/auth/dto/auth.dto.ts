@@ -15,10 +15,9 @@ export namespace SignIn {
   /**
    * Log-in DTO interface
    */
-  interface I extends Pick<Prisma.User, 'password'> {
-    email?: string;
-    username?: string;
-  }
+  interface I extends
+    Partial<Pick<Prisma.User, 'email' | 'username'>>,
+    Pick<Prisma.User, 'password'> {}
 
   /**
    * Log-in DTO

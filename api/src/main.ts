@@ -18,9 +18,9 @@ async function start() {
   // Setup swagger
   const config = new DocumentBuilder()
     .setTitle('Alerki')
-    .setDescription('The Alerki API documentation')
+    .setDescription('Alerki API documentation')
     .setVersion('0.4.0')
-    .addTag('alerki')
+    // .addTag('alerki')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

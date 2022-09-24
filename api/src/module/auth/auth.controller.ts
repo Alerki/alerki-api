@@ -29,9 +29,11 @@ export class AuthController {
   ) {}
 
   /**
-   * Sign-up new user
+   * Sign-up
    *
-   * @param body required data to register user
+   * @param res response
+   * @param body sign-up required data
+   * @param deviceName device name
    */
   @ApiResponse({ status: 201, description: 'Successful registration' })
   @ApiResponse({ status: 400, description: 'Username or email already exists' })
@@ -47,11 +49,11 @@ export class AuthController {
   }
 
   /**
-   * Sign-in user
+   * Sign-in
    *
-   * @param user
-   * @param res
-   * @param deviceName
+   * @param req request
+   * @param res response
+   * @param deviceName device name
    */
   @ApiResponse({ status: 200, description: 'Successful log-in' })
   @ApiResponse({ status: 400, description: 'Bad password' })
