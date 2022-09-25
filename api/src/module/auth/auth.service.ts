@@ -137,7 +137,30 @@ export class AuthService {
     }
   }
 
-  async refresh() {}
+  async refresh({ refreshToken }: Pick<Prisma.AuthSession, 'refreshToken'>) {
+    const validToken = this.tokensService.verifyRefreshToken(refreshToken);
+
+    const candidate = await this.sessionService.findFirst({
+      where: {
+        userId: validToken.id,
+        refreshToken,
+      },
+    });
+
+    if (!candidate) {
+      throw new BadRequestException('Refresh token not exists');
+    }
+
+    const tokens = await this.tokensService.generatePairTokens(
+      { id: validToken.id },
+    );
+
+    await this.sessionService.update(
+      candidate.id, { refreshToken: tokens.refreshToken },
+    );
+
+    return tokens;
+  }
 
   async sessions() {}
 

@@ -1,11 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from '../../src/app.module';
-import * as cookieParser from 'cookie-parser';
+import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClient } from '@prisma/client';
+import * as request from 'supertest';
+import * as cookieParser from 'cookie-parser';
 import * as jwt from 'jsonwebtoken';
+
+import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
+import sleep from '@Test/util/sleep';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -88,6 +90,27 @@ describe('AppController (e2e)', () => {
       }
     });
 
+    test('refresh', async () => {
+      await sleep(1000);
+      const r = await request(app)
+        .get('/auth/refresh')
+        .set('Cookie', [`refreshToken=${user.refreshToken}`])
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      expect(r.body.accessToken).toBeTruthy();
+
+      const sessions = await prisma.authSession.findMany();
+
+      expect(sessions.length).toBe(1);
+      expect(sessions[0].refreshToken).not.toBe(user.refreshToken);
+
+      const cookies = getCookies(r);
+
+      user.accessToken = r.body.accessToken;
+      user.refreshToken = cookies.refreshToken.value;
+    });
+
     test('log-out', async () => {
       const r = await request(app)
         .get('/auth/log-out')
@@ -105,11 +128,4 @@ describe('AppController (e2e)', () => {
       expect(authSession.length).toBe(0);
     });
   });
-
-  // it('/ (GET)', () => {
-  //   return request(app.getHttpServer())
-  //     .get('/')
-  //     .expect(200)
-  //     .expect('Hello World!');
-  // });
 });
