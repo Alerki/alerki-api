@@ -24,7 +24,8 @@ import { LocalAuthGuard } from '@Module/auth/local-auth.guard';
 import { AuthService } from '@Module/auth/auth.service';
 import { DeviceName } from '@Shared/decorators/device-name.decorator';
 import { JwtTokensPair } from '@Module/auth/tokens.service';
-import { JwtAuthGuard } from '@Module/auth/auth.guard';
+import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
+import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
 
 @ApiTags('Authentication / authorization')
 @Controller('auth')
@@ -47,9 +48,8 @@ export class AuthController {
   async signUp(
     @Res() res: Response,
     @Body() body: SignUp.SignUpDto,
-    @DeviceName() deviceName: string,
   ) {
-    await this.authService.signUp(body, deviceName);
+    await this.authService.signUp(body);
 
     res.sendStatus(201);
   }
@@ -88,8 +88,14 @@ export class AuthController {
   @Get('log-out')
   async logOut(
     @Req() req: Request,
+    @Res() res: Response,
+    @GetCookies('refreshToken') refreshToken: string,
   ) {
-    return req.user;
+    await this.authService.logOut({ userId: (req.user as any).id, refreshToken });
+
+    res.clearCookie('refreshToken');
+
+    res.sendStatus(200);
   }
 
   @Get('refresh')

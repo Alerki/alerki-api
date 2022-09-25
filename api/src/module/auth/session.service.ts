@@ -10,16 +10,19 @@ export class SessionService {
   ) {}
 
   async create(
-    data: Pick<
-      Prisma.AuthSession,
-      'userId' |
-      'refreshToken' |
-      'deviceName'
-    >,
+    data: Pick<Prisma.AuthSession, 'userId' | 'refreshToken' | 'deviceName'>,
   ) {
     return this.prismaService.authSession.create({
       data,
     });
+  }
+
+  async delete(data: Prisma.Prisma.AuthSessionDeleteArgs) {
+    return this.prismaService.authSession.delete(data);
+  }
+
+  async findFirst(data: Prisma.Prisma.AuthSessionFindFirstArgsBase) {
+    return this.prismaService.authSession.findFirst(data);
   }
 
   async update(
@@ -37,9 +40,5 @@ export class SessionService {
       },
       data,
     });
-  }
-
-  async createOrUpdate() {
-
   }
 }

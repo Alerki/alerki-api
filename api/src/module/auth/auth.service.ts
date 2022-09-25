@@ -42,7 +42,6 @@ export class AuthService {
    * Sign-up user
    *
    * @param param0 sign-up data
-   * @param deviceName device name
    * @returns pair tokens
    */
   async signUp(
@@ -51,7 +50,6 @@ export class AuthService {
       username,
       password,
     }: SignUp.SignUpDto,
-    deviceName: string,
   ) {
     if (usernameBlackList.has(username.toLowerCase())) {
       throw new BadRequestException('Username not allowed');
@@ -115,6 +113,28 @@ export class AuthService {
     });
 
     return tokens;
+  }
+
+  async logOut(
+    {
+      userId,
+      refreshToken,
+    }: Pick<Prisma.AuthSession, 'userId' | 'refreshToken'>,
+  ) {
+    const candidate = await this.sessionService.findFirst({
+      where: {
+        userId,
+        refreshToken,
+      },
+    });
+
+    if (candidate) {
+      await this.sessionService.delete({
+        where: {
+          id: candidate.id,
+        },
+      });
+    }
   }
 
   async refresh() {}
