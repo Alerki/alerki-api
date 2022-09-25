@@ -29,6 +29,31 @@ import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
 import { ProtectedRequest } from '@Module/auth/interfaces/protected-request.interface';
 import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/session.dto';
 
+/**
+ * Send refresh and access tokens
+ * @param res response
+ * @param param1 pair tokens
+ */
+function sendRefreshAndAccessTokens(
+  res: Response,
+  { refreshToken, accessToken }: JwtTokensPair,
+) {
+  res.cookie(
+    'refreshToken',
+    refreshToken,
+    {
+      maxAge: 30 * 24 * 60 * 1000,
+      httpOnly: true,
+      secure: true,
+      sameSite: true,
+    },
+  );
+
+  res.status(200).json({
+    accessToken,
+  });
+}
+
 @ApiTags('Authentication / authorization')
 @Controller('auth')
 export class AuthController {
@@ -41,7 +66,6 @@ export class AuthController {
    *
    * @param res response
    * @param body sign-up required data
-   * @param deviceName device name
    */
   @ApiOperation({ description: 'Sign-up' })
   @ApiResponse({ status: HttpStatus.CREATED, description: 'Successful registration' })
@@ -80,9 +104,16 @@ export class AuthController {
       req.user as Prisma.User, deviceName,
     );
 
-    this.sendRefreshAndAccessTokens(res, tokens);
+    sendRefreshAndAccessTokens(res, tokens);
   }
 
+  /**
+   *  Log-out
+   *
+   * @param req request
+   * @param res response
+   * @param refreshToken refresh token
+   */
   @ApiOperation({ description: 'Log-out' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Log-out user' })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'User unauthorized or has a bad access token' })
@@ -100,20 +131,39 @@ export class AuthController {
     res.sendStatus(200);
   }
 
+  /**
+   * Refresh token
+   *
+   * @param res response
+   * @param refreshToken refresh token
+   */
+  @ApiHeader({ name: 'Authorization' })
+  @ApiOperation({ description: 'Refresh token' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful refresh token' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'No refresh token' })
   @Get('refresh')
   async refresh(
     @Res() res: Response,
     @GetCookies('refreshToken') refreshToken: string,
   ) {
     if (!refreshToken) {
-      throw new BadRequestException('Refresh token not exists');
+      throw new BadRequestException('No refresh token');
     }
 
     const tokens = await this.authService.refresh({ refreshToken });
 
-    this.sendRefreshAndAccessTokens(res, tokens);
+    sendRefreshAndAccessTokens(res, tokens);
   }
 
+  /**
+   * Get sessions list
+   *
+   * @param req request
+   * @param queries queries
+   * @returns sessions
+   */
+  @ApiOperation({ description: 'Get sessions list' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Get sessions' })
   @UseGuards(JwtAuthGuard)
   @Get('sessions')
   async getSessions(
@@ -129,6 +179,16 @@ export class AuthController {
     return sessions;
   }
 
+  /**
+   * Patch session
+   *
+   * @param body patch session body
+   * @param id session ID
+   * @returns updated session
+   */
+  @ApiOperation({ description: 'Patch session' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Session patched successfully' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Session with specified ID not exists' })
   @UseGuards(JwtAuthGuard)
   @Patch('sessions/:id')
   async patchSessions(
@@ -143,36 +203,20 @@ export class AuthController {
     return session;
   }
 
+  /**
+   * Delete session
+   *
+   * @param id session id
+   */
+  @ApiOperation({ description: 'Delete session' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Session deleted successfully' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Session with specified ID not exists' })
   @UseGuards(JwtAuthGuard)
   @Delete('sessions/:id')
   async deleteSession(
     @Param('id') id: string,
   ) {
-    return await this.authService.deleteSession({ id });
-  }
-
-  /**
-   * Send refresh and access tokens
-   * @param res
-   * @param param1
-   */
-  sendRefreshAndAccessTokens(
-    res: Response,
-    { refreshToken, accessToken }: JwtTokensPair,
-  ) {
-    res.cookie(
-      'refreshToken',
-      refreshToken,
-      {
-        maxAge: 30 * 24 * 60 * 1000,
-        httpOnly: true,
-        secure: true,
-        sameSite: true,
-      },
-    );
-
-    res.status(200).json({
-      accessToken,
-    });
+    await this.authService.deleteSession({ id });
+    return;
   }
 }

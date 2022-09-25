@@ -29,5 +29,12 @@ export namespace User {
       type: 'string',
       example: 'dIda*20/fa',
     },
+    deviceName: {
+      description: 'Device name',
+      minLength: 1,
+      maxLength: 20,
+      type: 'string',
+      example: 'iPhone XR',
+    },
   };
 }

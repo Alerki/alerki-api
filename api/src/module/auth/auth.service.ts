@@ -1,12 +1,10 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
 import * as bcryptjs from 'bcryptjs';
 
-import { PrismaService } from '@Shared/services/prisma.service';
 import { UserService } from '@Module/user/user.service';
 import { TokensService } from '@Module/auth/tokens.service';
 import { SignUpDto } from '@Module/auth/dto/auth.dto';
@@ -201,6 +199,16 @@ export class AuthService {
   async deleteSession({
     id,
   }: Pick<Prisma.AuthSession, 'id'>) {
+    const candidate = this.sessionService.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!candidate) {
+      throw new BadRequestException('Session with specified ID not exists');
+    }
+
     return await this.sessionService.delete({
       where: {
         id,
