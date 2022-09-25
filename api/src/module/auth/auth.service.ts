@@ -9,7 +9,7 @@ import * as bcryptjs from 'bcryptjs';
 import { PrismaService } from '@Shared/services/prisma.service';
 import { UserService } from '@Module/user/user.service';
 import { TokensService } from '@Module/auth/tokens.service';
-import { SignUp } from '@Module/auth/dto/auth.dto';
+import { SignUpDto } from '@Module/auth/dto/auth.dto';
 import { usernameBlackList } from '@Config/api/username-black-list';
 import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 import { SessionService } from '@Module/auth/session.service';
@@ -49,7 +49,7 @@ export class AuthService {
       email,
       username,
       password,
-    }: SignUp.SignUpDto,
+    }: SignUpDto,
   ) {
     if (usernameBlackList.has(username.toLowerCase())) {
       throw new BadRequestException('Username not allowed');
@@ -162,7 +162,41 @@ export class AuthService {
     return tokens;
   }
 
-  async sessions() {}
+  async getSessions({
+    userId,
+    page,
+    limit,
+  }: Pick<Prisma.AuthSession, 'userId'> & {
+    page: number,
+    limit: number,
+  }) {
+    return this.sessionService.findMany({
+      where: {
+        userId,
+      },
+      skip: page  * limit,
+      take: limit,
+    });
+  }
+
+  async patchSession({
+    deviceName,
+    id,
+  }: Pick<Prisma.AuthSession, 'id' | 'deviceName'>) {
+    const candidate = this.sessionService.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!candidate) {
+      throw new BadRequestException('Session with specified ID not exists');
+    }
+
+    return this.sessionService.update(id, {
+      deviceName,
+    });
+  }
 
   async validateUser(usernameOrEmail: string, inputPassword: string) {
     const candidate = await this.userService.findFirst({

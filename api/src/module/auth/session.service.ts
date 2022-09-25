@@ -25,6 +25,10 @@ export class SessionService {
     return this.prismaService.authSession.findFirst(data);
   }
 
+  async findMany(data: Prisma.Prisma.AuthSessionFindManyArgs) {
+    return this.prismaService.authSession.findMany(data);
+  }
+
   async update(
     id: string,
     data: Partial<

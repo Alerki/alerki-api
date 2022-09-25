@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { BadRequestException, Body, Controller, Get, HttpStatus, Post, Req, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpStatus, Param, Patch, Post, Query, Req, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import {
   ApiTags,
   ApiResponse,
@@ -17,8 +17,8 @@ import {
 } from 'express';
 
 import {
-  SignIn,
-  SignUp,
+  SignInDto,
+  SignUpDto,
 } from './dto/auth.dto';
 import { LocalAuthGuard } from '@Module/auth/local-auth.guard';
 import { AuthService } from '@Module/auth/auth.service';
@@ -26,6 +26,8 @@ import { DeviceName } from '@Shared/decorators/device-name.decorator';
 import { JwtTokensPair } from '@Module/auth/tokens.service';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
+import { ProtectedRequest } from '@Module/auth/interfaces/protected-request.interface';
+import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/sessions.dto';
 
 @ApiTags('Authentication / authorization')
 @Controller('auth')
@@ -47,7 +49,7 @@ export class AuthController {
   @Post('sign-up')
   async signUp(
     @Res() res: Response,
-    @Body() body: SignUp.SignUpDto,
+    @Body() body: SignUpDto,
   ) {
     await this.authService.signUp(body);
 
@@ -65,7 +67,7 @@ export class AuthController {
   @ApiResponse({ status: HttpStatus.OK, description: 'Successful log-in' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad password' })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Username or email not exists' })
-  @ApiBody({ description: 'Sign-in body', type: SignIn.SignInDto })
+  @ApiBody({ description: 'Sign-in body', type: SignInDto })
   @UsePipes(ValidationPipe)
   @UseGuards(LocalAuthGuard)
   @Post('sign-in')
@@ -87,11 +89,11 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('log-out')
   async logOut(
-    @Req() req: Request,
+    @Req() req: ProtectedRequest,
     @Res() res: Response,
     @GetCookies('refreshToken') refreshToken: string,
   ) {
-    await this.authService.logOut({ userId: (req.user as any).id, refreshToken });
+    await this.authService.logOut({ userId: req.user.id, refreshToken });
 
     res.clearCookie('refreshToken');
 
@@ -112,8 +114,34 @@ export class AuthController {
     this.sendRefreshAndAccessTokens(res, tokens);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('sessions')
-  async sessions() {}
+  async getSessions(
+    @Req() req: ProtectedRequest,
+    @Query() queries: GetSessionsQueryDto,
+  ) {
+    const sessions = this.authService.getSessions({
+      userId: req.user.id,
+      page: queries.page,
+      limit: queries.limit,
+    });
+
+    return sessions;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('sessions/:id')
+  async updateSessions(
+    @Body() body: PatchSessionBodyDto,
+    @Param('id') id: string,
+  ) {
+    const session = await this.authService.patchSession({
+      deviceName: body.deviceName,
+      id,
+    });
+
+    return session;
+  }
 
   /**
    * Send refresh and access tokens

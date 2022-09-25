@@ -40,7 +40,7 @@ describe('AppController (e2e)', () => {
       accessToken: '',
     };
 
-    test('sign-up', async () => {
+    test('POST sign-up', async () => {
       await request(app)
         .post('/auth/sign-up')
         .send(user)
@@ -55,7 +55,7 @@ describe('AppController (e2e)', () => {
       expect(clientProfile.length).toBe(1);
     });
 
-    test('sign-in', async () => {
+    test('POST sign-in', async () => {
       const r = await request(app)
         .post('/auth/sign-in')
         .send(user)
@@ -90,7 +90,31 @@ describe('AppController (e2e)', () => {
       }
     });
 
-    test('refresh', async () => {
+    test('GET sessions', async () => {
+      const r = await request(app)
+        .get('/auth/sessions')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      expect(r.body[0].refreshToken).toBe(user.refreshToken);
+    });
+
+    test('PATCH session', async () => {
+      const r1 = await request(app)
+        .get('/auth/sessions')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      const r2 = await request(app)
+        .patch('/auth/sessions/' + r1.body[0].id)
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .send({ deviceName: 'newOne' })
+        .expect(200);
+
+      expect(r2.body.deviceName).toBe('newOne');
+    });
+
+    test('GET refresh', async () => {
       await sleep(1000);
       const r = await request(app)
         .get('/auth/refresh')
@@ -111,7 +135,7 @@ describe('AppController (e2e)', () => {
       user.refreshToken = cookies.refreshToken.value;
     });
 
-    test('log-out', async () => {
+    test('GET log-out', async () => {
       const r = await request(app)
         .get('/auth/log-out')
         .set('Cookie', [`refreshToken=${user.refreshToken}`])
