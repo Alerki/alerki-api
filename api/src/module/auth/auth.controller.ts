@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { BadRequestException, Body, Controller, Get, HttpStatus, Param, Patch, Post, Query, Req, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Query, Req, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import {
   ApiTags,
   ApiResponse,
@@ -131,7 +131,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Patch('sessions/:id')
-  async updateSessions(
+  async patchSessions(
     @Body() body: PatchSessionBodyDto,
     @Param('id') id: string,
   ) {
@@ -141,6 +141,14 @@ export class AuthController {
     });
 
     return session;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('sessions/:id')
+  async deleteSession(
+    @Param('id') id: string,
+  ) {
+    return await this.authService.deleteSession({ id });
   }
 
   /**

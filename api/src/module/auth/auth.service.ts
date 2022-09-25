@@ -198,6 +198,16 @@ export class AuthService {
     });
   }
 
+  async deleteSession({
+    id,
+  }: Pick<Prisma.AuthSession, 'id'>) {
+    return await this.sessionService.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
   async validateUser(usernameOrEmail: string, inputPassword: string) {
     const candidate = await this.userService.findFirst({
       where: {

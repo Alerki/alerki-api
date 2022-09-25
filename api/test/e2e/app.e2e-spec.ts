@@ -1,6 +1,6 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaClient } from '@prisma/client';
+import Prisma, { PrismaClient } from '@prisma/client';
 import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
 import * as jwt from 'jsonwebtoken';
@@ -8,6 +8,7 @@ import * as jwt from 'jsonwebtoken';
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import sleep from '@Test/util/sleep';
+import { session } from 'passport';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -90,30 +91,6 @@ describe('AppController (e2e)', () => {
       }
     });
 
-    test('GET sessions', async () => {
-      const r = await request(app)
-        .get('/auth/sessions')
-        .set({ Authorization: 'Bearer ' + user.accessToken })
-        .expect(200);
-
-      expect(r.body[0].refreshToken).toBe(user.refreshToken);
-    });
-
-    test('PATCH session', async () => {
-      const r1 = await request(app)
-        .get('/auth/sessions')
-        .set({ Authorization: 'Bearer ' + user.accessToken })
-        .expect(200);
-
-      const r2 = await request(app)
-        .patch('/auth/sessions/' + r1.body[0].id)
-        .set({ Authorization: 'Bearer ' + user.accessToken })
-        .send({ deviceName: 'newOne' })
-        .expect(200);
-
-      expect(r2.body.deviceName).toBe('newOne');
-    });
-
     test('GET refresh', async () => {
       await sleep(1000);
       const r = await request(app)
@@ -133,6 +110,38 @@ describe('AppController (e2e)', () => {
 
       user.accessToken = r.body.accessToken;
       user.refreshToken = cookies.refreshToken.value;
+    });
+
+    let sessions: Array<Prisma.AuthSession> = [];
+
+    test('GET sessions', async () => {
+      const r = await request(app)
+        .get('/auth/sessions')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      expect(r.body[0].refreshToken).toBe(user.refreshToken);
+      sessions = r.body;
+    });
+
+    test('PATCH session', async () => {
+      const r = await request(app)
+        .patch('/auth/sessions/' + sessions[0].id)
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .send({ deviceName: 'newOne' })
+        .expect(200);
+
+      expect(r.body.deviceName).toBe('newOne');
+    });
+
+    test('DELETE session', async () => {
+      await request(app)
+        .delete('/auth/sessions/' + sessions[0].id)
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      sessions = await prisma.authSession.findMany();
+      expect(sessions.length).toBe(0);
     });
 
     test('GET log-out', async () => {
