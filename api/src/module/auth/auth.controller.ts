@@ -27,7 +27,7 @@ import { JwtTokensPair } from '@Module/auth/tokens.service';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
 import { ProtectedRequest } from '@Module/auth/interfaces/protected-request.interface';
-import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/sessions.dto';
+import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/session.dto';
 
 @ApiTags('Authentication / authorization')
 @Controller('auth')
