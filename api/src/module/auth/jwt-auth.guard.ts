@@ -12,9 +12,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
 
   handleRequest(err: any, user: any, info: any) {
-    /* istanbul ignore next */
     if (err || !user) {
-      /* istanbul ignore next */
       throw err || new UnauthorizedException();
     }
     return user;

@@ -1,19 +1,20 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import Prisma, { PrismaClient } from '@prisma/client';
+import { Application } from 'express';
 import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
 import * as jwt from 'jsonwebtoken';
 
+import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import sleep from '@Test/util/sleep';
-import { session } from 'passport';
 import { usernameBlackListRaw } from '@Config/api/username-black-list';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
-  let prisma: PrismaClient;
+describe('ServiceController (e2e)', () => {
+  let app: Application;
+  let application: INestApplication;
 
   beforeEach(async () => {
     // Init express application
@@ -21,16 +22,17 @@ describe('AppController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
-    const application = await module
+    application = await module
       .createNestApplication()
       .use(cookieParser())
       .useGlobalPipes(new ValidationPipe({ transform: true }))
       .init();
 
     app = application.getHttpServer();
+  });
 
-    // Connect to database
-    prisma = new PrismaClient();
+  afterAll(async () => {
+    await application.close();
   });
 
   const user = {
@@ -200,6 +202,15 @@ describe('AppController (e2e)', () => {
   });
 
   describe('Other cases', () => {
+    test('call protected route without access token', async () => {
+      const r = await request(app)
+        .patch('/auth/sessions/123123123')
+        .send({ deviceName: 'newOne' })
+        .expect(401);
+
+      expect(r.body.message).toBe('Unauthorized');
+    });
+
     describe('Prohibit sign-up', () => {
       describe('with bad properties', () => {
         test('with bad property types', async () => {
