@@ -5,7 +5,6 @@ import * as cookieParser from 'cookie-parser';
 
 import { AppModule } from '@Src/app.module';
 
-
 async function start() {
   const PORT = process.env.API_PORT || 5000;
   const appOptions = { cors: true };
@@ -26,7 +25,7 @@ async function start() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  await app.listen(PORT);
 }
 
 start();

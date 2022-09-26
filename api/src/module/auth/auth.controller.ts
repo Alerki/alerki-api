@@ -70,9 +70,17 @@ function sendRefreshAndAccessTokens(
   });
 }
 
+/**
+ * Authentication authorization controller
+ */
 @ApiTags('Authentication / authorization')
 @Controller('auth')
 export class AuthController {
+  /**
+   * Auth controller constructor
+   *
+   * @param authService auth service
+   */
   constructor(
     private readonly authService: AuthService,
   ) {}

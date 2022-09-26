@@ -1,6 +1,7 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import Prisma, { PrismaClient } from '@prisma/client';
+import { Application } from 'express';
 import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
 import * as jwt from 'jsonwebtoken';
@@ -8,11 +9,11 @@ import * as jwt from 'jsonwebtoken';
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import sleep from '@Test/util/sleep';
-import { session } from 'passport';
 import { usernameBlackListRaw } from '@Config/api/username-black-list';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
+describe('ServiceController (e2e)', () => {
+  let app: Application;
+  let application: INestApplication;
   let prisma: PrismaClient;
 
   beforeEach(async () => {
@@ -21,7 +22,7 @@ describe('AppController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
-    const application = await module
+    application = await module
       .createNestApplication()
       .use(cookieParser())
       .useGlobalPipes(new ValidationPipe({ transform: true }))
@@ -31,6 +32,11 @@ describe('AppController (e2e)', () => {
 
     // Connect to database
     prisma = new PrismaClient();
+
+  });
+
+  afterAll(async () => {
+    await application.close();
   });
 
   const user = {

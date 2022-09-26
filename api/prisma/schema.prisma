@@ -4,6 +4,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -104,6 +105,7 @@ model Service {
   id             String          @id @default(uuid())
   name           String          @unique @db.VarChar(20)
   masterServices MasterService[]
+  available      Boolean         @default(false)
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
 

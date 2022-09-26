@@ -13,7 +13,7 @@
     "start:debug": "dotenv -e ../docker/.env.dev -- nest start --debug --watch",
     "start:prod": "dotenv -e ../docker/.env.prod -- node dist/main",
     "test": "dotenv -e ../docker/.env.test -- jest --config ./jest.config.ts",
-    "test:e2e": "yarn migrate:test && dotenv -e ../docker/.env.test -- jest --config ./jest.e2e.config.ts --coverage",
+    "test:e2e": "yarn migrate:test && dotenv -e ../docker/.env.test -- jest --config ./jest.e2e.config.ts --coverage --runInBand",
     "format:prisma": "prisma format",
     "studio:dev": "dotenv -e ../docker/.env.dev -- prisma studio",
     "studio:test": "dotenv -e ../docker/.env.test -- prisma studio",
