@@ -18,10 +18,10 @@ export const DeviceName = createParamDecorator(
       }
 
       return '';
-    });
+    }).trim();
 
     if (name.length > 1) {
-      return name[0].toUpperCase() + name.slice(1) || 'undefined';
+      return name[0].toUpperCase() + name.slice(1);
     }
 
     return 'undefined';

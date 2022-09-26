@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { AuthService } from '@Module/auth/auth.service';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       if (user === 'Bad password') {
         throw new BadRequestException(user);
       } else {
-        throw new NotFoundException(user);
+        throw new BadRequestException(user);
       }
     }
 

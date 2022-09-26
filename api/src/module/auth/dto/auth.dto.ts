@@ -9,7 +9,7 @@ import {
   Matches,
 } from 'class-validator';
 
-import { User } from '@Config/api/data.config';
+import { User } from '@Config/api/property.config';
 
 /**
  * Log-in DTO interface

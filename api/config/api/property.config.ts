@@ -1,17 +1,29 @@
+export interface PropertyConfig {
+  description: string,
+  minLength?: number,
+  maxLength?: number,
+  type: 'string' | 'number',
+  example: string,
+  pattern?: string,
+  patternExp?: RegExp,
+}
+
+export interface PropertiesConfig { [key: string]: PropertyConfig }
+
 export namespace User {
   /* eslint-disable-next-line max-len */
   export const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   export const usernamePattern = /^[a-zA-Z_\-0-9]+$/;
 
-  export const config = {
+  export const config: PropertiesConfig = {
     email: {
       description: 'Email',
       minLength: 5,
       maxLength: 319,
       type: 'string',
-      pattern: String(emailPattern),
       example: 'james@gmail.com',
+      pattern: String(emailPattern),
       patternExp: emailPattern,
     },
     username: {

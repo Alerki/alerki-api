@@ -8,7 +8,7 @@ import * as bcryptjs from 'bcryptjs';
 import { UserService } from '@Module/user/user.service';
 import { TokensService } from '@Module/auth/tokens.service';
 import { SignUpDto } from '@Module/auth/dto/auth.dto';
-import { usernameBlackList } from '@Config/api/username-black-list';
+import { usernameBlackListSet } from '@Config/api/username-black-list';
 import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 import { SessionService } from '@Module/auth/session.service';
 import { ClientProfileService } from '@Module/profile/client-profile.service';
@@ -49,7 +49,7 @@ export class AuthService {
       password,
     }: SignUpDto,
   ) {
-    if (usernameBlackList.has(username.toLowerCase())) {
+    if (usernameBlackListSet.has(username.toLowerCase())) {
       throw new BadRequestException('Username not allowed');
     }
 
@@ -67,15 +67,10 @@ export class AuthService {
     });
 
     if (emailOrUsernameExists.length !== 0) {
-      let usernameExists = false;
-      let emailExists = false;
-
       for (let i = 0; i < emailOrUsernameExists.length; i++) {
         if (emailOrUsernameExists[i].username === username) {
-          usernameExists = true;
           throw new BadRequestException('Email already exists');
         } else if (emailOrUsernameExists[i].email === email) {
-          emailExists = true;
           throw new BadRequestException('Username already exists');
         }
       }
@@ -136,6 +131,10 @@ export class AuthService {
   }
 
   async refresh({ refreshToken }: Pick<Prisma.AuthSession, 'refreshToken'>) {
+    if (!refreshToken) {
+      throw new BadRequestException('No refresh token');
+    }
+
     const validToken = this.tokensService.verifyRefreshToken(refreshToken);
 
     const candidate = await this.sessionService.findFirst({
@@ -172,7 +171,7 @@ export class AuthService {
       where: {
         userId,
       },
-      skip: page  * limit,
+      skip: page * limit,
       take: limit,
     });
   }
@@ -181,7 +180,7 @@ export class AuthService {
     deviceName,
     id,
   }: Pick<Prisma.AuthSession, 'id' | 'deviceName'>) {
-    const candidate = this.sessionService.findFirst({
+    const candidate = await this.sessionService.findFirst({
       where: {
         id,
       },
@@ -199,7 +198,7 @@ export class AuthService {
   async deleteSession({
     id,
   }: Pick<Prisma.AuthSession, 'id'>) {
-    const candidate = this.sessionService.findFirst({
+    const candidate = await this.sessionService.findFirst({
       where: {
         id,
       },

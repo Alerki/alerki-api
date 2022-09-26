@@ -1,5 +1,21 @@
 /* eslint-disable max-len */
-import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Query, Req, Res, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+  Res,
+  UseGuards,
+  UsePipes,
+  ValidationPipe ,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiResponse,
@@ -146,10 +162,6 @@ export class AuthController {
     @Res() res: Response,
     @GetCookies('refreshToken') refreshToken: string,
   ) {
-    if (!refreshToken) {
-      throw new BadRequestException('No refresh token');
-    }
-
     const tokens = await this.authService.refresh({ refreshToken });
 
     sendRefreshAndAccessTokens(res, tokens);

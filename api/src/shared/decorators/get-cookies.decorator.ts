@@ -11,17 +11,17 @@ export const GetCookies = createParamDecorator(
   ): string | Record<string, string> | undefined => {
     const request: Request = ctx.switchToHttp().getRequest();
 
-    if (Array.isArray(data)) {
-      const result: Record<string, string> = { x: 's' };
+    // if (Array.isArray(data)) {
+    //   const result: Record<string, string> = {};
 
-      data.forEach((key: string) => {
-        if (request.cookies[key]) {
-          result[key] = request.cookies[key];
-        }
-      });
+    //   data.forEach((key: string) => {
+    //     if (request.cookies[key]) {
+    //       result[key] = request.cookies[key];
+    //     }
+    //   });
 
-      return result;
-    }
+    //   return result;
+    // }
 
     return request.cookies[data];
   },

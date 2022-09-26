@@ -9,6 +9,7 @@ import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import sleep from '@Test/util/sleep';
 import { session } from 'passport';
+import { usernameBlackListRaw } from '@Config/api/username-black-list';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -32,15 +33,17 @@ describe('AppController (e2e)', () => {
     prisma = new PrismaClient();
   });
 
-  describe('Regular script', () => {
-    const user = {
-      username: 'regular',
-      email: 'regular@example.com',
-      password: 'regular',
-      refreshToken: '',
-      accessToken: '',
-    };
+  const user = {
+    username: 'regular',
+    email: 'regular@example.com',
+    password: 'regular',
+    refreshToken: '',
+    accessToken: '',
+  };
 
+  let sessions: Array<Prisma.AuthSession> = [];
+
+  describe('Regular script', () => {
     test('POST sign-up', async () => {
       await request(app)
         .post('/auth/sign-up')
@@ -60,6 +63,8 @@ describe('AppController (e2e)', () => {
       const r = await request(app)
         .post('/auth/sign-in')
         .send(user)
+        // eslint-disable-next-line max-len
+        .set({ 'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36' })
         .expect(200);
 
       expect(r.body.accessToken).toBeTruthy();
@@ -112,8 +117,6 @@ describe('AppController (e2e)', () => {
       user.refreshToken = cookies.refreshToken.value;
     });
 
-    let sessions: Array<Prisma.AuthSession> = [];
-
     test('GET sessions', async () => {
       const r = await request(app)
         .get('/auth/sessions')
@@ -122,6 +125,28 @@ describe('AppController (e2e)', () => {
 
       expect(r.body[0].refreshToken).toBe(user.refreshToken);
       sessions = r.body;
+
+      const r1 = await request(app)
+        .get('/auth/sessions')
+        .query({
+          page: 1,
+          limit: 1,
+        })
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      expect(r1.body.length).toBe(0);
+
+      const r2 = await request(app)
+        .get('/auth/sessions')
+        .query({
+          page: 0,
+          limit: 1,
+        })
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      expect(r2.body.length).toBe(1);
     });
 
     test('PATCH session', async () => {
@@ -145,6 +170,18 @@ describe('AppController (e2e)', () => {
     });
 
     test('GET log-out', async () => {
+      // Sign-in
+      const signInResponse = await request(app)
+        .post('/auth/sign-in')
+        .send(user)
+        .expect(200);
+
+      const signInCookies = getCookies(signInResponse);
+
+      user.accessToken = signInResponse.body.accessToken;
+      user.refreshToken = signInCookies.refreshToken.value;
+
+      // Log-out
       const r = await request(app)
         .get('/auth/log-out')
         .set('Cookie', [`refreshToken=${user.refreshToken}`])
@@ -159,6 +196,309 @@ describe('AppController (e2e)', () => {
 
       const authSession = await prisma.authSession.findMany();
       expect(authSession.length).toBe(0);
+    });
+  });
+
+  describe('Other cases', () => {
+    describe('Prohibit sign-up', () => {
+      describe('with bad properties', () => {
+        test('with bad property types', async () => {
+          await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 123,
+              username: 'good-username',
+              password: '12345678',
+            })
+            .expect(400);
+
+          await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 'good@email.com',
+              username: 123,
+              password: '12345678',
+            })
+            .expect(400);
+
+          await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 'good@email.com',
+              username: 'good-username',
+              password: 123,
+            })
+            .expect(400);
+        });
+
+        test('with bad length', async () => {
+          await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 'a'.repeat(500) + '@example.com',
+              username: 'good-username',
+              password: '12345678',
+            })
+            .expect(400);
+
+          await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 'good@email.com',
+              username: '123',
+              password: '12345678',
+            })
+            .expect(400);
+
+          await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 'good@email.com',
+              username: 'a'.repeat(21),
+              password: '12345678',
+            })
+            .expect(400);
+
+          await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 'good@email.com',
+              username: 'good-username',
+              password: 'a'.repeat(5),
+            })
+            .expect(400);
+
+          await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 'good@email.com',
+              username: 'good-username',
+              password: 'a'.repeat(51),
+            })
+            .expect(400);
+        });
+      });
+
+      test('without some required body params', async () => {
+        await request(app)
+          .post('/auth/sign-up')
+          .send({
+            username: 'good-username',
+            password: '12345678',
+          })
+          .expect(400);
+
+        await request(app)
+          .post('/auth/sign-up')
+          .send({
+            email: 'good@email.com',
+            password: '12345678',
+          })
+          .expect(400);
+
+        await request(app)
+          .post('/auth/sign-up')
+          .send({
+            email: 'good@email.com',
+            username: 'good-username',
+          })
+          .expect(400);
+      });
+
+      test('with already exist email', async () => {
+        await request(app)
+          .post('/auth/sign-up')
+          .send({
+            email: user.email,
+            username: 'good-username',
+            password: '12345678',
+          })
+          .expect(400);
+      });
+
+      test('with already exists username', async () => {
+        await request(app)
+          .post('/auth/sign-up')
+          .send({
+            email: 'good-email1@example.com',
+            username: user.username,
+            password: '12345678',
+          })
+          .expect(400);
+      });
+
+      test('with blacklist username', async () => {
+        for (const username of usernameBlackListRaw) {
+          const r = await request(app)
+            .post('/auth/sign-up')
+            .send({
+              email: 'good-email2@example.com',
+              username: username,
+              password: '12345678',
+            })
+            .expect(400);
+
+          expect(r.body.message).toBe('Username not allowed');
+        }
+      });
+    });
+
+    describe('Prohibit sign-in', () => {
+      test('with bad password', async () => {
+        await request(app)
+          .post('/auth/sign-in')
+          .send({
+            ...user,
+            password: 'bad-password',
+          })
+          .expect(400);
+      });
+
+      test('with not exists username', async () => {
+        await request(app)
+          .post('/auth/sign-in')
+          .send({
+            ...user,
+            username: 'not_exists',
+          })
+          .expect(400);
+      });
+    });
+
+    describe('Prohibit log-out', () => {
+      test('with unauthorized user', async () => {
+        await request(app)
+          .post('/auth/sign-in')
+          .expect(401);
+      });
+    });
+
+    describe('Prohibit refresh', () => {
+      test('without refresh token', async () => {
+        const r = await request(app)
+          .get('/auth/refresh')
+          .expect(400);
+
+        expect(r.body.message).toBe('No refresh token');
+      });
+
+      test('with not exists in database refresh token', async () => {
+        // Sign-in
+        const signInResponse = await request(app)
+          .post('/auth/sign-in')
+          .send(user)
+          .expect(200);
+
+        const signInCookies = getCookies(signInResponse);
+
+        user.accessToken = signInResponse.body.accessToken;
+        user.refreshToken = signInCookies.refreshToken.value;
+
+        // Get sessions list
+        sessions = await prisma.authSession.findMany({});
+
+        expect(sessions.length).toBe(1);
+
+        await prisma.authSession.delete({
+          where: {
+            id: sessions[0].id,
+          },
+        });
+
+        // Refresh
+        const r = await request(app)
+          .get('/auth/refresh')
+          .set('Cookie', [`refreshToken=${user.refreshToken}`])
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(400);
+
+        expect(r.body.message).toBe('Refresh token not exists');
+      });
+    });
+
+    describe('Prohibit get sessions', () => {
+      test('with bad page and limit', async () => {
+        const r = await request(app)
+          .get('/auth/sessions')
+          .query({
+            page: -1,
+            limit: -1,
+          })
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(400);
+
+        expect(r.body.message).toEqual(
+          ['page must not be less than 0', 'limit must not be less than 0'],
+        );
+      });
+    });
+
+    describe('Prohibit patch sessions', () => {
+      test('with not exists session', async () => {
+        // Sign-in
+        const signInResponse = await request(app)
+          .post('/auth/sign-in')
+          .send(user)
+          .expect(200);
+
+        const signInCookies = getCookies(signInResponse);
+
+        user.accessToken = signInResponse.body.accessToken;
+        user.refreshToken = signInCookies.refreshToken.value;
+
+        // Get sessions list
+        sessions = await prisma.authSession.findMany({});
+
+        expect(sessions.length).toBe(1);
+
+        await prisma.authSession.delete({
+          where: {
+            id: sessions[0].id,
+          },
+        });
+
+        const r = await request(app)
+          .patch('/auth/sessions/' + sessions[0].id)
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .send({ deviceName: 'newOne' })
+          .expect(400);
+
+        expect(r.body.message).toBe('Session with specified ID not exists');
+      });
+    });
+
+    describe('Prohibit delete session', () => {
+      test('with not exists session', async () => {
+        // Sign-in
+        const signInResponse = await request(app)
+          .post('/auth/sign-in')
+          .send(user)
+          .expect(200);
+
+        const signInCookies = getCookies(signInResponse);
+
+        user.accessToken = signInResponse.body.accessToken;
+        user.refreshToken = signInCookies.refreshToken.value;
+
+        // Get sessions list
+        sessions = await prisma.authSession.findMany({});
+
+        expect(sessions.length).toBe(1);
+
+        await prisma.authSession.delete({
+          where: {
+            id: sessions[0].id,
+          },
+        });
+
+        const r = await request(app)
+          .delete('/auth/sessions/' + sessions[0].id)
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .send({ deviceName: 'newOne' })
+          .expect(400);
+
+        expect(r.body.message).toBe('Session with specified ID not exists');
+      });
     });
   });
 });
