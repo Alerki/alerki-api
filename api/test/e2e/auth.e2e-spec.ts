@@ -202,6 +202,15 @@ describe('ServiceController (e2e)', () => {
   });
 
   describe('Other cases', () => {
+    test('call protected route without access token', async () => {
+      const r = await request(app)
+        .patch('/auth/sessions/123123123')
+        .send({ deviceName: 'newOne' })
+        .expect(401);
+
+      expect(r.body.message).toBe('Unauthorized');
+    });
+
     describe('Prohibit sign-up', () => {
       describe('with bad properties', () => {
         test('with bad property types', async () => {
