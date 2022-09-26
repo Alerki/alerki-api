@@ -44,6 +44,9 @@ import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
 import { ProtectedRequest } from '@Module/auth/interfaces/protected-request.interface';
 import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/session.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GoogleStrategy, GoogleUser } from '@Module/auth/google.strategy';
+import { Profile } from 'passport-google-oauth20';
 
 /**
  * Send refresh and access tokens
@@ -127,6 +130,25 @@ export class AuthController {
     const tokens = await this.authService.singIn(
       req.user as Prisma.User, deviceName,
     );
+
+    sendRefreshAndAccessTokens(res, tokens);
+  }
+
+  @Get('google')
+  @UseGuards(GoogleStrategy)
+  async google(@Req() req: Request) {}
+
+  @Get('google/redirect')
+  @UseGuards(AuthGuard('google'))
+  async googleAuthRedirect(
+    @Req() req: Request,
+    @Res() res: Response,
+    @DeviceName() deviceName: string,
+  ) {
+    const tokens = await this.authService.signInWithGoogle({
+      deviceName,
+      user: req.user as GoogleUser,
+    });
 
     sendRefreshAndAccessTokens(res, tokens);
   }

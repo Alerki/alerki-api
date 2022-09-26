@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  Req,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
 import * as bcryptjs from 'bcryptjs';
@@ -12,6 +13,9 @@ import { usernameBlackListSet } from '@Config/api/username-black-list';
 import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 import { SessionService } from '@Module/auth/session.service';
 import { ClientProfileService } from '@Module/profile/client-profile.service';
+import { Request } from 'express';
+import { Profile } from 'passport-google-oauth20';
+import { GoogleUser } from '@Module/auth/google.strategy';
 
 @Injectable()
 export class AuthService {
@@ -80,7 +84,7 @@ export class AuthService {
 
     const newClientProfile = await this.clientProfileService.create();
 
-    await this.userService.create({
+    const newUser = await this.userService.create({
       data: {
         email,
         username,
@@ -92,6 +96,88 @@ export class AuthService {
         },
       },
     });
+  }
+
+  async signInWithGoogle({
+    deviceName,
+    user,
+  }: {
+    deviceName: string,
+    user: GoogleUser,
+  }) {
+    const {
+      email,
+      firstName,
+      lastName,
+      picture,
+      accessToken,
+      refreshToken,
+    } = user;
+
+    const candidate = await this.userService.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    if (candidate) {
+      const tokens = await this.tokensService.generatePairTokens(
+        { id: candidate.id },
+      );
+
+      await this.sessionService.create({
+        userId: candidate.id,
+        refreshToken: tokens.refreshToken,
+        deviceName,
+      });
+
+      return tokens;
+    } else {
+      const newClientProfile = await this.clientProfileService.create();
+
+      let usernameCandidate = email.split('@')[0];
+
+      while (true) {
+        const checkUsernameExists = this.userService.findFirst({
+          where: {
+            username: usernameCandidate,
+          },
+        });
+
+        if (checkUsernameExists) {
+          usernameCandidate += '_';
+          continue;
+        }
+
+        break;
+      }
+
+      const newUser = await this.userService.create({
+        data: {
+          email,
+          username: usernameCandidate,
+          firstName,
+          lastName,
+          clientProfile: {
+            connect: {
+              id: newClientProfile.id,
+            },
+          },
+        },
+      });
+
+      const tokens = await this.tokensService.generatePairTokens(
+        { id: newUser.id },
+      );
+
+      await this.sessionService.create({
+        userId: newUser.id,
+        refreshToken: tokens.refreshToken,
+        deviceName,
+      });
+
+      return tokens;
+    }
   }
 
   async singIn(user: Prisma.User, deviceName: string) {
