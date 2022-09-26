@@ -1,6 +1,8 @@
+import { Config } from 'jest';
+
 import jestConfig from './config/jest.config';
 
-export default {
+const config: Config = {
   ...jestConfig,
   roots: ['./test'],
   coverageThreshold: {
@@ -12,3 +14,5 @@ export default {
     },
   },
 };
+
+export default config;

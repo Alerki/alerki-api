@@ -12,75 +12,54 @@ datasource db {
 }
 
 model UserPicture {
-  id          String       @id @default(uuid())
-  picture     Bytes        @db.ByteA()
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  userProfile UserProfile?
+  id        String   @id @default(uuid())
+  picture   Bytes    @db.ByteA()
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User?
 
   @@map("UserPictures")
 }
 
 model Roles {
-  id           String        @id @default(uuid())
-  name         String        @unique @db.VarChar(20)
-  userProfiles UserProfile[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id        String   @id @default(uuid())
+  name      String   @unique @db.VarChar(20)
+  user      User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
-  id          String                @id @default(uuid())
-  email       String                @unique @db.VarChar(320)
-  profiles    UserProfilesToUsers[]
-  sessions    AuthSession[]
-  phoneNumber String?               @unique @db.VarChar(16)
-  password    String?               @db.VarChar(60)
-  banned      Boolean               @default(false)
-  createdAt   DateTime              @default(now())
-  updatedAt   DateTime              @updatedAt
+  id                     String         @id @default(uuid())
+  email                  String         @unique @db.VarChar(320)
+  username               String         @unique @db.VarChar(15)
+  firstName              String?        @db.VarChar(30)
+  lastName               String?        @db.VarChar(30)
+  picture                UserPicture?   @relation(fields: [pictureId], references: [id])
+  pictureId              String?        @unique @db.VarChar(36)
+  roles                  Roles[]
+  notificationsRecipient Notification[]
+  notificationsSender    Notification[] @relation("sender")
+  clientProfile          ClientProfile  @relation(fields: [clientProfileId], references: [id])
+  clientProfileId        String         @unique @db.VarChar(36)
+  masterProfile          MasterProfile? @relation(fields: [masterProfileId], references: [id])
+  masterProfileId        String?        @unique @db.VarChar(36)
+  sessions               AuthSession[]
+  phoneNumber            String?        @unique @db.VarChar(16)
+  password               String?        @db.VarChar(60)
+  banned                 Boolean        @default(false)
+  createdAt              DateTime       @default(now())
+  updatedAt              DateTime       @updatedAt
 
   @@map("Users")
 }
 
-model UserProfile {
-  id                     String                @id @default(uuid())
-  username               String                @unique @db.VarChar(15)
-  firstName              String?               @db.VarChar(30)
-  lastName               String?               @db.VarChar(30)
-  picture                UserPicture?          @relation(fields: [pictureId], references: [id])
-  pictureId              String?               @unique @db.VarChar(36)
-  roles                  Roles[]
-  users                  UserProfilesToUsers[]
-  notificationsRecipient Notification[]
-  notificationsSender    Notification[]        @relation("sender")
-  clientProfile          ClientProfile         @relation(fields: [clientProfileId], references: [id])
-  clientProfileId        String                @unique @db.VarChar(36)
-  masterProfile          MasterProfile?        @relation(fields: [masterProfileId], references: [id])
-  masterProfileId        String?               @unique @db.VarChar(36)
-  createdAt              DateTime              @default(now())
-  updatedAt              DateTime              @updatedAt
-
-  @@map("UserProfiles")
-}
-
-model UserProfilesToUsers {
-  userProfile   UserProfile @relation(fields: [userProfileId], references: [id])
-  userProfileId String      @unique @db.VarChar(36)
-  user          User        @relation(fields: [userId], references: [id])
-  userId        String      @unique @db.VarChar(36)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-
-  @@id([userProfileId, userId])
-}
-
 model AuthSession {
   id           String   @id @default(uuid())
-  users        User[]
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String   @db.VarChar(36)
   refreshToken String   @db.VarChar(1024)
   deviceName   String   @db.VarChar(20)
-  fingerprint  String   @db.VarChar(256)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -89,11 +68,11 @@ model AuthSession {
 
 model MasterProfile {
   id           String                           @id @default(uuid())
-  userProfile  UserProfile?
+  user         User?
   services     MasterService[]
   schedules    MasterProfilesToMasterSchedule[]
-  workDays     MasterWorkDay                    @relation(fields: [workDaysId], references: [id])
-  workDaysId   String                           @unique @db.VarChar(36)
+  workDays     MasterWorkDay?                   @relation(fields: [workDaysId], references: [id])
+  workDaysId   String?                          @unique @db.VarChar(36)
   appointments Appointment[]
   createdAt    DateTime                         @default(now())
   updatedAt    DateTime                         @updatedAt
@@ -113,7 +92,7 @@ model MasterProfilesToMasterSchedule {
 
 model ClientProfile {
   id           String        @id @default(uuid())
-  userProfile  UserProfile?
+  user         User?
   appointments Appointment[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -206,8 +185,8 @@ model Notification {
   id                 String           @id @default(uuid())
   notificationType   NotificationType @relation(fields: [notificationTypeId], references: [id])
   notificationTypeId String           @db.VarChar(36)
-  recipients         UserProfile[]
-  sender             UserProfile      @relation(fields: [senderId], references: [id], name: "sender")
+  recipients         User[]
+  sender             User             @relation(fields: [senderId], references: [id], name: "sender")
   senderId           String           @db.VarChar(36)
   createdAt          DateTime         @default(now())
   updatedAt          DateTime         @updatedAt

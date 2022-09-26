@@ -1,11 +1,11 @@
-import { SetAs, SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
+import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 
 describe('SetEnvVariable testing', () => {
   test('should set variable as string', () => {
     process.env.XClass = 'XClass_string';
 
     class X {
-      @SetEnvVariable('XClass', SetAs.string) x: number;
+      @SetEnvVariable('XClass', 'string') x: number;
     }
 
     const x = new X();
@@ -29,7 +29,7 @@ describe('SetEnvVariable testing', () => {
     process.env.XClass = '57193';
 
     class X {
-      @SetEnvVariable('XClass', SetAs.number) x: number;
+      @SetEnvVariable('XClass', 'number') x: number;
     }
 
     const x = new X();
@@ -42,17 +42,20 @@ describe('SetEnvVariable testing', () => {
       process.env.XClass = 'abcd';
 
       class Z {
-        @SetEnvVariable('XClass', SetAs.number) y: number;
+        @SetEnvVariable('XClass', 'number') y: number;
       }
 
       new Z();
-    }).toThrow('Env variable `XClass` is not a number, but we got value: abcd, type: string');
+    }).toThrow(
+      // eslint-disable-next-line max-len
+      'Env variable `XClass` is not a number, but we got value: abcd, type: string',
+    );
   });
 
   test('should throw error when try to set undefined variable', () => {
     expect(() => {
       class Z {
-        @SetEnvVariable('YClass', SetAs.number, true) y: number;
+        @SetEnvVariable('YClass', 'number', true) y: number;
       }
 
       new Z();
