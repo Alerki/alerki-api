@@ -1,6 +1,11 @@
-import { Body, Get, Query } from '@nestjs/common';
+/* eslint-disable max-len */
+import { Get, HttpStatus, Query } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiTags,
+  ApiResponse,
+} from '@nestjs/swagger';
 
 import { GetServicesDto } from '@Module/service/dto/service.dto';
 import { ServiceService } from '@Module/service/service.service';
@@ -26,6 +31,9 @@ export class ServiceController {
    * @param query search service query
    * @returns services
    */
+  @ApiOperation({ description: 'Service search' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Successful service search' })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Services not exists' })
   @Get()
   async searchServices(
     @Query() query: GetServicesDto,

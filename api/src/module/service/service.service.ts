@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { GetServicesDto } from '@Module/service/dto/service.dto';
@@ -33,12 +33,12 @@ export class ServiceService {
    * @returns services
    */
   async searchService({ name }: GetServicesDto) {
-    return await this.findMany({
+    const services = await this.findMany({
       where: {
         name: {
           search: name,
         },
-        available: true,
+        // available: true, // uncomment later
       },
       orderBy: {
         masterServices: {
@@ -46,5 +46,11 @@ export class ServiceService {
         },
       },
     });
+
+    if (services.length === 0) {
+      throw new NotFoundException('Services not exists');
+    }
+
+    return services;
   }
 }

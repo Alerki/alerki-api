@@ -26,19 +26,33 @@ describe('AppController (e2e)', () => {
 
   describe('Regular script', () => {
     test('GET session', async () => {
+      const name = 'Haircut';
+      await prisma.service.create({
+        data: {
+          name,
+        },
+      });
+
       await request(app)
         .get('/service')
-        .query({ name: 'name' })
+        .query({ name })
         .expect(200);
     });
   });
 
   describe('Other cases', () => {
-    describe('Prohibit search', () => {
+    describe('Fail search', () => {
       test('without name query', async () => {
         await request(app)
           .get('/service')
           .expect(400);
+      });
+
+      test('for not exists service', async () => {
+        await request(app)
+          .get('/service')
+          .query({ name: 'not-exists-name' })
+          .expect(404);
       });
     });
   });
