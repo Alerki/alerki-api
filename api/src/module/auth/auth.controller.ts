@@ -42,7 +42,7 @@ import { DeviceName } from '@Shared/decorators/device-name.decorator';
 import { JwtTokensPair } from '@Module/auth/tokens.service';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
-import { ProtectedRequest } from '@Module/auth/interfaces/protected-request.interface';
+import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
 import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/session.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GoogleStrategy, GoogleUser } from '@Module/auth/google.strategy';
