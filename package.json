@@ -1,6 +1,6 @@
 {
   "name": "alerki",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Alerki website workspaces / eslint / husky / commitlint wrapper",
   "repository": "https://github.com/alerki/Alerki.git",
   "author": "Oleksandr Petryk <sachapos50@gmail.com> (https://petryk.me)",
