@@ -161,8 +161,8 @@ export class AuthController {
    * @param res response
    * @param refreshToken refresh token
    */
-  @ApiHeader({ name: 'Authorization' })
   @ApiOperation({ description: 'Refresh token' })
+  @ApiHeader({ name: 'Authorization' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Successful refresh token' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'No refresh token' })
   @Get('refresh')
@@ -183,6 +183,7 @@ export class AuthController {
    * @returns sessions
    */
   @ApiOperation({ description: 'Get sessions list' })
+  @ApiHeader({ name: 'Authorization' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Get sessions' })
   @UseGuards(JwtAuthGuard)
   @Get('sessions')
@@ -207,6 +208,7 @@ export class AuthController {
    * @returns updated session
    */
   @ApiOperation({ description: 'Patch session' })
+  @ApiHeader({ name: 'Authorization' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Session patched successfully' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Session with specified ID not exists' })
   @UseGuards(JwtAuthGuard)
@@ -229,6 +231,7 @@ export class AuthController {
    * @param id session id
    */
   @ApiOperation({ description: 'Delete session' })
+  @ApiHeader({ name: 'Authorization' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Session deleted successfully' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Session with specified ID not exists' })
   @UseGuards(JwtAuthGuard)
