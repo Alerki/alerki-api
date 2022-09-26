@@ -137,8 +137,9 @@ export class AuthService {
 
       let usernameCandidate = email.split('@')[0];
 
+      // Generate unique username
       while (true) {
-        const checkUsernameExists = this.userService.findFirst({
+        const checkUsernameExists = await this.userService.findFirst({
           where: {
             username: usernameCandidate,
           },

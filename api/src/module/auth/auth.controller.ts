@@ -135,12 +135,12 @@ export class AuthController {
   }
 
   @Get('google')
-  @UseGuards(GoogleStrategy)
+  @UseGuards(AuthGuard('google'))
   async google(@Req() req: Request) {}
 
-  @Get('google/redirect')
+  @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(
+  async googleCallback(
     @Req() req: Request,
     @Res() res: Response,
     @DeviceName() deviceName: string,
