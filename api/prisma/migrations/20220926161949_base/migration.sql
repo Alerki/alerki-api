@@ -40,7 +40,7 @@ CREATE TABLE "Users" (
 -- CreateTable
 CREATE TABLE "AuthSessions" (
     "id" TEXT NOT NULL,
-    "userId" VARCHAR(16) NOT NULL,
+    "userId" VARCHAR(36) NOT NULL,
     "refreshToken" VARCHAR(1024) NOT NULL,
     "deviceName" VARCHAR(20) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -83,6 +83,7 @@ CREATE TABLE "ClientProfiles" (
 CREATE TABLE "Services" (
     "id" TEXT NOT NULL,
     "name" VARCHAR(20) NOT NULL,
+    "available" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -201,9 +202,6 @@ CREATE UNIQUE INDEX "Users_masterProfileId_key" ON "Users"("masterProfileId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_phoneNumber_key" ON "Users"("phoneNumber");
-
--- CreateIndex
-CREATE UNIQUE INDEX "AuthSessions_userId_key" ON "AuthSessions"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MasterProfiles_workDaysId_key" ON "MasterProfiles"("workDaysId");
