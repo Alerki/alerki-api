@@ -6,6 +6,7 @@ import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
 import * as jwt from 'jsonwebtoken';
 
+import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import sleep from '@Test/util/sleep';
@@ -14,7 +15,6 @@ import { usernameBlackListRaw } from '@Config/api/username-black-list';
 describe('ServiceController (e2e)', () => {
   let app: Application;
   let application: INestApplication;
-  let prisma: PrismaClient;
 
   beforeEach(async () => {
     // Init express application
@@ -29,10 +29,6 @@ describe('ServiceController (e2e)', () => {
       .init();
 
     app = application.getHttpServer();
-
-    // Connect to database
-    prisma = new PrismaClient();
-
   });
 
   afterAll(async () => {

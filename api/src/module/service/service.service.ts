@@ -2,21 +2,19 @@ import { Injectable } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { GetServicesDto } from '@Module/service/dto/service.dto';
-import { PrismaService } from '@Shared/services/prisma.service';
+import { prisma } from '@Shared/services/prisma.service';
 
 /**
  * Services service
  */
 @Injectable()
 export class ServiceService {
+  private readonly prismaService = prisma;
+
   /**
    * Service service constructor
-   *
-   * @param prismaService prisma service
    */
-  constructor(
-    private readonly prismaService: PrismaService,
-  ) {}
+  constructor() {}
 
   /**
    * Find many services
