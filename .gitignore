@@ -36,3 +36,6 @@ lerna-debug.log*
 # Env variables
 .env.prod
 .env.dev
+
+# Playground files
+playground.*
