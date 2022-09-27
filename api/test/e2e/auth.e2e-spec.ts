@@ -1,26 +1,34 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe, Injectable } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import Prisma, { PrismaClient } from '@prisma/client';
 import { Application } from 'express';
 import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
 import * as jwt from 'jsonwebtoken';
+import * as ImageSize from 'buffer-image-size';
 
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import sleep from '@Test/util/sleep';
 import { usernameBlackListRaw } from '@Config/api/username-black-list';
+import { AuthController } from '@Module/auth/auth.controller';
 
 describe('ServiceController (e2e)', () => {
   let app: Application;
   let application: INestApplication;
 
-  beforeEach(async () => {
+  let authController: AuthController;
+
+  beforeAll(async () => {
     // Init express application
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+    const module: TestingModule = await Test
+      .createTestingModule({
+        imports: [AppModule],
+      })
+      .compile();
+
+    authController = module.get<AuthController>(AuthController);
 
     application = await module
       .createNestApplication()
@@ -198,6 +206,62 @@ describe('ServiceController (e2e)', () => {
 
       const authSession = await prisma.authSession.findMany();
       expect(authSession.length).toBe(0);
+    });
+  });
+
+  describe('Sign in/up with Google', () => {
+    test('sign-up', async () => {
+      await authController.google({} as any);
+    });
+
+    test('sign-in', async () => {
+      const email = 'google_email@example.com';
+      const firstName = 'FName';
+      const lastName = 'LName';
+
+      await authController.googleCallback({
+        user: {
+          email,
+          firstName,
+          lastName,
+          picture: 'https://source.unsplash.com/user/c_v_r/100x100',
+          accessToken: '',
+          refreshToken: '',
+        },
+      } as any, {
+        cookie: () => {},
+        status: () => ({ json: () => { } }),
+      } as any, 'iPhone 13');
+
+      const user = await prisma.user.findFirst({
+        where: {
+          email,
+        },
+      });
+
+      expect(user).toBeTruthy();
+      expect(user.email).toBe(email);
+      expect(user.firstName).toBe(firstName);
+      expect(user.lastName).toBe(lastName);
+      expect(user.pictureId).toBeTruthy();
+
+      const userPicture = await prisma.userPicture.findFirst({
+        where: {
+          id: user.pictureId,
+        },
+      });
+
+      expect(userPicture.picture).toBeTruthy();
+
+      const session = await prisma.authSession.findFirst({
+        where: {
+          userId: user.id,
+        },
+      });
+
+      expect(session).toBeTruthy();
+
+      await prisma.authSession.deleteMany({});
     });
   });
 

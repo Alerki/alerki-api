@@ -4,7 +4,10 @@ import {
   Req,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
+import axios from 'axios';
 import * as bcryptjs from 'bcryptjs';
+import * as sharp from 'sharp';
+import * as ImageSize from 'buffer-image-size';
 
 import { UserService } from '@Module/user/user.service';
 import { TokensService } from '@Module/auth/tokens.service';
@@ -13,9 +16,8 @@ import { usernameBlackListSet } from '@Config/api/username-black-list';
 import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 import { SessionService } from '@Module/auth/session.service';
 import { ClientProfileService } from '@Module/profile/client-profile.service';
-import { Request } from 'express';
-import { Profile } from 'passport-google-oauth20';
 import { GoogleUser } from '@Module/auth/google.strategy';
+import { UserPictureService } from '@Module/user/user-picture.service';
 
 @Injectable()
 export class AuthService {
@@ -38,6 +40,7 @@ export class AuthService {
     private readonly tokensService: TokensService,
     private readonly sessionService: SessionService,
     private readonly clientProfileService: ClientProfileService,
+    private readonly userPictureService: UserPictureService,
   ) {}
 
   /**
@@ -110,8 +113,6 @@ export class AuthService {
       firstName,
       lastName,
       picture,
-      accessToken,
-      refreshToken,
     } = user;
 
     const candidate = await this.userService.findFirst({
@@ -133,8 +134,6 @@ export class AuthService {
 
       return tokens;
     } else {
-      const newClientProfile = await this.clientProfileService.create();
-
       let usernameCandidate = email.split('@')[0];
 
       // Generate unique username
@@ -153,6 +152,47 @@ export class AuthService {
         break;
       }
 
+      // Download and prepare picture if exists
+      let pictureId: string;
+
+      try {
+        if (picture) {
+          // Download image
+          const image = await axios.get(
+            picture,
+            { responseType: 'arraybuffer' },
+          );
+
+          // Convert data to buffer
+          let imageBuffer = Buffer.from(image.data, 'utf8');
+
+          // Check picture size and resize if required
+          const { width, height } = ImageSize(imageBuffer);
+
+          if (width > 200 || height > 200) {
+            imageBuffer = await sharp(imageBuffer)
+              .resize(50, 50)
+              .jpeg({ mozjpeg: true })
+              .toBuffer();
+          }
+
+          // Create new picture
+          const userPicture = await this.userPictureService.create({
+            data: {
+              picture: imageBuffer,
+            },
+          });
+
+          pictureId = userPicture.id;
+        }
+      } catch (e: any) {
+        console.error(e);
+      }
+
+      // Create new client profile
+      const newClientProfile = await this.clientProfileService.create();
+
+      // Create new user
       const newUser = await this.userService.create({
         data: {
           email,
@@ -164,13 +204,20 @@ export class AuthService {
               id: newClientProfile.id,
             },
           },
+          picture: pictureId ? {
+            connect: {
+              id: pictureId,
+            },
+          } : undefined,
         },
       });
 
+      // Generate tokens
       const tokens = await this.tokensService.generatePairTokens(
         { id: newUser.id },
       );
 
+      // Save auth session
       await this.sessionService.create({
         userId: newUser.id,
         refreshToken: tokens.refreshToken,
