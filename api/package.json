@@ -29,7 +29,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.1.2",
     "@nestjs/swagger": "^6.1.2",
-    "@prisma/client": "^4.3.0",
+    "@prisma/client": "^4.4.0",
     "@types/cookie-parser": "^1.4.3",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
