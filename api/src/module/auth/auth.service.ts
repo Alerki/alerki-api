@@ -156,7 +156,7 @@ export class AuthService {
       let pictureId: string;
 
       try {
-        if (picture) {
+        if (typeof picture == 'string') {
           // Download image
           const image = await axios.get(
             picture,
@@ -186,6 +186,7 @@ export class AuthService {
           pictureId = userPicture.id;
         }
       } catch (e: any) {
+        /* istanbul ignore next */
         console.error(e);
       }
 

@@ -7,7 +7,7 @@ export interface GoogleUser {
   email: string,
   firstName: string,
   lastName: string,
-  picture: string,
+  picture: string | Array<string>,
   accessToken: string,
   refreshToken: string,
 }

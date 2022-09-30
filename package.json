@@ -12,8 +12,8 @@
   "scripts": {
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "lint:fix": "eslint --ext .ts,.tsx,.js,.jsx --fix .",
-    "start:databases": "docker-compose -f ./docker/docker-compose.dev.yml up -d",
-    "stop:databases": "docker-compose -f ./docker/docker-compose.dev.yml stop",
+    "start:docker": "dotenv -e ./docker/.env.test -- docker-compose -f ./docker/docker-compose.dev.yml up -d",
+    "stop:docker": "docker-compose -f ./docker/docker-compose.dev.yml stop",
     "prepare": "husky install && ts-node ./docker/dev-env.ts"
   },
   "devDependencies": {
