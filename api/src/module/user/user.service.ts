@@ -1,4 +1,4 @@
-import { UserDto } from '@Module/user/dto/profile.dto';
+import { UserDto } from '@Module/user/dto/user.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
@@ -44,22 +44,14 @@ export class UserService {
   }
 
   /**
-   * Update user
-   *
-   * @param args Update arguments
-   * @returns
-   */
-  async update(args: Prisma.Prisma.UserUpdateArgs) {
-    return this.prismaService.user.update(args);
-  }
-
-  /**
    * Get user profile
    *
    * @param param0 get user profile params
    * @returns user profile
    */
-  async getProfile({ username }: Pick<Prisma.User, 'username'>) {
+  async getUser({ id, username }: Partial<
+    Pick<Prisma.User, 'id' | 'username'>
+  >) {
     let profile = await this.findFirst({
       where: {
         OR: [
@@ -68,6 +60,9 @@ export class UserService {
               equals: username,
               mode: 'insensitive',
             },
+          },
+          {
+            id,
           },
         ],
       },

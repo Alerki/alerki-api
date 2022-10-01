@@ -4,6 +4,7 @@ import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
 
 import { AppModule } from '@Src/app.module';
+import getCookies from '@Test/util/get-cookies';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
@@ -28,30 +29,59 @@ describe('UserController (e2e)', () => {
     await application.close();
   });
 
-  const username = 'newOne';
+  const user = {
+    username: 'newOne',
+    email: 'some12319@example.com',
+    password: '123123',
+    refreshToken: '',
+    accessToken: '',
+  };
 
   test('prepare', async () => {
     await request(app)
       .post('/auth/sign-up')
-      .send({
-        username,
-        email: 'newOne12395@gmail.com',
-        password: '12312313',
-      })
+      .send(user)
       .expect(201);
+
+    const r = await request(app)
+      .post('/auth/sign-in')
+      .send(user)
+      .expect(200);
+
+    const cookies = getCookies(r);
+
+    user.refreshToken = cookies.refreshToken.value;
+    user.accessToken = r.body.accessToken;
   });
 
   describe('Regular script', () => {
     test('GET :username', async () => {
       const { body } = await request(app)
-        .get('/user/' + username)
+        .get('/user/' + user.username)
         .expect(200);
 
-      expect(body.username).toBe(username);
+      expect(body.username).toBe(user.username);
       expect(body.password).toBeUndefined();
       expect(body.masterProfile).toBeNull();
       expect(body.clientProfile).toBeTruthy();
       expect(body.clientProfile.id).toBeTruthy();
+    });
+
+    test('GET /', async () => {
+      const { body } = await request(app)
+        .get('/user')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      expect(body.username).toBe(user.username);
+      expect(body.password).toBeUndefined();
+      expect(body.masterProfile).toBeNull();
+      expect(body.clientProfile).toBeTruthy();
+      expect(body.clientProfile.id).toBeTruthy();
+
+      await request(app)
+        .get('/user')
+        .expect(401);
     });
   });
 
