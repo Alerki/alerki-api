@@ -14,7 +14,7 @@ import { usernameBlackListRaw } from '@Config/api/username-black-list';
 import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { start } from '@Test/util/google-oauth-mock';
 
-describe('ServiceController (e2e)', () => {
+describe('AuthController (e2e)', () => {
   let app: Application;
   let googleOAuthMockPort = 3010;
   let googleOAuthMockServer: any;

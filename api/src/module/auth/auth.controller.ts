@@ -25,6 +25,7 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiUnauthorizedResponse,
+  ApiParam,
 } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
@@ -248,6 +249,7 @@ export class AuthController {
   @ApiHeader({ name: 'Authorization', required: true })
   @ApiOkResponse({ description: 'Session patched successfully' })
   @ApiBadRequestResponse({ description: 'Session with specified ID not exists' })
+  @ApiParam({ name: 'id', description: 'Session id' })
   @UseGuards(JwtAuthGuard)
   @Patch('sessions/:id')
   async patchSessions(
@@ -271,6 +273,7 @@ export class AuthController {
   @ApiHeader({ name: 'Authorization', required: true })
   @ApiOkResponse({ description: 'Session deleted successfully' })
   @ApiBadRequestResponse({ description: 'Session with specified ID not exists' })
+  @ApiParam({ name: 'id', description: 'Session id' })
   @UseGuards(JwtAuthGuard)
   @Delete('sessions/:id')
   async deleteSession(
