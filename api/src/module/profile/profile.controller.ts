@@ -1,19 +1,13 @@
-import { UserProfileDto } from '@Module/profile/dto/profile.dto';
-import { ProfileService } from '@Module/profile/profile.service';
 import {
   Controller,
   Get,
-  Post,
-  Patch,
-  Req,
-  Res,
   Param,
-  NotFoundException,
   ClassSerializerInterceptor,
   UseInterceptors,
-  Query,
 } from '@nestjs/common';
 import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+
+import { ProfileService } from '@Module/profile/profile.service';
 
 @ApiTags('Profile')
 @Controller('profile')

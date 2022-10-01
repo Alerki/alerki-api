@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { UserService } from '@Module/user/user.service';
+import { UserProfileDto } from '@Module/profile/dto/profile.dto';
 
 /**
  * User profile service
@@ -19,7 +20,7 @@ export class ProfileService {
    * @returns profile
    */
   async getProfile({ username }: Pick<Prisma.User, 'username'>) {
-    let profile= await this.userService.findFirst({
+    let profile = await this.userService.findFirst({
       where: {
         OR: [
           {
@@ -40,6 +41,6 @@ export class ProfileService {
       throw new NotFoundException('User profile not found');
     }
 
-    return profile;
+    return new UserProfileDto(profile);
   }
 }

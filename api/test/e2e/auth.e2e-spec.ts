@@ -74,6 +74,10 @@ describe('AuthController (e2e)', () => {
 
   let sessions: Array<Prisma.AuthSession> = [];
 
+  it('prepares database', async () => {
+    await prisma.user.deleteMany();
+  });
+
   describe('Regular script', () => {
     test('POST sign-up', async () => {
       await request(app)

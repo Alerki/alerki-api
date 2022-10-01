@@ -29,7 +29,38 @@ describe('ProfileController (e2e)', () => {
     await application.close();
   });
 
+  const username = 'newOne';
+
+  test('prepare', async () => {
+    await request(app)
+      .post('/auth/sign-up')
+      .send({
+        username,
+        email: 'newOne12395@gmail.com',
+        password: '12312313',
+      })
+      .expect(201);
+  });
+
   describe('Regular script', () => {
-    test('', () => {});
+    test('GET :username', async () => {
+      const { body } = await request(app)
+        .get('/profile/' + username)
+        .expect(200);
+
+      expect(body.username).toBe(username);
+      expect(body.password).toBeUndefined();
+      expect(body.masterProfile).toBeNull();
+      expect(body.clientProfile).toBeTruthy();
+      expect(body.clientProfile.id).toBeTruthy();
+    });
+  });
+
+  describe('Other cases', () => {
+    test('with not exist profile', async () => {
+      await request(app)
+        .get('/profile/not-exists-username')
+        .expect(404);
+    });
   });
 });

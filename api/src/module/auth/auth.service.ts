@@ -87,9 +87,9 @@ export class AuthService {
 
     const newClientProfile = await this.clientProfileService.create();
 
-    const newUser = await this.userService.create({
+    await this.userService.create({
       data: {
-        email,
+        email: email.toLowerCase(),
         username,
         password: hashedPassword,
         clientProfile: {
