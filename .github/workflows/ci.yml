@@ -19,8 +19,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
-  api_test:
+  api-test:
     runs-on: ubuntu-latest
+    needs: lint
     services:
       postgres:
         image: postgres:10.10
@@ -44,3 +45,8 @@ jobs:
         run: |
           cd api
           yarn test:e2e
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
