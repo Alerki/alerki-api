@@ -1,8 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { User } from '@prisma/client';
-import { ValidateIf } from 'class-validator';
 
-export class UserProfileDto implements User {
+export class UserDto implements User {
   id: string;
   email: string;
   username: string;

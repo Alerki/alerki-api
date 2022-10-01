@@ -3,10 +3,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
 
-import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 
-describe('ProfileController (e2e)', () => {
+describe('UserController (e2e)', () => {
   let app: INestApplication;
   let application: INestApplication;
 
@@ -45,7 +44,7 @@ describe('ProfileController (e2e)', () => {
   describe('Regular script', () => {
     test('GET :username', async () => {
       const { body } = await request(app)
-        .get('/profile/' + username)
+        .get('/user/' + username)
         .expect(200);
 
       expect(body.username).toBe(username);
@@ -57,9 +56,9 @@ describe('ProfileController (e2e)', () => {
   });
 
   describe('Other cases', () => {
-    test('with not exist profile', async () => {
+    test('with not exist username', async () => {
       await request(app)
-        .get('/profile/not-exists-username')
+        .get('/user/not-exists-username')
         .expect(404);
     });
   });

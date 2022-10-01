@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { UserDto } from '@Module/user/dto/profile.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { prisma } from '@Shared/services/prisma.service';
@@ -50,5 +51,36 @@ export class UserService {
    */
   async update(args: Prisma.Prisma.UserUpdateArgs) {
     return this.prismaService.user.update(args);
+  }
+
+  /**
+   * Get user profile
+   *
+   * @param param0 get user profile params
+   * @returns user profile
+   */
+  async getProfile({ username }: Pick<Prisma.User, 'username'>) {
+    let profile = await this.findFirst({
+      where: {
+        OR: [
+          {
+            username: {
+              equals: username,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+      include: {
+        clientProfile: true,
+        masterProfile: true,
+      },
+    });
+
+    if (!profile) {
+      throw new NotFoundException('User profile not found');
+    }
+
+    return new UserDto(profile);
   }
 }
