@@ -1,6 +1,6 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe, Injectable } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import Prisma, { PrismaClient } from '@prisma/client';
+import Prisma from '@prisma/client';
 import { Application } from 'express';
 import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
@@ -11,16 +11,39 @@ import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import sleep from '@Test/util/sleep';
 import { usernameBlackListRaw } from '@Config/api/username-black-list';
+import { GoogleStrategy } from '@Module/auth/google.strategy';
+import { start } from '@Test/util/google-oauth-mock';
 
-describe('ServiceController (e2e)', () => {
+describe('AuthController (e2e)', () => {
   let app: Application;
+  let googleOAuthMockPort = 3010;
+  let googleOAuthMockServer: any;
+  let googleOAuthMockConfig: Record<string, any> = {};
   let application: INestApplication;
 
-  beforeEach(async () => {
+  let googleStrategy: GoogleStrategy;
+
+  beforeAll(async () => {
     // Init express application
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+    const module: TestingModule = await Test
+      .createTestingModule({
+        imports: [AppModule],
+      })
+      .compile();
+
+    googleStrategy = module.get<GoogleStrategy>(GoogleStrategy);
+
+    // @ts-ignore
+    googleStrategy._userProfileURL =
+      `http://localhost:${googleOAuthMockPort}/mock-user`;
+
+    // @ts-ignore
+    googleStrategy._oauth2._authorizeUrl =
+      `http://localhost:${googleOAuthMockPort}/mock-auth`;
+
+    // @ts-ignore
+    googleStrategy._oauth2._accessTokenUrl =
+      `http://localhost:${googleOAuthMockPort}/mock-token`;
 
     application = await module
       .createNestApplication()
@@ -29,10 +52,16 @@ describe('ServiceController (e2e)', () => {
       .init();
 
     app = application.getHttpServer();
+
+    // Start Google OAuth2.0 mock
+    const { config, server } = await start(googleOAuthMockPort);
+    googleOAuthMockConfig = config;
+    googleOAuthMockServer = server;
   });
 
   afterAll(async () => {
     await application.close();
+    googleOAuthMockServer.close();
   });
 
   const user = {
@@ -44,6 +73,10 @@ describe('ServiceController (e2e)', () => {
   };
 
   let sessions: Array<Prisma.AuthSession> = [];
+
+  it('prepares database', async () => {
+    await prisma.user.deleteMany();
+  });
 
   describe('Regular script', () => {
     test('POST sign-up', async () => {
@@ -198,6 +231,99 @@ describe('ServiceController (e2e)', () => {
 
       const authSession = await prisma.authSession.findMany();
       expect(authSession.length).toBe(0);
+    });
+  });
+
+  describe('Sign in/up with Google', () => {
+    describe('regular script', () => {
+      test('google', async () => {
+        await request(app)
+          .get('/auth/google')
+          .expect(302);
+      });
+
+      test('sign-in', async () => {
+        // Create user with
+        const newClient = await prisma.clientProfile.create({ data: {} });
+
+        await prisma.user.create({
+          data: {
+            email: 'random15871@example.com',
+            username: 'google.mock',
+            password: 'password',
+            clientProfile: {
+              connect: {
+                id: newClient.id,
+              },
+            },
+          },
+        });
+
+        const email = googleOAuthMockConfig.profile.email;
+        const firstName = googleOAuthMockConfig.profile.given_name;
+        const lastName = googleOAuthMockConfig.profile.family_name;
+
+        await request(app)
+          // eslint-disable-next-line max-len
+          .get('/auth/google/callback?code=4%2F0ARtbsJoDtkvaW23Qx7efq2uEhL405ean9kPadiNsUp0TyRHJm35j7AbD0AsEDmmIw0PFUw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none')
+          .expect(200);
+
+        await request(app)
+          // eslint-disable-next-line max-len
+          .get('/auth/google/callback?code=4%2F0ARtbsJoDtkvaW23Qx7efq2uEhL405ean9kPadiNsUp0TyRHJm35j7AbD0AsEDmmIw0PFUw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none')
+          .expect(200);
+
+        const user = await prisma.user.findFirst({
+          where: {
+            email,
+          },
+        });
+
+        expect(user).toBeTruthy();
+        expect(user.email).toBe(email);
+        expect(user.firstName).toBe(firstName);
+        expect(user.lastName).toBe(lastName);
+        expect(user.pictureId).toBeTruthy();
+
+        const userPicture = await prisma.userPicture.findFirst({
+          where: {
+            id: user.pictureId,
+          },
+        });
+
+        expect(userPicture.picture).toBeTruthy();
+
+        const session = await prisma.authSession.findFirst({
+          where: {
+            userId: user.id,
+          },
+        });
+
+        expect(session).toBeTruthy();
+      });
+
+      test('with picture', async () => {
+        googleOAuthMockConfig.profile.email = 'new.email1941@gmail.com';
+        googleOAuthMockConfig.profile.picture =
+          'https://source.unsplash.com/user/c_v_r/100x100';
+
+        await request(app)
+          // eslint-disable-next-line max-len
+          .get('/auth/google/callback?code=4%2F0ARtbsJoDtkvaW23Qx7efq2uEhL405ean9kPadiNsUp0TyRHJm35j7AbD0AsEDmmIw0PFUw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none')
+          .expect(200);
+      });
+
+      test('without picture', async () => {
+        googleOAuthMockConfig.profile.email = 'new.email194@gmail.com';
+        googleOAuthMockConfig.profile.picture = [];
+
+        await request(app)
+          // eslint-disable-next-line max-len
+          .get('/auth/google/callback?code=4%2F0ARtbsJoDtkvaW23Qx7efq2uEhL405ean9kPadiNsUp0TyRHJm35j7AbD0AsEDmmIw0PFUw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none')
+          .expect(200);
+
+        await prisma.authSession.deleteMany({});
+      });
     });
   });
 

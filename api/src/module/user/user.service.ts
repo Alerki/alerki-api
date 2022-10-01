@@ -23,16 +23,6 @@ export class UserService {
   }
 
   /**
-   * Find unique user
-   *
-   * @param args find by arguments
-   * @returns
-   */
-  async findUnique(args: Prisma.Prisma.UserFindUniqueArgs) {
-    return this.prismaService.user.findUnique(args);
-  }
-
-  /**
    * Find many users
    *
    * @param args find many by arguments
@@ -50,16 +40,6 @@ export class UserService {
    */
   async create(args: Prisma.Prisma.UserCreateArgs) {
     return this.prismaService.user.create(args);
-  }
-
-  /**
-   * Create many users
-   *
-   * @param args create many arguments
-   * @returns
-   */
-  async createMany(args: Prisma.Prisma.UserCreateManyArgs) {
-    return this.prismaService.user.createMany(args);
   }
 
   /**

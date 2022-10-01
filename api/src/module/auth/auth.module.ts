@@ -10,6 +10,7 @@ import { TokensService } from '@Module/auth/tokens.service';
 import { AuthService } from '@Module/auth/auth.service';
 import { SessionService } from '@Module/auth/session.service';
 import { JwtStrategy } from '@Module/auth/jwt.strategy';
+import { GoogleStrategy } from '@Module/auth/google.strategy';
 
 @Module({
   controllers: [AuthController],
@@ -17,8 +18,13 @@ import { JwtStrategy } from '@Module/auth/jwt.strategy';
     LocalStrategy, JwtStrategy,
     JwtService, TokensService,
     AuthService, SessionService,
+    GoogleStrategy,
   ],
-  imports: [forwardRef(() => UserModule), PassportModule, ProfileModule],
+  imports: [
+    forwardRef(() => UserModule),
+    forwardRef(() => ProfileModule),
+    PassportModule,
+  ],
   exports: [],
 })
 export class AuthModule {};

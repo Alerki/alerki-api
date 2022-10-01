@@ -6,7 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 
-describe('AppController (e2e)', () => {
+describe('ServiceController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {

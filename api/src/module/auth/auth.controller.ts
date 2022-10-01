@@ -1,11 +1,9 @@
 /* eslint-disable max-len */
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
-  HttpStatus,
   Param,
   Patch,
   Post,
@@ -18,13 +16,16 @@ import {
 } from '@nestjs/common';
 import {
   ApiTags,
-  ApiResponse,
   ApiBody,
   ApiOperation,
-  ApiBearerAuth,
   ApiHeader,
-  ApiOAuth2,
-  ApiCookieAuth,
+  ApiQuery,
+  ApiBadRequestResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiUnauthorizedResponse,
+  ApiParam,
 } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
@@ -42,8 +43,10 @@ import { DeviceName } from '@Shared/decorators/device-name.decorator';
 import { JwtTokensPair } from '@Module/auth/tokens.service';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
-import { ProtectedRequest } from '@Module/auth/interfaces/protected-request.interface';
+import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
 import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/session.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GoogleUser } from '@Module/auth/google.strategy';
 
 /**
  * Send refresh and access tokens
@@ -92,8 +95,8 @@ export class AuthController {
    * @param body sign-up required data
    */
   @ApiOperation({ description: 'Sign-up' })
-  @ApiResponse({ status: HttpStatus.CREATED, description: 'Successful registration' })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Username or email already exists' })
+  @ApiCreatedResponse({ description: 'Successful registration' })
+  @ApiBadRequestResponse({ description: 'Username or email already exists' })
   @Post('sign-up')
   async signUp(
     @Res() res: Response,
@@ -112,9 +115,9 @@ export class AuthController {
    * @param deviceName device name
    */
   @ApiOperation({ description: 'Sign-in' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful log-in' })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad password' })
-  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Username or email not exists' })
+  @ApiOkResponse({ description: 'Successful log-in' })
+  @ApiBadRequestResponse({ description: 'Bad password' })
+  @ApiNotFoundResponse({ description: 'Username or email not exists' })
   @ApiBody({ description: 'Sign-in body', type: SignInDto })
   @UsePipes(ValidationPipe)
   @UseGuards(LocalAuthGuard)
@@ -132,6 +135,39 @@ export class AuthController {
   }
 
   /**
+   * Sign in/up with Google OAuth2.0
+   *
+   * @param req request
+   */
+  @ApiOperation({ description: 'Sign in/up with Google OAuth2.0' })
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async google(@Req() req: Request) {}
+
+  /**
+   * Google OAuth2.0 callback
+   *
+   * @param req request
+   * @param res response
+   * @param deviceName device name
+   */
+  @ApiOperation({ description: 'Google OAuth2.0 callback' })
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  async googleCallback(
+    @Req() req: Request,
+    @Res() res: Response,
+    @DeviceName() deviceName: string,
+  ) {
+    const tokens = await this.authService.signInWithGoogle({
+      deviceName,
+      user: req.user as GoogleUser,
+    });
+
+    sendRefreshAndAccessTokens(res, tokens);
+  }
+
+  /**
    *  Log-out
    *
    * @param req request
@@ -139,8 +175,8 @@ export class AuthController {
    * @param refreshToken refresh token
    */
   @ApiOperation({ description: 'Log-out' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Log-out user' })
-  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'User unauthorized or has a bad access token' })
+  @ApiOkResponse({ description: 'Log-out user' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized or has a bad access token' })
   @UseGuards(JwtAuthGuard)
   @Get('log-out')
   async logOut(
@@ -161,10 +197,10 @@ export class AuthController {
    * @param res response
    * @param refreshToken refresh token
    */
-  @ApiHeader({ name: 'Authorization' })
   @ApiOperation({ description: 'Refresh token' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful refresh token' })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'No refresh token' })
+  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiOkResponse({ description: 'Successful refresh token' })
+  @ApiBadRequestResponse({ description: 'No refresh token' })
   @Get('refresh')
   async refresh(
     @Res() res: Response,
@@ -183,7 +219,10 @@ export class AuthController {
    * @returns sessions
    */
   @ApiOperation({ description: 'Get sessions list' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Get sessions' })
+  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiOkResponse({ description: 'Get sessions' })
+  @ApiQuery({ name: 'page', description: 'Sessions page', type: 'number', required: false })
+  @ApiQuery({ name: 'limit', description: 'Sessions page limit', type: 'number', required: false })
   @UseGuards(JwtAuthGuard)
   @Get('sessions')
   async getSessions(
@@ -207,8 +246,10 @@ export class AuthController {
    * @returns updated session
    */
   @ApiOperation({ description: 'Patch session' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Session patched successfully' })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Session with specified ID not exists' })
+  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiOkResponse({ description: 'Session patched successfully' })
+  @ApiBadRequestResponse({ description: 'Session with specified ID not exists' })
+  @ApiParam({ name: 'id', description: 'Session id' })
   @UseGuards(JwtAuthGuard)
   @Patch('sessions/:id')
   async patchSessions(
@@ -229,8 +270,10 @@ export class AuthController {
    * @param id session id
    */
   @ApiOperation({ description: 'Delete session' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Session deleted successfully' })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Session with specified ID not exists' })
+  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiOkResponse({ description: 'Session deleted successfully' })
+  @ApiBadRequestResponse({ description: 'Session with specified ID not exists' })
+  @ApiParam({ name: 'id', description: 'Session id' })
   @UseGuards(JwtAuthGuard)
   @Delete('sessions/:id')
   async deleteSession(

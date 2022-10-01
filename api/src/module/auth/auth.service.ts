@@ -1,9 +1,13 @@
 import {
   BadRequestException,
   Injectable,
+  Req,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
+import axios from 'axios';
 import * as bcryptjs from 'bcryptjs';
+import * as sharp from 'sharp';
+import * as ImageSize from 'buffer-image-size';
 
 import { UserService } from '@Module/user/user.service';
 import { TokensService } from '@Module/auth/tokens.service';
@@ -12,6 +16,8 @@ import { usernameBlackListSet } from '@Config/api/username-black-list';
 import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 import { SessionService } from '@Module/auth/session.service';
 import { ClientProfileService } from '@Module/profile/client-profile.service';
+import { GoogleUser } from '@Module/auth/google.strategy';
+import { UserPictureService } from '@Module/user/user-picture.service';
 
 @Injectable()
 export class AuthService {
@@ -34,6 +40,7 @@ export class AuthService {
     private readonly tokensService: TokensService,
     private readonly sessionService: SessionService,
     private readonly clientProfileService: ClientProfileService,
+    private readonly userPictureService: UserPictureService,
   ) {}
 
   /**
@@ -82,7 +89,7 @@ export class AuthService {
 
     await this.userService.create({
       data: {
-        email,
+        email: email.toLowerCase(),
         username,
         password: hashedPassword,
         clientProfile: {
@@ -92,6 +99,134 @@ export class AuthService {
         },
       },
     });
+  }
+
+  async signInWithGoogle({
+    deviceName,
+    user,
+  }: {
+    deviceName: string,
+    user: GoogleUser,
+  }) {
+    const {
+      email,
+      firstName,
+      lastName,
+      picture,
+    } = user;
+
+    const candidate = await this.userService.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    if (candidate) {
+      const tokens = await this.tokensService.generatePairTokens(
+        { id: candidate.id },
+      );
+
+      await this.sessionService.create({
+        userId: candidate.id,
+        refreshToken: tokens.refreshToken,
+        deviceName,
+      });
+
+      return tokens;
+    } else {
+      let usernameCandidate = email.split('@')[0];
+
+      // Generate unique username
+      while (true) {
+        const checkUsernameExists = await this.userService.findFirst({
+          where: {
+            username: usernameCandidate,
+          },
+        });
+
+        if (checkUsernameExists) {
+          usernameCandidate += '_';
+          continue;
+        }
+
+        break;
+      }
+
+      // Download and prepare picture if exists
+      let pictureId: string;
+
+      try {
+        if (typeof picture == 'string') {
+          // Download image
+          const image = await axios.get(
+            picture,
+            { responseType: 'arraybuffer' },
+          );
+
+          // Convert data to buffer
+          let imageBuffer = Buffer.from(image.data, 'utf8');
+
+          // Check picture size and resize if required
+          const { width, height } = ImageSize(imageBuffer);
+
+          if (width > 200 || height > 200) {
+            imageBuffer = await sharp(imageBuffer)
+              .resize(50, 50)
+              .jpeg({ mozjpeg: true })
+              .toBuffer();
+          }
+
+          // Create new picture
+          const userPicture = await this.userPictureService.create({
+            data: {
+              picture: imageBuffer,
+            },
+          });
+
+          pictureId = userPicture.id;
+        }
+      } catch (e: any) {
+        /* istanbul ignore next */
+        console.error(e);
+      }
+
+      // Create new client profile
+      const newClientProfile = await this.clientProfileService.create();
+
+      // Create new user
+      const newUser = await this.userService.create({
+        data: {
+          email,
+          username: usernameCandidate,
+          firstName,
+          lastName,
+          clientProfile: {
+            connect: {
+              id: newClientProfile.id,
+            },
+          },
+          picture: pictureId ? {
+            connect: {
+              id: pictureId,
+            },
+          } : undefined,
+        },
+      });
+
+      // Generate tokens
+      const tokens = await this.tokensService.generatePairTokens(
+        { id: newUser.id },
+      );
+
+      // Save auth session
+      await this.sessionService.create({
+        userId: newUser.id,
+        refreshToken: tokens.refreshToken,
+        deviceName,
+      });
+
+      return tokens;
+    }
   }
 
   async singIn(user: Prisma.User, deviceName: string) {

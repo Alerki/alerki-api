@@ -1,6 +1,6 @@
 {
   "name": "alerki",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Alerki website workspaces / eslint / husky / commitlint wrapper",
   "repository": "https://github.com/alerki/Alerki.git",
   "author": "Oleksandr Petryk <sachapos50@gmail.com> (https://petryk.me)",
@@ -12,8 +12,9 @@
   "scripts": {
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "lint:fix": "eslint --ext .ts,.tsx,.js,.jsx --fix .",
-    "start:databases": "docker-compose -f ./docker/docker-compose.dev.yml up -d",
-    "prepare": "husky install"
+    "start:docker": "dotenv -e ./docker/.env.test -- docker-compose -f ./docker/docker-compose.dev.yml up -d",
+    "stop:docker": "docker-compose -f ./docker/docker-compose.dev.yml stop",
+    "prepare": "husky install && ts-node ./docker/dev-env.ts"
   },
   "devDependencies": {
     "@commitlint/config-angular": "^17.1.0",
