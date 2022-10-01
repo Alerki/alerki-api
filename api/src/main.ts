@@ -18,7 +18,7 @@ async function start() {
   const config = new DocumentBuilder()
     .setTitle('Alerki')
     .setDescription('Alerki API documentation')
-    .setVersion('0.4.2')
+    .setVersion('0.4.3')
     // .addTag('alerki')
     .build();
 
