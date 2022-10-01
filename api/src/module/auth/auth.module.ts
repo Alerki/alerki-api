@@ -20,7 +20,11 @@ import { GoogleStrategy } from '@Module/auth/google.strategy';
     AuthService, SessionService,
     GoogleStrategy,
   ],
-  imports: [forwardRef(() => UserModule), PassportModule, ProfileModule],
+  imports: [
+    forwardRef(() => UserModule),
+    forwardRef(() => ProfileModule),
+    PassportModule,
+  ],
   exports: [],
 })
 export class AuthModule {};
