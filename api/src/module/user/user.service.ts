@@ -52,7 +52,7 @@ export class UserService {
   async getUser({ id, username }: Partial<
     Pick<Prisma.User, 'id' | 'username'>
   >) {
-    let profile = await this.findFirst({
+    const profile = await this.findFirst({
       where: {
         OR: [
           {
