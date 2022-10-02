@@ -46,7 +46,7 @@ model User {
   masterProfile          MasterProfile? @relation(fields: [masterProfileId], references: [id])
   masterProfileId        String?        @unique @db.VarChar(36)
   sessions               AuthSession[]
-  phoneNumber            String?        @unique @db.VarChar(16)
+  phoneNumber            String?        @unique @db.VarChar(20)
   password               String?        @db.VarChar(60)
   banned                 Boolean        @default(false)
   createdAt              DateTime       @default(now())

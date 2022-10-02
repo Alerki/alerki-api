@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Injectable,
-  Req,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
 import axios from 'axios';
@@ -18,6 +17,7 @@ import { SessionService } from '@Module/auth/session.service';
 import { ClientProfileService } from '@Module/profile/client-profile.service';
 import { GoogleUser } from '@Module/auth/google.strategy';
 import { UserPictureService } from '@Module/user/user-picture.service';
+import { RoleService } from '@Module/auth/role.service';
 
 @Injectable()
 export class AuthService {
@@ -41,6 +41,7 @@ export class AuthService {
     private readonly sessionService: SessionService,
     private readonly clientProfileService: ClientProfileService,
     private readonly userPictureService: UserPictureService,
+    private readonly roleService: RoleService,
   ) {}
 
   /**
@@ -87,6 +88,8 @@ export class AuthService {
 
     const newClientProfile = await this.clientProfileService.create();
 
+    const clientRole = await this.roleService.getClientRole();
+
     await this.userService.create({
       data: {
         email: email.toLowerCase(),
@@ -95,6 +98,11 @@ export class AuthService {
         clientProfile: {
           connect: {
             id: newClientProfile.id,
+          },
+        },
+        roles: {
+          connect: {
+            id: clientRole.id,
           },
         },
       },
@@ -193,6 +201,8 @@ export class AuthService {
       // Create new client profile
       const newClientProfile = await this.clientProfileService.create();
 
+      const clientRole = await this.roleService.getClientRole();
+
       // Create new user
       const newUser = await this.userService.create({
         data: {
@@ -203,6 +213,11 @@ export class AuthService {
           clientProfile: {
             connect: {
               id: newClientProfile.id,
+            },
+          },
+          roles: {
+            connect: {
+              id: clientRole.id,
             },
           },
           picture: pictureId ? {

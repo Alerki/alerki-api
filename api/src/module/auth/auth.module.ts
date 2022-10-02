@@ -11,6 +11,7 @@ import { AuthService } from '@Module/auth/auth.service';
 import { SessionService } from '@Module/auth/session.service';
 import { JwtStrategy } from '@Module/auth/jwt.strategy';
 import { GoogleStrategy } from '@Module/auth/google.strategy';
+import { RoleService } from '@Module/auth/role.service';
 
 @Module({
   controllers: [AuthController],
@@ -18,7 +19,7 @@ import { GoogleStrategy } from '@Module/auth/google.strategy';
     LocalStrategy, JwtStrategy,
     JwtService, TokensService,
     AuthService, SessionService,
-    GoogleStrategy,
+    GoogleStrategy, RoleService,
   ],
   imports: [
     forwardRef(() => UserModule),

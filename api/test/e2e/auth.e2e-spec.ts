@@ -92,6 +92,19 @@ describe('AuthController (e2e)', () => {
 
       const clientProfile = await prisma.clientProfile.findMany({});
       expect(clientProfile.length).toBe(1);
+
+      const extendedUser = await prisma.user.findFirst({
+        where: {
+          id: users[0].id,
+        },
+        include: {
+          roles: true,
+        },
+      });
+
+      expect(extendedUser.roles).not.toBeUndefined();
+      expect(extendedUser.roles.length).toBe(1);
+      expect(extendedUser.roles[0].name).toBe('client');
     });
 
     test('POST sign-in', async () => {
@@ -273,21 +286,28 @@ describe('AuthController (e2e)', () => {
           .get('/auth/google/callback?code=4%2F0ARtbsJoDtkvaW23Qx7efq2uEhL405ean9kPadiNsUp0TyRHJm35j7AbD0AsEDmmIw0PFUw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none')
           .expect(200);
 
-        const user = await prisma.user.findFirst({
+        const newUser = await prisma.user.findFirst({
           where: {
             email,
           },
+          include: {
+            roles: true,
+          },
         });
 
-        expect(user).toBeTruthy();
-        expect(user.email).toBe(email);
-        expect(user.firstName).toBe(firstName);
-        expect(user.lastName).toBe(lastName);
-        expect(user.pictureId).toBeTruthy();
+        expect(newUser.roles).not.toBeUndefined();
+        expect(newUser.roles.length).toBe(1);
+        expect(newUser.roles[0].name).toBe('client');
+
+        expect(newUser).toBeTruthy();
+        expect(newUser.email).toBe(email);
+        expect(newUser.firstName).toBe(firstName);
+        expect(newUser.lastName).toBe(lastName);
+        expect(newUser.pictureId).toBeTruthy();
 
         const userPicture = await prisma.userPicture.findFirst({
           where: {
-            id: user.pictureId,
+            id: newUser.pictureId,
           },
         });
 
@@ -295,7 +315,7 @@ describe('AuthController (e2e)', () => {
 
         const session = await prisma.authSession.findFirst({
           where: {
-            userId: user.id,
+            userId: newUser.id,
           },
         });
 

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Users" ALTER COLUMN "phoneNumber" SET DATA TYPE VARCHAR(20);

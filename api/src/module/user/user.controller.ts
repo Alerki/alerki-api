@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Post,
   Req,
   UseGuards,
   UseInterceptors ,
@@ -64,5 +65,13 @@ export class UserController {
     const profile = await this.userService.getUser({ username });
 
     return profile;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('master/service')
+  async createMasterService(
+
+  ) {
+
   }
 }
