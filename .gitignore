@@ -39,6 +39,3 @@ lerna-debug.log*
 
 # Playground files
 playground.*
-
-# Temporary ignore migrations
-migrations/
