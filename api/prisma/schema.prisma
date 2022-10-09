@@ -75,6 +75,7 @@ model MasterProfile {
   workDays     MasterWorkDay?                   @relation(fields: [workDaysId], references: [id])
   workDaysId   String?                          @unique @db.VarChar(36)
   appointments Appointment[]
+  available    Boolean                          @default(true)
   createdAt    DateTime                         @default(now())
   updatedAt    DateTime                         @updatedAt
 

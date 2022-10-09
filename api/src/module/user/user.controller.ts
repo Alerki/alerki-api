@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -67,11 +68,11 @@ export class UserController {
     return profile;
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post('master/service')
-  async createMasterService(
+  // @UseGuards(JwtAuthGuard)
+  // @Post('master/service')
+  // async createMasterService(
 
-  ) {
+  // ) {
 
-  }
+  // }
 }

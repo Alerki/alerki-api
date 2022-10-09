@@ -9,7 +9,7 @@ import { prisma } from '@Shared/services/prisma.service';
  */
 @Injectable()
 export class UserService {
-  private readonly prismaService = prisma;
+  readonly prismaService = prisma;
 
   constructor() {}
 
@@ -17,7 +17,7 @@ export class UserService {
    * Find first user
    *
    * @param args find by arguments
-   * @returns
+   * @returns user
    */
   async findFirst(args: Prisma.Prisma.UserFindFirstArgs) {
     return this.prismaService.user.findFirst(args);
@@ -27,7 +27,7 @@ export class UserService {
    * Find many users
    *
    * @param args find many by arguments
-   * @returns user if exists
+   * @returns user
    */
   async findMany(args: Prisma.Prisma.UserFindManyArgs) {
     return this.prismaService.user.findMany(args);

@@ -26,6 +26,11 @@ import { RoleService } from '@Module/auth/role.service';
     forwardRef(() => ProfileModule),
     PassportModule,
   ],
-  exports: [],
+  exports: [
+    LocalStrategy, JwtStrategy,
+    JwtService, TokensService,
+    AuthService, SessionService,
+    GoogleStrategy, RoleService,
+  ],
 })
 export class AuthModule {};
