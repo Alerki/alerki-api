@@ -1,9 +1,9 @@
-import { UserService } from '@Module/user/user.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { RoleService } from '@Module/auth/role.service';
 import { MasterProfileService } from '@Module/profile/master-profile.service';
+import { UserService } from '@Module/user/user.service';
 
 /**
  * Profile service
@@ -21,7 +21,7 @@ export class ProfileService {
     private readonly userService: UserService,
     private readonly roleService: RoleService,
     private readonly masterProfileService: MasterProfileService,
-  ) {}
+  ) { }
 
   /**
    * Enable master
@@ -40,7 +40,7 @@ export class ProfileService {
 
     // Check if user exists
     if (!candidate) {
-      throw new BadRequestException('User not exists');
+      throw new UnauthorizedException('Bad access token');
     }
 
     // Check if user is not a master
@@ -103,7 +103,7 @@ export class ProfileService {
 
     // Check if user exists
     if (!candidate) {
-      throw new BadRequestException('User not exists');
+      throw new UnauthorizedException('Bad access token');
     }
 
     // Check user is master

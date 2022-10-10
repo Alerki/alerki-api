@@ -7,7 +7,7 @@ import { prisma } from '@Shared/services/prisma.service';
 export class ClientProfileService {
   private readonly prismaService = prisma;
 
-  constructor() {}
+  constructor() { }
 
   async create(data: Prisma.Prisma.ClientProfileCreateArgs = { data: {} }) {
     return this.prismaService.clientProfile.create(data);

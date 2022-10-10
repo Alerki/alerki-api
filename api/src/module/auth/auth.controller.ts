@@ -12,41 +12,35 @@ import {
   Res,
   UseGuards,
   UsePipes,
-  ValidationPipe ,
+  ValidationPipe,
 } from '@nestjs/common';
 import {
-  ApiTags,
-  ApiBody,
-  ApiOperation,
-  ApiHeader,
-  ApiQuery,
   ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiCreatedResponse,
-  ApiUnauthorizedResponse,
+  ApiOperation,
   ApiParam,
+  ApiQuery,
+  ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
-import {
-  Request,
-  Response,
-} from 'express';
+import { Request, Response } from 'express';
 
-import {
-  SignInDto,
-  SignUpDto,
-} from './dto/auth.dto';
-import { LocalAuthGuard } from '@Module/auth/local-auth.guard';
 import { AuthService } from '@Module/auth/auth.service';
-import { DeviceName } from '@Shared/decorators/device-name.decorator';
-import { JwtTokensPair } from '@Module/auth/tokens.service';
-import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
-import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
-import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
 import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/session.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { GoogleUser } from '@Module/auth/google.strategy';
+import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
+import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
+import { LocalAuthGuard } from '@Module/auth/local-auth.guard';
+import { JwtTokensPair } from '@Module/auth/tokens.service';
+import { AuthGuard } from '@nestjs/passport';
+import { DeviceName } from '@Shared/decorators/device-name.decorator';
+import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
+import { SignInDto, SignUpDto } from './dto/auth.dto';
 
 /**
  * Send refresh and access tokens
@@ -86,7 +80,7 @@ export class AuthController {
    */
   constructor(
     private readonly authService: AuthService,
-  ) {}
+  ) { }
 
   /**
    * Sign-up
@@ -142,7 +136,7 @@ export class AuthController {
   @ApiOperation({ description: 'Sign in/up with Google OAuth2.0' })
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async google(@Req() req: Request) {}
+  async google(@Req() req: Request) { }
 
   /**
    * Google OAuth2.0 callback
