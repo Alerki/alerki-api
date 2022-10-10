@@ -1,8 +1,8 @@
-import { Exclude } from 'class-transformer';
-import Prisma from '@prisma/client';
-import { IsOptional, IsPhoneNumber, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 import { User } from '@Config/api/property.config';
 import { ApiProperty } from '@nestjs/swagger';
+import Prisma from '@prisma/client';
+import { Exclude } from 'class-transformer';
+import { IsOptional, IsPhoneNumber, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
 export class UserDto implements Prisma.User {
   id: string;
@@ -28,12 +28,12 @@ export class UserDto implements Prisma.User {
 }
 
 export interface PatchUserI extends Pick<
-Prisma.User,
+  Prisma.User,
   'username' |
   'firstName' |
   'lastName' |
   'phoneNumber'
-> {}
+> { }
 
 export class PatchUserDto implements PatchUserI {
   @ApiProperty(User.config.username)

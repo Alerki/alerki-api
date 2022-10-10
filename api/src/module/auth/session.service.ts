@@ -7,7 +7,7 @@ import { prisma } from '@Shared/services/prisma.service';
 export class SessionService {
   private readonly prismaService = prisma;
 
-  constructor() {}
+  constructor() { }
 
   async create(
     data: Pick<Prisma.AuthSession, 'userId' | 'refreshToken' | 'deviceName'>,

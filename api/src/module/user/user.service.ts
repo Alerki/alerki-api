@@ -11,7 +11,7 @@ import { prisma } from '@Shared/services/prisma.service';
 export class UserService {
   readonly prismaService = prisma;
 
-  constructor() {}
+  constructor() { }
 
   /**
    * Find first user

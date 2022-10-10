@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { UserService } from '@Module/user/user.service';
 import { UserPictureService } from '@Module/user/user-picture.service';
 import { UserController } from '@Module/user/user.controller';
+import { UserService } from '@Module/user/user.service';
+import { Module } from '@nestjs/common';
 
 @Module({
   controllers: [UserController],
@@ -9,4 +9,4 @@ import { UserController } from '@Module/user/user.controller';
   imports: [],
   exports: [UserService, UserPictureService],
 })
-export class UserModule {}
+export class UserModule { }

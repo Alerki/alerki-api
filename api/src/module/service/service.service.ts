@@ -14,7 +14,7 @@ export class ServiceService {
   /**
    * Service service constructor
    */
-  constructor() {}
+  constructor() { }
 
   /**
    * Find many services

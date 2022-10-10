@@ -5,19 +5,19 @@ import {
 import Prisma from '@prisma/client';
 import axios from 'axios';
 import * as bcryptjs from 'bcryptjs';
-import * as sharp from 'sharp';
 import * as ImageSize from 'buffer-image-size';
+import * as sharp from 'sharp';
 
-import { UserService } from '@Module/user/user.service';
-import { TokensService } from '@Module/auth/tokens.service';
-import { SignUpDto } from '@Module/auth/dto/auth.dto';
 import { usernameBlackListSet } from '@Config/api/username-black-list';
-import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
-import { SessionService } from '@Module/auth/session.service';
-import { ClientProfileService } from '@Module/profile/client-profile.service';
+import { SignUpDto } from '@Module/auth/dto/auth.dto';
 import { GoogleUser } from '@Module/auth/google.strategy';
-import { UserPictureService } from '@Module/user/user-picture.service';
 import { RoleService } from '@Module/auth/role.service';
+import { SessionService } from '@Module/auth/session.service';
+import { TokensService } from '@Module/auth/tokens.service';
+import { ClientProfileService } from '@Module/profile/client-profile.service';
+import { UserPictureService } from '@Module/user/user-picture.service';
+import { UserService } from '@Module/user/user.service';
+import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 
 @Injectable()
 export class AuthService {
@@ -42,7 +42,7 @@ export class AuthService {
     private readonly clientProfileService: ClientProfileService,
     private readonly userPictureService: UserPictureService,
     private readonly roleService: RoleService,
-  ) {}
+  ) { }
 
   /**
    * Sign-up user

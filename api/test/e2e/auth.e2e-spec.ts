@@ -1,18 +1,18 @@
-import { INestApplication, ValidationPipe, Injectable } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import Prisma from '@prisma/client';
-import { Application } from 'express';
-import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
+import { Application } from 'express';
 import * as jwt from 'jsonwebtoken';
+import * as request from 'supertest';
 
+import { usernameBlackListRaw } from '@Config/api/username-black-list';
+import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
-import sleep from '@Test/util/sleep';
-import { usernameBlackListRaw } from '@Config/api/username-black-list';
-import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { start } from '@Test/util/google-oauth-mock';
+import sleep from '@Test/util/sleep';
 
 describe('AuthController (e2e)', () => {
   let app: Application;

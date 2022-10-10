@@ -2,12 +2,9 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  Param,
-  Patch,
-  Post,
-  Req,
+  Param, Req,
   UseGuards,
-  UseInterceptors ,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiNotFoundResponse,
@@ -16,15 +13,15 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 
-import { UserService } from '@Module/user/user.service';
-import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
+import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
+import { UserService } from '@Module/user/user.service';
 
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
-  ) {}
+  ) { }
 
   /**
    * Get own user profile

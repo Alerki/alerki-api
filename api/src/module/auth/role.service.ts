@@ -15,7 +15,7 @@ export class RoleService {
   _clientRole: Prisma.Roles;
   _masterRole: Prisma.Roles;
 
-  constructor() {}
+  constructor() { }
 
   async getClientRole() {
     if (!this._clientRole) {

@@ -1,7 +1,7 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
+import * as request from 'supertest';
 
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';

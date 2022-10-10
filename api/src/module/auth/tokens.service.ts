@@ -46,7 +46,7 @@ export class TokensService {
    */
   constructor(
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   /**
    * Generate access token
@@ -55,7 +55,7 @@ export class TokensService {
    * @returns JWT
    */
   async generateAccessToken(payload: JwkTokenPayload) {
-    return this.jwtService.sign(payload,{
+    return this.jwtService.sign(payload, {
       secret: this.accessSecret,
       expiresIn: '60s',
     });
@@ -68,7 +68,7 @@ export class TokensService {
    * @returns JWT
    */
   async generateRefreshToken(payload: JwkTokenPayload) {
-    return this.jwtService.sign(payload,{
+    return this.jwtService.sign(payload, {
       secret: this.refreshSecret,
       expiresIn: '30d',
     });
