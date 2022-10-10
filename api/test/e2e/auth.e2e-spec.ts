@@ -61,7 +61,7 @@ describe('AuthController (e2e)', () => {
 
   afterAll(async () => {
     await application.close();
-    googleOAuthMockServer.close();
+    await googleOAuthMockServer.close();
   });
 
   const user = {

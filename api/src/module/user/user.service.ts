@@ -1,4 +1,5 @@
 import { UserDto } from '@Module/user/dto/user.dto';
+import { UserPictureService } from '@Module/user/user-picture.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
@@ -11,7 +12,9 @@ import { prisma } from '@Shared/services/prisma.service';
 export class UserService {
   readonly prismaService = prisma;
 
-  constructor() { }
+  constructor(
+    private readonly pictureService: UserPictureService,
+  ) { }
 
   /**
    * Find first user
@@ -77,5 +80,57 @@ export class UserService {
     }
 
     return new UserDto(profile);
+  }
+
+  async findUserById({ id }: Pick<Prisma.User, 'id'>) {
+    const candidate = await this.prismaService.user.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!candidate) {
+      throw new NotFoundException('User not exists');
+    }
+
+    return candidate;
+  }
+
+  /**
+   * Get protected picture
+   *
+   * @param param0 user ID from access token
+   * @returns
+   */
+  async getPictureProtected({ id }: Pick<Prisma.User, 'id'>) {
+    const { pictureId } = await this.findUserById({ id });
+
+    const picture = await this.pictureService.find({
+      where: {
+        id: pictureId,
+      },
+    });
+
+    return picture;
+  }
+
+  /**
+   * Get picture
+   *
+   * @param param0 picture ID
+   * @returns
+   */
+  async getPicture({ id }: Pick<Prisma.UserPicture, 'id'>) {
+    const picture = await this.pictureService.find({
+      where: {
+        id,
+      },
+    });
+
+    if (!picture) {
+      throw new NotFoundException('Picture not found');
+    }
+
+    return picture;
   }
 }
