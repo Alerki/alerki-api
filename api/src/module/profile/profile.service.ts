@@ -49,7 +49,7 @@ export class ProfileService {
     if (candidate.roles.find(
       (role: Prisma.Roles) => role.id === masterRoleId,
     )) {
-      throw new BadRequestException('User is already master');
+      throw new BadRequestException('User is already a master');
     }
 
     // Create data object to update user

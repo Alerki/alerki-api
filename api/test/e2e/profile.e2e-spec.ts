@@ -1,9 +1,9 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Application } from 'express';
 import Prisma from '@prisma/client';
-import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
+import { Application } from 'express';
+import * as request from 'supertest';
 
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
@@ -168,10 +168,12 @@ describe('ServiceController (e2e)', () => {
         { id: 'bla-bla-bla' },
       );
 
-      await request(app)
+      const r = await request(app)
         .patch('/profile/enable-master')
         .set({ Authorization: 'Bearer ' + accessToken })
-        .expect(400);
+        .expect(401);
+
+      expect(r.body.message).toBe('Bad access token');
     });
 
     test('disable master with not exists user | fake token', async () => {
@@ -179,10 +181,12 @@ describe('ServiceController (e2e)', () => {
         { id: 'bla-bla-bla' },
       );
 
-      await request(app)
+      const r = await request(app)
         .patch('/profile/disable-master')
         .set({ Authorization: 'Bearer ' + accessToken })
-        .expect(400);
+        .expect(401);
+
+      expect(r.body.message).toBe('Bad access token');
     });
 
     test('disable master if he is not a master', async () => {
@@ -191,22 +195,26 @@ describe('ServiceController (e2e)', () => {
         .set({ Authorization: 'Bearer ' + user.accessToken })
         .expect(200);
 
-      await request(app)
+      const r = await request(app)
         .patch('/profile/disable-master')
         .set({ Authorization: 'Bearer ' + user.accessToken })
         .expect(400);
+
+      expect(r.body.message).toBe('User is not a master');
     });
 
-    test('enable master if he is not a master', async () => {
+    test('enable master if user already master', async () => {
       await request(app)
         .patch('/profile/enable-master')
         .set({ Authorization: 'Bearer ' + user.accessToken })
         .expect(200);
 
-      await request(app)
+      const r = await request(app)
         .patch('/profile/enable-master')
         .set({ Authorization: 'Bearer ' + user.accessToken })
         .expect(400);
+
+      expect(r.body.message).toBe('User is already a master');
     });
   });
 });
