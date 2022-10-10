@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
 import axios from 'axios';
@@ -283,6 +284,10 @@ export class AuthService {
   async refresh({ refreshToken }: Pick<Prisma.AuthSession, 'refreshToken'>) {
     if (!refreshToken) {
       throw new BadRequestException('No refresh token');
+    }
+
+    if (refreshToken.split('.').length !== 3) {
+      throw new UnauthorizedException('Bad refresh token');
     }
 
     const validToken = this.tokensService.verifyRefreshToken(refreshToken);

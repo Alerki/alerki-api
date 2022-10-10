@@ -16,7 +16,9 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
+  ApiCookieAuth,
   ApiCreatedResponse,
   ApiHeader,
   ApiNotFoundResponse,
@@ -169,6 +171,7 @@ export class AuthController {
    * @param refreshToken refresh token
    */
   @ApiOperation({ description: 'Log-out' })
+  @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Log-out user' })
   @ApiUnauthorizedResponse({ description: 'User unauthorized or has a bad access token' })
   @UseGuards(JwtAuthGuard)
@@ -191,8 +194,7 @@ export class AuthController {
    * @param res response
    * @param refreshToken refresh token
    */
-  @ApiOperation({ description: 'Refresh token' })
-  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiOperation({ description: 'Refresh token, required refreshToken cookie' })
   @ApiOkResponse({ description: 'Successful refresh token' })
   @ApiBadRequestResponse({ description: 'No refresh token' })
   @Get('refresh')
@@ -213,7 +215,7 @@ export class AuthController {
    * @returns sessions
    */
   @ApiOperation({ description: 'Get sessions list' })
-  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Get sessions' })
   @ApiQuery({ name: 'page', description: 'Sessions page', type: 'number', required: false })
   @ApiQuery({ name: 'limit', description: 'Sessions page limit', type: 'number', required: false })
@@ -240,7 +242,7 @@ export class AuthController {
    * @returns updated session
    */
   @ApiOperation({ description: 'Patch session' })
-  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Session patched successfully' })
   @ApiBadRequestResponse({ description: 'Session with specified ID not exists' })
   @ApiParam({ name: 'id', description: 'Session id' })
@@ -264,7 +266,7 @@ export class AuthController {
    * @param id session id
    */
   @ApiOperation({ description: 'Delete session' })
-  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Session deleted successfully' })
   @ApiBadRequestResponse({ description: 'Session with specified ID not exists' })
   @ApiParam({ name: 'id', description: 'Session id' })

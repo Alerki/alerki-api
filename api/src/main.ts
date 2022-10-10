@@ -19,10 +19,14 @@ async function start() {
     .setTitle('Alerki')
     .setDescription('Alerki API documentation')
     .setVersion('0.4.3')
-    // .addTag('alerki')
+    .addSecurity('Bearer', {
+      type: 'http',
+      scheme: 'Bearer',
+    })
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('api', app, document);
 
   await app.listen(PORT);

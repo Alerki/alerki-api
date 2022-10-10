@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   ClassSerializerInterceptor,
   Controller,
@@ -7,16 +8,22 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import {
+  ApiBasicAuth,
+  ApiBearerAuth,
+  ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
+  ApiSecurity,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { UserService } from '@Module/user/user.service';
 
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(
@@ -30,6 +37,7 @@ export class UserController {
    * @returns
    */
   @ApiOperation({ description: 'Get own user profile' })
+  @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Profile received successfully' })
   @ApiNotFoundResponse({ description: 'User profile not found' })
   @UseInterceptors(ClassSerializerInterceptor)
@@ -55,6 +63,7 @@ export class UserController {
   @ApiOkResponse({ description: 'Profile received successfully' })
   @ApiNotFoundResponse({ description: 'User profile not found' })
   @ApiParam({ name: 'username', description: 'Profile username' })
+  @ApiParam({ name: 'username', description: 'username to get user profile', example: 'james' })
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':username')
   async getUser(

@@ -571,6 +571,15 @@ describe('AuthController (e2e)', () => {
 
         expect(r.body.message).toBe('Refresh token not exists');
       });
+
+      // test('with bad refresh token', async () => {
+      //   await request(app)
+      //     .get('/auth/refresh')
+      //     .set('Cookie', ['refreshToken=token...'])
+      //     .expect(401);
+      // });
+
+      test.todo('Add test which checks token validity for example z.z.z');
     });
 
     describe('Prohibit get sessions', () => {

@@ -6,9 +6,11 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiHeader,
   ApiOkResponse,
   ApiOperation,
+  ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
@@ -19,6 +21,7 @@ import { ProfileService } from '@Module/profile/profile.service';
 /**
  * Profile controller
  */
+@ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
   /**
@@ -36,7 +39,7 @@ export class ProfileController {
    * @param req request
    */
   @ApiOperation({ description: 'Enable master profile' })
-  @ApiHeader({ name: 'Authorization', required: true })
+  @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Successful enable master profile' })
   @ApiBadRequestResponse({ description: 'User is already master' })
   @ApiUnauthorizedResponse({ description: 'Bad access token' })
@@ -57,6 +60,7 @@ export class ProfileController {
    * @param req request
    */
   @ApiOperation({ description: 'Disable master profile' })
+  @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Successful disable master profile' })
   @ApiUnauthorizedResponse({ description: 'Bad access token' })
   @UseGuards(JwtAuthGuard)
