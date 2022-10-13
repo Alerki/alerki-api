@@ -41,6 +41,7 @@
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
     "cross-env": "^7.0.3",
+    "date-fns": "^2.29.3",
     "device-detector-js": "^3.0.3",
     "dotenv-cli": "^6.0.0",
     "image-type": "4.1.0",

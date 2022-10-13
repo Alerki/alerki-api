@@ -3,7 +3,7 @@
 // Database diagram: https://dbdiagram.io/d/63149a3b0911f91ba52fc231
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -14,7 +14,7 @@ datasource db {
 
 model UserPicture {
   id        String   @id @default(uuid())
-  picture   Bytes    @db.ByteA()
+  picture   Bytes    @db.ByteA
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User?
@@ -121,7 +121,7 @@ model MasterService {
   masterId    String        @db.VarChar(36)
   currency    String        @db.VarChar(3)
   price       Int
-  duration    DateTime      @db.Timetz
+  duration    Int           // Duration in seconds
   locationLat Float
   locationLng Float
   createdAt   DateTime      @default(now())
@@ -132,8 +132,8 @@ model MasterService {
 
 model MasterSchedule {
   id        String                          @id @default(uuid())
-  startTime DateTime                        @db.Timetz()
-  endTime   DateTime                        @db.Timetz()
+  startTime DateTime                        @db.Timetz
+  endTime   DateTime                        @db.Timetz
   date      DateTime                        @db.Date
   dayOff    Boolean                         @default(false)
   master    MasterProfilesToMasterSchedule?

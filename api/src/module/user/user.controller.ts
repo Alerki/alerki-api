@@ -1,9 +1,11 @@
 /* eslint-disable max-len */
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Get,
-  Param, ParseUUIDPipe, Req,
+  HttpStatus,
+  Param, ParseUUIDPipe, Post, Req,
   Res,
   UseGuards,
   UseInterceptors,
@@ -22,14 +24,51 @@ import { ProtectedRequest } from '@Module/auth/interface/protected-request.inter
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { UserService } from '@Module/user/user.service';
 import { Response } from 'express';
+import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
+import { MasterServiceService } from '@Module/profile/master-service.service';
 
 @ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
+    private readonly masterServiceService: MasterServiceService,
   ) { }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('/master/service')
+  async getMasterServiceProtected(
+    @Req() req: ProtectedRequest,
+  ) {
+    const { user: { id } } = req;
+
+    const masterServices = await this.masterServiceService.getMasterServiceProtected({ id });
+
+    return masterServices;
+  }
+
+  @Get('/master/:id/service')
+  async getMasterService(
+    @Param('id') id: string,
+  ) {
+    const masterServices = await this.masterServiceService.getMasterService({ id });
+
+    return masterServices;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/master/service')
+  async createMasterService(
+    @Req() req: ProtectedRequest,
+    @Res() res: Response,
+    @Body() body: CreateMasterServiceDto,
+  ) {
+    const { user: { id } } = req;
+
+    const newService = await this.masterServiceService.createMasterService({ id, ...body });
+
+    res.status(HttpStatus.CREATED).send(newService);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('/picture')

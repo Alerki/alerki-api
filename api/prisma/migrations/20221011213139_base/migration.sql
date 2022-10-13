@@ -98,7 +98,7 @@ CREATE TABLE "MasterServices" (
     "masterId" VARCHAR(36) NOT NULL,
     "currency" VARCHAR(3) NOT NULL,
     "price" INTEGER NOT NULL,
-    "duration" TIMETZ NOT NULL,
+    "duration" TIME NOT NULL,
     "locationLat" DOUBLE PRECISION NOT NULL,
     "locationLng" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

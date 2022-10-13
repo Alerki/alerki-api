@@ -2,6 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as cookieParser from 'cookie-parser';
 import * as request from 'supertest';
+import { set } from 'date-fns';
 
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
@@ -116,6 +117,10 @@ describe('UserController (e2e)', () => {
     });
 
     test('GET picture', async () => {
+      await request(app)
+        .get('/user/picture')
+        .expect(401);
+
       const { body } = await request(app)
         .get('/user/picture')
         .set({ Authorization: 'Bearer ' + user.accessToken })
@@ -131,6 +136,94 @@ describe('UserController (e2e)', () => {
         .expect(200);
 
       expect(body).toBeTruthy();
+    });
+
+    it('enable master profile', async () => {
+      // Prepare user
+      await request(app)
+        .patch('/profile/enable-master')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+    });
+
+    describe('master service', () => {
+      test('POST create service', async () => {
+        await request(app)
+          .post('/user/master/service')
+          .expect(401);
+
+        const r = await request(app)
+          .post('/user/master/service')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .send({
+            name: 'man haircut',
+            price: 100,
+            currency: 'UAH',
+            duration: 60 * 10,
+            locationLat: 1.1,
+            locationLng: 1.2,
+          })
+          .expect(201);
+
+        const mastersService = await prisma.masterService.findMany();
+
+        expect(mastersService).toHaveLength(1);
+
+        const masterService = mastersService[0];
+
+        const service = await prisma.service.findFirst({
+          where: {
+            id: masterService.serviceId,
+          },
+        });
+
+        expect(service).toBeDefined();
+        expect(service.name).toBe('man haircut');
+        expect(masterService.price).toBe(100);
+        expect(masterService.duration).toBe(600);
+        expect(masterService.locationLat).toBe(1.1);
+        expect(masterService.locationLng).toBe(1.2);
+
+        expect(r.body.price).toBe(100);
+        expect(r.body.duration).toBe(600);
+        expect(r.body.locationLat).toBe(1.1);
+        expect(r.body.locationLng).toBe(1.2);
+      });
+    });
+
+    test('GET own service', async () => {
+      await request(app)
+        .get('/user/master/service')
+        .expect(401);
+
+      const { body } = await request(app)
+        .get('/user/master/service')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      expect(body).toHaveLength(1);
+    });
+
+    test('GET service by id', async () => {
+      const User = await prisma.user.findFirst({
+        where: {
+          username: user.username,
+        },
+      });
+
+      const { body } = await request(app)
+        .get(`/user/master/${User.masterProfileId}/service`)
+        .expect(200);
+
+      expect(body).toHaveLength(1);
+    });
+
+    test('PATCH update service', async () => {
+
+    });
+
+    test('DELETE service', async () => {
+
     });
   });
 

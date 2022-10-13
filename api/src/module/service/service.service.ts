@@ -16,6 +16,14 @@ export class ServiceService {
    */
   constructor() { }
 
+  async create(data: Prisma.Prisma.ServiceCreateArgs) {
+    return await this.prismaService.service.create(data);
+  }
+
+  async findFirst(data: Prisma.Prisma.ServiceFindFirstArgs) {
+    return await this.prismaService.service.findFirst(data);
+  }
+
   /**
    * Find many services
    *

@@ -1,6 +1,9 @@
+import { MasterProfileService } from '@Module/profile/master-profile.service';
+import { ServiceService } from '@Module/service/service.service';
+import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
 import { UserDto } from '@Module/user/dto/user.dto';
 import { UserPictureService } from '@Module/user/user-picture.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { prisma } from '@Shared/services/prisma.service';
@@ -14,6 +17,7 @@ export class UserService {
 
   constructor(
     private readonly pictureService: UserPictureService,
+    private readonly serviceService: ServiceService,
   ) { }
 
   /**
