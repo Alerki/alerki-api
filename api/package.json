@@ -65,7 +65,7 @@
     "@types/image-type": "^4.0.1",
     "@types/jest": "29.1.1",
     "@types/jsonwebtoken": "^8.5.9",
-    "@types/node": "^18.7.23",
+    "@types/node": "^18.8.5",
     "@types/passport-google-oauth20": "^2.0.11",
     "@types/passport-jwt": "^3.0.6",
     "@types/passport-local": "^1.0.34",
