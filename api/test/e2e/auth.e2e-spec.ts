@@ -1,18 +1,18 @@
-import { INestApplication, ValidationPipe, Injectable } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import Prisma from '@prisma/client';
-import { Application } from 'express';
-import * as request from 'supertest';
 import * as cookieParser from 'cookie-parser';
+import { Application } from 'express';
 import * as jwt from 'jsonwebtoken';
+import * as request from 'supertest';
 
+import { usernameBlackListRaw } from '@Config/api/username-black-list';
+import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
-import sleep from '@Test/util/sleep';
-import { usernameBlackListRaw } from '@Config/api/username-black-list';
-import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { start } from '@Test/util/google-oauth-mock';
+import sleep from '@Test/util/sleep';
 
 describe('AuthController (e2e)', () => {
   let app: Application;
@@ -61,7 +61,7 @@ describe('AuthController (e2e)', () => {
 
   afterAll(async () => {
     await application.close();
-    googleOAuthMockServer.close();
+    await googleOAuthMockServer.close();
   });
 
   const user = {
@@ -92,6 +92,19 @@ describe('AuthController (e2e)', () => {
 
       const clientProfile = await prisma.clientProfile.findMany({});
       expect(clientProfile.length).toBe(1);
+
+      const extendedUser = await prisma.user.findFirst({
+        where: {
+          id: users[0].id,
+        },
+        include: {
+          roles: true,
+        },
+      });
+
+      expect(extendedUser.roles).not.toBeUndefined();
+      expect(extendedUser.roles.length).toBe(1);
+      expect(extendedUser.roles[0].name).toBe('client');
     });
 
     test('POST sign-in', async () => {
@@ -273,21 +286,28 @@ describe('AuthController (e2e)', () => {
           .get('/auth/google/callback?code=4%2F0ARtbsJoDtkvaW23Qx7efq2uEhL405ean9kPadiNsUp0TyRHJm35j7AbD0AsEDmmIw0PFUw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none')
           .expect(200);
 
-        const user = await prisma.user.findFirst({
+        const newUser = await prisma.user.findFirst({
           where: {
             email,
           },
+          include: {
+            roles: true,
+          },
         });
 
-        expect(user).toBeTruthy();
-        expect(user.email).toBe(email);
-        expect(user.firstName).toBe(firstName);
-        expect(user.lastName).toBe(lastName);
-        expect(user.pictureId).toBeTruthy();
+        expect(newUser.roles).not.toBeUndefined();
+        expect(newUser.roles.length).toBe(1);
+        expect(newUser.roles[0].name).toBe('client');
+
+        expect(newUser).toBeTruthy();
+        expect(newUser.email).toBe(email);
+        expect(newUser.firstName).toBe(firstName);
+        expect(newUser.lastName).toBe(lastName);
+        expect(newUser.pictureId).toBeTruthy();
 
         const userPicture = await prisma.userPicture.findFirst({
           where: {
-            id: user.pictureId,
+            id: newUser.pictureId,
           },
         });
 
@@ -295,7 +315,7 @@ describe('AuthController (e2e)', () => {
 
         const session = await prisma.authSession.findFirst({
           where: {
-            userId: user.id,
+            userId: newUser.id,
           },
         });
 
@@ -551,6 +571,15 @@ describe('AuthController (e2e)', () => {
 
         expect(r.body.message).toBe('Refresh token not exists');
       });
+
+      // test('with bad refresh token', async () => {
+      //   await request(app)
+      //     .get('/auth/refresh')
+      //     .set('Cookie', ['refreshToken=token...'])
+      //     .expect(401);
+      // });
+
+      test.todo('Add test which checks token validity for example z.z.z');
     });
 
     describe('Prohibit get sessions', () => {

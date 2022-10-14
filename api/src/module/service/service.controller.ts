@@ -1,10 +1,7 @@
 /* eslint-disable max-len */
-import { Get, HttpStatus, Query } from '@nestjs/common';
-import { Controller } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query } from '@nestjs/common';
 import {
-  ApiOperation,
-  ApiTags,
-  ApiResponse,
+  ApiOperation, ApiResponse, ApiTags,
 } from '@nestjs/swagger';
 
 import { GetServicesDto } from '@Module/service/dto/service.dto';
@@ -23,7 +20,7 @@ export class ServiceController {
    */
   constructor(
     private readonly serviceService: ServiceService,
-  ) {}
+  ) { }
 
   /**
    * Search services

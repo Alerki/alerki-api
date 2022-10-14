@@ -1,23 +1,24 @@
 import {
   BadRequestException,
   Injectable,
-  Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
 import axios from 'axios';
 import * as bcryptjs from 'bcryptjs';
-import * as sharp from 'sharp';
 import * as ImageSize from 'buffer-image-size';
+import * as sharp from 'sharp';
 
-import { UserService } from '@Module/user/user.service';
-import { TokensService } from '@Module/auth/tokens.service';
-import { SignUpDto } from '@Module/auth/dto/auth.dto';
 import { usernameBlackListSet } from '@Config/api/username-black-list';
-import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
-import { SessionService } from '@Module/auth/session.service';
-import { ClientProfileService } from '@Module/profile/client-profile.service';
+import { SignUpDto } from '@Module/auth/dto/auth.dto';
 import { GoogleUser } from '@Module/auth/google.strategy';
+import { RoleService } from '@Module/auth/role.service';
+import { SessionService } from '@Module/auth/session.service';
+import { TokensService } from '@Module/auth/tokens.service';
+import { ClientProfileService } from '@Module/profile/client-profile.service';
 import { UserPictureService } from '@Module/user/user-picture.service';
+import { UserService } from '@Module/user/user.service';
+import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 
 @Injectable()
 export class AuthService {
@@ -41,7 +42,8 @@ export class AuthService {
     private readonly sessionService: SessionService,
     private readonly clientProfileService: ClientProfileService,
     private readonly userPictureService: UserPictureService,
-  ) {}
+    private readonly roleService: RoleService,
+  ) { }
 
   /**
    * Sign-up user
@@ -87,6 +89,8 @@ export class AuthService {
 
     const newClientProfile = await this.clientProfileService.create();
 
+    const clientRole = await this.roleService.getClientRole();
+
     await this.userService.create({
       data: {
         email: email.toLowerCase(),
@@ -95,6 +99,11 @@ export class AuthService {
         clientProfile: {
           connect: {
             id: newClientProfile.id,
+          },
+        },
+        roles: {
+          connect: {
+            id: clientRole.id,
           },
         },
       },
@@ -193,6 +202,8 @@ export class AuthService {
       // Create new client profile
       const newClientProfile = await this.clientProfileService.create();
 
+      const clientRole = await this.roleService.getClientRole();
+
       // Create new user
       const newUser = await this.userService.create({
         data: {
@@ -203,6 +214,11 @@ export class AuthService {
           clientProfile: {
             connect: {
               id: newClientProfile.id,
+            },
+          },
+          roles: {
+            connect: {
+              id: clientRole.id,
             },
           },
           picture: pictureId ? {
@@ -268,6 +284,10 @@ export class AuthService {
   async refresh({ refreshToken }: Pick<Prisma.AuthSession, 'refreshToken'>) {
     if (!refreshToken) {
       throw new BadRequestException('No refresh token');
+    }
+
+    if (refreshToken.split('.').length !== 3) {
+      throw new UnauthorizedException('Bad refresh token');
     }
 
     const validToken = this.tokensService.verifyRefreshToken(refreshToken);

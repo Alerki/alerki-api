@@ -1,16 +1,17 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 
-import { UserModule } from '@Module/user/user.module';
-import { ProfileModule } from '@Module/profile/profile.module';
 import { AuthController } from '@Module/auth/auth.controller';
-import { LocalStrategy } from '@Module/auth/local.strategy';
-import { TokensService } from '@Module/auth/tokens.service';
 import { AuthService } from '@Module/auth/auth.service';
-import { SessionService } from '@Module/auth/session.service';
-import { JwtStrategy } from '@Module/auth/jwt.strategy';
 import { GoogleStrategy } from '@Module/auth/google.strategy';
+import { JwtStrategy } from '@Module/auth/jwt.strategy';
+import { LocalStrategy } from '@Module/auth/local.strategy';
+import { RoleService } from '@Module/auth/role.service';
+import { SessionService } from '@Module/auth/session.service';
+import { TokensService } from '@Module/auth/tokens.service';
+import { ProfileModule } from '@Module/profile/profile.module';
+import { UserModule } from '@Module/user/user.module';
 
 @Module({
   controllers: [AuthController],
@@ -18,13 +19,18 @@ import { GoogleStrategy } from '@Module/auth/google.strategy';
     LocalStrategy, JwtStrategy,
     JwtService, TokensService,
     AuthService, SessionService,
-    GoogleStrategy,
+    GoogleStrategy, RoleService,
   ],
   imports: [
     forwardRef(() => UserModule),
     forwardRef(() => ProfileModule),
     PassportModule,
   ],
-  exports: [],
+  exports: [
+    LocalStrategy, JwtStrategy,
+    JwtService, TokensService,
+    AuthService, SessionService,
+    GoogleStrategy, RoleService,
+  ],
 })
-export class AuthModule {};
+export class AuthModule { };

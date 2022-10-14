@@ -28,7 +28,7 @@ CREATE TABLE "Users" (
     "pictureId" VARCHAR(36),
     "clientProfileId" VARCHAR(36) NOT NULL,
     "masterProfileId" VARCHAR(36),
-    "phoneNumber" VARCHAR(16),
+    "phoneNumber" VARCHAR(20),
     "password" VARCHAR(60),
     "banned" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -53,6 +53,7 @@ CREATE TABLE "AuthSessions" (
 CREATE TABLE "MasterProfiles" (
     "id" TEXT NOT NULL,
     "workDaysId" VARCHAR(36),
+    "available" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -97,7 +98,7 @@ CREATE TABLE "MasterServices" (
     "masterId" VARCHAR(36) NOT NULL,
     "currency" VARCHAR(3) NOT NULL,
     "price" INTEGER NOT NULL,
-    "duration" TIMETZ NOT NULL,
+    "duration" TIME NOT NULL,
     "locationLat" DOUBLE PRECISION NOT NULL,
     "locationLng" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

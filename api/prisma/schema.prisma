@@ -3,7 +3,7 @@
 // Database diagram: https://dbdiagram.io/d/63149a3b0911f91ba52fc231
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -14,7 +14,7 @@ datasource db {
 
 model UserPicture {
   id        String   @id @default(uuid())
-  picture   Bytes    @db.ByteA()
+  picture   Bytes    @db.ByteA
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User?
@@ -46,7 +46,7 @@ model User {
   masterProfile          MasterProfile? @relation(fields: [masterProfileId], references: [id])
   masterProfileId        String?        @unique @db.VarChar(36)
   sessions               AuthSession[]
-  phoneNumber            String?        @unique @db.VarChar(16)
+  phoneNumber            String?        @unique @db.VarChar(20)
   password               String?        @db.VarChar(60)
   banned                 Boolean        @default(false)
   createdAt              DateTime       @default(now())
@@ -75,6 +75,7 @@ model MasterProfile {
   workDays     MasterWorkDay?                   @relation(fields: [workDaysId], references: [id])
   workDaysId   String?                          @unique @db.VarChar(36)
   appointments Appointment[]
+  available    Boolean                          @default(true)
   createdAt    DateTime                         @default(now())
   updatedAt    DateTime                         @updatedAt
 
@@ -120,7 +121,7 @@ model MasterService {
   masterId    String        @db.VarChar(36)
   currency    String        @db.VarChar(3)
   price       Int
-  duration    DateTime      @db.Timetz
+  duration    Int           // Duration in seconds
   locationLat Float
   locationLng Float
   createdAt   DateTime      @default(now())
@@ -131,8 +132,8 @@ model MasterService {
 
 model MasterSchedule {
   id        String                          @id @default(uuid())
-  startTime DateTime                        @db.Timetz()
-  endTime   DateTime                        @db.Timetz()
+  startTime DateTime                        @db.Timetz
+  endTime   DateTime                        @db.Timetz
   date      DateTime                        @db.Date
   dayOff    Boolean                         @default(false)
   master    MasterProfilesToMasterSchedule?

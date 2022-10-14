@@ -34,12 +34,31 @@ export namespace User {
       example: 'james',
       patternExp: usernamePattern,
     },
+    firstName: {
+      description: 'First name',
+      maxLength: 30,
+      type: 'string',
+      example: 'James',
+    },
+    lastName: {
+      description: 'Last name',
+      maxLength: 30,
+      type: 'string',
+      example: 'Smith',
+    },
     password: {
       description: 'Password',
       minLength: 6,
       maxLength: 50,
       type: 'string',
       example: 'dIda*20/fa',
+    },
+    phoneNumber: {
+      description: 'Phone number',
+      minLength: 8,
+      maxLength: 20,
+      type: 'string',
+      example: '+38 (098) 088 86 55',
     },
     deviceName: {
       description: 'Device name',

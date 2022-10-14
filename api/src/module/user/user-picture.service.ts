@@ -7,7 +7,7 @@ import { prisma } from '@Shared/services/prisma.service';
 export class UserPictureService {
   private readonly prismaService = prisma;
 
-  constructor() {}
+  constructor() { }
 
   async create(data: Prisma.Prisma.UserPictureCreateArgs) {
     return this.prismaService.userPicture.create(data);

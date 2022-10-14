@@ -8,4 +8,4 @@ import { Module } from '@nestjs/common';
   imports: [],
   exports: [ServiceService],
 })
-export class ServiceModule {}
+export class ServiceModule { }

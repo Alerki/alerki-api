@@ -1,38 +1,76 @@
 import {
   Controller,
-  Get,
-  Param,
-  ClassSerializerInterceptor,
-  UseInterceptors,
+  Patch,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiHeader,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
+import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
+import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { ProfileService } from '@Module/profile/profile.service';
 
+/**
+ * Profile controller
+ */
 @ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
+  /**
+   * Profile controller constructor
+   *
+   * @param profileService profile service
+   */
   constructor(
-    private profileService: ProfileService,
-  ) {}
+    private readonly profileService: ProfileService,
+  ) { }
 
   /**
-   * Get profile
+   * Enable master
    *
-   * @param username profile username
-   * @returns user profile
+   * @param req request
    */
-  @ApiOperation({ description: 'Get user profile' })
-  @ApiOkResponse({ description: 'Profile received successfully' })
-  @ApiNotFoundResponse({ description: 'User with not exists' })
-  @ApiParam({ name: 'username', description: 'Profile username' })
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get(':username')
-  async getProfile(
-    @Param('username') username: string,
+  @ApiOperation({ description: 'Enable master profile' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Successful enable master profile' })
+  @ApiBadRequestResponse({ description: 'User is already master' })
+  @ApiUnauthorizedResponse({ description: 'Bad access token' })
+  @UseGuards(JwtAuthGuard)
+  @Patch('enable-master')
+  async enableMaster(
+    @Req() req: ProtectedRequest,
   ) {
-    const profile = await this.profileService.getProfile({ username });
+    // Get user ID
+    const { user: { id } } = req;
 
-    return profile;
+    await this.profileService.enableMaster({ id });
+  }
+
+  /**
+   * Disable master
+   *
+   * @param req request
+   */
+  @ApiOperation({ description: 'Disable master profile' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Successful disable master profile' })
+  @ApiUnauthorizedResponse({ description: 'Bad access token' })
+  @UseGuards(JwtAuthGuard)
+  @Patch('disable-master')
+  async disableMaster(
+    @Req() req: ProtectedRequest,
+  ) {
+    // Get user ID
+    const { user: { id } } = req;
+
+    await this.profileService.disableMaster({ id });
   }
 }

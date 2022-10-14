@@ -1,27 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import * as jwt from 'jsonwebtoken';
 
 import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
+import { JwkTokenPayload, JwtTokensPair } from '@Module/auth/tokens.service';
 
-/**
- * JWT token payload
- */
-export interface JwkTokenPayload {
-  id: string,
-}
-
-/**
- * JWT tokens pair structure
- */
-export interface JwtTokensPair {
-  accessToken: string,
-  refreshToken: string,
-}
-
-/**
- * JWT tokens service
- */
-@Injectable()
 export class TokensService {
   /**
    * Access token secret
@@ -41,12 +22,8 @@ export class TokensService {
 
   /**
    * Constructor
-   *
-   * @param jwtService JWT service
    */
-  constructor(
-    private readonly jwtService: JwtService,
-  ) { }
+  constructor() {}
 
   /**
    * Generate access token
@@ -55,8 +32,7 @@ export class TokensService {
    * @returns JWT
    */
   async generateAccessToken(payload: JwkTokenPayload) {
-    return this.jwtService.sign(payload, {
-      secret: this.accessSecret,
+    return jwt.sign(payload, this.accessSecret, {
       expiresIn: '60s',
     });
   }
@@ -68,8 +44,7 @@ export class TokensService {
    * @returns JWT
    */
   async generateRefreshToken(payload: JwkTokenPayload) {
-    return this.jwtService.sign(payload, {
-      secret: this.refreshSecret,
+    return jwt.sign(payload, this.refreshSecret, {
       expiresIn: '30d',
     });
   }
@@ -94,8 +69,7 @@ export class TokensService {
    * @returns verified and decoded token
    */
   verifyAccessToken(token: string) {
-    return this.jwtService.verify(token, {
-      secret: this.accessSecret,
+    return jwt.verify(token, this.accessSecret, {
     });
   }
 
@@ -106,8 +80,7 @@ export class TokensService {
    * @returns verified and decoded token
    */
   verifyRefreshToken(token: string) {
-    return this.jwtService.verify(token, {
-      secret: this.refreshSecret,
+    return jwt.verify(token, this.refreshSecret, {
     });
   }
 }

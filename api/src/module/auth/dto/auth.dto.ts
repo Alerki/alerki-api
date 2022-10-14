@@ -1,11 +1,7 @@
-import Prisma from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
+import Prisma from '@prisma/client';
 import {
-  MinLength,
-  MaxLength,
-  IsString,
-  IsOptional,
-  Matches,
+  IsOptional, IsString, Matches, MaxLength, MinLength,
 } from 'class-validator';
 
 import { User } from '@Config/api/property.config';
@@ -15,7 +11,7 @@ import { User } from '@Config/api/property.config';
  */
 interface SignInDtoI extends
   Partial<Pick<Prisma.User, 'email' | 'username'>>,
-  Pick<Prisma.User, 'password'> {}
+  Pick<Prisma.User, 'password'> { }
 
 /**
  * Log-in DTO
@@ -52,7 +48,7 @@ interface SignUpI extends Pick<
   'email' |
   'username' |
   'password'
-> {}
+> { }
 
 /**
  * Register DTO
