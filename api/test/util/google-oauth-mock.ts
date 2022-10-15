@@ -298,6 +298,9 @@ export class GoogleOAuthMock {
     return server;
   }
 
+  /**
+   * Close Express server
+   */
   close() {
     this._server.close();
   }

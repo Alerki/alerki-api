@@ -54,12 +54,12 @@ describe('AuthController (e2e)', () => {
       googleStrategy._oauth2._accessTokenUrl = mockTokenUrl;
     });
 
-    googleOAuthMockServer = await googleOAuthMock.start();
+    await googleOAuthMock.start();
   });
 
   afterAll(async () => {
     await application.close();
-    googleOAuthMockServer.close();
+    googleOAuthMock.close();
   });
 
   const user = {
