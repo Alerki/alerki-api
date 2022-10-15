@@ -290,7 +290,13 @@ export class AuthService {
       throw new UnauthorizedException('Bad refresh token');
     }
 
-    const validToken = this.tokensService.verifyRefreshToken(refreshToken);
+    let validToken;
+
+    try {
+      validToken = this.tokensService.verifyRefreshToken(refreshToken);
+    } catch (e: any) {
+      throw new UnauthorizedException('Bad refresh token');
+    }
 
     const candidate = await this.sessionService.findFirst({
       where: {

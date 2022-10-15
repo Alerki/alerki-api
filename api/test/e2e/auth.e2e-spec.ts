@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import Prisma from '@prisma/client';
 import * as cookieParser from 'cookie-parser';
 import { Application } from 'express';
+import { Server } from 'http';
 import * as jwt from 'jsonwebtoken';
 import * as request from 'supertest';
 
@@ -11,17 +12,14 @@ import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
-import { start } from '@Test/util/google-oauth-mock';
+import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import sleep from '@Test/util/sleep';
 
 describe('AuthController (e2e)', () => {
   let app: Application;
-  let googleOAuthMockPort = 3010;
-  let googleOAuthMockServer: any;
-  let googleOAuthMockConfig: Record<string, any> = {};
+  let googleOAuthMockServer: Server;
+  let googleOAuthMock: GoogleOAuthMock;
   let application: INestApplication;
-
-  let googleStrategy: GoogleStrategy;
 
   beforeAll(async () => {
     // Init express application
@@ -31,19 +29,7 @@ describe('AuthController (e2e)', () => {
       })
       .compile();
 
-    googleStrategy = module.get<GoogleStrategy>(GoogleStrategy);
-
-    // @ts-ignore
-    googleStrategy._userProfileURL =
-      `http://localhost:${googleOAuthMockPort}/mock-user`;
-
-    // @ts-ignore
-    googleStrategy._oauth2._authorizeUrl =
-      `http://localhost:${googleOAuthMockPort}/mock-auth`;
-
-    // @ts-ignore
-    googleStrategy._oauth2._accessTokenUrl =
-      `http://localhost:${googleOAuthMockPort}/mock-token`;
+    const googleStrategy = module.get<GoogleStrategy>(GoogleStrategy);
 
     application = await module
       .createNestApplication()
@@ -53,15 +39,27 @@ describe('AuthController (e2e)', () => {
 
     app = application.getHttpServer();
 
-    // Start Google OAuth2.0 mock
-    const { config, server } = await start(googleOAuthMockPort);
-    googleOAuthMockConfig = config;
-    googleOAuthMockServer = server;
+    googleOAuthMock = new GoogleOAuthMock({ port: 3010 }, ({
+      mockUserUrl,
+      mockAuthUrl,
+      mockTokenUrl,
+    }) => {
+      // @ts-ignore
+      googleStrategy._userProfileURL = mockUserUrl;
+
+      // @ts-ignore
+      googleStrategy._oauth2._authorizeUrl = mockAuthUrl;
+
+      // @ts-ignore
+      googleStrategy._oauth2._accessTokenUrl = mockTokenUrl;
+    });
+
+    googleOAuthMockServer = await googleOAuthMock.start();
   });
 
   afterAll(async () => {
     await application.close();
-    await googleOAuthMockServer.close();
+    googleOAuthMockServer.close();
   });
 
   const user = {
@@ -272,9 +270,7 @@ describe('AuthController (e2e)', () => {
           },
         });
 
-        const email = googleOAuthMockConfig.profile.email;
-        const firstName = googleOAuthMockConfig.profile.given_name;
-        const lastName = googleOAuthMockConfig.profile.family_name;
+        const { email, firstName, lastName } = googleOAuthMock.getProfile;
 
         await request(app)
           // eslint-disable-next-line max-len
@@ -323,9 +319,10 @@ describe('AuthController (e2e)', () => {
       });
 
       test('with picture', async () => {
-        googleOAuthMockConfig.profile.email = 'new.email1941@gmail.com';
-        googleOAuthMockConfig.profile.picture =
-          'https://source.unsplash.com/user/c_v_r/100x100';
+        googleOAuthMock.setProfile = {
+          email: 'new.email1941@gmail.com',
+          picture: 'https://source.unsplash.com/user/c_v_r/100x100',
+        };
 
         await request(app)
           // eslint-disable-next-line max-len
@@ -334,8 +331,10 @@ describe('AuthController (e2e)', () => {
       });
 
       test('without picture', async () => {
-        googleOAuthMockConfig.profile.email = 'new.email194@gmail.com';
-        googleOAuthMockConfig.profile.picture = [];
+        googleOAuthMock.setProfile = {
+          email: 'new.email194@gmail.com',
+          picture: [],
+        };
 
         await request(app)
           // eslint-disable-next-line max-len
@@ -572,14 +571,12 @@ describe('AuthController (e2e)', () => {
         expect(r.body.message).toBe('Refresh token not exists');
       });
 
-      // test('with bad refresh token', async () => {
-      //   await request(app)
-      //     .get('/auth/refresh')
-      //     .set('Cookie', ['refreshToken=token...'])
-      //     .expect(401);
-      // });
-
-      test.todo('Add test which checks token validity for example z.z.z');
+      test('with bad refresh token', async () => {
+        await request(app)
+          .get('/auth/refresh')
+          .set('Cookie', ['refreshToken=token...'])
+          .expect(401);
+      });
     });
 
     describe('Prohibit get sessions', () => {
