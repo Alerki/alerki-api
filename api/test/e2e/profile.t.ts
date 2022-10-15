@@ -10,7 +10,6 @@ import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import { TokensService } from '@Test/util/jwt-service';
 
-
 describe('ServiceController (e2e)', () => {
   let app: Application;
   let application: INestApplication;

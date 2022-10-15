@@ -1,4 +1,5 @@
 import type { Application } from 'express';
+import { Server } from 'http';
 import * as express from 'express';
 
 /**
@@ -11,7 +12,7 @@ export interface ProfileResponse {
   name: string,
   given_name: string,
   family_name: string,
-  picture: string,
+  picture: string | Array<any>,
   locale: string,
 }
 
@@ -50,17 +51,7 @@ export interface ConstructorOptions {
   redirectUrl?: string,
   profile?: ProfileResponse,
   token?: TokenResponse,
-  port?: number,
-}
-
-/**
- * Server object interface
- */
-export interface Server {
-  /**
-   * Close server method
-   */
-  close: () => void;
+  port: number,
 }
 
 /**
@@ -171,15 +162,51 @@ export class GoogleOAuthMock {
   /**
    * Get profile response object
    */
-  get profile() {
-    return this._profile;
+  get getProfile() {
+    return {
+      sub: this._profile.sub,
+      email: this._profile.email,
+      emailVerified: this._profile.email_verified,
+      name: this._profile.name,
+      firstName: this._profile.given_name,
+      lastName: this._profile.family_name,
+      picture: this._profile.picture,
+      locale: this._profile.locale,
+    };
   }
 
   /**
    * Set Profile response object
    */
-  set profile(profile: Partial<ProfileResponse>) {
-    Object.assign(this._profile, profile);
+  set setProfile(profile: {
+    sub?: string,
+    email?: string,
+    emailVerified?: boolean,
+    name?: string
+    firstName?: string,
+    lastName?: string,
+    picture?: string | Array<any>,
+    locale?: string,
+  }) {
+    const serializedProfile: Record<string, any> = { ...profile };
+
+    delete serializedProfile.emailVerified;
+    delete serializedProfile.firstName;
+    delete serializedProfile.lastName;
+
+    if (profile.emailVerified) {
+      serializedProfile.email_verified = profile.emailVerified;
+    }
+
+    if (profile.firstName) {
+      serializedProfile.given_name = profile.firstName;
+    }
+
+    if (profile.lastName) {
+      serializedProfile.family_name = profile.lastName;
+    }
+
+    Object.assign(this._profile, serializedProfile);
   }
 
   /**
@@ -209,7 +236,7 @@ export class GoogleOAuthMock {
    * @param port server port
    * @returns server
    */
-  private _startServer() {
+  private _startServer(): Promise<Server> {
     // That works lol :]
     return new Promise((res) => {
       let x: Server;
@@ -269,5 +296,9 @@ export class GoogleOAuthMock {
     }
 
     return server;
+  }
+
+  close() {
+    this._server.close();
   }
 }
