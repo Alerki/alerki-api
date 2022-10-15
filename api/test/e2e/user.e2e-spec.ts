@@ -11,6 +11,7 @@ import getCookies from '@Test/util/get-cookies';
 import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import { TokensService } from '@Test/util/jwt-service';
 import { Application } from 'express';
+import { use } from 'passport';
 
 describe('UserController (e2e)', () => {
   let app: Application;
