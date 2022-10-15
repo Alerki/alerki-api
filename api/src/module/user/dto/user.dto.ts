@@ -15,6 +15,7 @@ export class UserDto implements Prisma.User {
   masterProfileId: string;
   phoneNumber: string;
   banned: boolean;
+  roles: Prisma.Roles[];
   masterProfile: any;
   clientProfile: any;
   createdAt: Date;
