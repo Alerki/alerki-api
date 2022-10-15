@@ -89,21 +89,17 @@ export class AuthService {
 
     const newClientProfile = await this.clientProfileService.create();
 
-    const clientRole = await this.roleService.getClientRole();
+    const clientRole: Prisma.Roles = 'client';
 
     await this.userService.create({
       data: {
         email: email.toLowerCase(),
         username,
         password: hashedPassword,
+        roles: ['client'],
         clientProfile: {
           connect: {
             id: newClientProfile.id,
-          },
-        },
-        roles: {
-          connect: {
-            id: clientRole.id,
           },
         },
       },
@@ -202,7 +198,7 @@ export class AuthService {
       // Create new client profile
       const newClientProfile = await this.clientProfileService.create();
 
-      const clientRole = await this.roleService.getClientRole();
+      const clientRole = this.roleService.clientRole;
 
       // Create new user
       const newUser = await this.userService.create({
@@ -216,11 +212,7 @@ export class AuthService {
               id: newClientProfile.id,
             },
           },
-          roles: {
-            connect: {
-              id: clientRole.id,
-            },
-          },
+          roles: [clientRole],
           picture: pictureId ? {
             connect: {
               id: pictureId,

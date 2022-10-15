@@ -4,13 +4,12 @@ import { AuthModule } from '@Module/auth/auth.module';
 import { ClientProfileService } from '@Module/profile/client-profile.service';
 import { MasterProfileService } from '@Module/profile/master-profile.service';
 import { MasterServiceService } from '@Module/profile/master-service.service';
-import { ProfileController } from '@Module/profile/profile.controller';
 import { ProfileService } from '@Module/profile/profile.service';
-import { UserModule } from '@Module/user/user.module';
 import { ServiceModule } from '@Module/service/service.module';
+import { UserModule } from '@Module/user/user.module';
 
 @Module({
-  controllers: [ProfileController],
+  controllers: [],
   providers: [
     ProfileService, ClientProfileService,
     MasterProfileService, MasterServiceService,

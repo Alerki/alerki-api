@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "Roles" AS ENUM ('master', 'client');
+
 -- CreateTable
 CREATE TABLE "UserPictures" (
     "id" TEXT NOT NULL,
@@ -9,16 +12,6 @@ CREATE TABLE "UserPictures" (
 );
 
 -- CreateTable
-CREATE TABLE "Roles" (
-    "id" TEXT NOT NULL,
-    "name" VARCHAR(20) NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "Roles_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Users" (
     "id" TEXT NOT NULL,
     "email" VARCHAR(320) NOT NULL,
@@ -26,6 +19,7 @@ CREATE TABLE "Users" (
     "firstName" VARCHAR(30),
     "lastName" VARCHAR(30),
     "pictureId" VARCHAR(36),
+    "roles" "Roles"[],
     "clientProfileId" VARCHAR(36) NOT NULL,
     "masterProfileId" VARCHAR(36),
     "phoneNumber" VARCHAR(20),
@@ -98,7 +92,7 @@ CREATE TABLE "MasterServices" (
     "masterId" VARCHAR(36) NOT NULL,
     "currency" VARCHAR(3) NOT NULL,
     "price" INTEGER NOT NULL,
-    "duration" TIME NOT NULL,
+    "duration" INTEGER NOT NULL,
     "locationLat" DOUBLE PRECISION NOT NULL,
     "locationLng" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -172,19 +166,10 @@ CREATE TABLE "Notifications" (
 );
 
 -- CreateTable
-CREATE TABLE "_RolesToUser" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL
-);
-
--- CreateTable
 CREATE TABLE "_NotificationToUser" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "Roles_name_key" ON "Roles"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
@@ -212,12 +197,6 @@ CREATE UNIQUE INDEX "MasterProfilesToMasterSchedule_scheduleId_key" ON "MasterPr
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Services_name_key" ON "Services"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_RolesToUser_AB_unique" ON "_RolesToUser"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_RolesToUser_B_index" ON "_RolesToUser"("B");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_NotificationToUser_AB_unique" ON "_NotificationToUser"("A", "B");
@@ -263,12 +242,6 @@ ALTER TABLE "Notifications" ADD CONSTRAINT "Notifications_notificationTypeId_fke
 
 -- AddForeignKey
 ALTER TABLE "Notifications" ADD CONSTRAINT "Notifications_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_RolesToUser" ADD CONSTRAINT "_RolesToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Roles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_RolesToUser" ADD CONSTRAINT "_RolesToUser_B_fkey" FOREIGN KEY ("B") REFERENCES "Users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_NotificationToUser" ADD CONSTRAINT "_NotificationToUser_A_fkey" FOREIGN KEY ("A") REFERENCES "Notifications"("id") ON DELETE CASCADE ON UPDATE CASCADE;

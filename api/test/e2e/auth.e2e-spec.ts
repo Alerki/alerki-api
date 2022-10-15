@@ -17,7 +17,6 @@ import sleep from '@Test/util/sleep';
 
 describe('AuthController (e2e)', () => {
   let app: Application;
-  let googleOAuthMockServer: Server;
   let googleOAuthMock: GoogleOAuthMock;
   let application: INestApplication;
 
@@ -73,6 +72,7 @@ describe('AuthController (e2e)', () => {
   let sessions: Array<Prisma.AuthSession> = [];
 
   it('prepares database', async () => {
+    await prisma.authSession.deleteMany();
     await prisma.user.deleteMany();
   });
 
@@ -95,14 +95,11 @@ describe('AuthController (e2e)', () => {
         where: {
           id: users[0].id,
         },
-        include: {
-          roles: true,
-        },
       });
 
       expect(extendedUser.roles).not.toBeUndefined();
       expect(extendedUser.roles.length).toBe(1);
-      expect(extendedUser.roles[0].name).toBe('client');
+      expect(extendedUser.roles[0]).toBe('client');
     });
 
     test('POST sign-in', async () => {
@@ -286,14 +283,11 @@ describe('AuthController (e2e)', () => {
           where: {
             email,
           },
-          include: {
-            roles: true,
-          },
         });
 
         expect(newUser.roles).not.toBeUndefined();
         expect(newUser.roles.length).toBe(1);
-        expect(newUser.roles[0].name).toBe('client');
+        expect(newUser.roles[0]).toBe('client');
 
         expect(newUser).toBeTruthy();
         expect(newUser.email).toBe(email);
