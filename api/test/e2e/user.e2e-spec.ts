@@ -466,6 +466,20 @@ describe('UserController (e2e)', () => {
           .attach('picture', imageBuffer, 'picture.jpeg')
           .expect(400);
       });
+
+      test('delete picture', async () => {
+        await request(app)
+          .delete('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(200);
+      });
+
+      test('delete not exists picture', async () => {
+        await request(app)
+          .delete('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(404);
+      });
     });
 
     // it('enable master profile', async () => {

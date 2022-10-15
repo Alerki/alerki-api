@@ -58,4 +58,17 @@ export class UserPictureService {
       },
     });
   }
+
+  /**
+   * Delete picture
+   *
+   * @param param0 delete picture params
+   */
+  async delete({ id }: Pick<Prisma.UserPicture, 'id'>) {
+    await this.prismaService.userPicture.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }

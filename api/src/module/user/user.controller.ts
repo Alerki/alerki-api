@@ -148,6 +148,7 @@ export class UserController {
    * @param picture picture file
    */
   @ApiOperation({ description: 'Patch user picture' })
+  @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Picture updates successfully' })
   @ApiNotFoundResponse({ description: 'User not found' })
   @ApiBadRequestResponse({ description: 'Validation failed (expected type is /^(jpg|jpeg|png|heif)$/)' })
@@ -170,16 +171,23 @@ export class UserController {
     await this.userService.patchUserPicture({ id, picture });
   }
 
-  @ApiParam({ name: 'id', description: 'Picture ID' })
+  /**
+   * Delete picture
+   *
+   * @param req request
+   */
+  @ApiOkResponse({ description: 'Picture deleted successfully' })
+  @ApiBearerAuth('Bearer')
+  @ApiNotFoundResponse({ description: 'Picture not exists' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
   @UseGuards(JwtAuthGuard)
-  @Delete('picture/:id')
+  @Delete('picture')
   async deletePicture(
     @Req() req: ProtectedRequest,
-    @Param('id') id: string,
   ) {
-    const { user: { id: userId } } = req;
+    const { user: { id } } = req;
 
-    // await this.userService
+    await this.userService.deletePicture({ id });
   }
 
   /**
@@ -201,6 +209,26 @@ export class UserController {
     const { id } = req.user;
 
     const profile = await this.userService.getUser({ id });
+
+    return profile;
+  }
+
+  /**
+   * Get user profile
+   *
+   * @param usernameOrId profile username of ID
+   * @returns user profile
+   */
+  @ApiOperation({ description: 'Get user profile' })
+  @ApiOkResponse({ description: 'Profile received successfully' })
+  @ApiNotFoundResponse({ description: 'User profile not found' })
+  @ApiParam({ name: 'usernameOrId', description: 'User username or id', example: ['james', 'uid...'] })
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get(':usernameOrId')
+  async getUser(
+    @Param('usernameOrId') usernameOrId: string,
+  ) {
+    const profile = await this.userService.getUser({ id: usernameOrId, username: usernameOrId });
 
     return profile;
   }
@@ -244,25 +272,5 @@ export class UserController {
     });
 
     return updatedUser;
-  }
-
-  /**
-   * Get user profile
-   *
-   * @param usernameOrId profile username of ID
-   * @returns user profile
-   */
-  @ApiOperation({ description: 'Get user profile' })
-  @ApiOkResponse({ description: 'Profile received successfully' })
-  @ApiNotFoundResponse({ description: 'User profile not found' })
-  @ApiParam({ name: 'usernameOrId', description: 'User username or id', example: ['james', 'uid...'] })
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get(':usernameOrId')
-  async getUser(
-    @Param('usernameOrId') usernameOrId: string,
-  ) {
-    const profile = await this.userService.getUser({ id: usernameOrId, username: usernameOrId });
-
-    return profile;
   }
 }
