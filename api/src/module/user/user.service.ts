@@ -3,7 +3,7 @@ import { ServiceService } from '@Module/service/service.service';
 import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
 import { PatchUserDto, UserDto } from '@Module/user/dto/user.dto';
 import { UserPictureService } from '@Module/user/user-picture.service';
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 import * as sharp from 'sharp';
 import * as imageSize from 'buffer-image-size';
@@ -19,6 +19,12 @@ import * as ApiConfig from '@Config/api/property.config';
 export class UserService {
   readonly prismaService = prisma;
 
+  /**
+   * User service constructor
+   *
+   * @param userPictureService user picture service
+   * @param serviceService service service
+   */
   constructor(
     private readonly userPictureService: UserPictureService,
     private readonly serviceService: ServiceService,
@@ -90,6 +96,12 @@ export class UserService {
     return new UserDto(profile);
   }
 
+  /**
+   * Find user or throw exception
+   *
+   * @param param0 find user by id arguments
+   * @returns
+   */
   async findUserById({ id }: Pick<Prisma.User, 'id'>) {
     const candidate = await this.prismaService.user.findFirst({
       where: {
@@ -124,6 +136,12 @@ export class UserService {
     return picture;
   }
 
+  /**
+   * Patch user
+   *
+   * @param args path user arguments
+   * @returns
+   */
   async patchUser(
     args: { data: PatchUserDto } & Pick<Prisma.User, 'id'>,
   ) {
@@ -152,7 +170,9 @@ export class UserService {
   ) {
     const candidate = await this.findUserById({ id });
 
-    const pictureType = imageType(picture.buffer);
+    let pictureBuffer: Buffer = picture.buffer;
+
+    const pictureType = imageType(pictureBuffer);
 
     if (!pictureType) {
       throw new BadRequestException(
@@ -166,9 +186,7 @@ export class UserService {
       );
     }
 
-    const { width, height } = imageSize(picture.buffer);
-
-    let pictureBuffer: Buffer;
+    const { width, height } = imageSize(pictureBuffer);
 
     if (width > 100 || height > 100) {
       pictureBuffer = await sharp(picture.buffer)
@@ -177,9 +195,39 @@ export class UserService {
         .toBuffer();
     }
 
-    await this.userPictureService.update({
-      id: candidate.pictureId,
-      picture: pictureBuffer,
-    });
+    if (candidate.pictureId) {
+      await this.userPictureService.update({
+        id: candidate.pictureId,
+        picture: pictureBuffer,
+      });
+    } else {
+      await this.userPictureService.create({
+        data: {
+          picture: pictureBuffer,
+          user: {
+            connect: {
+              id,
+            },
+          },
+        },
+      });
+    }
+  }
+
+  /**
+   * Delete picture
+   *
+   * @param param0 delete picture arguments
+   */
+  async deletePicture(
+    { id }: Pick<Prisma.UserPicture, 'id'>,
+  ) {
+    const candidate = await this.findUserById({ id });
+
+    if (!candidate.pictureId) {
+      throw new NotFoundException('Picture not exists');
+    }
+
+    await this.userPictureService.delete({ id: candidate.pictureId });
   }
 }
