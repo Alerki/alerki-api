@@ -301,7 +301,7 @@ export class GoogleOAuthMock {
   /**
    * Close Express server
    */
-  close() {
-    this._server.close();
+  async close() {
+    await this._server.close();
   }
 }
