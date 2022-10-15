@@ -5,8 +5,12 @@ import { PatchUserDto, UserDto } from '@Module/user/dto/user.dto';
 import { UserPictureService } from '@Module/user/user-picture.service';
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import Prisma from '@prisma/client';
+import * as sharp from 'sharp';
+import * as imageSize from 'buffer-image-size';
+import * as imageType from 'image-type';
 
 import { prisma } from '@Shared/services/prisma.service';
+import * as ApiConfig from '@Config/api/property.config';
 
 /**
  * User service
@@ -16,7 +20,7 @@ export class UserService {
   readonly prismaService = prisma;
 
   constructor(
-    private readonly pictureService: UserPictureService,
+    private readonly userPictureService: UserPictureService,
     private readonly serviceService: ServiceService,
   ) { }
 
@@ -101,31 +105,13 @@ export class UserService {
   }
 
   /**
-   * Get protected picture
-   *
-   * @param param0 user ID from access token
-   * @returns
-   */
-  async getPictureProtected({ id }: Pick<Prisma.User, 'id'>) {
-    const { pictureId } = await this.findUserById({ id });
-
-    const picture = await this.pictureService.find({
-      where: {
-        id: pictureId,
-      },
-    });
-
-    return picture;
-  }
-
-  /**
    * Get picture
    *
    * @param param0 picture ID
    * @returns
    */
   async getPicture({ id }: Pick<Prisma.UserPicture, 'id'>) {
-    const picture = await this.pictureService.find({
+    const picture = await this.userPictureService.find({
       where: {
         id,
       },
@@ -150,6 +136,50 @@ export class UserService {
         id,
       },
       data,
+    });
+  }
+
+  /**
+   * Path user picture
+   *
+   * @param param0 path picture arguments
+   */
+  async patchUserPicture(
+    {
+      id,
+      picture,
+    }: Pick<Prisma.User, 'id'> & { picture: Express.Multer.File },
+  ) {
+    const candidate = await this.findUserById({ id });
+
+    const pictureType = imageType(picture.buffer);
+
+    if (!pictureType) {
+      throw new BadRequestException(
+        'Validation failed (expected type is /^(jpg|jpeg|png|heif)$/)',
+      );
+    }
+
+    if (!pictureType.ext.match(ApiConfig.User.availablePictureExtensions)) {
+      throw new BadRequestException(
+        'Validation failed (expected type is /^(jpg|jpeg|png|heif)$/)',
+      );
+    }
+
+    const { width, height } = imageSize(picture.buffer);
+
+    let pictureBuffer: Buffer;
+
+    if (width > 100 || height > 100) {
+      pictureBuffer = await sharp(picture.buffer)
+        .resize(50, 50)
+        .jpeg({ mozjpeg: true })
+        .toBuffer();
+    }
+
+    await this.userPictureService.update({
+      id: candidate.pictureId,
+      picture: pictureBuffer,
     });
   }
 }

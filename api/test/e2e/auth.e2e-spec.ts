@@ -574,6 +574,13 @@ describe('AuthController (e2e)', () => {
           .set('Cookie', ['refreshToken=token...'])
           .expect(401);
       });
+
+      test('with bad refresh token', async () => {
+        await request(app)
+          .get('/auth/refresh')
+          .set('Cookie', ['refreshToken=token.token.token'])
+          .expect(401);
+      });
     });
 
     describe('Prohibit get sessions', () => {

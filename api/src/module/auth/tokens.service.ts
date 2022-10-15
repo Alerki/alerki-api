@@ -87,17 +87,17 @@ export class TokensService {
     };
   }
 
-  /**
-   * Verify access token
-   *
-   * @param token JWT
-   * @returns verified and decoded token
-   */
-  verifyAccessToken(token: string) {
-    return this.jwtService.verify(token, {
-      secret: this.accessSecret,
-    });
-  }
+  // /**
+  //  * Verify access token
+  //  *
+  //  * @param token JWT
+  //  * @returns verified and decoded token
+  //  */
+  // verifyAccessToken(token: string) {
+  //   return this.jwtService.verify(token, {
+  //     secret: this.accessSecret,
+  //   });
+  // }
 
   /**
    * Verify refresh token
