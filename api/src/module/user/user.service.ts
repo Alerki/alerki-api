@@ -152,7 +152,9 @@ export class UserService {
   ) {
     const candidate = await this.findUserById({ id });
 
-    const pictureType = imageType(picture.buffer);
+    let pictureBuffer: Buffer = picture.buffer;
+
+    const pictureType = imageType(pictureBuffer);
 
     if (!pictureType) {
       throw new BadRequestException(
@@ -166,9 +168,7 @@ export class UserService {
       );
     }
 
-    const { width, height } = imageSize(picture.buffer);
-
-    let pictureBuffer: Buffer;
+    const { width, height } = imageSize(pictureBuffer);
 
     if (width > 100 || height > 100) {
       pictureBuffer = await sharp(picture.buffer)
@@ -177,9 +177,22 @@ export class UserService {
         .toBuffer();
     }
 
-    await this.userPictureService.update({
-      id: candidate.pictureId,
-      picture: pictureBuffer,
-    });
+    if (candidate.pictureId) {
+      await this.userPictureService.update({
+        id: candidate.pictureId,
+        picture: pictureBuffer,
+      });
+    } else {
+      await this.userPictureService.create({
+        data: {
+          picture: pictureBuffer,
+          user: {
+            connect: {
+              id,
+            },
+          },
+        },
+      });
+    }
   }
 }

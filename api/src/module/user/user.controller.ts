@@ -3,6 +3,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   FileTypeValidator,
   Get, MaxFileSizeValidator, Param, ParseFilePipe, ParseUUIDPipe, Patch, Req, Res, UploadedFile, UseGuards,
   UseInterceptors,
@@ -117,6 +118,35 @@ export class UserController {
   //   res.status(HttpStatus.CREATED).send(newService);
   // }
 
+  /**
+   * Get user picture
+   *
+   * @param id picture id
+   * @param res response
+   */
+  @ApiOperation({ description: 'Get user picture' })
+  @ApiOkResponse({ description: 'Picture found and got successfully' })
+  @ApiNotFoundResponse({ description: 'Picture not found' })
+  @ApiParam({ name: 'id', description: 'Picture ID' })
+  @Get('picture/:id')
+  async getPicture(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Res() res: Response,
+  ) {
+    const { picture } = await this.userService.getPicture({ id });
+
+    const { mime } = imageType(picture);
+
+    res.type(mime);
+    res.send(picture.toString());
+  }
+
+  /**
+   * Patch user picture
+   *
+   * @param req request
+   * @param picture picture file
+   */
   @ApiOperation({ description: 'Patch user picture' })
   @ApiOkResponse({ description: 'Picture updates successfully' })
   @ApiNotFoundResponse({ description: 'User not found' })
@@ -140,27 +170,16 @@ export class UserController {
     await this.userService.patchUserPicture({ id, picture });
   }
 
-  /**
-   * Get user picture
-   *
-   * @param id picture id
-   * @param res response
-   */
-  @ApiOperation({ description: 'Get user picture' })
-  @ApiOkResponse({ description: 'Picture found and got successfully' })
-  @ApiNotFoundResponse({ description: 'Picture not found' })
   @ApiParam({ name: 'id', description: 'Picture ID' })
-  @Get('picture/:id')
-  async getPicture(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Res() res: Response,
+  @UseGuards(JwtAuthGuard)
+  @Delete('picture/:id')
+  async deletePicture(
+    @Req() req: ProtectedRequest,
+    @Param('id') id: string,
   ) {
-    const { picture } = await this.userService.getPicture({ id });
+    const { user: { id: userId } } = req;
 
-    const { mime } = imageType(picture);
-
-    res.type(mime);
-    res.send(picture.toString());
+    // await this.userService
   }
 
   /**
