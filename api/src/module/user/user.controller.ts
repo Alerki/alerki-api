@@ -3,7 +3,8 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
-  Get, Param, ParseUUIDPipe, Patch, Req, Res, UseGuards,
+  FileTypeValidator,
+  Get, MaxFileSizeValidator, Param, ParseFilePipe, ParseUUIDPipe, Patch, Req, Res, UploadedFile, UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -16,6 +17,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import * as imageType from 'image-type';
 
@@ -23,8 +25,11 @@ import { ProtectedRequest } from '@Module/auth/interface/protected-request.inter
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
-import { PatchUserDto } from '@Module/user/dto/user.dto';
+import { PatchPictureDto, PatchUserDto } from '@Module/user/dto/user.dto';
 import { UserService } from '@Module/user/user.service';
+import { UserPictureService } from '@Module/user/user-picture.service';
+import { FileSizeValidationPipe } from '@Shared/pipes/file-size.pipe';
+import * as ApiConfig from '@Config/api/property.config';
 
 @ApiTags('User')
 @Controller('user')
@@ -112,21 +117,28 @@ export class UserController {
   //   res.status(HttpStatus.CREATED).send(newService);
   // }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Get('/picture')
-  // async getPictureProtected(
-  //   @Req() req: ProtectedRequest,
-  //   @Res() res: Response,
-  // ) {
-  //   const { user: { id } } = req;
+  @ApiOperation({ description: 'Patch user picture' })
+  @ApiOkResponse({ description: 'Picture updates successfully' })
+  @ApiNotFoundResponse({ description: 'User not found' })
+  @ApiBadRequestResponse({ description: 'Validation failed (expected type is /^(jpg|jpeg|png|heif)$/)' })
+  @UseInterceptors(FileInterceptor('picture'))
+  @UseGuards(JwtAuthGuard)
+  @Patch('picture')
+  async patchPicture(
+    @Req() req: ProtectedRequest,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 100000 }),
+          new FileTypeValidator({ fileType: ApiConfig.User.availablePictureExtensions }),
+        ],
+      }),
+    ) picture: Express.Multer.File,
+  ) {
+    const { user: { id } } = req;
 
-  //   const { picture } = await this.userService.getPictureProtected({ id });
-
-  //   const { mime } = await imageType(picture);
-
-  //   res.type(mime);
-  //   res.send(picture.toString());
-  // }
+    await this.userService.patchUserPicture({ id, picture });
+  }
 
   /**
    * Get user picture
@@ -138,7 +150,7 @@ export class UserController {
   @ApiOkResponse({ description: 'Picture found and got successfully' })
   @ApiNotFoundResponse({ description: 'Picture not found' })
   @ApiParam({ name: 'id', description: 'Picture ID' })
-  @Get('/picture/:id')
+  @Get('picture/:id')
   async getPicture(
     @Param('id', ParseUUIDPipe) id: string,
     @Res() res: Response,
@@ -184,7 +196,7 @@ export class UserController {
   @ApiOperation({ description: 'Patcher user' })
   @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'User patched successfully' })
-  @ApiUnauthorizedResponse({ description: 'User unauthorized / User not found' })
+  @ApiNotFoundResponse({ description: 'User unauthorized / User not found' })
   @UseGuards(JwtAuthGuard)
   @Patch('')
   async patchUser(

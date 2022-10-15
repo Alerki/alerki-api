@@ -4,6 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import Prisma from '@prisma/client';
 import * as cookieParser from 'cookie-parser';
 import * as request from 'supertest';
+import axios from 'axios';
 
 import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { AppModule } from '@Src/app.module';
@@ -292,7 +293,26 @@ describe('UserController (e2e)', () => {
         expect(body2.clientProfile.id).toBeTruthy();
       });
 
-      test('PATCH user', async () => {
+      test('get user with fake access token', async () => {
+        const accessToken = await tokensService.generateAccessToken({ id: 'vad-id' });
+
+        const { body } = await request(app)
+          .get('/user')
+          .set({ Authorization: 'Bearer ' + accessToken })
+          .expect(404);
+
+        expect(body.message).toBe('User profile not found');
+      });
+
+      test('get user by not exists username', async () => {
+        const { body } = await request(app)
+          .get('/user/92881729')
+          .expect(404);
+
+        expect(body.message).toBe('User profile not found');
+      });
+
+      test('path user', async () => {
         const { body } = await request(app)
           .patch('/user')
           .set({ Authorization: 'Bearer ' + user.accessToken })
@@ -353,6 +373,60 @@ describe('UserController (e2e)', () => {
           .expect(400);
 
         expect(body.message).toBe('Validation failed (uuid is expected)');
+      });
+
+      test('patch picture 500x500', async () => {
+        const image = await axios.get(
+          'https://source.unsplash.com/user/c_v_r/500x500',
+          { responseType: 'arraybuffer' },
+        );
+
+        // Convert data to buffer
+        let imageBuffer = Buffer.from(image.data, 'utf8');
+
+        await request(app)
+          .patch('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .attach('picture', imageBuffer, 'picture.jpeg')
+          .expect(200);
+      });
+
+      test('patch picture 100x100', async () => {
+        const image = await axios.get(
+          'https://source.unsplash.com/user/c_v_r/100x100',
+          { responseType: 'arraybuffer' },
+        );
+
+        // Convert data to buffer
+        let imageBuffer = Buffer.from(image.data, 'utf8');
+
+        await request(app)
+          .patch('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .attach('picture', imageBuffer, 'picture.jpeg')
+          .expect(200);
+      });
+
+      test('patch picture with bad file', async () => {
+        // Convert data to buffer
+        let imageBuffer = Buffer.from('00000000000', 'utf8');
+
+        const { body } = await request(app)
+          .patch('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .attach('picture', imageBuffer, 'picture.jpeg')
+          .expect(400);
+      });
+
+      test('patch picture with bad file', async () => {
+        // Convert data to buffer
+        let imageBuffer = Buffer.from('GIF87a000', 'utf8');
+
+        const { body } = await request(app)
+          .patch('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .attach('picture', imageBuffer, 'picture.jpeg')
+          .expect(400);
       });
     });
 
