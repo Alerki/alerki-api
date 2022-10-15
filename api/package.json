@@ -44,7 +44,7 @@
     "date-fns": "^2.29.3",
     "device-detector-js": "^3.0.3",
     "dotenv-cli": "^6.0.0",
-    "image-type": "4.1.0",
+    "image-type": "5.1.0",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
