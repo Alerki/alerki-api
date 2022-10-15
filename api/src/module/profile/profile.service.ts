@@ -33,9 +33,6 @@ export class ProfileService {
       where: {
         id,
       },
-      include: {
-        roles: true,
-      },
     });
 
     // Check if user exists
@@ -44,11 +41,9 @@ export class ProfileService {
     }
 
     // Check if user is not a master
-    const masterRoleId = (await this.roleService.getMasterRole()).id;
+    const masterRole = this.roleService.masterRole;
 
-    if (candidate.roles.find(
-      (role: Prisma.Roles) => role.id === masterRoleId,
-    )) {
+    if (candidate.roles.includes(masterRole)) {
       throw new BadRequestException('User is already a master');
     }
 
@@ -57,11 +52,7 @@ export class ProfileService {
       Prisma.Prisma.UserUpdateInput,
       Prisma.Prisma.UserUncheckedUpdateInput
     > = {
-      roles: {
-        connect: {
-          id: (await this.roleService.getMasterRole()).id,
-        },
-      },
+      roles: [ ...candidate.roles, masterRole],
     };
 
     // Create master profile if not exists or make it available
@@ -96,9 +87,6 @@ export class ProfileService {
       where: {
         id,
       },
-      include: {
-        roles: true,
-      },
     });
 
     // Check if user exists
@@ -107,13 +95,15 @@ export class ProfileService {
     }
 
     // Check user is master
-    const masterRoleId = (await this.roleService.getMasterRole()).id;
+    const masterRole = this.roleService.masterRole;
 
-    if (!candidate.roles.find(
-      (role: Prisma.Roles) => role.id === masterRoleId,
-    )) {
+    if (!candidate.roles.includes(masterRole)) {
       throw new BadRequestException('User is not a master');
     }
+
+    const roles: any = candidate.roles.filter(
+      (role: Prisma.Roles) => role !== masterRole,
+    );
 
     // Remove master role from user
     // and make master profile not available
@@ -122,11 +112,7 @@ export class ProfileService {
         id,
       },
       data: {
-        roles: {
-          disconnect: {
-            id: masterRoleId,
-          },
-        },
+        roles,
         masterProfile: {
           update: {
             available: false,

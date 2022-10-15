@@ -298,7 +298,10 @@ export class GoogleOAuthMock {
     return server;
   }
 
-  close() {
-    this._server.close();
+  /**
+   * Close Express server
+   */
+  async close() {
+    await this._server.close();
   }
 }
