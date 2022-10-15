@@ -145,28 +145,28 @@ export class UserController {
   //   res.send(picture.toString());
   // }
 
-  // /**
-  //  * Get own user profile
-  //  *
-  //  * @param req request
-  //  * @returns
-  //  */
-  // @ApiOperation({ description: 'Get own user profile' })
-  // @ApiBearerAuth('Bearer')
-  // @ApiOkResponse({ description: 'Profile received successfully' })
-  // @ApiNotFoundResponse({ description: 'User profile not found' })
-  // @UseInterceptors(ClassSerializerInterceptor)
-  // @UseGuards(JwtAuthGuard)
-  // @Get('/')
-  // async getProtectedUser(
-  //   @Req() req: ProtectedRequest,
-  // ) {
-  //   const { id } = req.user;
+  /**
+   * Get own user profile
+   *
+   * @param req request
+   * @returns
+   */
+  @ApiOperation({ description: 'Get own user profile' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Profile received successfully' })
+  @ApiNotFoundResponse({ description: 'User profile not found' })
+  @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
+  @Get('/')
+  async getProtectedUser(
+    @Req() req: ProtectedRequest,
+  ) {
+    const { id } = req.user;
 
-  //   const profile = await this.userService.getUser({ id });
+    const profile = await this.userService.getUser({ id });
 
-  //   return profile;
-  // }
+    return profile;
+  }
 
   // /**
   //  * Get user profile

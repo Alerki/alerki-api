@@ -11,6 +11,7 @@ import getCookies from '@Test/util/get-cookies';
 import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import { TokensService } from '@Test/util/jwt-service';
 import { Application } from 'express';
+import { use } from 'passport';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -68,6 +69,11 @@ describe('UserController (e2e)', () => {
   };
 
   test('prepare', async () => {
+    // Set profile for Google OAuth2.0 mock
+    googleOAuthMock.setProfile = {
+      email: user.email,
+    };
+
     const r = await request(app)
       // eslint-disable-next-line max-len
       .get('/auth/google/callback?code=4%2F0ARtbsJoDtkvaW23Qx7efq2uEhL405ean9kPadiNsUp0TyRHJm35j7AbD0AsEDmmIw0PFUw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none')
@@ -245,150 +251,150 @@ describe('UserController (e2e)', () => {
     });
   });
 
-  // describe('Regular script', () => {
-  //   let pictureId: string;
+  describe('Regular script', () => {
+    describe('get user', () => {
+      test('GET /', async () => {
+        const { body } = await request(app)
+          .get('/user')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(200);
 
-  //   test('GET :username', async () => {
-  //     const { body } = await request(app)
-  //       .get('/user/' + user.username)
-  //       .expect(200);
+        expect(body.username).toBe(user.username);
+        expect(body.password).toBeUndefined();
+        expect(body.masterProfile).toBeNull();
+        expect(body.clientProfile).toBeTruthy();
+        expect(body.clientProfile.id).toBeTruthy();
 
-  //     pictureId = body.pictureId;
+        await request(app)
+          .get('/user')
+          .expect(401);
+      });
+    });
 
-  //     expect(body.username).toBe(user.username);
-  //     expect(body.password).toBeUndefined();
-  //     expect(body.masterProfile).toBeNull();
-  //     expect(body.clientProfile).toBeTruthy();
-  //     expect(body.clientProfile.id).toBeTruthy();
-  //   });
+    // test('GET :username', async () => {
+    //   const { body } = await request(app)
+    //     .get('/user/' + user.username)
+    //     .expect(200);
 
-  //   test('GET /', async () => {
-  //     const { body } = await request(app)
-  //       .get('/user')
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(200);
+    //   pictureId = body.pictureId;
 
-  //     expect(body.username).toBe(user.username);
-  //     expect(body.password).toBeUndefined();
-  //     expect(body.masterProfile).toBeNull();
-  //     expect(body.clientProfile).toBeTruthy();
-  //     expect(body.clientProfile.id).toBeTruthy();
+    //   expect(body.username).toBe(user.username);
+    //   expect(body.password).toBeUndefined();
+    //   expect(body.masterProfile).toBeNull();
+    //   expect(body.clientProfile).toBeTruthy();
+    //   expect(body.clientProfile.id).toBeTruthy();
+    // });
 
-  //     await request(app)
-  //       .get('/user')
-  //       .expect(401);
-  //   });
+    // test('GET picture', async () => {
+    //   await request(app)
+    //     .get('/user/picture')
+    //     .expect(401);
 
-  //   test('GET picture', async () => {
-  //     await request(app)
-  //       .get('/user/picture')
-  //       .expect(401);
+    //   const { body } = await request(app)
+    //     .get('/user/picture')
+    //     .set({ Authorization: 'Bearer ' + user.accessToken })
+    //     .expect(200);
 
-  //     const { body } = await request(app)
-  //       .get('/user/picture')
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(200);
+    //   expect(body).toBeTruthy();
+    // });
 
-  //     expect(body).toBeTruthy();
-  //   });
+    // test('GET picture/:id', async () => {
+    //   const { body } = await request(app)
+    //     .get('/user/picture/' + pictureId)
+    //     .set({ Authorization: 'Bearer ' + user.accessToken })
+    //     .expect(200);
 
-  //   test('GET picture/:id', async () => {
-  //     const { body } = await request(app)
-  //       .get('/user/picture/' + pictureId)
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(200);
+    //   expect(body).toBeTruthy();
+    // });
 
-  //     expect(body).toBeTruthy();
-  //   });
+    // it('enable master profile', async () => {
+    //   // Prepare user
+    //   await request(app)
+    //     .patch('/user/enable-master')
+    //     .set({ Authorization: 'Bearer ' + user.accessToken })
+    //     .expect(200);
+    // });
 
-  //   it('enable master profile', async () => {
-  //     // Prepare user
-  //     await request(app)
-  //       .patch('/user/enable-master')
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(200);
-  //   });
+    // describe('master service', () => {
+    //   test('POST create service', async () => {
+    //     await request(app)
+    //       .post('/user/master/service')
+    //       .expect(401);
 
-  //   describe('master service', () => {
-  //     test('POST create service', async () => {
-  //       await request(app)
-  //         .post('/user/master/service')
-  //         .expect(401);
+    //     const r = await request(app)
+    //       .post('/user/master/service')
+    //       .set({ Authorization: 'Bearer ' + user.accessToken })
+    //       .send({
+    //         name: 'man haircut',
+    //         price: 100,
+    //         currency: 'UAH',
+    //         duration: 60 * 10,
+    //         locationLat: 1.1,
+    //         locationLng: 1.2,
+    //       })
+    //       .expect(201);
 
-  //       const r = await request(app)
-  //         .post('/user/master/service')
-  //         .set({ Authorization: 'Bearer ' + user.accessToken })
-  //         .send({
-  //           name: 'man haircut',
-  //           price: 100,
-  //           currency: 'UAH',
-  //           duration: 60 * 10,
-  //           locationLat: 1.1,
-  //           locationLng: 1.2,
-  //         })
-  //         .expect(201);
+    //     const mastersService = await prisma.masterService.findMany();
 
-  //       const mastersService = await prisma.masterService.findMany();
+    //     expect(mastersService).toHaveLength(1);
 
-  //       expect(mastersService).toHaveLength(1);
+    //     const masterService = mastersService[0];
 
-  //       const masterService = mastersService[0];
+    //     const service = await prisma.service.findFirst({
+    //       where: {
+    //         id: masterService.serviceId,
+    //       },
+    //     });
 
-  //       const service = await prisma.service.findFirst({
-  //         where: {
-  //           id: masterService.serviceId,
-  //         },
-  //       });
+    //     expect(service).toBeDefined();
+    //     expect(service.name).toBe('man haircut');
+    //     expect(masterService.price).toBe(100);
+    //     expect(masterService.duration).toBe(600);
+    //     expect(masterService.locationLat).toBe(1.1);
+    //     expect(masterService.locationLng).toBe(1.2);
 
-  //       expect(service).toBeDefined();
-  //       expect(service.name).toBe('man haircut');
-  //       expect(masterService.price).toBe(100);
-  //       expect(masterService.duration).toBe(600);
-  //       expect(masterService.locationLat).toBe(1.1);
-  //       expect(masterService.locationLng).toBe(1.2);
+    //     expect(r.body.price).toBe(100);
+    //     expect(r.body.duration).toBe(600);
+    //     expect(r.body.locationLat).toBe(1.1);
+    //     expect(r.body.locationLng).toBe(1.2);
+    //   });
+    // });
 
-  //       expect(r.body.price).toBe(100);
-  //       expect(r.body.duration).toBe(600);
-  //       expect(r.body.locationLat).toBe(1.1);
-  //       expect(r.body.locationLng).toBe(1.2);
-  //     });
-  //   });
+    // test('GET own service', async () => {
+    //   await request(app)
+    //     .get('/user/master/service')
+    //     .expect(401);
 
-  //   test('GET own service', async () => {
-  //     await request(app)
-  //       .get('/user/master/service')
-  //       .expect(401);
+    //   const { body } = await request(app)
+    //     .get('/user/master/service')
+    //     .set({ Authorization: 'Bearer ' + user.accessToken })
+    //     .expect(200);
 
-  //     const { body } = await request(app)
-  //       .get('/user/master/service')
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(200);
+    //   expect(body).toHaveLength(1);
+    // });
 
-  //     expect(body).toHaveLength(1);
-  //   });
+    // test('GET service by id', async () => {
+    //   const User = await prisma.user.findFirst({
+    //     where: {
+    //       username: user.username,
+    //     },
+    //   });
 
-  //   test('GET service by id', async () => {
-  //     const User = await prisma.user.findFirst({
-  //       where: {
-  //         username: user.username,
-  //       },
-  //     });
+    //   const { body } = await request(app)
+    //     .get(`/user/master/${User.masterProfileId}/service`)
+    //     .expect(200);
 
-  //     const { body } = await request(app)
-  //       .get(`/user/master/${User.masterProfileId}/service`)
-  //       .expect(200);
+    //   expect(body).toHaveLength(1);
+    // });
 
-  //     expect(body).toHaveLength(1);
-  //   });
+    // test('PATCH update service', async () => {
 
-  //   test('PATCH update service', async () => {
+    // });
 
-  //   });
+    // test('DELETE service', async () => {
 
-  //   test('DELETE service', async () => {
-
-  //   });
-  // });
+    // });
+  });
 
   // describe('Other cases', () => {
   //   test('with not exist username', async () => {
