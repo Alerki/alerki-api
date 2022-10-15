@@ -269,21 +269,29 @@ describe('UserController (e2e)', () => {
           .get('/user')
           .expect(401);
       });
+
+      test('GET :username / :id', async () => {
+        const { body: body1 } = await request(app)
+          .get('/user/' + user.username)
+          .expect(200);
+
+        expect(body1.username).toBe(user.username);
+        expect(body1.password).toBeUndefined();
+        expect(body1.masterProfile).toBeNull();
+        expect(body1.clientProfile).toBeTruthy();
+        expect(body1.clientProfile.id).toBeTruthy();
+
+        const { body: body2 } = await request(app)
+          .get('/user/' + body1.id)
+          .expect(200);
+
+        expect(body2.username).toBe(user.username);
+        expect(body2.password).toBeUndefined();
+        expect(body2.masterProfile).toBeNull();
+        expect(body2.clientProfile).toBeTruthy();
+        expect(body2.clientProfile.id).toBeTruthy();
+      });
     });
-
-    // test('GET :username', async () => {
-    //   const { body } = await request(app)
-    //     .get('/user/' + user.username)
-    //     .expect(200);
-
-    //   pictureId = body.pictureId;
-
-    //   expect(body.username).toBe(user.username);
-    //   expect(body.password).toBeUndefined();
-    //   expect(body.masterProfile).toBeNull();
-    //   expect(body.clientProfile).toBeTruthy();
-    //   expect(body.clientProfile.id).toBeTruthy();
-    // });
 
     // test('GET picture', async () => {
     //   await request(app)

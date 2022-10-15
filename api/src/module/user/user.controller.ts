@@ -1,13 +1,8 @@
 /* eslint-disable max-len */
 import {
-  Body,
   ClassSerializerInterceptor,
   Controller,
-  Get,
-  HttpStatus,
-  Param, ParseUUIDPipe, Patch, Post, Req,
-  Res,
-  UseGuards,
+  Get, Param, Patch, Req, UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -20,15 +15,12 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import imageType from 'image-type';
 
 import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
-import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
 import { UserService } from '@Module/user/user.service';
-import { Response } from 'express';
 
 @ApiTags('User')
 @Controller('user')
@@ -168,24 +160,24 @@ export class UserController {
     return profile;
   }
 
-  // /**
-  //  * Get user profile
-  //  *
-  //  * @param username profile username
-  //  * @returns user profile
-  //  */
-  // @ApiOperation({ description: 'Get user profile' })
-  // @ApiOkResponse({ description: 'Profile received successfully' })
-  // @ApiNotFoundResponse({ description: 'User profile not found' })
-  // @ApiParam({ name: 'username', description: 'Profile username' })
-  // @ApiParam({ name: 'username', description: 'username to get user profile', example: 'james' })
-  // @UseInterceptors(ClassSerializerInterceptor)
-  // @Get('/:username')
-  // async getUser(
-  //   @Param('username') username: string,
-  // ) {
-  //   const profile = await this.userService.getUser({ username });
+  /**
+   * Get user profile
+   *
+   * @param username profile username
+   * @returns user profile
+   */
+  @ApiOperation({ description: 'Get user profile' })
+  @ApiOkResponse({ description: 'Profile received successfully' })
+  @ApiNotFoundResponse({ description: 'User profile not found' })
+  @ApiParam({ name: 'username', description: 'Profile username' })
+  @ApiParam({ name: 'username', description: 'username to get user profile', example: 'james' })
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('/:username')
+  async getUser(
+    @Param('username') username: string,
+  ) {
+    const profile = await this.userService.getUser({ id: username, username });
 
-  //   return profile;
-  // }
+    return profile;
+  }
 }

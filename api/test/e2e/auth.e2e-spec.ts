@@ -74,6 +74,9 @@ describe('AuthController (e2e)', () => {
   it('prepares database', async () => {
     await prisma.authSession.deleteMany();
     await prisma.user.deleteMany();
+    await prisma.clientProfile.deleteMany();
+    await prisma.masterProfile.deleteMany();
+    await prisma.userPicture.deleteMany();
   });
 
   describe('Regular script', () => {
