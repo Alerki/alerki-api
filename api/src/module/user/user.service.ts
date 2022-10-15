@@ -1,9 +1,9 @@
 import { MasterProfileService } from '@Module/profile/master-profile.service';
 import { ServiceService } from '@Module/service/service.service';
 import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
-import { UserDto } from '@Module/user/dto/user.dto';
+import { PatchUserDto, UserDto } from '@Module/user/dto/user.dto';
 import { UserPictureService } from '@Module/user/user-picture.service';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { prisma } from '@Shared/services/prisma.service';
@@ -136,5 +136,20 @@ export class UserService {
     }
 
     return picture;
+  }
+
+  async patchUser(
+    args: { data: PatchUserDto } & Pick<Prisma.User, 'id'>,
+  ) {
+    const { id, data } = args;
+
+    await this.findUserById({ id });
+
+    return await this.prismaService.user.update({
+      where: {
+        id,
+      },
+      data,
+    });
   }
 }
