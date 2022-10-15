@@ -252,8 +252,8 @@ describe('UserController (e2e)', () => {
   });
 
   describe('Regular script', () => {
-    describe('get user', () => {
-      test('GET /', async () => {
+    describe('user actions', () => {
+      test('get own user profile', async () => {
         const { body } = await request(app)
           .get('/user')
           .set({ Authorization: 'Bearer ' + user.accessToken })
@@ -270,7 +270,7 @@ describe('UserController (e2e)', () => {
           .expect(401);
       });
 
-      test('GET :username / :id', async () => {
+      test('get user by username and id', async () => {
         const { body: body1 } = await request(app)
           .get('/user/' + user.username)
           .expect(200);
@@ -291,29 +291,70 @@ describe('UserController (e2e)', () => {
         expect(body2.clientProfile).toBeTruthy();
         expect(body2.clientProfile.id).toBeTruthy();
       });
+
+      test('PATCH user', async () => {
+        const { body } = await request(app)
+          .patch('/user')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .send({
+            username: 'newOne',
+          })
+          .expect(200);
+
+        expect(body.username).toBe('newOne');
+
+        const accessToken = await tokensService.generateAccessToken({ id: 'bla-bla-bla' });
+
+        await request(app)
+          .patch('/user')
+          .set({ Authorization: 'Bearer ' + accessToken })
+          .send({
+            username: 'newOne',
+          })
+          .expect(404);
+
+        expect(body.username).toBe('newOne');
+
+        await request(app)
+          .patch('/user')
+          .send({
+            username: 'newOne',
+          })
+          .expect(401);
+      });
     });
 
-    // test('GET picture', async () => {
-    //   await request(app)
-    //     .get('/user/picture')
-    //     .expect(401);
+    describe('picture actions', () => {
+      test('get picture', async () => {
+        const r = await request(app)
+          .get('/user')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(200);
 
-    //   const { body } = await request(app)
-    //     .get('/user/picture')
-    //     .set({ Authorization: 'Bearer ' + user.accessToken })
-    //     .expect(200);
+        const { body } = await request(app)
+          .get('/user/picture/' + r.body.pictureId)
+          .expect(200);
 
-    //   expect(body).toBeTruthy();
-    // });
+        expect(body).toBeTruthy();
+      });
 
-    // test('GET picture/:id', async () => {
-    //   const { body } = await request(app)
-    //     .get('/user/picture/' + pictureId)
-    //     .set({ Authorization: 'Bearer ' + user.accessToken })
-    //     .expect(200);
+      test('get picture with not exists id', async () => {
+        const { body } = await request(app)
+          .get('/user/picture/f7b1cb86-5f8f-4aac-9838-b51ffbfa22c6')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(404);
 
-    //   expect(body).toBeTruthy();
-    // });
+        expect(body.message).toBe('Picture not found');
+      });
+
+      test('get picture with bad id', async () => {
+        const { body } = await request(app)
+          .get('/user/picture/bad-id')
+          .expect(400);
+
+        expect(body.message).toBe('Validation failed (uuid is expected)');
+      });
+    });
 
     // it('enable master profile', async () => {
     //   // Prepare user

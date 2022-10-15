@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
-  Get, Param, Patch, Req, UseGuards,
+  Get, Param, ParseUUIDPipe, Patch, Req, Res, UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -15,11 +16,14 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { Response } from 'express';
+import * as imageType from 'image-type';
 
 import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
+import { PatchUserDto } from '@Module/user/dto/user.dto';
 import { UserService } from '@Module/user/user.service';
 
 @ApiTags('User')
@@ -124,18 +128,28 @@ export class UserController {
   //   res.send(picture.toString());
   // }
 
-  // @Get('/picture/:id')
-  // async getPicture(
-  //   @Param('id', ParseUUIDPipe) id: string,
-  //   @Res() res: Response,
-  // ) {
-  //   const { picture } = await this.userService.getPicture({ id });
+  /**
+   * Get user picture
+   *
+   * @param id picture id
+   * @param res response
+   */
+  @ApiOperation({ description: 'Get user picture' })
+  @ApiOkResponse({ description: 'Picture found and got successfully' })
+  @ApiNotFoundResponse({ description: 'Picture not found' })
+  @ApiParam({ name: 'id', description: 'Picture ID' })
+  @Get('/picture/:id')
+  async getPicture(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Res() res: Response,
+  ) {
+    const { picture } = await this.userService.getPicture({ id });
 
-  //   const { mime } = await imageType(picture);
+    const { mime } = imageType(picture);
 
-  //   res.type(mime);
-  //   res.send(picture.toString());
-  // }
+    res.type(mime);
+    res.send(picture.toString());
+  }
 
   /**
    * Get own user profile
@@ -149,7 +163,7 @@ export class UserController {
   @ApiNotFoundResponse({ description: 'User profile not found' })
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(JwtAuthGuard)
-  @Get('/')
+  @Get('')
   async getProtectedUser(
     @Req() req: ProtectedRequest,
   ) {
@@ -161,22 +175,62 @@ export class UserController {
   }
 
   /**
+   * Patch user
+   *
+   * @param req request
+   * @param body body
+   * @returns patched user
+   */
+  @ApiOperation({ description: 'Patcher user' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'User patched successfully' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized / User not found' })
+  @UseGuards(JwtAuthGuard)
+  @Patch('')
+  async patchUser(
+    @Req() req: ProtectedRequest,
+    @Body() body: PatchUserDto,
+  ) {
+    // Get user ID
+    const { user: { id } } = req;
+
+    // Get user update params
+    const {
+      username,
+      firstName,
+      lastName,
+      phoneNumber,
+    } = body;
+
+    const updatedUser = await this.userService.patchUser({
+      id,
+      data: {
+        username,
+        firstName,
+        lastName,
+        phoneNumber,
+      },
+    });
+
+    return updatedUser;
+  }
+
+  /**
    * Get user profile
    *
-   * @param username profile username
+   * @param usernameOrId profile username of ID
    * @returns user profile
    */
   @ApiOperation({ description: 'Get user profile' })
   @ApiOkResponse({ description: 'Profile received successfully' })
   @ApiNotFoundResponse({ description: 'User profile not found' })
-  @ApiParam({ name: 'username', description: 'Profile username' })
-  @ApiParam({ name: 'username', description: 'username to get user profile', example: 'james' })
+  @ApiParam({ name: 'usernameOrId', description: 'User username or id', example: ['james', 'uid...'] })
   @UseInterceptors(ClassSerializerInterceptor)
-  @Get('/:username')
+  @Get(':usernameOrId')
   async getUser(
-    @Param('username') username: string,
+    @Param('usernameOrId') usernameOrId: string,
   ) {
-    const profile = await this.userService.getUser({ id: username, username });
+    const profile = await this.userService.getUser({ id: usernameOrId, username: usernameOrId });
 
     return profile;
   }
