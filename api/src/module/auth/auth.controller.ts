@@ -138,6 +138,7 @@ export class AuthController {
   @ApiOperation({ description: 'Sign in/up with Google OAuth2.0' })
   @Get('google')
   @UseGuards(AuthGuard('google'))
+  /* istanbul ignore next */
   async google(@Req() req: Request) { }
 
   /**

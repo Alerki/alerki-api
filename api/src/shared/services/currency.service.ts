@@ -46,20 +46,20 @@ export class CurrencyService {
     ) as Prisma.Currency;
   }
 
-  /**
-   * Get currency by ID
-   *
-   * @param param0 currency ID
-   * @returns currency
-   */
-  async getById({ id }: Pick<Prisma.Currency, 'id'>) {
-    // Check fi _currencies exists
-    if (!this._currencies) {
-      this._currencies = await this.prismaService.currency.findMany();
-    }
+  // /**
+  //  * Get currency by ID
+  //  *
+  //  * @param param0 currency ID
+  //  * @returns currency
+  //  */
+  // async getById({ id }: Pick<Prisma.Currency, 'id'>) {
+  //   // Check fi _currencies exists
+  //   if (!this._currencies) {
+  //     this._currencies = await this.prismaService.currency.findMany();
+  //   }
 
-    return this._currencies.find(
-      (currency: Prisma.Currency) => currency.id === id,
-    );
-  }
+  //   return this._currencies.find(
+  //     (currency: Prisma.Currency) => currency.id === id,
+  //   );
+  // }
 }

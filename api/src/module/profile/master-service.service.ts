@@ -30,6 +30,10 @@ export class MasterServiceService {
     private readonly currencyService: CurrencyService,
   ) { }
 
+  async findFirst(data: Prisma.Prisma.MasterServiceFindFirstArgs) {
+    return await this.prismaService.masterService.findFirst(data);
+  }
+
   /**
    * Create master service
    *
@@ -62,6 +66,23 @@ export class MasterServiceService {
 
     // Get master profile ID
     const user = await this.userService.findUserById({ id: data.id });
+
+    if (!user.masterProfileId) {
+      throw new BadRequestException('User is not a master');
+    }
+
+    const checkMasterService = await this.findFirst({
+      where: {
+        masterId: user.masterProfileId,
+        serviceId: service.id,
+      },
+    });
+
+    if (checkMasterService) {
+      throw new BadRequestException(
+        'Master service with specified ID already exists',
+      );
+    }
 
     // Create new master service
     const newMasterService = await this.prismaService.masterService.create({

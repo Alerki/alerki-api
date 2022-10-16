@@ -11,7 +11,7 @@ export async function databaseSetup() {
   const currenciesCandidate = await prisma.currency.findMany();
 
   // If not exists create many
-  if (!currenciesCandidate) {
+  if (currenciesCandidate.length === 0) {
     await prisma.currency.createMany({
       data: currenciesRaw,
     });

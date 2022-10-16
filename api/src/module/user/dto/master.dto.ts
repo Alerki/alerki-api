@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
-import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, IsUUID, Max, Min } from 'class-validator';
+import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, IsUUID, Max, MaxLength, Min, MinLength } from 'class-validator';
 
 import { MasterService, Service } from '@Config/api/property.config';
 
@@ -15,8 +15,8 @@ export class CreateMasterServiceDto implements
   >
 {
   @ApiProperty(Service.config.name)
-  @Min(Service.config.name.minLength)
-  @Max(Service.config.name.maxLength)
+  @MinLength(Service.config.name.minLength)
+  @MaxLength(Service.config.name.maxLength)
   @IsString()
   readonly name: string;
 
