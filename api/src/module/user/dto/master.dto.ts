@@ -8,7 +8,6 @@ export class CreateMasterServiceDto implements
   Pick<Prisma.Service, 'name'>,
   Pick<
     Prisma.MasterService,
-    'currency' |
     'price' |
     'duration' |
     'locationLat' |

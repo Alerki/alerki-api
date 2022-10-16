@@ -28,7 +28,6 @@ import { ProfileService } from '@Module/profile/profile.service';
 import { PatchUserDto } from '@Module/user/dto/user.dto';
 import { UserService } from '@Module/user/user.service';
 import { UserPictureService } from '@Module/user/user-picture.service';
-import { FileSizeValidationPipe } from '@Shared/pipes/file-size.pipe';
 import * as ApiConfig from '@Config/api/property.config';
 import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
 
