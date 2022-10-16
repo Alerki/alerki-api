@@ -95,17 +95,27 @@ export class UserController {
   //   return masterServices;
   // }
 
-  // @Get('/master/:id/service')
-  // async getMasterService(
-  //   @Param('id') id: string,
-  // ) {
-  //   const masterServices = await this.masterServiceService.getMasterService({ id });
+  /**
+   * Get master services
+   *
+   * @param id master profile ID
+   * @returns master services
+   */
+  @ApiOperation({ description: 'Get master services' })
+  @ApiOkResponse({ description: 'Successfully get master services' })
+  @ApiNotFoundResponse({ description: 'Master profile not exists' })
+  @ApiParam({ name: 'id', description: 'Master ID' })
+  @Get('master/:id/service')
+  async getMasterService(
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    const masterServices = await this.masterServiceService.getMasterService({ id });
 
-  //   return masterServices;
-  // }
+    return masterServices;
+  }
 
   @UseGuards(JwtAuthGuard)
-  @Post('/master/service')
+  @Post('master/service')
   async createMasterService(
     @Req() req: ProtectedRequest,
     @Res() res: Response,

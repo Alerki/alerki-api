@@ -101,34 +101,8 @@ export class MasterServiceService {
   }
 
   /**
-   * Get master service protected
-   *
-   * @param param0 get master service arguments
-   * @returns master service
-   */
-  async getMasterServiceProtected({ id }: Pick<Prisma.User, 'id'>) {
-    const user = await this.prismaService.user.findFirst({
-      where: {
-        id,
-      },
-      include: {
-        masterProfile: {
-          include: {
-            services: true,
-          },
-        },
-      },
-    });
-
-    if (!user?.masterProfile) {
-      throw new BadRequestException('User not exists');
-    }
-
-    return user.masterProfile.services;
-  }
-
-  /**
    * Get master service
+   *
    * @param param0 get master service arguments
    * @returns
    */
@@ -138,12 +112,17 @@ export class MasterServiceService {
         id,
       },
       include: {
-        services: true,
+        services: {
+          include: {
+            service: true,
+            currency: true,
+          },
+        },
       },
     });
 
     if (!masterProfile) {
-      throw new NotFoundException('Master profile not exists not exists');
+      throw new NotFoundException('Master profile not exists');
     }
 
     return masterProfile.services;

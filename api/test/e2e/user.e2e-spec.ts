@@ -659,6 +659,68 @@ describe('UserController (e2e)', () => {
           expect(body.message).toMatchObject(['locationLng must not be greater than 180']);
         });
       });
+
+      describe('get master service', () => {
+        let masterProfile: Prisma.MasterProfile;
+
+        test('get master service with bad UUID', async () => {
+          const { body } = await request(app)
+            .get('/user/master/bad-uuid/service')
+            .expect(400);
+
+          expect(body.message).toBe('Validation failed (uuid is expected)');
+        });
+
+        test('get master service with good UUID', async () => {
+          masterProfile = (await prisma.user.findFirst({
+            where: {
+              email: user.email,
+            },
+            include: {
+              masterProfile: true,
+            },
+          })).masterProfile;
+
+          let badUUID = masterProfile.id;
+
+          if (badUUID[badUUID.length - 1] === 'a') {
+            badUUID = badUUID.slice(0, badUUID.length - 1) + 'b';
+          } else {
+            badUUID = badUUID.slice(0, badUUID.length - 1) + 'a';
+          }
+
+          const { body } = await request(app)
+            .get(`/user/master/${badUUID}/service`)
+            .expect(404);
+
+          expect(body.message).toBe('Master profile not exists');
+        });
+
+        test('get master service with good UUID', async () => {
+          const { body } = await request(app)
+            .get(`/user/master/${masterProfile.id}/service`)
+            .expect(200);
+
+          expect(body.length).toBe(1);
+          expect(body).toMatchObject([
+            {
+              price: 100,
+              duration: 600,
+              locationLat: 1.1,
+              locationLng: 1.2,
+              service: {
+                name: 'Man haircut',
+                available: false,
+              },
+              currency: {
+                code: 'UAH',
+                character: '₴',
+                available: true,
+              },
+            },
+          ]);
+        });
+      });
     });
 
     // describe('master service', () => {
