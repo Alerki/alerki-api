@@ -701,7 +701,6 @@ describe('UserController (e2e)', () => {
             .get(`/user/master/${masterProfile.id}/service`)
             .expect(200);
 
-          console.log(body);
           expect(body.length).toBe(1);
           expect(body).toMatchObject([
             {
