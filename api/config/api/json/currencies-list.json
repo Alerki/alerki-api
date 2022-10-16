@@ -252,10 +252,6 @@
     "character": "\u20ae"
   },
   {
-    "code": "MNT",
-    "character": "\u00a0\u062f.\u0625"
-  },
-  {
     "code": "MZN",
     "character": "MT"
   },
@@ -354,10 +350,6 @@
   {
     "code": "SOS",
     "character": "S"
-  },
-  {
-    "code": "KRW",
-    "character": "\u20a9"
   },
   {
     "code": "ZAR",

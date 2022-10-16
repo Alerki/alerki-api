@@ -192,8 +192,8 @@ model Notification {
 
 model Currency {
   id             String          @id @default(uuid())
-  code           String          @db.VarChar(3)
-  character      String          @db.VarChar(3)
+  code           String          @db.VarChar(3) @unique
+  character      String          @db.VarChar(4)
   available      Boolean         @default(true)
   masterServices MasterService[]
   createdAt      DateTime        @default(now())

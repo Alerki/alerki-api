@@ -13,6 +13,7 @@ import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import { TokensService } from '@Test/util/jwt-service';
 import { Application } from 'express';
 import { use } from 'passport';
+import { databaseSetup } from '@Src/util';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -54,6 +55,8 @@ describe('UserController (e2e)', () => {
     });
 
     await googleOAuthMock.start();
+
+    await databaseSetup();
   });
 
   afterAll(async () => {

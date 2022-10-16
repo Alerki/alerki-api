@@ -14,6 +14,7 @@ import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import sleep from '@Test/util/sleep';
+import { databaseSetup } from '@Src/util';
 
 describe('AuthController (e2e)', () => {
   let app: Application;
@@ -52,6 +53,8 @@ describe('AuthController (e2e)', () => {
       // @ts-ignore
       googleStrategy._oauth2._accessTokenUrl = mockTokenUrl;
     });
+
+    await databaseSetup();
 
     await googleOAuthMock.start();
   });

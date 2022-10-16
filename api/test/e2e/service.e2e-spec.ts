@@ -5,6 +5,7 @@ import * as request from 'supertest';
 
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
+import { databaseSetup } from '@Src/util';
 
 describe('ServiceController (e2e)', () => {
   let app: INestApplication;
@@ -22,6 +23,8 @@ describe('ServiceController (e2e)', () => {
       .init();
 
     app = application.getHttpServer();
+
+    await databaseSetup();
   });
 
   describe('Regular script', () => {

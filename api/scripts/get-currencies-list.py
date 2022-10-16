@@ -53,6 +53,20 @@ def check_currencies(currencies: list):
 
       raise Exception('Incorrect currency object')
 
+  print('[*] Check currencies to be unique')
+
+  uniqueCurrencyCodes = {}
+  uniqueCurrency = []
+
+  for currency in currencies:
+    if not currency['code'] in uniqueCurrencyCodes:
+      uniqueCurrencyCodes[currency['code']] = currency['code']
+      uniqueCurrency.append(currency)
+    else:
+      print(currency)
+
+  return uniqueCurrency
+
 def write_to_file(file_path: str, currencies: list):
   """Write currencies to JSON file"""
 
@@ -75,6 +89,6 @@ def write_to_file(file_path: str, currencies: list):
 if __name__ == '__main__':
   currencies = parse_currencies(CURRENCIES_PAGE_URL)
 
-  check_currencies(currencies)
+  checked_currency = check_currencies(currencies)
 
-  write_to_file(CURRENCIES_FILE_DIR, currencies)
+  write_to_file(CURRENCIES_FILE_DIR, checked_currency)
