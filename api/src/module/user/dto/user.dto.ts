@@ -63,8 +63,3 @@ export class PatchUserDto implements PatchUserI {
   @IsOptional()
   readonly phoneNumber: string;
 }
-
-export class PatchPictureDto implements Pick<Prisma.UserPicture, 'picture'> {
-  @ApiProperty(User.config.picture)
-  readonly picture: Buffer;
-}

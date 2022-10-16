@@ -25,7 +25,7 @@ import { ProtectedRequest } from '@Module/auth/interface/protected-request.inter
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
-import { PatchPictureDto, PatchUserDto } from '@Module/user/dto/user.dto';
+import { PatchUserDto } from '@Module/user/dto/user.dto';
 import { UserService } from '@Module/user/user.service';
 import { UserPictureService } from '@Module/user/user-picture.service';
 import { FileSizeValidationPipe } from '@Shared/pipes/file-size.pipe';
