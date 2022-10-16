@@ -168,7 +168,8 @@ CREATE TABLE "Notifications" (
 -- CreateTable
 CREATE TABLE "Currencies" (
     "id" TEXT NOT NULL,
-    "currency" VARCHAR(3) NOT NULL,
+    "code" VARCHAR(3) NOT NULL,
+    "character" VARCHAR(4) NOT NULL,
     "available" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -208,6 +209,9 @@ CREATE UNIQUE INDEX "MasterProfilesToMasterSchedule_scheduleId_key" ON "MasterPr
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Services_name_key" ON "Services"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Currencies_code_key" ON "Currencies"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_NotificationToUser_AB_unique" ON "_NotificationToUser"("A", "B");
