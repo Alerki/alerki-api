@@ -414,6 +414,45 @@ describe('UserController (e2e)', () => {
           .expect(200);
       });
 
+      test('patch not exists user picture', async () => {
+        const user = {
+          email: '929884@example.com',
+          username: '192490123',
+          password: '12321312',
+          refreshToken: '',
+          accessToken: '',
+        };
+
+        const signUp = await request(app)
+          .post('/auth/sign-up')
+          .send(user)
+          .expect(201);
+
+        const signIn = await request(app)
+          .post('/auth/sign-in')
+          .send(user)
+          .expect(200);
+
+        const cookies = getCookies(signIn);
+
+        user.accessToken = signIn.body.accessToken;
+        user.refreshToken = cookies.refreshToken.value;
+
+        const image = await axios.get(
+          'https://source.unsplash.com/user/c_v_r/100x100',
+          { responseType: 'arraybuffer' },
+        );
+
+        // Convert data to buffer
+        let imageBuffer = Buffer.from(image.data, 'utf8');
+
+        const { body } = await request(app)
+          .patch('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .attach('picture', imageBuffer, 'picture.jpeg')
+          .expect(200);
+      });
+
       test('patch picture with bad file', async () => {
         // Convert data to buffer
         let imageBuffer = Buffer.from('00000000000', 'utf8');
@@ -434,6 +473,20 @@ describe('UserController (e2e)', () => {
           .set({ Authorization: 'Bearer ' + user.accessToken })
           .attach('picture', imageBuffer, 'picture.jpeg')
           .expect(400);
+      });
+
+      test('delete picture', async () => {
+        await request(app)
+          .delete('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(200);
+      });
+
+      test('delete not exists picture', async () => {
+        await request(app)
+          .delete('/user/picture')
+          .set({ Authorization: 'Bearer ' + user.accessToken })
+          .expect(404);
       });
     });
 

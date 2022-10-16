@@ -3,6 +3,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   FileTypeValidator,
   Get, HttpStatus, MaxFileSizeValidator, Param, ParseFilePipe, ParseUUIDPipe, Patch, Post, Req, Res, UploadedFile, UseGuards,
   UseInterceptors,
@@ -117,29 +118,6 @@ export class UserController {
     res.status(HttpStatus.CREATED).send(newService);
   }
 
-  @ApiOperation({ description: 'Patch user picture' })
-  @ApiOkResponse({ description: 'Picture updates successfully' })
-  @ApiNotFoundResponse({ description: 'User not found' })
-  @ApiBadRequestResponse({ description: 'Validation failed (expected type is /^(jpg|jpeg|png|heif)$/)' })
-  @UseInterceptors(FileInterceptor('picture'))
-  @UseGuards(JwtAuthGuard)
-  @Patch('picture')
-  async patchPicture(
-    @Req() req: ProtectedRequest,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 100000 }),
-          new FileTypeValidator({ fileType: ApiConfig.User.availablePictureExtensions }),
-        ],
-      }),
-    ) picture: Express.Multer.File,
-  ) {
-    const { user: { id } } = req;
-
-    await this.userService.patchUserPicture({ id, picture });
-  }
-
   /**
    * Get user picture
    *
@@ -164,6 +142,55 @@ export class UserController {
   }
 
   /**
+   * Patch user picture
+   *
+   * @param req request
+   * @param picture picture file
+   */
+  @ApiOperation({ description: 'Patch user picture' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Picture updates successfully' })
+  @ApiNotFoundResponse({ description: 'User not found' })
+  @ApiBadRequestResponse({ description: 'Validation failed (expected type is /^(jpg|jpeg|png|heif)$/)' })
+  @UseInterceptors(FileInterceptor('picture'))
+  @UseGuards(JwtAuthGuard)
+  @Patch('picture')
+  async patchPicture(
+    @Req() req: ProtectedRequest,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 100000 }),
+          new FileTypeValidator({ fileType: ApiConfig.User.availablePictureExtensions }),
+        ],
+      }),
+    ) picture: Express.Multer.File,
+  ) {
+    const { user: { id } } = req;
+
+    await this.userService.patchUserPicture({ id, picture });
+  }
+
+  /**
+   * Delete picture
+   *
+   * @param req request
+   */
+  @ApiOkResponse({ description: 'Picture deleted successfully' })
+  @ApiBearerAuth('Bearer')
+  @ApiNotFoundResponse({ description: 'Picture not exists' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
+  @UseGuards(JwtAuthGuard)
+  @Delete('picture')
+  async deletePicture(
+    @Req() req: ProtectedRequest,
+  ) {
+    const { user: { id } } = req;
+
+    await this.userService.deletePicture({ id });
+  }
+
+  /**
    * Get own user profile
    *
    * @param req request
@@ -182,6 +209,26 @@ export class UserController {
     const { id } = req.user;
 
     const profile = await this.userService.getUser({ id });
+
+    return profile;
+  }
+
+  /**
+   * Get user profile
+   *
+   * @param usernameOrId profile username of ID
+   * @returns user profile
+   */
+  @ApiOperation({ description: 'Get user profile' })
+  @ApiOkResponse({ description: 'Profile received successfully' })
+  @ApiNotFoundResponse({ description: 'User profile not found' })
+  @ApiParam({ name: 'usernameOrId', description: 'User username or id', example: ['james', 'uid...'] })
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get(':usernameOrId')
+  async getUser(
+    @Param('usernameOrId') usernameOrId: string,
+  ) {
+    const profile = await this.userService.getUser({ id: usernameOrId, username: usernameOrId });
 
     return profile;
   }
@@ -225,25 +272,5 @@ export class UserController {
     });
 
     return updatedUser;
-  }
-
-  /**
-   * Get user profile
-   *
-   * @param usernameOrId profile username of ID
-   * @returns user profile
-   */
-  @ApiOperation({ description: 'Get user profile' })
-  @ApiOkResponse({ description: 'Profile received successfully' })
-  @ApiNotFoundResponse({ description: 'User profile not found' })
-  @ApiParam({ name: 'usernameOrId', description: 'User username or id', example: ['james', 'uid...'] })
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get(':usernameOrId')
-  async getUser(
-    @Param('usernameOrId') usernameOrId: string,
-  ) {
-    const profile = await this.userService.getUser({ id: usernameOrId, username: usernameOrId });
-
-    return profile;
   }
 }
