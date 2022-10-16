@@ -4,7 +4,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   FileTypeValidator,
-  Get, MaxFileSizeValidator, Param, ParseFilePipe, ParseUUIDPipe, Patch, Req, Res, UploadedFile, UseGuards,
+  Get, HttpStatus, MaxFileSizeValidator, Param, ParseFilePipe, ParseUUIDPipe, Patch, Post, Req, Res, UploadedFile, UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -30,6 +30,7 @@ import { UserService } from '@Module/user/user.service';
 import { UserPictureService } from '@Module/user/user-picture.service';
 import { FileSizeValidationPipe } from '@Shared/pipes/file-size.pipe';
 import * as ApiConfig from '@Config/api/property.config';
+import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -103,19 +104,19 @@ export class UserController {
   //   return masterServices;
   // }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Post('/master/service')
-  // async createMasterService(
-  //   @Req() req: ProtectedRequest,
-  //   @Res() res: Response,
-  //   @Body() body: CreateMasterServiceDto,
-  // ) {
-  //   const { user: { id } } = req;
+  @UseGuards(JwtAuthGuard)
+  @Post('/master/service')
+  async createMasterService(
+    @Req() req: ProtectedRequest,
+    @Res() res: Response,
+    @Body() body: CreateMasterServiceDto,
+  ) {
+    const { user: { id } } = req;
 
-  //   const newService = await this.masterServiceService.createMasterService({ id, ...body });
+    const newService = await this.masterServiceService.createMasterService({ id, ...body });
 
-  //   res.status(HttpStatus.CREATED).send(newService);
-  // }
+    res.status(HttpStatus.CREATED).send(newService);
+  }
 
   @ApiOperation({ description: 'Patch user picture' })
   @ApiOkResponse({ description: 'Picture updates successfully' })

@@ -111,9 +111,10 @@ model MasterService {
   serviceId   String        @db.VarChar(36)
   master      MasterProfile @relation(fields: [masterId], references: [id])
   masterId    String        @db.VarChar(36)
-  currency    String        @db.VarChar(3)
+  currency    Currency      @relation(fields: [currencyId], references: [id])
+  currencyId  String        @db.VarChar(36)
   price       Int
-  duration    Int           // Duration in seconds
+  duration    Int // Duration in seconds
   locationLat Float
   locationLng Float
   createdAt   DateTime      @default(now())
@@ -187,6 +188,18 @@ model Notification {
   updatedAt          DateTime         @updatedAt
 
   @@map("Notifications")
+}
+
+model Currency {
+  id             String          @id @default(uuid())
+  code           String          @db.VarChar(3)
+  character      String          @db.VarChar(3)
+  available      Boolean         @default(true)
+  masterServices MasterService[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@map("Currencies")
 }
 
 enum Roles {

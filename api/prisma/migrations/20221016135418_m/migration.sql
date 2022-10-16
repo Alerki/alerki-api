@@ -90,7 +90,7 @@ CREATE TABLE "MasterServices" (
     "id" TEXT NOT NULL,
     "serviceId" VARCHAR(36) NOT NULL,
     "masterId" VARCHAR(36) NOT NULL,
-    "currency" VARCHAR(3) NOT NULL,
+    "currencyId" VARCHAR(36) NOT NULL,
     "price" INTEGER NOT NULL,
     "duration" INTEGER NOT NULL,
     "locationLat" DOUBLE PRECISION NOT NULL,
@@ -166,6 +166,17 @@ CREATE TABLE "Notifications" (
 );
 
 -- CreateTable
+CREATE TABLE "Currencies" (
+    "id" TEXT NOT NULL,
+    "currency" VARCHAR(3) NOT NULL,
+    "available" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Currencies_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "_NotificationToUser" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL
@@ -230,6 +241,9 @@ ALTER TABLE "MasterServices" ADD CONSTRAINT "MasterServices_serviceId_fkey" FORE
 
 -- AddForeignKey
 ALTER TABLE "MasterServices" ADD CONSTRAINT "MasterServices_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MasterServices" ADD CONSTRAINT "MasterServices_currencyId_fkey" FOREIGN KEY ("currencyId") REFERENCES "Currencies"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
