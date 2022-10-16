@@ -129,6 +129,7 @@ export class MasterServiceService {
 
   /**
    * Get master service
+   *
    * @param param0 get master service arguments
    * @returns
    */
@@ -138,12 +139,17 @@ export class MasterServiceService {
         id,
       },
       include: {
-        services: true,
+        services: {
+          include: {
+            service: true,
+            currency: true,
+          },
+        },
       },
     });
 
     if (!masterProfile) {
-      throw new NotFoundException('Master profile not exists not exists');
+      throw new NotFoundException('Master profile not exists');
     }
 
     return masterProfile.services;
