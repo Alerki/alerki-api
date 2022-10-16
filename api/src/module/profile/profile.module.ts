@@ -7,12 +7,14 @@ import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
 import { ServiceModule } from '@Module/service/service.module';
 import { UserModule } from '@Module/user/user.module';
+import { CurrencyService } from '@Shared/services/currency.service';
 
 @Module({
   controllers: [],
   providers: [
     ProfileService, ClientProfileService,
     MasterProfileService, MasterServiceService,
+    CurrencyService,
   ],
   imports: [
     forwardRef(() => UserModule), forwardRef(() => AuthModule),

@@ -5,9 +5,12 @@ import * as request from 'supertest';
 
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
+import { databaseSetup } from '@Src/util';
+import { clearDatabase } from '@Test/util/clear-database';
 
 describe('ServiceController (e2e)', () => {
   let app: INestApplication;
+  let application: INestApplication;
 
   beforeEach(async () => {
     // Init express application
@@ -15,13 +18,22 @@ describe('ServiceController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
-    const application = await module
+    application = await module
       .createNestApplication()
       .use(cookieParser())
       .useGlobalPipes(new ValidationPipe({ transform: true }))
       .init();
 
     app = application.getHttpServer();
+
+    await clearDatabase();
+
+    await databaseSetup();
+  });
+
+  afterAll(async () => {
+    await application.close();
+    await clearDatabase();
   });
 
   describe('Regular script', () => {

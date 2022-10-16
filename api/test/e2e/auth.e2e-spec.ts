@@ -14,6 +14,8 @@ import { AppModule } from '@Src/app.module';
 import getCookies from '@Test/util/get-cookies';
 import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import sleep from '@Test/util/sleep';
+import { databaseSetup } from '@Src/util';
+import { clearDatabase } from '@Test/util/clear-database';
 
 describe('AuthController (e2e)', () => {
   let app: Application;
@@ -53,12 +55,17 @@ describe('AuthController (e2e)', () => {
       googleStrategy._oauth2._accessTokenUrl = mockTokenUrl;
     });
 
+    await clearDatabase();
+
+    await databaseSetup();
+
     await googleOAuthMock.start();
   });
 
   afterAll(async () => {
     await application.close();
     await googleOAuthMock.close();
+    await clearDatabase();
   });
 
   const user = {
@@ -75,6 +82,7 @@ describe('AuthController (e2e)', () => {
     await prisma.authSession.deleteMany();
     await prisma.user.deleteMany();
     await prisma.clientProfile.deleteMany();
+    await prisma.masterService.deleteMany();
     await prisma.masterProfile.deleteMany();
     await prisma.userPicture.deleteMany();
   });

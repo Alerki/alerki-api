@@ -12,6 +12,9 @@ import getCookies from '@Test/util/get-cookies';
 import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import { TokensService } from '@Test/util/jwt-service';
 import { Application } from 'express';
+import { databaseSetup } from '@Src/util';
+import { clearDatabase } from '@Test/util/clear-database';
+import { General } from '@Config/api/property.config';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -53,11 +56,16 @@ describe('UserController (e2e)', () => {
     });
 
     await googleOAuthMock.start();
+
+    await clearDatabase();
+
+    await databaseSetup();
   });
 
   afterAll(async () => {
     await application.close();
     await googleOAuthMock.close();
+    await clearDatabase();
   });
 
   const user = {
@@ -482,13 +490,176 @@ describe('UserController (e2e)', () => {
       });
     });
 
-    // it('enable master profile', async () => {
-    //   // Prepare user
-    //   await request(app)
-    //     .patch('/user/enable-master')
-    //     .set({ Authorization: 'Bearer ' + user.accessToken })
-    //     .expect(200);
-    // });
+    describe('master service actions', () => {
+      describe('create master service', () => {
+        test('try create service for not a master', async () => {
+          const { body } = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: 1.1,
+              locationLng: 1.2,
+            })
+            .expect(400);
+
+          expect(body.message).toBe('User is not a master');
+        });
+
+        it('enable master profile', async () => {
+          await request(app)
+            .patch('/user/enable-master')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .expect(200);
+        });
+
+        test('create with unauthorized user', async () => {
+          await request(app)
+            .post('/user/master/service')
+            .expect(401);
+        });
+
+        test('create with correct parameters', async () => {
+          await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: 1.1,
+              locationLng: 1.2,
+            })
+            .expect(201);
+
+          const mastersService = await prisma.masterService.findFirst({
+            where: {
+              service: {
+                name: 'Man haircut',
+              },
+            },
+            include: {
+              service: true,
+              currency: true,
+            },
+          });
+
+          expect(mastersService).toBeDefined();
+          expect(mastersService.service.name).toBe('Man haircut');
+          expect(mastersService.currency.code).toBe('UAH');
+          expect(mastersService.price).toBe(100);
+          expect(mastersService.duration).toBe(60 * 10);
+          expect(mastersService.locationLat).toBe(1.1);
+          expect(mastersService.locationLng).toBe(1.2);
+        });
+
+        test('create with bad currency format', async () => {
+          const { body } = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+              price: 100,
+              currency: 'bad',
+              duration: 60 * 10,
+              locationLat: 1.1,
+              locationLng: 1.2,
+            })
+            .expect(400);
+
+          expect(body.message).toBe('Unavailable currency code');
+        });
+
+        test('create two master service with the same name', async () => {
+          const { body } = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: 1.1,
+              locationLng: 1.2,
+            })
+            .expect(400);
+
+          expect(body.message).toBe('Master service with specified ID already exists');
+        });
+
+        test('try to create service with bad location latitude -91', async () => {
+          const { body } = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: General.minLatitudeValue - 1,
+              locationLng: 1.2,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLat must not be less than -90']);
+        });
+
+        test('try to create service with bad location latitude 91', async () => {
+          const { body } = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: General.maxLatitudeValue + 1,
+              locationLng: 1.2,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLat must not be greater than 90']);
+        });
+
+        test('try to create service with bad location longitude -181', async () => {
+          const { body } = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: 1.1,
+              locationLng: General.minLongitudeValue - 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLng must not be less than -180']);
+        });
+
+        test('try to create service with bad location longitude 181', async () => {
+          const { body } = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: 1.1,
+              locationLng: General.maxLongitudeValue + 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLng must not be greater than 180']);
+        });
+      });
+    });
 
     // describe('master service', () => {
     //   test('POST create service', async () => {
