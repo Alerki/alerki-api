@@ -39,3 +39,6 @@ lerna-debug.log*
 
 # Playground files
 playground.*
+
+# Python env
+env/
