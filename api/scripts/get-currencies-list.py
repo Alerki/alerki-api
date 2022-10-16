@@ -62,8 +62,6 @@ def check_currencies(currencies: list):
     if not currency['code'] in uniqueCurrencyCodes:
       uniqueCurrencyCodes[currency['code']] = currency['code']
       uniqueCurrency.append(currency)
-    else:
-      print(currency)
 
   return uniqueCurrency
 
