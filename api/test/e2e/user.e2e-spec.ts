@@ -146,7 +146,11 @@ describe('UserController (e2e)', () => {
             email: user.email,
           },
           include: {
-            masterProfile: true,
+            masterProfile: {
+              include: {
+                weekSchedule: true,
+              },
+            },
           },
         });
 
@@ -155,7 +159,17 @@ describe('UserController (e2e)', () => {
         ).toBeTruthy();
 
         expect(userAfter.masterProfileId).toBeTruthy();
-
+        expect(userAfter.masterProfile.weekScheduleId).toBeDefined();
+        expect(userAfter.masterProfile.weekSchedule).toBeDefined();
+        expect(userAfter.masterProfile.weekSchedule).toMatchObject({
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+          saturday: false,
+          sunday: false,
+        });
         expect(userAfter.masterProfile.available).toBe(true);
       });
 

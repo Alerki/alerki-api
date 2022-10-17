@@ -60,16 +60,16 @@ model AuthSession {
 }
 
 model MasterProfile {
-  id           String                           @id @default(uuid())
-  user         User?
-  services     MasterService[]
-  schedules    MasterProfilesToMasterSchedule[]
-  workDays     MasterWorkDay?                   @relation(fields: [workDaysId], references: [id])
-  workDaysId   String?                          @unique @db.VarChar(36)
-  appointments Appointment[]
-  available    Boolean                          @default(true)
-  createdAt    DateTime                         @default(now())
-  updatedAt    DateTime                         @updatedAt
+  id             String                           @id @default(uuid())
+  user           User?
+  services       MasterService[]
+  schedules      MasterProfilesToMasterSchedule[]
+  weekSchedule   MasterWeekSchedule?              @relation(fields: [weekScheduleId], references: [id])
+  weekScheduleId String?                          @unique @db.VarChar(36)
+  appointments   Appointment[]
+  available      Boolean                          @default(true)
+  createdAt      DateTime                         @default(now())
+  updatedAt      DateTime                         @updatedAt
 
   @@map("MasterProfiles")
 }
@@ -137,7 +137,7 @@ model MasterSchedule {
   @@map("MasterSchedules")
 }
 
-model MasterWorkDay {
+model MasterWeekSchedule {
   id        String         @id @default(uuid())
   monday    Boolean        @default(true)
   tuesday   Boolean        @default(true)
@@ -150,7 +150,7 @@ model MasterWorkDay {
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
 
-  @@map("MasterWorkDays")
+  @@map("MasterWeekSchedules")
 }
 
 model Appointment {
@@ -193,7 +193,7 @@ model Notification {
 
 model Currency {
   id             String          @id @default(uuid())
-  code           String          @db.VarChar(3) @unique
+  code           String          @unique @db.VarChar(3)
   character      String          @db.VarChar(4)
   available      Boolean         @default(true)
   masterServices MasterService[]
