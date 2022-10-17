@@ -863,113 +863,55 @@ describe('UserController (e2e)', () => {
             })
             .expect(200);
         });
+
+        test('try to patch master service with bad location latitude -91', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              locationLat: General.minLatitudeValue - 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLat must not be less than -90']);
+        });
+
+        test('try to patch master service with bad location latitude 91', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              locationLat: General.maxLatitudeValue + 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLat must not be greater than 90']);
+        });
+
+        test('try to patch master service with bad location longitude -181', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              locationLng: General.minLongitudeValue - 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLng must not be less than -180']);
+        });
+
+        test('try to patch master service with bad location longitude 181', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              locationLng: General.maxLongitudeValue + 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLng must not be greater than 180']);
+        });
       });
     });
-
-    // describe('master service', () => {
-    //   test('POST create service', async () => {
-    //     await request(app)
-    //       .post('/user/master/service')
-    //       .expect(401);
-
-    //     const r = await request(app)
-    //       .post('/user/master/service')
-    //       .set({ Authorization: 'Bearer ' + user.accessToken })
-    //       .send({
-    //         name: 'man haircut',
-    //         price: 100,
-    //         currency: 'UAH',
-    //         duration: 60 * 10,
-    //         locationLat: 1.1,
-    //         locationLng: 1.2,
-    //       })
-    //       .expect(201);
-
-    //     const mastersService = await prisma.masterService.findMany();
-
-    //     expect(mastersService).toHaveLength(1);
-
-    //     const masterService = mastersService[0];
-
-    //     const service = await prisma.service.findFirst({
-    //       where: {
-    //         id: masterService.serviceId,
-    //       },
-    //     });
-
-    //     expect(service).toBeDefined();
-    //     expect(service.name).toBe('man haircut');
-    //     expect(masterService.price).toBe(100);
-    //     expect(masterService.duration).toBe(600);
-    //     expect(masterService.locationLat).toBe(1.1);
-    //     expect(masterService.locationLng).toBe(1.2);
-
-    //     expect(r.body.price).toBe(100);
-    //     expect(r.body.duration).toBe(600);
-    //     expect(r.body.locationLat).toBe(1.1);
-    //     expect(r.body.locationLng).toBe(1.2);
-    //   });
-    // });
-
-    // test('GET own service', async () => {
-    //   await request(app)
-    //     .get('/user/master/service')
-    //     .expect(401);
-
-    //   const { body } = await request(app)
-    //     .get('/user/master/service')
-    //     .set({ Authorization: 'Bearer ' + user.accessToken })
-    //     .expect(200);
-
-    //   expect(body).toHaveLength(1);
-    // });
-
-    // test('GET service by id', async () => {
-    //   const User = await prisma.user.findFirst({
-    //     where: {
-    //       username: user.username,
-    //     },
-    //   });
-
-    //   const { body } = await request(app)
-    //     .get(`/user/master/${User.masterProfileId}/service`)
-    //     .expect(200);
-
-    //   expect(body).toHaveLength(1);
-    // });
-
-    // test('PATCH update service', async () => {
-
-    // });
-
-    // test('DELETE service', async () => {
-
-    // });
   });
-
-  // describe('Other cases', () => {
-  //   test('with not exist username', async () => {
-  //     await request(app)
-  //       .get('/user/not-exists-username')
-  //       .expect(404);
-  //   });
-
-  //   test('with bad picture ID', async () => {
-  //     const { body } = await request(app)
-  //       .get('/user/picture/bad-picture-id')
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(400);
-
-  //     expect(body).toBeTruthy();
-  //   });
-
-  //   test('with not exists picture ID', async () => {
-  //     const { body } = await request(app)
-  //       .get('/user/picture/f0ef45ea-59ed-4fe9-afe3-95dc8303dac6')
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(404);
-
-  //     expect(body).toBeTruthy();
-  //   });
-  // });
 });
