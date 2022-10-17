@@ -174,7 +174,7 @@ export class AuthController {
   @ApiOperation({ description: 'Log-out' })
   @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Log-out user' })
-  @ApiUnauthorizedResponse({ description: 'User unauthorized or has a bad access token' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
   @UseGuards(JwtAuthGuard)
   @Get('log-out')
   async logOut(

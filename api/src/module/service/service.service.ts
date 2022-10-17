@@ -25,6 +25,30 @@ export class ServiceService {
   }
 
   /**
+   * Find or create service
+   *
+   * @param param0 service name
+   * @returns service
+   */
+  async findOrCreate({ name }: Pick<Prisma.Service, 'name'>) {
+    const candidate = await this.prismaService.service.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (!candidate) {
+      return await this.create({
+        data: {
+          name,
+        },
+      });
+    }
+
+    return candidate;
+  }
+
+  /**
    * Find many services
    *
    * @param data search options

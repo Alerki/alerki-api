@@ -93,6 +93,7 @@ CREATE TABLE "MasterServices" (
     "currencyId" VARCHAR(36) NOT NULL,
     "price" INTEGER NOT NULL,
     "duration" INTEGER NOT NULL,
+    "available" BOOLEAN NOT NULL DEFAULT true,
     "locationLat" DOUBLE PRECISION NOT NULL,
     "locationLng" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

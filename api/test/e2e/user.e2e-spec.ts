@@ -15,6 +15,7 @@ import { Application } from 'express';
 import { databaseSetup } from '@Src/util';
 import { clearDatabase } from '@Test/util/clear-database';
 import { General } from '@Config/api/property.config';
+import { registerUser } from '@Test/util/register-user';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -588,7 +589,7 @@ describe('UserController (e2e)', () => {
             })
             .expect(400);
 
-          expect(body.message).toBe('Master service with specified ID already exists');
+          expect(body.message).toBe('Master service with specified name already exists');
         });
 
         test('try to create service with bad location latitude -91', async () => {
@@ -719,6 +720,148 @@ describe('UserController (e2e)', () => {
               },
             },
           ]);
+        });
+      });
+
+      describe('patch master service', () => {
+        let masterProfile: Prisma.MasterProfile;
+
+        test('with not exists UUID', async () => {
+          await request(app)
+            .patch('/user/master/service/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .expect(404);
+        });
+
+        test('with master service that not belongs to current user', async () => {
+          const {
+            accessToken,
+          } = await registerUser(app);
+
+          await request(app)
+            .patch('/user/enable-master')
+            .set({ Authorization: 'Bearer ' + accessToken })
+            .expect(200);
+
+          const masterService = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + accessToken })
+            .send({
+              name: 'Woman haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: 1.1,
+              locationLng: 1.2,
+            })
+            .expect(201);
+
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterService.body.id)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .expect(400);
+
+          expect(body.message).toBe('The service does not belong to the user');
+        });
+
+        let masterServiceId: string;
+
+        test('update currency', async () => {
+          masterProfile = (await prisma.user.findFirst({
+            where: {
+              email: user.email,
+            },
+            include: {
+              masterProfile: true,
+            },
+          })).masterProfile;
+
+          const masterService = await request(app)
+            .post('/user/master/service')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Woman haircut',
+              price: 100,
+              currency: 'UAH',
+              duration: 60 * 10,
+              locationLat: 1.1,
+              locationLng: 1.2,
+            })
+            .expect(201);
+
+          masterServiceId = masterService.body.id;
+
+          const masterServiceBefore = await prisma.masterService.findFirst({
+            where: {
+              id: masterServiceId,
+            },
+            include: {
+              currency: true,
+            },
+          });
+
+          expect(masterServiceBefore.currency.code).toBe('UAH');
+
+          await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              currency: 'USD',
+            })
+            .expect(200);
+
+          const masterServiceAfter = await prisma.masterService.findFirst({
+            where: {
+              id: masterServiceId,
+            },
+            include: {
+              currency: true,
+            },
+          });
+
+          expect(masterServiceAfter.currency.code).toBe('USD');
+        });
+
+        test('update master service name with not exists service', async () => {
+          const masterServiceBefore = await prisma.masterService.findFirst({
+            where: {
+              id: masterServiceId,
+            },
+            include: {
+              service: true,
+            },
+          });
+
+          expect(masterServiceBefore.service.name).toBe('Woman haircut');
+
+          await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Other haircut',
+            })
+            .expect(200);
+
+          const masterServiceAfter = await prisma.masterService.findFirst({
+            where: {
+              id: masterServiceId,
+            },
+            include: {
+              service: true,
+            },
+          });
+
+          expect(masterServiceAfter.service.name).toBe('Other haircut');
+        });
+
+        test('update master service name with existing service', async () => {
+          await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              name: 'Man haircut',
+            })
+            .expect(200);
         });
       });
     });

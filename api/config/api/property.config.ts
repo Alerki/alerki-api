@@ -4,7 +4,7 @@ export interface PropertyConfig {
   maxLength?: number,
   minimum?: number,
   maximum?: number,
-  type: 'string' | 'number' | 'Buffer',
+  type: 'string' | 'number' | 'Buffer' | 'boolean',
   example?: string | number | any,
   pattern?: string,
   patternExp?: RegExp,
@@ -104,6 +104,11 @@ export namespace User {
 
 export namespace Service {
   export const config: PropertiesConfig = {
+    available: {
+      description: 'Available condition',
+      type: 'boolean',
+      example: false,
+    },
     name: {
       description: 'Service name',
       minLength: 1,
