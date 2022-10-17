@@ -285,7 +285,9 @@ describe('UserController (e2e)', () => {
         expect(body.username).toBe(user.username);
         expect(body.password).toBeUndefined();
         expect(body.masterProfile).toBeNull();
+        expect(body.masterProfileId).toBeNull();
         expect(body.clientProfile).toBeTruthy();
+        expect(body.clientProfileId).toBeTruthy();
         expect(body.clientProfile.id).toBeTruthy();
 
         await request(app)
@@ -363,6 +365,25 @@ describe('UserController (e2e)', () => {
             username: 'newOne',
           })
           .expect(401);
+      });
+
+      test('get user with master profile', async () => {
+        const { accessToken } = await registerUser(app);
+
+        await request(app)
+          .patch('/user/enable-master')
+          .set({ Authorization: 'Bearer ' + accessToken })
+          .expect(200);
+
+        const { body } = await request(app)
+          .get('/user')
+          .set({ Authorization: 'Bearer ' + accessToken })
+          .expect(200);
+
+        expect(body.masterProfile).toBeDefined();
+        expect(body.masterProfileId).toBeDefined();
+        expect(body.masterProfile.weekSchedule).toBeDefined();
+        expect(body.masterProfile.weekScheduleId).toBeDefined();
       });
     });
 
