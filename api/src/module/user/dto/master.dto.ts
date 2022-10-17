@@ -48,6 +48,59 @@ export class CreateMasterServiceDto implements
   readonly locationLng: number;
 }
 
+export class PatchMasterServiceDto implements Pick<
+  Prisma.MasterService,
+  'available' |
+  'duration' |
+  'price' |
+  'locationLat' |
+  'locationLng'
+> {
+  @ApiProperty(Service.config.available)
+  @IsOptional()
+  @IsBoolean()
+  readonly available: boolean;
+
+  @ApiProperty(Service.config.name)
+  @IsOptional()
+  @MinLength(Service.config.name.minLength)
+  @MaxLength(Service.config.name.maxLength)
+  @IsString()
+  readonly name: string;
+
+  @ApiProperty(MasterService.config.currency)
+  @IsOptional()
+  @IsString()
+  readonly currency: string;
+
+  @ApiProperty(MasterService.config.price)
+  @IsOptional()
+  @Min(MasterService.config.price.minimum)
+  @IsNumber()
+  readonly price: number;
+
+  @ApiProperty(MasterService.config.duration)
+  @IsOptional()
+  @Min(MasterService.config.duration.minimum)
+  @Max(MasterService.config.duration.maximum)
+  @IsNumber()
+  readonly duration: number;
+
+  @ApiProperty(MasterService.config.locationLat)
+  @IsOptional()
+  @Min(MasterService.config.locationLat.minimum)
+  @Max(MasterService.config.locationLat.maximum)
+  @IsNumber()
+  readonly locationLat: number;
+
+  @ApiProperty(MasterService.config.locationLng)
+  @IsOptional()
+  @Min(MasterService.config.locationLng.minimum)
+  @Max(MasterService.config.locationLng.maximum)
+  @IsNumber()
+  readonly locationLng: number;
+}
+
 export class CreateMasterScheduleDto implements Pick<
   Prisma.MasterSchedule,
   'startTime' |

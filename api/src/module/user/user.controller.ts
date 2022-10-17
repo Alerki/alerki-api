@@ -30,7 +30,7 @@ import { PatchUserDto } from '@Module/user/dto/user.dto';
 import { UserService } from '@Module/user/user.service';
 import { UserPictureService } from '@Module/user/user-picture.service';
 import * as ApiConfig from '@Config/api/property.config';
-import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
+import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Module/user/dto/master.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -50,7 +50,7 @@ export class UserController {
   @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Successful enable master profile' })
   @ApiBadRequestResponse({ description: 'User is already master' })
-  @ApiUnauthorizedResponse({ description: 'Bad access token' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
   @UseGuards(JwtAuthGuard)
   @Patch('enable-master')
   async enableMaster(
@@ -71,7 +71,7 @@ export class UserController {
   @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Successful disable master profile' })
   @ApiBadRequestResponse({ description: 'User is not a master' })
-  @ApiUnauthorizedResponse({ description: 'Bad access token' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
   @UseGuards(JwtAuthGuard)
   @Patch('disable-master')
   async disableMaster(
@@ -82,18 +82,6 @@ export class UserController {
 
     await this.profileService.disableMaster({ id });
   }
-
-  // @UseGuards(JwtAuthGuard)
-  // @Get('/master/service')
-  // async getMasterServiceProtected(
-  //   @Req() req: ProtectedRequest,
-  // ) {
-  //   const { user: { id } } = req;
-
-  //   const masterServices = await this.masterServiceService.getMasterServiceProtected({ id });
-
-  //   return masterServices;
-  // }
 
   /**
    * Get master services
@@ -109,7 +97,9 @@ export class UserController {
   async getMasterService(
     @Param('id', ParseUUIDPipe) id: string,
   ) {
-    const masterServices = await this.masterServiceService.getMasterService({ id });
+    const masterServices = await this.masterServiceService.getMasterService(
+      { id },
+    );
 
     return masterServices;
   }
@@ -123,9 +113,57 @@ export class UserController {
   ) {
     const { user: { id } } = req;
 
-    const newService = await this.masterServiceService.createMasterService({ id, ...body });
+    const newService = await this.masterServiceService.createMasterService(
+      { id, ...body },
+    );
 
     res.status(HttpStatus.CREATED).send(newService);
+  }
+
+  @ApiOperation({ description: 'Patch master service' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Successful update master service' })
+  @ApiNotFoundResponse({ description: 'Master service not exists' })
+  @ApiBadRequestResponse({ description: 'The service does not belong to the user' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
+  @ApiParam({ name: 'serviceId', description: 'Master service ID', example: ApiConfig.General.UUIDExample })
+  @UseGuards(JwtAuthGuard)
+  @Patch('master/service/:serviceId')
+  async patchMasterService(
+    @Req() req: ProtectedRequest,
+    @Body() body: PatchMasterServiceDto,
+    @Param('serviceId') serviceId: string,
+  ) {
+    const { user: { id: userId } } = req;
+    const {
+      available,
+      name,
+      currency,
+      price,
+      duration,
+      locationLat,
+      locationLng,
+    } = body;
+
+    const patchedMasterService = await this.masterServiceService.patchMasterService(
+      {
+        id: userId,
+      },
+      {
+        id: serviceId,
+      },
+      {
+        available,
+        name,
+        currency,
+        price,
+        duration,
+        locationLat,
+        locationLng,
+      },
+    );
+
+    return patchedMasterService;
   }
 
   /**
@@ -162,6 +200,7 @@ export class UserController {
   @ApiOkResponse({ description: 'Picture updates successfully' })
   @ApiNotFoundResponse({ description: 'User not found' })
   @ApiBadRequestResponse({ description: 'Validation failed (expected type is /^(jpg|jpeg|png|heif)$/)' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
   @UseInterceptors(FileInterceptor('picture'))
   @UseGuards(JwtAuthGuard)
   @Patch('picture')
@@ -210,6 +249,7 @@ export class UserController {
   @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Profile received successfully' })
   @ApiNotFoundResponse({ description: 'User profile not found' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(JwtAuthGuard)
   @Get('')
@@ -238,7 +278,9 @@ export class UserController {
   async getUser(
     @Param('usernameOrId') usernameOrId: string,
   ) {
-    const profile = await this.userService.getUser({ id: usernameOrId, username: usernameOrId });
+    const profile = await this.userService.getUser(
+      { id: usernameOrId, username: usernameOrId },
+    );
 
     return profile;
   }
@@ -254,6 +296,7 @@ export class UserController {
   @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'User patched successfully' })
   @ApiNotFoundResponse({ description: 'User unauthorized / User not found' })
+  @ApiUnauthorizedResponse({ description: 'User unauthorized' })
   @UseGuards(JwtAuthGuard)
   @Patch('')
   async patchUser(

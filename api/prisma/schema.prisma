@@ -115,6 +115,7 @@ model MasterService {
   currencyId  String        @db.VarChar(36)
   price       Int
   duration    Int // Duration in seconds
+  available   Boolean       @default(true)
   locationLat Float
   locationLng Float
   createdAt   DateTime      @default(now())
