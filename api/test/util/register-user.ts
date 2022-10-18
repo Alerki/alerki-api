@@ -1,34 +1,14 @@
-import getCookies from '@Test/util/get-cookies';
 import { Application } from 'express';
-
 import * as request from 'supertest';
+
+import getCookies from '@Test/util/get-cookies';
+import { randomString } from '@Test/util/random-string';
 
 // List of usernames to generate unique usernames
 const usernames = new Set();
 
 // List of emails to generate unique emails
 const emails = new Set();
-
-// List of characters to generate random string
-const characters =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-/**
- * Generate random string
- *
- * @param length random string length
- * @returns random string
- */
-function randomString(length: number) {
-  let result = '';
-  const charactersLength = characters.length;
-
-  for ( var i = 0; i < length; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-
-  return result;
-}
 
 /**
  * Register user

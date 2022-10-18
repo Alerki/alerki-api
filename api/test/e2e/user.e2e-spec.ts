@@ -16,6 +16,7 @@ import { databaseSetup } from '@Src/util';
 import { clearDatabase } from '@Test/util/clear-database';
 import { General } from '@Config/api/property.config';
 import { registerUser } from '@Test/util/register-user';
+import { randomUUID } from '@Test/util/random-uid';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -146,7 +147,11 @@ describe('UserController (e2e)', () => {
             email: user.email,
           },
           include: {
-            masterProfile: true,
+            masterProfile: {
+              include: {
+                weekSchedule: true,
+              },
+            },
           },
         });
 
@@ -155,7 +160,17 @@ describe('UserController (e2e)', () => {
         ).toBeTruthy();
 
         expect(userAfter.masterProfileId).toBeTruthy();
-
+        expect(userAfter.masterProfile.weekScheduleId).toBeDefined();
+        expect(userAfter.masterProfile.weekSchedule).toBeDefined();
+        expect(userAfter.masterProfile.weekSchedule).toMatchObject({
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+          saturday: false,
+          sunday: false,
+        });
         expect(userAfter.masterProfile.available).toBe(true);
       });
 
@@ -271,7 +286,9 @@ describe('UserController (e2e)', () => {
         expect(body.username).toBe(user.username);
         expect(body.password).toBeUndefined();
         expect(body.masterProfile).toBeNull();
+        expect(body.masterProfileId).toBeNull();
         expect(body.clientProfile).toBeTruthy();
+        expect(body.clientProfileId).toBeTruthy();
         expect(body.clientProfile.id).toBeTruthy();
 
         await request(app)
@@ -349,6 +366,25 @@ describe('UserController (e2e)', () => {
             username: 'newOne',
           })
           .expect(401);
+      });
+
+      test('get user with master profile', async () => {
+        const { accessToken } = await registerUser(app);
+
+        await request(app)
+          .patch('/user/enable-master')
+          .set({ Authorization: 'Bearer ' + accessToken })
+          .expect(200);
+
+        const { body } = await request(app)
+          .get('/user')
+          .set({ Authorization: 'Bearer ' + accessToken })
+          .expect(200);
+
+        expect(body.masterProfile).toBeDefined();
+        expect(body.masterProfileId).toBeDefined();
+        expect(body.masterProfile.weekSchedule).toBeDefined();
+        expect(body.masterProfile.weekScheduleId).toBeDefined();
       });
     });
 
@@ -682,16 +718,8 @@ describe('UserController (e2e)', () => {
             },
           })).masterProfile;
 
-          let badUUID = masterProfile.id;
-
-          if (badUUID[badUUID.length - 1] === 'a') {
-            badUUID = badUUID.slice(0, badUUID.length - 1) + 'b';
-          } else {
-            badUUID = badUUID.slice(0, badUUID.length - 1) + 'a';
-          }
-
           const { body } = await request(app)
-            .get(`/user/master/${badUUID}/service`)
+            .get(`/user/master/${randomUUID()}/service`)
             .expect(404);
 
           expect(body.message).toBe('Master profile not exists');
@@ -863,113 +891,109 @@ describe('UserController (e2e)', () => {
             })
             .expect(200);
         });
+
+        test('try to patch master service with bad location latitude -91', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              locationLat: General.minLatitudeValue - 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLat must not be less than -90']);
+        });
+
+        test('try to patch master service with bad location latitude 91', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              locationLat: General.maxLatitudeValue + 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLat must not be greater than 90']);
+        });
+
+        test('try to patch master service with bad location longitude -181', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              locationLng: General.minLongitudeValue - 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLng must not be less than -180']);
+        });
+
+        test('try to patch master service with bad location longitude 181', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/service/' + masterServiceId)
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              locationLng: General.maxLongitudeValue + 1,
+            })
+            .expect(400);
+
+          expect(body.message).toMatchObject(['locationLng must not be greater than 180']);
+        });
       });
     });
 
-    // describe('master service', () => {
-    //   test('POST create service', async () => {
-    //     await request(app)
-    //       .post('/user/master/service')
-    //       .expect(401);
+    describe('master week schedule actions', () => {
+      let user: Record<string, any> = {};
+      let userProfile: Record<string, any> = {};
 
-    //     const r = await request(app)
-    //       .post('/user/master/service')
-    //       .set({ Authorization: 'Bearer ' + user.accessToken })
-    //       .send({
-    //         name: 'man haircut',
-    //         price: 100,
-    //         currency: 'UAH',
-    //         duration: 60 * 10,
-    //         locationLat: 1.1,
-    //         locationLng: 1.2,
-    //       })
-    //       .expect(201);
+      describe('get schedule', () => {
+        test('get schedule', async () => {
+          user = await registerUser(app);
+          const { accessToken } = user;
 
-    //     const mastersService = await prisma.masterService.findMany();
+          await request(app)
+            .patch('/user/enable-master')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .expect(200);
 
-    //     expect(mastersService).toHaveLength(1);
+          const getUserResponse = await request(app)
+            .get('/user')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .expect(200);
 
-    //     const masterService = mastersService[0];
+          const { body } = await request(app)
+            .get(`/user/master/${getUserResponse.body.masterProfileId}/week-schedule`)
+            .expect(200);
 
-    //     const service = await prisma.service.findFirst({
-    //       where: {
-    //         id: masterService.serviceId,
-    //       },
-    //     });
+          userProfile = body;
 
-    //     expect(service).toBeDefined();
-    //     expect(service.name).toBe('man haircut');
-    //     expect(masterService.price).toBe(100);
-    //     expect(masterService.duration).toBe(600);
-    //     expect(masterService.locationLat).toBe(1.1);
-    //     expect(masterService.locationLng).toBe(1.2);
+          expect(body).toBeDefined();
+          expect(body.monday).toBeTruthy();
+          expect(body.tuesday).toBeTruthy();
+          expect(body.wednesday).toBeTruthy();
+          expect(body.thursday).toBeTruthy();
+          expect(body.friday).toBeTruthy();
+          expect(body.saturday).toBeFalsy();
+          expect(body.sunday).toBeFalsy();
+        });
 
-    //     expect(r.body.price).toBe(100);
-    //     expect(r.body.duration).toBe(600);
-    //     expect(r.body.locationLat).toBe(1.1);
-    //     expect(r.body.locationLng).toBe(1.2);
-    //   });
-    // });
+        test('try to get week schedule with bad UUID', async () => {
+          const { body } = await request(app)
+            .get('/user/master/bad-uuid/week-schedule')
+            .expect(400);
 
-    // test('GET own service', async () => {
-    //   await request(app)
-    //     .get('/user/master/service')
-    //     .expect(401);
+          expect(body.message).toBe('Validation failed (uuid is expected)');
+        });
 
-    //   const { body } = await request(app)
-    //     .get('/user/master/service')
-    //     .set({ Authorization: 'Bearer ' + user.accessToken })
-    //     .expect(200);
+        test('try to get week schedule for not exists master', async () => {
 
-    //   expect(body).toHaveLength(1);
-    // });
+          const { body } = await request(app)
+            .get(`/user/master/${randomUUID()}/week-schedule`)
+            .expect(404);
 
-    // test('GET service by id', async () => {
-    //   const User = await prisma.user.findFirst({
-    //     where: {
-    //       username: user.username,
-    //     },
-    //   });
-
-    //   const { body } = await request(app)
-    //     .get(`/user/master/${User.masterProfileId}/service`)
-    //     .expect(200);
-
-    //   expect(body).toHaveLength(1);
-    // });
-
-    // test('PATCH update service', async () => {
-
-    // });
-
-    // test('DELETE service', async () => {
-
-    // });
+          expect(body.message).toBe('Master profile not exists');
+        });
+      });
+    });
   });
-
-  // describe('Other cases', () => {
-  //   test('with not exist username', async () => {
-  //     await request(app)
-  //       .get('/user/not-exists-username')
-  //       .expect(404);
-  //   });
-
-  //   test('with bad picture ID', async () => {
-  //     const { body } = await request(app)
-  //       .get('/user/picture/bad-picture-id')
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(400);
-
-  //     expect(body).toBeTruthy();
-  //   });
-
-  //   test('with not exists picture ID', async () => {
-  //     const { body } = await request(app)
-  //       .get('/user/picture/f0ef45ea-59ed-4fe9-afe3-95dc8303dac6')
-  //       .set({ Authorization: 'Bearer ' + user.accessToken })
-  //       .expect(404);
-
-  //     expect(body).toBeTruthy();
-  //   });
-  // });
 });

@@ -122,7 +122,7 @@ export class CreateMasterScheduleDto implements Pick<
 }
 
 export class MasterWorkDaysDto implements Pick<
-  Prisma.MasterWorkDay,
+  Prisma.MasterWeekSchedule,
   'monday' |
   'tuesday' |
   'wednesday' |

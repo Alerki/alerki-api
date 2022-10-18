@@ -89,8 +89,6 @@ export class AuthService {
 
     const newClientProfile = await this.clientProfileService.create();
 
-    const clientRole: Prisma.Roles = 'client';
-
     await this.userService.create({
       data: {
         email: email.toLowerCase(),

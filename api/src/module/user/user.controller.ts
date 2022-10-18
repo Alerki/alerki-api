@@ -5,9 +5,21 @@ import {
   Controller,
   Delete,
   FileTypeValidator,
-  Get, HttpStatus, MaxFileSizeValidator, Param, ParseFilePipe, ParseUUIDPipe, Patch, Post, Req, Res, UploadedFile, UseGuards,
+  Get,
+  HttpStatus,
+  MaxFileSizeValidator,
+  Param,
+  ParseFilePipe,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  Req,
+  Res,
+  UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -18,19 +30,18 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import * as imageType from 'image-type';
 
+import * as ApiConfig from '@Config/api/property.config';
 import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
+import { MasterWeekScheduleService } from '@Module/profile/week-schedule.service';
+import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Module/user/dto/master.dto';
 import { PatchUserDto } from '@Module/user/dto/user.dto';
 import { UserService } from '@Module/user/user.service';
-import { UserPictureService } from '@Module/user/user-picture.service';
-import * as ApiConfig from '@Config/api/property.config';
-import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Module/user/dto/master.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -39,6 +50,7 @@ export class UserController {
     private readonly userService: UserService,
     private readonly masterServiceService: MasterServiceService,
     private readonly profileService: ProfileService,
+    private readonly masterWeekScheduleService: MasterWeekScheduleService,
   ) { }
 
   /**
@@ -164,6 +176,25 @@ export class UserController {
     );
 
     return patchedMasterService;
+  }
+
+  /**
+   * Get master week schedule
+   *
+   * @param id master ID
+   * @returns master week schedule
+   */
+  @ApiOperation({ description: 'Get master week schedule' })
+  @ApiOkResponse({ description: 'Master week schedule got successfully' })
+  @ApiNotFoundResponse({ description: 'Master not found' })
+  @ApiParam({ name: 'id', description: 'Master ID' })
+  @Get('master/:id/week-schedule')
+  async getMasterWeekSchedule(
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    const weekSchedule = await this.masterWeekScheduleService.getWeekSchedule({ id });
+
+    return weekSchedule;
   }
 
   /**

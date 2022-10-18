@@ -16,10 +16,22 @@ export class ServiceService {
    */
   constructor() { }
 
+  /**
+   * Create service
+   *
+   * @param data create service data
+   * @returns service
+   */
   async create(data: Prisma.Prisma.ServiceCreateArgs) {
     return await this.prismaService.service.create(data);
   }
 
+  /**
+   * Find first service
+   *
+   * @param data find first data
+   * @returns service
+   */
   async findFirst(data: Prisma.Prisma.ServiceFindFirstArgs) {
     return await this.prismaService.service.findFirst(data);
   }

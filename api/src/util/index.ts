@@ -39,7 +39,7 @@ export async function databaseSetup() {
         data: currenciesToCreate,
       });
     } else if (currenciesCandidate.length > currenciesRaw.length) {
-      console.warn('There are extra currency');
+      throw new Error('There are extra currency');
     }
   }
 }

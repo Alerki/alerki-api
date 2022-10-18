@@ -1,13 +1,11 @@
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import Prisma from '@prisma/client';
+
 import { MasterProfileService } from '@Module/profile/master-profile.service';
 import { ServiceService } from '@Module/service/service.service';
 import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Module/user/dto/master.dto';
-import { UserDto } from '@Module/user/dto/user.dto';
-import { UserPictureService } from '@Module/user/user-picture.service';
 import { UserService } from '@Module/user/user.service';
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import Prisma from '@prisma/client';
 import { CurrencyService } from '@Shared/services/currency.service';
-
 import { prisma } from '@Shared/services/prisma.service';
 
 /**
@@ -28,10 +26,44 @@ export class MasterServiceService {
     private readonly serviceService: ServiceService,
     private readonly userService: UserService,
     private readonly currencyService: CurrencyService,
+    private readonly masterProfileService: MasterProfileService,
   ) { }
 
+  /**
+   * Find first master service
+   *
+   * @param data find arguments
+   * @returns master service
+   */
   async findFirst(data: Prisma.Prisma.MasterServiceFindFirstArgs) {
     return await this.prismaService.masterService.findFirst(data);
+  }
+
+  /**
+   * Get exists master service
+   *
+   * @param data get arguments
+   * @param callback for custom error
+   * @returns master service
+   */
+  async getExists<T extends Prisma.Prisma.MasterServiceFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<
+      T, Prisma.Prisma.MasterServiceFindFirstArgs
+    >,
+    callback?: () => never,
+  ) {
+    // Check if master exists
+    const candidate = await this.prismaService.masterService.findFirst(data);
+
+    if (!candidate) {
+      if (!callback) {
+        throw new NotFoundException('Master service not exists');
+      }
+
+      callback();
+    }
+
+    return candidate;
   }
 
   /**
@@ -64,7 +96,11 @@ export class MasterServiceService {
     }
 
     // Check if user is master
-    const user = await this.userService.findUserById({ id: data.id });
+    const user = await this.userService.getExists({
+      where: {
+        id: data.id,
+      },
+    });
 
     if (!user.masterProfileId) {
       throw new BadRequestException('User is not a master');
@@ -107,7 +143,7 @@ export class MasterServiceService {
    * @returns
    */
   async getMasterService({ id }: Pick<Prisma.MasterProfile, 'id'>) {
-    const masterProfile = await this.prismaService.masterProfile.findFirst({
+    const masterProfile = await this.masterProfileService.getExists({
       where: {
         id,
       },
@@ -120,10 +156,6 @@ export class MasterServiceService {
         },
       },
     });
-
-    if (!masterProfile) {
-      throw new NotFoundException('Master profile not exists');
-    }
 
     return masterProfile.services;
   }
@@ -141,22 +173,20 @@ export class MasterServiceService {
     data: PatchMasterServiceDto,
   ) {
     // Check if master service exists
-    const masterServiceCandidate =
-      await this.prismaService.masterService.findFirst({
-        where: {
-          id: masterService.id,
-        },
-      });
-
-    if (!masterServiceCandidate) {
-      throw new NotFoundException('Master service not exists');
-    }
-
-    // Check if the master service belongs to the user
-    const userCandidate = await this.userService.findUserById({
-      id: user.id,
+    const masterServiceCandidate = await this.getExists({
+      where: {
+        id: masterService.id,
+      },
     });
 
+    // Check if user exists
+    const userCandidate = await this.userService.getExists({
+      where: {
+        id: user.id,
+      },
+    });
+
+    // Check if the master service belongs to the user
     if (userCandidate.masterProfileId !== masterServiceCandidate.masterId) {
       throw new BadRequestException('The service does not belong to the user');
     }

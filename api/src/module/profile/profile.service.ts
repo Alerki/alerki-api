@@ -29,16 +29,19 @@ export class ProfileService {
    * @param param0 enable master params
    */
   async enableMaster({ id }: Pick<Prisma.User, 'id'>) {
-    const candidate = await this.userService.prismaService.user.findFirst({
-      where: {
-        id,
+    const candidate = await this.userService.getExists(
+      {
+        where: {
+          id,
+        },
+        include: {
+          picture: true,
+        },
       },
-    });
-
-    // Check if user exists
-    if (!candidate) {
-      throw new UnauthorizedException('Bad access token');
-    }
+      () => {
+        throw new UnauthorizedException('Bad access token');
+      },
+    );
 
     // Check if user is not a master
     const masterRole = this.roleService.masterRole;
@@ -52,7 +55,7 @@ export class ProfileService {
       Prisma.Prisma.UserUpdateInput,
       Prisma.Prisma.UserUncheckedUpdateInput
     > = {
-      roles: [ ...candidate.roles, masterRole],
+      roles: [...candidate.roles, masterRole],
     };
 
     // Create master profile if not exists or make it available
