@@ -49,7 +49,9 @@ describe('Database setup utility test', () => {
           },
         });
 
-        await databaseSetup();
+        await expect(async () => {
+          await databaseSetup();
+        }).rejects.toThrow('There are extra currency');
       });
     },
   );

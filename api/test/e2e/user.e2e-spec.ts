@@ -16,6 +16,7 @@ import { databaseSetup } from '@Src/util';
 import { clearDatabase } from '@Test/util/clear-database';
 import { General } from '@Config/api/property.config';
 import { registerUser } from '@Test/util/register-user';
+import { randomUUID } from '@Test/util/random-uid';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -717,16 +718,8 @@ describe('UserController (e2e)', () => {
             },
           })).masterProfile;
 
-          let badUUID = masterProfile.id;
-
-          if (badUUID[badUUID.length - 1] === 'a') {
-            badUUID = badUUID.slice(0, badUUID.length - 1) + 'b';
-          } else {
-            badUUID = badUUID.slice(0, badUUID.length - 1) + 'a';
-          }
-
           const { body } = await request(app)
-            .get(`/user/master/${badUUID}/service`)
+            .get(`/user/master/${randomUUID()}/service`)
             .expect(404);
 
           expect(body.message).toBe('Master profile not exists');
@@ -945,6 +938,60 @@ describe('UserController (e2e)', () => {
             .expect(400);
 
           expect(body.message).toMatchObject(['locationLng must not be greater than 180']);
+        });
+      });
+    });
+
+    describe('master week schedule actions', () => {
+      let user: Record<string, any> = {};
+      let userProfile: Record<string, any> = {};
+
+      describe('get schedule', () => {
+        test('get schedule', async () => {
+          user = await registerUser(app);
+          const { accessToken } = user;
+
+          await request(app)
+            .patch('/user/enable-master')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .expect(200);
+
+          const getUserResponse = await request(app)
+            .get('/user')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .expect(200);
+
+          const { body } = await request(app)
+            .get(`/user/master/${getUserResponse.body.masterProfileId}/week-schedule`)
+            .expect(200);
+
+          userProfile = body;
+
+          expect(body).toBeDefined();
+          expect(body.monday).toBeTruthy();
+          expect(body.tuesday).toBeTruthy();
+          expect(body.wednesday).toBeTruthy();
+          expect(body.thursday).toBeTruthy();
+          expect(body.friday).toBeTruthy();
+          expect(body.saturday).toBeFalsy();
+          expect(body.sunday).toBeFalsy();
+        });
+
+        test('try to get week schedule with bad UUID', async () => {
+          const { body } = await request(app)
+            .get('/user/master/bad-uuid/week-schedule')
+            .expect(400);
+
+          expect(body.message).toBe('Validation failed (uuid is expected)');
+        });
+
+        test('try to get week schedule for not exists master', async () => {
+
+          const { body } = await request(app)
+            .get(`/user/master/${randomUUID()}/week-schedule`)
+            .expect(404);
+
+          expect(body.message).toBe('Master profile not exists');
         });
       });
     });

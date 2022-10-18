@@ -24,7 +24,7 @@ import { CurrencyService } from '@Shared/services/currency.service';
   exports: [
     ProfileService, ClientProfileService,
     MasterProfileService, MasterServiceService,
-    CurrencyService, MasterWeekScheduleService,
+    MasterWeekScheduleService,
   ],
 })
 export class ProfileModule { }

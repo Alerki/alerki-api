@@ -1,16 +1,17 @@
-import { MasterProfileService } from '@Module/profile/master-profile.service';
-import { ServiceService } from '@Module/service/service.service';
-import { CreateMasterServiceDto } from '@Module/user/dto/master.dto';
-import { PatchUserDto, UserDto } from '@Module/user/dto/user.dto';
-import { UserPictureService } from '@Module/user/user-picture.service';
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
-import * as sharp from 'sharp';
 import * as imageSize from 'buffer-image-size';
 import * as imageType from 'image-type';
+import * as sharp from 'sharp';
 
-import { prisma } from '@Shared/services/prisma.service';
 import * as ApiConfig from '@Config/api/property.config';
+import { PatchUserDto, UserDto } from '@Module/user/dto/user.dto';
+import { UserPictureService } from '@Module/user/user-picture.service';
+import { prisma } from '@Shared/services/prisma.service';
 
 /**
  * User service
@@ -27,7 +28,6 @@ export class UserService {
    */
   constructor(
     private readonly userPictureService: UserPictureService,
-    private readonly serviceService: ServiceService,
   ) { }
 
   /**
@@ -101,20 +101,25 @@ export class UserService {
   }
 
   /**
-   * Find user or throw exception
+   * Get exists user
    *
-   * @param param0 find user by id arguments
+   * @param data get arguments
+   * @param callback for custom error
    * @returns
    */
-  async findUserById({ id }: Pick<Prisma.User, 'id'>) {
-    const candidate = await this.prismaService.user.findFirst({
-      where: {
-        id,
-      },
-    });
+  async getExists<T extends Prisma.Prisma.UserFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.UserFindFirstArgs>,
+    callback?: () => never,
+  ) {
+    // Check if user exists
+    const candidate = await this.prismaService.user.findFirst(data);
 
     if (!candidate) {
-      throw new NotFoundException('User not exists');
+      if (!callback) {
+        throw new NotFoundException('User not exists');
+      }
+
+      callback();
     }
 
     return candidate;
@@ -151,7 +156,11 @@ export class UserService {
   ) {
     const { id, data } = args;
 
-    await this.findUserById({ id });
+    await this.getExists({
+      where: {
+        id,
+      },
+    });
 
     return await this.prismaService.user.update({
       where: {
@@ -172,10 +181,15 @@ export class UserService {
       picture,
     }: Pick<Prisma.User, 'id'> & { picture: Express.Multer.File },
   ) {
-    const candidate = await this.findUserById({ id });
+    const candidate = await this.getExists({
+      where: {
+        id,
+      },
+    });
 
     let pictureBuffer: Buffer = picture.buffer;
 
+    // Check picture type
     const pictureType = imageType(pictureBuffer);
 
     if (!pictureType) {
@@ -190,6 +204,7 @@ export class UserService {
       );
     }
 
+    // Check picture size
     const { width, height } = imageSize(pictureBuffer);
 
     if (width > 100 || height > 100) {
@@ -199,6 +214,7 @@ export class UserService {
         .toBuffer();
     }
 
+    // Create or update picture
     if (candidate.pictureId) {
       await this.userPictureService.update({
         id: candidate.pictureId,
@@ -226,7 +242,11 @@ export class UserService {
   async deletePicture(
     { id }: Pick<Prisma.UserPicture, 'id'>,
   ) {
-    const candidate = await this.findUserById({ id });
+    const candidate = await this.getExists({
+      where: {
+        id,
+      },
+    });
 
     if (!candidate.pictureId) {
       throw new NotFoundException('Picture not exists');
