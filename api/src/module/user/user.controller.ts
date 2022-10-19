@@ -39,7 +39,11 @@ import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
 import { MasterWeekScheduleService } from '@Module/profile/week-schedule.service';
-import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Module/user/dto/master.dto';
+import {
+  CreateMasterServiceDto,
+  PatchMasterServiceDto,
+  PatchMasterWeekScheduleDto,
+} from '@Module/user/dto/master.dto';
 import { PatchUserDto } from '@Module/user/dto/user.dto';
 import { UserService } from '@Module/user/user.service';
 
@@ -147,32 +151,11 @@ export class UserController {
     @Param('serviceId') serviceId: string,
   ) {
     const { user: { id: userId } } = req;
-    const {
-      available,
-      name,
-      currency,
-      price,
-      duration,
-      locationLat,
-      locationLng,
-    } = body;
 
     const patchedMasterService = await this.masterServiceService.patchMasterService(
-      {
-        id: userId,
-      },
-      {
-        id: serviceId,
-      },
-      {
-        available,
-        name,
-        currency,
-        price,
-        duration,
-        locationLat,
-        locationLng,
-      },
+      { id: userId },
+      { id: serviceId },
+      body,
     );
 
     return patchedMasterService;
@@ -195,6 +178,33 @@ export class UserController {
     const weekSchedule = await this.masterWeekScheduleService.getWeekSchedule({ id });
 
     return weekSchedule;
+  }
+
+  /**
+   * Patch master's week schedule
+   *
+   * @param req request
+   * @param body body
+   * @returns week schedule
+   */
+  @ApiOperation({ description: 'Patch master\'s week schedule' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Week schedule patched successfully' })
+  @ApiNotFoundResponse({ description: 'User not exists' })
+  @UseGuards(JwtAuthGuard)
+  @Patch('master/week-schedule')
+  async patchMasterWeekSchedule(
+    @Req() req: ProtectedRequest,
+    @Body() body: PatchMasterWeekScheduleDto,
+  ) {
+    const { user: { id } } = req;
+
+    const patchedSchedule = await this.masterWeekScheduleService.patchWeekSchedule(
+      { id },
+      body,
+    );
+
+    return patchedSchedule;
   }
 
   /**
@@ -337,23 +347,10 @@ export class UserController {
     // Get user ID
     const { user: { id } } = req;
 
-    // Get user update params
-    const {
-      username,
-      firstName,
-      lastName,
-      phoneNumber,
-    } = body;
-
-    const updatedUser = await this.userService.patchUser({
-      id,
-      data: {
-        username,
-        firstName,
-        lastName,
-        phoneNumber,
-      },
-    });
+    const updatedUser = await this.userService.patchUser(
+      { id },
+      body,
+    );
 
     return updatedUser;
   }

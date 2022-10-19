@@ -152,9 +152,10 @@ export class UserService {
    * @returns
    */
   async patchUser(
-    args: { data: PatchUserDto } & Pick<Prisma.User, 'id'>,
+    user: Pick<Prisma.User, 'id'>,
+    data: PatchUserDto,
   ) {
-    const { id, data } = args;
+    const { id } = user;
 
     await this.getExists({
       where: {

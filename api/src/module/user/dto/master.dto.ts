@@ -1,8 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
-import { IsBoolean, IsDateString, IsNumber, IsOptional, IsString, IsUUID, Max, MaxLength, Min, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsDateString,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+  MinLength,
+} from 'class-validator';
 
-import { MasterService, Service } from '@Config/api/property.config';
+import {
+  MasterService,
+  MasterWeekSchedule,
+  Service,
+} from '@Config/api/property.config';
 
 export class CreateMasterServiceDto implements
   Pick<Prisma.Service, 'name'>,
@@ -121,7 +135,7 @@ export class CreateMasterScheduleDto implements Pick<
   readonly dayOff: boolean;
 }
 
-export class MasterWorkDaysDto implements Pick<
+export class PatchMasterWeekScheduleDto implements Pick<
   Prisma.MasterWeekSchedule,
   'monday' |
   'tuesday' |
@@ -131,24 +145,38 @@ export class MasterWorkDaysDto implements Pick<
   'saturday' |
   'sunday'
 > {
+  @ApiProperty(MasterWeekSchedule.config.monday)
+  @IsOptional()
   @IsBoolean()
   readonly monday: boolean;
 
+  @ApiProperty(MasterWeekSchedule.config.tuesday)
+  @IsOptional()
   @IsBoolean()
   readonly tuesday: boolean;
 
+  @ApiProperty(MasterWeekSchedule.config.wednesday)
+  @IsOptional()
   @IsBoolean()
   readonly wednesday: boolean;
 
+  @ApiProperty(MasterWeekSchedule.config.thursday)
+  @IsOptional()
   @IsBoolean()
   readonly thursday: boolean;
 
+  @ApiProperty(MasterWeekSchedule.config.friday)
+  @IsOptional()
   @IsBoolean()
   readonly friday: boolean;
 
+  @ApiProperty(MasterWeekSchedule.config.saturday)
+  @IsOptional()
   @IsBoolean()
   readonly saturday: boolean;
 
+  @ApiProperty(MasterWeekSchedule.config.sunday)
+  @IsOptional()
   @IsBoolean()
   readonly sunday: boolean;
 }

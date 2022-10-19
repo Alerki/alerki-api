@@ -2,6 +2,8 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { MasterProfileService } from '@Module/profile/master-profile.service';
+import { PatchMasterWeekScheduleDto } from '@Module/user/dto/master.dto';
+import { UserService } from '@Module/user/user.service';
 import { prisma } from '@Shared/services/prisma.service';
 
 /**
@@ -17,6 +19,7 @@ export class MasterWeekScheduleService {
   constructor(
     @Inject(forwardRef(() => MasterProfileService))
     private readonly masterProfileService: MasterProfileService,
+    private readonly userService: UserService,
   ) { }
 
   /**
@@ -45,5 +48,33 @@ export class MasterWeekScheduleService {
     });
 
     return masterCandidate.weekSchedule;
+  }
+
+  /**
+   * Patch master's week schedule
+   *
+   * @param user user
+   * @param data data
+   * @returns week schedule
+   */
+  async patchWeekSchedule(
+    user: Pick<Prisma.User, 'id'>,
+    data: PatchMasterWeekScheduleDto,
+  ) {
+    const userProfile = await this.userService.getExists({
+      where: {
+        id: user.id,
+      },
+      include: {
+        masterProfile: true,
+      },
+    });
+
+    return await this.prismaService.masterWeekSchedule.update({
+      where: {
+        id: userProfile.masterProfile.weekScheduleId,
+      },
+      data,
+    });
   }
 }

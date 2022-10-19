@@ -119,12 +119,6 @@ export namespace Service {
   };
 }
 
-// export namespace Master {
-//   export const config: PropertiesConfig = {
-
-//   };
-// }
-
 export namespace MasterService {
   export const config: PropertiesConfig = {
     currency: {
@@ -157,5 +151,23 @@ export namespace MasterService {
       maximum: General.maxLongitudeValue,
       type: 'number',
     },
+  };
+}
+
+export namespace MasterWeekSchedule {
+  const generateWeekDaySchedule = (dayName: string): PropertyConfig => ({
+    description: `${dayName} is weekend or not`,
+    type: 'boolean',
+    example: true,
+  });
+
+  export const config: PropertiesConfig = {
+    monday: generateWeekDaySchedule('Monday'),
+    tuesday: generateWeekDaySchedule('Tuesday'),
+    wednesday: generateWeekDaySchedule('Wednesday'),
+    thursday: generateWeekDaySchedule('Thursday'),
+    friday: generateWeekDaySchedule('Friday'),
+    saturday: generateWeekDaySchedule('Saturday'),
+    sunday: generateWeekDaySchedule('Sunday'),
   };
 }
