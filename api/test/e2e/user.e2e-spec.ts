@@ -944,12 +944,10 @@ describe('UserController (e2e)', () => {
 
     describe('master weekly schedule actions', () => {
       let user: Record<string, any> = {};
-      let userProfile: Record<string, any> = {};
 
       describe('get schedule', () => {
         test('get schedule', async () => {
           user = await registerUser(app);
-          const { accessToken } = user;
 
           await request(app)
             .patch('/user/enable-master')
@@ -964,8 +962,6 @@ describe('UserController (e2e)', () => {
           const { body } = await request(app)
             .get(`/user/master/${getUserResponse.body.masterProfileId}/weekly-schedule`)
             .expect(200);
-
-          userProfile = body;
 
           expect(body).toBeDefined();
           expect(body.monday).toBeTruthy();
@@ -997,10 +993,62 @@ describe('UserController (e2e)', () => {
 
       describe('patch weekly schedule', () => {
         test('with fake JWT token', async () => {
-          // const token = tokensService.generateAccessToken({ id: 'bad-id' });
+          const token = await tokensService.generateAccessToken({ id: 'bad-id' });
 
-          // const { body } = await request(app)
-          //   .patch('/user/master/weekly-schedule')
+          const { body } = await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + token })
+            .expect(404);
+
+          expect(body.message).toBe('User not exists');
+        });
+
+        test('bulk patch', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              monday: false,
+              tuesday: false,
+              wednesday: false,
+              thursday: false,
+              friday: false,
+              saturday: true,
+              sunday: true,
+            })
+            .expect(200);
+
+          expect(body.monday).toBe(false);
+          expect(body.tuesday).toBe(false);
+          expect(body.wednesday).toBe(false);
+          expect(body.thursday).toBe(false);
+          expect(body.friday).toBe(false);
+          expect(body.saturday).toBe(true);
+          expect(body.sunday).toBe(true);
+        });
+
+        test('single day patch', async () => {
+          const { body } = await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              monday: false,
+              tuesday: false,
+              wednesday: false,
+              thursday: false,
+              friday: false,
+              saturday: false,
+              sunday: true,
+            })
+            .expect(200);
+
+          expect(body.monday).toBe(false);
+          expect(body.tuesday).toBe(false);
+          expect(body.wednesday).toBe(false);
+          expect(body.thursday).toBe(false);
+          expect(body.friday).toBe(false);
+          expect(body.saturday).toBe(false);
+          expect(body.sunday).toBe(true);
         });
       });
     });
