@@ -2,21 +2,21 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import Prisma from '@prisma/client';
+import axios from 'axios';
 import * as cookieParser from 'cookie-parser';
 import * as request from 'supertest';
-import axios from 'axios';
 
+import { General } from '@Config/api/property.config';
 import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { AppModule } from '@Src/app.module';
+import { databaseSetup } from '@Src/util';
+import { clearDatabase } from '@Test/util/clear-database';
 import getCookies from '@Test/util/get-cookies';
 import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import { TokensService } from '@Test/util/jwt-service';
-import { Application } from 'express';
-import { databaseSetup } from '@Src/util';
-import { clearDatabase } from '@Test/util/clear-database';
-import { General } from '@Config/api/property.config';
-import { registerUser } from '@Test/util/register-user';
 import { randomUUID } from '@Test/util/random-uid';
+import { registerUser } from '@Test/util/register-user';
+import { Application } from 'express';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -962,7 +962,7 @@ describe('UserController (e2e)', () => {
             .expect(200);
 
           const { body } = await request(app)
-            .get(`/user/master/${getUserResponse.body.masterProfileId}/week-schedule`)
+            .get(`/user/master/${getUserResponse.body.masterProfileId}/weekly-schedule`)
             .expect(200);
 
           userProfile = body;
@@ -979,7 +979,7 @@ describe('UserController (e2e)', () => {
 
         test('try to get weekly schedule with bad UUID', async () => {
           const { body } = await request(app)
-            .get('/user/master/bad-uuid/week-schedule')
+            .get('/user/master/bad-uuid/weekly-schedule')
             .expect(400);
 
           expect(body.message).toBe('Validation failed (uuid is expected)');
@@ -988,10 +988,19 @@ describe('UserController (e2e)', () => {
         test('try to get weekly schedule for not exists master', async () => {
 
           const { body } = await request(app)
-            .get(`/user/master/${randomUUID()}/week-schedule`)
+            .get(`/user/master/${randomUUID()}/weekly-schedule`)
             .expect(404);
 
           expect(body.message).toBe('Master profile not exists');
+        });
+      });
+
+      describe('patch weekly schedule', () => {
+        test('with fake JWT token', async () => {
+          // const token = tokensService.generateAccessToken({ id: 'bad-id' });
+
+          // const { body } = await request(app)
+          //   .patch('/user/master/weekly-schedule')
         });
       });
     });

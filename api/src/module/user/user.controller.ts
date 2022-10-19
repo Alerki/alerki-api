@@ -38,7 +38,7 @@ import { ProtectedRequest } from '@Module/auth/interface/protected-request.inter
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
-import { MasterWeeklyScheduleService } from '@Module/profile/week-schedule.service';
+import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.service';
 import {
   CreateMasterServiceDto,
   PatchMasterServiceDto,
@@ -171,7 +171,7 @@ export class UserController {
   @ApiOkResponse({ description: 'Master weekly schedule got successfully' })
   @ApiNotFoundResponse({ description: 'Master not found' })
   @ApiParam({ name: 'id', description: 'Master ID' })
-  @Get('master/:id/week-schedule')
+  @Get('master/:id/weekly-schedule')
   async getMasterWeeklySchedule(
     @Param('id', ParseUUIDPipe) id: string,
   ) {
@@ -192,7 +192,7 @@ export class UserController {
   @ApiOkResponse({ description: 'Weekly schedule patched successfully' })
   @ApiNotFoundResponse({ description: 'User not exists' })
   @UseGuards(JwtAuthGuard)
-  @Patch('master/week-schedule')
+  @Patch('master/weekly-schedule')
   async patchMasterWeeklySchedule(
     @Req() req: ProtectedRequest,
     @Body() body: PatchMasterWeeklyScheduleDto,

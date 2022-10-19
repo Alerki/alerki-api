@@ -1,4 +1,4 @@
-import { MasterWeeklyScheduleService } from '@Module/profile/week-schedule.service';
+import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.service';
 import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
