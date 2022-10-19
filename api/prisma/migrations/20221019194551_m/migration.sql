@@ -46,7 +46,7 @@ CREATE TABLE "AuthSessions" (
 -- CreateTable
 CREATE TABLE "MasterProfiles" (
     "id" TEXT NOT NULL,
-    "weekScheduleId" VARCHAR(36),
+    "weeklyScheduleId" VARCHAR(36),
     "available" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE "MasterSchedules" (
 );
 
 -- CreateTable
-CREATE TABLE "MasterWeekSchedules" (
+CREATE TABLE "MasterWeeklySchedules" (
     "id" TEXT NOT NULL,
     "monday" BOOLEAN NOT NULL DEFAULT true,
     "tuesday" BOOLEAN NOT NULL DEFAULT true,
@@ -128,7 +128,7 @@ CREATE TABLE "MasterWeekSchedules" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "MasterWeekSchedules_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "MasterWeeklySchedules_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -203,7 +203,7 @@ CREATE UNIQUE INDEX "Users_masterProfileId_key" ON "Users"("masterProfileId");
 CREATE UNIQUE INDEX "Users_phoneNumber_key" ON "Users"("phoneNumber");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "MasterProfiles_weekScheduleId_key" ON "MasterProfiles"("weekScheduleId");
+CREATE UNIQUE INDEX "MasterProfiles_weeklyScheduleId_key" ON "MasterProfiles"("weeklyScheduleId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MasterProfilesToMasterSchedule_scheduleId_key" ON "MasterProfilesToMasterSchedule"("scheduleId");
@@ -233,7 +233,7 @@ ALTER TABLE "Users" ADD CONSTRAINT "Users_masterProfileId_fkey" FOREIGN KEY ("ma
 ALTER TABLE "AuthSessions" ADD CONSTRAINT "AuthSessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MasterProfiles" ADD CONSTRAINT "MasterProfiles_weekScheduleId_fkey" FOREIGN KEY ("weekScheduleId") REFERENCES "MasterWeekSchedules"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "MasterProfiles" ADD CONSTRAINT "MasterProfiles_weeklyScheduleId_fkey" FOREIGN KEY ("weeklyScheduleId") REFERENCES "MasterWeeklySchedules"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MasterProfilesToMasterSchedule" ADD CONSTRAINT "MasterProfilesToMasterSchedule_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

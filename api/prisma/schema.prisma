@@ -64,8 +64,8 @@ model MasterProfile {
   user           User?
   services       MasterService[]
   schedules      MasterProfilesToMasterSchedule[]
-  weekSchedule   MasterWeekSchedule?              @relation(fields: [weekScheduleId], references: [id])
-  weekScheduleId String?                          @unique @db.VarChar(36)
+  weeklySchedule   MasterWeeklySchedule?              @relation(fields: [weeklyScheduleId], references: [id])
+  weeklyScheduleId String?                          @unique @db.VarChar(36)
   appointments   Appointment[]
   available      Boolean                          @default(true)
   createdAt      DateTime                         @default(now())
@@ -137,7 +137,7 @@ model MasterSchedule {
   @@map("MasterSchedules")
 }
 
-model MasterWeekSchedule {
+model MasterWeeklySchedule {
   id        String         @id @default(uuid())
   monday    Boolean        @default(true)
   tuesday   Boolean        @default(true)
@@ -150,7 +150,7 @@ model MasterWeekSchedule {
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
 
-  @@map("MasterWeekSchedules")
+  @@map("MasterWeeklySchedules")
 }
 
 model Appointment {
