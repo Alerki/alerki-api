@@ -87,7 +87,7 @@ export class UserService {
         clientProfile: true,
         masterProfile: {
           include: {
-            weekSchedule: true,
+            weeklySchedule: true,
           },
         },
       },

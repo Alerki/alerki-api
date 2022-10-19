@@ -5,7 +5,7 @@ import { ClientProfileService } from '@Module/profile/client-profile.service';
 import { MasterProfileService } from '@Module/profile/master-profile.service';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
-import { MasterWeekScheduleService } from '@Module/profile/week-schedule.service';
+import { MasterWeeklyScheduleService } from '@Module/profile/week-schedule.service';
 import { ServiceModule } from '@Module/service/service.module';
 import { UserModule } from '@Module/user/user.module';
 import { CurrencyService } from '@Shared/services/currency.service';
@@ -15,7 +15,7 @@ import { CurrencyService } from '@Shared/services/currency.service';
   providers: [
     ProfileService, ClientProfileService,
     MasterProfileService, MasterServiceService,
-    CurrencyService, MasterWeekScheduleService,
+    CurrencyService, MasterWeeklyScheduleService,
   ],
   imports: [
     forwardRef(() => UserModule), forwardRef(() => AuthModule),
@@ -24,7 +24,7 @@ import { CurrencyService } from '@Shared/services/currency.service';
   exports: [
     ProfileService, ClientProfileService,
     MasterProfileService, MasterServiceService,
-    MasterWeekScheduleService,
+    MasterWeeklyScheduleService,
   ],
 })
 export class ProfileModule { }

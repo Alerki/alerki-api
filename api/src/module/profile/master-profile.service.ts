@@ -1,4 +1,4 @@
-import { MasterWeekScheduleService } from '@Module/profile/week-schedule.service';
+import { MasterWeeklyScheduleService } from '@Module/profile/week-schedule.service';
 import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
@@ -13,11 +13,11 @@ export class MasterProfileService {
 
   /**
    * Master profile service
-   * @param masterWeekScheduleService master week schedule service
+   * @param masterWeeklyScheduleService master weekly schedule service
    */
   constructor(
-    @Inject(forwardRef(() => MasterWeekScheduleService))
-    private readonly masterWeekScheduleService: MasterWeekScheduleService,
+    @Inject(forwardRef(() => MasterWeeklyScheduleService))
+    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
   ) { }
 
   /**
@@ -27,12 +27,12 @@ export class MasterProfileService {
    * @returns
    */
   async create(data: Prisma.Prisma.MasterProfileCreateArgs = { data: {} }) {
-    // Create master week schedule
-    const newWeekSchedule = await this.masterWeekScheduleService.create();
+    // Create master weekly schedule
+    const newWeeklySchedule = await this.masterWeeklyScheduleService.create();
 
-    data.data.weekSchedule = {
+    data.data.weeklySchedule = {
       connect: {
-        id: newWeekSchedule.id,
+        id: newWeeklySchedule.id,
       },
     };
 

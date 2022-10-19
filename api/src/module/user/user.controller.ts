@@ -38,11 +38,11 @@ import { ProtectedRequest } from '@Module/auth/interface/protected-request.inter
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
-import { MasterWeekScheduleService } from '@Module/profile/week-schedule.service';
+import { MasterWeeklyScheduleService } from '@Module/profile/week-schedule.service';
 import {
   CreateMasterServiceDto,
   PatchMasterServiceDto,
-  PatchMasterWeekScheduleDto,
+  PatchMasterWeeklyScheduleDto,
 } from '@Module/user/dto/master.dto';
 import { PatchUserDto } from '@Module/user/dto/user.dto';
 import { UserService } from '@Module/user/user.service';
@@ -54,7 +54,7 @@ export class UserController {
     private readonly userService: UserService,
     private readonly masterServiceService: MasterServiceService,
     private readonly profileService: ProfileService,
-    private readonly masterWeekScheduleService: MasterWeekScheduleService,
+    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
   ) { }
 
   /**
@@ -162,44 +162,44 @@ export class UserController {
   }
 
   /**
-   * Get master week schedule
+   * Get master weekly schedule
    *
    * @param id master ID
-   * @returns master week schedule
+   * @returns master weekly schedule
    */
-  @ApiOperation({ description: 'Get master week schedule' })
-  @ApiOkResponse({ description: 'Master week schedule got successfully' })
+  @ApiOperation({ description: 'Get master weekly schedule' })
+  @ApiOkResponse({ description: 'Master weekly schedule got successfully' })
   @ApiNotFoundResponse({ description: 'Master not found' })
   @ApiParam({ name: 'id', description: 'Master ID' })
   @Get('master/:id/week-schedule')
-  async getMasterWeekSchedule(
+  async getMasterWeeklySchedule(
     @Param('id', ParseUUIDPipe) id: string,
   ) {
-    const weekSchedule = await this.masterWeekScheduleService.getWeekSchedule({ id });
+    const weeklySchedule = await this.masterWeeklyScheduleService.getWeeklySchedule({ id });
 
-    return weekSchedule;
+    return weeklySchedule;
   }
 
   /**
-   * Patch master's week schedule
+   * Patch master's weekly schedule
    *
    * @param req request
    * @param body body
-   * @returns week schedule
+   * @returns weekly schedule
    */
-  @ApiOperation({ description: 'Patch master\'s week schedule' })
+  @ApiOperation({ description: 'Patch master\'s weekly schedule' })
   @ApiBearerAuth('Bearer')
-  @ApiOkResponse({ description: 'Week schedule patched successfully' })
+  @ApiOkResponse({ description: 'Weekly schedule patched successfully' })
   @ApiNotFoundResponse({ description: 'User not exists' })
   @UseGuards(JwtAuthGuard)
   @Patch('master/week-schedule')
-  async patchMasterWeekSchedule(
+  async patchMasterWeeklySchedule(
     @Req() req: ProtectedRequest,
-    @Body() body: PatchMasterWeekScheduleDto,
+    @Body() body: PatchMasterWeeklyScheduleDto,
   ) {
     const { user: { id } } = req;
 
-    const patchedSchedule = await this.masterWeekScheduleService.patchWeekSchedule(
+    const patchedSchedule = await this.masterWeeklyScheduleService.patchWeeklySchedule(
       { id },
       body,
     );

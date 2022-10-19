@@ -14,7 +14,7 @@ import {
 
 import {
   MasterService,
-  MasterWeekSchedule,
+  MasterWeeklySchedule,
   Service,
 } from '@Config/api/property.config';
 
@@ -135,8 +135,8 @@ export class CreateMasterScheduleDto implements Pick<
   readonly dayOff: boolean;
 }
 
-export class PatchMasterWeekScheduleDto implements Pick<
-  Prisma.MasterWeekSchedule,
+export class PatchMasterWeeklyScheduleDto implements Pick<
+  Prisma.MasterWeeklySchedule,
   'monday' |
   'tuesday' |
   'wednesday' |
@@ -145,37 +145,37 @@ export class PatchMasterWeekScheduleDto implements Pick<
   'saturday' |
   'sunday'
 > {
-  @ApiProperty(MasterWeekSchedule.config.monday)
+  @ApiProperty(MasterWeeklySchedule.config.monday)
   @IsOptional()
   @IsBoolean()
   readonly monday: boolean;
 
-  @ApiProperty(MasterWeekSchedule.config.tuesday)
+  @ApiProperty(MasterWeeklySchedule.config.tuesday)
   @IsOptional()
   @IsBoolean()
   readonly tuesday: boolean;
 
-  @ApiProperty(MasterWeekSchedule.config.wednesday)
+  @ApiProperty(MasterWeeklySchedule.config.wednesday)
   @IsOptional()
   @IsBoolean()
   readonly wednesday: boolean;
 
-  @ApiProperty(MasterWeekSchedule.config.thursday)
+  @ApiProperty(MasterWeeklySchedule.config.thursday)
   @IsOptional()
   @IsBoolean()
   readonly thursday: boolean;
 
-  @ApiProperty(MasterWeekSchedule.config.friday)
+  @ApiProperty(MasterWeeklySchedule.config.friday)
   @IsOptional()
   @IsBoolean()
   readonly friday: boolean;
 
-  @ApiProperty(MasterWeekSchedule.config.saturday)
+  @ApiProperty(MasterWeeklySchedule.config.saturday)
   @IsOptional()
   @IsBoolean()
   readonly saturday: boolean;
 
-  @ApiProperty(MasterWeekSchedule.config.sunday)
+  @ApiProperty(MasterWeeklySchedule.config.sunday)
   @IsOptional()
   @IsBoolean()
   readonly sunday: boolean;

@@ -149,7 +149,7 @@ describe('UserController (e2e)', () => {
           include: {
             masterProfile: {
               include: {
-                weekSchedule: true,
+                weeklySchedule: true,
               },
             },
           },
@@ -160,9 +160,9 @@ describe('UserController (e2e)', () => {
         ).toBeTruthy();
 
         expect(userAfter.masterProfileId).toBeTruthy();
-        expect(userAfter.masterProfile.weekScheduleId).toBeDefined();
-        expect(userAfter.masterProfile.weekSchedule).toBeDefined();
-        expect(userAfter.masterProfile.weekSchedule).toMatchObject({
+        expect(userAfter.masterProfile.weeklyScheduleId).toBeDefined();
+        expect(userAfter.masterProfile.weeklySchedule).toBeDefined();
+        expect(userAfter.masterProfile.weeklySchedule).toMatchObject({
           monday: true,
           tuesday: true,
           wednesday: true,
@@ -383,8 +383,8 @@ describe('UserController (e2e)', () => {
 
         expect(body.masterProfile).toBeDefined();
         expect(body.masterProfileId).toBeDefined();
-        expect(body.masterProfile.weekSchedule).toBeDefined();
-        expect(body.masterProfile.weekScheduleId).toBeDefined();
+        expect(body.masterProfile.weeklySchedule).toBeDefined();
+        expect(body.masterProfile.weeklyScheduleId).toBeDefined();
       });
     });
 
@@ -942,7 +942,7 @@ describe('UserController (e2e)', () => {
       });
     });
 
-    describe('master week schedule actions', () => {
+    describe('master weekly schedule actions', () => {
       let user: Record<string, any> = {};
       let userProfile: Record<string, any> = {};
 
@@ -977,7 +977,7 @@ describe('UserController (e2e)', () => {
           expect(body.sunday).toBeFalsy();
         });
 
-        test('try to get week schedule with bad UUID', async () => {
+        test('try to get weekly schedule with bad UUID', async () => {
           const { body } = await request(app)
             .get('/user/master/bad-uuid/week-schedule')
             .expect(400);
@@ -985,7 +985,7 @@ describe('UserController (e2e)', () => {
           expect(body.message).toBe('Validation failed (uuid is expected)');
         });
 
-        test('try to get week schedule for not exists master', async () => {
+        test('try to get weekly schedule for not exists master', async () => {
 
           const { body } = await request(app)
             .get(`/user/master/${randomUUID()}/week-schedule`)

@@ -154,7 +154,7 @@ export namespace MasterService {
   };
 }
 
-export namespace MasterWeekSchedule {
+export namespace MasterWeeklySchedule {
   const generateWeekDaySchedule = (dayName: string): PropertyConfig => ({
     description: `${dayName} is weekend or not`,
     type: 'boolean',

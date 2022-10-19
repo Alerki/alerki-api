@@ -2,19 +2,19 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { MasterProfileService } from '@Module/profile/master-profile.service';
-import { PatchMasterWeekScheduleDto } from '@Module/user/dto/master.dto';
+import { PatchMasterWeeklyScheduleDto } from '@Module/user/dto/master.dto';
 import { UserService } from '@Module/user/user.service';
 import { prisma } from '@Shared/services/prisma.service';
 
 /**
- * Master week schedule service
+ * Master's weekly schedule service
  */
 @Injectable()
-export class MasterWeekScheduleService {
+export class MasterWeeklyScheduleService {
   private readonly prismaService = prisma;
 
   /**
-   * Master week schedule constructor
+   * Master's weekly schedule constructor
    */
   constructor(
     @Inject(forwardRef(() => MasterProfileService))
@@ -23,43 +23,43 @@ export class MasterWeekScheduleService {
   ) { }
 
   /**
-   * Create master week schedule
+   * Create master's weekly schedule
    *
-   * @returns master week schedule
+   * @returns master weekly schedule
    */
   async create() {
-    return await this.prismaService.masterWeekSchedule.create({ data: {} });
+    return await this.prismaService.masterWeeklySchedule.create({ data: {} });
   }
 
   /**
-   * Get master week schedule
+   * Get master weekly schedule
    *
    * @param param0 master ID
-   * @returns master week schedule
+   * @returns master weekly schedule
    */
-  async getWeekSchedule({ id }: Pick<Prisma.MasterProfile, 'id'>) {
+  async getWeeklySchedule({ id }: Pick<Prisma.MasterProfile, 'id'>) {
     const masterCandidate = await this.masterProfileService.getExists({
       where: {
         id,
       },
       include: {
-        weekSchedule: true,
+        weeklySchedule: true,
       },
     });
 
-    return masterCandidate.weekSchedule;
+    return masterCandidate.weeklySchedule;
   }
 
   /**
-   * Patch master's week schedule
+   * Patch master's weekly schedule
    *
    * @param user user
    * @param data data
-   * @returns week schedule
+   * @returns weekly schedule
    */
-  async patchWeekSchedule(
+  async patchWeeklySchedule(
     user: Pick<Prisma.User, 'id'>,
-    data: PatchMasterWeekScheduleDto,
+    data: PatchMasterWeeklyScheduleDto,
   ) {
     const userProfile = await this.userService.getExists({
       where: {
@@ -70,9 +70,9 @@ export class MasterWeekScheduleService {
       },
     });
 
-    return await this.prismaService.masterWeekSchedule.update({
+    return await this.prismaService.masterWeeklySchedule.update({
       where: {
-        id: userProfile.masterProfile.weekScheduleId,
+        id: userProfile.masterProfile.weeklyScheduleId,
       },
       data,
     });
