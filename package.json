@@ -20,7 +20,7 @@
     "@commitlint/config-angular": "^17.1.0",
     "@nestjs/cli": "^9.1.4",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
-    "@typescript-eslint/parser": "^5.38.1",
+    "@typescript-eslint/parser": "^5.40.1",
     "commitlint": "^17.1.2",
     "eslint": "8.22.0",
     "eslint-config-google": "^0.14.0",
