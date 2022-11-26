@@ -1,10 +1,18 @@
+export enum PropertyType {
+  string = 'string',
+  number = 'number',
+  Buffer = 'Buffer',
+  boolean = 'boolean',
+  DateTime = 'DateTime',
+  Date = 'Date',
+}
 export interface PropertyConfig {
   description: string,
   minLength?: number,
   maxLength?: number,
   minimum?: number,
   maximum?: number,
-  type: 'string' | 'number' | 'Buffer' | 'boolean',
+  type: PropertyType,
   example?: string | number | any,
   pattern?: string,
   required?: boolean,
@@ -29,7 +37,7 @@ export namespace General {
   export const config: PropertiesConfig = {
     uuid: {
       description: 'UUID',
-      type: 'string',
+      type: PropertyType.string,
       example: 'f7b1cb86-5f8f-4aac-9838-b51ffbfa22c6',
     },
   };
@@ -48,7 +56,7 @@ export namespace User {
       description: 'Email',
       minLength: 5,
       maxLength: 319,
-      type: 'string',
+      type: PropertyType.string,
       example: 'james@gmail.com',
       pattern: String(emailPattern),
       patternExp: emailPattern,
@@ -57,32 +65,32 @@ export namespace User {
       description: 'Username',
       minLength: 4,
       maxLength: 20,
-      type: 'string',
+      type: PropertyType.string,
       example: 'james',
       patternExp: usernamePattern,
     },
     firstName: {
       description: 'First name',
       maxLength: 30,
-      type: 'string',
+      type: PropertyType.string,
       example: 'James',
     },
     lastName: {
       description: 'Last name',
       maxLength: 30,
-      type: 'string',
+      type: PropertyType.string,
       example: 'Smith',
     },
     password: {
       description: 'Password',
       minLength: 6,
       maxLength: 50,
-      type: 'string',
+      type: PropertyType.string,
       example: 'dIda*20/fa',
     },
     picture: {
       description: 'User picture',
-      type: 'Buffer',
+      type: PropertyType.Buffer,
       pattern: String(availablePictureExtensions),
       patternExp: availablePictureExtensions,
     },
@@ -90,14 +98,14 @@ export namespace User {
       description: 'Phone number',
       minLength: 8,
       maxLength: 20,
-      type: 'string',
+      type: PropertyType.string,
       example: '+38 (098) 088 86 55',
     },
     deviceName: {
       description: 'Device name',
       minLength: 1,
       maxLength: 20,
-      type: 'string',
+      type: PropertyType.string,
       example: 'iPhone XR',
     },
   };
@@ -107,14 +115,14 @@ export namespace Service {
   export const config: PropertiesConfig = {
     available: {
       description: 'Available condition',
-      type: 'boolean',
+      type: PropertyType.boolean,
       example: false,
     },
     name: {
       description: 'Service name',
       minLength: 1,
       maxLength: 20,
-      type: 'string',
+      type: PropertyType.string,
       example: 'Haircut',
     },
   };
@@ -124,18 +132,18 @@ export namespace MasterService {
   export const config: PropertiesConfig = {
     currency: {
       description: 'Payment currency',
-      type: 'string',
+      type: PropertyType.string,
       example: 'USD',
     },
     price: {
       description: 'Service price',
-      type: 'number',
+      type: PropertyType.number,
       minimum: 0,
       example: 15,
     },
     duration: {
       description: 'Service duration in seconds',
-      type: 'number',
+      type: PropertyType.number,
       minimum: 0,
       maximum: General.intMaxValue,
       example: 60 * 30,
@@ -144,33 +152,37 @@ export namespace MasterService {
       description: 'Location latitude',
       minimum: General.minLatitudeValue,
       maximum: General.maxLatitudeValue,
-      type: 'number',
+      type: PropertyType.number,
     },
     locationLng: {
       description: 'Location longitude',
       minimum: General.minLongitudeValue,
       maximum: General.maxLongitudeValue,
-      type: 'number',
+      type: PropertyType.number,
     },
   };
 }
 
 export namespace MasterWeeklySchedule {
-  const generateWeekDaySchedule = (dayName: string): PropertyConfig => ({
+  export const generateWeekDaySchedule = (dayName: string): PropertyConfig => ({
     description: `${dayName} is weekend or not`,
-    type: 'boolean',
+    type: PropertyType.boolean,
     example: true,
   });
 
-  const generateTime =
+  export const generateTime =
     (description: string, example: number): PropertyConfig =>
       ({
         minimum: 0,
         maximum: 86399999,
         description,
-        type: 'number',
+        type: PropertyType.number,
         example,
       });
+
+  export const startTime = generateTime('Start work time', 9 * 60 * 1000);
+  export const endTime = generateTime('End work time', 17 * 60 * 1000);
+  export const timezoneOffset = generateTime('Timezone offset', 2 * 60 * 1000);
 
   export const config: PropertiesConfig = {
     monday: generateWeekDaySchedule('Monday'),
@@ -180,33 +192,26 @@ export namespace MasterWeeklySchedule {
     friday: generateWeekDaySchedule('Friday'),
     saturday: generateWeekDaySchedule('Saturday'),
     sunday: generateWeekDaySchedule('Sunday'),
-    startTime: generateTime('Start work time', 9 * 60 * 1000),
-    endTime: generateTime('End work time', 17 * 60 * 1000),
-    timezoneOffset: generateTime('Timezone offset', 2 * 60 * 1000),
+    startTime: startTime,
+    endTime: endTime,
+    timezoneOffset: timezoneOffset,
   };
 }
 
 export namespace MasterSchedule {
   export const config: PropertiesConfig = {
-    startTime: {
-      description: '',
-      type: 'number',
-    },
-    endTime: {
-      description: '',
-      type: 'number',
-    },
-    timezoneOffset: {
-      description: '',
-      type: 'number',
-    },
+    startTime: MasterWeeklySchedule.startTime,
+    endTime: MasterWeeklySchedule.endTime,
+    timezoneOffset: MasterWeeklySchedule.timezoneOffset,
     data: {
-      description: '',
-      type: 'number',
+      description: 'Schedule date',
+      type: PropertyType.Date,
+      example: '2022-11-26T00:00:00.000Z',
     },
     dayOff: {
-      description: '',
-      type: 'boolean',
+      description: 'It\'s a day off',
+      type: PropertyType.boolean,
+      example: false,
     },
   };
 }

@@ -13,6 +13,7 @@ import {
 } from 'class-validator';
 
 import {
+  MasterSchedule,
   MasterService,
   MasterWeeklySchedule,
   Service,
@@ -122,15 +123,23 @@ export class CreateMasterScheduleDto implements Pick<
   'date' |
   'dayOff'
 > {
-  @IsDateString()
-  readonly date: Date;
-
+  @ApiProperty(MasterSchedule.config.startTime)
+  @Min(MasterSchedule.config.startTime.minimum)
+  @Max(MasterSchedule.config.startTime.maximum)
   @IsNumber()
   readonly startTime: number;
 
+  @ApiProperty(MasterSchedule.config.endTime)
+  @Min(MasterSchedule.config.endTime.minimum)
+  @Max(MasterSchedule.config.endTime.maximum)
   @IsNumber()
   readonly endTime: number;
 
+  @ApiProperty(MasterSchedule.config.data)
+  @IsDateString()
+  readonly date: Date;
+
+  @ApiProperty(MasterSchedule.config.dayOff)
   @IsBoolean()
   readonly dayOff: boolean;
 }
