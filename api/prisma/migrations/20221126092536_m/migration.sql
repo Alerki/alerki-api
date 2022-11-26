@@ -105,8 +105,10 @@ CREATE TABLE "MasterServices" (
 -- CreateTable
 CREATE TABLE "MasterSchedules" (
     "id" TEXT NOT NULL,
-    "startTime" TIMETZ NOT NULL,
-    "endTime" TIMETZ NOT NULL,
+    "startTime" INTEGER NOT NULL,
+    "startTimezoneOffset" INTEGER NOT NULL,
+    "endTime" INTEGER NOT NULL,
+    "endTimezoneOffset" INTEGER NOT NULL,
     "date" DATE NOT NULL,
     "dayOff" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -125,6 +127,8 @@ CREATE TABLE "MasterWeeklySchedules" (
     "friday" BOOLEAN NOT NULL DEFAULT true,
     "saturday" BOOLEAN NOT NULL DEFAULT false,
     "sunday" BOOLEAN NOT NULL DEFAULT false,
+    "startTime" TIMETZ(6),
+    "endTime" TIMETZ(6),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

@@ -7,6 +7,7 @@ export interface PropertyConfig {
   type: 'string' | 'number' | 'Buffer' | 'boolean',
   example?: string | number | any,
   pattern?: string,
+  required?: boolean,
   patternExp?: RegExp,
 }
 
@@ -161,6 +162,16 @@ export namespace MasterWeeklySchedule {
     example: true,
   });
 
+  const generateTime =
+    (description: string, example: number): PropertyConfig =>
+      ({
+        minimum: 0,
+        maximum: 86399999,
+        description,
+        type: 'number',
+        example,
+      });
+
   export const config: PropertiesConfig = {
     monday: generateWeekDaySchedule('Monday'),
     tuesday: generateWeekDaySchedule('Tuesday'),
@@ -169,5 +180,33 @@ export namespace MasterWeeklySchedule {
     friday: generateWeekDaySchedule('Friday'),
     saturday: generateWeekDaySchedule('Saturday'),
     sunday: generateWeekDaySchedule('Sunday'),
+    startTime: generateTime('Start work time', 9 * 60 * 1000),
+    endTime: generateTime('End work time', 17 * 60 * 1000),
+    timezoneOffset: generateTime('Timezone offset', 2 * 60 * 1000),
+  };
+}
+
+export namespace MasterSchedule {
+  export const config: PropertiesConfig = {
+    startTime: {
+      description: '',
+      type: 'number',
+    },
+    endTime: {
+      description: '',
+      type: 'number',
+    },
+    timezoneOffset: {
+      description: '',
+      type: 'number',
+    },
+    data: {
+      description: '',
+      type: 'number',
+    },
+    dayOff: {
+      description: '',
+      type: 'boolean',
+    },
   };
 }

@@ -60,16 +60,16 @@ model AuthSession {
 }
 
 model MasterProfile {
-  id             String                           @id @default(uuid())
-  user           User?
-  services       MasterService[]
-  schedules      MasterProfilesToMasterSchedule[]
-  weeklySchedule   MasterWeeklySchedule?              @relation(fields: [weeklyScheduleId], references: [id])
+  id               String                           @id @default(uuid())
+  user             User?
+  services         MasterService[]
+  schedules        MasterProfilesToMasterSchedule[]
+  weeklySchedule   MasterWeeklySchedule?            @relation(fields: [weeklyScheduleId], references: [id])
   weeklyScheduleId String?                          @unique @db.VarChar(36)
-  appointments   Appointment[]
-  available      Boolean                          @default(true)
-  createdAt      DateTime                         @default(now())
-  updatedAt      DateTime                         @updatedAt
+  appointments     Appointment[]
+  available        Boolean                          @default(true)
+  createdAt        DateTime                         @default(now())
+  updatedAt        DateTime                         @updatedAt
 
   @@map("MasterProfiles")
 }
@@ -125,30 +125,34 @@ model MasterService {
 }
 
 model MasterSchedule {
-  id        String                          @id @default(uuid())
-  startTime DateTime                        @db.Timetz
-  endTime   DateTime                        @db.Timetz
-  date      DateTime                        @db.Date
-  dayOff    Boolean                         @default(false)
-  master    MasterProfilesToMasterSchedule?
-  createdAt DateTime                        @default(now())
-  updatedAt DateTime                        @updatedAt
+  id                  String                          @id @default(uuid())
+  startTime           Int // Start work time in UTC
+  endTime             Int // End work time in UTC
+  timezoneOffset      Int // End work timezone offset GMT+
+  date                DateTime                        @db.Date
+  dayOff              Boolean                         @default(false)
+  master              MasterProfilesToMasterSchedule?
+  createdAt           DateTime                        @default(now())
+  updatedAt           DateTime                        @updatedAt
 
   @@map("MasterSchedules")
 }
 
 model MasterWeeklySchedule {
-  id        String         @id @default(uuid())
-  monday    Boolean        @default(true)
-  tuesday   Boolean        @default(true)
-  wednesday Boolean        @default(true)
-  thursday  Boolean        @default(true)
-  friday    Boolean        @default(true)
-  saturday  Boolean        @default(false)
-  sunday    Boolean        @default(false)
-  master    MasterProfile?
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  id             String         @id @default(uuid())
+  monday         Boolean        @default(true)
+  tuesday        Boolean        @default(true)
+  wednesday      Boolean        @default(true)
+  thursday       Boolean        @default(true)
+  friday         Boolean        @default(true)
+  saturday       Boolean        @default(false)
+  sunday         Boolean        @default(false)
+  master         MasterProfile?
+  startTime      Int? // Start work time in UTC
+  endTime        Int? // End work time in UTC
+  timezoneOffset Int? // Timezone offset GMT+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
 
   @@map("MasterWeeklySchedules")
 }

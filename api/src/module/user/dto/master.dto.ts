@@ -125,11 +125,11 @@ export class CreateMasterScheduleDto implements Pick<
   @IsDateString()
   readonly date: Date;
 
-  @IsDateString()
-  readonly startTime: Date;
+  @IsNumber()
+  readonly startTime: number;
 
-  @IsDateString()
-  readonly endTime: Date;
+  @IsNumber()
+  readonly endTime: number;
 
   @IsBoolean()
   readonly dayOff: boolean;
@@ -143,7 +143,10 @@ export class PatchMasterWeeklyScheduleDto implements Pick<
   'thursday' |
   'friday' |
   'saturday' |
-  'sunday'
+  'sunday' |
+  'startTime' |
+  'endTime' |
+  'timezoneOffset'
 > {
   @ApiProperty(MasterWeeklySchedule.config.monday)
   @IsOptional()
@@ -179,4 +182,25 @@ export class PatchMasterWeeklyScheduleDto implements Pick<
   @IsOptional()
   @IsBoolean()
   readonly sunday: boolean;
+
+  @ApiProperty(MasterWeeklySchedule.config.startTime)
+  @Min(MasterWeeklySchedule.config.endTime.minimum)
+  @Max(MasterWeeklySchedule.config.endTime.maximum)
+  @IsNumber()
+  @IsOptional()
+  readonly startTime: number;
+
+  @ApiProperty(MasterWeeklySchedule.config.endTime)
+  @Min(MasterWeeklySchedule.config.endTime.minimum)
+  @Max(MasterWeeklySchedule.config.endTime.maximum)
+  @IsNumber()
+  @IsOptional()
+  readonly endTime: number;
+
+  @ApiProperty(MasterWeeklySchedule.config.timezoneOffset)
+  @Min(MasterWeeklySchedule.config.timezoneOffset.minimum)
+  @Max(MasterWeeklySchedule.config.timezoneOffset.maximum)
+  @IsNumber()
+  @IsOptional()
+  readonly timezoneOffset: number;
 }
