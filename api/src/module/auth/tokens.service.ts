@@ -25,19 +25,27 @@ export interface JwtTokensPair {
 export class TokensService {
   /**
    * Access token secret
-   *
-   * Takes from environment variables
    */
   @SetEnvVariable('JWT_ACCESS_SECRET', 'string', true)
   private readonly accessSecret: string;
 
   /**
    * Refresh token secret
-   *
-   * Takes from environment variables
    */
   @SetEnvVariable('JWT_REFRESH_SECRET', 'string', true)
   private readonly refreshSecret: string;
+
+  /**
+   * Access token expires in
+   */
+  @SetEnvVariable('JWT_ACCESS_EXPIRES_IN', 'string', true)
+  private readonly accessExpiresIn: string;
+
+  /**
+   * Refresh token expires in
+   */
+  @SetEnvVariable('JWT_REFRESH_EXPIRES_IN', 'string', true)
+  private readonly refreshExpiresIn: string;
 
   /**
    * Constructor
@@ -57,7 +65,7 @@ export class TokensService {
   async generateAccessToken(payload: JwkTokenPayload) {
     return this.jwtService.sign(payload, {
       secret: this.accessSecret,
-      expiresIn: '60s',
+      expiresIn: this.accessExpiresIn,
     });
   }
 
@@ -70,7 +78,7 @@ export class TokensService {
   async generateRefreshToken(payload: JwkTokenPayload) {
     return this.jwtService.sign(payload, {
       secret: this.refreshSecret,
-      expiresIn: '30d',
+      expiresIn: this.refreshExpiresIn,
     });
   }
 

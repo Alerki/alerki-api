@@ -13,6 +13,7 @@ import {
 } from 'class-validator';
 
 import {
+  MasterSchedule,
   MasterService,
   MasterWeeklySchedule,
   Service,
@@ -122,15 +123,23 @@ export class CreateMasterScheduleDto implements Pick<
   'date' |
   'dayOff'
 > {
+  @ApiProperty(MasterSchedule.config.startTime)
+  @Min(MasterSchedule.config.startTime.minimum)
+  @Max(MasterSchedule.config.startTime.maximum)
+  @IsNumber()
+  readonly startTime: number;
+
+  @ApiProperty(MasterSchedule.config.endTime)
+  @Min(MasterSchedule.config.endTime.minimum)
+  @Max(MasterSchedule.config.endTime.maximum)
+  @IsNumber()
+  readonly endTime: number;
+
+  @ApiProperty(MasterSchedule.config.data)
   @IsDateString()
   readonly date: Date;
 
-  @IsDateString()
-  readonly startTime: Date;
-
-  @IsDateString()
-  readonly endTime: Date;
-
+  @ApiProperty(MasterSchedule.config.dayOff)
   @IsBoolean()
   readonly dayOff: boolean;
 }
@@ -143,7 +152,10 @@ export class PatchMasterWeeklyScheduleDto implements Pick<
   'thursday' |
   'friday' |
   'saturday' |
-  'sunday'
+  'sunday' |
+  'startTime' |
+  'endTime' |
+  'timezoneOffset'
 > {
   @ApiProperty(MasterWeeklySchedule.config.monday)
   @IsOptional()
@@ -179,4 +191,25 @@ export class PatchMasterWeeklyScheduleDto implements Pick<
   @IsOptional()
   @IsBoolean()
   readonly sunday: boolean;
+
+  @ApiProperty(MasterWeeklySchedule.config.startTime)
+  @Min(MasterWeeklySchedule.config.endTime.minimum)
+  @Max(MasterWeeklySchedule.config.endTime.maximum)
+  @IsNumber()
+  @IsOptional()
+  readonly startTime: number;
+
+  @ApiProperty(MasterWeeklySchedule.config.endTime)
+  @Min(MasterWeeklySchedule.config.endTime.minimum)
+  @Max(MasterWeeklySchedule.config.endTime.maximum)
+  @IsNumber()
+  @IsOptional()
+  readonly endTime: number;
+
+  @ApiProperty(MasterWeeklySchedule.config.timezoneOffset)
+  @Min(MasterWeeklySchedule.config.timezoneOffset.minimum)
+  @Max(MasterWeeklySchedule.config.timezoneOffset.maximum)
+  @IsNumber()
+  @IsOptional()
+  readonly timezoneOffset: number;
 }
