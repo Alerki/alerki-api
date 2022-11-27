@@ -44,5 +44,4 @@ playground.*
 env/
 
 # PostgreSQL data
-docker/data/dev
-docker/data/test
+docker/data
