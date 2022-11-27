@@ -42,3 +42,7 @@ playground.*
 
 # Python env
 env/
+
+# PostgreSQL data
+docker/data/dev
+docker/data/test

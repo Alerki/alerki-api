@@ -26,7 +26,13 @@ Requirements to run:
    cd api
    ```
 
-4. Run API in development mode:
+4. Migrate:
+
+    ```sh
+    yarn migrate:dev
+    ```
+
+5. Run API in development mode:
 
    ```sh
    yarn start:dev
