@@ -132,7 +132,7 @@ export class GoogleOAuthMock {
       name: 'Test User',
       given_name: 'User',
       family_name: 'Test',
-      picture: 'https://source.unsplash.com/user/c_v_r/500x500',
+      picture: 'http://localhost:3005/500x500',
       locale: 'en',
     };
     this._token = options.token ? options.token : {

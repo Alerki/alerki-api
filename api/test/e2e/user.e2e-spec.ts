@@ -12,8 +12,9 @@ import { AppModule } from '@Src/app.module';
 import { databaseSetup } from '@Src/util';
 import { clearDatabase } from '@Test/util/clear-database';
 import getCookies from '@Test/util/get-cookies';
-import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
 import { TokensService } from '@Test/util/jwt-service';
+import { GoogleOAuthMock } from '@Test/util/mock/google-oauth.mock';
+import { ImageServerMock } from '@Test/util/mock/image-server.mock';
 import { randomUUID } from '@Test/util/random-uid';
 import { registerUser } from '@Test/util/register-user';
 import { Application } from 'express';
@@ -21,6 +22,7 @@ import { Application } from 'express';
 describe('UserController (e2e)', () => {
   let app: Application;
   let googleOAuthMock: GoogleOAuthMock;
+  let imageServerMock: ImageServerMock;
   let application: INestApplication;
   const tokensService = new TokensService;
 
@@ -57,16 +59,18 @@ describe('UserController (e2e)', () => {
       googleStrategy._oauth2._accessTokenUrl = mockTokenUrl;
     });
 
+    imageServerMock = new ImageServerMock({ port: 3005 });
+
     await googleOAuthMock.start();
-
+    await imageServerMock.start();
     await clearDatabase();
-
     await databaseSetup();
   });
 
   afterAll(async () => {
     await application.close();
     await googleOAuthMock.close();
+    await imageServerMock.close();
     await clearDatabase();
   });
 
@@ -421,7 +425,7 @@ describe('UserController (e2e)', () => {
 
       test('patch picture 500x500', async () => {
         const image = await axios.get(
-          'https://source.unsplash.com/user/c_v_r/500x500',
+          `${imageServerMock.serverUrl}/500x500`,
           { responseType: 'arraybuffer' },
         );
 
@@ -437,7 +441,7 @@ describe('UserController (e2e)', () => {
 
       test('patch picture 100x100', async () => {
         const image = await axios.get(
-          'https://source.unsplash.com/user/c_v_r/100x100',
+          `${imageServerMock.serverUrl}/100x100`,
           { responseType: 'arraybuffer' },
         );
 
@@ -476,7 +480,7 @@ describe('UserController (e2e)', () => {
         user.refreshToken = cookies.refreshToken.value;
 
         const image = await axios.get(
-          'https://source.unsplash.com/user/c_v_r/100x100',
+          `${imageServerMock.serverUrl}/100x100`,
           { responseType: 'arraybuffer' },
         );
 

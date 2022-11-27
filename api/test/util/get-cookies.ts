@@ -9,6 +9,12 @@ interface Cookie {
   [key: string]: any;
 }
 
+/**
+ * Get cookies in supertest response
+ *
+ * @param response supertest response
+ * @returns
+ */
 const getCookies = (response: any) => {
   const setCookiesHeder = response['set-cookie'] ?
     response['set-cookie'] :
