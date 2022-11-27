@@ -1,6 +1,6 @@
-import { databaseSetup } from '@Src/util';
-import { prisma } from '@Shared/services/prisma.service';
 import { currenciesRaw } from '@Config/api/currency.config';
+import { prisma } from '@Shared/services/prisma.service';
+import { databaseSetup } from '@Src/util';
 import { clearDatabase } from '@Test/util/clear-database';
 
 describe('Database setup utility test', () => {

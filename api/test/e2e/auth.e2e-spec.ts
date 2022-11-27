@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import Prisma from '@prisma/client';
 import * as cookieParser from 'cookie-parser';
 import { Application } from 'express';
-import { Server } from 'http';
 import * as jwt from 'jsonwebtoken';
 import * as request from 'supertest';
 
@@ -11,15 +10,17 @@ import { usernameBlackListRaw } from '@Config/api/username-black-list';
 import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
-import getCookies from '@Test/util/get-cookies';
-import { GoogleOAuthMock } from '@Test/util/google-oauth-mock';
-import sleep from '@Test/util/sleep';
 import { databaseSetup } from '@Src/util';
 import { clearDatabase } from '@Test/util/clear-database';
+import getCookies from '@Test/util/get-cookies';
+import { GoogleOAuthMock } from '@Test/util/mock/google-oauth.mock';
+import { ImageServerMock } from '@Test/util/mock/image-server.mock';
+import { sleep } from '@Test/util/sleep';
 
 describe('AuthController (e2e)', () => {
   let app: Application;
   let googleOAuthMock: GoogleOAuthMock;
+  let imageServerMock: ImageServerMock;
   let application: INestApplication;
 
   beforeAll(async () => {
@@ -55,16 +56,18 @@ describe('AuthController (e2e)', () => {
       googleStrategy._oauth2._accessTokenUrl = mockTokenUrl;
     });
 
+    imageServerMock = new ImageServerMock({ port: 3005 });
+
     await clearDatabase();
-
     await databaseSetup();
-
     await googleOAuthMock.start();
+    await imageServerMock.start();
   });
 
   afterAll(async () => {
     await application.close();
     await googleOAuthMock.close();
+    await imageServerMock.close();
     await clearDatabase();
   });
 
@@ -326,7 +329,7 @@ describe('AuthController (e2e)', () => {
       test('with picture', async () => {
         googleOAuthMock.setProfile = {
           email: 'new.email1941@gmail.com',
-          picture: 'https://source.unsplash.com/user/c_v_r/100x100',
+          picture: `${imageServerMock.serverUrl}/100x100`,
         };
 
         await request(app)
