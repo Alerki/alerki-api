@@ -33,6 +33,7 @@ Requirements to run:
    ```
 
 5. Check if [.env.dev](./docker/.env.dev) exists
+   > If it doesn't exist, create one using the template from [here](./docker/.env.sample)
 
 6. Check if `GOOGLE_CLIENT_ID` and `GOOGLE_SECRET` in [.env.dev](./docker/.env.dev) file are filled with any value, for example like this:
 
