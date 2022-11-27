@@ -3,19 +3,23 @@ version: "3.9"
 services:
   dev_postgres:
     container_name: dev-postgres
-    image: postgres
+    image: postgres:15.1-bullseye
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: alerki_dev
+    volumes:
+      - ./data/dev:/var/lib/postgresql/data
     ports:
       - 5551:5432
   test_postgres:
     container_name: test-postgres
-    image: postgres
+    image: postgres:15.1-bullseye
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: alerki_test
+    volumes:
+      - ./data/test:/var/lib/postgresql/data
     ports:
       - 5552:5432

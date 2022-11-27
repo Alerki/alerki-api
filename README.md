@@ -26,7 +26,23 @@ Requirements to run:
    cd api
    ```
 
-4. Run API in development mode:
+4. Migrate:
+
+   ```sh
+   yarn migrate:dev
+   ```
+
+5. Check if [.env.dev](./docker/.env.dev) exists
+   > If it doesn't exist, create one using the template from [here](./docker/.env.sample)
+
+6. Check if `GOOGLE_CLIENT_ID` and `GOOGLE_SECRET` in [.env.dev](./docker/.env.dev) file are filled with any value, for example like this:
+
+   ```txt
+   GOOGLE_CLIENT_ID="id"
+   GOOGLE_SECRET="secret"
+   ```
+
+7. Run API in development mode:
 
    ```sh
    yarn start:dev
