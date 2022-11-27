@@ -40,7 +40,7 @@ export class ImageServerMock {
   private _port: number;
 
   /**
-   * Google OAuth2.0 mock constructor
+   * Image mock server constructor
    *
    * @param options constructor options
    */
