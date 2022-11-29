@@ -1019,6 +1019,9 @@ describe('UserController (e2e)', () => {
               friday: false,
               saturday: true,
               sunday: true,
+              startTime: 9 * 60 * 1000,
+              endTime: 17 * 60 * 1000,
+              timezoneOffset: 2 * 60 * 1000,
             })
             .expect(200);
 
@@ -1029,6 +1032,55 @@ describe('UserController (e2e)', () => {
           expect(body.friday).toBe(false);
           expect(body.saturday).toBe(true);
           expect(body.sunday).toBe(true);
+          expect(body.startTime).toBe(9 * 60 * 1000);
+          expect(body.endTime).toBe(17 * 60 * 1000);
+          expect(body.timezoneOffset).toBe(2 * 60 * 1000);
+        });
+
+        test('patch each field separately', async () => {
+          const weekDays = [
+            'monday',
+            'tuesday',
+            'wednesday',
+            'thursday',
+            'friday',
+            'saturday',
+            'sunday',
+          ];
+
+          for (let day of weekDays) {
+            let data: Record<string, boolean> = {};
+
+            data[day] = true;
+
+            const { body } = await request(app)
+              .patch('/user/master/weekly-schedule')
+              .set({ Authorization: 'Bearer ' + user.accessToken })
+              .send(data)
+              .expect(200);
+
+            expect(body[day]).toBe(true);
+          }
+
+          const { body: body1 } = await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              startTime: 9 * 60 * 1000,
+            })
+            .expect(200);
+
+          expect(body1.startTime).toBe(9 * 60 * 1000);
+
+          const { body: body2 } = await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              startTime: 9 * 60 * 1000,
+            })
+            .expect(200);
+
+          expect(body2.startTime).toBe(9 * 60 * 1000);
         });
 
         test('single day patch', async () => {
@@ -1058,3 +1110,4 @@ describe('UserController (e2e)', () => {
     });
   });
 });
+
