@@ -53,7 +53,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.7",
-    "sharp": "^0.31.0"
+    "sharp": "^0.31.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.1.5",
