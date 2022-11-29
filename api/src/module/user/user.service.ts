@@ -9,6 +9,8 @@ import * as imageType from 'image-type';
 import * as sharp from 'sharp';
 
 import * as ApiConfig from '@Config/api/property.config';
+import { MasterScheduleService } from '@Module/profile/master-schedule.service';
+import { CreateMasterScheduleDto } from '@Module/user/dto/master.dto';
 import { PatchUserDto, UserDto } from '@Module/user/dto/user.dto';
 import { UserPictureService } from '@Module/user/user-picture.service';
 import { prisma } from '@Shared/services/prisma.service';
@@ -23,10 +25,12 @@ export class UserService {
   /**
    * User service constructor
    *
+   * @param masterScheduleService master schedule service
    * @param userPictureService user picture service
    * @param serviceService service service
    */
   constructor(
+    private readonly masterScheduleService: MasterScheduleService,
     private readonly userPictureService: UserPictureService,
   ) { }
 
@@ -254,5 +258,48 @@ export class UserService {
     }
 
     await this.userPictureService.delete({ id: candidate.pictureId });
+  }
+
+  async createMasterSchedule(
+    { id }: Pick<Prisma.UserPicture, 'id'>,
+    data: CreateMasterScheduleDto,
+  ) {
+    const userCandidate = await this.getExists({
+      where: {
+        id,
+      },
+      include: {
+        masterProfile: true,
+      },
+    });
+
+    // Check if schedule for the date already exists
+    const checkDate = await this.masterScheduleService.findFirst({
+      where: {
+        master: {
+          id: userCandidate.masterProfileId,
+        },
+        date: data.date,
+      },
+    });
+
+    if (checkDate) {
+      throw new BadRequestException(
+        'Master schedule with the date already exists',
+      );
+    }
+
+    const newSchedule = await this.prismaService.masterSchedule.create({
+      data: {
+        ...data,
+        master: {
+          connect: {
+            id: userCandidate.masterProfileId,
+          },
+        },
+      },
+    });
+
+    return newSchedule;
   }
 }

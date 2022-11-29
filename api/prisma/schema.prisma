@@ -63,7 +63,7 @@ model MasterProfile {
   id               String                           @id @default(uuid())
   user             User?
   services         MasterService[]
-  schedules        MasterProfilesToMasterSchedule[]
+  schedules       MasterSchedule[]
   weeklySchedule   MasterWeeklySchedule?            @relation(fields: [weeklyScheduleId], references: [id])
   weeklyScheduleId String?                          @unique @db.VarChar(36)
   appointments     Appointment[]
@@ -72,16 +72,6 @@ model MasterProfile {
   updatedAt        DateTime                         @updatedAt
 
   @@map("MasterProfiles")
-}
-
-model MasterProfilesToMasterSchedule {
-  id         String         @id @default(uuid())
-  master     MasterProfile  @relation(fields: [masterId], references: [id])
-  masterId   String         @db.VarChar(36)
-  schedule   MasterSchedule @relation(fields: [scheduleId], references: [id])
-  scheduleId String         @unique @db.VarChar(36)
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime       @updatedAt
 }
 
 model ClientProfile {
@@ -131,7 +121,8 @@ model MasterSchedule {
   timezoneOffset      Int // End work timezone offset GMT+
   date                DateTime                        @db.Date
   dayOff              Boolean                         @default(false)
-  master              MasterProfilesToMasterSchedule?
+  master            MasterProfile @relation(fields: [masterId], references: [id])
+  masterId String        @db.VarChar(36)
   createdAt           DateTime                        @default(now())
   updatedAt           DateTime                        @updatedAt
 

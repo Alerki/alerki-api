@@ -120,8 +120,9 @@ export class CreateMasterScheduleDto implements Pick<
   Prisma.MasterSchedule,
   'startTime' |
   'endTime' |
-  'date' |
-  'dayOff'
+  'timezoneOffset' |
+  'dayOff' |
+  'date'
 > {
   @ApiProperty(MasterSchedule.config.startTime)
   @Min(MasterSchedule.config.startTime.minimum)
@@ -134,6 +135,12 @@ export class CreateMasterScheduleDto implements Pick<
   @Max(MasterSchedule.config.endTime.maximum)
   @IsNumber()
   readonly endTime: number;
+
+  @ApiProperty(MasterSchedule.config.timezoneOffset)
+  @Min(MasterSchedule.config.timezoneOffset.minimum)
+  @Max(MasterSchedule.config.timezoneOffset.maximum)
+  @IsNumber()
+  readonly timezoneOffset: number;
 
   @ApiProperty(MasterSchedule.config.data)
   @IsDateString()

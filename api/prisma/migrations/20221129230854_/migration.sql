@@ -55,17 +55,6 @@ CREATE TABLE "MasterProfiles" (
 );
 
 -- CreateTable
-CREATE TABLE "MasterProfilesToMasterSchedule" (
-    "id" TEXT NOT NULL,
-    "masterId" VARCHAR(36) NOT NULL,
-    "scheduleId" VARCHAR(36) NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "MasterProfilesToMasterSchedule_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "ClientProfiles" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -110,6 +99,7 @@ CREATE TABLE "MasterSchedules" (
     "timezoneOffset" INTEGER NOT NULL,
     "date" DATE NOT NULL,
     "dayOff" BOOLEAN NOT NULL DEFAULT false,
+    "masterId" VARCHAR(36) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -210,9 +200,6 @@ CREATE UNIQUE INDEX "Users_phoneNumber_key" ON "Users"("phoneNumber");
 CREATE UNIQUE INDEX "MasterProfiles_weeklyScheduleId_key" ON "MasterProfiles"("weeklyScheduleId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "MasterProfilesToMasterSchedule_scheduleId_key" ON "MasterProfilesToMasterSchedule"("scheduleId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Services_name_key" ON "Services"("name");
 
 -- CreateIndex
@@ -240,12 +227,6 @@ ALTER TABLE "AuthSessions" ADD CONSTRAINT "AuthSessions_userId_fkey" FOREIGN KEY
 ALTER TABLE "MasterProfiles" ADD CONSTRAINT "MasterProfiles_weeklyScheduleId_fkey" FOREIGN KEY ("weeklyScheduleId") REFERENCES "MasterWeeklySchedules"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MasterProfilesToMasterSchedule" ADD CONSTRAINT "MasterProfilesToMasterSchedule_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "MasterProfilesToMasterSchedule" ADD CONSTRAINT "MasterProfilesToMasterSchedule_scheduleId_fkey" FOREIGN KEY ("scheduleId") REFERENCES "MasterSchedules"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "MasterServices" ADD CONSTRAINT "MasterServices_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES "Services"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -253,6 +234,9 @@ ALTER TABLE "MasterServices" ADD CONSTRAINT "MasterServices_masterId_fkey" FOREI
 
 -- AddForeignKey
 ALTER TABLE "MasterServices" ADD CONSTRAINT "MasterServices_currencyId_fkey" FOREIGN KEY ("currencyId") REFERENCES "Currencies"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MasterSchedules" ADD CONSTRAINT "MasterSchedules_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
