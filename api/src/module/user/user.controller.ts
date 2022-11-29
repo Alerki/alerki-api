@@ -6,6 +6,7 @@ import {
   Delete,
   FileTypeValidator,
   Get,
+  HttpCode,
   HttpStatus,
   MaxFileSizeValidator,
   Param,
@@ -40,6 +41,7 @@ import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
 import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.service';
 import {
+  CreateMasterScheduleDto,
   CreateMasterServiceDto,
   PatchMasterServiceDto,
   PatchMasterWeeklyScheduleDto,
@@ -205,6 +207,34 @@ export class UserController {
     );
 
     return patchedSchedule;
+  }
+
+  /**
+   * Create master schedule for specific day
+   *
+   * @param req request
+   * @param body body
+   * @returns
+   */
+  @ApiOperation({ description: 'Create schedule for specific day' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Schedule created successfully' })
+  @ApiBadRequestResponse({ description: 'Master schedule with the date already exists' })
+  @HttpCode(HttpStatus.CREATED)
+  @UseGuards(JwtAuthGuard)
+  @Post('master/schedule')
+  async createMasterSchedule(
+    @Req() req: ProtectedRequest,
+    @Body() body: CreateMasterScheduleDto,
+  ) {
+    const newSchedule = await this.userService.createMasterSchedule(
+      {
+        id: req.user.id,
+      },
+      body,
+    );
+
+    return newSchedule;
   }
 
   /**

@@ -10,6 +10,7 @@ import { General } from '@Config/api/property.config';
 import { GoogleStrategy } from '@Module/auth/google.strategy';
 import { AppModule } from '@Src/app.module';
 import { databaseSetup } from '@Src/util';
+import { authRequest, enableMaster, UserI } from '@Test/util/actions';
 import { clearDatabase } from '@Test/util/clear-database';
 import getCookies from '@Test/util/get-cookies';
 import { TokensService } from '@Test/util/jwt-service';
@@ -1019,6 +1020,9 @@ describe('UserController (e2e)', () => {
               friday: false,
               saturday: true,
               sunday: true,
+              startTime: 9 * 60 * 1000,
+              endTime: 17 * 60 * 1000,
+              timezoneOffset: 2 * 60 * 1000,
             })
             .expect(200);
 
@@ -1029,6 +1033,55 @@ describe('UserController (e2e)', () => {
           expect(body.friday).toBe(false);
           expect(body.saturday).toBe(true);
           expect(body.sunday).toBe(true);
+          expect(body.startTime).toBe(9 * 60 * 1000);
+          expect(body.endTime).toBe(17 * 60 * 1000);
+          expect(body.timezoneOffset).toBe(2 * 60 * 1000);
+        });
+
+        test('patch each field separately', async () => {
+          const weekDays = [
+            'monday',
+            'tuesday',
+            'wednesday',
+            'thursday',
+            'friday',
+            'saturday',
+            'sunday',
+          ];
+
+          for (let day of weekDays) {
+            let data: Record<string, boolean> = {};
+
+            data[day] = true;
+
+            const { body } = await request(app)
+              .patch('/user/master/weekly-schedule')
+              .set({ Authorization: 'Bearer ' + user.accessToken })
+              .send(data)
+              .expect(200);
+
+            expect(body[day]).toBe(true);
+          }
+
+          const { body: body1 } = await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              startTime: 9 * 60 * 1000,
+            })
+            .expect(200);
+
+          expect(body1.startTime).toBe(9 * 60 * 1000);
+
+          const { body: body2 } = await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              startTime: 9 * 60 * 1000,
+            })
+            .expect(200);
+
+          expect(body2.startTime).toBe(9 * 60 * 1000);
         });
 
         test('single day patch', async () => {
@@ -1056,5 +1109,110 @@ describe('UserController (e2e)', () => {
         });
       });
     });
+
+    describe('master schedule actions', () => {
+      let user: UserI;
+
+      beforeAll(async () => {
+        user = await registerUser(app);
+        await enableMaster(app, user);
+      });
+
+      describe('create schedule', () => {
+        test('create schedule', async () => {
+          let date = new Date();
+
+          date.setUTCMilliseconds(0);
+          date.setUTCSeconds(0);
+          date.setUTCMinutes(0);
+          date.setUTCHours(0);
+
+          const { body } = await authRequest(
+            app,
+            user,
+            {
+              url: '/user/master/schedule',
+              method: 'post',
+              send: {
+                startTime: 10 * 60 * 1000,
+                endTime: 12 * 60 * 1000,
+                timezoneOffset: 2 * 60 * 1000,
+                dayOff: false,
+                date: date.toISOString(),
+              },
+              expect: 201,
+            },
+          );
+
+          expect(body.startTime).toBe(10 * 60 * 1000);
+          expect(body.endTime).toBe(12 * 60 * 1000);
+          expect(body.timezoneOffset).toBe(2 * 60 * 1000);
+          expect(body.dayOff).toBe(false);
+          expect(body.date).toBe(date.toISOString());
+        });
+
+        test('create with exists date', async () => {
+          let date = new Date();
+
+          const { body } = await authRequest(
+            app,
+            user,
+            {
+              url: '/user/master/schedule',
+              method: 'post',
+              send: {
+                startTime: 10 * 60 * 1000,
+                endTime: 12 * 60 * 1000,
+                timezoneOffset: 2 * 60 * 1000,
+                dayOff: false,
+                date: date.toISOString(),
+              },
+              expect: 400,
+            },
+          );
+
+          expect(body.message).toBe('Master schedule with the date already exists');
+        });
+
+        test('create with different values', async () => {
+          const date = new Date();
+
+          date.setUTCDate(date.getUTCDate() + 1);
+
+          date.setUTCMilliseconds(0);
+          date.setUTCSeconds(0);
+          date.setUTCMinutes(0);
+          date.setUTCHours(0);
+
+          const { body } = await authRequest(
+            app,
+            user,
+            {
+              url: '/user/master/schedule',
+              method: 'post',
+              send: {
+                startTime: 0,
+                endTime: 0,
+                timezoneOffset: 0,
+                dayOff: true,
+                date: date.toISOString(),
+              },
+              expect: 201,
+            },
+          );
+
+          expect(body.startTime).toBe(0);
+          expect(body.endTime).toBe(0);
+          expect(body.timezoneOffset).toBe(0);
+          expect(body.dayOff).toBe(true);
+          expect(body.date).toBe(date.toISOString());
+        });
+      });
+
+      test.todo('Create get tests');
+
+      test.todo('Create patch tests');
+    });
   });
 });
+

@@ -3,6 +3,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { AuthModule } from '@Module/auth/auth.module';
 import { ClientProfileService } from '@Module/profile/client-profile.service';
 import { MasterProfileService } from '@Module/profile/master-profile.service';
+import { MasterScheduleService } from '@Module/profile/master-schedule.service';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { ProfileService } from '@Module/profile/profile.service';
 import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.service';
@@ -16,6 +17,7 @@ import { CurrencyService } from '@Shared/services/currency.service';
     ProfileService, ClientProfileService,
     MasterProfileService, MasterServiceService,
     CurrencyService, MasterWeeklyScheduleService,
+    MasterScheduleService,
   ],
   imports: [
     forwardRef(() => UserModule), forwardRef(() => AuthModule),
@@ -25,6 +27,7 @@ import { CurrencyService } from '@Shared/services/currency.service';
     ProfileService, ClientProfileService,
     MasterProfileService, MasterServiceService,
     MasterWeeklyScheduleService,
+    MasterScheduleService,
   ],
 })
 export class ProfileModule { }
