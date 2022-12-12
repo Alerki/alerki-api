@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
   IsBoolean,
+  IsDate,
   IsDateString,
   IsNumber,
   IsOptional,
@@ -18,6 +19,7 @@ import {
   MasterWeeklySchedule,
   Service,
 } from '@Config/api/property.config';
+import { Type } from 'class-transformer';
 
 export class CreateMasterServiceDto implements
   Pick<Prisma.Service, 'name'>,
@@ -149,6 +151,24 @@ export class CreateMasterScheduleDto implements Pick<
   @ApiProperty(MasterSchedule.config.dayOff)
   @IsBoolean()
   readonly dayOff: boolean;
+}
+
+export class GetMasterScheduleQueries {
+  @IsDate()
+  @IsOptional()
+  readonly from?: string;
+
+  @IsDate()
+  @IsOptional()
+  readonly to?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  readonly year?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  readonly month?: number;
 }
 
 export class PatchMasterWeeklyScheduleDto implements Pick<

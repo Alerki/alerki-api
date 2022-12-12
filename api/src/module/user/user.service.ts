@@ -10,7 +10,7 @@ import * as sharp from 'sharp';
 
 import * as ApiConfig from '@Config/api/property.config';
 import { MasterScheduleService } from '@Module/profile/master-schedule.service';
-import { CreateMasterScheduleDto } from '@Module/user/dto/master.dto';
+import { CreateMasterScheduleDto, GetMasterScheduleQueries } from '@Module/user/dto/master.dto';
 import { PatchUserDto, UserDto } from '@Module/user/dto/user.dto';
 import { UserPictureService } from '@Module/user/user-picture.service';
 import { prisma } from '@Shared/services/prisma.service';
@@ -27,7 +27,6 @@ export class UserService {
    *
    * @param masterScheduleService master schedule service
    * @param userPictureService user picture service
-   * @param serviceService service service
    */
   constructor(
     private readonly masterScheduleService: MasterScheduleService,
@@ -258,6 +257,77 @@ export class UserService {
     }
 
     await this.userPictureService.delete({ id: candidate.pictureId });
+  }
+
+  /**
+   * Get master schedule by date
+   *
+   * @param param0 master ID
+   * @param param1 queries
+   * @returns
+   */
+  async getMasterScheduleByDate(
+    { id }: Pick<Prisma.MasterSchedule, 'id'>,
+    {
+      from,
+      to,
+      year,
+      month,
+    }: GetMasterScheduleQueries,
+  ) {
+    // Handle from / to queries
+    if (from) {
+      if (!to) {
+        throw new BadRequestException(
+          'Required both parameters "from" and "to"',
+        );
+      }
+
+      const schedules = await this.masterScheduleService.findMany({
+        where: {
+          masterId: id,
+          date: {
+            gt: new Date(from).toISOString(),
+            lte: new Date(to).toISOString(),
+          },
+        },
+      });
+
+      return schedules;
+    }
+
+    // Handle year / month
+    const fromDate = new Date();
+    const toDate = new Date();
+
+    if (year) {
+      fromDate.setUTCFullYear(year);
+      toDate.setUTCFullYear(year);
+    }
+
+    if (month) {
+      fromDate.setUTCMonth(month);
+      toDate.setUTCMonth(month + 1);
+      toDate.setUTCMilliseconds(-1);
+    } else {
+      const currentMonth = (new Date()).getUTCMonth();
+
+      fromDate.setUTCMonth(currentMonth);
+      toDate.setUTCMonth(currentMonth + 1);
+      toDate.setUTCMilliseconds(-1);
+    }
+
+    const schedules = await this.masterScheduleService.findMany({
+      where: {
+        masterId: id,
+        date: {
+          gt: new Date(fromDate).toISOString(),
+          lte: new Date(toDate).toISOString(),
+        },
+      },
+    });
+
+    return schedules;
   }
 
   async createMasterSchedule(

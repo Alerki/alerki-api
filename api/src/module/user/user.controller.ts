@@ -14,6 +14,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
   Req,
   Res,
   UploadedFile,
@@ -43,6 +44,7 @@ import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.ser
 import {
   CreateMasterScheduleDto,
   CreateMasterServiceDto,
+  GetMasterScheduleQueries,
   PatchMasterServiceDto,
   PatchMasterWeeklyScheduleDto,
 } from '@Module/user/dto/master.dto';
@@ -207,6 +209,21 @@ export class UserController {
     );
 
     return patchedSchedule;
+  }
+
+  @Get('master/:id/schedule')
+  async getMasterSchedule(
+    @Param('id') id: string,
+    @Query() queries: GetMasterScheduleQueries,
+  ) {
+    const masterSchedule = this.userService.getMasterScheduleByDate(
+      {
+        id,
+      },
+      queries,
+    );
+
+    return masterSchedule;
   }
 
   /**

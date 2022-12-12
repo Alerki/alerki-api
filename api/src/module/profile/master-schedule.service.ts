@@ -26,6 +26,16 @@ export class MasterScheduleService {
   }
 
   /**
+   * Find many master schedules
+   *
+   * @param data to find schedule
+   * @returns
+   */
+  async findMany(data: Prisma.Prisma.MasterScheduleFindManyArgs) {
+    return this.prismaService.masterSchedule.findMany(data);
+  }
+
+  /**
    * Create master schedule
    *
    * @param data create master schedule arguments
