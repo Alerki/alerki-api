@@ -1209,7 +1209,17 @@ describe('UserController (e2e)', () => {
         });
       });
 
-      test.todo('Create get tests');
+      describe('get master schedule cases', () => {
+        test('get for current month', async () => {
+          // const { body } = await authRequest(
+          //   app,
+          //   user,
+          //   {
+          //     url: '/user/master/'
+          //   }
+          // )
+        });
+      });
 
       test.todo('Create patch tests');
     });
