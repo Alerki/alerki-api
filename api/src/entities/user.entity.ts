@@ -2,6 +2,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, On
 
 import { AuthSession } from '@Src/entities/auth-session.entity';
 import { UserPicture } from '@Src/entities/user-picture.entity';
+import { UserConfig } from '@Config/api/property.config';
 
 @Entity('Users')
 export class User extends BaseEntity {
@@ -10,36 +11,36 @@ export class User extends BaseEntity {
 
   @Column({
     unique: true,
-    length: 320,
+    length: UserConfig.config.email.maxLength,
   })
   email: string;
 
   @Column({
     unique: true,
-    length: 15,
+    length: UserConfig.config.username.maxLength,
   })
   username: string;
 
   @Column({
-    length: 30,
+    length: UserConfig.config.firstName.maxLength,
     nullable: true,
   })
   firstName: string;
 
   @Column({
-    length: 30,
+    length: UserConfig.config.lastName.maxLength,
     nullable: true,
   })
   lastName: string;
 
   @Column({
-    length: 20,
+    length: UserConfig.config.phoneNumber.maxLength,
     unique: true,
   })
   phoneNumber: string;
 
   @Column({
-    length: 60,
+    length: UserConfig.config.password.maxLength,
   })
   password: string;
 
@@ -55,7 +56,9 @@ export class User extends BaseEntity {
   picture?: UserPicture;
 
   @Column(
-    { nullable: true },
+    {
+      nullable: true,
+    },
   )
   pictureId: string;
 

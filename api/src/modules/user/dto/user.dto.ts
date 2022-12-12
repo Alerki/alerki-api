@@ -1,4 +1,4 @@
-import { User } from '@Config/api/property.config';
+import { UserConfig } from '@Config/api/property.config';
 import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import { Exclude } from 'class-transformer';
@@ -37,27 +37,27 @@ export interface PatchUserI extends Pick<
 > { }
 
 export class PatchUserDto implements PatchUserI {
-  @ApiProperty(User.config.username)
+  @ApiProperty(UserConfig.config.username)
   @IsString()
   @IsOptional()
-  @MinLength(User.config.username.minLength)
-  @MaxLength(User.config.username.maxLength)
-  @Matches(User.config.username.patternExp)
+  @MinLength(UserConfig.config.username.minLength)
+  @MaxLength(UserConfig.config.username.maxLength)
+  @Matches(UserConfig.config.username.patternExp)
   readonly username: string;
 
-  @ApiProperty(User.config.firstName)
+  @ApiProperty(UserConfig.config.firstName)
   @IsString()
   @IsOptional()
-  @MaxLength(User.config.firstName.maxLength)
+  @MaxLength(UserConfig.config.firstName.maxLength)
   readonly firstName: string;
 
-  @ApiProperty(User.config.lastName)
+  @ApiProperty(UserConfig.config.lastName)
   @IsString()
   @IsOptional()
-  @MaxLength(User.config.lastName.maxLength)
+  @MaxLength(UserConfig.config.lastName.maxLength)
   readonly lastName: string;
 
-  @ApiProperty(User.config.phoneNumber)
+  @ApiProperty(UserConfig.config.phoneNumber)
   @IsPhoneNumber()
   @IsString()
   @IsOptional()

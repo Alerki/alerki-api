@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 import { User } from '@Src/entities/user.entity';
+import { GeneralConfig, UserConfig } from '@Config/api/property.config';
 
 @Entity('AuthSessions')
 export class AuthSession {
@@ -8,12 +9,13 @@ export class AuthSession {
   id: string;
 
   @Column({
-    length: 1024,
+    length: GeneralConfig.config.refreshToken.maxLength,
   })
   refreshToken: string;
 
   @Column({
-    length: 30,
+    length: UserConfig.config.deviceName.maxLength,
+    default: 'undefined',
   })
   deviceName: string;
 

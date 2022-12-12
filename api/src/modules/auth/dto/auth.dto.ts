@@ -4,7 +4,7 @@ import {
   IsOptional, IsString, Matches, MaxLength, MinLength,
 } from 'class-validator';
 
-import { User } from '@Config/api/property.config';
+import { UserConfig } from '@Config/api/property.config';
 
 /**
  * Log-in DTO interface
@@ -17,26 +17,26 @@ interface SignInDtoI extends
  * Log-in DTO
  */
 export class SignInDto implements SignInDtoI {
-  @ApiProperty(User.config.email)
+  @ApiProperty(UserConfig.config.email)
   @IsString()
   @IsOptional()
-  @MinLength(User.config.email.minLength)
-  @MaxLength(User.config.email.maxLength)
-  @Matches(User.config.email.patternExp)
+  @MinLength(UserConfig.config.email.minLength)
+  @MaxLength(UserConfig.config.email.maxLength)
+  @Matches(UserConfig.config.email.patternExp)
   readonly email?: string;
 
-  @ApiProperty(User.config.username)
+  @ApiProperty(UserConfig.config.username)
   @IsString()
   @IsOptional()
-  @MinLength(User.config.username.minLength)
-  @MaxLength(User.config.username.maxLength)
-  @Matches(User.config.username.patternExp)
+  @MinLength(UserConfig.config.username.minLength)
+  @MaxLength(UserConfig.config.username.maxLength)
+  @Matches(UserConfig.config.username.patternExp)
   readonly username?: string;
 
-  @ApiProperty(User.config.password)
+  @ApiProperty(UserConfig.config.password)
   @IsString()
-  @MinLength(User.config.password.minLength)
-  @MaxLength(User.config.password.maxLength)
+  @MinLength(UserConfig.config.password.minLength)
+  @MaxLength(UserConfig.config.password.maxLength)
   readonly password: string;
 }
 
@@ -54,23 +54,23 @@ interface SignUpI extends Pick<
  * Register DTO
  */
 export class SignUpDto implements SignUpI {
-  @ApiProperty(User.config.email)
+  @ApiProperty(UserConfig.config.email)
   @IsString()
-  @MinLength(User.config.email.minLength)
-  @MaxLength(User.config.email.maxLength)
-  @Matches(User.config.email.patternExp)
+  @MinLength(UserConfig.config.email.minLength)
+  @MaxLength(UserConfig.config.email.maxLength)
+  @Matches(UserConfig.config.email.patternExp)
   readonly email: string;
 
-  @ApiProperty(User.config.username)
+  @ApiProperty(UserConfig.config.username)
   @IsString()
-  @MinLength(User.config.username.minLength)
-  @MaxLength(User.config.username.maxLength)
-  @Matches(User.config.username.patternExp)
+  @MinLength(UserConfig.config.username.minLength)
+  @MaxLength(UserConfig.config.username.maxLength)
+  @Matches(UserConfig.config.username.patternExp)
   readonly username: string;
 
-  @ApiProperty(User.config.password)
+  @ApiProperty(UserConfig.config.password)
   @IsString()
-  @MinLength(User.config.password.minLength)
-  @MaxLength(User.config.password.maxLength)
+  @MinLength(UserConfig.config.password.minLength)
+  @MaxLength(UserConfig.config.password.maxLength)
   readonly password: string;
 }
