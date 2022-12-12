@@ -111,7 +111,7 @@ export namespace User {
   };
 }
 
-export namespace Service {
+export namespace ServiceConfig {
   export const config: PropertiesConfig = {
     available: {
       description: 'Available condition',
@@ -121,7 +121,7 @@ export namespace Service {
     name: {
       description: 'Service name',
       minLength: 1,
-      maxLength: 20,
+      maxLength: 30,
       type: PropertyType.string,
       example: 'Haircut',
     },

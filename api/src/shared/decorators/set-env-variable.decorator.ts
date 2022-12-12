@@ -26,24 +26,24 @@ export function SetEnvVariable(
     let prepared: string | number | any;
 
     switch (type) {
-    case 'string':
-      prepared = variable;
-      break;
+      case 'string':
+        prepared = variable;
+        break;
 
-    case 'number':
-      prepared = Number(variable);
+      case 'number':
+        prepared = Number(variable);
 
-      if (isNaN(prepared)) {
-        throw new Error(
+        if (isNaN(prepared)) {
+          throw new Error(
           // eslint-disable-next-line max-len
-          `Env variable \`${variableName}\` is not a number, but we got value: ${variable}, type: ${typeof variable}`,
-        );
-      }
+            `Env variable \`${variableName}\` is not a number, but we got value: ${variable}, type: ${typeof variable}`,
+          );
+        }
 
-      break;
+        break;
 
-    default:
-      throw new Error(`SetEnvVariable unhandled type \`${type}\``);
+      default:
+        throw new Error(`SetEnvVariable unhandled type \`${type}\``);
     }
 
     target[key as string] = prepared;

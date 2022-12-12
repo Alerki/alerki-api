@@ -15,7 +15,14 @@
   ],
   "rules": {
     "max-len": ["error", { "code": 80, "ignorePattern": "^import .*" }],
-    "indent": ["error", 2],
+    "indent": ["error", 2,
+      {
+        "ignoredNodes": [
+          "PropertyDefinition"
+        ],
+        "SwitchCase": 1
+      }
+    ],
     "comma-dangle": ["error", "always-multiline"],
     "object-curly-spacing": ["error", "always"],
     "semi": ["error", "always"],

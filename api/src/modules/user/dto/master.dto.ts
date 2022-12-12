@@ -17,7 +17,7 @@ import {
   MasterSchedule,
   MasterService,
   MasterWeeklySchedule,
-  Service,
+  ServiceConfig,
 } from '@Config/api/property.config';
 import { Type } from 'class-transformer';
 
@@ -31,9 +31,9 @@ export class CreateMasterServiceDto implements
     'locationLng'
   >
 {
-  @ApiProperty(Service.config.name)
-  @MinLength(Service.config.name.minLength)
-  @MaxLength(Service.config.name.maxLength)
+  @ApiProperty(ServiceConfig.config.name)
+  @MinLength(ServiceConfig.config.name.minLength)
+  @MaxLength(ServiceConfig.config.name.maxLength)
   @IsString()
   readonly name: string;
 
@@ -73,15 +73,15 @@ export class PatchMasterServiceDto implements Pick<
   'locationLat' |
   'locationLng'
 > {
-  @ApiProperty(Service.config.available)
+  @ApiProperty(ServiceConfig.config.available)
   @IsOptional()
   @IsBoolean()
   readonly available: boolean;
 
-  @ApiProperty(Service.config.name)
+  @ApiProperty(ServiceConfig.config.name)
   @IsOptional()
-  @MinLength(Service.config.name.minLength)
-  @MaxLength(Service.config.name.maxLength)
+  @MinLength(ServiceConfig.config.name.minLength)
+  @MaxLength(ServiceConfig.config.name.maxLength)
   @IsString()
   readonly name: string;
 

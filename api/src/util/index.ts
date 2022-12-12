@@ -7,39 +7,39 @@ import { currenciesRaw } from '@Config/api/currency.config';
  * - create currencies records
  */
 export async function databaseSetup() {
-  // Find all currencies
-  const currenciesCandidate = await prisma.currency.findMany();
+  // // Find all currencies
+  // const currenciesCandidate = await prisma.currency.findMany();
 
-  // If not exists create many
-  if (currenciesCandidate.length === 0) {
-    await prisma.currency.createMany({
-      data: currenciesRaw,
-    });
-  } else if (currenciesCandidate.length !== currenciesRaw.length) {
-    // Save currencies to create here
-    const currenciesToCreate = [];
+  // // If not exists create many
+  // if (currenciesCandidate.length === 0) {
+  //   await prisma.currency.createMany({
+  //     data: currenciesRaw,
+  //   });
+  // } else if (currenciesCandidate.length !== currenciesRaw.length) {
+  //   // Save currencies to create here
+  //   const currenciesToCreate = [];
 
-    // Check if currencies in database less or more that in json file
-    if (currenciesCandidate.length < currenciesRaw.length) {
-      for (const currency of currenciesRaw) {
-        const candidate = await prisma.currency.findFirst({
-          where: {
-            code: currency.code,
-          },
-        });
+  //   // Check if currencies in database less or more that in json file
+  //   if (currenciesCandidate.length < currenciesRaw.length) {
+  //     for (const currency of currenciesRaw) {
+  //       const candidate = await prisma.currency.findFirst({
+  //         where: {
+  //           code: currency.code,
+  //         },
+  //       });
 
-        // If currency in database not exists add to create list
-        if (!candidate) {
-          currenciesToCreate.push(currency);
-        }
-      }
+  //       // If currency in database not exists add to create list
+  //       if (!candidate) {
+  //         currenciesToCreate.push(currency);
+  //       }
+  //     }
 
-      // After all checks create currencies that required
-      await prisma.currency.createMany({
-        data: currenciesToCreate,
-      });
-    } else if (currenciesCandidate.length > currenciesRaw.length) {
-      throw new Error('There are extra currency');
-    }
-  }
+  //     // After all checks create currencies that required
+  //     await prisma.currency.createMany({
+  //       data: currenciesToCreate,
+  //     });
+  //   } else if (currenciesCandidate.length > currenciesRaw.length) {
+  //     throw new Error('There are extra currency');
+  //   }
+  // }
 }
