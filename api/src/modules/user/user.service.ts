@@ -9,10 +9,10 @@ import * as imageType from 'image-type';
 import * as sharp from 'sharp';
 
 import * as ApiConfig from '@Config/api/property.config';
-import { MasterScheduleService } from '@Module/profile/master-schedule.service';
-import { CreateMasterScheduleDto, GetMasterScheduleQueries } from '@Module/user/dto/master.dto';
-import { PatchUserDto, UserDto } from '@Module/user/dto/user.dto';
-import { UserPictureService } from '@Module/user/user-picture.service';
+import { MasterScheduleService } from '@Src/modules/profile/master-schedule.service';
+import { CreateMasterScheduleDto, GetMasterScheduleQueries } from '@Src/modules/user/dto/master.dto';
+import { PatchUserDto, UserDto } from '@Src/modules/user/dto/user.dto';
+import { UserPictureService } from '@Src/modules/user/user-picture.service';
 import { prisma } from '@Shared/services/prisma.service';
 
 /**

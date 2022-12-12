@@ -14,7 +14,7 @@
     "paths": {
       "@Config/*": ["config/*"],
       "@Shared/*": ["src/shared/*"],
-      "@Module/*": ["src/module/*"],
+      "@Module/*": ["src/modules/*"],
       "@Src/*": ["src/*"],
       "@Test/*": ["test/*"],
     },

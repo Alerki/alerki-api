@@ -32,13 +32,13 @@ import {
 import Prisma from '@prisma/client';
 import { Request, Response } from 'express';
 
-import { AuthService } from '@Module/auth/auth.service';
-import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Module/auth/dto/session.dto';
-import { GoogleUser } from '@Module/auth/google.strategy';
-import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
-import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
-import { LocalAuthGuard } from '@Module/auth/local-auth.guard';
-import { JwtTokensPair } from '@Module/auth/tokens.service';
+import { AuthService } from '@Src/modules/auth/auth.service';
+import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Src/modules/auth/dto/session.dto';
+import { GoogleUser } from '@Src/modules/auth/google.strategy';
+import { ProtectedRequest } from '@Src/modules/auth/interface/protected-request.interface';
+import { JwtAuthGuard } from '@Src/modules/auth/jwt-auth.guard';
+import { LocalAuthGuard } from '@Src/modules/auth/local-auth.guard';
+import { JwtTokensPair } from '@Src/modules/auth/tokens.service';
 import { AuthGuard } from '@nestjs/passport';
 import { DeviceName } from '@Shared/decorators/device-name.decorator';
 import { GetCookies } from '@Shared/decorators/get-cookies.decorator';

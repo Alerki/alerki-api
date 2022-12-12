@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
-import { RoleService } from '@Module/auth/role.service';
-import { MasterProfileService } from '@Module/profile/master-profile.service';
-import { UserService } from '@Module/user/user.service';
+import { RoleService } from '@Src/modules/auth/role.service';
+import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
+import { UserService } from '@Src/modules/user/user.service';
 
 /**
  * Profile service

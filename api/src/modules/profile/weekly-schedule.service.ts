@@ -1,9 +1,9 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
-import { MasterProfileService } from '@Module/profile/master-profile.service';
-import { PatchMasterWeeklyScheduleDto } from '@Module/user/dto/master.dto';
-import { UserService } from '@Module/user/user.service';
+import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
+import { PatchMasterWeeklyScheduleDto } from '@Src/modules/user/dto/master.dto';
+import { UserService } from '@Src/modules/user/user.service';
 import { prisma } from '@Shared/services/prisma.service';
 
 /**

@@ -36,20 +36,20 @@ import { Response } from 'express';
 import * as imageType from 'image-type';
 
 import * as ApiConfig from '@Config/api/property.config';
-import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
-import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
-import { MasterServiceService } from '@Module/profile/master-service.service';
-import { ProfileService } from '@Module/profile/profile.service';
-import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.service';
+import { ProtectedRequest } from '@Src/modules/auth/interface/protected-request.interface';
+import { JwtAuthGuard } from '@Src/modules/auth/jwt-auth.guard';
+import { MasterServiceService } from '@Src/modules/profile/master-service.service';
+import { ProfileService } from '@Src/modules/profile/profile.service';
+import { MasterWeeklyScheduleService } from '@Src/modules/profile/weekly-schedule.service';
 import {
   CreateMasterScheduleDto,
   CreateMasterServiceDto,
   GetMasterScheduleQueries,
   PatchMasterServiceDto,
   PatchMasterWeeklyScheduleDto,
-} from '@Module/user/dto/master.dto';
-import { PatchUserDto } from '@Module/user/dto/user.dto';
-import { UserService } from '@Module/user/user.service';
+} from '@Src/modules/user/dto/master.dto';
+import { PatchUserDto } from '@Src/modules/user/dto/user.dto';
+import { UserService } from '@Src/modules/user/user.service';
 
 @ApiTags('User')
 @Controller('user')

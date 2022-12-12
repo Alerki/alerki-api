@@ -4,8 +4,8 @@ import {
   ApiOperation, ApiResponse, ApiTags,
 } from '@nestjs/swagger';
 
-import { GetServicesDto } from '@Module/service/dto/service.dto';
-import { ServiceService } from '@Module/service/service.service';
+import { GetServicesDto } from '@Src/modules/service/dto/service.dto';
+import { ServiceService } from '@Src/modules/service/service.service';
 
 /**
  * Services controller

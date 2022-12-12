@@ -7,7 +7,7 @@ import * as cookieParser from 'cookie-parser';
 import * as request from 'supertest';
 
 import { General } from '@Config/api/property.config';
-import { GoogleStrategy } from '@Module/auth/google.strategy';
+import { GoogleStrategy } from '@Src/modules/auth/google.strategy';
 import { AppModule } from '@Src/app.module';
 import { databaseSetup } from '@Src/util';
 import { authRequest, enableMaster, UserI } from '@Test/util/actions';
