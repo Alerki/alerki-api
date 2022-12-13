@@ -359,7 +359,7 @@ export class UserService {
       );
     }
 
-    const newSchedule = await this.prismaService.masterSchedule.create({
+    const newSchedule = await this.masterScheduleService.create({
       data: {
         ...data,
         master: {
