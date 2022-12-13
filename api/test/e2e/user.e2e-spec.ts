@@ -1092,6 +1092,7 @@ describe('UserController (e2e)', () => {
         user = new UserActions(app);
         await user.register();
         await user.enableMaster();
+        await user.getUser();
       });
 
       describe('create schedule', () => {
@@ -1167,30 +1168,24 @@ describe('UserController (e2e)', () => {
 
       describe('get master schedule cases', () => {
         test('get for current month', async () => {
-          // console.log(user.email);
-          // const masterData = await prisma.user.findFirst({
-          //   where: {
-          //     email: user.email,
-          //   },
-          // });
+          const { body } = await user.getMasterSchedule({});
 
-          // console.log(masterData);
-
-          // const { body } = await authRequest(
-          //   app,
-          //   user,
-          //   {
-          //     url: `/user/master/${masterData.masterProfileId}/schedule`,
-          //     query: {
-
-          //     },
-          //     method: 'get',
-          //     expect: 200,
-          //   },
-          // );
-
-          // console.log(body);
+          expect(body).toHaveLength(1);
         });
+
+        test.todo('Create test get schedule with year and month query');
+
+        test.todo('Create test get schedule with year query');
+
+        test.todo('Create test get schedule with month query');
+
+        test.todo('Create test get schedule with year query');
+
+        test.todo('Create test get schedule with from and to query');
+
+        test.todo('Create test get schedule with from query');
+
+        test.todo('Create test get schedule with to query');
       });
 
       test.todo('Create patch tests');

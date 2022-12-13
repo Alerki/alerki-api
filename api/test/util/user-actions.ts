@@ -274,7 +274,7 @@ export class UserActions {
   }
 
   async createMasterSchedule(data: any, expect: number = 200) {
-    const response = await this.request(
+    return await this.request(
       {
         url: '/user/master/schedule',
         method: 'post',
@@ -282,8 +282,18 @@ export class UserActions {
         expect,
       },
     );
+  }
 
-    return response;
+  async getMasterSchedule(
+    query: any,
+    expect: number = 200,
+  ) {
+    return await this.request({
+      url: `/user/master/${this.user.masterProfileId}/schedule`,
+      method: 'get',
+      query,
+      expect,
+    });
   }
 
   /**
