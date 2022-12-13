@@ -1,14 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+
+import { PatternEntity } from '@Src/entities/utils/PatternEntity';
 
 @Entity('UserPictures')
-export class UserPicture {
-  @PrimaryGeneratedColumn('uuid') id: string;
-
+export class UserPicture extends PatternEntity {
   @Column({
     type: 'bytea',
   }) picture: Buffer;
-
-  @CreateDateColumn() createdAt: Date;
-
-  @UpdateDateColumn() updatedAt: Date;
 }

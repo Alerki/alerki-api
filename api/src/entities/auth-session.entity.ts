@@ -1,13 +1,11 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
-import { User } from '@Src/entities/user.entity';
 import { GeneralConfig, UserConfig } from '@Config/api/property.config';
+import { User } from '@Src/entities/user.entity';
+import { PatternEntity } from '@Src/entities/utils/PatternEntity';
 
 @Entity('AuthSessions')
-export class AuthSession {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class AuthSession extends PatternEntity {
   @Column({
     length: GeneralConfig.config.refreshToken.maxLength,
   })
@@ -20,16 +18,11 @@ export class AuthSession {
   deviceName: string;
 
   @ManyToOne(
-    () => User, user => user.sessions,
+    () => User,
+    user => user.sessions,
   )
   user: User[];
 
   @Column()
   userId: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

@@ -1,11 +1,11 @@
+import { Column, Entity, OneToMany } from 'typeorm';
+
 import { ServiceConfig } from '@Config/api/property.config';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { MasterService } from '@Src/entities/master-service.entity';
+import { PatternEntity } from '@Src/entities/utils/PatternEntity';
 
 @Entity('Services')
-export class Service {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class Service extends PatternEntity {
   @Column({
     length: ServiceConfig.config.name.maxLength,
   })
@@ -16,9 +16,9 @@ export class Service {
   })
   available: boolean;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @OneToMany(
+    () => MasterService,
+    masterService => masterService.service,
+  )
+  masterServices: MasterService[];
 }

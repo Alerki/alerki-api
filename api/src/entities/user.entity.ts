@@ -1,14 +1,15 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 
-import { AuthSession } from '@Src/entities/auth-session.entity';
-import { UserPicture } from '@Src/entities/user-picture.entity';
 import { UserConfig } from '@Config/api/property.config';
+import { AuthSession } from '@Src/entities/auth-session.entity';
+import { ClientProfile } from '@Src/entities/client-profile.entity';
+import { MasterProfile } from '@Src/entities/master-profile.entity';
+import { Notification } from '@Src/entities/notification.entity';
+import { UserPicture } from '@Src/entities/user-picture.entity';
+import { PatternEntity } from '@Src/entities/utils/PatternEntity';
 
 @Entity('Users')
-export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class User extends PatternEntity {
   @Column({
     unique: true,
     length: UserConfig.config.email.maxLength,
@@ -25,13 +26,13 @@ export class User extends BaseEntity {
     length: UserConfig.config.firstName.maxLength,
     nullable: true,
   })
-  firstName: string;
+  firstName?: string;
 
   @Column({
     length: UserConfig.config.lastName.maxLength,
     nullable: true,
   })
-  lastName: string;
+  lastName?: string;
 
   @Column({
     length: UserConfig.config.phoneNumber.maxLength,
@@ -55,12 +56,10 @@ export class User extends BaseEntity {
   @JoinColumn()
   picture?: UserPicture;
 
-  @Column(
-    {
-      nullable: true,
-    },
-  )
-  pictureId: string;
+  @Column({
+    nullable: true,
+  })
+  pictureId?: string;
 
   @OneToMany(
     () => AuthSession,
@@ -68,9 +67,30 @@ export class User extends BaseEntity {
   )
   sessions: AuthSession[];
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @ManyToMany(
+    () => Notification,
+    notification => notification.recipients,
+  )
+  notificationsRecipient: Notification[];
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @OneToMany(
+    () => Notification,
+    notification => notification.sender,
+  )
+  notificationsSender: Notification[];
+
+  @OneToOne(
+    () => ClientProfile,
+    {
+      nullable: false,
+    },
+  )
+  @JoinColumn()
+  clientProfile: ClientProfile;
+
+  @OneToOne(
+    () => MasterProfile,
+  )
+  @JoinColumn()
+  masterProfile?: MasterProfile;
 }
