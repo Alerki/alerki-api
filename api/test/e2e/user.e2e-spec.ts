@@ -949,24 +949,19 @@ describe('UserController (e2e)', () => {
     });
 
     describe('master weekly schedule actions', () => {
-      let user: Record<string, any> = {};
+      let user: UserActions;
+
+      beforeAll(async () => {
+        user = new UserActions(app);
+        await user.register();
+        await user.enableMaster();
+        await user.getUser();
+      });
 
       describe('get schedule', () => {
         test('get schedule', async () => {
-          user = await registerUser(app);
-
-          await request(app)
-            .patch('/user/enable-master')
-            .set({ Authorization: 'Bearer ' + user.accessToken })
-            .expect(200);
-
-          const getUserResponse = await request(app)
-            .get('/user')
-            .set({ Authorization: 'Bearer ' + user.accessToken })
-            .expect(200);
-
           const { body } = await request(app)
-            .get(`/user/master/${getUserResponse.body.masterProfileId}/weekly-schedule`)
+            .get(`/user/master/${user.user.masterProfileId}/weekly-schedule`)
             .expect(200);
 
           expect(body).toBeDefined();
@@ -980,18 +975,13 @@ describe('UserController (e2e)', () => {
         });
 
         test('try to get weekly schedule with bad UUID', async () => {
-          const { body } = await request(app)
-            .get('/user/master/bad-uuid/weekly-schedule')
-            .expect(400);
+          const { body } = await UserActions.getWeeklySchedule(app, 'bak-uuid', 400);
 
           expect(body.message).toBe('Validation failed (uuid is expected)');
         });
 
         test('try to get weekly schedule for not exists master', async () => {
-
-          const { body } = await request(app)
-            .get(`/user/master/${randomUUID()}/weekly-schedule`)
-            .expect(404);
+          const { body } = await UserActions.getWeeklySchedule(app, randomUUID(), 404);
 
           expect(body.message).toBe('Master profile not exists');
         });
@@ -1001,31 +991,31 @@ describe('UserController (e2e)', () => {
         test('with fake JWT token', async () => {
           const token = await tokensService.generateAccessToken({ id: 'bad-id' });
 
-          const { body } = await request(app)
-            .patch('/user/master/weekly-schedule')
-            .set({ Authorization: 'Bearer ' + token })
-            .expect(404);
+          const { body } = await UserActions.request(app, {
+            method: 'patch',
+            url: '/user/master/weekly-schedule',
+            expect: 404,
+            accessToken: token,
+          });
 
           expect(body.message).toBe('User not exists');
         });
 
         test('bulk patch', async () => {
-          const { body } = await request(app)
-            .patch('/user/master/weekly-schedule')
-            .set({ Authorization: 'Bearer ' + user.accessToken })
-            .send({
-              monday: false,
-              tuesday: false,
-              wednesday: false,
-              thursday: false,
-              friday: false,
-              saturday: true,
-              sunday: true,
-              startTime: 9 * 60 * 1000,
-              endTime: 17 * 60 * 1000,
-              timezoneOffset: 2 * 60 * 1000,
-            })
-            .expect(200);
+
+
+          const { body } = await user.patchWeeklySchedule({
+            monday: false,
+            tuesday: false,
+            wednesday: false,
+            thursday: false,
+            friday: false,
+            saturday: true,
+            sunday: true,
+            startTime: 9 * 60 * 1000,
+            endTime: 17 * 60 * 1000,
+            timezoneOffset: 2 * 60 * 1000,
+          });
 
           expect(body.monday).toBe(false);
           expect(body.tuesday).toBe(false);
@@ -1055,50 +1045,34 @@ describe('UserController (e2e)', () => {
 
             data[day] = true;
 
-            const { body } = await request(app)
-              .patch('/user/master/weekly-schedule')
-              .set({ Authorization: 'Bearer ' + user.accessToken })
-              .send(data)
-              .expect(200);
+            const { body } = await user.patchWeeklySchedule(data);
 
             expect(body[day]).toBe(true);
           }
 
-          const { body: body1 } = await request(app)
-            .patch('/user/master/weekly-schedule')
-            .set({ Authorization: 'Bearer ' + user.accessToken })
-            .send({
-              startTime: 9 * 60 * 1000,
-            })
-            .expect(200);
+          const { body: body1 } = await user.patchWeeklySchedule({
+            startTime: 9 * 60 * 1000,
+          });
 
           expect(body1.startTime).toBe(9 * 60 * 1000);
 
-          const { body: body2 } = await request(app)
-            .patch('/user/master/weekly-schedule')
-            .set({ Authorization: 'Bearer ' + user.accessToken })
-            .send({
-              startTime: 9 * 60 * 1000,
-            })
-            .expect(200);
+          const { body: body2 } = await user.patchWeeklySchedule({
+            startTime: 9 * 60 * 1000,
+          });
 
           expect(body2.startTime).toBe(9 * 60 * 1000);
         });
 
         test('single day patch', async () => {
-          const { body } = await request(app)
-            .patch('/user/master/weekly-schedule')
-            .set({ Authorization: 'Bearer ' + user.accessToken })
-            .send({
-              monday: false,
-              tuesday: false,
-              wednesday: false,
-              thursday: false,
-              friday: false,
-              saturday: false,
-              sunday: true,
-            })
-            .expect(200);
+          const { body } = await user.patchWeeklySchedule({
+            monday: false,
+            tuesday: false,
+            wednesday: false,
+            thursday: false,
+            friday: false,
+            saturday: false,
+            sunday: true,
+          });
 
           expect(body.monday).toBe(false);
           expect(body.tuesday).toBe(false);
@@ -1129,20 +1103,13 @@ describe('UserController (e2e)', () => {
           date.setUTCMinutes(0);
           date.setUTCHours(0);
 
-          const { body } = await user.request(
-            {
-              url: '/user/master/schedule',
-              method: 'post',
-              send: {
-                startTime: 10 * 60 * 1000,
-                endTime: 12 * 60 * 1000,
-                timezoneOffset: 2 * 60 * 1000,
-                dayOff: false,
-                date: date.toISOString(),
-              },
-              expect: 201,
-            },
-          );
+          const { body } = await user.createMasterSchedule({
+            startTime: 10 * 60 * 1000,
+            endTime: 12 * 60 * 1000,
+            timezoneOffset: 2 * 60 * 1000,
+            dayOff: false,
+            date: date.toISOString(),
+          }, 201);
 
           expect(body.startTime).toBe(10 * 60 * 1000);
           expect(body.endTime).toBe(12 * 60 * 1000);
@@ -1154,20 +1121,13 @@ describe('UserController (e2e)', () => {
         test('create with exists date', async () => {
           let date = new Date();
 
-          const { body } = await user.request(
-            {
-              url: '/user/master/schedule',
-              method: 'post',
-              send: {
-                startTime: 10 * 60 * 1000,
-                endTime: 12 * 60 * 1000,
-                timezoneOffset: 2 * 60 * 1000,
-                dayOff: false,
-                date: date.toISOString(),
-              },
-              expect: 400,
-            },
-          );
+          const { body } = await user.createMasterSchedule({
+            startTime: 10 * 60 * 1000,
+            endTime: 12 * 60 * 1000,
+            timezoneOffset: 2 * 60 * 1000,
+            dayOff: false,
+            date: date.toISOString(),
+          }, 400);
 
           expect(body.message).toBe('Master schedule with the date already exists');
         });

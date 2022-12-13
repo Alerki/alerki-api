@@ -1,6 +1,7 @@
 import type { Application } from 'express';
 import * as request from 'supertest';
 
+import Prisma from '@prisma/client';
 import getCookies from '@Test/util/get-cookies';
 import { randomString } from '@Test/util/random-string';
 
@@ -25,6 +26,10 @@ export class UserActions {
   private _password: string;
   private _accessToken: string;
   private _refreshToken: string;
+  private _user: Prisma.User;
+  private _masterProfile: Prisma.MasterProfile;
+  private _weeklySchedule?: Prisma.MasterWeeklySchedule;
+  private _isMaster: boolean;
 
   /**
    * User actions constructor
@@ -38,6 +43,7 @@ export class UserActions {
       email?: string,
       username?: string,
       password?: string,
+      master?: boolean,
     },
   ) {
     this.app = app;
@@ -47,6 +53,8 @@ export class UserActions {
     this._username = options?.username || UserActions.generateUsername();
 
     this._password = options?.password || UserActions.generatePassword();
+
+    this._isMaster = options?.master || false;
   }
 
   /**
@@ -85,6 +93,31 @@ export class UserActions {
   }
 
   /**
+   * Get user information
+   */
+  get user() {
+    if (!this._user) {
+      throw new Error('User doesn\'t defined');
+    }
+
+    return this._user;
+  }
+
+  /**
+   * Get master profile information
+   */
+  get masterProfile() {
+    return this._masterProfile;
+  }
+
+  /**
+   * Get weekly schedule information
+   */
+  get weeklySchedule() {
+    return this._weeklySchedule;
+  }
+
+  /**
    * Register new user
    *
    * @param app express application
@@ -112,6 +145,11 @@ export class UserActions {
 
     this._accessToken = signIn.body.accessToken;
     this._refreshToken = cookies.refreshToken.value;
+
+    if (this._isMaster) {
+      await this.enableMaster();
+      await this.getMasterProfile();
+    }
   }
 
   /**
@@ -146,6 +184,108 @@ export class UserActions {
       .expect(expect);
   }
 
+  async getUser() {
+    const response = await request(this.app)
+      .get('/user')
+      .set({ Authorization: 'Bearer ' + this._accessToken })
+      .expect(expect);
+
+    this._user = response.body;
+
+    return response;
+  }
+
+  /**
+   * Get user
+   *
+   * Loads from `/user`, and set class `_user` field
+   *
+   * @returns user
+   */
+  static async getUser(
+    app: Application,
+    userId: string,
+    expect: number = 200,
+  ) {
+    const response = await request(app)
+      .get(`/user/${userId}`)
+      .expect(expect);
+
+    return response;
+  }
+
+  async getMasterProfile(expect: number = 200) {
+    const masterProfile = await UserActions.getMasterProfile(
+      this.app,
+      this.user.masterProfileId,
+      expect,
+    );
+
+    this._masterProfile = masterProfile.body;
+
+    return masterProfile;
+  }
+
+  static async getMasterProfile(
+    app: Application,
+    masterProfileId: string,
+    expect: number = 200,
+  ) {
+    return await request(app)
+      .get(
+        `/user/master/${masterProfileId}/weekly-schedule`,
+      )
+      .expect(expect);
+  }
+
+  async getWeeklySchedule(expect: number = 200) {
+    const weeklySchedule = await UserActions.getWeeklySchedule(
+      this.app,
+      this.user.id,
+      expect,
+    );
+
+    this._weeklySchedule = weeklySchedule.body;
+
+    return weeklySchedule;
+  }
+
+  static async getWeeklySchedule(
+    app: Application,
+    masterProfileId: string,
+    expect: number = 200,
+  ) {
+    return await request(app)
+      .get(
+        `/user/master/${masterProfileId}/weekly-schedule`,
+      )
+      .expect(expect);
+  }
+
+  async patchWeeklySchedule(data: any, expect: number = 200) {
+    const response = this.request({
+      url: '/user/master/weekly-schedule',
+      method: 'patch',
+      send: data,
+      expect,
+    });
+
+    return response;
+  }
+
+  async createMasterSchedule(data: any, expect: number = 200) {
+    const response = await this.request(
+      {
+        url: '/user/master/schedule',
+        method: 'post',
+        send: data,
+        expect,
+      },
+    );
+
+    return response;
+  }
+
   /**
    * Make request
    *
@@ -169,6 +309,34 @@ export class UserActions {
 
     return await request(this.app)[method](url)
       .set({ Authorization: 'Bearer ' + this._accessToken })
+      .query(query)
+      .send(send);
+  }
+
+  static async request(
+    app: Application,
+    {
+      url,
+      method,
+      query,
+      send,
+      expect,
+      refreshToken,
+      accessToken,
+    }: RequestI & { refreshToken?: string, accessToken?: string },
+  ) {
+    if (expect) {
+      return await request(app)[method](url)
+        .set({ Authorization: 'Bearer ' + accessToken })
+        .set('Cookie', [`refreshToken=${refreshToken}`])
+        .query(query)
+        .send(send)
+        .expect(expect);
+    }
+
+    return await request(app)[method](url)
+      .set({ Authorization: 'Bearer ' + accessToken })
+      .set('Cookie', [`refreshToken=${refreshToken}`])
       .query(query)
       .send(send);
   }
