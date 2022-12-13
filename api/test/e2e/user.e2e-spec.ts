@@ -19,6 +19,7 @@ import { ImageServerMock } from '@Test/util/mock/image-server.mock';
 import { randomUUID } from '@Test/util/random-uid';
 import { registerUser } from '@Test/util/register-user';
 import { Application } from 'express';
+import { UserActions } from '@Test/util/user-actions';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -1111,11 +1112,12 @@ describe('UserController (e2e)', () => {
     });
 
     describe('master schedule actions', () => {
-      let user: UserI;
+      let user: UserActions;
 
       beforeAll(async () => {
-        user = await registerUser(app);
-        await enableMaster(app, user);
+        user = new UserActions(app);
+        await user.register();
+        await user.enableMaster();
       });
 
       describe('create schedule', () => {
@@ -1127,9 +1129,7 @@ describe('UserController (e2e)', () => {
           date.setUTCMinutes(0);
           date.setUTCHours(0);
 
-          const { body } = await authRequest(
-            app,
-            user,
+          const { body } = await user.request(
             {
               url: '/user/master/schedule',
               method: 'post',
@@ -1154,9 +1154,7 @@ describe('UserController (e2e)', () => {
         test('create with exists date', async () => {
           let date = new Date();
 
-          const { body } = await authRequest(
-            app,
-            user,
+          const { body } = await user.request(
             {
               url: '/user/master/schedule',
               method: 'post',
@@ -1184,9 +1182,7 @@ describe('UserController (e2e)', () => {
           date.setUTCMinutes(0);
           date.setUTCHours(0);
 
-          const { body } = await authRequest(
-            app,
-            user,
+          const { body } = await user.request(
             {
               url: '/user/master/schedule',
               method: 'post',
@@ -1211,13 +1207,29 @@ describe('UserController (e2e)', () => {
 
       describe('get master schedule cases', () => {
         test('get for current month', async () => {
+          // console.log(user.email);
+          // const masterData = await prisma.user.findFirst({
+          //   where: {
+          //     email: user.email,
+          //   },
+          // });
+
+          // console.log(masterData);
+
           // const { body } = await authRequest(
           //   app,
           //   user,
           //   {
-          //     url: '/user/master/'
-          //   }
-          // )
+          //     url: `/user/master/${masterData.masterProfileId}/schedule`,
+          //     query: {
+
+          //     },
+          //     method: 'get',
+          //     expect: 200,
+          //   },
+          // );
+
+          // console.log(body);
         });
       });
 
