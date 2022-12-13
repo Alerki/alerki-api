@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 
 import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
-import { JwkTokenPayload, JwtTokensPair } from '@Module/auth/tokens.service';
+import { JwkTokenPayload, JwtTokensPair } from '@Src/modules/auth/tokens.service';
 
 /**
  * JWT tokens service

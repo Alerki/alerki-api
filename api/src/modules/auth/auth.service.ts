@@ -10,14 +10,14 @@ import * as ImageSize from 'buffer-image-size';
 import * as sharp from 'sharp';
 
 import { usernameBlackListSet } from '@Config/api/username-black-list';
-import { SignUpDto } from '@Module/auth/dto/auth.dto';
-import { GoogleUser } from '@Module/auth/google.strategy';
-import { RoleService } from '@Module/auth/role.service';
-import { SessionService } from '@Module/auth/session.service';
-import { TokensService } from '@Module/auth/tokens.service';
-import { ClientProfileService } from '@Module/profile/client-profile.service';
-import { UserPictureService } from '@Module/user/user-picture.service';
-import { UserService } from '@Module/user/user.service';
+import { SignUpDto } from '@Src/modules/auth/dto/auth.dto';
+import { GoogleUser } from '@Src/modules/auth/google.strategy';
+import { RoleService } from '@Src/modules/auth/role.service';
+import { SessionService } from '@Src/modules/auth/session.service';
+import { TokensService } from '@Src/modules/auth/tokens.service';
+import { ClientProfileService } from '@Src/modules/profile/client-profile.service';
+import { UserPictureService } from '@Src/modules/user/user-picture.service';
+import { UserService } from '@Src/modules/user/user.service';
 import { SetEnvVariable } from '@Shared/decorators/set-env-variable.decorator';
 
 @Injectable()
