@@ -7,6 +7,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
   Max,
   MaxLength,
   Min,
@@ -14,6 +15,7 @@ import {
 } from 'class-validator';
 
 import {
+  General,
   MasterSchedule,
   MasterService,
   MasterWeeklySchedule,
@@ -154,6 +156,11 @@ export class CreateMasterScheduleDto implements Pick<
 }
 
 export class GetMasterScheduleQueries {
+  // @ApiProperty(General.config.)
+  @IsOptional()
+  @IsUUID()
+  readonly id?: string;
+
   @IsDate()
   @IsOptional()
   readonly from?: string;
@@ -169,6 +176,10 @@ export class GetMasterScheduleQueries {
   @IsOptional()
   @Type(() => Number)
   readonly month?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  readonly date?: number;
 }
 
 export class PatchMasterWeeklyScheduleDto implements Pick<

@@ -275,6 +275,13 @@ export class UserService {
       month,
     }: GetMasterScheduleQueries,
   ) {
+    // Handle from to
+
+    // Handle year month date
+
+    // Handle ID
+
+
     // Handle from / to queries
     if (from) {
       if (!to) {
