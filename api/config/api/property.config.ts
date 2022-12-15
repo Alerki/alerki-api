@@ -1,3 +1,5 @@
+import { ApiPropertyOptions } from '@nestjs/swagger';
+
 export enum PropertyType {
   string = 'string',
   number = 'number',
@@ -6,20 +8,13 @@ export enum PropertyType {
   DateTime = 'DateTime',
   Date = 'Date',
 }
-export interface PropertyConfig {
-  description: string,
-  minLength?: number,
-  maxLength?: number,
-  minimum?: number,
-  maximum?: number,
-  type: PropertyType,
-  example?: string | number | any,
-  pattern?: string,
-  required?: boolean,
-  patternExp?: RegExp,
+
+interface ExtendedApiPropertyOptions extends ApiPropertyOptions {
+  patternExp?: RegExp;
+  type: PropertyType;
 }
 
-export interface PropertiesConfig { [key: string]: PropertyConfig }
+export interface PropertiesConfig { [key: string]: ExtendedApiPropertyOptions }
 
 export namespace GeneralConfig {
   export const intMaxValue = 2147483647;
@@ -48,7 +43,7 @@ export namespace GeneralConfig {
       example: 'f7b1cb86-5f8f-4aac-9838-b51ffbfa22c6',
       pattern: String(UUIDPatter),
       patternExp: UUIDPatter,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     refreshToken: {
       description: 'Refresh token',
       type: PropertyType.string,
@@ -56,7 +51,7 @@ export namespace GeneralConfig {
       pattern: String(jwtTokenPattern),
       patternExp: jwtTokenPattern,
       maxLength: 1024,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
   } satisfies PropertiesConfig;
 }
 
@@ -77,7 +72,7 @@ export namespace UserConfig {
       example: 'james@gmail.com',
       pattern: String(emailPattern),
       patternExp: emailPattern,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     username: {
       description: 'Username',
       minLength: 4,
@@ -85,46 +80,46 @@ export namespace UserConfig {
       type: PropertyType.string,
       example: 'james',
       patternExp: usernamePattern,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     firstName: {
       description: 'First name',
       maxLength: 30,
       type: PropertyType.string,
       example: 'James',
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     lastName: {
       description: 'Last name',
       maxLength: 30,
       type: PropertyType.string,
       example: 'Smith',
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     password: {
       description: 'Password',
       minLength: 6,
       maxLength: 50,
       type: PropertyType.string,
       example: 'dIda*20/fa',
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     picture: {
       description: 'User picture',
       type: PropertyType.Buffer,
       pattern: String(availablePictureExtensions),
       patternExp: availablePictureExtensions,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     phoneNumber: {
       description: 'Phone number',
       minLength: 8,
       maxLength: 20,
       type: PropertyType.string,
       example: '+38 (098) 088 86 55',
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     deviceName: {
       description: 'Device name',
       minLength: 1,
       maxLength: 20,
       type: PropertyType.string,
       example: 'iPhone XR',
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
   } satisfies PropertiesConfig;
 }
 
@@ -134,14 +129,14 @@ export namespace ServiceConfig {
       description: 'Available condition',
       type: PropertyType.boolean,
       example: false,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     name: {
       description: 'Service name',
       minLength: 1,
       maxLength: 30,
       type: PropertyType.string,
       example: 'Haircut',
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
   } satisfies PropertiesConfig;
 }
 
@@ -151,55 +146,64 @@ export namespace MasterServiceConfig {
       description: 'Payment currency',
       type: PropertyType.string,
       example: 'USD',
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     price: {
       description: 'Service price',
       type: PropertyType.number,
       minimum: 0,
       example: 15,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     duration: {
       description: 'Service duration in seconds',
       type: PropertyType.number,
       minimum: 0,
       maximum: GeneralConfig.intMaxValue,
       example: 60 * 30,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     locationLat: {
       description: 'Location latitude',
       minimum: GeneralConfig.minLatitudeValue,
       maximum: GeneralConfig.maxLatitudeValue,
       type: PropertyType.number,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     locationLng: {
       description: 'Location longitude',
       minimum: GeneralConfig.minLongitudeValue,
       maximum: GeneralConfig.maxLongitudeValue,
       type: PropertyType.number,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
   } satisfies PropertiesConfig;
 }
 
 export namespace MasterWeeklyScheduleConfig {
-  export const generateWeekDaySchedule = (dayName: string): PropertyConfig => ({
-    description: `${dayName} is weekend or not`,
-    type: PropertyType.boolean,
-    example: true,
-  } satisfies PropertyConfig);
+  export const generateWeekDaySchedule =
+    (dayName: string): ExtendedApiPropertyOptions => ({
+      description: `${dayName} is weekend or not`,
+      type: PropertyType.boolean,
+      example: true,
+    } satisfies ExtendedApiPropertyOptions);
 
   export const generateTime =
-    (description: string, example: number): PropertyConfig =>
+    (
+      description: string,
+      example: number,
+      minimum: number = 0,
+    ): ExtendedApiPropertyOptions =>
       ({
-        minimum: 0,
+        minimum,
         maximum: 86399999,
         description,
         type: PropertyType.number,
         example,
-      } satisfies PropertyConfig);
+      } satisfies ExtendedApiPropertyOptions);
 
   export const startTime = generateTime('Start work time', 9 * 60 * 1000);
   export const endTime = generateTime('End work time', 17 * 60 * 1000);
-  export const timezoneOffset = generateTime('Timezone offset', 2 * 60 * 1000);
+  export const timezoneOffset = generateTime(
+    'Timezone offset',
+    2 * 60 * 1000,
+    -24 * 60 * 1000 - 1,
+  );
 
   export const config = {
     monday: generateWeekDaySchedule('Monday'),
@@ -224,11 +228,11 @@ export namespace MasterScheduleConfig {
       description: 'Schedule date',
       type: PropertyType.Date,
       example: '2022-11-26T00:00:00.000Z',
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
     dayOff: {
       description: 'It\'s a day off',
       type: PropertyType.boolean,
       example: false,
-    } satisfies PropertyConfig,
+    } satisfies ExtendedApiPropertyOptions,
   } satisfies PropertiesConfig;
 }

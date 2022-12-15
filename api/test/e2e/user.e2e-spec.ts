@@ -7,10 +7,9 @@ import * as cookieParser from 'cookie-parser';
 import * as request from 'supertest';
 
 import { GeneralConfig } from '@Config/api/property.config';
-import { GoogleStrategy } from '@Src/modules/auth/google.strategy';
 import { AppModule } from '@Src/app.module';
+import { GoogleStrategy } from '@Src/modules/auth/google.strategy';
 import { databaseSetup } from '@Src/util';
-import { authRequest, enableMaster, UserI } from '@Test/util/actions';
 import { clearDatabase } from '@Test/util/clear-database';
 import getCookies from '@Test/util/get-cookies';
 import { TokensService } from '@Test/util/jwt-service';
@@ -18,8 +17,8 @@ import { GoogleOAuthMock } from '@Test/util/mock/google-oauth.mock';
 import { ImageServerMock } from '@Test/util/mock/image-server.mock';
 import { randomUUID } from '@Test/util/random-uid';
 import { registerUser } from '@Test/util/register-user';
-import { Application } from 'express';
 import { UserActions } from '@Test/util/user-actions';
+import { Application } from 'express';
 
 describe('UserController (e2e)', () => {
   let app: Application;
@@ -84,7 +83,9 @@ describe('UserController (e2e)', () => {
     accessToken: '',
   };
 
-  test('prepare', async () => {
+  let user2: UserActions;
+
+  beforeAll(async () => {
     // Set profile for Google OAuth2.0 mock
     googleOAuthMock.setProfile = {
       email: user.email,
@@ -99,9 +100,12 @@ describe('UserController (e2e)', () => {
 
     user.refreshToken = cookies.refreshToken.value;
     user.accessToken = r.body.accessToken;
+
+    user2 = new UserActions(app, { master: true });
+    await user2.register();
   });
 
-  describe('Disable / enable master', () => {
+  describe('disable / enable master', () => {
     const user = {
       username: 'profile_user',
       email: 'profile@example.com',
@@ -281,255 +285,270 @@ describe('UserController (e2e)', () => {
     });
   });
 
-  describe('Regular script', () => {
-    describe('user actions', () => {
-      test('get own user profile', async () => {
-        const { body } = await request(app)
-          .get('/user')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .expect(200);
+  describe('user actions', () => {
+    test('get own user profile', async () => {
+      const { body } = await request(app)
+        .get('/user')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
 
-        expect(body.username).toBe(user.username);
-        expect(body.password).toBeUndefined();
-        expect(body.masterProfile).toBeNull();
-        expect(body.masterProfileId).toBeNull();
-        expect(body.clientProfile).toBeTruthy();
-        expect(body.clientProfileId).toBeTruthy();
-        expect(body.clientProfile.id).toBeTruthy();
+      expect(body.username).toBe(user.username);
+      expect(body.password).toBeUndefined();
+      expect(body.masterProfile).toBeNull();
+      expect(body.masterProfileId).toBeNull();
+      expect(body.clientProfile).toBeTruthy();
+      expect(body.clientProfileId).toBeTruthy();
+      expect(body.clientProfile.id).toBeTruthy();
 
-        await request(app)
-          .get('/user')
-          .expect(401);
-      });
-
-      test('get user by username and id', async () => {
-        const { body: body1 } = await request(app)
-          .get('/user/' + user.username)
-          .expect(200);
-
-        expect(body1.username).toBe(user.username);
-        expect(body1.password).toBeUndefined();
-        expect(body1.masterProfile).toBeNull();
-        expect(body1.clientProfile).toBeTruthy();
-        expect(body1.clientProfile.id).toBeTruthy();
-
-        const { body: body2 } = await request(app)
-          .get('/user/' + body1.id)
-          .expect(200);
-
-        expect(body2.username).toBe(user.username);
-        expect(body2.password).toBeUndefined();
-        expect(body2.masterProfile).toBeNull();
-        expect(body2.clientProfile).toBeTruthy();
-        expect(body2.clientProfile.id).toBeTruthy();
-      });
-
-      test('get user with fake access token', async () => {
-        const accessToken = await tokensService.generateAccessToken({ id: 'vad-id' });
-
-        const { body } = await request(app)
-          .get('/user')
-          .set({ Authorization: 'Bearer ' + accessToken })
-          .expect(404);
-
-        expect(body.message).toBe('User profile not found');
-      });
-
-      test('get user by not exists username', async () => {
-        const { body } = await request(app)
-          .get('/user/92881729')
-          .expect(404);
-
-        expect(body.message).toBe('User profile not found');
-      });
-
-      test('path user', async () => {
-        const { body } = await request(app)
-          .patch('/user')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .send({
-            username: 'newOne',
-          })
-          .expect(200);
-
-        expect(body.username).toBe('newOne');
-
-        const accessToken = await tokensService.generateAccessToken({ id: 'bla-bla-bla' });
-
-        await request(app)
-          .patch('/user')
-          .set({ Authorization: 'Bearer ' + accessToken })
-          .send({
-            username: 'newOne',
-          })
-          .expect(404);
-
-        expect(body.username).toBe('newOne');
-
-        await request(app)
-          .patch('/user')
-          .send({
-            username: 'newOne',
-          })
-          .expect(401);
-      });
-
-      test('get user with master profile', async () => {
-        const { accessToken } = await registerUser(app);
-
-        await request(app)
-          .patch('/user/enable-master')
-          .set({ Authorization: 'Bearer ' + accessToken })
-          .expect(200);
-
-        const { body } = await request(app)
-          .get('/user')
-          .set({ Authorization: 'Bearer ' + accessToken })
-          .expect(200);
-
-        expect(body.masterProfile).toBeDefined();
-        expect(body.masterProfileId).toBeDefined();
-        expect(body.masterProfile.weeklySchedule).toBeDefined();
-        expect(body.masterProfile.weeklyScheduleId).toBeDefined();
-      });
+      await request(app)
+        .get('/user')
+        .expect(401);
     });
 
-    describe('picture actions', () => {
-      test('get picture', async () => {
-        const r = await request(app)
-          .get('/user')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .expect(200);
+    test('get user by username and id', async () => {
+      const { body: body1 } = await request(app)
+        .get('/user/' + user.username)
+        .expect(200);
 
-        const { body } = await request(app)
-          .get('/user/picture/' + r.body.pictureId)
-          .expect(200);
+      expect(body1.username).toBe(user.username);
+      expect(body1.password).toBeUndefined();
+      expect(body1.masterProfile).toBeNull();
+      expect(body1.clientProfile).toBeTruthy();
+      expect(body1.clientProfile.id).toBeTruthy();
 
-        expect(body).toBeTruthy();
+      const { body: body2 } = await request(app)
+        .get('/user/' + body1.id)
+        .expect(200);
+
+      expect(body2.username).toBe(user.username);
+      expect(body2.password).toBeUndefined();
+      expect(body2.masterProfile).toBeNull();
+      expect(body2.clientProfile).toBeTruthy();
+      expect(body2.clientProfile.id).toBeTruthy();
+    });
+
+    test('get user with fake access token', async () => {
+      const accessToken = await tokensService.generateAccessToken({ id: 'vad-id' });
+
+      const { body } = await request(app)
+        .get('/user')
+        .set({ Authorization: 'Bearer ' + accessToken })
+        .expect(404);
+
+      expect(body.message).toBe('User profile not found');
+    });
+
+    test('get user by not exists username', async () => {
+      const { body } = await request(app)
+        .get('/user/92881729')
+        .expect(404);
+
+      expect(body.message).toBe('User profile not found');
+    });
+
+    test('path user', async () => {
+      const { body } = await request(app)
+        .patch('/user')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .send({
+          username: 'newOne',
+        })
+        .expect(200);
+
+      expect(body.username).toBe('newOne');
+
+      const accessToken = await tokensService.generateAccessToken({ id: 'bla-bla-bla' });
+
+      await request(app)
+        .patch('/user')
+        .set({ Authorization: 'Bearer ' + accessToken })
+        .send({
+          username: 'newOne',
+        })
+        .expect(404);
+
+      expect(body.username).toBe('newOne');
+
+      await request(app)
+        .patch('/user')
+        .send({
+          username: 'newOne',
+        })
+        .expect(401);
+    });
+
+    test('get user with master profile', async () => {
+      const { accessToken } = await registerUser(app);
+
+      await request(app)
+        .patch('/user/enable-master')
+        .set({ Authorization: 'Bearer ' + accessToken })
+        .expect(200);
+
+      const { body } = await request(app)
+        .get('/user')
+        .set({ Authorization: 'Bearer ' + accessToken })
+        .expect(200);
+
+      expect(body.masterProfile).toBeDefined();
+      expect(body.masterProfileId).toBeDefined();
+      expect(body.masterProfile.weeklySchedule).toBeDefined();
+      expect(body.masterProfile.weeklyScheduleId).toBeDefined();
+    });
+  });
+
+  describe('picture actions', () => {
+    test('get picture', async () => {
+      const r = await request(app)
+        .get('/user')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+
+      const { body } = await request(app)
+        .get('/user/picture/' + r.body.pictureId)
+        .expect(200);
+
+      expect(body).toBeTruthy();
+    });
+
+    test('get picture with not exists id', async () => {
+      const { body } = await request(app)
+        .get('/user/picture/f7b1cb86-5f8f-4aac-9838-b51ffbfa22c6')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(404);
+
+      expect(body.message).toBe('Picture not found');
+    });
+
+    test('get picture with bad id', async () => {
+      const { body } = await request(app)
+        .get('/user/picture/bad-id')
+        .expect(400);
+
+      expect(body.message).toBe('Validation failed (uuid is expected)');
+    });
+
+    test('patch picture 500x500', async () => {
+      const image = await axios.get(
+        `${imageServerMock.serverUrl}/500x500`,
+        { responseType: 'arraybuffer' },
+      );
+
+      // Convert data to buffer
+      let imageBuffer = Buffer.from(image.data, 'utf8');
+
+      await request(app)
+        .patch('/user/picture')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .attach('picture', imageBuffer, 'picture.jpeg')
+        .expect(200);
+    });
+
+    test('patch picture 100x100', async () => {
+      const image = await axios.get(
+        `${imageServerMock.serverUrl}/100x100`,
+        { responseType: 'arraybuffer' },
+      );
+
+      // Convert data to buffer
+      let imageBuffer = Buffer.from(image.data, 'utf8');
+
+      await request(app)
+        .patch('/user/picture')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .attach('picture', imageBuffer, 'picture.jpeg')
+        .expect(200);
+    });
+
+    test('patch not exists user picture', async () => {
+      const user = {
+        email: '929884@example.com',
+        username: '192490123',
+        password: '12321312',
+        refreshToken: '',
+        accessToken: '',
+      };
+
+      const signUp = await request(app)
+        .post('/auth/sign-up')
+        .send(user)
+        .expect(201);
+
+      const signIn = await request(app)
+        .post('/auth/sign-in')
+        .send(user)
+        .expect(200);
+
+      const cookies = getCookies(signIn);
+
+      user.accessToken = signIn.body.accessToken;
+      user.refreshToken = cookies.refreshToken.value;
+
+      const image = await axios.get(
+        `${imageServerMock.serverUrl}/100x100`,
+        { responseType: 'arraybuffer' },
+      );
+
+      // Convert data to buffer
+      let imageBuffer = Buffer.from(image.data, 'utf8');
+
+      const { body } = await request(app)
+        .patch('/user/picture')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .attach('picture', imageBuffer, 'picture.jpeg')
+        .expect(200);
+    });
+
+    test('patch picture with bad file', async () => {
+      // Convert data to buffer
+      let imageBuffer = Buffer.from('00000000000', 'utf8');
+
+      const { body } = await request(app)
+        .patch('/user/picture')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .attach('picture', imageBuffer, 'picture.jpeg')
+        .expect(400);
+    });
+
+    test('patch picture with bad file', async () => {
+      // Convert data to buffer
+      let imageBuffer = Buffer.from('GIF87a000', 'utf8');
+
+      const { body } = await request(app)
+        .patch('/user/picture')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .attach('picture', imageBuffer, 'picture.jpeg')
+        .expect(400);
+    });
+
+    test('delete picture', async () => {
+      await request(app)
+        .delete('/user/picture')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(200);
+    });
+
+    test('delete not exists picture', async () => {
+      await request(app)
+        .delete('/user/picture')
+        .set({ Authorization: 'Bearer ' + user.accessToken })
+        .expect(404);
+    });
+  });
+
+  describe('master actions', () => {
+    describe('get master profile', () => {
+      test('get master profile', async () => {
+        const { body } = await user2.getMasterProfile();
+
+        expect(body.weeklyScheduleId).toHaveLength(36);
+        expect(body.available).toBe(true);
       });
 
-      test('get picture with not exists id', async () => {
-        const { body } = await request(app)
-          .get('/user/picture/f7b1cb86-5f8f-4aac-9838-b51ffbfa22c6')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .expect(404);
+      test('get not exists master profile', async () => {
+        const { body } = await UserActions.getMasterProfile(app, randomUUID(), 404);
 
-        expect(body.message).toBe('Picture not found');
-      });
-
-      test('get picture with bad id', async () => {
-        const { body } = await request(app)
-          .get('/user/picture/bad-id')
-          .expect(400);
-
-        expect(body.message).toBe('Validation failed (uuid is expected)');
-      });
-
-      test('patch picture 500x500', async () => {
-        const image = await axios.get(
-          `${imageServerMock.serverUrl}/500x500`,
-          { responseType: 'arraybuffer' },
-        );
-
-        // Convert data to buffer
-        let imageBuffer = Buffer.from(image.data, 'utf8');
-
-        await request(app)
-          .patch('/user/picture')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .attach('picture', imageBuffer, 'picture.jpeg')
-          .expect(200);
-      });
-
-      test('patch picture 100x100', async () => {
-        const image = await axios.get(
-          `${imageServerMock.serverUrl}/100x100`,
-          { responseType: 'arraybuffer' },
-        );
-
-        // Convert data to buffer
-        let imageBuffer = Buffer.from(image.data, 'utf8');
-
-        await request(app)
-          .patch('/user/picture')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .attach('picture', imageBuffer, 'picture.jpeg')
-          .expect(200);
-      });
-
-      test('patch not exists user picture', async () => {
-        const user = {
-          email: '929884@example.com',
-          username: '192490123',
-          password: '12321312',
-          refreshToken: '',
-          accessToken: '',
-        };
-
-        const signUp = await request(app)
-          .post('/auth/sign-up')
-          .send(user)
-          .expect(201);
-
-        const signIn = await request(app)
-          .post('/auth/sign-in')
-          .send(user)
-          .expect(200);
-
-        const cookies = getCookies(signIn);
-
-        user.accessToken = signIn.body.accessToken;
-        user.refreshToken = cookies.refreshToken.value;
-
-        const image = await axios.get(
-          `${imageServerMock.serverUrl}/100x100`,
-          { responseType: 'arraybuffer' },
-        );
-
-        // Convert data to buffer
-        let imageBuffer = Buffer.from(image.data, 'utf8');
-
-        const { body } = await request(app)
-          .patch('/user/picture')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .attach('picture', imageBuffer, 'picture.jpeg')
-          .expect(200);
-      });
-
-      test('patch picture with bad file', async () => {
-        // Convert data to buffer
-        let imageBuffer = Buffer.from('00000000000', 'utf8');
-
-        const { body } = await request(app)
-          .patch('/user/picture')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .attach('picture', imageBuffer, 'picture.jpeg')
-          .expect(400);
-      });
-
-      test('patch picture with bad file', async () => {
-        // Convert data to buffer
-        let imageBuffer = Buffer.from('GIF87a000', 'utf8');
-
-        const { body } = await request(app)
-          .patch('/user/picture')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .attach('picture', imageBuffer, 'picture.jpeg')
-          .expect(400);
-      });
-
-      test('delete picture', async () => {
-        await request(app)
-          .delete('/user/picture')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .expect(200);
-      });
-
-      test('delete not exists picture', async () => {
-        await request(app)
-          .delete('/user/picture')
-          .set({ Authorization: 'Bearer ' + user.accessToken })
-          .expect(404);
+        expect(body.message).toBe('Master profile not exists');
       });
     });
 
@@ -761,10 +780,12 @@ describe('UserController (e2e)', () => {
         let masterProfile: Prisma.MasterProfile;
 
         test('with not exists UUID', async () => {
-          await request(app)
+          const { body } = await request(app)
             .patch('/user/master/service/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa')
             .set({ Authorization: 'Bearer ' + user.accessToken })
             .expect(404);
+
+          expect(body.message).toBe('Master service not exists');
         });
 
         test('with master service that not belongs to current user', async () => {
@@ -1164,32 +1185,219 @@ describe('UserController (e2e)', () => {
           expect(body.dayOff).toBe(true);
           expect(body.date).toBe(date.toISOString());
         });
+
+        afterAll(async () => {
+          await prisma.masterSchedule.deleteMany();
+        });
+      });
+
+      describe('delete master schedule cases', () => {
+        const date = new Date();
+
+        beforeAll(async () => {
+          date.setUTCDate(date.getUTCDate() + 2);
+          date.setUTCMilliseconds(0);
+          date.setUTCSeconds(0);
+          date.setUTCMinutes(0);
+          date.setUTCHours(0);
+
+          await user.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 16 * 60 * 1000,
+            timezoneOffset: 2 * 60 * 1000,
+            dayOff: false,
+            date: date.toISOString(),
+          });
+        });
+
+        test('delete schedule', async () => {
+          const schedule = await prisma.masterSchedule.findMany({
+            where: {
+              masterId: user.user.masterProfileId,
+            },
+          });
+
+          expect(schedule).toHaveLength(1);
+
+          const { body } = await user.deleteMasterSchedule(schedule[0].id);
+
+          expect(body).toMatchObject({});
+
+          const after = await prisma.masterSchedule.findMany({
+            where: {
+              masterId: user.user.masterProfileId,
+            },
+          });
+
+          expect(after).toHaveLength(0);
+        });
+
+        test('try to delete schedule that not belong to the user', async () => {
+          const { body: newSchedule } = await user2.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 16 * 60 * 1000,
+            timezoneOffset: 2 * 60 * 1000,
+            dayOff: false,
+            date: date.toISOString(),
+          });
+
+          const { body } = await user.deleteMasterSchedule(newSchedule.id, 400);
+
+          expect(body.message).toBe('The schedule not belongs to you');
+        });
       });
 
       describe('get master schedule cases', () => {
         test('get for current month', async () => {
-          const { body } = await user.getMasterSchedule({});
+          const date = new Date();
+
+          await user.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 9 * 60 * 1000,
+            dayOff: false,
+            timezoneOffset: date.getTimezoneOffset() * 1000,
+            date: date.toISOString(),
+          });
+
+          const { body } = await user.getMasterSchedule();
 
           expect(body).toHaveLength(1);
         });
 
-        test.todo('Create test get schedule with year and month query');
+        test('get schedule with year and month query', async () => {
+          const date = new Date();
 
-        test.todo('Create test get schedule with year query');
+          date.setUTCMonth(date.getUTCMonth() + 1);
 
-        test.todo('Create test get schedule with month query');
+          await user.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 9 * 60 * 1000,
+            dayOff: false,
+            timezoneOffset: date.getTimezoneOffset() * 1000,
+            date: date.toISOString(),
+          });
 
-        test.todo('Create test get schedule with year query');
+          date.setUTCDate(date.getUTCDate() + 1);
 
-        test.todo('Create test get schedule with from and to query');
+          await user.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 9 * 60 * 1000,
+            dayOff: false,
+            timezoneOffset: date.getTimezoneOffset() * 1000,
+            date: date.toISOString(),
+          });
 
-        test.todo('Create test get schedule with from query');
+          const { body } = await user.getMasterSchedule({
+            year: date.getUTCFullYear(),
+            month: date.getUTCMonth(),
+          });
 
-        test.todo('Create test get schedule with to query');
+          expect(body).toHaveLength(2);
+        });
+
+        test('get schedule with year, month and date queries', async () => {
+          const date = new Date();
+
+          date.setUTCMonth(date.getUTCMonth() + 3);
+
+          await user.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 9 * 60 * 1000,
+            dayOff: false,
+            timezoneOffset: date.getTimezoneOffset() * 1000,
+            date: date.toISOString(),
+          });
+
+          const { body } = await user.getMasterSchedule({
+            year: date.getUTCFullYear(),
+            month: date.getUTCMonth(),
+            date: date.getUTCDate(),
+          });
+
+          date.setUTCHours(0);
+          date.setUTCMinutes(0);
+          date.setUTCSeconds(0);
+          date.setUTCMilliseconds(0);
+
+          expect(body.date).toBe(date.toISOString());
+        });
+
+        test('get schedule with from and to query', async () => {
+          const date = new Date();
+
+          date.setUTCFullYear(date.getUTCFullYear() + 1);
+
+          const dateFrom = new Date(date);
+          const dateTo = new Date(date);
+
+          dateFrom.setUTCMonth(dateFrom.getUTCMonth() - 1);
+          dateTo.setUTCMonth(dateTo.getUTCMonth() + 1);
+
+          await user.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 9 * 60 * 1000,
+            dayOff: false,
+            timezoneOffset: date.getTimezoneOffset() * 1000,
+            date: date.toISOString(),
+          });
+
+          date.setUTCDate(date.getUTCDate() + 4);
+
+          await user.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 9 * 60 * 1000,
+            dayOff: false,
+            timezoneOffset: date.getTimezoneOffset() * 1000,
+            date: date.toISOString(),
+          });
+
+          date.setUTCDate(date.getUTCDate() + 4);
+
+          await user.createMasterSchedule({
+            startTime: 9 * 60 * 1000,
+            endTime: 9 * 60 * 1000,
+            dayOff: false,
+            timezoneOffset: date.getTimezoneOffset() * 1000,
+            date: date.toISOString(),
+          });
+
+          const { body } = await user.getMasterSchedule({
+            from: dateFrom.toISOString(),
+            to: dateTo.toISOString(),
+          });
+
+          expect(body).toHaveLength(3);
+        });
+
+        test('try to find schedule only with from query', async () => {
+          const { body } = await user.getMasterSchedule({
+            from: new Date().toISOString(),
+          }, 400);
+
+          expect(body.message).toBe('Required both from and id queries');
+        });
+
+        test('get schedule by id', async () => {
+          const schedule = await prisma.masterSchedule.findFirst();
+
+          const { body } = await user.getMasterScheduleById(
+            schedule.id,
+          );
+
+          expect(body.id).toBeDefined();
+        });
+
+        test('get schedule with not exists id', async () => {
+          const { body } = await user.getMasterScheduleById(
+            randomUUID(),
+            404,
+          );
+
+          expect(body.message).toBe('Master schedule not exists');
+        });
       });
 
       test.todo('Create patch tests');
     });
   });
 });
-

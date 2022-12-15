@@ -8,10 +8,17 @@ import { UserService } from '@Src/modules/user/user.service';
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, UserPictureService],
-  imports: [
-    forwardRef(() => ServiceModule), forwardRef(() => ProfileModule),
+  providers: [
+    UserService,
+    UserPictureService,
   ],
-  exports: [UserService, UserPictureService],
+  imports: [
+    forwardRef(() => ServiceModule),
+    forwardRef(() => ProfileModule),
+  ],
+  exports: [
+    UserService,
+    UserPictureService,
+  ],
 })
 export class UserModule { }

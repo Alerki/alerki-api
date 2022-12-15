@@ -2,12 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
   IsBoolean,
-  IsDate,
   IsDateString,
   IsNumber,
   IsOptional,
   IsString,
-  IsUUID,
   Max,
   MaxLength,
   Min,
@@ -124,8 +122,7 @@ export class CreateMasterScheduleDto implements Pick<
   'startTime' |
   'endTime' |
   'timezoneOffset' |
-  'dayOff' |
-  'date'
+  'dayOff'
 > {
   @ApiProperty(MasterScheduleConfig.config.startTime)
   @Min(MasterScheduleConfig.config.startTime.minimum)
@@ -147,7 +144,7 @@ export class CreateMasterScheduleDto implements Pick<
 
   @ApiProperty(MasterScheduleConfig.config.data)
   @IsDateString()
-  readonly date: Date;
+  readonly date: string;
 
   @ApiProperty(MasterScheduleConfig.config.dayOff)
   @IsBoolean()
@@ -155,16 +152,11 @@ export class CreateMasterScheduleDto implements Pick<
 }
 
 export class GetMasterScheduleQueries {
-  // @ApiProperty(General.config.)
-  @IsOptional()
-  @IsUUID()
-  readonly id?: string;
-
-  @IsDate()
+  @IsDateString()
   @IsOptional()
   readonly from?: string;
 
-  @IsDate()
+  @IsDateString()
   @IsOptional()
   readonly to?: string;
 

@@ -1,6 +1,7 @@
 import type { Application } from 'express';
 import * as request from 'supertest';
 
+import { CreateMasterScheduleDto, GetMasterScheduleQueries } from '@Module/user/dto/master.dto';
 import Prisma from '@prisma/client';
 import getCookies from '@Test/util/get-cookies';
 import { randomString } from '@Test/util/random-string';
@@ -27,7 +28,7 @@ export class UserActions {
   private _accessToken: string;
   private _refreshToken: string;
   private _user: Prisma.User;
-  private _masterProfile: Prisma.MasterProfile;
+  private _masterProfile?: Prisma.MasterProfile;
   private _weeklySchedule?: Prisma.MasterWeeklySchedule;
   private _isMaster: boolean;
 
@@ -146,10 +147,15 @@ export class UserActions {
     this._accessToken = signIn.body.accessToken;
     this._refreshToken = cookies.refreshToken.value;
 
+    await this.getUser();
+
     if (this._isMaster) {
       await this.enableMaster();
+      await this.getUser();
       await this.getMasterProfile();
     }
+
+    await this.getUser();
   }
 
   /**
@@ -184,6 +190,13 @@ export class UserActions {
       .expect(expect);
   }
 
+  /**
+   * Get user
+   *
+   * Loads from `/user`, and set class `_user` field
+   *
+   * @returns user
+   */
   async getUser() {
     const response = await request(this.app)
       .get('/user')
@@ -198,8 +211,9 @@ export class UserActions {
   /**
    * Get user
    *
-   * Loads from `/user`, and set class `_user` field
-   *
+   * @param app express application
+   * @param userId user ID to get
+   * @param expect expected response
    * @returns user
    */
   static async getUser(
@@ -214,6 +228,12 @@ export class UserActions {
     return response;
   }
 
+  /**
+   * Get master profile
+   *
+   * @param expect expected response
+   * @returns master profile
+   */
   async getMasterProfile(expect: number = 200) {
     const masterProfile = await UserActions.getMasterProfile(
       this.app,
@@ -226,6 +246,14 @@ export class UserActions {
     return masterProfile;
   }
 
+  /**
+   * Get master profile
+   *
+   * @param app express application
+   * @param masterProfileId master profile ID
+   * @param expect expected response
+   * @returns master profile
+   */
   static async getMasterProfile(
     app: Application,
     masterProfileId: string,
@@ -233,11 +261,17 @@ export class UserActions {
   ) {
     return await request(app)
       .get(
-        `/user/master/${masterProfileId}/weekly-schedule`,
+        `/user/master/${masterProfileId}`,
       )
       .expect(expect);
   }
 
+  /**
+   * Get master weekly schedule
+   *
+   * @param expect expected response
+   * @returns master weekly schedule
+   */
   async getWeeklySchedule(expect: number = 200) {
     const weeklySchedule = await UserActions.getWeeklySchedule(
       this.app,
@@ -250,6 +284,14 @@ export class UserActions {
     return weeklySchedule;
   }
 
+  /**
+   * Get master weekly schedule
+   *
+   * @param app express application
+   * @param masterProfileId master profile ID to get weekly schedule
+   * @param expect expected response
+   * @returns master weekly schedule
+   */
   static async getWeeklySchedule(
     app: Application,
     masterProfileId: string,
@@ -262,6 +304,13 @@ export class UserActions {
       .expect(expect);
   }
 
+  /**
+   * Pater master weekly schedule
+   *
+   * @param data data to patch
+   * @param expect expected response
+   * @returns patched master weekly schedule
+   */
   async patchWeeklySchedule(data: any, expect: number = 200) {
     const response = this.request({
       url: '/user/master/weekly-schedule',
@@ -273,7 +322,17 @@ export class UserActions {
     return response;
   }
 
-  async createMasterSchedule(data: any, expect: number = 200) {
+  /**
+   * Create master schedule
+   *
+   * @param data schedule data
+   * @param expect expected response
+   * @returns created master schedule
+   */
+  async createMasterSchedule(
+    data: CreateMasterScheduleDto,
+    expect: number = 201,
+  ) {
     return await this.request(
       {
         url: '/user/master/schedule',
@@ -284,14 +343,93 @@ export class UserActions {
     );
   }
 
+  /**
+   * Get master schedule
+   *
+   * @param queries queries to get master schedule
+   * @param expect expected response
+   * @returns created master schedule
+   */
   async getMasterSchedule(
-    query: any,
+    queries: GetMasterScheduleQueries = {},
+    expect: number = 200,
+  ) {
+    return await UserActions.getMasterSchedule(
+      this.app,
+      this.user.masterProfileId,
+      queries,
+      expect,
+    );
+  }
+
+  /**
+   * Get master schedule
+   *
+   * @param app express application
+   * @param masterProfileId master profile ID to get schedule
+   * @param queries queries to get schedule
+   * @param expect expected response
+   * @returns master schedule
+   */
+  static async getMasterSchedule(
+    app: Application,
+    masterProfileId: string,
+    queries: GetMasterScheduleQueries,
+    expect: number = 200,
+  ) {
+    return await request(app)
+      .get(`/user/master/${masterProfileId}/schedule`)
+      .query(queries)
+      .expect(expect);
+  }
+
+  /**
+   * Get schedule by ID
+   *
+   * @param scheduleId schedule ID
+   * @param expect expected response
+   * @returns schedule
+   */
+  async getMasterScheduleById(scheduleId: string, expect: number = 200) {
+    return await UserActions.getMasterScheduleById(
+      this.app,
+      scheduleId,
+      expect,
+    );
+  }
+
+  /**
+   * Get schedule by ID
+   *
+   * @param app express application
+   * @param scheduleId schedule ID
+   * @param expect expected response
+   * @returns schedule
+   */
+  static async getMasterScheduleById(
+    app: Application,
+    scheduleId: string,
+    expect: number = 200,
+  ) {
+    return await request(app)
+      .get(`/user/master/schedule/${scheduleId}`)
+      .expect(expect);
+  }
+
+  /**
+   * Delete masters schedule
+   *
+   * @param scheduleId schedule ID to delete
+   * @param expect
+   * @returns deleted master schedule
+   */
+  async deleteMasterSchedule(
+    scheduleId: string,
     expect: number = 200,
   ) {
     return await this.request({
-      url: `/user/master/${this.user.masterProfileId}/schedule`,
-      method: 'get',
-      query,
+      url: `/user/master/schedule/${scheduleId}`,
+      method: 'delete',
       expect,
     });
   }
@@ -323,6 +461,13 @@ export class UserActions {
       .send(send);
   }
 
+  /**
+   * Make request for unauthorized user
+   *
+   * @param app express application
+   * @param param1 request options
+   * @returns response
+   */
   static async request(
     app: Application,
     {

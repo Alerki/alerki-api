@@ -9,11 +9,12 @@ import * as imageType from 'image-type';
 import * as sharp from 'sharp';
 
 import * as ApiConfig from '@Config/api/property.config';
+import { prisma } from '@Shared/services/prisma.service';
+import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
 import { MasterScheduleService } from '@Src/modules/profile/master-schedule.service';
 import { CreateMasterScheduleDto, GetMasterScheduleQueries } from '@Src/modules/user/dto/master.dto';
 import { PatchUserDto, UserDto } from '@Src/modules/user/dto/user.dto';
 import { UserPictureService } from '@Src/modules/user/user-picture.service';
-import { prisma } from '@Shared/services/prisma.service';
 
 /**
  * User service
@@ -31,6 +32,7 @@ export class UserService {
   constructor(
     private readonly masterScheduleService: MasterScheduleService,
     private readonly userPictureService: UserPictureService,
+    private readonly masterProfileService: MasterProfileService,
   ) { }
 
   /**
@@ -267,79 +269,58 @@ export class UserService {
    * @param param1 queries
    * @returns
    */
-  async getMasterScheduleByDate(
-    { id }: Pick<Prisma.MasterSchedule, 'id'>,
+  async getMasterSchedule(
+    { id: masterId }: Pick<Prisma.MasterSchedule, 'id'>,
     {
       from,
       to,
       year,
       month,
+      date,
     }: GetMasterScheduleQueries,
   ) {
-    // Handle from to
-
-    // Handle year month date
-
-    // Handle ID
-
-
-    // Handle from / to queries
-    if (from) {
-      if (!to) {
-        throw new BadRequestException(
-          'Required both parameters "from" and "to"',
-        );
+    if (from || to) {
+      if (!from || !to) {
+        throw new BadRequestException('Required both from and id queries');
       }
 
-      const schedules = await this.masterScheduleService.findMany({
-        where: {
-          masterId: id,
-          date: {
-            gt: new Date(from).toISOString(),
-            lte: new Date(to).toISOString(),
-          },
-        },
-      });
-
-      return schedules;
+      return await this.masterScheduleService.findFromTo(
+        { id: masterId },
+        { from, to },
+      );
     }
 
-    // Handle year / month
-    const fromDate = new Date();
-    const toDate = new Date();
-
-    if (year) {
-      fromDate.setUTCFullYear(year);
-      toDate.setUTCFullYear(year);
-    }
-
-    if (month) {
-      fromDate.setUTCMonth(month);
-      toDate.setUTCMonth(month + 1);
-      toDate.setUTCMilliseconds(-1);
-    } else {
-      const currentMonth = (new Date()).getUTCMonth();
-
-      fromDate.setUTCMonth(currentMonth);
-      toDate.setUTCMonth(currentMonth + 1);
-      toDate.setUTCMilliseconds(-1);
-    }
-
-    const schedules = await this.masterScheduleService.findMany({
-      where: {
-        masterId: id,
-        date: {
-          gt: new Date(fromDate).toISOString(),
-          lte: new Date(toDate).toISOString(),
-        },
-      },
-    });
-
-    return schedules;
+    return await this.masterScheduleService.findByDate(
+      { id: masterId },
+      { year, month, date },
+    );
   }
 
+  /**
+   * Get master schedule by ID
+   *
+   * @param param0 schedule ID
+   * @returns master schedule
+   */
+  async getMasterScheduleById(
+    { id }: Pick<Prisma.MasterSchedule, 'id'>,
+  ) {
+    return await this.masterScheduleService.getExists({
+      where: {
+        id,
+      },
+    });
+  }
+
+  /**
+   * Create master schedule
+   *
+   * @param param0 user ID
+   * @param data schedule data
+   * @returns new master schedule
+   */
   async createMasterSchedule(
-    { id }: Pick<Prisma.UserPicture, 'id'>,
+    { id }: Pick<Prisma.User, 'id'>,
     data: CreateMasterScheduleDto,
   ) {
     const userCandidate = await this.getExists({
@@ -379,5 +360,58 @@ export class UserService {
     });
 
     return newSchedule;
+  }
+
+  /**
+   * Delete master schedule
+   *
+   * @param param0 user id
+   * @param param1 schedule id
+   * @returns promise
+   */
+  async deleteMasterSchedule(
+    { id: userId }: Pick<Prisma.User, 'id'>,
+    { id: scheduleId }: Pick<Prisma.MasterSchedule, 'id'>,
+  ) {
+    const masterCandidate = await this.getExists({
+      where: {
+        id: userId,
+      },
+      select: {
+        masterProfileId: true,
+      },
+    });
+
+    const scheduleCandidate = await this.masterScheduleService.findFirst({
+      where: {
+        id: scheduleId,
+      },
+    });
+
+    if (scheduleCandidate.masterId !== masterCandidate.masterProfileId) {
+      throw new BadRequestException('The schedule not belongs to you');
+    }
+
+    return await this.masterScheduleService.delete({
+      where: {
+        id: scheduleCandidate.id,
+      },
+    });
+  }
+
+  /**
+   * Get master profile by ID
+   *
+   * @param param0 master profile ID
+   * @returns master profile
+   */
+  async getMasterProfile(
+    { id }: Pick<Prisma.MasterProfile, 'id'>,
+  ) {
+    return await this.masterProfileService.getExists({
+      where: {
+        id,
+      },
+    });
   }
 }

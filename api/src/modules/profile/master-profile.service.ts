@@ -60,6 +60,7 @@ export class MasterProfileService {
         throw new NotFoundException('Master profile not exists');
       }
 
+      // istanbul ignore next
       callback();
     }
 

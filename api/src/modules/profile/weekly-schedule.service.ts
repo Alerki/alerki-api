@@ -1,10 +1,10 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
+import { prisma } from '@Shared/services/prisma.service';
 import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
 import { PatchMasterWeeklyScheduleDto } from '@Src/modules/user/dto/master.dto';
 import { UserService } from '@Src/modules/user/user.service';
-import { prisma } from '@Shared/services/prisma.service';
 
 /**
  * Master's weekly schedule service
@@ -19,6 +19,7 @@ export class MasterWeeklyScheduleService {
   constructor(
     @Inject(forwardRef(() => MasterProfileService))
     private readonly masterProfileService: MasterProfileService,
+    @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
   ) { }
 

@@ -60,6 +60,7 @@ export class MasterServiceService {
         throw new NotFoundException('Master service not exists');
       }
 
+      // istanbul ignore next
       callback();
     }
 
