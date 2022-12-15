@@ -1,4 +1,4 @@
-import { User } from '@Config/api/property.config';
+import { UserConfig } from '@Config/api/property.config';
 import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import { Type } from 'class-transformer';
@@ -28,7 +28,7 @@ export class PatchSessionBodyDto implements Pick<
   Prisma.AuthSession,
   'deviceName'
 > {
-  @ApiProperty(User.config.deviceName)
+  @ApiProperty(UserConfig.config.deviceName)
   @IsString()
   readonly deviceName: string;
 }

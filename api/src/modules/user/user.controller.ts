@@ -146,7 +146,7 @@ export class UserController {
   @ApiNotFoundResponse({ description: 'Master service not exists' })
   @ApiBadRequestResponse({ description: 'The service does not belong to the user' })
   @ApiUnauthorizedResponse({ description: 'User unauthorized' })
-  @ApiParam({ name: 'serviceId', description: 'Master service ID', example: ApiConfig.General.UUIDExample })
+  @ApiParam({ name: 'serviceId', description: 'Master service ID', example: ApiConfig.GeneralConfig.UUIDExample })
   @UseGuards(JwtAuthGuard)
   @Patch('master/service/:serviceId')
   async patchMasterService(
@@ -298,7 +298,7 @@ export class UserController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({ maxSize: 100000 }),
-          new FileTypeValidator({ fileType: ApiConfig.User.availablePictureExtensions }),
+          new FileTypeValidator({ fileType: ApiConfig.UserConfig.availablePictureExtensions }),
         ],
       }),
     ) picture: Express.Multer.File,

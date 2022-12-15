@@ -202,7 +202,8 @@ export class UserService {
       );
     }
 
-    if (!pictureType.ext.match(ApiConfig.User.availablePictureExtensions)) {
+    // eslint-disable-next-line max-len
+    if (!pictureType.ext.match(ApiConfig.UserConfig.availablePictureExtensions)) {
       throw new BadRequestException(
         'Validation failed (expected type is /^(jpg|jpeg|png|heif)$/)',
       );

@@ -6,7 +6,7 @@ import axios from 'axios';
 import * as cookieParser from 'cookie-parser';
 import * as request from 'supertest';
 
-import { General } from '@Config/api/property.config';
+import { GeneralConfig } from '@Config/api/property.config';
 import { GoogleStrategy } from '@Src/modules/auth/google.strategy';
 import { AppModule } from '@Src/app.module';
 import { databaseSetup } from '@Src/util';
@@ -643,7 +643,7 @@ describe('UserController (e2e)', () => {
               price: 100,
               currency: 'UAH',
               duration: 60 * 10,
-              locationLat: General.minLatitudeValue - 1,
+              locationLat: GeneralConfig.minLatitudeValue - 1,
               locationLng: 1.2,
             })
             .expect(400);
@@ -660,7 +660,7 @@ describe('UserController (e2e)', () => {
               price: 100,
               currency: 'UAH',
               duration: 60 * 10,
-              locationLat: General.maxLatitudeValue + 1,
+              locationLat: GeneralConfig.maxLatitudeValue + 1,
               locationLng: 1.2,
             })
             .expect(400);
@@ -678,7 +678,7 @@ describe('UserController (e2e)', () => {
               currency: 'UAH',
               duration: 60 * 10,
               locationLat: 1.1,
-              locationLng: General.minLongitudeValue - 1,
+              locationLng: GeneralConfig.minLongitudeValue - 1,
             })
             .expect(400);
 
@@ -695,7 +695,7 @@ describe('UserController (e2e)', () => {
               currency: 'UAH',
               duration: 60 * 10,
               locationLat: 1.1,
-              locationLng: General.maxLongitudeValue + 1,
+              locationLng: GeneralConfig.maxLongitudeValue + 1,
             })
             .expect(400);
 
@@ -903,7 +903,7 @@ describe('UserController (e2e)', () => {
             .patch('/user/master/service/' + masterServiceId)
             .set({ Authorization: 'Bearer ' + user.accessToken })
             .send({
-              locationLat: General.minLatitudeValue - 1,
+              locationLat: GeneralConfig.minLatitudeValue - 1,
             })
             .expect(400);
 
@@ -915,7 +915,7 @@ describe('UserController (e2e)', () => {
             .patch('/user/master/service/' + masterServiceId)
             .set({ Authorization: 'Bearer ' + user.accessToken })
             .send({
-              locationLat: General.maxLatitudeValue + 1,
+              locationLat: GeneralConfig.maxLatitudeValue + 1,
             })
             .expect(400);
 
@@ -927,7 +927,7 @@ describe('UserController (e2e)', () => {
             .patch('/user/master/service/' + masterServiceId)
             .set({ Authorization: 'Bearer ' + user.accessToken })
             .send({
-              locationLng: General.minLongitudeValue - 1,
+              locationLng: GeneralConfig.minLongitudeValue - 1,
             })
             .expect(400);
 
@@ -939,7 +939,7 @@ describe('UserController (e2e)', () => {
             .patch('/user/master/service/' + masterServiceId)
             .set({ Authorization: 'Bearer ' + user.accessToken })
             .send({
-              locationLng: General.maxLongitudeValue + 1,
+              locationLng: GeneralConfig.maxLongitudeValue + 1,
             })
             .expect(400);
 

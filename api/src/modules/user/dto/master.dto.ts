@@ -15,11 +15,10 @@ import {
 } from 'class-validator';
 
 import {
-  General,
-  MasterSchedule,
-  MasterService,
-  MasterWeeklySchedule,
-  Service,
+  MasterScheduleConfig,
+  MasterServiceConfig,
+  MasterWeeklyScheduleConfig,
+  ServiceConfig,
 } from '@Config/api/property.config';
 import { Type } from 'class-transformer';
 
@@ -33,36 +32,36 @@ export class CreateMasterServiceDto implements
     'locationLng'
   >
 {
-  @ApiProperty(Service.config.name)
-  @MinLength(Service.config.name.minLength)
-  @MaxLength(Service.config.name.maxLength)
+  @ApiProperty(ServiceConfig.config.name)
+  @MinLength(ServiceConfig.config.name.minLength)
+  @MaxLength(ServiceConfig.config.name.maxLength)
   @IsString()
   readonly name: string;
 
-  @ApiProperty(MasterService.config.currency)
+  @ApiProperty(MasterServiceConfig.config.currency)
   @IsString()
   readonly currency: string;
 
-  @ApiProperty(MasterService.config.price)
-  @Min(MasterService.config.price.minimum)
+  @ApiProperty(MasterServiceConfig.config.price)
+  @Min(MasterServiceConfig.config.price.minimum)
   @IsNumber()
   readonly price: number;
 
-  @ApiProperty(MasterService.config.duration)
-  @Min(MasterService.config.duration.minimum)
-  @Max(MasterService.config.duration.maximum)
+  @ApiProperty(MasterServiceConfig.config.duration)
+  @Min(MasterServiceConfig.config.duration.minimum)
+  @Max(MasterServiceConfig.config.duration.maximum)
   @IsNumber()
   readonly duration: number;
 
-  @ApiProperty(MasterService.config.locationLat)
-  @Min(MasterService.config.locationLat.minimum)
-  @Max(MasterService.config.locationLat.maximum)
+  @ApiProperty(MasterServiceConfig.config.locationLat)
+  @Min(MasterServiceConfig.config.locationLat.minimum)
+  @Max(MasterServiceConfig.config.locationLat.maximum)
   @IsNumber()
   readonly locationLat: number;
 
-  @ApiProperty(MasterService.config.locationLng)
-  @Min(MasterService.config.locationLng.minimum)
-  @Max(MasterService.config.locationLng.maximum)
+  @ApiProperty(MasterServiceConfig.config.locationLng)
+  @Min(MasterServiceConfig.config.locationLng.minimum)
+  @Max(MasterServiceConfig.config.locationLng.maximum)
   @IsNumber()
   readonly locationLng: number;
 }
@@ -75,47 +74,47 @@ export class PatchMasterServiceDto implements Pick<
   'locationLat' |
   'locationLng'
 > {
-  @ApiProperty(Service.config.available)
+  @ApiProperty(ServiceConfig.config.available)
   @IsOptional()
   @IsBoolean()
   readonly available: boolean;
 
-  @ApiProperty(Service.config.name)
+  @ApiProperty(ServiceConfig.config.name)
   @IsOptional()
-  @MinLength(Service.config.name.minLength)
-  @MaxLength(Service.config.name.maxLength)
+  @MinLength(ServiceConfig.config.name.minLength)
+  @MaxLength(ServiceConfig.config.name.maxLength)
   @IsString()
   readonly name: string;
 
-  @ApiProperty(MasterService.config.currency)
+  @ApiProperty(MasterServiceConfig.config.currency)
   @IsOptional()
   @IsString()
   readonly currency: string;
 
-  @ApiProperty(MasterService.config.price)
+  @ApiProperty(MasterServiceConfig.config.price)
   @IsOptional()
-  @Min(MasterService.config.price.minimum)
+  @Min(MasterServiceConfig.config.price.minimum)
   @IsNumber()
   readonly price: number;
 
-  @ApiProperty(MasterService.config.duration)
+  @ApiProperty(MasterServiceConfig.config.duration)
   @IsOptional()
-  @Min(MasterService.config.duration.minimum)
-  @Max(MasterService.config.duration.maximum)
+  @Min(MasterServiceConfig.config.duration.minimum)
+  @Max(MasterServiceConfig.config.duration.maximum)
   @IsNumber()
   readonly duration: number;
 
-  @ApiProperty(MasterService.config.locationLat)
+  @ApiProperty(MasterServiceConfig.config.locationLat)
   @IsOptional()
-  @Min(MasterService.config.locationLat.minimum)
-  @Max(MasterService.config.locationLat.maximum)
+  @Min(MasterServiceConfig.config.locationLat.minimum)
+  @Max(MasterServiceConfig.config.locationLat.maximum)
   @IsNumber()
   readonly locationLat: number;
 
-  @ApiProperty(MasterService.config.locationLng)
+  @ApiProperty(MasterServiceConfig.config.locationLng)
   @IsOptional()
-  @Min(MasterService.config.locationLng.minimum)
-  @Max(MasterService.config.locationLng.maximum)
+  @Min(MasterServiceConfig.config.locationLng.minimum)
+  @Max(MasterServiceConfig.config.locationLng.maximum)
   @IsNumber()
   readonly locationLng: number;
 }
@@ -128,29 +127,29 @@ export class CreateMasterScheduleDto implements Pick<
   'dayOff' |
   'date'
 > {
-  @ApiProperty(MasterSchedule.config.startTime)
-  @Min(MasterSchedule.config.startTime.minimum)
-  @Max(MasterSchedule.config.startTime.maximum)
+  @ApiProperty(MasterScheduleConfig.config.startTime)
+  @Min(MasterScheduleConfig.config.startTime.minimum)
+  @Max(MasterScheduleConfig.config.startTime.maximum)
   @IsNumber()
   readonly startTime: number;
 
-  @ApiProperty(MasterSchedule.config.endTime)
-  @Min(MasterSchedule.config.endTime.minimum)
-  @Max(MasterSchedule.config.endTime.maximum)
+  @ApiProperty(MasterScheduleConfig.config.endTime)
+  @Min(MasterScheduleConfig.config.endTime.minimum)
+  @Max(MasterScheduleConfig.config.endTime.maximum)
   @IsNumber()
   readonly endTime: number;
 
-  @ApiProperty(MasterSchedule.config.timezoneOffset)
-  @Min(MasterSchedule.config.timezoneOffset.minimum)
-  @Max(MasterSchedule.config.timezoneOffset.maximum)
+  @ApiProperty(MasterScheduleConfig.config.timezoneOffset)
+  @Min(MasterScheduleConfig.config.timezoneOffset.minimum)
+  @Max(MasterScheduleConfig.config.timezoneOffset.maximum)
   @IsNumber()
   readonly timezoneOffset: number;
 
-  @ApiProperty(MasterSchedule.config.data)
+  @ApiProperty(MasterScheduleConfig.config.data)
   @IsDateString()
   readonly date: Date;
 
-  @ApiProperty(MasterSchedule.config.dayOff)
+  @ApiProperty(MasterScheduleConfig.config.dayOff)
   @IsBoolean()
   readonly dayOff: boolean;
 }
@@ -195,58 +194,58 @@ export class PatchMasterWeeklyScheduleDto implements Pick<
   'endTime' |
   'timezoneOffset'
 > {
-  @ApiProperty(MasterWeeklySchedule.config.monday)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.monday)
   @IsOptional()
   @IsBoolean()
   readonly monday: boolean;
 
-  @ApiProperty(MasterWeeklySchedule.config.tuesday)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.tuesday)
   @IsOptional()
   @IsBoolean()
   readonly tuesday: boolean;
 
-  @ApiProperty(MasterWeeklySchedule.config.wednesday)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.wednesday)
   @IsOptional()
   @IsBoolean()
   readonly wednesday: boolean;
 
-  @ApiProperty(MasterWeeklySchedule.config.thursday)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.thursday)
   @IsOptional()
   @IsBoolean()
   readonly thursday: boolean;
 
-  @ApiProperty(MasterWeeklySchedule.config.friday)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.friday)
   @IsOptional()
   @IsBoolean()
   readonly friday: boolean;
 
-  @ApiProperty(MasterWeeklySchedule.config.saturday)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.saturday)
   @IsOptional()
   @IsBoolean()
   readonly saturday: boolean;
 
-  @ApiProperty(MasterWeeklySchedule.config.sunday)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.sunday)
   @IsOptional()
   @IsBoolean()
   readonly sunday: boolean;
 
-  @ApiProperty(MasterWeeklySchedule.config.startTime)
-  @Min(MasterWeeklySchedule.config.endTime.minimum)
-  @Max(MasterWeeklySchedule.config.endTime.maximum)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.startTime)
+  @Min(MasterWeeklyScheduleConfig.config.endTime.minimum)
+  @Max(MasterWeeklyScheduleConfig.config.endTime.maximum)
   @IsNumber()
   @IsOptional()
   readonly startTime: number;
 
-  @ApiProperty(MasterWeeklySchedule.config.endTime)
-  @Min(MasterWeeklySchedule.config.endTime.minimum)
-  @Max(MasterWeeklySchedule.config.endTime.maximum)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.endTime)
+  @Min(MasterWeeklyScheduleConfig.config.endTime.minimum)
+  @Max(MasterWeeklyScheduleConfig.config.endTime.maximum)
   @IsNumber()
   @IsOptional()
   readonly endTime: number;
 
-  @ApiProperty(MasterWeeklySchedule.config.timezoneOffset)
-  @Min(MasterWeeklySchedule.config.timezoneOffset.minimum)
-  @Max(MasterWeeklySchedule.config.timezoneOffset.maximum)
+  @ApiProperty(MasterWeeklyScheduleConfig.config.timezoneOffset)
+  @Min(MasterWeeklyScheduleConfig.config.timezoneOffset.minimum)
+  @Max(MasterWeeklyScheduleConfig.config.timezoneOffset.maximum)
   @IsNumber()
   @IsOptional()
   readonly timezoneOffset: number;
