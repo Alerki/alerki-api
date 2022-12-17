@@ -7,7 +7,7 @@ import * as jwt from 'jsonwebtoken';
 import * as request from 'supertest';
 
 import { usernameBlackListRaw } from '@Config/api/username-black-list';
-import { GoogleStrategy } from '@Module/auth/google.strategy';
+import { GoogleStrategy } from '@Src/modules/auth/google.strategy';
 import { prisma } from '@Shared/services/prisma.service';
 import { AppModule } from '@Src/app.module';
 import { databaseSetup } from '@Src/util';

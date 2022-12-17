@@ -4,7 +4,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@Config/(.*)$': '<rootDir>/config/$1',
     '^@Shared/(.*)$': '<rootDir>/src/shared/$1',
-    '^@Module/(.*)$': '<rootDir>/src/module/$1',
+    '^@Module/(.*)$': '<rootDir>/src/modules/$1',
     '^@Src/(.*)$': '<rootDir>/src/$1',
     '^@Test/(.*)$': '<rootDir>/test/$1',
   },

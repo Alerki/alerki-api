@@ -60,16 +60,16 @@ model AuthSession {
 }
 
 model MasterProfile {
-  id               String                           @id @default(uuid())
+  id               String                @id @default(uuid())
   user             User?
   services         MasterService[]
-  schedules       MasterSchedule[]
-  weeklySchedule   MasterWeeklySchedule?            @relation(fields: [weeklyScheduleId], references: [id])
-  weeklyScheduleId String?                          @unique @db.VarChar(36)
+  schedules        MasterSchedule[]
+  weeklySchedule   MasterWeeklySchedule? @relation(fields: [weeklyScheduleId], references: [id])
+  weeklyScheduleId String?               @unique @db.VarChar(36)
   appointments     Appointment[]
-  available        Boolean                          @default(true)
-  createdAt        DateTime                         @default(now())
-  updatedAt        DateTime                         @updatedAt
+  available        Boolean               @default(true)
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
 
   @@map("MasterProfiles")
 }
@@ -96,35 +96,36 @@ model Service {
 }
 
 model MasterService {
-  id          String        @id @default(uuid())
-  service     Service       @relation(fields: [serviceId], references: [id])
-  serviceId   String        @db.VarChar(36)
-  master      MasterProfile @relation(fields: [masterId], references: [id])
-  masterId    String        @db.VarChar(36)
-  currency    Currency      @relation(fields: [currencyId], references: [id])
-  currencyId  String        @db.VarChar(36)
-  price       Int
-  duration    Int // Duration in seconds
-  available   Boolean       @default(true)
-  locationLat Float
-  locationLng Float
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id           String        @id @default(uuid())
+  appointments Appointment[]
+  service      Service       @relation(fields: [serviceId], references: [id])
+  serviceId    String        @db.VarChar(36)
+  master       MasterProfile @relation(fields: [masterId], references: [id])
+  masterId     String        @db.VarChar(36)
+  currency     Currency      @relation(fields: [currencyId], references: [id])
+  currencyId   String        @db.VarChar(36)
+  price        Int
+  duration     Int // Duration in seconds
+  available    Boolean       @default(true)
+  locationLat  Float
+  locationLng  Float
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
   @@map("MasterServices")
 }
 
 model MasterSchedule {
-  id                  String                          @id @default(uuid())
-  startTime           Int // Start work time in UTC
-  endTime             Int // End work time in UTC
-  timezoneOffset      Int // End work timezone offset GMT+
-  date                DateTime                        @db.Date
-  dayOff              Boolean                         @default(false)
-  master            MasterProfile @relation(fields: [masterId], references: [id])
-  masterId String        @db.VarChar(36)
-  createdAt           DateTime                        @default(now())
-  updatedAt           DateTime                        @updatedAt
+  id             String        @id @default(uuid())
+  startTime      Int // Start work time in UTC
+  endTime        Int // End work time in UTC
+  timezoneOffset Int // End work timezone offset GMT+
+  date           DateTime      @db.Date
+  dayOff         Boolean       @default(false)
+  master         MasterProfile @relation(fields: [masterId], references: [id])
+  masterId       String        @db.VarChar(36)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
   @@map("MasterSchedules")
 }
@@ -139,6 +140,9 @@ model MasterWeeklySchedule {
   saturday       Boolean        @default(false)
   sunday         Boolean        @default(false)
   master         MasterProfile?
+  // startTime      DateTime @db.Time()
+  // endTime        DateTime @db.Time()
+  // timezoneOffset Int
   startTime      Int? // Start work time in UTC
   endTime        Int? // End work time in UTC
   timezoneOffset Int? // Timezone offset GMT+
@@ -149,15 +153,18 @@ model MasterWeeklySchedule {
 }
 
 model Appointment {
-  id        String        @id @default(uuid())
-  master    MasterProfile @relation(fields: [masterId], references: [id])
-  masterId  String        @db.VarChar(36)
-  client    ClientProfile @relation(fields: [clientId], references: [id])
-  clientId  String        @db.VarChar(36)
-  startTime DateTime
-  endTime   DateTime
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id              String        @id @default(uuid())
+  master          MasterProfile @relation(fields: [masterId], references: [id])
+  masterId        String        @db.VarChar(36)
+  masterService   MasterService @relation(fields: [masterServiceId], references: [id])
+  masterServiceId String        @db.VarChar(36)
+  client          ClientProfile @relation(fields: [clientId], references: [id])
+  clientId        String        @db.VarChar(36)
+  startTime       DateTime      @db.Time()
+  endTime         DateTime      @db.Time()
+  timezoneOffset  Int
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 
   @@map("Appointments")
 }

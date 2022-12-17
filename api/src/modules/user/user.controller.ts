@@ -36,24 +36,37 @@ import { Response } from 'express';
 import * as imageType from 'image-type';
 
 import * as ApiConfig from '@Config/api/property.config';
-import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
-import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
-import { MasterServiceService } from '@Module/profile/master-service.service';
-import { ProfileService } from '@Module/profile/profile.service';
-import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.service';
+import { checkScheduleBelongsToMasterMessage } from '@Module/user/utils';
+import { ProtectedRequest } from '@Src/modules/auth/interface/protected-request.interface';
+import { JwtAuthGuard } from '@Src/modules/auth/jwt-auth.guard';
+import { MasterServiceService } from '@Src/modules/profile/master-service.service';
+import { ProfileService } from '@Src/modules/profile/profile.service';
+import { MasterWeeklyScheduleService } from '@Src/modules/profile/weekly-schedule.service';
 import {
   CreateMasterScheduleDto,
   CreateMasterServiceDto,
   GetMasterScheduleQueries,
+  PatchMasterScheduleDto,
   PatchMasterServiceDto,
   PatchMasterWeeklyScheduleDto,
-} from '@Module/user/dto/master.dto';
-import { PatchUserDto } from '@Module/user/dto/user.dto';
-import { UserService } from '@Module/user/user.service';
+} from '@Src/modules/user/dto/master.dto';
+import { PatchUserDto } from '@Src/modules/user/dto/user.dto';
+import { UserService } from '@Src/modules/user/user.service';
 
+/**
+ * User controller
+ */
 @ApiTags('User')
 @Controller('user')
 export class UserController {
+  /**
+   * User controller constructor
+   *
+   * @param userService user service
+   * @param masterServiceService master service service
+   * @param profileService profile service
+   * @param masterWeeklyScheduleService master weekly schedule service
+   */
   constructor(
     private readonly userService: UserService,
     private readonly masterServiceService: MasterServiceService,
@@ -104,6 +117,22 @@ export class UserController {
   }
 
   /**
+   * Get master profile
+   *
+   * @param id master profile ID
+   * @returns master profile
+   */
+  @ApiOperation({ description: 'Get master profile' })
+  @ApiOkResponse({ description: 'Got master profile successfully' })
+  @ApiNotFoundResponse({ description: 'Master profile not exists' })
+  @Get('master/:id')
+  async getMasterProfile(
+    @Param('id') id: string,
+  ) {
+    return await this.userService.getMasterProfile({ id });
+  }
+
+  /**
    * Get master services
    *
    * @param id master profile ID
@@ -124,11 +153,22 @@ export class UserController {
     return masterServices;
   }
 
+  /**
+   * 'Create master service
+   *
+   * @param req request
+   * @param body body
+   * @returns new master service
+   */
+  @ApiOperation({ description: 'Create master schedule' })
+  @ApiOkResponse({ description: 'Schedule created successfully' })
+  @ApiBadRequestResponse({ description: 'User is not a master' })
+  @ApiBadRequestResponse({ description: 'Master service with specified name already exists' })
+  @HttpCode(HttpStatus.CREATED)
   @UseGuards(JwtAuthGuard)
   @Post('master/service')
   async createMasterService(
     @Req() req: ProtectedRequest,
-    @Res() res: Response,
     @Body() body: CreateMasterServiceDto,
   ) {
     const { user: { id } } = req;
@@ -137,16 +177,24 @@ export class UserController {
       { id, ...body },
     );
 
-    res.status(HttpStatus.CREATED).send(newService);
+    return newService;
   }
 
+  /**
+   * Patch master service
+   *
+   * @param req request
+   * @param body body
+   * @param serviceId schedule ID
+   * @returns patched master service
+   */
   @ApiOperation({ description: 'Patch master service' })
   @ApiBearerAuth('Bearer')
   @ApiOkResponse({ description: 'Successful update master service' })
   @ApiNotFoundResponse({ description: 'Master service not exists' })
   @ApiBadRequestResponse({ description: 'The service does not belong to the user' })
   @ApiUnauthorizedResponse({ description: 'User unauthorized' })
-  @ApiParam({ name: 'serviceId', description: 'Master service ID', example: ApiConfig.General.UUIDExample })
+  @ApiParam({ name: 'serviceId', description: 'Master service ID', example: ApiConfig.GeneralConfig.UUIDExample })
   @UseGuards(JwtAuthGuard)
   @Patch('master/service/:serviceId')
   async patchMasterService(
@@ -211,19 +259,46 @@ export class UserController {
     return patchedSchedule;
   }
 
+  /**
+   * Get master schedule
+   *
+   * @param id master profile ID
+   * @param queries queries to get master schedule
+   * @returns master schedule
+   */
+  @ApiOperation({ description: 'Get master schedule' })
+  @ApiOkResponse({ description: 'Master schedule found successfully' })
+  @ApiNotFoundResponse({ description: 'Master schedule not found' })
+  @ApiBadRequestResponse({ description: 'Required both from and id queries' })
   @Get('master/:id/schedule')
   async getMasterSchedule(
     @Param('id') id: string,
     @Query() queries: GetMasterScheduleQueries,
   ) {
-    const masterSchedule = this.userService.getMasterScheduleByDate(
+    return await this.userService.getMasterSchedule(
       {
         id,
       },
       queries,
     );
+  }
 
-    return masterSchedule;
+  /**
+   * Get master schedule by ID
+   *
+   * @param id schedule ID
+   * @returns master schedule
+   */
+  @ApiOperation({ description: 'Get master schedule by ID' })
+  @ApiOkResponse({ description: 'Master schedule found successfully' })
+  @ApiNotFoundResponse({ description: 'Master schedule not found' })
+  @Get('master/schedule/:id')
+  async getMasterScheduleById(
+    @Param('id') id: string,
+  ) {
+    return await this.userService.getMasterScheduleById(
+      { id },
+    );
   }
 
   /**
@@ -244,14 +319,64 @@ export class UserController {
     @Req() req: ProtectedRequest,
     @Body() body: CreateMasterScheduleDto,
   ) {
-    const newSchedule = await this.userService.createMasterSchedule(
+    return await this.userService.createMasterSchedule(
       {
         id: req.user.id,
       },
       body,
     );
+  }
 
-    return newSchedule;
+  /**
+   * Delete master schedule
+   *
+   * @param req request
+   * @param serviceId service ID to delete
+   */
+  @ApiOperation({ description: 'Delete master schedule' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Schedule deleted successfully' })
+  @ApiBadRequestResponse({ description: 'The schedule not belongs to you' })
+  @UseGuards(JwtAuthGuard)
+  @Delete('master/schedule/:id')
+  async deleteMasterSchedule(
+    @Req() req: ProtectedRequest,
+    @Param('id', ParseUUIDPipe) serviceId: string,
+  ) {
+    await this.userService.deleteMasterSchedule(
+      {
+        id: req.user.id,
+      },
+      {
+        id: serviceId,
+      },
+    );
+  }
+
+  /**
+   * Patch master schedule
+   *
+   * @param req request
+   * @param scheduleId schedule ID to update
+   * @param data data to update
+   * @returns updated schedule
+   */
+  @ApiOperation({ description: 'Patch master schedule' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Master schedule updated successfully' })
+  @ApiBadRequestResponse({ description: checkScheduleBelongsToMasterMessage })
+  @UseGuards(JwtAuthGuard)
+  @Patch('master/schedule/:id')
+  async patchMasterSchedule(
+    @Req() req: ProtectedRequest,
+    @Param('id') scheduleId: string,
+    @Body() data: PatchMasterScheduleDto,
+  ) {
+    return await this.userService.patchMasterSchedule(
+      { id: req.user.id },
+      { id: scheduleId },
+      data,
+    );
   }
 
   /**
@@ -298,7 +423,7 @@ export class UserController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({ maxSize: 100000 }),
-          new FileTypeValidator({ fileType: ApiConfig.User.availablePictureExtensions }),
+          new FileTypeValidator({ fileType: ApiConfig.UserConfig.availablePictureExtensions }),
         ],
       }),
     ) picture: Express.Multer.File,
@@ -346,9 +471,7 @@ export class UserController {
   ) {
     const { id } = req.user;
 
-    const profile = await this.userService.getUser({ id });
-
-    return profile;
+    return await this.userService.getUser({ id });
   }
 
   /**
@@ -366,11 +489,9 @@ export class UserController {
   async getUser(
     @Param('usernameOrId') usernameOrId: string,
   ) {
-    const profile = await this.userService.getUser(
+    return await this.userService.getUser(
       { id: usernameOrId, username: usernameOrId },
     );
-
-    return profile;
   }
 
   /**
@@ -394,11 +515,9 @@ export class UserController {
     // Get user ID
     const { user: { id } } = req;
 
-    const updatedUser = await this.userService.patchUser(
+    return await this.userService.patchUser(
       { id },
       body,
     );
-
-    return updatedUser;
   }
 }

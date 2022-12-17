@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
-import { MasterProfileService } from '@Module/profile/master-profile.service';
-import { ServiceService } from '@Module/service/service.service';
-import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Module/user/dto/master.dto';
-import { UserService } from '@Module/user/user.service';
+import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
+import { ServiceService } from '@Src/modules/service/service.service';
+import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Src/modules/user/dto/master.dto';
+import { UserService } from '@Src/modules/user/user.service';
 import { CurrencyService } from '@Shared/services/currency.service';
 import { prisma } from '@Shared/services/prisma.service';
 
@@ -60,6 +60,7 @@ export class MasterServiceService {
         throw new NotFoundException('Master service not exists');
       }
 
+      // istanbul ignore next
       callback();
     }
 
