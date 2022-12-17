@@ -7,6 +7,7 @@ import * as cookieParser from 'cookie-parser';
 import * as request from 'supertest';
 
 import { GeneralConfig } from '@Config/api/property.config';
+import { checkScheduleBelongsToMasterMessage } from '@Module/user/utils';
 import { AppModule } from '@Src/app.module';
 import { GoogleStrategy } from '@Src/modules/auth/google.strategy';
 import { databaseSetup } from '@Src/util';
@@ -1397,7 +1398,54 @@ describe('UserController (e2e)', () => {
         });
       });
 
-      test.todo('Create patch tests');
+      describe('patch schedule actions', () => {
+        test('successfully patch schedule', async () => {
+          const { body: schedules } = await user.getMasterSchedule();
+
+          expect(schedules.length).toBeGreaterThan(0);
+
+          const startTime = 12 * 60 * 1000;
+          const endTime = 20 * 60 * 1000;
+          const timezoneOffset = 3 * 60 * 1000;
+          const dayOff = true;
+
+          expect(schedules[0].startTime).not.toBe(startTime);
+          expect(schedules[0].endTime).not.toBe(endTime);
+          expect(schedules[0].timezoneOffset).not.toBe(timezoneOffset);
+          expect(schedules[0].dayOff).not.toBe(dayOff);
+
+          const { body } = await user.patchMasterSchedule(
+            schedules[0].id,
+            {
+              startTime,
+              endTime,
+              timezoneOffset,
+              dayOff,
+            },
+          );
+
+          expect(body.startTime).toBe(startTime);
+          expect(body.endTime).toBe(endTime);
+          expect(body.timezoneOffset).toBe(timezoneOffset);
+          expect(body.dayOff).toBe(dayOff);
+        });
+
+        test('try to update schedule that not belong to the user', async () => {
+          const { body: schedules } = await user2.getMasterSchedule();
+
+          expect(schedules.length).toBeGreaterThan(0);
+
+          const { body } = await user.patchMasterSchedule(
+            schedules[0].id,
+            {
+              dayOff: true,
+            },
+            400,
+          );
+
+          expect(body.message).toBe(checkScheduleBelongsToMasterMessage);
+        });
+      });
     });
   });
 });

@@ -1,7 +1,11 @@
 import type { Application } from 'express';
 import * as request from 'supertest';
 
-import { CreateMasterScheduleDto, GetMasterScheduleQueries } from '@Module/user/dto/master.dto';
+import {
+  CreateMasterScheduleDto,
+  GetMasterScheduleQueries,
+  PatchMasterScheduleDto,
+} from '@Module/user/dto/master.dto';
 import Prisma from '@prisma/client';
 import getCookies from '@Test/util/get-cookies';
 import { randomString } from '@Test/util/random-string';
@@ -420,7 +424,7 @@ export class UserActions {
    * Delete masters schedule
    *
    * @param scheduleId schedule ID to delete
-   * @param expect
+   * @param expect expected response
    * @returns deleted master schedule
    */
   async deleteMasterSchedule(
@@ -430,6 +434,26 @@ export class UserActions {
     return await this.request({
       url: `/user/master/schedule/${scheduleId}`,
       method: 'delete',
+      expect,
+    });
+  }
+
+  /**
+   * Patch masters schedule
+   *
+   * @param scheduleId schedule ID to patch
+   * @param expect expected response
+   * @returns patched master schedule
+   */
+  async patchMasterSchedule(
+    scheduleId: string,
+    data: PatchMasterScheduleDto,
+    expect: number = 200,
+  ) {
+    return await this.request({
+      url: `/user/master/schedule/${scheduleId}`,
+      method: 'patch',
+      send: data,
       expect,
     });
   }

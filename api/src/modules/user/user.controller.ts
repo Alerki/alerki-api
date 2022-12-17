@@ -36,6 +36,7 @@ import { Response } from 'express';
 import * as imageType from 'image-type';
 
 import * as ApiConfig from '@Config/api/property.config';
+import { checkScheduleBelongsToMasterMessage } from '@Module/user/utils';
 import { ProtectedRequest } from '@Src/modules/auth/interface/protected-request.interface';
 import { JwtAuthGuard } from '@Src/modules/auth/jwt-auth.guard';
 import { MasterServiceService } from '@Src/modules/profile/master-service.service';
@@ -45,15 +46,27 @@ import {
   CreateMasterScheduleDto,
   CreateMasterServiceDto,
   GetMasterScheduleQueries,
+  PatchMasterScheduleDto,
   PatchMasterServiceDto,
   PatchMasterWeeklyScheduleDto,
 } from '@Src/modules/user/dto/master.dto';
 import { PatchUserDto } from '@Src/modules/user/dto/user.dto';
 import { UserService } from '@Src/modules/user/user.service';
 
+/**
+ * User controller
+ */
 @ApiTags('User')
 @Controller('user')
 export class UserController {
+  /**
+   * User controller constructor
+   *
+   * @param userService user service
+   * @param masterServiceService master service service
+   * @param profileService profile service
+   * @param masterWeeklyScheduleService master weekly schedule service
+   */
   constructor(
     private readonly userService: UserService,
     private readonly masterServiceService: MasterServiceService,
@@ -337,6 +350,32 @@ export class UserController {
       {
         id: serviceId,
       },
+    );
+  }
+
+  /**
+   * Patch master schedule
+   *
+   * @param req request
+   * @param scheduleId schedule ID to update
+   * @param data data to update
+   * @returns updated schedule
+   */
+  @ApiOperation({ description: 'Patch master schedule' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Master schedule updated successfully' })
+  @ApiBadRequestResponse({ description: checkScheduleBelongsToMasterMessage })
+  @UseGuards(JwtAuthGuard)
+  @Patch('master/schedule/:id')
+  async patchMasterSchedule(
+    @Req() req: ProtectedRequest,
+    @Param('id') scheduleId: string,
+    @Body() data: PatchMasterScheduleDto,
+  ) {
+    return await this.userService.patchMasterSchedule(
+      { id: req.user.id },
+      { id: scheduleId },
+      data,
     );
   }
 

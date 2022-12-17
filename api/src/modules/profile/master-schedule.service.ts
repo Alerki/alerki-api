@@ -168,4 +168,23 @@ export class MasterScheduleService {
   async delete(data: Prisma.Prisma.MasterScheduleDeleteArgs) {
     return await this.prismaService.masterSchedule.delete(data);
   }
+
+  /**
+   * Update master service
+   *
+   * @param id schedule ID to update
+   * @param data to update
+   * @returns updated schedule
+   */
+  async update(
+    { id }: Pick<Prisma.MasterSchedule, 'id'>,
+    data: Partial<Prisma.MasterSchedule>,
+  ) {
+    return await this.prismaService.masterSchedule.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
 }

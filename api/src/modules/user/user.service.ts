@@ -9,10 +9,11 @@ import * as imageType from 'image-type';
 import * as sharp from 'sharp';
 
 import * as ApiConfig from '@Config/api/property.config';
+import { checkScheduleBelongsToMaster } from '@Module/user/utils';
 import { prisma } from '@Shared/services/prisma.service';
 import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
 import { MasterScheduleService } from '@Src/modules/profile/master-schedule.service';
-import { CreateMasterScheduleDto, GetMasterScheduleQueries } from '@Src/modules/user/dto/master.dto';
+import { CreateMasterScheduleDto, GetMasterScheduleQueries, PatchMasterScheduleDto } from '@Src/modules/user/dto/master.dto';
 import { PatchUserDto, UserDto } from '@Src/modules/user/dto/user.dto';
 import { UserPictureService } from '@Src/modules/user/user-picture.service';
 
@@ -373,7 +374,13 @@ export class UserService {
     { id: userId }: Pick<Prisma.User, 'id'>,
     { id: scheduleId }: Pick<Prisma.MasterSchedule, 'id'>,
   ) {
-    const masterCandidate = await this.getExists({
+    const scheduleCandidate = await this.masterScheduleService.findFirst({
+      where: {
+        id: scheduleId,
+      },
+    });
+
+    const userCandidate = await this.getExists({
       where: {
         id: userId,
       },
@@ -382,21 +389,56 @@ export class UserService {
       },
     });
 
-    const scheduleCandidate = await this.masterScheduleService.findFirst({
-      where: {
-        id: scheduleId,
-      },
-    });
-
-    if (scheduleCandidate.masterId !== masterCandidate.masterProfileId) {
-      throw new BadRequestException('The schedule not belongs to you');
-    }
+    checkScheduleBelongsToMaster(
+      scheduleCandidate,
+      userCandidate,
+    );
 
     return await this.masterScheduleService.delete({
       where: {
         id: scheduleCandidate.id,
       },
     });
+  }
+
+  /**
+   * Patch master schedule
+   *
+   * @param param0 user ID
+   * @param param1 schedule ID to update
+   * @param data data to update
+   * @returns updated schedule
+   */
+  async patchMasterSchedule(
+    { id: userId }: Pick<Prisma.User, 'id'>,
+    { id: scheduleId }: Pick<Prisma.MasterSchedule, 'id'>,
+    data: PatchMasterScheduleDto,
+  ) {
+    const scheduleCandidate =
+      await this.masterScheduleService.getExists({
+        where: {
+          id: scheduleId,
+        },
+      });
+
+    const userCandidate = await this.getExists({
+      where: {
+        id: userId,
+      },
+      select: {
+        masterProfileId: true,
+      },
+    });
+
+    checkScheduleBelongsToMaster(
+      scheduleCandidate,
+      userCandidate,
+    );
+
+    return await this.masterScheduleService.update(
+      { id: scheduleId },
+      data,
+    );
   }
 
   /**

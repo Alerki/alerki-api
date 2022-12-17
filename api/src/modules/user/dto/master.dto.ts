@@ -173,6 +173,40 @@ export class GetMasterScheduleQueries {
   readonly date?: number;
 }
 
+export class PatchMasterScheduleDto implements Partial<Pick<
+  Prisma.MasterSchedule,
+  'timezoneOffset' |
+  'startTime' |
+  'endTime' |
+  'dayOff'
+>> {
+  @ApiProperty(MasterScheduleConfig.config.startTime)
+  @Min(MasterScheduleConfig.config.startTime.minimum)
+  @Max(MasterScheduleConfig.config.startTime.maximum)
+  @IsOptional()
+  @IsNumber()
+  readonly startTime?: number;
+
+  @ApiProperty(MasterScheduleConfig.config.endTime)
+  @Min(MasterScheduleConfig.config.endTime.minimum)
+  @Max(MasterScheduleConfig.config.endTime.maximum)
+  @IsOptional()
+  @IsNumber()
+  readonly endTime?: number;
+
+  @ApiProperty(MasterScheduleConfig.config.timezoneOffset)
+  @Min(MasterScheduleConfig.config.timezoneOffset.minimum)
+  @Max(MasterScheduleConfig.config.timezoneOffset.maximum)
+  @IsOptional()
+  @IsNumber()
+  readonly timezoneOffset?: number;
+
+  @ApiProperty(MasterScheduleConfig.config.dayOff)
+  @IsOptional()
+  @IsBoolean()
+  readonly dayOff?: boolean;
+}
+
 export class PatchMasterWeeklyScheduleDto implements Pick<
   Prisma.MasterWeeklySchedule,
   'monday' |
