@@ -94,8 +94,8 @@ CREATE TABLE "MasterServices" (
 -- CreateTable
 CREATE TABLE "MasterSchedules" (
     "id" TEXT NOT NULL,
-    "startTime" INTEGER NOT NULL,
-    "endTime" INTEGER NOT NULL,
+    "startTime" TIME NOT NULL,
+    "endTime" TIME NOT NULL,
     "timezoneOffset" INTEGER NOT NULL,
     "date" DATE NOT NULL,
     "dayOff" BOOLEAN NOT NULL DEFAULT false,
@@ -116,8 +116,8 @@ CREATE TABLE "MasterWeeklySchedules" (
     "friday" BOOLEAN NOT NULL DEFAULT true,
     "saturday" BOOLEAN NOT NULL DEFAULT false,
     "sunday" BOOLEAN NOT NULL DEFAULT false,
-    "startTime" INTEGER,
-    "endTime" INTEGER,
+    "startTime" TIME,
+    "endTime" TIME,
     "timezoneOffset" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -129,9 +129,11 @@ CREATE TABLE "MasterWeeklySchedules" (
 CREATE TABLE "Appointments" (
     "id" TEXT NOT NULL,
     "masterId" VARCHAR(36) NOT NULL,
+    "masterServiceId" VARCHAR(36) NOT NULL,
     "clientId" VARCHAR(36) NOT NULL,
-    "startTime" TIMESTAMP(3) NOT NULL,
-    "endTime" TIMESTAMP(3) NOT NULL,
+    "startTime" TIME NOT NULL,
+    "endTime" TIME NOT NULL,
+    "timezoneOffset" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -240,6 +242,9 @@ ALTER TABLE "MasterSchedules" ADD CONSTRAINT "MasterSchedules_masterId_fkey" FOR
 
 -- AddForeignKey
 ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_masterServiceId_fkey" FOREIGN KEY ("masterServiceId") REFERENCES "MasterServices"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "ClientProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
