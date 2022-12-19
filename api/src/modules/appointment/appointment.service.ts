@@ -42,4 +42,24 @@ export class AppointmentService {
       },
     });
   }
+
+  /**
+   * Find first appointment
+   *
+   * @param data search data
+   * @returns appointment
+   */
+  async findFirst(data: Prisma.Prisma.AppointmentFindFirstArgs) {
+    return await this.prismaService.appointment.findFirst(data);
+  }
+
+  /**
+   * Find many appointments
+   *
+   * @param data search data
+   * @returns appointments
+   */
+  async findMany(data: Prisma.Prisma.AppointmentFindManyArgs) {
+    return await this.prismaService.appointment.findMany(data);
+  }
 }

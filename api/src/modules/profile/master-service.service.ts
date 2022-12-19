@@ -1,9 +1,16 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
 import { ServiceService } from '@Src/modules/service/service.service';
-import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Src/modules/user/dto/master.dto';
+import {
+  CreateMasterServiceDto,
+  PatchMasterServiceDto,
+} from '@Src/modules/user/dto/master.dto';
 import { UserService } from '@Src/modules/user/user.service';
 import { CurrencyService } from '@Shared/services/currency.service';
 import { prisma } from '@Shared/services/prisma.service';

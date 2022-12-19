@@ -1,6 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
-import { IsNumber, IsUUID, Max, Min } from 'class-validator';
+import {
+  IsNumber,
+  IsUUID,
+  Max,
+  Min,
+} from 'class-validator';
 
 import { AppointmentConfig } from '@Config/api/property.config';
 

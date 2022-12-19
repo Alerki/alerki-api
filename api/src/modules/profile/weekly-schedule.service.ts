@@ -1,4 +1,8 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { prisma } from '@Shared/services/prisma.service';
@@ -19,7 +23,6 @@ export class MasterWeeklyScheduleService {
   constructor(
     @Inject(forwardRef(() => MasterProfileService))
     private readonly masterProfileService: MasterProfileService,
-    @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
   ) { }
 

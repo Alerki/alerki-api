@@ -1,7 +1,14 @@
 /* eslint-disable max-len */
-import { Controller, Get, HttpStatus, Query } from '@nestjs/common';
 import {
-  ApiOperation, ApiResponse, ApiTags,
+  Controller,
+  Get,
+  HttpStatus,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { GetServicesDto } from '@Src/modules/service/dto/service.dto';

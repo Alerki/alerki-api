@@ -13,6 +13,15 @@ export enum PropertyType {
   Array = 'Array',
 }
 
+export enum WeekDays {
+  monday = 'monday',
+  tuesday = 'tuesday',
+  wednesday = 'wednesday',
+  thursday = 'thursday',
+  saturday = 'saturday',
+  sunday = 'sunday',
+}
+
 interface ExtendedApiPropertyOptions extends ApiPropertyOptions {
   patternExp?: RegExp;
   type: PropertyType;
@@ -21,6 +30,16 @@ interface ExtendedApiPropertyOptions extends ApiPropertyOptions {
 export interface PropertiesConfig { [key: string]: ExtendedApiPropertyOptions }
 
 export namespace GeneralConfig {
+  export const weekDays = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday',
+  ];
+
   export const intMaxValue = 2147483647;
 
   export const UUIDExample = 'f7b1cb86-5f8f-4aac-9838-b51ffbfa22c6';

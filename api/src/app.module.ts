@@ -1,6 +1,6 @@
-import { AppointmentModule } from '@Module/appointment/appointment.module';
 import { Module } from '@nestjs/common';
 
+import { AppointmentModule } from '@Module/appointment/appointment.module';
 import { AuthModule } from '@Src/modules/auth/auth.module';
 import { ProfileModule } from '@Src/modules/profile/profile.module';
 import { ServiceModule } from '@Src/modules/service/service.module';

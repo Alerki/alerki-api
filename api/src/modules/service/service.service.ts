@@ -1,8 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
-import { GetServicesDto } from '@Src/modules/service/dto/service.dto';
 import { prisma } from '@Shared/services/prisma.service';
+import { GetServicesDto } from '@Src/modules/service/dto/service.dto';
 
 /**
  * Services service

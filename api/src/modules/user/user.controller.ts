@@ -89,10 +89,7 @@ export class UserController {
   async enableMaster(
     @Req() req: ProtectedRequest,
   ) {
-    // Get user ID
-    const { user: { id } } = req;
-
-    await this.profileService.enableMaster({ id });
+    await this.profileService.enableMaster({ id: req.user.id });
   }
 
   /**
@@ -110,10 +107,7 @@ export class UserController {
   async disableMaster(
     @Req() req: ProtectedRequest,
   ) {
-    // Get user ID
-    const { user: { id } } = req;
-
-    await this.profileService.disableMaster({ id });
+    await this.profileService.disableMaster({ id: req.user.id });
   }
 
   /**
@@ -171,10 +165,9 @@ export class UserController {
     @Req() req: ProtectedRequest,
     @Body() body: CreateMasterServiceDto,
   ) {
-    const { user: { id } } = req;
 
     const newService = await this.masterServiceService.createMasterService(
-      { id, ...body },
+      { id: req.user.id, ...body },
     );
 
     return newService;
@@ -202,10 +195,8 @@ export class UserController {
     @Body() body: PatchMasterServiceDto,
     @Param('serviceId') serviceId: string,
   ) {
-    const { user: { id: userId } } = req;
-
     const patchedMasterService = await this.masterServiceService.patchMasterService(
-      { id: userId },
+      { id: req.user.id },
       { id: serviceId },
       body,
     );
@@ -249,10 +240,8 @@ export class UserController {
     @Req() req: ProtectedRequest,
     @Body() body: PatchMasterWeeklyScheduleDto,
   ) {
-    const { user: { id } } = req;
-
     const patchedSchedule = await this.masterWeeklyScheduleService.patchWeeklySchedule(
-      { id },
+      { id: req.user.id },
       body,
     );
 
@@ -428,9 +417,10 @@ export class UserController {
       }),
     ) picture: Express.Multer.File,
   ) {
-    const { user: { id } } = req;
-
-    await this.userService.patchUserPicture({ id, picture });
+    await this.userService.patchUserPicture({
+      id: req.user.id,
+      picture,
+    });
   }
 
   /**
@@ -447,9 +437,7 @@ export class UserController {
   async deletePicture(
     @Req() req: ProtectedRequest,
   ) {
-    const { user: { id } } = req;
-
-    await this.userService.deletePicture({ id });
+    await this.userService.deletePicture({ id: req.user.id });
   }
 
   /**
@@ -469,9 +457,7 @@ export class UserController {
   async getProtectedUser(
     @Req() req: ProtectedRequest,
   ) {
-    const { id } = req.user;
-
-    return await this.userService.getUser({ id });
+    return await this.userService.getUser({ id: req.user.id });
   }
 
   /**
@@ -512,11 +498,8 @@ export class UserController {
     @Req() req: ProtectedRequest,
     @Body() body: PatchUserDto,
   ) {
-    // Get user ID
-    const { user: { id } } = req;
-
     return await this.userService.patchUser(
-      { id },
+      { id: req.user.id },
       body,
     );
   }

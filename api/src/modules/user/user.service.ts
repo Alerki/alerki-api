@@ -1,7 +1,9 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
+  forwardRef,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
 import * as imageSize from 'buffer-image-size';
@@ -13,8 +15,15 @@ import { checkScheduleBelongsToMaster } from '@Module/user/utils';
 import { prisma } from '@Shared/services/prisma.service';
 import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
 import { MasterScheduleService } from '@Src/modules/profile/master-schedule.service';
-import { CreateMasterScheduleDto, GetMasterScheduleQueries, PatchMasterScheduleDto } from '@Src/modules/user/dto/master.dto';
-import { PatchUserDto, UserDto } from '@Src/modules/user/dto/user.dto';
+import {
+  CreateMasterScheduleDto,
+  GetMasterScheduleQueries,
+  PatchMasterScheduleDto,
+} from '@Src/modules/user/dto/master.dto';
+import {
+  PatchUserDto,
+  UserDto,
+} from '@Src/modules/user/dto/user.dto';
 import { UserPictureService } from '@Src/modules/user/user-picture.service';
 
 /**
@@ -33,6 +42,7 @@ export class UserService {
   constructor(
     private readonly masterScheduleService: MasterScheduleService,
     private readonly userPictureService: UserPictureService,
+    @Inject(forwardRef(() => MasterProfileService))
     private readonly masterProfileService: MasterProfileService,
   ) { }
 
