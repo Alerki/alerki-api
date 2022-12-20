@@ -1,6 +1,9 @@
+import { MasterServiceService } from '@Module/profile/master-service.service';
 import {
+  Inject,
   Injectable,
   NotFoundException,
+  forwardRef,
 } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
@@ -17,7 +20,10 @@ export class ServiceService {
   /**
    * Service service constructor
    */
-  constructor() { }
+  constructor(
+    @Inject(forwardRef(() => MasterServiceService))
+    private readonly masterServiceService: MasterServiceService,
+  ) { }
 
   /**
    * Create service
@@ -99,5 +105,21 @@ export class ServiceService {
     }
 
     return services;
+  }
+
+  /**
+   * Find master service by service ID
+   *
+   * @param id service ID
+   * @returns master services
+   */
+  async findMasterByServiceId(
+    { id }: Pick<Prisma.Service, 'id'>,
+  ) {
+    return await this.masterServiceService.findMany({
+      where: {
+        serviceId: id,
+      },
+    });
   }
 }

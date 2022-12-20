@@ -67,7 +67,7 @@ model MasterProfile {
   weeklySchedule   MasterWeeklySchedule? @relation(fields: [weeklyScheduleId], references: [id])
   weeklyScheduleId String?               @unique @db.VarChar(36)
   appointments     Appointment[]
-  available        Boolean               @default(true)
+  available        Boolean               @default(false)
   createdAt        DateTime              @default(now())
   updatedAt        DateTime              @updatedAt
 

@@ -10,6 +10,8 @@ import {
 } from '@Config/api/property.config';
 import { AppointmentService } from '@Module/appointment/appointment.service';
 import { CreateAppointmentDto } from '@Module/appointment/dto/appointment.dto';
+import { ClientProfileService } from '@Module/profile/client-profile.service';
+import { MasterProfileService } from '@Module/profile/master-profile.service';
 import { MasterScheduleService } from '@Module/profile/master-schedule.service';
 import { MasterServiceService } from '@Module/profile/master-service.service';
 import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.service';
@@ -34,6 +36,8 @@ export class AppointmentControllerService {
     private readonly masterServiceService: MasterServiceService,
     private readonly masterScheduleService: MasterScheduleService,
     private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
+    private readonly masterProfileService: MasterProfileService,
+    private readonly clientProfileService: ClientProfileService,
     private readonly appointmentService: AppointmentService,
   ) { }
 
@@ -90,6 +94,14 @@ export class AppointmentControllerService {
       throw new BadRequestException(
         'You need to put your own ID to client or master ID',
       );
+    }
+
+    if (!profiles.master.roles.includes('master')) {
+      throw new BadRequestException('User is not a master');
+    }
+
+    if (!profiles.master?.roles.includes('master')) {
+      throw new BadRequestException('Master unavailable');
     }
 
     if (data.startTime < data.endTime) {

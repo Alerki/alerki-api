@@ -182,7 +182,7 @@ describe('UserController (e2e)', () => {
           saturday: false,
           sunday: false,
         });
-        expect(userAfter.masterProfile.available).toBe(true);
+        expect(userAfter.masterProfile.available).toBe(false);
       });
 
       test('PATCH disable-master', async () => {
@@ -543,7 +543,7 @@ describe('UserController (e2e)', () => {
         const { body } = await user2.getMasterProfile();
 
         expect(body.weeklyScheduleId).toHaveLength(36);
-        expect(body.available).toBe(true);
+        expect(body.available).toBe(false);
       });
 
       test('get not exists master profile', async () => {
@@ -1053,6 +1053,21 @@ describe('UserController (e2e)', () => {
           expect(body.startTime).toBe(startTime.toISOString());
           expect(body.endTime).toBe(endTime.toISOString());
           expect(body.timezoneOffset).toBe(2 * 60 * 1000);
+
+          const { body: masterProfile } = await user.getMasterProfile();
+
+          expect(masterProfile.available).toBe(true);
+        });
+
+        test('patch weekly schedule to make master unavailable', async () => {
+          const { body } = await user.patchWeeklySchedule({
+            startTime: null,
+            endTime: null,
+          });
+
+          const { body: masterProfile } = await user.getMasterProfile();
+
+          expect(masterProfile.available).toBe(false);
         });
 
         test('patch each field separately', async () => {

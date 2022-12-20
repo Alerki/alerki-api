@@ -47,6 +47,16 @@ export class MasterServiceService {
   }
 
   /**
+   * Find many
+   *
+   * @param data find arguments
+   * @returns master services
+   */
+  async findMany(data: Prisma.Prisma.MasterServiceFindManyArgs) {
+    return await this.prismaService.masterService.findMany(data);
+  }
+
+  /**
    * Get exists master service
    *
    * @param data get arguments

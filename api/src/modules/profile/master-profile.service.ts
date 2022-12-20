@@ -45,6 +45,16 @@ export class MasterProfileService {
   }
 
   /**
+   * Update master profile
+   *
+   * @param data data to update
+   * @returns updated master profile
+   */
+  async update(data: Prisma.Prisma.MasterProfileUpdateArgs) {
+    return await this.prismaService.masterProfile.update(data);
+  }
+
+  /**
    * Get exists master profile
    *
    * @param data get arguments

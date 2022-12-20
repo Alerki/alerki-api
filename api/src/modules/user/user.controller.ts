@@ -240,12 +240,10 @@ export class UserController {
     @Req() req: ProtectedRequest,
     @Body() body: PatchMasterWeeklyScheduleDto,
   ) {
-    const patchedSchedule = await this.masterWeeklyScheduleService.patchWeeklySchedule(
+    return await this.masterWeeklyScheduleService.patchWeeklySchedule(
       { id: req.user.id },
       body,
     );
-
-    return patchedSchedule;
   }
 
   /**

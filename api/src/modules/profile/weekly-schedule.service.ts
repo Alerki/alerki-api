@@ -74,11 +74,40 @@ export class MasterWeeklyScheduleService {
       },
     });
 
-    return await this.prismaService.masterWeeklySchedule.update({
-      where: {
-        id: userProfile.masterProfile.weeklyScheduleId,
-      },
-      data,
-    });
+    const updatedWeeklySchedule =
+      await this.prismaService.masterWeeklySchedule.update({
+        where: {
+          id: userProfile.masterProfile.weeklyScheduleId,
+        },
+        data,
+      });
+
+    if (
+      (
+        !updatedWeeklySchedule.startTime ||
+        !updatedWeeklySchedule.endTime
+      ) &&
+      userProfile.masterProfile.available
+    ) {
+      await this.masterProfileService.update({
+        where: {
+          id: userProfile.masterProfileId,
+        },
+        data: {
+          available: false,
+        },
+      });
+    } else if (!userProfile.masterProfile.available) {
+      await this.masterProfileService.update({
+        where: {
+          id: userProfile.masterProfileId,
+        },
+        data: {
+          available: true,
+        },
+      });
+    }
+
+    return updatedWeeklySchedule;
   }
 }
