@@ -537,7 +537,7 @@ export class UserActions {
    * @param expect expected response
    * @returns master services
    */
-  async getMasterService(
+  async getOwnMasterService(
     expect: number = 200,
   ) {
     return this.request({
@@ -578,7 +578,7 @@ export class UserActions {
   ) {
     return await this.request({
       url: '/appointment',
-      method: 'patch',
+      method: 'post',
       send: data,
       expect,
     });

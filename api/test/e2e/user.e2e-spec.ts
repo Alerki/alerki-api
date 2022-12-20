@@ -1003,7 +1003,7 @@ describe('UserController (e2e)', () => {
         });
 
         test('delete master service successfully', async () => {
-          const { body: masterServices } = await user.getMasterService();
+          const { body: masterServices } = await user.getOwnMasterService();
 
           expect(masterServices.length).toBeGreaterThanOrEqual(1);
 
@@ -1033,7 +1033,7 @@ describe('UserController (e2e)', () => {
             locationLng: 0,
           });
 
-          const { body: masterServices } = await user.getMasterService();
+          const { body: masterServices } = await user.getOwnMasterService();
 
           const { body } = await newUser.deleteMasterService(
             masterServices[0].id,

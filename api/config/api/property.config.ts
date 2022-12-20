@@ -230,9 +230,9 @@ export namespace MasterWeeklyScheduleConfig {
   export const timezoneOffset = {
     description: 'Timezone offset',
     type: PropertyType.number,
-    example: 2 * 60 * 1000,
-    minimum: 24 * 60 * 1000 * -1,
-    maximum: 24 * 60 * 1000 - 1,
+    example: 2 * 60 * 60 * 1000,
+    minimum: 24 * 60 * 60 * 1000 * -1,
+    maximum: 24 * 60 * 60 * 1000 - 1,
   } satisfies ExtendedApiPropertyOptions;
 
   export const config = {
