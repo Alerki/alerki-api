@@ -151,6 +151,8 @@ export class MasterServiceService {
       },
     });
 
+    await this.handleAvailableService({ id: service.id });
+
     return newMasterService;
   }
 
@@ -242,6 +244,71 @@ export class MasterServiceService {
         id: masterService.id,
       },
       data: updateData,
+    });
+  }
+
+  async delete(
+    { id: userId }: Pick<Prisma.User, 'id'>,
+    { id: serviceId }: Pick<Prisma.MasterService, 'id'>,
+  ) {
+    const masterServiceCandidate = await this.getExists({
+      where: {
+        id: serviceId,
+      },
+    });
+
+    const userCandidate = await this.userService.getExists({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (userCandidate.masterProfileId !== masterServiceCandidate.masterId) {
+      throw new BadRequestException('The service not belongs to the user');
+    }
+
+    await this.prismaService.masterService.delete({
+      where: {
+        id: masterServiceCandidate.id,
+      },
+    });
+
+    await this.handleAvailableService({ id: masterServiceCandidate.serviceId });
+  }
+
+  /**
+   * Enable or disable service depend on exists master services
+   *
+   * @param param0 service ID
+   * @returns updated service
+   */
+  async handleAvailableService(
+    { id }: Pick<Prisma.Service, 'id'>,
+  ) {
+    const masterServices = await this.findMany({
+      where: {
+        serviceId: id,
+      },
+    });
+
+    if (!masterServices.length) {
+      return await this.serviceService.update({
+        where: {
+          id,
+        },
+        data: {
+          available: false,
+        },
+      });
+    }
+
+    return await this.serviceService.update({
+      where: {
+        id,
+      },
+      data: {
+        available: true,
+      },
     });
   }
 }

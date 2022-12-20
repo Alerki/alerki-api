@@ -765,7 +765,7 @@ describe('UserController (e2e)', () => {
               locationLng: 1.2,
               service: {
                 name: 'Man haircut',
-                available: false,
+                available: true,
               },
               currency: {
                 code: 'UAH',
@@ -966,6 +966,81 @@ describe('UserController (e2e)', () => {
             .expect(400);
 
           expect(body.message).toMatchObject(['locationLng must not be greater than 180']);
+        });
+      });
+
+      describe('delete master service', () => {
+        let user: UserActions;
+        let serviceName = 'Not exists service';
+
+        beforeAll(async () => {
+          user = new UserActions(app, { master: true });
+          await user.register();
+
+          const { body: services } = await UserActions.getServices(
+            app,
+            serviceName,
+            404,
+          );
+
+          expect(services.message).toBe('Services not exists');
+
+          await user.createMasterService({
+            name: serviceName,
+            currency: 'UAH',
+            price: 100,
+            duration: 12 * 60 * 1000,
+            locationLat: 0.1,
+            locationLng: 0.1,
+          });
+
+          const { body: service } = await UserActions.getServices(
+            app,
+            serviceName,
+          );
+
+          expect(service[0].available).toBe(true);
+        });
+
+        test('delete master service successfully', async () => {
+          const { body: masterServices } = await user.getMasterService();
+
+          expect(masterServices.length).toBeGreaterThanOrEqual(1);
+
+          await user.deleteMasterService(
+            masterServices[0].id,
+          );
+
+          const updatedService = await prisma.service.findFirst({
+            where: {
+              id: masterServices[0].serviceId,
+            },
+          });
+
+          expect(updatedService.available).toBe(false);
+        });
+
+        test('try delete service that not belongs to the user', async () => {
+          const newUser = new UserActions(app, { master: true });
+          await newUser.register();
+
+          const { body: newService } = await user.createMasterService({
+            name: 'Name',
+            currency: 'UAH',
+            price: 10,
+            duration: 12,
+            locationLat: 0,
+            locationLng: 0,
+          });
+
+          const { body: masterServices } = await user.getMasterService();
+
+          const { body } = await newUser.deleteMasterService(
+            masterServices[0].id,
+            400,
+          );
+
+          expect(body.message).toBe('The service not belongs to the user');
         });
       });
     });

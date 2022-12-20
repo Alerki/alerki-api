@@ -75,7 +75,7 @@ export class ServiceService {
    * @param data search options
    * @returns services
    */
-  private async findMany(data: Prisma.Prisma.ServiceFindManyArgs) {
+  async findMany(data: Prisma.Prisma.ServiceFindManyArgs) {
     return await this.prismaService.service.findMany(data);
   }
 
@@ -86,25 +86,33 @@ export class ServiceService {
    * @returns services
    */
   async searchService({ name }: GetServicesDto) {
-    const services = await this.findMany({
-      where: {
-        name: {
-          search: name,
+    if (name) {
+      const services = await this.findMany({
+        where: {
+          name: {
+            search: name.split(' ').join(' & '),
+          },
+          available: true,
         },
-        // available: true, // uncomment later
-      },
-      orderBy: {
-        masterServices: {
-          _count: 'asc',
+        orderBy: {
+          masterServices: {
+            _count: 'asc',
+          },
         },
-      },
-    });
+      });
 
-    if (services.length === 0) {
-      throw new NotFoundException('Services not exists');
+      if (services.length === 0) {
+        throw new NotFoundException('Services not exists');
+      }
+
+      return services;
     }
 
-    return services;
+    return await this.findMany({
+      where: {
+        available: true,
+      },
+    });
   }
 
   /**
@@ -121,5 +129,15 @@ export class ServiceService {
         serviceId: id,
       },
     });
+  }
+
+  /**
+   * Update service
+   *
+   * @param data data to update
+   * @returns updated service
+   */
+  async update(data: Prisma.Prisma.ServiceUpdateArgs) {
+    return await this.prismaService.service.update(data);
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as cookieParser from 'cookie-parser';
@@ -5,20 +6,14 @@ import { Application } from 'express';
 
 import { AppModule } from '@Src/app.module';
 import { UserActions } from '@Test/util/user-actions';
+import { clearDatabase } from '@Test/util/clear-database';
+import { databaseSetup } from '@Src/util';
 
-describe('AuthController (e2e)', () => {
+describe.only('AuthController (e2e)', () => {
   let app: Application;
   let application: INestApplication;
   let client: UserActions;
   let master: UserActions;
-  let appointmentDate = new Date();
-  appointmentDate.setUTCDate(appointmentDate.getUTCDate() + 2);
-  if (
-    appointmentDate.getUTCDay() === 5 ||
-    appointmentDate.getUTCDay() === 6
-  ) {
-    appointmentDate.setUTCDate(appointmentDate.getUTCDate() + 2);
-  }
 
   beforeAll(async () => {
     // Init express application
@@ -36,36 +31,52 @@ describe('AuthController (e2e)', () => {
 
     app = application.getHttpServer();
 
-    // // Create user
-    // client = new UserActions(app);
-    // master = new UserActions(app, { master: true });
+    await clearDatabase();
 
-    // // Create schedule
-    // const startTime = new Date(0);
-    // startTime.setUTCHours(12);
+    await databaseSetup();
 
-    // const endTime = new Date(0);
-    // endTime.setUTCHours(18);
+    // Create user
+    client = new UserActions(app);
+    master = new UserActions(app, { master: true });
 
-    // const date = new Date();
-    // date.setUTCDate(date.getUTCDate() + 2);
+    await client.register();
+    await master.register();
 
-    // master.createMasterSchedule({
-    //   startTime,
-    //   endTime,
-    //   timezoneOffset: 2 * 60 * 1000,
-    //   date,
-    //   dayOff: false,
-    // });
+    // Create schedule
+    const startTime = new Date(0);
+    startTime.setUTCHours(12);
 
-    // master.patchWeeklySchedule({
-    //   startTime,
-    //   endTime,
-    // });
+    const endTime = new Date(0);
+    endTime.setUTCHours(18);
+
+    const date = new Date();
+    date.setUTCDate(date.getUTCDate() + 2);
+
+    await master.createMasterSchedule({
+      startTime,
+      endTime,
+      timezoneOffset: 2 * 60 * 1000,
+      date,
+      dayOff: false,
+    });
+
+    await master.patchWeeklySchedule({
+      startTime,
+      endTime,
+    });
   });
 
   describe('create appointment actions', () => {
-    test.todo('successfully create an appointment');
+    test('successfully create an appointment', async () => {
+      const { body: newMasterService } = await master.createMasterService({
+        name: 'Man haircut',
+        currency: 'UAH',
+        price: 100,
+        duration: 12 * 60 * 1000,
+        locationLat: 0.1,
+        locationLng: 0.1,
+      });
+    });
 
     // test('successfully create an appointment', async () => {
     // });

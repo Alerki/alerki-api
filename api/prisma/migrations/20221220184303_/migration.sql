@@ -47,7 +47,7 @@ CREATE TABLE "AuthSessions" (
 CREATE TABLE "MasterProfiles" (
     "id" TEXT NOT NULL,
     "weeklyScheduleId" VARCHAR(36),
-    "available" BOOLEAN NOT NULL DEFAULT true,
+    "available" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -67,7 +67,7 @@ CREATE TABLE "ClientProfiles" (
 CREATE TABLE "Services" (
     "id" TEXT NOT NULL,
     "name" VARCHAR(20) NOT NULL,
-    "available" BOOLEAN NOT NULL DEFAULT false,
+    "available" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

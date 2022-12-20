@@ -38,10 +38,10 @@ describe('ServiceController (e2e)', () => {
     await clearDatabase();
   });
 
-  describe('Regular script', () => {
+  describe('get service actions', () => {
     const serviceName = 'Haircut';
 
-    test('GET session', async () => {
+    beforeAll(async () => {
       await prisma.service.create({
         data: {
           name: serviceName,
@@ -49,7 +49,7 @@ describe('ServiceController (e2e)', () => {
       });
     });
 
-    test('GET session/master', async () => {
+    test('get master service', async () => {
       const user: UserActions = new UserActions(app, { master: true });
       await user.register();
 
@@ -57,6 +57,8 @@ describe('ServiceController (e2e)', () => {
         app,
         serviceName,
       );
+
+      expect(services).toHaveLength(1);
 
       const { body: unavailableUser } = await UserActions.getMasterServices(
         app,
@@ -89,22 +91,25 @@ describe('ServiceController (e2e)', () => {
 
       expect(masterServices).toHaveLength(1);
     });
-  });
 
-  describe('Other cases', () => {
-    describe('Fail search', () => {
-      test('without name query', async () => {
-        await request(app)
-          .get('/service')
-          .expect(400);
-      });
+    test('get not exists service', async () => {
+      await request(app)
+        .get('/service')
+        .query({ name: 'not-exists-name' })
+        .expect(404);
+    });
 
-      test('for not exists service', async () => {
-        await request(app)
-          .get('/service')
-          .query({ name: 'not-exists-name' })
-          .expect(404);
-      });
+    test('get service without name query', async () => {
+      await request(app)
+        .get('/service')
+        .expect(200);
+    });
+
+    test('search with spaces in name', async () => {
+      await request(app)
+        .get('/service')
+        .query({ name: 'i a l i' })
+        .expect(404);
     });
   });
 });

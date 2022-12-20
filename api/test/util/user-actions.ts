@@ -342,6 +342,7 @@ export class UserActions {
   static async getServices(
     app: Application,
     name: string,
+    expect: number = 200,
   ) {
     return await UserActions.request(
       app,
@@ -351,6 +352,7 @@ export class UserActions {
         query: {
           name,
         },
+        expect,
       },
     );
   }
@@ -525,6 +527,40 @@ export class UserActions {
       url: '/user/master/service',
       method: 'post',
       send: data,
+      expect,
+    });
+  }
+
+  /**
+   * Get master services
+   *
+   * @param expect expected response
+   * @returns master services
+   */
+  async getMasterService(
+    expect: number = 200,
+  ) {
+    return this.request({
+      url: `/user/master/${this.user.masterProfileId}/service`,
+      method: 'get',
+      expect,
+    });
+  }
+
+  /**
+   * Delete master service
+   *
+   * @param masterServiceId master service ID
+   * @param expect expected response
+   * @returns deleted master service
+   */
+  async deleteMasterService(
+    masterServiceId: string,
+    expect: number = 200,
+  ) {
+    return await this.request({
+      url: `/user/master/service/${masterServiceId}`,
+      method: 'delete',
       expect,
     });
   }

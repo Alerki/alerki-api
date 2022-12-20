@@ -147,6 +147,8 @@ export namespace UserConfig {
 }
 
 export namespace ServiceConfig {
+  const namePattern = /\w{1,20}/;
+
   export const config = {
     available: {
       description: 'Available condition',
@@ -156,9 +158,11 @@ export namespace ServiceConfig {
     name: {
       description: 'Service name',
       minLength: 1,
-      maxLength: 30,
+      maxLength: 20,
       type: PropertyType.string,
       example: 'Haircut',
+      pattern: String(namePattern),
+      patternExp: namePattern,
     } satisfies ExtendedApiPropertyOptions,
   } satisfies PropertiesConfig;
 }

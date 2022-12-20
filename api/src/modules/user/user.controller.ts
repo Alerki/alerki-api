@@ -140,11 +140,9 @@ export class UserController {
   async getMasterService(
     @Param('id', ParseUUIDPipe) id: string,
   ) {
-    const masterServices = await this.masterServiceService.getMasterService(
+    return await this.masterServiceService.getMasterService(
       { id },
     );
-
-    return masterServices;
   }
 
   /**
@@ -193,15 +191,34 @@ export class UserController {
   async patchMasterService(
     @Req() req: ProtectedRequest,
     @Body() body: PatchMasterServiceDto,
-    @Param('serviceId') serviceId: string,
+    @Param('serviceId', ParseUUIDPipe) serviceId: string,
   ) {
-    const patchedMasterService = await this.masterServiceService.patchMasterService(
+    return await this.masterServiceService.patchMasterService(
       { id: req.user.id },
       { id: serviceId },
       body,
     );
+  }
 
-    return patchedMasterService;
+  /**
+   * Delete master service
+   *
+   * @param req request
+   * @param serviceId master service ID to delete
+   * @returns deleted master service
+   */
+  @ApiOperation({ description: 'Delete master service' })
+  @ApiOkResponse({ description: 'Service deleted successfully' })
+  @UseGuards(JwtAuthGuard)
+  @Delete('master/service/:serviceId')
+  async deleteMasterService(
+    @Req() req: ProtectedRequest,
+    @Param('serviceId', ParseUUIDPipe) serviceId: string,
+  ) {
+    return await this.masterServiceService.delete(
+      { id: req.user.id },
+      { id: serviceId },
+    );
   }
 
   /**
