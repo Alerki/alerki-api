@@ -174,6 +174,20 @@ export class GetMasterScheduleQueries {
   readonly date?: number;
 }
 
+export class GetMasterMonthlyScheduleQueries {
+  @IsOptional()
+  @Min(2000)
+  @Max(3000)
+  @IsNumber()
+  readonly year?: number;
+
+  @IsOptional()
+  @Min(1)
+  @Max(12)
+  @IsNumber()
+  readonly month?: number;
+}
+
 export class PatchMasterScheduleDto implements Partial<Pick<
   Prisma.MasterSchedule,
   'timezoneOffset' |
@@ -273,3 +287,5 @@ export class PatchMasterWeeklyScheduleDto implements Partial<Pick<
   @IsOptional()
   readonly timezoneOffset?: number;
 }
+
+

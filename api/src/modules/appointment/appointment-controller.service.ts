@@ -7,7 +7,7 @@ import Prisma from '@prisma/client';
 
 import {
   GeneralConfig,
-  WeekDays,
+  DaysOfWeek,
 } from '@Config/api/property.config';
 import { AppointmentService } from '@Module/appointment/appointment.service';
 import { CreateAppointmentDto } from '@Module/appointment/dto/appointment.dto';
@@ -59,12 +59,7 @@ export class AppointmentControllerService {
       );
     }
 
-    const profiles: {
-      client?: Prisma.User,
-      master?: Prisma.User,
-    } = {};
-
-    const userCandidate = await this.userService.getExists({
+    const clientCandidate = await this.userService.getExists({
       where: {
         id: userId,
       },
@@ -79,46 +74,25 @@ export class AppointmentControllerService {
       },
     });
 
-    // Fill profiles
-    if (data.clientId === userCandidate.clientProfileId) {
-      profiles.client = userCandidate;
-      profiles.master = await this.userService.getExists({
-        where: {
-          masterProfileId: serviceCandidate.masterId,
-        },
-        include: {
-          masterProfile: true,
-        },
-      });
-    } else if (serviceCandidate.masterId === userCandidate.masterProfileId) {
-      profiles.master = userCandidate;
-      profiles.client = await this.userService.getExists({
-        where: {
-          id: data.clientId,
-        },
-      });
-    } else {
-      throw new BadRequestException(
-        'You need to put your own ID to client or master ID',
-      );
+    const masterCandidate = await this.userService.getExists({
+      where: {
+        masterProfileId: serviceCandidate.masterId,
+      },
+      include: {
+        masterProfile: true,
+      },
+    });
+
+    if (clientCandidate.id === masterCandidate.id) {
+      throw new BadRequestException('Impossible to make appointment to itself');
     }
 
-    if (!profiles.master.roles.includes('master')) {
-      throw new BadRequestException('User is not a master');
-    }
-
-    if (!profiles.master?.roles.includes('master')) {
-      throw new BadRequestException('Master unavailable');
+    if (!masterCandidate.masterProfile.available) {
+      throw new BadRequestException('Master profile is unavailable');
     }
 
     const endTime = new Date(data.startTime);
     endTime.setUTCMilliseconds(serviceCandidate.duration);
-
-    if (data.startTime > endTime) {
-      throw new BadRequestException(
-        'Start time impossible to be greater than end time',
-      );
-    }
 
     // Check schedule
     const dayOffErrorMessage = 'The day is day off';
@@ -160,12 +134,12 @@ export class AppointmentControllerService {
     if (!daySpecificSchedule) {
       weekSchedule =
         await this.masterWeeklyScheduleService.getWeeklySchedule(
-          { id: profiles.master.masterProfileId },
+          { id: masterCandidate.masterProfileId },
         );
 
       if (
         !weekSchedule[
-          GeneralConfig.weekDays[data.startTime.getUTCDay()] as WeekDays
+          GeneralConfig.daysOfWeek[data.startTime.getUTCDay()] as DaysOfWeek
         ]
       ) {
         throw new BadRequestException(dayOffErrorMessage);
@@ -183,8 +157,8 @@ export class AppointmentControllerService {
       checkEndTime.setUTCMilliseconds(endTime.getUTCMilliseconds());
 
       if (
-        weekSchedule.startTime > data.startTime ||
-        endTime > weekSchedule.endTime
+        weekSchedule.startTime > checkStartTime ||
+        checkEndTime > weekSchedule.endTime
       ) {
         throw new BadRequestException(
           'Appointment time is outside of the week schedule available time',
@@ -218,23 +192,24 @@ export class AppointmentControllerService {
     if (checkAppointments.length !== 0) {
       checkAppointments.forEach(appointment => {
         if (
-          appointment.startTime < data.startTime &&
-          appointment.endTime > endTime
+          Math.max(appointment.startTime.getTime(), data.startTime.getTime()) <=
+          Math.min(appointment.endTime.getTime(), endTime.getTime())
         ) {
+          console.log(appointment.startTime, appointment.endTime, data.startTime, endTime);
           throw new BadRequestException('This time is busy');
         }
       });
     }
 
     return await this.appointmentService.create({
-      masterId: profiles.master.masterProfileId,
+      masterId: masterCandidate.masterProfileId,
       masterServiceId: serviceCandidate.id,
-      clientId: profiles.client.clientProfileId,
+      clientId: clientCandidate.clientProfileId,
       startTime: data.startTime,
       endTime: endTime,
       timezoneOffset:
         daySpecificSchedule?.timezoneOffset ||
-        weekSchedule?.timezoneOffset,
+        weekSchedule.timezoneOffset,
     });
   }
 }

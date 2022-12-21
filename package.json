@@ -10,6 +10,7 @@
     "api"
   ],
   "scripts": {
+    "dev": "nodemon ./playground.ts",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
     "lint:fix": "eslint --ext .ts,.tsx,.js,.jsx --fix .",
     "start:docker": "docker-compose -f ./docker/docker-compose.dev.yml up -d",
@@ -26,7 +27,8 @@
     "eslint-config-google": "^0.14.0",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
-    "node-notifier": "^10.0.1"
+    "node-notifier": "^10.0.1",
+    "nodemon": "^2.0.20"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": "eslint . --ext .ts,.tsx,.js,.jsx"

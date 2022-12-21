@@ -45,6 +45,7 @@ import { MasterWeeklyScheduleService } from '@Src/modules/profile/weekly-schedul
 import {
   CreateMasterScheduleDto,
   CreateMasterServiceDto,
+  GetMasterMonthlyScheduleQueries,
   GetMasterScheduleQueries,
   PatchMasterScheduleDto,
   PatchMasterServiceDto,
@@ -380,6 +381,27 @@ export class UserController {
       { id: req.user.id },
       { id: scheduleId },
       data,
+    );
+  }
+
+  /**
+   * Get master monthly schedule
+   *
+   * @param id master profile ID
+   * @param queries queries to get schedule
+   * @returns master monthly schedule
+   */
+  @ApiOperation({ description: 'Get master monthly schedule' })
+  @ApiOkResponse({ description: 'Got schedule successfully' })
+  @ApiNotFoundResponse({ description: 'Master not exists' })
+  @Get('master/:id/monthly-schedule')
+  async getMasterMonthlySchedule(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query() queries: GetMasterMonthlyScheduleQueries,
+  ) {
+    return await this.userService.getMasterMonthlySchedule(
+      { id },
+      queries,
     );
   }
 

@@ -3,7 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as cookieParser from 'cookie-parser';
 import { Application } from 'express';
-import Prisma from '@prisma/client';
+import Prisma, { MasterWeeklySchedule } from '@prisma/client';
 
 import { AppModule } from '@Src/app.module';
 import { UserActions } from '@Test/util/user-actions';
@@ -51,6 +51,7 @@ describe.only('AuthController (e2e)', () => {
     let services: Prisma.Service[];
     let masterServices: Prisma.MasterService[];
     let masterSchedules: Prisma.MasterSchedule[];
+    let masterWeeklySchedule: MasterWeeklySchedule;
 
     beforeAll(async () => {
       const startTime = new Date(0);
@@ -107,13 +108,19 @@ describe.only('AuthController (e2e)', () => {
         {},
       )).body;
 
+      masterWeeklySchedule = (await UserActions.getWeeklySchedule(
+        app,
+        masterSchedules[0].masterId,
+      )).body;
+
+      expect(masterWeeklySchedule).toBeDefined();
+
       const scheduleStartTime = new Date(masterSchedules[0].startTime);
 
       const startTime = new Date(masterSchedules[0].date);
       startTime.setUTCHours(scheduleStartTime.getUTCHours());
 
       const { body: appointment } = await client.createAppointment({
-        clientId: client.user.clientProfileId,
         masterServiceId: masterServices[0].id,
         startTime,
       });
@@ -131,139 +138,232 @@ describe.only('AuthController (e2e)', () => {
       expect(appointment.timezoneOffset).toBe(2 * 60 * 60 * 1000);
     });
 
-    test('try to create appointment in the past', async () => {
-      const startTime = new Date();
-      startTime.setUTCDate(startTime.getUTCDate() - 1);
+    test('', async () => {
+      const { body: masterProfile } = await master.getMasterProfile();
 
-      dateToWeekDay(startTime);
-      const { body } = await client.createAppointment({
-        clientId: client.user.clientProfileId,
-        masterServiceId: masterServices[0].id,
-        startTime,
-      }, 400);
+      const { body } = await UserActions.request(
+        app,
+        {
+          url: `/user/master/${masterProfile.id}/monthly-schedule`,
+          method: 'get',
+        },
+      );
 
-      expect(body.message).toBe('Impossible to make appointment in the past');
+      console.log(body);
     });
 
-    test('try create appointment with bad client ID', async () => {
-      const startTime = new Date();
-      startTime.setUTCDate(startTime.getUTCDate() + 20);
-      startTime.setUTCDate(startTime.getUTCDate() - 1);
+    // test('create appointment with weekly schedule', async () => {
+    //   const startTime = new Date();
+    //   startTime.setUTCDate(startTime.getUTCDate() + 11);
+    //   dateToWeekDay(startTime);
 
-      dateToWeekDay(startTime);
-      const { body } = await client.createAppointment({
-        clientId: randomUUID(),
-        masterServiceId: masterServices[0].id,
-        startTime,
-      }, 400);
+    //   const weeklyScheduleStartTime = new Date(masterWeeklySchedule.startTime);
+    //   startTime.setUTCHours(weeklyScheduleStartTime.getUTCHours());
+    //   startTime.setUTCMinutes(0);
+    //   startTime.setUTCSeconds(0);
+    //   startTime.setUTCMilliseconds(0);
 
-      expect(body.message).toBe('You need to put your own ID to client or master ID');
-    });
+    //   await client.createAppointment({
+    //     masterServiceId: masterServices[0].id,
+    //     startTime,
+    //   });
+    // });
 
-    test('try create appointment with not exists service', async () => {
-      const startTime = new Date();
-      startTime.setUTCDate(startTime.getUTCDate() + 10);
+    // test('try to create appointment in the past', async () => {
+    //   const startTime = new Date();
+    //   startTime.setUTCDate(startTime.getUTCDate() - 1);
 
-      dateToWeekDay(startTime);
+    //   dateToWeekDay(startTime);
+    //   const { body } = await client.createAppointment({
+    //     masterServiceId: masterServices[0].id,
+    //     startTime,
+    //   }, 400);
 
-      const { body } = await client.createAppointment({
-        clientId: client.user.clientProfileId,
-        masterServiceId: randomUUID(),
-        startTime,
-      }, 404);
+    //   expect(body.message).toBe('Impossible to make appointment in the past');
+    // });
 
-      expect(body.message).toBe('Master service not exists');
-    });
+    // test('try create appointment with not exists service', async () => {
+    //   const startTime = new Date();
+    //   startTime.setUTCDate(startTime.getUTCDate() + 10);
 
-    test('try create appointment with day off weekly schedule', async () => {
-      const startTime = new Date();
-      startTime.setUTCDate(startTime.getUTCDate() + 10);
+    //   dateToWeekDay(startTime);
 
-      dateToWeekend(startTime);
+    //   const { body } = await client.createAppointment({
+    //     masterServiceId: randomUUID(),
+    //     startTime,
+    //   }, 404);
 
-      const { body } = await client.createAppointment({
-        clientId: client.user.clientProfileId,
-        masterServiceId: masterServices[0].id,
-        startTime,
-      }, 400);
+    //   expect(body.message).toBe('Master service not exists');
+    // });
 
-      expect(body.message).toBe('The day is day off');
-    });
+    // test('try create appointment with day off weekly schedule', async () => {
+    //   const startTime = new Date();
+    //   startTime.setUTCDate(startTime.getUTCDate() + 100);
+    //   startTime.setUTCHours(12);
 
-    test('try create appointment with day off day specific schedule', async () => {
-      const newScheduleDate = new Date();
-      newScheduleDate.setUTCDate(newScheduleDate.getUTCDate() + 10);
-      dateToWeekDay(newScheduleDate);
+    //   dateToWeekend(startTime);
 
-      await master.createMasterSchedule({
-        date: newScheduleDate,
-        dayOff: true,
-        startTime: new Date(),
-        endTime: new Date(),
-        timezoneOffset: 0,
-      });
+    //   const { body } = await client.createAppointment({
+    //     masterServiceId: masterServices[0].id,
+    //     startTime,
+    //   }, 400);
 
-      const { body } = await client.createAppointment({
-        clientId: client.user.clientProfileId,
-        masterServiceId: masterServices[0].id,
-        startTime: newScheduleDate,
-      }, 400);
+    //   expect(body.message).toBe('The day is day off');
+    // });
 
-      expect(body.message).toBe('The day is day off');
-    });
+    // test('try create appointment with day off day specific schedule', async () => {
+    //   const newScheduleDate = new Date();
+    //   newScheduleDate.setUTCDate(newScheduleDate.getUTCDate() + 10);
+    //   dateToWeekDay(newScheduleDate);
 
-    test('try create appointment out of available weekly schedule time', async () => {
-      const startTime = new Date();
-      startTime.setUTCDate(startTime.getUTCDate() + 30);
-      dateToWeekDay(startTime);
-      startTime.setUTCHours(1);
+    //   await master.createMasterSchedule({
+    //     date: newScheduleDate,
+    //     dayOff: true,
+    //     startTime: new Date(),
+    //     endTime: new Date(),
+    //     timezoneOffset: 0,
+    //   });
 
-      const { body } = await client.createAppointment({
-        clientId: client.user.clientProfileId,
-        masterServiceId: masterServices[0].id,
-        startTime,
-      }, 400);
+    //   const { body } = await client.createAppointment({
+    //     masterServiceId: masterServices[0].id,
+    //     startTime: newScheduleDate,
+    //   }, 400);
 
-      expect(body.message).toBe('Appointment time is outside of the week schedule available time');
-    });
+    //   expect(body.message).toBe('The day is day off');
+    // });
 
-    test('try create appointment out of day specific schedule time', async () => {
-      const scheduleDate = new Date();
-      scheduleDate.setUTCDate(scheduleDate.getUTCDate() + 15);
-      const scheduleStartTime = new Date(0);
-      scheduleStartTime.setUTCHours(13);
-      const scheduleEndTime = new Date(0);
-      scheduleEndTime.setUTCHours(14);
+    // test('try create appointment out of available weekly schedule time', async () => {
+    //   const startTime = new Date();
+    //   startTime.setUTCDate(startTime.getUTCDate() + 30);
+    //   dateToWeekDay(startTime);
+    //   startTime.setUTCHours(1);
 
-      dateToWeekDay(scheduleDate);
+    //   const { body } = await client.createAppointment({
+    //     masterServiceId: masterServices[0].id,
+    //     startTime,
+    //   }, 400);
 
-      await master.createMasterSchedule({
-        date: scheduleDate,
-        dayOff: false,
-        startTime: scheduleStartTime,
-        endTime: scheduleEndTime,
-        timezoneOffset: 0,
-      });
+    //   expect(body.message).toBe('Appointment time is outside of the week schedule available time');
+    // });
 
-      const startTime = new Date(scheduleDate);
-      startTime.setUTCHours(scheduleEndTime.getUTCHours());
+    // test('try create appointment out of day specific schedule time', async () => {
+    //   const scheduleDate = new Date();
+    //   scheduleDate.setUTCDate(scheduleDate.getUTCDate() + 15);
+    //   const scheduleStartTime = new Date(0);
+    //   scheduleStartTime.setUTCHours(13);
+    //   const scheduleEndTime = new Date(0);
+    //   scheduleEndTime.setUTCHours(14);
 
-      const { body } = await client.createAppointment({
-        clientId: client.user.clientProfileId,
-        masterServiceId: masterServices[0].id,
-        startTime,
-      }, 400);
+    //   dateToWeekDay(scheduleDate);
 
-      expect(body.message).toBe('Appointment time is outside of the day specify schedule available time');
-    });
+    //   await master.createMasterSchedule({
+    //     date: scheduleDate,
+    //     dayOff: false,
+    //     startTime: scheduleStartTime,
+    //     endTime: scheduleEndTime,
+    //     timezoneOffset: 0,
+    //   });
 
-    test.todo('try create appointment to not a master');
+    //   const startTime = new Date(scheduleDate);
+    //   startTime.setUTCHours(scheduleEndTime.getUTCHours());
 
-    test.todo('try create appointment to unavailable master');
+    //   const { body } = await client.createAppointment({
+    //     masterServiceId: masterServices[0].id,
+    //     startTime,
+    //   }, 400);
 
-    test.todo(
-      'try create appointment with fake access token(not exists user ID)',
-    );
+    //   expect(body.message).toBe('Appointment time is outside of the day specify schedule available time');
+    // });
+
+    // test('try create appointment to same user', async () => {
+    //   const startTime = new Date();
+    //   startTime.setUTCDate(startTime.getUTCDate() + 10);
+
+    //   const { body } = await master.createAppointment({
+    //     masterServiceId: masterServices[0].id,
+    //     startTime,
+    //   }, 400);
+
+    //   expect(body.message).toBe('Impossible to make appointment to itself');
+    // });
+
+    // test('try create appointment to unavailable master', async () => {
+    //   const newMaster = new UserActions(app, { master: true });
+    //   await newMaster.register();
+
+    //   const { body: newService } = await newMaster.createMasterService({
+    //     name: serviceName,
+    //     currency: 'UAH',
+    //     price: 100,
+    //     duration: 10 * 60 * 1000,
+    //     locationLat: 0,
+    //     locationLng: 0,
+    //   });
+
+    //   const startTime = new Date();
+    //   startTime.setUTCDate(startTime.getUTCDate() + 10);
+
+    //   const { body } = await master.createAppointment({
+    //     masterServiceId: newService.id,
+    //     startTime,
+    //   }, 400);
+
+    //   expect(body.message).toBe('Master profile is unavailable');
+    // });
+
+    // describe('check appointments overlap', () => {
+    //   const appointmentDate = new Date();
+    //   appointmentDate.setUTCDate(appointmentDate.getUTCDate() + 31);
+    //   dateToWeekDay(appointmentDate);
+    //   appointmentDate.setUTCHours(12);
+    //   appointmentDate.setUTCMinutes(0);
+    //   appointmentDate.setUTCSeconds(0);
+    //   appointmentDate.setUTCMilliseconds(0);
+
+    //   test('create appointment successfully', async () => {
+    //     await client.createAppointment({
+    //       masterServiceId: masterServices[0].id,
+    //       startTime: appointmentDate,
+    //     });
+    //   });
+
+    //   test('try to create appointment with a busy time', async () => {
+    //     await client.createAppointment({
+    //       masterServiceId: masterServices[0].id,
+    //       startTime: appointmentDate,
+    //     }, 400);
+    //   });
+
+    //   test('try to create another appointment at the end of the last', async () => {
+    //     appointmentDate.setUTCMinutes(appointmentDate.getUTCMinutes() + 1);
+    //     appointmentDate.setUTCMilliseconds(masterServices[0].duration);
+
+    //     const { body } = await client.createAppointment({
+    //       masterServiceId: masterServices[0].id,
+    //       startTime: appointmentDate,
+    //     }, 400);
+
+    //     expect(body.message).toBe('This time is busy');
+    //   });
+
+    //   test('try to create another appointment with less end time and less start time', async () => {
+    //     const firstStartTime = new Date(appointmentDate);
+    //     firstStartTime.setUTCMilliseconds(masterServices[0].duration * 2);
+
+    //     const { body: r } = await client.createAppointment({
+    //       masterServiceId: masterServices[0].id,
+    //       startTime: firstStartTime,
+    //     }, 400);
+    //     console.log(r);
+
+    //     appointmentDate.setUTCMilliseconds(masterServices[0].duration * 1.5);
+
+    //     const { body } = await client.createAppointment({
+    //       masterServiceId: masterServices[0].id,
+    //       startTime: appointmentDate,
+    //     });
+    //   });
+    // });
   });
 
   test.todo('patch appointment actions');

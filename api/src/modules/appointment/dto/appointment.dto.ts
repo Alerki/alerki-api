@@ -14,13 +14,8 @@ import { Type } from 'class-transformer';
 export class CreateAppointmentDto implements Pick<
   Prisma.Appointment,
   'masterServiceId' |
-  'clientId' |
   'startTime'
 > {
-  @ApiProperty(AppointmentConfig.config.clientId)
-  @IsUUID()
-  readonly clientId: string;
-
   @ApiProperty(AppointmentConfig.config.masterServiceId)
   @IsUUID()
   readonly masterServiceId: string;

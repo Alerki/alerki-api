@@ -17,6 +17,7 @@ import { MasterProfileService } from '@Src/modules/profile/master-profile.servic
 import { MasterScheduleService } from '@Src/modules/profile/master-schedule.service';
 import {
   CreateMasterScheduleDto,
+  GetMasterMonthlyScheduleQueries,
   GetMasterScheduleQueries,
   PatchMasterScheduleDto,
 } from '@Src/modules/user/dto/master.dto';
@@ -25,6 +26,8 @@ import {
   UserDto,
 } from '@Src/modules/user/dto/user.dto';
 import { UserPictureService } from '@Src/modules/user/user-picture.service';
+import { MasterWeeklyScheduleService } from '@Module/profile/weekly-schedule.service';
+import { AppointmentService } from '@Module/appointment/appointment.service';
 
 /**
  * User service
@@ -44,6 +47,9 @@ export class UserService {
     private readonly userPictureService: UserPictureService,
     @Inject(forwardRef(() => MasterProfileService))
     private readonly masterProfileService: MasterProfileService,
+    @Inject(forwardRef(() => MasterWeeklyScheduleService))
+    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
+    private readonly appointmentService: AppointmentService,
   ) { }
 
   /**
@@ -465,5 +471,167 @@ export class UserService {
         id,
       },
     });
+  }
+
+  /**
+   * Get master monthly schedule
+   *
+   * @param param0 master profile ID
+   * @param param1 get master schedule options
+   * @returns monthly schedule
+   */
+  async getMasterMonthlySchedule(
+    { id }: Pick<Prisma.MasterProfile, 'id'>,
+    {
+      year,
+      month,
+    }: GetMasterMonthlyScheduleQueries,
+  ) {
+    const masterCandidate = await this.masterProfileService.getExists({
+      where: {
+        id,
+      },
+    });
+
+    const weeklySchedule =
+      await this.masterWeeklyScheduleService.getWeeklySchedule(
+        {
+          id: masterCandidate.id,
+        },
+      );
+
+    // Create date to get month appointment and master schedules
+    const searchStartDate = new Date();
+
+    if (year) {
+      searchStartDate.setUTCFullYear(year);
+    }
+
+    if (month) {
+      searchStartDate.setUTCMonth(month - 1);
+    }
+
+    const searchEndDate = new Date(searchStartDate);
+
+    searchStartDate.setUTCDate(1);
+    searchStartDate.setUTCHours(0);
+    searchStartDate.setUTCMinutes(0);
+    searchStartDate.setUTCSeconds(0);
+    searchStartDate.setUTCMilliseconds(0);
+
+    searchEndDate.setUTCMonth(month || searchEndDate.getUTCMonth() + 1);
+    searchEndDate.setUTCDate(1);
+    searchEndDate.setUTCHours(0);
+    searchEndDate.setUTCMinutes(0);
+    searchEndDate.setUTCSeconds(0);
+    searchEndDate.setUTCMilliseconds(0);
+
+    // Get appointment for the month
+    const appointments = await this.appointmentService.findMany({
+      where: {
+        startTime: {
+          gte: searchStartDate,
+          lt: searchEndDate,
+        },
+      },
+    });
+
+    // Get master schedules for the month
+    const schedules = await this.masterScheduleService.findMany({
+      where: {
+        startTime: {
+          gte: searchStartDate,
+          lt: searchEndDate,
+        },
+      },
+    });
+
+    // Create object to collect schedules days
+    const monthlySchedule: Array<any> = [];
+
+    // Variable to store days counter 1..28/29/30/31
+    let dateCounter = 1;
+
+    // Set current month
+    const currentMonth = month || new Date().getUTCMonth();
+
+    // Generate monthly schedule
+    while (true) {
+      // Create schedule item specific date
+      const date = new Date();
+      date.setUTCDate(dateCounter);
+      date.setUTCHours(0);
+      date.setUTCMinutes(0);
+      date.setUTCSeconds(0);
+      date.setUTCMilliseconds(0);
+
+      // Increment date count for next iteration
+      dateCounter++;
+
+      // Check for next month
+      if (currentMonth !== date.getUTCMonth()) {
+        break;
+      }
+
+      // Appointments for specific day in schedule
+      const dayAppointments = [];
+
+      for (let i = 0; i < appointments.length; i++) {
+        const appointmentDate = new Date(appointments[i].startTime);
+
+        if (appointmentDate.getUTCDate() === date.getUTCDate()) {
+          dayAppointments.push(appointments[i]);
+          appointments.splice(i, 1);
+        }
+      }
+
+      // Day specific schedule
+      let daySpecificSchedule;
+
+      for (let i = 0; i < schedules.length; i++) {
+        const schedulesDate = new Date(schedules[i].startTime);
+
+        if (schedulesDate.getUTCDate() === date.getUTCDate()) {
+          daySpecificSchedule = schedules[i];
+          schedules.splice(i, 1);
+          break;
+        }
+      }
+
+      // Create day specific schedule
+      const scheduledDay: Record<string, any> = {
+        date,
+        startTime: new Date(weeklySchedule.startTime),
+        endTime: new Date(weeklySchedule.endTime),
+        dayAppointments,
+      };
+
+      // Set other schedule properties
+      // Use day specific schedule or weekly schedule
+      if (daySpecificSchedule) {
+        scheduledDay.startTime = scheduledDay.startTime;
+        scheduledDay.endTime = scheduledDay.endTime;
+        scheduledDay.timezoneOffset = scheduledDay.timezoneOffset;
+        scheduledDay.dayOff = scheduledDay.dayOff;
+      } else {
+        scheduledDay.startTime = weeklySchedule.startTime;
+        scheduledDay.endTime = weeklySchedule.endTime;
+        scheduledDay.timezoneOffset = weeklySchedule.timezoneOffset;
+
+        if (
+          !weeklySchedule[
+            ApiConfig.daysOfWeek[date.getUTCDay()] as ApiConfig.DaysOfWeek
+          ]
+        ) {
+          scheduledDay.dayOff = true;
+        } else {
+          scheduledDay.dayOff = false;
+        }
+      }
+
+      monthlySchedule.push(scheduledDay);
+    }
+
+    return monthlySchedule;
   }
 }
