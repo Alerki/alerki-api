@@ -8,6 +8,7 @@ import Prisma from '@prisma/client';
 import {
   GeneralConfig,
   DaysOfWeek,
+  daysOfWeek,
 } from '@Config/api/property.config';
 import { AppointmentService } from '@Module/appointment/appointment.service';
 import { CreateAppointmentDto } from '@Module/appointment/dto/appointment.dto';
@@ -99,7 +100,7 @@ export class AppointmentControllerService {
 
     const daySpecificSchedule = await this.masterScheduleService.findFirst({
       where: {
-        date: data.startTime,
+        startTime: data.startTime,
       },
     });
 
@@ -138,8 +139,8 @@ export class AppointmentControllerService {
         );
 
       if (
-        !weekSchedule[
-          GeneralConfig.daysOfWeek[data.startTime.getUTCDay()] as DaysOfWeek
+        weekSchedule[
+          daysOfWeek[data.startTime.getUTCDay()] as DaysOfWeek
         ]
       ) {
         throw new BadRequestException(dayOffErrorMessage);

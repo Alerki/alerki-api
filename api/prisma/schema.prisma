@@ -117,13 +117,13 @@ model MasterService {
 
 model MasterSchedule {
   id             String        @id @default(uuid())
-  startTime      DateTime      @db.Time()
-  endTime        DateTime      @db.Time()
+  startTime      DateTime
+  endTime        DateTime
   timezoneOffset Int // Timezone offset GMT
-  date           DateTime      @db.Date
   dayOff         Boolean       @default(false)
   master         MasterProfile @relation(fields: [masterId], references: [id])
   masterId       String        @db.VarChar(36)
+  available      Boolean       @default(true)
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 
@@ -132,13 +132,13 @@ model MasterSchedule {
 
 model MasterWeeklySchedule {
   id             String         @id @default(uuid())
-  monday         Boolean        @default(true)
-  tuesday        Boolean        @default(true)
-  wednesday      Boolean        @default(true)
-  thursday       Boolean        @default(true)
-  friday         Boolean        @default(true)
-  saturday       Boolean        @default(false)
-  sunday         Boolean        @default(false)
+  monday         Boolean        @default(false)
+  tuesday        Boolean        @default(false)
+  wednesday      Boolean        @default(false)
+  thursday       Boolean        @default(false)
+  friday         Boolean        @default(false)
+  saturday       Boolean        @default(true)
+  sunday         Boolean        @default(true)
   master         MasterProfile?
   startTime      DateTime?      @db.Time()
   endTime        DateTime?      @db.Time()

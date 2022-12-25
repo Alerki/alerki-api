@@ -553,6 +553,30 @@ describe('UserController (e2e)', () => {
       });
     });
 
+    describe('get master monthly schedule', () => {
+      let master: UserActions;
+
+      beforeAll(async () => {
+        master = new UserActions(app, { master: true });
+        await master.register();
+
+        await master.patchWeeklySchedule({
+          startTime: new Date(),
+          endTime: new Date(),
+          timezoneOffset: 2 * 60 * 60 * 1000,
+        });
+      });
+
+      test('successfully get', async () => {
+        const { body } = await UserActions.getMasterMonthlySchedule(
+          app,
+          master.user.masterProfileId,
+        );
+
+        expect(body).toBeDefined();
+      });
+    });
+
     describe('master service actions', () => {
       describe('create master service', () => {
         test('try create service for not a master', async () => {
@@ -1217,12 +1241,6 @@ describe('UserController (e2e)', () => {
 
       describe('create schedule', () => {
         test('create schedule', async () => {
-          let date = new Date();
-          date.setUTCHours(0);
-          date.setUTCMinutes(0);
-          date.setUTCSeconds(0);
-          date.setUTCMilliseconds(0);
-
           const startTime = new Date();
           startTime.setTime(10 * 60 * 1000);
           const endTime = new Date();
@@ -1233,14 +1251,12 @@ describe('UserController (e2e)', () => {
             endTime,
             timezoneOffset: 2 * 60 * 1000,
             dayOff: false,
-            date,
           }, 201);
 
           expect(body.startTime).toBe(startTime.toISOString());
           expect(body.endTime).toBe(endTime.toISOString());
           expect(body.timezoneOffset).toBe(2 * 60 * 1000);
           expect(body.dayOff).toBe(false);
-          expect(body.date).toBe(date.toISOString());
         });
 
         test('create with exists date', async () => {
@@ -1249,35 +1265,35 @@ describe('UserController (e2e)', () => {
             endTime: new Date(12 * 60 * 1000),
             timezoneOffset: 2 * 60 * 1000,
             dayOff: false,
-            date: new Date(),
           }, 400);
 
           expect(body.message).toBe('Master schedule with the date already exists');
         });
 
         test('create with different values', async () => {
-          const date = new Date();
+          const startTime = new Date();
 
-          date.setUTCDate(date.getUTCDate() + 1);
+          startTime.setUTCDate(startTime.getUTCDate() + 1);
 
-          date.setUTCMilliseconds(0);
-          date.setUTCSeconds(0);
-          date.setUTCMinutes(0);
-          date.setUTCHours(0);
+          startTime.setUTCMilliseconds(0);
+          startTime.setUTCSeconds(0);
+          startTime.setUTCMinutes(0);
+          startTime.setUTCHours(0);
+
+          const endTime = new Date(startTime);
+          endTime.setUTCHours(12);
 
           const { body } = await user.createMasterSchedule({
-            startTime: new Date(0),
-            endTime: new Date(0),
+            startTime,
+            endTime,
             timezoneOffset: 0,
             dayOff: true,
-            date,
           });
 
-          expect(body.startTime).toBe(new Date(0).toISOString());
-          expect(body.endTime).toBe(new Date(0).toISOString());
+          expect(body.startTime).toBe(startTime.toISOString());
+          expect(body.endTime).toBe(endTime.toISOString());
           expect(body.timezoneOffset).toBe(0);
           expect(body.dayOff).toBe(true);
-          expect(body.date).toBe(date.toISOString());
         });
 
         afterAll(async () => {
@@ -1293,14 +1309,16 @@ describe('UserController (e2e)', () => {
           date.setUTCMilliseconds(0);
           date.setUTCSeconds(0);
           date.setUTCMinutes(0);
-          date.setUTCHours(0);
+          date.setUTCHours(9);
+
+          const endTime = new Date(date);
+          endTime.setHours(16);
 
           await user.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(16 * 60 * 1000),
+            startTime: date,
+            endTime,
             timezoneOffset: 2 * 60 * 1000,
             dayOff: false,
-            date,
           });
         });
 
@@ -1327,12 +1345,14 @@ describe('UserController (e2e)', () => {
         });
 
         test('try to delete schedule that not belong to the user', async () => {
+          const endTime = new Date(date);
+          endTime.setUTCHours(16);
+
           const { body: newSchedule } = await user2.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(16 * 60 * 1000),
+            startTime: date,
+            endTime,
             timezoneOffset: 2 * 60 * 1000,
             dayOff: false,
-            date,
           });
 
           const { body } = await user.deleteMasterSchedule(newSchedule.id, 400);
@@ -1343,14 +1363,17 @@ describe('UserController (e2e)', () => {
 
       describe('get master schedule cases', () => {
         test('get for current month', async () => {
-          const date = new Date();
+          const startTime = new Date();
+          startTime.setUTCHours(9);
+
+          const endTime = new Date(startTime);
+          endTime.setUTCHours(9);
 
           await user.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(9 * 60 * 1000),
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date,
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
           const { body } = await user.getMasterSchedule();
@@ -1359,100 +1382,93 @@ describe('UserController (e2e)', () => {
         });
 
         test('get schedule with year and month query', async () => {
-          const date = new Date();
+          const startTime = new Date();
+          startTime.setUTCMonth(startTime.getUTCMonth() + 1);
+          startTime.setUTCHours(9);
 
-          date.setUTCMonth(date.getUTCMonth() + 1);
+          const endTime = new Date(startTime);
 
           await user.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(9 * 60 * 1000),
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date,
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
-          date.setUTCDate(date.getUTCDate() + 1);
+          startTime.setUTCDate(startTime.getUTCDate() + 1);
 
           await user.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(9 * 60 * 1000),
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date,
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
           const { body } = await user.getMasterSchedule({
-            year: date.getUTCFullYear(),
-            month: date.getUTCMonth(),
+            year: startTime.getUTCFullYear(),
+            month: startTime.getUTCMonth(),
           });
 
           expect(body).toHaveLength(2);
         });
 
         test('get schedule with year, month and date queries', async () => {
-          const date = new Date();
+          const startTime = new Date();
+          startTime.setUTCMonth(startTime.getUTCMonth() + 3);
 
-          date.setUTCMonth(date.getUTCMonth() + 3);
+          const endTime = new Date(startTime);
 
           await user.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(9 * 60 * 1000),
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date,
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
           const { body } = await user.getMasterSchedule({
-            year: date.getUTCFullYear(),
-            month: date.getUTCMonth(),
-            date: date.getUTCDate(),
+            year: startTime.getUTCFullYear(),
+            month: startTime.getUTCMonth(),
+            date: startTime.getUTCDate(),
           });
 
-          date.setUTCHours(0);
-          date.setUTCMinutes(0);
-          date.setUTCSeconds(0);
-          date.setUTCMilliseconds(0);
-
-          expect(body.date).toBe(date.toISOString());
+          expect(body.startTime).toBe(startTime.toISOString());
         });
 
         test('get schedule with from and to query', async () => {
-          const date = new Date();
+          const startTime = new Date();
+          startTime.setUTCFullYear(startTime.getUTCFullYear() + 1);
 
-          date.setUTCFullYear(date.getUTCFullYear() + 1);
+          const endTime = new Date(startTime);
 
-          const dateFrom = new Date(date);
-          const dateTo = new Date(date);
+          const dateFrom = new Date(startTime);
+          const dateTo = new Date(startTime);
 
           dateFrom.setUTCMonth(dateFrom.getUTCMonth() - 1);
           dateTo.setUTCMonth(dateTo.getUTCMonth() + 1);
 
           await user.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(9 * 60 * 1000),
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date,
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
-          date.setUTCDate(date.getUTCDate() + 4);
+          startTime.setUTCDate(startTime.getUTCDate() + 4);
 
           await user.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(9 * 60 * 1000),
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date,
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
-          date.setUTCDate(date.getUTCDate() + 4);
+          startTime.setUTCDate(startTime.getUTCDate() + 4);
 
           await user.createMasterSchedule({
-            startTime: new Date(9 * 60 * 1000),
-            endTime: new Date(9 * 60 * 1000),
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date,
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
           const { body } = await user.getMasterSchedule({

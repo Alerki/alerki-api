@@ -78,7 +78,7 @@ export class MasterScheduleService {
     return await this.findMany({
       where: {
         masterId,
-        date: {
+        startTime: {
           gte: new Date(from).toISOString(),
           lt: new Date(to).toISOString(),
         },
@@ -100,16 +100,26 @@ export class MasterScheduleService {
   ) {
     // Find for specified date
     if (year && month && date) {
-      const searchDate = new Date();
+      const searchDateFrom = new Date();
 
-      searchDate.setUTCFullYear(year);
-      searchDate.setUTCMonth(month);
-      searchDate.setUTCDate(date);
+      searchDateFrom.setUTCFullYear(year);
+      searchDateFrom.setUTCMonth(month);
+      searchDateFrom.setUTCDate(date);
+      searchDateFrom.setUTCHours(0);
+      searchDateFrom.setUTCMinutes(0);
+      searchDateFrom.setUTCSeconds(0);
+      searchDateFrom.setUTCMilliseconds(0);
+
+      const searchDateTo = new Date(searchDateFrom);
+      searchDateTo.setUTCDate(searchDateTo.getUTCDate() + 1);
 
       return await this.prismaService.masterSchedule.findFirst({
         where: {
           masterId,
-          date: searchDate.toISOString(),
+          startTime: {
+            gte: searchDateFrom,
+            lt: searchDateTo,
+          },
         },
       });
     }
@@ -141,7 +151,7 @@ export class MasterScheduleService {
     return await this.findMany({
       where: {
         masterId,
-        date: {
+        startTime: {
           gte: dateFrom.toISOString(),
           lt: dateTo.toISOString(),
         },

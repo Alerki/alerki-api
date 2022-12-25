@@ -355,7 +355,7 @@ export class UserService {
         master: {
           id: userCandidate.masterProfileId,
         },
-        date: data.date,
+        startTime: data.startTime,
       },
     });
 
@@ -481,7 +481,7 @@ export class UserService {
    * @returns monthly schedule
    */
   async getMasterMonthlySchedule(
-    { id }: Pick<Prisma.MasterProfile, 'id'>,
+    { id: masterProfileId }: Pick<Prisma.MasterProfile, 'id'>,
     {
       year,
       month,
@@ -489,7 +489,7 @@ export class UserService {
   ) {
     const masterCandidate = await this.masterProfileService.getExists({
       where: {
-        id,
+        id: masterProfileId,
       },
     });
 
@@ -511,13 +511,13 @@ export class UserService {
       searchStartDate.setUTCMonth(month - 1);
     }
 
-    const searchEndDate = new Date(searchStartDate);
-
     searchStartDate.setUTCDate(1);
     searchStartDate.setUTCHours(0);
     searchStartDate.setUTCMinutes(0);
     searchStartDate.setUTCSeconds(0);
     searchStartDate.setUTCMilliseconds(0);
+
+    const searchEndDate = new Date(searchStartDate);
 
     searchEndDate.setUTCMonth(month || searchEndDate.getUTCMonth() + 1);
     searchEndDate.setUTCDate(1);
@@ -529,9 +529,10 @@ export class UserService {
     // Get appointment for the month
     const appointments = await this.appointmentService.findMany({
       where: {
+        masterId: masterProfileId,
         startTime: {
-          gte: searchStartDate,
-          lt: searchEndDate,
+          gte: searchStartDate.toISOString(),
+          lt: searchEndDate.toISOString(),
         },
       },
     });
@@ -539,9 +540,10 @@ export class UserService {
     // Get master schedules for the month
     const schedules = await this.masterScheduleService.findMany({
       where: {
+        masterId: masterProfileId,
         startTime: {
-          gte: searchStartDate,
-          lt: searchEndDate,
+          gte: searchStartDate.toISOString(),
+          lt: searchEndDate.toISOString(),
         },
       },
     });
@@ -553,12 +555,17 @@ export class UserService {
     let dateCounter = 1;
 
     // Set current month
-    const currentMonth = month || new Date().getUTCMonth();
+    const scheduleMonth = month !== undefined
+      ? month - 1
+      : new Date().getUTCMonth();
+    const scheduleYear = year || new Date().getUTCFullYear();
 
     // Generate monthly schedule
     while (true) {
       // Create schedule item specific date
       const date = new Date();
+      date.setUTCFullYear(scheduleYear);
+      date.setUTCMonth(scheduleMonth);
       date.setUTCDate(dateCounter);
       date.setUTCHours(0);
       date.setUTCMinutes(0);
@@ -569,7 +576,7 @@ export class UserService {
       dateCounter++;
 
       // Check for next month
-      if (currentMonth !== date.getUTCMonth()) {
+      if (scheduleMonth !== date.getUTCMonth()) {
         break;
       }
 
@@ -581,7 +588,7 @@ export class UserService {
 
         if (appointmentDate.getUTCDate() === date.getUTCDate()) {
           dayAppointments.push(appointments[i]);
-          appointments.splice(i, 1);
+          // appointments.splice(i, 1);
         }
       }
 
@@ -589,10 +596,16 @@ export class UserService {
       let daySpecificSchedule;
 
       for (let i = 0; i < schedules.length; i++) {
-        const schedulesDate = new Date(schedules[i].startTime);
+        const scheduleDate = new Date(schedules[i].startTime);
 
-        if (schedulesDate.getUTCDate() === date.getUTCDate()) {
-          daySpecificSchedule = schedules[i];
+        if (
+          scheduleDate.getUTCDate() === date.getUTCDate() &&
+          schedules[i].available
+        ) {
+          if (schedules[i].available) {
+            daySpecificSchedule = schedules[i];
+          }
+
           schedules.splice(i, 1);
           break;
         }
@@ -603,30 +616,24 @@ export class UserService {
         date,
         startTime: new Date(weeklySchedule.startTime),
         endTime: new Date(weeklySchedule.endTime),
-        dayAppointments,
+        appointments: dayAppointments,
       };
 
       // Set other schedule properties
       // Use day specific schedule or weekly schedule
       if (daySpecificSchedule) {
-        scheduledDay.startTime = scheduledDay.startTime;
-        scheduledDay.endTime = scheduledDay.endTime;
-        scheduledDay.timezoneOffset = scheduledDay.timezoneOffset;
-        scheduledDay.dayOff = scheduledDay.dayOff;
+        scheduledDay.startTime = daySpecificSchedule.startTime;
+        scheduledDay.endTime = daySpecificSchedule.endTime;
+        scheduledDay.timezoneOffset = daySpecificSchedule.timezoneOffset;
+        scheduledDay.dayOff = daySpecificSchedule.dayOff;
       } else {
         scheduledDay.startTime = weeklySchedule.startTime;
         scheduledDay.endTime = weeklySchedule.endTime;
         scheduledDay.timezoneOffset = weeklySchedule.timezoneOffset;
 
-        if (
-          !weeklySchedule[
-            ApiConfig.daysOfWeek[date.getUTCDay()] as ApiConfig.DaysOfWeek
-          ]
-        ) {
-          scheduledDay.dayOff = true;
-        } else {
-          scheduledDay.dayOff = false;
-        }
+        scheduledDay.dayOff = weeklySchedule[
+          ApiConfig.daysOfWeek[date.getUTCDay()] as ApiConfig.DaysOfWeek
+        ];
       }
 
       monthlySchedule.push(scheduledDay);

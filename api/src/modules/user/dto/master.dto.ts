@@ -123,8 +123,7 @@ export class CreateMasterScheduleDto implements Pick<
   'startTime' |
   'endTime' |
   'timezoneOffset' |
-  'dayOff' |
-  'date'
+  'dayOff'
 > {
   @ApiProperty(MasterScheduleConfig.config.startTime)
   @Type(() => Date)
@@ -141,11 +140,6 @@ export class CreateMasterScheduleDto implements Pick<
   @Max(MasterScheduleConfig.config.timezoneOffset.maximum)
   @IsNumber()
   readonly timezoneOffset: number;
-
-  @ApiProperty(MasterScheduleConfig.config.data)
-  @Type(() => Date)
-  @IsDate()
-  readonly date: Date;
 
   @ApiProperty(MasterScheduleConfig.config.dayOff)
   @IsBoolean()
@@ -176,12 +170,14 @@ export class GetMasterScheduleQueries {
 
 export class GetMasterMonthlyScheduleQueries {
   @IsOptional()
+  @Type(() => Number)
   @Min(2000)
   @Max(3000)
   @IsNumber()
   readonly year?: number;
 
   @IsOptional()
+  @Type(() => Number)
   @Min(1)
   @Max(12)
   @IsNumber()

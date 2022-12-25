@@ -33,7 +33,6 @@ export class AppointmentController {
     private readonly appointmentControllerService: AppointmentControllerService,
   ) { }
 
-
   /**
    * Create appointment
    *

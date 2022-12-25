@@ -5,6 +5,7 @@ import { CreateAppointmentDto } from '@Module/appointment/dto/appointment.dto';
 import {
   CreateMasterScheduleDto,
   CreateMasterServiceDto,
+  GetMasterMonthlyScheduleQueries,
   GetMasterScheduleQueries,
   PatchMasterScheduleDto,
   PatchMasterWeeklyScheduleDto,
@@ -282,7 +283,7 @@ export class UserActions {
   async getWeeklySchedule(expect: number = 200) {
     const weeklySchedule = await UserActions.getWeeklySchedule(
       this.app,
-      this.user.id,
+      this.user.masterProfileId,
       expect,
     );
 
@@ -439,6 +440,51 @@ export class UserActions {
       .get(`/user/master/${masterProfileId}/schedule`)
       .query(queries)
       .expect(expect);
+  }
+
+  /**
+   * Get master monthly schedule
+   *
+   * @param id master ID
+   * @param expect expected response
+   * @returns master monthly schedule
+   */
+  async getMasterMonthlySchedule(
+    id: string,
+    query: GetMasterMonthlyScheduleQueries = {},
+    expect: number = 200,
+  ) {
+    return await UserActions.getMasterMonthlySchedule(
+      this.app,
+      id,
+      query,
+      expect,
+    );
+  }
+
+  /**
+   * Get master monthly schedule
+   *
+   * @param app express application
+   * @param id master ID
+   * @param expect expected result
+   * @returns master monthly schedule
+   */
+  static async getMasterMonthlySchedule(
+    app: Application,
+    id: string,
+    query: GetMasterMonthlyScheduleQueries = {},
+    expect: number = 200,
+  ) {
+    return await UserActions.request(
+      app,
+      {
+        url: `/user/master/${id}/monthly-schedule`,
+        method: 'get',
+        query,
+        expect,
+      },
+    );
   }
 
   /**
