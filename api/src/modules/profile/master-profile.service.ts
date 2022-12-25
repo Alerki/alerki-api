@@ -1,5 +1,6 @@
 import { MasterWeeklyScheduleService } from '@Src/modules/profile/weekly-schedule.service';
 import {
+  BadRequestException,
   forwardRef,
   Inject,
   Injectable,
@@ -80,5 +81,26 @@ export class MasterProfileService {
     }
 
     return candidate;
+  }
+
+  /**
+   * Check if user is a master
+   *
+   * @param user user profile
+   */
+  checkIfUserIsMaster(user: Prisma.User) {
+    if (!user.roles.includes('master')) {
+      throw new BadRequestException('User is not a master');
+    }
+  }
+
+  checkIfProfileIsAvailable(
+    user: Prisma.User & { masterProfile: Prisma.MasterProfile },
+  ) {
+    if (!user.masterProfile.available) {
+      throw new BadRequestException(
+        'Master profile is unavailable, please finish setting up account',
+      );
+    }
   }
 }

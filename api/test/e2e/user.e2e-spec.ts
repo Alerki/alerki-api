@@ -610,6 +610,21 @@ describe('UserController (e2e)', () => {
         });
 
         test('create with correct parameters', async () => {
+          const st = new Date();
+          st.setUTCHours(10);
+          const et = new Date(st);
+          et.setUTCDate(14);
+
+          await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              startTime: st,
+              endTime: et,
+              timezoneOffset: 2 * 60 * 60 * 1000,
+            })
+            .expect(200);
+
           await request(app)
             .post('/user/master/service')
             .set({ Authorization: 'Bearer ' + user.accessToken })
@@ -710,6 +725,22 @@ describe('UserController (e2e)', () => {
             .expect(400);
 
           expect(body.message).toMatchObject(['locationLat must not be greater than 90']);
+        });
+
+        test('try create master service with unavailable account', async () => {
+          const master = new UserActions(app, { master: true });
+          await master.register();
+
+          const { body } = await master.createMasterService({
+            name: 'Name',
+            currency: 'UAH',
+            price: 100,
+            duration: 10,
+            locationLat: 0,
+            locationLng: 0,
+          }, 400);
+
+          expect(body.message).toBe('Master profile is unavailable, please finish setting up account');
         });
 
         test('try to create service with bad location longitude -181', async () => {
@@ -819,8 +850,33 @@ describe('UserController (e2e)', () => {
           } = await registerUser(app);
 
           await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + accessToken })
+            .send({
+              startTime: new Date(),
+              endTime: new Date(),
+              timezoneOffset: 2 * 60 * 60 * 1000,
+            })
+            .expect(400);
+
+          await request(app)
             .patch('/user/enable-master')
             .set({ Authorization: 'Bearer ' + accessToken })
+            .expect(200);
+
+          const st = new Date();
+          st.setUTCHours(10);
+          const et = new Date(st);
+          et.setUTCDate(14);
+
+          await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + accessToken })
+            .send({
+              startTime: st,
+              endTime: et,
+              timezoneOffset: 2 * 60 * 60 * 1000,
+            })
             .expect(200);
 
           const masterService = await request(app)
@@ -1000,6 +1056,16 @@ describe('UserController (e2e)', () => {
         beforeAll(async () => {
           user = new UserActions(app, { master: true });
           await user.register();
+
+          const st = new Date();
+          st.setUTCHours(10);
+          const et = new Date(st);
+          et.setUTCDate(14);
+          await user.patchWeeklySchedule({
+            startTime: st,
+            endTime: et,
+            timezoneOffset: 2 * 60 * 60 * 1000,
+          });
 
           const { body: services } = await UserActions.getServices(
             app,

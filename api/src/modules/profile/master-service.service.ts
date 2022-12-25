@@ -118,11 +118,14 @@ export class MasterServiceService {
       where: {
         id: data.id,
       },
+      include: {
+        masterProfile: true,
+      },
     });
 
-    if (!user.masterProfileId) {
-      throw new BadRequestException('User is not a master');
-    }
+    this.masterProfileService.checkIfUserIsMaster(user);
+
+    this.masterProfileService.checkIfProfileIsAvailable(user);
 
     // Check if master service with the name already exists
     const checkMasterService = await this.findFirst({

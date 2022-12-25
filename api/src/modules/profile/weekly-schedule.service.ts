@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   forwardRef,
   Inject,
   Injectable,
@@ -73,6 +74,8 @@ export class MasterWeeklyScheduleService {
         masterProfile: true,
       },
     });
+
+    this.masterProfileService.checkIfUserIsMaster(userProfile);
 
     const updatedWeeklySchedule =
       await this.prismaService.masterWeeklySchedule.update({
