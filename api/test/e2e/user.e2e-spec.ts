@@ -174,13 +174,13 @@ describe('UserController (e2e)', () => {
         expect(userAfter.masterProfile.weeklyScheduleId).toBeDefined();
         expect(userAfter.masterProfile.weeklySchedule).toBeDefined();
         expect(userAfter.masterProfile.weeklySchedule).toMatchObject({
-          monday: true,
-          tuesday: true,
-          wednesday: true,
-          thursday: true,
-          friday: true,
-          saturday: false,
-          sunday: false,
+          monday: false,
+          tuesday: false,
+          wednesday: false,
+          thursday: false,
+          friday: false,
+          saturday: true,
+          sunday: true,
         });
         expect(userAfter.masterProfile.available).toBe(false);
       });
@@ -1086,13 +1086,13 @@ describe('UserController (e2e)', () => {
             .expect(200);
 
           expect(body).toBeDefined();
-          expect(body.monday).toBeTruthy();
-          expect(body.tuesday).toBeTruthy();
-          expect(body.wednesday).toBeTruthy();
-          expect(body.thursday).toBeTruthy();
-          expect(body.friday).toBeTruthy();
-          expect(body.saturday).toBeFalsy();
-          expect(body.sunday).toBeFalsy();
+          expect(body.monday).toBe(false);
+          expect(body.tuesday).toBe(false);
+          expect(body.wednesday).toBe(false);
+          expect(body.thursday).toBe(false);
+          expect(body.friday).toBe(false);
+          expect(body.saturday).toBe(true);
+          expect(body.sunday).toBe(true);
         });
 
         test('try to get weekly schedule with bad UUID', async () => {

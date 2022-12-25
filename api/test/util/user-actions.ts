@@ -433,7 +433,7 @@ export class UserActions {
   static async getMasterSchedule(
     app: Application,
     masterProfileId: string,
-    queries: GetMasterScheduleQueries,
+    queries: Partial<GetMasterScheduleQueries>,
     expect: number = 200,
   ) {
     return await request(app)
