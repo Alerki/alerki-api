@@ -238,9 +238,6 @@ export class AppointmentControllerService {
             gte: currentDate,
           },
         },
-        include: {
-          masterService: true,
-        },
       });
     } else if (master) {
       this.masterProfileService.checkIfUserIsMaster(userCandidate);
