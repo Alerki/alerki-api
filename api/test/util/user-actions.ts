@@ -1,7 +1,7 @@
 import type { Application } from 'express';
 import * as request from 'supertest';
 
-import { CreateAppointmentDto } from '@Module/appointment/dto/appointment.dto';
+import { CreateAppointmentDto, GetAppointmentQueries } from '@Module/appointment/dto/appointment.dto';
 import {
   CreateMasterScheduleDto,
   CreateMasterServiceDto,
@@ -628,6 +628,67 @@ export class UserActions {
       send: data,
       expect,
     });
+  }
+
+  /**
+   * Get appointment
+   *
+   * @param query query to get appointment
+   * @param expect expected response
+   * @returns appointment
+   */
+  async getAppointment(
+    query: GetAppointmentQueries = {},
+    expect: number = 200,
+  ) {
+    return this.request({
+      url: '/appointment',
+      method: 'get',
+      query,
+      expect,
+    });
+  }
+
+  /**
+   * Get appointment by ID
+   *
+   * @param app express application
+   * @param id appointment ID
+   * @param expect expected response
+   * @returns appointment
+   */
+  async getAppointmentById(
+    id: string,
+    expect: number = 200,
+  ) {
+    return await UserActions.getAppointmentById(
+      this.app,
+      id,
+      expect,
+    );
+  }
+
+  /**
+   * Get appointment by ID
+   *
+   * @param app express application
+   * @param id appointment ID
+   * @param expect expected response
+   * @returns appointment
+   */
+  static async getAppointmentById(
+    app: Application,
+    id: string,
+    expect: number = 200,
+  ) {
+    return await UserActions.request(
+      app,
+      {
+        url: `/appointment/${id}`,
+        method: 'get',
+        expect,
+      },
+    );
   }
 
   /**

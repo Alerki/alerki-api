@@ -77,7 +77,7 @@ export class AppointmentService {
     callback?: () => never,
   ) {
     // Check if master exists
-    const candidate = await this.prismaService.appointment.findFirst(data);
+    const candidate = await this.findFirst(data);
 
     if (!candidate) {
       if (!callback) {

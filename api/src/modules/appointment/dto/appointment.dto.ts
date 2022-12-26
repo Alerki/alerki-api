@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
   IsDate,
+  IsOptional,
   IsUUID,
 } from 'class-validator';
 
@@ -25,8 +26,10 @@ export class CreateAppointmentDto implements Pick<
 
 export class GetAppointmentQueries {
   @Type(() => Boolean)
+  @IsOptional()
   readonly client?: boolean;
 
   @Type(() => Boolean)
+  @IsOptional()
   readonly master?: boolean;
 }

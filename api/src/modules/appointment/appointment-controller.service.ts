@@ -254,14 +254,13 @@ export class AppointmentControllerService {
 
     return await this.appointmentService.findMany({
       where: {
-        masterId: userCandidate.masterProfileId,
         OR: [
-          {
-            masterId: userCandidate.masterProfileId,
-          },
           {
             clientId: userCandidate.clientProfileId,
           },
+          userCandidate.roles.includes('master')
+            ? { masterId: userCandidate.masterProfileId }
+            : undefined,
         ],
         startTime: {
           gte: currentDate,
