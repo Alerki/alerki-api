@@ -195,10 +195,7 @@ export class AppointmentControllerService {
       });
     }
 
-    if (!weekSchedule) {
-      console.log(masterCandidate.masterProfile.weeklyScheduleId);
-      console.log(weekSchedule);
-    }
+    console.log(daySpecificSchedule, weekSchedule);
 
     return await this.appointmentService.create({
       masterId: masterCandidate.masterProfileId,
