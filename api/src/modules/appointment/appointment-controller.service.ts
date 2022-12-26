@@ -127,11 +127,13 @@ export class AppointmentControllerService {
       }
     }
 
-    let weekSchedule = await this.masterWeeklyScheduleService.getWeeklySchedule(
-      { id: masterCandidate.masterProfileId },
-    );
+    let weekSchedule: Prisma.MasterWeeklySchedule;
 
     if (!daySpecificSchedule) {
+      weekSchedule = await this.masterWeeklyScheduleService.getWeeklySchedule(
+        { id: masterCandidate.masterProfileId },
+      );
+
       if (
         weekSchedule[
           daysOfWeek[data.startTime.getUTCDay()] as DaysOfWeek
@@ -195,8 +197,6 @@ export class AppointmentControllerService {
       });
     }
 
-    console.log(daySpecificSchedule, weekSchedule);
-
     return await this.appointmentService.create({
       masterId: masterCandidate.masterProfileId,
       masterServiceId: serviceCandidate.id,
@@ -204,7 +204,7 @@ export class AppointmentControllerService {
       startTime: data.startTime,
       endTime: endTime,
       timezoneOffset:
-        daySpecificSchedule?.timezoneOffset ||
+        daySpecificSchedule?.timezoneOffset ??
         weekSchedule.timezoneOffset,
     });
   }
