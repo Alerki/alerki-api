@@ -1,3 +1,4 @@
+import { AppointmentModule } from '@Module/appointment/appointment.module';
 import { forwardRef, Module } from '@nestjs/common';
 
 import { ProfileModule } from '@Src/modules/profile/profile.module';
@@ -15,6 +16,7 @@ import { UserService } from '@Src/modules/user/user.service';
   imports: [
     forwardRef(() => ServiceModule),
     forwardRef(() => ProfileModule),
+    forwardRef(() => AppointmentModule),
   ],
   exports: [
     UserService,

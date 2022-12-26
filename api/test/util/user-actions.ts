@@ -1,14 +1,18 @@
 import type { Application } from 'express';
 import * as request from 'supertest';
 
+import { CreateAppointmentDto } from '@Module/appointment/dto/appointment.dto';
 import {
   CreateMasterScheduleDto,
+  CreateMasterServiceDto,
+  GetMasterMonthlyScheduleQueries,
   GetMasterScheduleQueries,
   PatchMasterScheduleDto,
+  PatchMasterWeeklyScheduleDto,
 } from '@Module/user/dto/master.dto';
-import Prisma from '@prisma/client';
 import getCookies from '@Test/util/get-cookies';
 import { randomString } from '@Test/util/random-string';
+import Prisma from '@prisma/client';
 
 interface RequestI {
   url: string,
@@ -279,7 +283,7 @@ export class UserActions {
   async getWeeklySchedule(expect: number = 200) {
     const weeklySchedule = await UserActions.getWeeklySchedule(
       this.app,
-      this.user.id,
+      this.user.masterProfileId,
       expect,
     );
 
@@ -315,7 +319,10 @@ export class UserActions {
    * @param expect expected response
    * @returns patched master weekly schedule
    */
-  async patchWeeklySchedule(data: any, expect: number = 200) {
+  async patchWeeklySchedule(
+    data: PatchMasterWeeklyScheduleDto,
+    expect: number = 200,
+  ) {
     const response = this.request({
       url: '/user/master/weekly-schedule',
       method: 'patch',
@@ -324,6 +331,54 @@ export class UserActions {
     });
 
     return response;
+  }
+
+  /**
+   * Get services
+   *
+   * @param app express application
+   * @param name service name
+   * @returns services
+   */
+  static async getServices(
+    app: Application,
+    name: string,
+    expect: number = 200,
+  ) {
+    return await UserActions.request(
+      app,
+      {
+        url: '/service',
+        method: 'get',
+        query: {
+          name,
+        },
+        expect,
+      },
+    );
+  }
+
+  /**
+   * Get master service
+   *
+   * @param app express application
+   * @param serviceId service ID
+   * @param expect expected response
+   * @returns
+   */
+  static async getMasterServices(
+    app: Application,
+    serviceId: string,
+    expect: number = 200,
+  ) {
+    return await UserActions.request(
+      app,
+      {
+        url: `/service/${serviceId}/master`,
+        method: 'get',
+        expect,
+      },
+    );
   }
 
   /**
@@ -378,13 +433,58 @@ export class UserActions {
   static async getMasterSchedule(
     app: Application,
     masterProfileId: string,
-    queries: GetMasterScheduleQueries,
+    queries: Partial<GetMasterScheduleQueries>,
     expect: number = 200,
   ) {
     return await request(app)
       .get(`/user/master/${masterProfileId}/schedule`)
       .query(queries)
       .expect(expect);
+  }
+
+  /**
+   * Get master monthly schedule
+   *
+   * @param id master ID
+   * @param expect expected response
+   * @returns master monthly schedule
+   */
+  async getMasterMonthlySchedule(
+    id: string,
+    query: GetMasterMonthlyScheduleQueries = {},
+    expect: number = 200,
+  ) {
+    return await UserActions.getMasterMonthlySchedule(
+      this.app,
+      id,
+      query,
+      expect,
+    );
+  }
+
+  /**
+   * Get master monthly schedule
+   *
+   * @param app express application
+   * @param id master ID
+   * @param expect expected result
+   * @returns master monthly schedule
+   */
+  static async getMasterMonthlySchedule(
+    app: Application,
+    id: string,
+    query: GetMasterMonthlyScheduleQueries = {},
+    expect: number = 200,
+  ) {
+    return await UserActions.request(
+      app,
+      {
+        url: `/user/master/${id}/monthly-schedule`,
+        method: 'get',
+        query,
+        expect,
+      },
+    );
   }
 
   /**
@@ -453,6 +553,78 @@ export class UserActions {
     return await this.request({
       url: `/user/master/schedule/${scheduleId}`,
       method: 'patch',
+      send: data,
+      expect,
+    });
+  }
+
+  /**
+   * Create master service
+   *
+   * @param data new service data
+   * @param expect expected response
+   * @returns new master service
+   */
+  async createMasterService(
+    data: CreateMasterServiceDto,
+    expect: number = 201,
+  ) {
+    return this.request({
+      url: '/user/master/service',
+      method: 'post',
+      send: data,
+      expect,
+    });
+  }
+
+  /**
+   * Get master services
+   *
+   * @param expect expected response
+   * @returns master services
+   */
+  async getOwnMasterService(
+    expect: number = 200,
+  ) {
+    return this.request({
+      url: `/user/master/${this.user.masterProfileId}/service`,
+      method: 'get',
+      expect,
+    });
+  }
+
+  /**
+   * Delete master service
+   *
+   * @param masterServiceId master service ID
+   * @param expect expected response
+   * @returns deleted master service
+   */
+  async deleteMasterService(
+    masterServiceId: string,
+    expect: number = 200,
+  ) {
+    return await this.request({
+      url: `/user/master/service/${masterServiceId}`,
+      method: 'delete',
+      expect,
+    });
+  }
+
+  /**
+   * Create appointment
+   *
+   * @param data create appointment data
+   * @param expect expected response
+   * @returns new appointment
+   */
+  async createAppointment(
+    data: CreateAppointmentDto,
+    expect: number = 201,
+  ) {
+    return await this.request({
+      url: '/appointment',
+      method: 'post',
       send: data,
       expect,
     });

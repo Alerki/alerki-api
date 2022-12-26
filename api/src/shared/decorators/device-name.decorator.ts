@@ -1,4 +1,7 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import {
+  createParamDecorator,
+  ExecutionContext,
+} from '@nestjs/common';
 import * as DeviceDetector from 'device-detector-js';
 
 const deviceDetector = new DeviceDetector();

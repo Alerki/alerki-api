@@ -174,15 +174,15 @@ describe('UserController (e2e)', () => {
         expect(userAfter.masterProfile.weeklyScheduleId).toBeDefined();
         expect(userAfter.masterProfile.weeklySchedule).toBeDefined();
         expect(userAfter.masterProfile.weeklySchedule).toMatchObject({
-          monday: true,
-          tuesday: true,
-          wednesday: true,
-          thursday: true,
-          friday: true,
-          saturday: false,
-          sunday: false,
+          monday: false,
+          tuesday: false,
+          wednesday: false,
+          thursday: false,
+          friday: false,
+          saturday: true,
+          sunday: true,
         });
-        expect(userAfter.masterProfile.available).toBe(true);
+        expect(userAfter.masterProfile.available).toBe(false);
       });
 
       test('PATCH disable-master', async () => {
@@ -543,13 +543,37 @@ describe('UserController (e2e)', () => {
         const { body } = await user2.getMasterProfile();
 
         expect(body.weeklyScheduleId).toHaveLength(36);
-        expect(body.available).toBe(true);
+        expect(body.available).toBe(false);
       });
 
       test('get not exists master profile', async () => {
         const { body } = await UserActions.getMasterProfile(app, randomUUID(), 404);
 
         expect(body.message).toBe('Master profile not exists');
+      });
+    });
+
+    describe('get master monthly schedule', () => {
+      let master: UserActions;
+
+      beforeAll(async () => {
+        master = new UserActions(app, { master: true });
+        await master.register();
+
+        await master.patchWeeklySchedule({
+          startTime: new Date(),
+          endTime: new Date(),
+          timezoneOffset: 2 * 60 * 60 * 1000,
+        });
+      });
+
+      test('successfully get', async () => {
+        const { body } = await UserActions.getMasterMonthlySchedule(
+          app,
+          master.user.masterProfileId,
+        );
+
+        expect(body).toBeDefined();
       });
     });
 
@@ -586,6 +610,21 @@ describe('UserController (e2e)', () => {
         });
 
         test('create with correct parameters', async () => {
+          const st = new Date();
+          st.setUTCHours(10);
+          const et = new Date(st);
+          et.setUTCDate(14);
+
+          await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + user.accessToken })
+            .send({
+              startTime: st,
+              endTime: et,
+              timezoneOffset: 2 * 60 * 60 * 1000,
+            })
+            .expect(200);
+
           await request(app)
             .post('/user/master/service')
             .set({ Authorization: 'Bearer ' + user.accessToken })
@@ -688,6 +727,22 @@ describe('UserController (e2e)', () => {
           expect(body.message).toMatchObject(['locationLat must not be greater than 90']);
         });
 
+        test('try create master service with unavailable account', async () => {
+          const master = new UserActions(app, { master: true });
+          await master.register();
+
+          const { body } = await master.createMasterService({
+            name: 'Name',
+            currency: 'UAH',
+            price: 100,
+            duration: 10,
+            locationLat: 0,
+            locationLng: 0,
+          }, 400);
+
+          expect(body.message).toBe('Master profile is unavailable, please finish setting up account');
+        });
+
         test('try to create service with bad location longitude -181', async () => {
           const { body } = await request(app)
             .post('/user/master/service')
@@ -765,7 +820,7 @@ describe('UserController (e2e)', () => {
               locationLng: 1.2,
               service: {
                 name: 'Man haircut',
-                available: false,
+                available: true,
               },
               currency: {
                 code: 'UAH',
@@ -795,8 +850,33 @@ describe('UserController (e2e)', () => {
           } = await registerUser(app);
 
           await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + accessToken })
+            .send({
+              startTime: new Date(),
+              endTime: new Date(),
+              timezoneOffset: 2 * 60 * 60 * 1000,
+            })
+            .expect(400);
+
+          await request(app)
             .patch('/user/enable-master')
             .set({ Authorization: 'Bearer ' + accessToken })
+            .expect(200);
+
+          const st = new Date();
+          st.setUTCHours(10);
+          const et = new Date(st);
+          et.setUTCDate(14);
+
+          await request(app)
+            .patch('/user/master/weekly-schedule')
+            .set({ Authorization: 'Bearer ' + accessToken })
+            .send({
+              startTime: st,
+              endTime: et,
+              timezoneOffset: 2 * 60 * 60 * 1000,
+            })
             .expect(200);
 
           const masterService = await request(app)
@@ -968,6 +1048,91 @@ describe('UserController (e2e)', () => {
           expect(body.message).toMatchObject(['locationLng must not be greater than 180']);
         });
       });
+
+      describe('delete master service', () => {
+        let user: UserActions;
+        let serviceName = 'Not exists service';
+
+        beforeAll(async () => {
+          user = new UserActions(app, { master: true });
+          await user.register();
+
+          const st = new Date();
+          st.setUTCHours(10);
+          const et = new Date(st);
+          et.setUTCDate(14);
+          await user.patchWeeklySchedule({
+            startTime: st,
+            endTime: et,
+            timezoneOffset: 2 * 60 * 60 * 1000,
+          });
+
+          const { body: services } = await UserActions.getServices(
+            app,
+            serviceName,
+            404,
+          );
+
+          expect(services.message).toBe('Services not exists');
+
+          await user.createMasterService({
+            name: serviceName,
+            currency: 'UAH',
+            price: 100,
+            duration: 12 * 60 * 1000,
+            locationLat: 0.1,
+            locationLng: 0.1,
+          });
+
+          const { body: service } = await UserActions.getServices(
+            app,
+            serviceName,
+          );
+
+          expect(service[0].available).toBe(true);
+        });
+
+        test('delete master service successfully', async () => {
+          const { body: masterServices } = await user.getOwnMasterService();
+
+          expect(masterServices.length).toBeGreaterThanOrEqual(1);
+
+          await user.deleteMasterService(
+            masterServices[0].id,
+          );
+
+          const updatedService = await prisma.service.findFirst({
+            where: {
+              id: masterServices[0].serviceId,
+            },
+          });
+
+          expect(updatedService.available).toBe(false);
+        });
+
+        test('try delete service that not belongs to the user', async () => {
+          const newUser = new UserActions(app, { master: true });
+          await newUser.register();
+
+          const { body: newService } = await user.createMasterService({
+            name: 'Name',
+            currency: 'UAH',
+            price: 10,
+            duration: 12,
+            locationLat: 0,
+            locationLng: 0,
+          });
+
+          const { body: masterServices } = await user.getOwnMasterService();
+
+          const { body } = await newUser.deleteMasterService(
+            masterServices[0].id,
+            400,
+          );
+
+          expect(body.message).toBe('The service not belongs to the user');
+        });
+      });
     });
 
     describe('master weekly schedule actions', () => {
@@ -987,13 +1152,13 @@ describe('UserController (e2e)', () => {
             .expect(200);
 
           expect(body).toBeDefined();
-          expect(body.monday).toBeTruthy();
-          expect(body.tuesday).toBeTruthy();
-          expect(body.wednesday).toBeTruthy();
-          expect(body.thursday).toBeTruthy();
-          expect(body.friday).toBeTruthy();
-          expect(body.saturday).toBeFalsy();
-          expect(body.sunday).toBeFalsy();
+          expect(body.monday).toBe(false);
+          expect(body.tuesday).toBe(false);
+          expect(body.wednesday).toBe(false);
+          expect(body.thursday).toBe(false);
+          expect(body.friday).toBe(false);
+          expect(body.saturday).toBe(true);
+          expect(body.sunday).toBe(true);
         });
 
         test('try to get weekly schedule with bad UUID', async () => {
@@ -1024,7 +1189,11 @@ describe('UserController (e2e)', () => {
         });
 
         test('bulk patch', async () => {
+          const startTime = new Date();
+          startTime.setTime(9 * 60 * 1000);
 
+          const endTime = new Date();
+          endTime.setTime(9 * 60 * 1000);
 
           const { body } = await user.patchWeeklySchedule({
             monday: false,
@@ -1034,8 +1203,8 @@ describe('UserController (e2e)', () => {
             friday: false,
             saturday: true,
             sunday: true,
-            startTime: 9 * 60 * 1000,
-            endTime: 17 * 60 * 1000,
+            startTime,
+            endTime,
             timezoneOffset: 2 * 60 * 1000,
           });
 
@@ -1046,9 +1215,24 @@ describe('UserController (e2e)', () => {
           expect(body.friday).toBe(false);
           expect(body.saturday).toBe(true);
           expect(body.sunday).toBe(true);
-          expect(body.startTime).toBe(9 * 60 * 1000);
-          expect(body.endTime).toBe(17 * 60 * 1000);
+          expect(body.startTime).toBe(startTime.toISOString());
+          expect(body.endTime).toBe(endTime.toISOString());
           expect(body.timezoneOffset).toBe(2 * 60 * 1000);
+
+          const { body: masterProfile } = await user.getMasterProfile();
+
+          expect(masterProfile.available).toBe(true);
+        });
+
+        test('patch weekly schedule to make master unavailable', async () => {
+          const { body } = await user.patchWeeklySchedule({
+            startTime: null,
+            endTime: null,
+          });
+
+          const { body: masterProfile } = await user.getMasterProfile();
+
+          expect(masterProfile.available).toBe(false);
         });
 
         test('patch each field separately', async () => {
@@ -1072,17 +1256,21 @@ describe('UserController (e2e)', () => {
             expect(body[day]).toBe(true);
           }
 
+          let date1 = new Date();
+          date1.setTime(9 * 60 * 1000);
           const { body: body1 } = await user.patchWeeklySchedule({
-            startTime: 9 * 60 * 1000,
+            startTime: date1,
           });
 
-          expect(body1.startTime).toBe(9 * 60 * 1000);
+          expect(body1.startTime).toBe(date1.toISOString());
 
+          let date2 = new Date();
+          date2.setTime(9 * 60 * 1000);
           const { body: body2 } = await user.patchWeeklySchedule({
-            startTime: 9 * 60 * 1000,
+            startTime: date2,
           });
 
-          expect(body2.startTime).toBe(9 * 60 * 1000);
+          expect(body2.startTime).toBe(date2.toISOString());
         });
 
         test('single day patch', async () => {
@@ -1119,72 +1307,59 @@ describe('UserController (e2e)', () => {
 
       describe('create schedule', () => {
         test('create schedule', async () => {
-          let date = new Date();
-
-          date.setUTCMilliseconds(0);
-          date.setUTCSeconds(0);
-          date.setUTCMinutes(0);
-          date.setUTCHours(0);
+          const startTime = new Date();
+          startTime.setTime(10 * 60 * 1000);
+          const endTime = new Date();
+          endTime.setTime(12 * 60 * 1000);
 
           const { body } = await user.createMasterSchedule({
-            startTime: 10 * 60 * 1000,
-            endTime: 12 * 60 * 1000,
+            startTime,
+            endTime,
             timezoneOffset: 2 * 60 * 1000,
             dayOff: false,
-            date: date.toISOString(),
           }, 201);
 
-          expect(body.startTime).toBe(10 * 60 * 1000);
-          expect(body.endTime).toBe(12 * 60 * 1000);
+          expect(body.startTime).toBe(startTime.toISOString());
+          expect(body.endTime).toBe(endTime.toISOString());
           expect(body.timezoneOffset).toBe(2 * 60 * 1000);
           expect(body.dayOff).toBe(false);
-          expect(body.date).toBe(date.toISOString());
         });
 
         test('create with exists date', async () => {
-          let date = new Date();
-
           const { body } = await user.createMasterSchedule({
-            startTime: 10 * 60 * 1000,
-            endTime: 12 * 60 * 1000,
+            startTime: new Date(10 * 60 * 1000),
+            endTime: new Date(12 * 60 * 1000),
             timezoneOffset: 2 * 60 * 1000,
             dayOff: false,
-            date: date.toISOString(),
           }, 400);
 
           expect(body.message).toBe('Master schedule with the date already exists');
         });
 
         test('create with different values', async () => {
-          const date = new Date();
+          const startTime = new Date();
 
-          date.setUTCDate(date.getUTCDate() + 1);
+          startTime.setUTCDate(startTime.getUTCDate() + 1);
 
-          date.setUTCMilliseconds(0);
-          date.setUTCSeconds(0);
-          date.setUTCMinutes(0);
-          date.setUTCHours(0);
+          startTime.setUTCMilliseconds(0);
+          startTime.setUTCSeconds(0);
+          startTime.setUTCMinutes(0);
+          startTime.setUTCHours(0);
 
-          const { body } = await user.request(
-            {
-              url: '/user/master/schedule',
-              method: 'post',
-              send: {
-                startTime: 0,
-                endTime: 0,
-                timezoneOffset: 0,
-                dayOff: true,
-                date: date.toISOString(),
-              },
-              expect: 201,
-            },
-          );
+          const endTime = new Date(startTime);
+          endTime.setUTCHours(12);
 
-          expect(body.startTime).toBe(0);
-          expect(body.endTime).toBe(0);
+          const { body } = await user.createMasterSchedule({
+            startTime,
+            endTime,
+            timezoneOffset: 0,
+            dayOff: true,
+          });
+
+          expect(body.startTime).toBe(startTime.toISOString());
+          expect(body.endTime).toBe(endTime.toISOString());
           expect(body.timezoneOffset).toBe(0);
           expect(body.dayOff).toBe(true);
-          expect(body.date).toBe(date.toISOString());
         });
 
         afterAll(async () => {
@@ -1200,14 +1375,16 @@ describe('UserController (e2e)', () => {
           date.setUTCMilliseconds(0);
           date.setUTCSeconds(0);
           date.setUTCMinutes(0);
-          date.setUTCHours(0);
+          date.setUTCHours(9);
+
+          const endTime = new Date(date);
+          endTime.setHours(16);
 
           await user.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 16 * 60 * 1000,
+            startTime: date,
+            endTime,
             timezoneOffset: 2 * 60 * 1000,
             dayOff: false,
-            date: date.toISOString(),
           });
         });
 
@@ -1234,12 +1411,14 @@ describe('UserController (e2e)', () => {
         });
 
         test('try to delete schedule that not belong to the user', async () => {
+          const endTime = new Date(date);
+          endTime.setUTCHours(16);
+
           const { body: newSchedule } = await user2.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 16 * 60 * 1000,
+            startTime: date,
+            endTime,
             timezoneOffset: 2 * 60 * 1000,
             dayOff: false,
-            date: date.toISOString(),
           });
 
           const { body } = await user.deleteMasterSchedule(newSchedule.id, 400);
@@ -1250,14 +1429,17 @@ describe('UserController (e2e)', () => {
 
       describe('get master schedule cases', () => {
         test('get for current month', async () => {
-          const date = new Date();
+          const startTime = new Date();
+          startTime.setUTCHours(9);
+
+          const endTime = new Date(startTime);
+          endTime.setUTCHours(9);
 
           await user.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 9 * 60 * 1000,
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date: date.toISOString(),
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
           const { body } = await user.getMasterSchedule();
@@ -1266,100 +1448,93 @@ describe('UserController (e2e)', () => {
         });
 
         test('get schedule with year and month query', async () => {
-          const date = new Date();
+          const startTime = new Date();
+          startTime.setUTCMonth(startTime.getUTCMonth() + 1);
+          startTime.setUTCHours(9);
 
-          date.setUTCMonth(date.getUTCMonth() + 1);
+          const endTime = new Date(startTime);
 
           await user.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 9 * 60 * 1000,
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date: date.toISOString(),
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
-          date.setUTCDate(date.getUTCDate() + 1);
+          startTime.setUTCDate(startTime.getUTCDate() + 1);
 
           await user.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 9 * 60 * 1000,
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date: date.toISOString(),
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
           const { body } = await user.getMasterSchedule({
-            year: date.getUTCFullYear(),
-            month: date.getUTCMonth(),
+            year: startTime.getUTCFullYear(),
+            month: startTime.getUTCMonth(),
           });
 
           expect(body).toHaveLength(2);
         });
 
         test('get schedule with year, month and date queries', async () => {
-          const date = new Date();
+          const startTime = new Date();
+          startTime.setUTCMonth(startTime.getUTCMonth() + 3);
 
-          date.setUTCMonth(date.getUTCMonth() + 3);
+          const endTime = new Date(startTime);
 
           await user.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 9 * 60 * 1000,
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date: date.toISOString(),
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
           const { body } = await user.getMasterSchedule({
-            year: date.getUTCFullYear(),
-            month: date.getUTCMonth(),
-            date: date.getUTCDate(),
+            year: startTime.getUTCFullYear(),
+            month: startTime.getUTCMonth(),
+            date: startTime.getUTCDate(),
           });
 
-          date.setUTCHours(0);
-          date.setUTCMinutes(0);
-          date.setUTCSeconds(0);
-          date.setUTCMilliseconds(0);
-
-          expect(body.date).toBe(date.toISOString());
+          expect(body.startTime).toBe(startTime.toISOString());
         });
 
         test('get schedule with from and to query', async () => {
-          const date = new Date();
+          const startTime = new Date();
+          startTime.setUTCFullYear(startTime.getUTCFullYear() + 1);
 
-          date.setUTCFullYear(date.getUTCFullYear() + 1);
+          const endTime = new Date(startTime);
 
-          const dateFrom = new Date(date);
-          const dateTo = new Date(date);
+          const dateFrom = new Date(startTime);
+          const dateTo = new Date(startTime);
 
           dateFrom.setUTCMonth(dateFrom.getUTCMonth() - 1);
           dateTo.setUTCMonth(dateTo.getUTCMonth() + 1);
 
           await user.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 9 * 60 * 1000,
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date: date.toISOString(),
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
-          date.setUTCDate(date.getUTCDate() + 4);
+          startTime.setUTCDate(startTime.getUTCDate() + 4);
 
           await user.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 9 * 60 * 1000,
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date: date.toISOString(),
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
-          date.setUTCDate(date.getUTCDate() + 4);
+          startTime.setUTCDate(startTime.getUTCDate() + 4);
 
           await user.createMasterSchedule({
-            startTime: 9 * 60 * 1000,
-            endTime: 9 * 60 * 1000,
+            startTime,
+            endTime,
             dayOff: false,
-            timezoneOffset: date.getTimezoneOffset() * 1000,
-            date: date.toISOString(),
+            timezoneOffset: startTime.getTimezoneOffset() * 1000,
           });
 
           const { body } = await user.getMasterSchedule({
@@ -1404,13 +1579,13 @@ describe('UserController (e2e)', () => {
 
           expect(schedules.length).toBeGreaterThan(0);
 
-          const startTime = 12 * 60 * 1000;
-          const endTime = 20 * 60 * 1000;
+          const startTime = new Date(12 * 60 * 1000);
+          const endTime = new Date(20 * 60 * 1000);
           const timezoneOffset = 3 * 60 * 1000;
           const dayOff = true;
 
-          expect(schedules[0].startTime).not.toBe(startTime);
-          expect(schedules[0].endTime).not.toBe(endTime);
+          expect(schedules[0].startTime).not.toBe(startTime.toISOString());
+          expect(schedules[0].endTime).not.toBe(endTime.toISOString());
           expect(schedules[0].timezoneOffset).not.toBe(timezoneOffset);
           expect(schedules[0].dayOff).not.toBe(dayOff);
 
@@ -1424,8 +1599,8 @@ describe('UserController (e2e)', () => {
             },
           );
 
-          expect(body.startTime).toBe(startTime);
-          expect(body.endTime).toBe(endTime);
+          expect(body.startTime).toBe(startTime.toISOString());
+          expect(body.endTime).toBe(endTime.toISOString());
           expect(body.timezoneOffset).toBe(timezoneOffset);
           expect(body.dayOff).toBe(dayOff);
         });

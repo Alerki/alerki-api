@@ -1,7 +1,17 @@
 /* eslint-disable max-len */
-import { Controller, Get, HttpStatus, Query } from '@nestjs/common';
 import {
-  ApiOperation, ApiResponse, ApiTags,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { GetServicesDto } from '@Src/modules/service/dto/service.dto';
@@ -29,12 +39,29 @@ export class ServiceController {
    * @returns services
    */
   @ApiOperation({ description: 'Service search' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Successful service search' })
-  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Services not exists' })
+  @ApiOkResponse({ description: 'Successful service search' })
+  @ApiNotFoundResponse({ description: 'Services not exists' })
   @Get()
-  async searchServices(
+  async getServices(
     @Query() query: GetServicesDto,
   ) {
     return await this.serviceService.searchService(query);
+  }
+
+  /**
+   * Get master services
+   *
+   * @param id service ID
+   * @returns masters service
+   */
+  @ApiOperation({ description: 'Get master services' })
+  @ApiOkResponse({ description: 'Master services got successfully' })
+  @Get(':id/master')
+  async getMasterServices(
+    @Param('id') id: string,
+  ) {
+    return await this.serviceService.findMasterByServiceId(
+      { id },
+    );
   }
 }

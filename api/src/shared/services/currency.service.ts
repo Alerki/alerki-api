@@ -1,4 +1,7 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { prisma } from '@Shared/services/prisma.service';

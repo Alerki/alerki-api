@@ -1,13 +1,36 @@
 import { ApiPropertyOptions } from '@nestjs/swagger';
+import { randomUUID } from 'crypto';
 
 export enum PropertyType {
   string = 'string',
   number = 'number',
-  Buffer = 'Buffer',
   boolean = 'boolean',
   DateTime = 'DateTime',
   Date = 'Date',
+  Time = 'Time',
+  Buffer = 'Buffer',
+  Object = 'Object',
+  Array = 'Array',
 }
+
+export enum DaysOfWeek {
+  monday = 'monday',
+  tuesday = 'tuesday',
+  wednesday = 'wednesday',
+  thursday = 'thursday',
+  saturday = 'saturday',
+  sunday = 'sunday',
+}
+
+export const daysOfWeek = [
+  'sunday',
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+];
 
 interface ExtendedApiPropertyOptions extends ApiPropertyOptions {
   patternExp?: RegExp;
@@ -17,6 +40,16 @@ interface ExtendedApiPropertyOptions extends ApiPropertyOptions {
 export interface PropertiesConfig { [key: string]: ExtendedApiPropertyOptions }
 
 export namespace GeneralConfig {
+  export const daysOfWeek = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+  ];
+
   export const intMaxValue = 2147483647;
 
   export const UUIDExample = 'f7b1cb86-5f8f-4aac-9838-b51ffbfa22c6';
@@ -124,6 +157,8 @@ export namespace UserConfig {
 }
 
 export namespace ServiceConfig {
+  const namePattern = /\w{1,20}/;
+
   export const config = {
     available: {
       description: 'Available condition',
@@ -133,9 +168,11 @@ export namespace ServiceConfig {
     name: {
       description: 'Service name',
       minLength: 1,
-      maxLength: 30,
+      maxLength: 20,
       type: PropertyType.string,
       example: 'Haircut',
+      pattern: String(namePattern),
+      patternExp: namePattern,
     } satisfies ExtendedApiPropertyOptions,
   } satisfies PropertiesConfig;
 }
@@ -182,28 +219,31 @@ export namespace MasterWeeklyScheduleConfig {
       type: PropertyType.boolean,
       example: true,
     } satisfies ExtendedApiPropertyOptions);
-
   export const generateTime =
     (
       description: string,
-      example: number,
-      minimum: number = 0,
+      example: Date,
     ): ExtendedApiPropertyOptions =>
       ({
-        minimum,
-        maximum: 86399999,
         description,
-        type: PropertyType.number,
+        type: PropertyType.Time,
         example,
       } satisfies ExtendedApiPropertyOptions);
 
-  export const startTime = generateTime('Start work time', 9 * 60 * 1000);
-  export const endTime = generateTime('End work time', 17 * 60 * 1000);
-  export const timezoneOffset = generateTime(
-    'Timezone offset',
-    2 * 60 * 1000,
-    -24 * 60 * 1000 - 1,
-  );
+  const startTimeTime = new Date();
+  startTimeTime.setTime(9 * 60 * 1000);
+  const entTimeTime = new Date();
+  entTimeTime.setTime(17 * 60 * 1000);
+
+  export const startTime = generateTime('Start work time', startTimeTime);
+  export const endTime = generateTime('End work time', entTimeTime);
+  export const timezoneOffset = {
+    description: 'Timezone offset',
+    type: PropertyType.number,
+    example: 2 * 60 * 60 * 1000,
+    minimum: 24 * 60 * 60 * 1000 * -1,
+    maximum: 24 * 60 * 60 * 1000 - 1,
+  } satisfies ExtendedApiPropertyOptions;
 
   export const config = {
     monday: generateWeekDaySchedule('Monday'),
@@ -234,5 +274,27 @@ export namespace MasterScheduleConfig {
       type: PropertyType.boolean,
       example: false,
     } satisfies ExtendedApiPropertyOptions,
+  } satisfies PropertiesConfig;
+}
+
+export namespace AppointmentConfig {
+  export const config = {
+    clientId: {
+      description: 'Client ID',
+      type: PropertyType.string,
+      example: randomUUID(),
+      pattern: String(GeneralConfig.UUIDPatter),
+      patternExp: GeneralConfig.UUIDPatter,
+    } satisfies ExtendedApiPropertyOptions,
+    masterServiceId: {
+      description: 'Master service ID',
+      type: PropertyType.string,
+      example: randomUUID(),
+      pattern: String(GeneralConfig.UUIDPatter),
+      patternExp: GeneralConfig.UUIDPatter,
+    },
+    startTime: MasterWeeklyScheduleConfig.startTime,
+    endTime: MasterWeeklyScheduleConfig.endTime,
+    timezoneOffset: MasterWeeklyScheduleConfig.timezoneOffset,
   } satisfies PropertiesConfig;
 }

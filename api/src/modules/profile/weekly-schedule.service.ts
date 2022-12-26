@@ -1,4 +1,9 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { prisma } from '@Shared/services/prisma.service';
@@ -19,7 +24,6 @@ export class MasterWeeklyScheduleService {
   constructor(
     @Inject(forwardRef(() => MasterProfileService))
     private readonly masterProfileService: MasterProfileService,
-    @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
   ) { }
 
@@ -71,11 +75,42 @@ export class MasterWeeklyScheduleService {
       },
     });
 
-    return await this.prismaService.masterWeeklySchedule.update({
-      where: {
-        id: userProfile.masterProfile.weeklyScheduleId,
-      },
-      data,
-    });
+    this.masterProfileService.checkIfUserIsMaster(userProfile);
+
+    const updatedWeeklySchedule =
+      await this.prismaService.masterWeeklySchedule.update({
+        where: {
+          id: userProfile.masterProfile.weeklyScheduleId,
+        },
+        data,
+      });
+
+    if (
+      (
+        !updatedWeeklySchedule.startTime ||
+        !updatedWeeklySchedule.endTime
+      ) &&
+      userProfile.masterProfile.available
+    ) {
+      await this.masterProfileService.update({
+        where: {
+          id: userProfile.masterProfileId,
+        },
+        data: {
+          available: false,
+        },
+      });
+    } else if (!userProfile.masterProfile.available) {
+      await this.masterProfileService.update({
+        where: {
+          id: userProfile.masterProfileId,
+        },
+        data: {
+          available: true,
+        },
+      });
+    }
+
+    return updatedWeeklySchedule;
   }
 }

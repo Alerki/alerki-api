@@ -45,6 +45,7 @@ import { MasterWeeklyScheduleService } from '@Src/modules/profile/weekly-schedul
 import {
   CreateMasterScheduleDto,
   CreateMasterServiceDto,
+  GetMasterMonthlyScheduleQueries,
   GetMasterScheduleQueries,
   PatchMasterScheduleDto,
   PatchMasterServiceDto,
@@ -89,10 +90,7 @@ export class UserController {
   async enableMaster(
     @Req() req: ProtectedRequest,
   ) {
-    // Get user ID
-    const { user: { id } } = req;
-
-    await this.profileService.enableMaster({ id });
+    await this.profileService.enableMaster({ id: req.user.id });
   }
 
   /**
@@ -110,10 +108,7 @@ export class UserController {
   async disableMaster(
     @Req() req: ProtectedRequest,
   ) {
-    // Get user ID
-    const { user: { id } } = req;
-
-    await this.profileService.disableMaster({ id });
+    await this.profileService.disableMaster({ id: req.user.id });
   }
 
   /**
@@ -146,11 +141,9 @@ export class UserController {
   async getMasterService(
     @Param('id', ParseUUIDPipe) id: string,
   ) {
-    const masterServices = await this.masterServiceService.getMasterService(
+    return await this.masterServiceService.getMasterService(
       { id },
     );
-
-    return masterServices;
   }
 
   /**
@@ -171,10 +164,9 @@ export class UserController {
     @Req() req: ProtectedRequest,
     @Body() body: CreateMasterServiceDto,
   ) {
-    const { user: { id } } = req;
 
     const newService = await this.masterServiceService.createMasterService(
-      { id, ...body },
+      { id: req.user.id, ...body },
     );
 
     return newService;
@@ -200,17 +192,34 @@ export class UserController {
   async patchMasterService(
     @Req() req: ProtectedRequest,
     @Body() body: PatchMasterServiceDto,
-    @Param('serviceId') serviceId: string,
+    @Param('serviceId', ParseUUIDPipe) serviceId: string,
   ) {
-    const { user: { id: userId } } = req;
-
-    const patchedMasterService = await this.masterServiceService.patchMasterService(
-      { id: userId },
+    return await this.masterServiceService.patchMasterService(
+      { id: req.user.id },
       { id: serviceId },
       body,
     );
+  }
 
-    return patchedMasterService;
+  /**
+   * Delete master service
+   *
+   * @param req request
+   * @param serviceId master service ID to delete
+   * @returns deleted master service
+   */
+  @ApiOperation({ description: 'Delete master service' })
+  @ApiOkResponse({ description: 'Service deleted successfully' })
+  @UseGuards(JwtAuthGuard)
+  @Delete('master/service/:serviceId')
+  async deleteMasterService(
+    @Req() req: ProtectedRequest,
+    @Param('serviceId', ParseUUIDPipe) serviceId: string,
+  ) {
+    return await this.masterServiceService.delete(
+      { id: req.user.id },
+      { id: serviceId },
+    );
   }
 
   /**
@@ -249,14 +258,10 @@ export class UserController {
     @Req() req: ProtectedRequest,
     @Body() body: PatchMasterWeeklyScheduleDto,
   ) {
-    const { user: { id } } = req;
-
-    const patchedSchedule = await this.masterWeeklyScheduleService.patchWeeklySchedule(
-      { id },
+    return await this.masterWeeklyScheduleService.patchWeeklySchedule(
+      { id: req.user.id },
       body,
     );
-
-    return patchedSchedule;
   }
 
   /**
@@ -380,6 +385,27 @@ export class UserController {
   }
 
   /**
+   * Get master monthly schedule
+   *
+   * @param id master profile ID
+   * @param queries queries to get schedule
+   * @returns master monthly schedule
+   */
+  @ApiOperation({ description: 'Get master monthly schedule' })
+  @ApiOkResponse({ description: 'Got schedule successfully' })
+  @ApiNotFoundResponse({ description: 'Master not exists' })
+  @Get('master/:id/monthly-schedule')
+  async getMasterMonthlySchedule(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query() queries: GetMasterMonthlyScheduleQueries,
+  ) {
+    return await this.userService.getMasterMonthlySchedule(
+      { id },
+      queries,
+    );
+  }
+
+  /**
    * Get user picture
    *
    * @param id picture id
@@ -428,9 +454,10 @@ export class UserController {
       }),
     ) picture: Express.Multer.File,
   ) {
-    const { user: { id } } = req;
-
-    await this.userService.patchUserPicture({ id, picture });
+    await this.userService.patchUserPicture({
+      id: req.user.id,
+      picture,
+    });
   }
 
   /**
@@ -447,9 +474,7 @@ export class UserController {
   async deletePicture(
     @Req() req: ProtectedRequest,
   ) {
-    const { user: { id } } = req;
-
-    await this.userService.deletePicture({ id });
+    await this.userService.deletePicture({ id: req.user.id });
   }
 
   /**
@@ -469,9 +494,7 @@ export class UserController {
   async getProtectedUser(
     @Req() req: ProtectedRequest,
   ) {
-    const { id } = req.user;
-
-    return await this.userService.getUser({ id });
+    return await this.userService.getUser({ id: req.user.id });
   }
 
   /**
@@ -512,11 +535,8 @@ export class UserController {
     @Req() req: ProtectedRequest,
     @Body() body: PatchUserDto,
   ) {
-    // Get user ID
-    const { user: { id } } = req;
-
     return await this.userService.patchUser(
-      { id },
+      { id: req.user.id },
       body,
     );
   }

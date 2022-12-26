@@ -47,7 +47,7 @@ CREATE TABLE "AuthSessions" (
 CREATE TABLE "MasterProfiles" (
     "id" TEXT NOT NULL,
     "weeklyScheduleId" VARCHAR(36),
-    "available" BOOLEAN NOT NULL DEFAULT true,
+    "available" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -67,7 +67,7 @@ CREATE TABLE "ClientProfiles" (
 CREATE TABLE "Services" (
     "id" TEXT NOT NULL,
     "name" VARCHAR(20) NOT NULL,
-    "available" BOOLEAN NOT NULL DEFAULT false,
+    "available" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -94,12 +94,12 @@ CREATE TABLE "MasterServices" (
 -- CreateTable
 CREATE TABLE "MasterSchedules" (
     "id" TEXT NOT NULL,
-    "startTime" INTEGER NOT NULL,
-    "endTime" INTEGER NOT NULL,
+    "startTime" TIMESTAMP(3) NOT NULL,
+    "endTime" TIMESTAMP(3) NOT NULL,
     "timezoneOffset" INTEGER NOT NULL,
-    "date" DATE NOT NULL,
     "dayOff" BOOLEAN NOT NULL DEFAULT false,
     "masterId" VARCHAR(36) NOT NULL,
+    "available" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -109,15 +109,15 @@ CREATE TABLE "MasterSchedules" (
 -- CreateTable
 CREATE TABLE "MasterWeeklySchedules" (
     "id" TEXT NOT NULL,
-    "monday" BOOLEAN NOT NULL DEFAULT true,
-    "tuesday" BOOLEAN NOT NULL DEFAULT true,
-    "wednesday" BOOLEAN NOT NULL DEFAULT true,
-    "thursday" BOOLEAN NOT NULL DEFAULT true,
-    "friday" BOOLEAN NOT NULL DEFAULT true,
-    "saturday" BOOLEAN NOT NULL DEFAULT false,
-    "sunday" BOOLEAN NOT NULL DEFAULT false,
-    "startTime" INTEGER,
-    "endTime" INTEGER,
+    "monday" BOOLEAN NOT NULL DEFAULT false,
+    "tuesday" BOOLEAN NOT NULL DEFAULT false,
+    "wednesday" BOOLEAN NOT NULL DEFAULT false,
+    "thursday" BOOLEAN NOT NULL DEFAULT false,
+    "friday" BOOLEAN NOT NULL DEFAULT false,
+    "saturday" BOOLEAN NOT NULL DEFAULT true,
+    "sunday" BOOLEAN NOT NULL DEFAULT true,
+    "startTime" TIME,
+    "endTime" TIME,
     "timezoneOffset" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -129,9 +129,11 @@ CREATE TABLE "MasterWeeklySchedules" (
 CREATE TABLE "Appointments" (
     "id" TEXT NOT NULL,
     "masterId" VARCHAR(36) NOT NULL,
+    "masterServiceId" VARCHAR(36) NOT NULL,
     "clientId" VARCHAR(36) NOT NULL,
     "startTime" TIMESTAMP(3) NOT NULL,
     "endTime" TIMESTAMP(3) NOT NULL,
+    "timezoneOffset" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -240,6 +242,9 @@ ALTER TABLE "MasterSchedules" ADD CONSTRAINT "MasterSchedules_masterId_fkey" FOR
 
 -- AddForeignKey
 ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_masterId_fkey" FOREIGN KEY ("masterId") REFERENCES "MasterProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_masterServiceId_fkey" FOREIGN KEY ("masterServiceId") REFERENCES "MasterServices"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Appointments" ADD CONSTRAINT "Appointments_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "ClientProfiles"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

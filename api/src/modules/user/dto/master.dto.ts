@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
   IsBoolean,
+  IsDate,
   IsDateString,
   IsNumber,
   IsOptional,
@@ -125,26 +126,20 @@ export class CreateMasterScheduleDto implements Pick<
   'dayOff'
 > {
   @ApiProperty(MasterScheduleConfig.config.startTime)
-  @Min(MasterScheduleConfig.config.startTime.minimum)
-  @Max(MasterScheduleConfig.config.startTime.maximum)
-  @IsNumber()
-  readonly startTime: number;
+  @Type(() => Date)
+  @IsDate()
+  readonly startTime: Date;
 
   @ApiProperty(MasterScheduleConfig.config.endTime)
-  @Min(MasterScheduleConfig.config.endTime.minimum)
-  @Max(MasterScheduleConfig.config.endTime.maximum)
-  @IsNumber()
-  readonly endTime: number;
+  @Type(() => Date)
+  @IsDate()
+  readonly endTime: Date;
 
   @ApiProperty(MasterScheduleConfig.config.timezoneOffset)
   @Min(MasterScheduleConfig.config.timezoneOffset.minimum)
   @Max(MasterScheduleConfig.config.timezoneOffset.maximum)
   @IsNumber()
   readonly timezoneOffset: number;
-
-  @ApiProperty(MasterScheduleConfig.config.data)
-  @IsDateString()
-  readonly date: string;
 
   @ApiProperty(MasterScheduleConfig.config.dayOff)
   @IsBoolean()
@@ -173,6 +168,22 @@ export class GetMasterScheduleQueries {
   readonly date?: number;
 }
 
+export class GetMasterMonthlyScheduleQueries {
+  @IsOptional()
+  @Type(() => Number)
+  @Min(2000)
+  @Max(3000)
+  @IsNumber()
+  readonly year?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @Min(1)
+  @Max(12)
+  @IsNumber()
+  readonly month?: number;
+}
+
 export class PatchMasterScheduleDto implements Partial<Pick<
   Prisma.MasterSchedule,
   'timezoneOffset' |
@@ -181,18 +192,16 @@ export class PatchMasterScheduleDto implements Partial<Pick<
   'dayOff'
 >> {
   @ApiProperty(MasterScheduleConfig.config.startTime)
-  @Min(MasterScheduleConfig.config.startTime.minimum)
-  @Max(MasterScheduleConfig.config.startTime.maximum)
+  @Type(() => Date)
+  @IsDate()
   @IsOptional()
-  @IsNumber()
-  readonly startTime?: number;
+  readonly startTime?: Date;
 
   @ApiProperty(MasterScheduleConfig.config.endTime)
-  @Min(MasterScheduleConfig.config.endTime.minimum)
-  @Max(MasterScheduleConfig.config.endTime.maximum)
+  @Type(() => Date)
+  @IsDate()
   @IsOptional()
-  @IsNumber()
-  readonly endTime?: number;
+  readonly endTime?: Date;
 
   @ApiProperty(MasterScheduleConfig.config.timezoneOffset)
   @Min(MasterScheduleConfig.config.timezoneOffset.minimum)
@@ -207,7 +216,7 @@ export class PatchMasterScheduleDto implements Partial<Pick<
   readonly dayOff?: boolean;
 }
 
-export class PatchMasterWeeklyScheduleDto implements Pick<
+export class PatchMasterWeeklyScheduleDto implements Partial<Pick<
   Prisma.MasterWeeklySchedule,
   'monday' |
   'tuesday' |
@@ -219,60 +228,60 @@ export class PatchMasterWeeklyScheduleDto implements Pick<
   'startTime' |
   'endTime' |
   'timezoneOffset'
-> {
+>> {
   @ApiProperty(MasterWeeklyScheduleConfig.config.monday)
   @IsOptional()
   @IsBoolean()
-  readonly monday: boolean;
+  readonly monday?: boolean;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.tuesday)
   @IsOptional()
   @IsBoolean()
-  readonly tuesday: boolean;
+  readonly tuesday?: boolean;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.wednesday)
   @IsOptional()
   @IsBoolean()
-  readonly wednesday: boolean;
+  readonly wednesday?: boolean;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.thursday)
   @IsOptional()
   @IsBoolean()
-  readonly thursday: boolean;
+  readonly thursday?: boolean;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.friday)
   @IsOptional()
   @IsBoolean()
-  readonly friday: boolean;
+  readonly friday?: boolean;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.saturday)
   @IsOptional()
   @IsBoolean()
-  readonly saturday: boolean;
+  readonly saturday?: boolean;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.sunday)
   @IsOptional()
   @IsBoolean()
-  readonly sunday: boolean;
+  readonly sunday?: boolean;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.startTime)
-  @Min(MasterWeeklyScheduleConfig.config.endTime.minimum)
-  @Max(MasterWeeklyScheduleConfig.config.endTime.maximum)
-  @IsNumber()
+  @Type(() => Date)
+  @IsDate()
   @IsOptional()
-  readonly startTime: number;
+  readonly startTime?: Date;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.endTime)
-  @Min(MasterWeeklyScheduleConfig.config.endTime.minimum)
-  @Max(MasterWeeklyScheduleConfig.config.endTime.maximum)
-  @IsNumber()
+  @Type(() => Date)
+  @IsDate()
   @IsOptional()
-  readonly endTime: number;
+  readonly endTime?: Date;
 
   @ApiProperty(MasterWeeklyScheduleConfig.config.timezoneOffset)
   @Min(MasterWeeklyScheduleConfig.config.timezoneOffset.minimum)
   @Max(MasterWeeklyScheduleConfig.config.timezoneOffset.maximum)
   @IsNumber()
   @IsOptional()
-  readonly timezoneOffset: number;
+  readonly timezoneOffset?: number;
 }
+
+

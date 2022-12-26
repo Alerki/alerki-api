@@ -18,9 +18,7 @@ import {
   ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
-  ApiCookieAuth,
   ApiCreatedResponse,
-  ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -32,6 +30,8 @@ import {
 import Prisma from '@prisma/client';
 import { Request, Response } from 'express';
 
+import { DeviceName } from '@Shared/decorators/device-name.decorator';
+import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
 import { AuthService } from '@Src/modules/auth/auth.service';
 import { GetSessionsQueryDto, PatchSessionBodyDto } from '@Src/modules/auth/dto/session.dto';
 import { GoogleUser } from '@Src/modules/auth/google.strategy';
@@ -40,8 +40,6 @@ import { JwtAuthGuard } from '@Src/modules/auth/jwt-auth.guard';
 import { LocalAuthGuard } from '@Src/modules/auth/local-auth.guard';
 import { JwtTokensPair } from '@Src/modules/auth/tokens.service';
 import { AuthGuard } from '@nestjs/passport';
-import { DeviceName } from '@Shared/decorators/device-name.decorator';
-import { GetCookies } from '@Shared/decorators/get-cookies.decorator';
 import { SignInDto, SignUpDto } from './dto/auth.dto';
 
 /**

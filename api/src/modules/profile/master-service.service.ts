@@ -1,9 +1,16 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { MasterProfileService } from '@Src/modules/profile/master-profile.service';
 import { ServiceService } from '@Src/modules/service/service.service';
-import { CreateMasterServiceDto, PatchMasterServiceDto } from '@Src/modules/user/dto/master.dto';
+import {
+  CreateMasterServiceDto,
+  PatchMasterServiceDto,
+} from '@Src/modules/user/dto/master.dto';
 import { UserService } from '@Src/modules/user/user.service';
 import { CurrencyService } from '@Shared/services/currency.service';
 import { prisma } from '@Shared/services/prisma.service';
@@ -37,6 +44,16 @@ export class MasterServiceService {
    */
   async findFirst(data: Prisma.Prisma.MasterServiceFindFirstArgs) {
     return await this.prismaService.masterService.findFirst(data);
+  }
+
+  /**
+   * Find many
+   *
+   * @param data find arguments
+   * @returns master services
+   */
+  async findMany(data: Prisma.Prisma.MasterServiceFindManyArgs) {
+    return await this.prismaService.masterService.findMany(data);
   }
 
   /**
@@ -101,11 +118,14 @@ export class MasterServiceService {
       where: {
         id: data.id,
       },
+      include: {
+        masterProfile: true,
+      },
     });
 
-    if (!user.masterProfileId) {
-      throw new BadRequestException('User is not a master');
-    }
+    this.masterProfileService.checkIfUserIsMaster(user);
+
+    this.masterProfileService.checkIfProfileIsAvailable(user);
 
     // Check if master service with the name already exists
     const checkMasterService = await this.findFirst({
@@ -133,6 +153,8 @@ export class MasterServiceService {
         locationLng: data.locationLng,
       },
     });
+
+    await this.handleAvailableService({ id: service.id });
 
     return newMasterService;
   }
@@ -225,6 +247,71 @@ export class MasterServiceService {
         id: masterService.id,
       },
       data: updateData,
+    });
+  }
+
+  async delete(
+    { id: userId }: Pick<Prisma.User, 'id'>,
+    { id: serviceId }: Pick<Prisma.MasterService, 'id'>,
+  ) {
+    const masterServiceCandidate = await this.getExists({
+      where: {
+        id: serviceId,
+      },
+    });
+
+    const userCandidate = await this.userService.getExists({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (userCandidate.masterProfileId !== masterServiceCandidate.masterId) {
+      throw new BadRequestException('The service not belongs to the user');
+    }
+
+    await this.prismaService.masterService.delete({
+      where: {
+        id: masterServiceCandidate.id,
+      },
+    });
+
+    await this.handleAvailableService({ id: masterServiceCandidate.serviceId });
+  }
+
+  /**
+   * Enable or disable service depend on exists master services
+   *
+   * @param param0 service ID
+   * @returns updated service
+   */
+  async handleAvailableService(
+    { id }: Pick<Prisma.Service, 'id'>,
+  ) {
+    const masterServices = await this.findMany({
+      where: {
+        serviceId: id,
+      },
+    });
+
+    if (!masterServices.length) {
+      return await this.serviceService.update({
+        where: {
+          id,
+        },
+        data: {
+          available: false,
+        },
+      });
+    }
+
+    return await this.serviceService.update({
+      where: {
+        id,
+      },
+      data: {
+        available: true,
+      },
     });
   }
 }
