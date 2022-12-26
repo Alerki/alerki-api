@@ -88,19 +88,27 @@ export class AppointmentControllerService {
       throw new BadRequestException('Impossible to make appointment to itself');
     }
 
-    if (!masterCandidate.masterProfile.available) {
-      throw new BadRequestException('Master profile is unavailable');
-    }
-
     const endTime = new Date(data.startTime);
     endTime.setUTCMilliseconds(serviceCandidate.duration);
 
     // Check schedule
     const dayOffErrorMessage = 'The day is day off';
 
+    const daySpecificScheduleStartTime = new Date(data.startTime);
+    daySpecificScheduleStartTime.setUTCHours(0);
+    daySpecificScheduleStartTime.setUTCMinutes(0);
+    daySpecificScheduleStartTime.setUTCSeconds(0);
+    daySpecificScheduleStartTime.setUTCMilliseconds(0);
+
+    const daySpecificScheduleEndTime = new Date(daySpecificScheduleStartTime);
+    daySpecificScheduleEndTime.setUTCDate(daySpecificScheduleEndTime.getUTCDate() + 1);
+
     const daySpecificSchedule = await this.masterScheduleService.findFirst({
       where: {
-        startTime: data.startTime,
+        startTime: {
+          gte: daySpecificScheduleStartTime,
+          lt: daySpecificScheduleEndTime,
+        },
       },
     });
 
@@ -109,20 +117,9 @@ export class AppointmentControllerService {
         throw new BadRequestException(dayOffErrorMessage);
       }
 
-      const checkStartTime = new Date(0);
-      checkStartTime.setUTCHours(data.startTime.getUTCHours());
-      checkStartTime.setUTCMinutes(data.startTime.getUTCMinutes());
-      checkStartTime.setUTCSeconds(data.startTime.getUTCSeconds());
-      checkStartTime.setUTCMilliseconds(data.startTime.getUTCMilliseconds());
-      const checkEndTime = new Date(0);
-      checkEndTime.setUTCHours(endTime.getUTCHours());
-      checkEndTime.setUTCMinutes(endTime.getUTCMinutes());
-      checkEndTime.setUTCSeconds(endTime.getUTCSeconds());
-      checkEndTime.setUTCMilliseconds(endTime.getUTCMilliseconds());
-
       if (
-        daySpecificSchedule.startTime > checkStartTime ||
-        checkEndTime > daySpecificSchedule.endTime
+        daySpecificSchedule.startTime > data.startTime ||
+        endTime >= daySpecificSchedule.endTime
       ) {
         throw new BadRequestException(
           'Appointment time is outside of the day specify schedule available time',
@@ -159,7 +156,7 @@ export class AppointmentControllerService {
 
       if (
         weekSchedule.startTime > checkStartTime ||
-        checkEndTime > weekSchedule.endTime
+        checkEndTime >= weekSchedule.endTime
       ) {
         throw new BadRequestException(
           'Appointment time is outside of the week schedule available time',
@@ -193,10 +190,9 @@ export class AppointmentControllerService {
     if (checkAppointments.length !== 0) {
       checkAppointments.forEach(appointment => {
         if (
-          Math.max(appointment.startTime.getTime(), data.startTime.getTime()) <=
+          Math.max(appointment.startTime.getTime(), data.startTime.getTime()) <
           Math.min(appointment.endTime.getTime(), endTime.getTime())
         ) {
-          console.log(appointment.startTime, appointment.endTime, data.startTime, endTime);
           throw new BadRequestException('This time is busy');
         }
       });

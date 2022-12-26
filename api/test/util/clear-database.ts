@@ -8,6 +8,7 @@ export async function clearDatabase() {
   await prisma.masterWeeklySchedule.deleteMany();
   await prisma.authSession.deleteMany();
   await prisma.masterService.deleteMany();
+  await prisma.masterSchedule.deleteMany();
   await prisma.user.deleteMany();
   await prisma.userPicture.deleteMany();
   await prisma.currency.deleteMany();

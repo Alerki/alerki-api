@@ -19,6 +19,8 @@ describe('AuthController (e2e)', () => {
   let master: UserActions;
   const serviceName = 'Man haircut';
   let masterService: Prisma.MasterService;
+  const scheduleStartTime = new Date();
+  const scheduleEndTime = new Date(scheduleStartTime);
 
   beforeAll(async () => {
     // Init express application
@@ -69,13 +71,11 @@ describe('AuthController (e2e)', () => {
 
     masterService = newMasterService;
 
-    const scheduleStartTime = new Date();
     scheduleStartTime.setUTCDate(scheduleStartTime.getUTCDate() + 1);
     scheduleStartTime.setUTCHours(9);
 
     dateToWeekDay(scheduleStartTime, true);
 
-    const scheduleEndTime = new Date(scheduleStartTime);
     scheduleEndTime.setUTCHours(scheduleEndTime.getUTCHours() + 8);
 
     await master.createMasterSchedule({
@@ -116,67 +116,203 @@ describe('AuthController (e2e)', () => {
       expect(body.message).toBe('Impossible to make appointment to itself');
     });
 
-    // test('try create an appointment to unavailable master', async () => {
-    //   const master = new UserActions(app, { master: true });
-    //   await master.register();
+    test('try create an appointment in day off by weekly schedule', async () => {
+      const startTime = new Date();
+      startTime.setUTCDate(startTime.getUTCDate() + 10);
+      startTime.setUTCHours(12);
 
-    //   const { body: newMasterService } = await master.creamas
+      dateToWeekend(startTime);
 
-    // });
+      const { body: newMasterService } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      }, 400);
 
-    // test('successfully crete an appointment', async () => {
-    //   let { body: monthlySchedule } = await client.getMasterMonthlySchedule(master.user.masterProfileId);
+      expect(newMasterService.message).toBe('The day is day off');
+    });
 
-    //   let startTime;
-    //   const currentDate = new Date();
+    test('try create an appointment out of available time by weekly schedule', async () => {
+      const startTime = new Date();
+      startTime.setUTCDate(startTime.getUTCDate() + 10);
+      startTime.setUTCHours(2);
+      dateToWeekDay(startTime);
 
-    //   for (let i = 0; i < monthlySchedule.length; i++) {
-    //     const dayScheduleDate = new Date(monthlySchedule[i].date);
-    //     const scheduleStartTime = new Date(monthlySchedule[i].startTime);
-    //     dayScheduleDate.setUTCHours(scheduleStartTime.getUTCHours());
+      const { body: newMasterService1 } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      }, 400);
 
-    //     if (currentDate < dayScheduleDate) {
-    //       startTime = dayScheduleDate;
-    //     }
-    //   }
+      expect(newMasterService1.message).toBe('Appointment time is outside of the week schedule available time');
 
-    //   if (!startTime) {
-    //     currentDate.setUTCMonth(currentDate.getUTCMonth() + 1);
+      startTime.setUTCHours(22);
+      const { body: newMasterService2 } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      }, 400);
 
-    //     const { body } = await client.getMasterMonthlySchedule(
-    //       master.user.masterProfileId,
-    //       {
-    //         year: currentDate.getUTCFullYear(),
-    //         month: currentDate.getUTCMonth() + 1,
-    //       },
-    //     );
+      expect(newMasterService2.message).toBe('Appointment time is outside of the week schedule available time');
+    });
 
-    //     monthlySchedule = body;
+    test('try create an appointment in day off by day specific schedule', async () => {
+      const scheduleStartTime = new Date();
+      scheduleStartTime.setUTCDate(scheduleStartTime.getUTCDate() + 30);
+      scheduleStartTime.setUTCHours(7);
+      const scheduleEndTime = new Date(scheduleStartTime);
+      scheduleStartTime.setUTCHours(15);
 
-    //     for (let i = 0; i < monthlySchedule.length; i++) {
-    //       const dayScheduleDate = new Date(monthlySchedule[i].date);
-    //       const scheduleStartTime = new Date(monthlySchedule[i].startTime);
-    //       dayScheduleDate.setUTCHours(scheduleStartTime.getUTCHours());
+      await master.createMasterSchedule({
+        startTime: scheduleStartTime,
+        endTime: scheduleEndTime,
+        timezoneOffset: scheduleStartTime.getTimezoneOffset() * 60 * 1000,
+        dayOff: true,
+      });
 
-    //       if (currentDate < dayScheduleDate) {
-    //         startTime = dayScheduleDate;
-    //       }
-    //     }
-    //   }
+      const startTime = new Date(scheduleStartTime);
 
-    //   expect(startTime).toBeDefined();
+      const { body: newMasterService } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      }, 400);
 
-    //   console.log(new Date().toISOString(), startTime);
+      expect(newMasterService.message).toBe('The day is day off');
+    });
 
-    //   dateToWeekDay(startTime);
+    test('try create an appointment out of available time by day specific schedule', async () => {
+      const scheduleStartTime = new Date();
+      scheduleStartTime.setUTCDate(scheduleStartTime.getUTCDate() + 36);
+      scheduleStartTime.setUTCHours(12);
+      scheduleStartTime.setUTCMinutes(0);
+      scheduleStartTime.setUTCSeconds(0);
+      scheduleStartTime.setUTCMilliseconds(0);
 
-    //   const { body } = await client.createAppointment({
-    //     masterServiceId: masterService.id,
-    //     startTime,
-    //   });
+      const scheduleEndTime = new Date(scheduleStartTime);
+      scheduleEndTime.setUTCHours(scheduleEndTime.getUTCHours() + 2);
 
-    //   console.log(body);
-    // });
+      await master.createMasterSchedule({
+        startTime: scheduleStartTime,
+        endTime: scheduleEndTime,
+        timezoneOffset: scheduleStartTime.getTimezoneOffset() * 60 * 1000,
+        dayOff: false,
+      });
+
+      const startTime = new Date(scheduleStartTime);
+      startTime.setUTCHours(startTime.getUTCHours() - 1);
+
+      const { body: newMasterService1 } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      }, 400);
+
+      expect(newMasterService1.message).toBe('Appointment time is outside of the day specify schedule available time');
+
+      const startTime2 = new Date(scheduleEndTime);
+
+      const { body: newMasterService2 } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime: startTime2,
+      }, 400);
+
+      expect(newMasterService2.message).toBe('Appointment time is outside of the day specify schedule available time');
+    });
+
+    let startTime = new Date();
+
+    test('successfully crete an appointment', async () => {
+      let { body: monthlySchedule } = await client.getMasterMonthlySchedule(master.user.masterProfileId);
+
+      const currentDate = new Date();
+
+      for (let i = 0; i < monthlySchedule.length; i++) {
+        const dayScheduleDate = new Date(monthlySchedule[i].date);
+        const scheduleStartTime = new Date(monthlySchedule[i].startTime);
+        dayScheduleDate.setUTCHours(scheduleStartTime.getUTCHours());
+
+        if (currentDate < dayScheduleDate) {
+          startTime = dayScheduleDate;
+        }
+      }
+
+      if (!startTime) {
+        currentDate.setUTCMonth(currentDate.getUTCMonth() + 1);
+
+        const { body } = await client.getMasterMonthlySchedule(
+          master.user.masterProfileId,
+          {
+            year: currentDate.getUTCFullYear(),
+            month: currentDate.getUTCMonth() + 1,
+          },
+        );
+
+        monthlySchedule = body;
+
+        for (let i = 0; i < monthlySchedule.length; i++) {
+          const dayScheduleDate = new Date(monthlySchedule[i].date);
+          const scheduleStartTime = new Date(monthlySchedule[i].startTime);
+          dayScheduleDate.setUTCHours(scheduleStartTime.getUTCHours());
+
+          if (currentDate < dayScheduleDate) {
+            startTime = dayScheduleDate;
+          }
+        }
+      }
+
+      expect(startTime).toBeDefined();
+
+      dateToWeekDay(startTime);
+
+      const { body } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      });
+
+      expect(body.startTime).toBe(startTime.toISOString());
+
+      startTime.setUTCMilliseconds(masterService.duration);
+
+      await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      });
+    });
+
+    test('make an overlap', async () => {
+      startTime.setUTCMilliseconds(masterService.duration - 1);
+
+      const { body: withOverlap } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      }, 400);
+
+      expect(withOverlap.message).toBe('This time is busy');
+    });
+
+    test('make an appointment by day specific schedule', async () => {
+      const scheduleStartTime = new Date();
+      scheduleStartTime.setUTCDate(scheduleStartTime.getUTCDate() + 15);
+      scheduleStartTime.setUTCHours(12);
+      scheduleStartTime.setUTCMinutes(0);
+      scheduleStartTime.setUTCSeconds(0);
+      scheduleStartTime.setUTCMilliseconds(0);
+
+      const scheduleEndTime = new Date(scheduleStartTime);
+      scheduleEndTime.setUTCHours(scheduleEndTime.getUTCHours() + 2);
+
+      await master.createMasterSchedule({
+        startTime: scheduleStartTime,
+        endTime: scheduleEndTime,
+        timezoneOffset: scheduleStartTime.getTimezoneOffset() * 60 * 1000,
+        dayOff: false,
+      });
+
+      const startTime = new Date(scheduleStartTime);
+
+      const { body } = await client.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      });
+
+      expect(body.startTime).toBe(startTime.toISOString());
+    });
   });
 
   test.todo('patch schedule actions');
