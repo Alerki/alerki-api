@@ -127,14 +127,11 @@ export class AppointmentControllerService {
       }
     }
 
-    let weekSchedule;
+    let weekSchedule = await this.masterWeeklyScheduleService.getWeeklySchedule(
+      { id: masterCandidate.masterProfileId },
+    );
 
     if (!daySpecificSchedule) {
-      weekSchedule =
-        await this.masterWeeklyScheduleService.getWeeklySchedule(
-          { id: masterCandidate.masterProfileId },
-        );
-
       if (
         weekSchedule[
           daysOfWeek[data.startTime.getUTCDay()] as DaysOfWeek
@@ -196,6 +193,11 @@ export class AppointmentControllerService {
           throw new BadRequestException('This time is busy');
         }
       });
+    }
+
+    if (!weekSchedule) {
+      console.log(masterCandidate.masterProfile.weeklyScheduleId);
+      console.log(weekSchedule);
     }
 
     return await this.appointmentService.create({
