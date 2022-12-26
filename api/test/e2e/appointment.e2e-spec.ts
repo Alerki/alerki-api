@@ -17,6 +17,7 @@ describe('AuthController (e2e)', () => {
   let application: INestApplication;
   let client: UserActions;
   let master: UserActions;
+  let master2: UserActions;
   const serviceName = 'Man haircut';
   let masterService: Prisma.MasterService;
   const scheduleStartTime = new Date();
@@ -45,9 +46,11 @@ describe('AuthController (e2e)', () => {
     // Create user
     client = new UserActions(app);
     master = new UserActions(app, { master: true });
+    master2 = new UserActions(app, { master: true });
 
     await client.register();
     await master.register();
+    await master2.register();
 
     const weeklyScheduleStartTime = new Date(0);
     weeklyScheduleStartTime.setUTCHours(9);
@@ -312,10 +315,73 @@ describe('AuthController (e2e)', () => {
       });
 
       expect(body.startTime).toBe(startTime.toISOString());
+
+      startTime.setUTCMilliseconds(masterService.duration);
+
+      await master2.createAppointment({
+        masterServiceId: masterService.id,
+        startTime,
+      });
+    });
+  });
+
+  describe('get schedule actions', () => {
+    test('get appointments for client', async () => {
+      const dbClientAppointments = await prisma.appointment.findMany({
+        where: {
+          clientId: client.user.clientProfileId,
+        },
+      });
+
+      expect(dbClientAppointments).toHaveLength(3);
+
+      const { body: clientAppointments } = await client.getAppointment({ client: true });
+
+      expect(clientAppointments).toHaveLength(dbClientAppointments.length);
+    });
+
+    test('get appointments for master', async () => {
+      const dbMasterAppointments = await prisma.appointment.findMany({
+        where: {
+          masterId: master.user.masterProfileId,
+        },
+      });
+
+      expect(dbMasterAppointments).toHaveLength(4);
+
+      const { body: clientAppointments } = await master.getAppointment({ master: true });
+
+      expect(clientAppointments).toHaveLength(dbMasterAppointments.length);
+    });
+
+    test('get all appointment', async () => {
+      const { body: clientAppointments } = await client.getAppointment();
+      await master2.getAppointment();
+
+      expect(clientAppointments).toHaveLength(3);
+    });
+
+    test('get appointment by ID', async () => {
+      const dbAppointment = await prisma.appointment.findFirst();
+
+      const { body: appointment } = await UserActions.getAppointmentById(
+        app,
+        dbAppointment.id,
+      );
+
+      expect(appointment.id).toBe(dbAppointment.id);
+    });
+
+    test('try to get not exist appointment', async () => {
+      const { body } = await UserActions.getAppointmentById(
+        app,
+        randomUUID(),
+        404,
+      );
+
+      expect(body.message).toBe('Appointment not exists');
     });
   });
 
   test.todo('patch schedule actions');
-
-  test.todo('get schedule actions');
 });

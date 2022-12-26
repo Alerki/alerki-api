@@ -1,20 +1,25 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 
 import { AppointmentControllerService } from '@Module/appointment/appointment-controller.service';
-import { CreateAppointmentDto } from '@Module/appointment/dto/appointment.dto';
+import { CreateAppointmentDto, GetAppointmentQueries } from '@Module/appointment/dto/appointment.dto';
 import { ProtectedRequest } from '@Module/auth/interface/protected-request.interface';
 import { JwtAuthGuard } from '@Module/auth/jwt-auth.guard';
 
@@ -55,6 +60,45 @@ export class AppointmentController {
     return await this.appointmentControllerService.createAppointment(
       { id: req.user.id },
       body,
+    );
+  }
+
+  /**
+   * Get appointment
+   *
+   * @param req request
+   * @param queries queries
+   * @returns appointment
+   */
+  @ApiOkResponse({ description: 'Get appointment' })
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({ description: 'Got appointment successfully' })
+  @UseGuards(JwtAuthGuard)
+  @Get('')
+  async getAppointment(
+    @Req() req: ProtectedRequest,
+    @Query() queries: GetAppointmentQueries,
+  ) {
+    return await this.appointmentControllerService.getAppointment(
+      { id: req.user.id },
+      queries,
+    );
+  }
+
+  /**
+   * Get appointment by ID
+   *
+   * @param id appointment ID
+   * @returns appointment
+   */
+  @ApiOkResponse({ description: 'Got appointment successfully' })
+  @ApiNotFoundResponse({ description: 'Appointment not exists' })
+  @Get(':id')
+  async getAppointmentById(
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return await this.appointmentControllerService.getAppointmentById(
+      { id },
     );
   }
 }
