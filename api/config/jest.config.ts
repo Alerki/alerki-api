@@ -1,13 +1,13 @@
 import { Config } from 'jest';
 
 const config: Config = {
-  displayName: {
-    name: 'Alerki',
-    color: 'blueBright',
-  },
+  // displayName: {
+  //   name: 'Alerki',
+  //   color: 'blueBright',
+  // },
   bail: 1,
-  verbose: true,
-  notify: true,
+  // verbose: true,
+  // notify: true,
   moduleNameMapper: {
     '^@Config/(.*)$': '<rootDir>/config/$1',
     '^@Shared/(.*)$': '<rootDir>/src/shared/$1',
