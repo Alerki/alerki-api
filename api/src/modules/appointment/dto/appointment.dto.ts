@@ -2,10 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import {
   IsDate,
-  IsNumber,
   IsUUID,
-  Max,
-  Min,
 } from 'class-validator';
 
 import { AppointmentConfig } from '@Config/api/property.config';
@@ -24,4 +21,12 @@ export class CreateAppointmentDto implements Pick<
   @Type(() => Date)
   @IsDate()
   readonly startTime: Date;
+}
+
+export class GetAppointmentQueries {
+  @Type(() => Boolean)
+  readonly client?: boolean;
+
+  @Type(() => Boolean)
+  readonly master?: boolean;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { prisma } from '@Shared/services/prisma.service';
@@ -61,5 +61,33 @@ export class AppointmentService {
    */
   async findMany(data: Prisma.Prisma.AppointmentFindManyArgs) {
     return await this.prismaService.appointment.findMany(data);
+  }
+
+  /**
+   * Get exists appointment
+   *
+   * @param data data to find by
+   * @param callback error callback
+   * @returns exists appointment
+   */
+  async getExists<T extends Prisma.Prisma.AppointmentFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<
+      T, Prisma.Prisma.AppointmentFindFirstArgs
+    >,
+    callback?: () => never,
+  ) {
+    // Check if master exists
+    const candidate = await this.prismaService.appointment.findFirst(data);
+
+    if (!candidate) {
+      if (!callback) {
+        throw new NotFoundException('Appointment not exists');
+      }
+
+      // istanbul ignore next
+      callback();
+    }
+
+    return candidate;
   }
 }

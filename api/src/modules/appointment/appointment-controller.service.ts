@@ -6,12 +6,11 @@ import {
 import Prisma from '@prisma/client';
 
 import {
-  GeneralConfig,
   DaysOfWeek,
   daysOfWeek,
 } from '@Config/api/property.config';
 import { AppointmentService } from '@Module/appointment/appointment.service';
-import { CreateAppointmentDto } from '@Module/appointment/dto/appointment.dto';
+import { CreateAppointmentDto, GetAppointmentQueries } from '@Module/appointment/dto/appointment.dto';
 import { ClientProfileService } from '@Module/profile/client-profile.service';
 import { MasterProfileService } from '@Module/profile/master-profile.service';
 import { MasterScheduleService } from '@Module/profile/master-schedule.service';
@@ -206,6 +205,87 @@ export class AppointmentControllerService {
       timezoneOffset:
         daySpecificSchedule?.timezoneOffset ??
         weekSchedule.timezoneOffset,
+    });
+  }
+
+  /**
+   * Get appointment
+   *
+   * @param param0 user ID
+   * @param param1 queries
+   * @returns appointment
+   */
+  async getAppointment(
+    { id }: Pick<Prisma.User, 'id'>,
+    {
+      client,
+      master,
+    }: GetAppointmentQueries,
+  ) {
+    const userCandidate = await this.userService.getExists({
+      where: {
+        id,
+      },
+    });
+
+    const currentDate = new Date();
+
+    if (client) {
+      return await this.appointmentService.findMany({
+        where: {
+          clientId: userCandidate.clientProfileId,
+          startTime: {
+            gte: currentDate,
+          },
+        },
+        include: {
+          masterService: true,
+        },
+      });
+    } else if (master) {
+      this.masterProfileService.checkIfUserIsMaster(userCandidate);
+
+      return await this.appointmentService.findMany({
+        where: {
+          masterId: userCandidate.masterProfileId,
+          startTime: {
+            gte: currentDate,
+          },
+        },
+      });
+    }
+
+    return await this.appointmentService.findMany({
+      where: {
+        masterId: userCandidate.masterProfileId,
+        OR: [
+          {
+            masterId: userCandidate.masterProfileId,
+          },
+          {
+            clientId: userCandidate.clientProfileId,
+          },
+        ],
+        startTime: {
+          gte: currentDate,
+        },
+      },
+    });
+  }
+
+  /**
+   * Get appointment by ID
+   *
+   * @param param0 appointment ID
+   * @returns appointment
+   */
+  async getAppointmentById(
+    { id }: Pick<Prisma.Appointment, 'id'>,
+  ) {
+    return await this.appointmentService.getExists({
+      where: {
+        id,
+      },
     });
   }
 }
