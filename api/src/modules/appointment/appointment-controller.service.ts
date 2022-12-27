@@ -284,4 +284,89 @@ export class AppointmentControllerService {
       },
     });
   }
+
+  /**
+   * Confirm appointment
+   *
+   * @param param0 user ID
+   * @param param1 appointment ID
+   * @returns confirmed appointment
+   */
+  async confirmAppointment(
+    { id: userId }: Pick<Prisma.User, 'id'>,
+    { id: appointmentId }: Pick<Prisma.Appointment, 'id'>,
+  ) {
+    const userCandidate = await this.userService.getExists({
+      where: {
+        id: userId,
+      },
+    });
+
+    const appointmentCandidate = await this.appointmentService.getExists({
+      where: {
+        id: appointmentId,
+      },
+    });
+
+    if (appointmentCandidate.masterId === userCandidate.masterProfileId) {
+      return await this.appointmentService.update({
+        where: {
+          id: appointmentCandidate.id,
+        },
+        data: {
+          confirm: true,
+        },
+      });
+    } else if (appointmentCandidate.clientId === userCandidate.clientProfileId) {
+      throw new BadRequestException('Only master can confirm appointment');
+    }
+
+    throw new BadRequestException('This appointment not belongs to you');
+  }
+
+  /**
+   * Cancel appointment
+   *
+   * @param param0 users ID
+   * @param param1 appointment ID
+   * @returns canceled appointment
+   */
+  async cancelAppointment(
+    { id: userId }: Pick<Prisma.User, 'id'>,
+    { id: appointmentId }: Pick<Prisma.Appointment, 'id'>,
+  ) {
+    const userCandidate = await this.userService.getExists({
+      where: {
+        id: userId,
+      },
+    });
+
+    const appointmentCandidate = await this.appointmentService.getExists({
+      where: {
+        id: appointmentId,
+      },
+    });
+
+    if (appointmentCandidate.masterId === userCandidate.masterProfileId) {
+      return await this.appointmentService.update({
+        where: {
+          id: appointmentCandidate.id,
+        },
+        data: {
+          cancel: true,
+        },
+      });
+    } else if (appointmentCandidate.clientId === userCandidate.clientProfileId) {
+      return await this.appointmentService.update({
+        where: {
+          id: appointmentCandidate.id,
+        },
+        data: {
+          cancel: true,
+        },
+      });
+    }
+
+    throw new BadRequestException('This appointment not belongs to you');
+  }
 }

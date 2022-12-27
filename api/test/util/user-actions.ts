@@ -637,7 +637,7 @@ export class UserActions {
    * @param expect expected response
    * @returns appointment
    */
-  async getAppointment(
+  async getAppointments(
     query: GetAppointmentQueries = {},
     expect: number = 200,
   ) {
@@ -689,6 +689,42 @@ export class UserActions {
         expect,
       },
     );
+  }
+
+  /**
+   * Confirm appointment
+   *
+   * @param appointmentId appointment ID
+   * @param expect expected response
+   * @returns confirmed appointment
+   */
+  async confirmAppointment(
+    appointmentId: string,
+    expect: number = 200,
+  ) {
+    return await this.request({
+      url: `/appointment/${appointmentId}/confirm`,
+      method: 'patch',
+      expect,
+    });
+  }
+
+  /**
+   * Cancel appointment
+   *
+   * @param appointmentId appointment ID
+   * @param expect expected response
+   * @returns canceled appointment
+   */
+  async cancelAppointment(
+    appointmentId: string,
+    expect: number = 200,
+  ) {
+    return await this.request({
+      url: `/appointment/${appointmentId}/cancel`,
+      method: 'patch',
+      expect,
+    });
   }
 
   /**

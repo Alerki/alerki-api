@@ -89,7 +89,6 @@ describe('AuthController (e2e)', () => {
     });
   });
 
-
   describe('create schedule actions', () => {
     test('try to create an appointment in the past', async () => {
       const startTime = new Date();
@@ -261,7 +260,7 @@ describe('AuthController (e2e)', () => {
 
       expect(startTime).toBeDefined();
 
-      dateToWeekDay(startTime);
+      dateToWeekDay(startTime, true);
 
       const { body } = await client.createAppointment({
         masterServiceId: masterService.id,
@@ -335,7 +334,7 @@ describe('AuthController (e2e)', () => {
 
       expect(dbClientAppointments).toHaveLength(3);
 
-      const { body: clientAppointments } = await client.getAppointment({ client: true });
+      const { body: clientAppointments } = await client.getAppointments({ client: true });
 
       expect(clientAppointments).toHaveLength(dbClientAppointments.length);
     });
@@ -349,14 +348,14 @@ describe('AuthController (e2e)', () => {
 
       expect(dbMasterAppointments).toHaveLength(4);
 
-      const { body: clientAppointments } = await master.getAppointment({ master: true });
+      const { body: clientAppointments } = await master.getAppointments({ master: true });
 
       expect(clientAppointments).toHaveLength(dbMasterAppointments.length);
     });
 
     test('get all appointment', async () => {
-      const { body: clientAppointments } = await client.getAppointment();
-      await master2.getAppointment();
+      const { body: clientAppointments } = await client.getAppointments();
+      await master2.getAppointments();
 
       expect(clientAppointments).toHaveLength(3);
     });
@@ -383,5 +382,70 @@ describe('AuthController (e2e)', () => {
     });
   });
 
-  test.todo('patch schedule actions');
+  let appointments: Array<Prisma.Appointment> = [];
+
+  describe('confirm appointment', () => {
+    beforeAll(async () => {
+      appointments = await prisma.appointment.findMany({
+        where: {
+          clientId: client.user.clientProfileId,
+        },
+      });
+
+      expect(appointments.length).toBeGreaterThanOrEqual(1);
+    });
+
+    test('try to confirm appointment that not belongs to user', async () => {
+      const { body } = await master2.confirmAppointment(
+        appointments[0].id,
+        400,
+      );
+
+      expect(body.message).toBe('This appointment not belongs to you');
+    });
+
+    test('try to confirm appointment being client', async () => {
+      const { body } = await client.confirmAppointment(
+        appointments[0].id,
+        400,
+      );
+
+      expect(body.message).toBe('Only master can confirm appointment');
+    });
+
+    test('confirm appointment successfully', async () => {
+      const { body } = await master.confirmAppointment(
+        appointments[0].id,
+      );
+
+      expect(body.confirm).toBe(true);
+    });
+  });
+
+  describe('cancel appointment actions', () => {
+    test('try to cancel appointment that not belongs to user', async () => {
+      const { body } = await master2.cancelAppointment(
+        appointments[0].id,
+        400,
+      );
+
+      expect(body.message).toBe('This appointment not belongs to you');
+    });
+
+    test('successfully cancel appointment as client', async () => {
+      const { body } = await client.cancelAppointment(
+        appointments[0].id,
+      );
+
+      expect(body.cancel).toBe(true);
+    });
+
+    test('successfully cancel appointment as master', async () => {
+      const { body } = await master.cancelAppointment(
+        appointments[1].id,
+      );
+
+      expect(body.cancel).toBe(true);
+    });
+  });
 });

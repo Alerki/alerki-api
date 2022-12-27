@@ -17,7 +17,7 @@ const config: Config = {
   },
   testEnvironment: 'node',
   testMatch: ['**/?(*.)+(spec|test|e2e-spec|e2e-spec).[jt]s?(x)'],
-  // testMatch: ['**/?(*.)+(e2e-spec-only).[jt]s?(x)'],
+  // testMatch: ['**/?(*.)+(e2e-spec-only|test-only).[jt]s?(x)'],
   preset: 'ts-jest',
   collectCoverageFrom: ['<rootDir>/src/**', '<rootDir>/config/**'],
 };

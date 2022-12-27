@@ -90,4 +90,14 @@ export class AppointmentService {
 
     return candidate;
   }
+
+  /**
+   * Update appointment
+   *
+   * @param data data to update
+   * @returns updated appointment
+   */
+  async update(data: Prisma.Prisma.AppointmentUpdateArgs) {
+    return await this.prismaService.appointment.update(data);
+  }
 }

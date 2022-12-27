@@ -3,7 +3,7 @@ export const dateToWeekDay = (
   after: boolean = false,
 ) => {
   if (
-    date.getUTCDay() === 5 ||
+    date.getUTCDay() === 0 ||
     date.getUTCDay() === 6
   ) {
     if (after) {

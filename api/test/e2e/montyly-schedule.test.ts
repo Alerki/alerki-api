@@ -14,7 +14,7 @@ import { randomUUID } from 'crypto';
 import * as util from 'util';
 import { daysOfWeek } from '@Config/api/property.config';
 
-describe.only('AuthController (e2e)', () => {
+describe('AuthController (e2e)', () => {
   let app: Application;
   let application: INestApplication;
   let client: UserActions;
@@ -56,11 +56,9 @@ describe.only('AuthController (e2e)', () => {
   let month = workWithDate.getUTCMonth();
   let year = workWithDate.getUTCFullYear();
 
-  if (workWithDate.getUTCDate() >= 20) {
-    workWithDate.setUTCMonth(workWithDate.getUTCMonth() + 1);
-    month = workWithDate.getUTCMonth();
-    year = workWithDate.getUTCFullYear();
-  }
+  workWithDate.setUTCMonth(workWithDate.getUTCMonth() + 1);
+  month = workWithDate.getUTCMonth();
+  year = workWithDate.getUTCFullYear();
 
   beforeAll(async () => {
     const weeklyScheduleStartTime = new Date(0);
@@ -131,7 +129,7 @@ describe.only('AuthController (e2e)', () => {
     appointmentStartTime.setUTCFullYear(year);
     appointmentStartTime.setUTCMonth(month);
 
-    appointmentStartTime.setUTCDate(appointmentStartTime.getUTCDate() + 1);
+    appointmentStartTime.setUTCDate(1);
     appointmentStartTime.setUTCHours(10);
     appointmentStartTime.setUTCMinutes(0);
     appointmentStartTime.setUTCSeconds(0);
@@ -152,7 +150,7 @@ describe.only('AuthController (e2e)', () => {
       startTime: appointmentStartTime,
     })).body);
 
-    appointmentStartTime.setUTCDate(appointmentStartTime.getUTCDate() + 1);
+    appointmentStartTime.setUTCDate(1);
     appointmentStartTime.setUTCMinutes(30);
 
     appointments.push((await client.createAppointment({
