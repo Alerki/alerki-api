@@ -133,6 +133,8 @@ CREATE TABLE "Appointments" (
     "clientId" VARCHAR(36) NOT NULL,
     "startTime" TIMESTAMP(3) NOT NULL,
     "endTime" TIMESTAMP(3) NOT NULL,
+    "confirm" BOOLEAN NOT NULL DEFAULT false,
+    "cancel" BOOLEAN NOT NULL DEFAULT false,
     "timezoneOffset" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

@@ -159,6 +159,8 @@ model Appointment {
   clientId        String        @db.VarChar(36)
   startTime       DateTime
   endTime         DateTime
+  confirm         Boolean       @default(false)
+  cancel          Boolean       @default(false)
   timezoneOffset  Int
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt

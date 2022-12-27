@@ -101,4 +101,52 @@ export class AppointmentController {
       { id },
     );
   }
+
+  /**
+   * Confirm appointment
+   *
+   * - only masters can confirm appointment
+   *
+   * @param req request
+   * @param appointmentId appointment ID
+   * @returns confirmed appointment
+   */
+  @ApiOperation({ description: 'Confirm appointment' })
+  @ApiOkResponse({ description: 'Appointment confirmed successfully' })
+  @ApiBadRequestResponse({ description: 'This appointment not belongs to you' })
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/confirm')
+  async confirmAppointment(
+    @Req() req: ProtectedRequest,
+    @Param('id') appointmentId: string,
+  ) {
+    return await this.appointmentControllerService.confirmAppointment(
+      { id: req.user.id },
+      { id: appointmentId },
+    );
+  }
+
+  /**
+   * Cancel appointment
+   *
+   * - clients and masters can cancel appointment
+   *
+   * @param req request
+   * @param appointmentId appointment ID
+   * @returns canceled appointment
+   */
+  @ApiOperation({ description: 'Cancel appointment' })
+  @ApiOkResponse({ description: 'Appointment canceled successfully' })
+  @ApiBadRequestResponse({ description: 'This appointment not belongs to you' })
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/cancel')
+  async cancelAppointment(
+    @Req() req: ProtectedRequest,
+    @Param('id') appointmentId: string,
+  ) {
+    return await this.appointmentControllerService.cancelAppointment(
+      { id: req.user.id },
+      { id: appointmentId },
+    );
+  }
 }
