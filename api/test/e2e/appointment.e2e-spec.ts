@@ -261,7 +261,7 @@ describe('AuthController (e2e)', () => {
 
       expect(startTime).toBeDefined();
 
-      dateToWeekDay(startTime);
+      dateToWeekDay(startTime, true);
 
       const { body } = await client.createAppointment({
         masterServiceId: masterService.id,
