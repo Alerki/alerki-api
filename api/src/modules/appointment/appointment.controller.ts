@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   Query,
   Req,
@@ -115,7 +116,7 @@ export class AppointmentController {
   @ApiOkResponse({ description: 'Appointment confirmed successfully' })
   @ApiBadRequestResponse({ description: 'This appointment not belongs to you' })
   @UseGuards(JwtAuthGuard)
-  @Post(':id/confirm')
+  @Patch(':id/confirm')
   async confirmAppointment(
     @Req() req: ProtectedRequest,
     @Param('id') appointmentId: string,
@@ -139,7 +140,7 @@ export class AppointmentController {
   @ApiOkResponse({ description: 'Appointment canceled successfully' })
   @ApiBadRequestResponse({ description: 'This appointment not belongs to you' })
   @UseGuards(JwtAuthGuard)
-  @Post(':id/cancel')
+  @Patch(':id/cancel')
   async cancelAppointment(
     @Req() req: ProtectedRequest,
     @Param('id') appointmentId: string,
