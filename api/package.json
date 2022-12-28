@@ -32,7 +32,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.2.1",
     "@nestjs/swagger": "^6.1.4",
-    "@prisma/client": "^4.7.1",
+    "@prisma/client": "^4.8.0",
     "@types/cookie-parser": "^1.4.3",
     "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
