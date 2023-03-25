@@ -1,0 +1,87 @@
+// Data source
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+  // url      = env("DATABASE_URL")
+}
+
+// Generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                 String           @id @default(uuid())
+  email              String           @unique
+  userEmail          UserEmail?
+  phoneNumber        String           @unique
+  userPhoneNumber    UserPhoneNumber?
+  username           String           @unique
+  firstName          String
+  lastName           String
+  birthDate          DateTime
+  sessions           Session[]
+  masterProfile      MasterProfile?   @relation(fields: [masterProfileId], references: [id])
+  masterProfileId    String           @unique
+  clientProfile      ClientProfile?   @relation(fields: [clientProfileId], references: [id])
+  clientProfileId    String           @unique
+  profileIsAvailable Boolean          @default(false)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  @@map("Users")
+}
+
+model UserEmail {
+  id                    String   @id @default(uuid())
+  user                  User     @relation(fields: [userId], references: [id])
+  userId                String   @unique
+  emailIsVerificated    Boolean  @default(false)
+  emailVerificationLink String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("UsersEmails")
+}
+
+model UserPhoneNumber {
+  id                           String   @id @default(uuid())
+  user                         User     @relation(fields: [userId], references: [id])
+  userId                       String   @unique
+  phoneNumberIsVerified        Boolean  @default(false)
+  phoneNumberVeirificationCode String
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @updatedAt
+
+  @@map("UsersPhones")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  deviceName   String
+  refreshToken String
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("Sessions")
+}
+
+model MasterProfile {
+  id        String   @id @default(uuid())
+  user      User?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("MasterProfiles")
+}
+
+model ClientProfile {
+  id        String   @id @default(uuid())
+  user      User?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ClientProfiles")
+}
