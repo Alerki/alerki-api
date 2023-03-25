@@ -1,0 +1,34 @@
+{
+  "name": "alerki",
+  "version": "0.6.0",
+  "description": "Alerki website",
+  "repository": "git@github.com:Alerki/alerki.git",
+  "author": "Oleksandr Petryk <sachapos50@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
+    "lint:fix": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\" --fix",
+    "format:check": "prettier --check \"{**/*,*}.{js,ts,jsx,tsx,json,yaml,yml}\"",
+    "format:write": "prettier --write \"{**/*,*}.{js,ts,jsx,tsx,json,yaml,yml}\"",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/config-angular": "^17.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "commitlint": "^17.5.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "typescript": "*"
+  },
+  "lint-staged": {
+    "./{ts,tsx,js,jsx}": "eslint . --ext .ts,.tsx,.js,.jsx"
+  }
+}
