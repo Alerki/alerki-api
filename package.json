@@ -3,7 +3,7 @@
   "version": "0.6.0",
   "description": "Alerki website",
   "repository": "git@github.com:Alerki/alerki.git",
-  "author": "Oleksandr Petryk <sachapos50@gmail.com>",
+  "author": "Oleksandr Petryk <sachapos50@gmail.com> (https://petryk.me)",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -13,6 +13,9 @@
     "format:write": "prettier --write \"{**/*,*}.{js,ts,jsx,tsx,json,yaml,yml}\"",
     "prepare": "husky install"
   },
+  "workspaces": [
+    "api"
+  ],
   "devDependencies": {
     "@commitlint/config-angular": "^17.4.4",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
