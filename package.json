@@ -25,7 +25,7 @@
     "commitlint": "^17.3.0",
     "eslint": "8.30.0",
     "eslint-config-google": "^0.14.0",
-    "husky": "^8.0.2",
+    "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "node-notifier": "^10.0.1",
     "nodemon": "^2.0.20"
