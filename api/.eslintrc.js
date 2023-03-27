@@ -4,7 +4,7 @@ module.exports = {
     jest: true,
   },
   parserOptions: {
-    project: 'tsconfig.json',
+    project: ['tsconfig.json'],
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
@@ -19,5 +19,6 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
   },
 };

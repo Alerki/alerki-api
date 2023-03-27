@@ -14,17 +14,18 @@ model User {
   id                 String           @id @default(uuid())
   email              String           @unique
   userEmail          UserEmail?
-  phoneNumber        String           @unique
+  phoneNumber        String?           @unique
   userPhoneNumber    UserPhoneNumber?
   username           String           @unique
-  firstName          String
-  lastName           String
-  birthDate          DateTime
+  firstName          String?
+  lastName           String?
+  birthDate          DateTime?
+  password           String
   sessions           Session[]
   masterProfile      MasterProfile?   @relation(fields: [masterProfileId], references: [id])
-  masterProfileId    String           @unique
+  masterProfileId    String?           @unique
   clientProfile      ClientProfile?   @relation(fields: [clientProfileId], references: [id])
-  clientProfileId    String           @unique
+  clientProfileId    String?           @unique
   profileIsAvailable Boolean          @default(false)
   createdAt          DateTime         @default(now())
   updatedAt          DateTime         @updatedAt
