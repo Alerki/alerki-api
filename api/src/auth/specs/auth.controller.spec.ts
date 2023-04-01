@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { ENV } from '../../config';
 import { AuthController } from '../auth.controller';
 
 describe('AuthController', () => {
