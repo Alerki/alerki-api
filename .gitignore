@@ -35,8 +35,8 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Prisma
-api/prisma/*
-!api/prisma/schema.prisma
+prisma/*
+!prisma/schema.prisma
 
 # Dot env
 .env
