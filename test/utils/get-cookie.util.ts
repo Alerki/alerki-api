@@ -7,8 +7,8 @@ interface Cookie {
   Expires?: string;
   HttpOnly?: boolean;
   Secure?: boolean;
-  SameSite?: 'Strict' | any;
-  [key: string]: any;
+  SameSite?: 'Strict' | unknown;
+  [key: string]: unknown;
 }
 
 /**

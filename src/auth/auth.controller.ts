@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import type { Response } from 'express';
 
 import { ENV } from '../config';
@@ -16,7 +16,7 @@ export class AuthController {
     await this.authModuleService.register(body);
   }
 
-  @Get('log-in')
+  @Post('log-in')
   async logIn(
     @Res() res: Response,
     @Body() body: LogInDto,
@@ -26,22 +26,24 @@ export class AuthController {
 
     res.cookie('refreshToken', tokens.refreshToken, {
       httpOnly: true,
-      expires: ENV.JWT_REFRESH_TOKEN_EXPIRES_IN,
+      maxAge: ENV.JWT_REFRESH_TOKEN_EXPIRES_IN,
     });
 
-    return {
+    res.json({
       accessToken: tokens.accessToken,
-    };
+    });
   }
 
   @Get('log-out')
   async logOut(
-    @GetCookies('refreshToken') refreshToken: string,
     @Res() res: Response,
+    @GetCookies('refreshToken') refreshToken: string,
   ) {
     await this.authModuleService.logOut(refreshToken);
 
     res.clearCookie('refreshToken');
+
+    res.sendStatus(HttpStatus.OK);
   }
 
   @Get('refresh')

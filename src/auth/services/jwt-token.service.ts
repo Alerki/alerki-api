@@ -47,7 +47,7 @@ export class JwtTokenService {
 
   async validateRefreshToken(refreshToken: string) {
     return this.jwtService.verify<IJwtTokenData>(refreshToken, {
-      secret: this.jwtRefreshTokenExpiresIn,
+      secret: this.jwtRefreshTokenSecret,
     });
   }
 }

@@ -6,28 +6,19 @@ import type { Application } from 'express';
 import * as request from 'supertest';
 
 import { AppModule } from '../src/app.module';
-import { AuthModule } from '../src/auth/auth.module';
-import { AuthService } from '../src/auth/services/auth.service';
-import { AuthModuleService } from '../src/auth/services/auth-module.service';
 import { UserActions } from './utils/actions.util';
 import { clearDatabaseUtil } from './utils/clear-database.util';
+import getCookieUtil from './utils/get-cookie.util';
 
 describe('Auth module testing', () => {
   let app: Application;
   let application: INestApplication;
   let prisma: PrismaClient;
 
-  let authModuleService: AuthModuleService;
-  let authService: AuthService;
-
   beforeAll(async () => {
     const moduleFixtures = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
-
-    authModuleService =
-      moduleFixtures.get<AuthModuleService>(AuthModuleService);
-    authService = moduleFixtures.get<AuthService>(AuthService);
 
     application = await moduleFixtures
       .createNestApplication()
@@ -61,7 +52,7 @@ describe('Auth module testing', () => {
 
       expect(usersBefore).toHaveLength(0);
 
-      const r = await request(app)
+      await request(app)
         .post('/auth/register')
         .send(user.credentials)
         .expect(201);
@@ -72,7 +63,46 @@ describe('Auth module testing', () => {
 
       expect(usersAfter[0].email).toBe(user.email);
       expect(usersAfter[0].username).toBe(user.username);
-      expect(usersAfter[0].password).toBeDefined();
+      expect(usersAfter[0].password).not.toBe(user.password);
+    });
+
+    it('should log-in user', async () => {
+      const user = new UserActions(app);
+
+      await request(app)
+        .post('/auth/register')
+        .send(user.credentials)
+        .expect(201);
+
+      const r = await request(app)
+        .post('/auth/log-in')
+        .send(user.credentials)
+        .expect(201);
+
+      const cookies = getCookieUtil(r);
+
+      const sessions = await prisma.session.findMany({});
+
+      expect(r.body.accessToken).toBeDefined();
+      expect(sessions).toHaveLength(1);
+      expect(sessions[0].refreshToken).toBe(cookies.refreshToken.value);
+    });
+
+    it('should log-out user', async () => {
+      const user = new UserActions(app);
+      await user.register();
+
+      const sessionsBefore = await prisma.session.findMany({});
+      expect(sessionsBefore).toHaveLength(1);
+
+      await user.request({
+        method: 'get',
+        url: '/auth/log-out',
+        expect: 200,
+      });
+
+      const sessionsAfter = await prisma.session.findMany({});
+      expect(sessionsAfter).toHaveLength(0);
     });
   });
 });

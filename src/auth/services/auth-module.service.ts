@@ -90,6 +90,7 @@ export class AuthModuleService {
 
   async logOut(refreshToken: string) {
     let decodedRefreshToken: IJwtTokenData;
+
     try {
       decodedRefreshToken = await this.jwtTokensService.validateRefreshToken(
         refreshToken,
@@ -104,10 +105,6 @@ export class AuthModuleService {
         userId: decodedRefreshToken.id,
       },
     });
-
-    if (!sessionCandidate) {
-      throw new BadRequestException('Session not exists');
-    }
 
     await this.sessionService.delete({
       where: {

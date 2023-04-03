@@ -7,9 +7,10 @@ import { randomString } from './random-string.util';
 
 interface RequestI {
   url: string;
-  method: 'get' | 'patch' | 'delete' | 'post';
-  query?: Record<string, any>;
-  send?: any;
+  method: request.Test['method'];
+  query?: request.Test['query'];
+  set?: request.Test['set'][];
+  send?: request.Test['send'];
   expect?: number;
 }
 
@@ -95,17 +96,15 @@ export class UserActions {
    * Get user information
    */
   get user() {
-    if (!this._user) {
-      throw new Error('User is not defined');
-    }
+    // if (this._user) {
+    //   throw new Error('User is not defined');
+    // }
 
     return this._user;
   }
 
   /**
    * Register new user
-   *
-   * @param app express application
    */
   async register() {
     await request(this.app)
@@ -124,12 +123,15 @@ export class UserActions {
         email: this._email,
         password: this._password,
       })
-      .expect(200);
+      .expect(201);
 
     const cookies = getCookieUtil(signIn);
 
     this._accessToken = signIn.body.accessToken;
-    this._refreshToken = cookies.refreshToken.value!;
+
+    if (cookies?.refreshToken?.value) {
+      this._refreshToken = cookies.refreshToken.value;
+    }
 
     await this.getUser();
   }
@@ -153,6 +155,68 @@ export class UserActions {
   }
 
   /**
+   * Make request
+   *
+   * @param param0 request options
+   * @returns response
+   */
+  async request({ url, method, query, send, expect }: RequestI) {
+    if (expect) {
+      return await request(this.app)
+        [method](url)
+        .set({ Authorization: 'Bearer ' + this._accessToken })
+        .set('Cookie', ['refreshToken=' + this._refreshToken])
+        .query(query)
+        .send(send)
+        .expect(expect);
+    }
+
+    return await request(this.app)
+      [method](url)
+      .set({ Authorization: 'Bearer ' + this._accessToken })
+      .set('Cookie', ['refreshToken=' + this._refreshToken])
+      .query(query)
+      .send(send);
+  }
+
+  /**
+   * Make request for unauthorized user
+   *
+   * @param app express application
+   * @param param1 request options
+   * @returns response
+   */
+  static async request(
+    app: Application,
+    {
+      url,
+      method,
+      query,
+      send,
+      expect,
+      refreshToken,
+      accessToken,
+    }: RequestI & { refreshToken?: string; accessToken?: string },
+  ) {
+    if (expect) {
+      return await request(app)
+        [method](url)
+        .set({ Authorization: 'Bearer ' + accessToken })
+        .set('Cookie', [`refreshToken=${refreshToken}`])
+        .query(query)
+        .send(send)
+        .expect(expect);
+    }
+
+    return await request(app)
+      [method](url)
+      .set({ Authorization: 'Bearer ' + accessToken })
+      .set('Cookie', [`refreshToken=${refreshToken}`])
+      .query(query)
+      .send(send);
+  }
+
+  /**
    * Get user
    *
    * @param app express application
@@ -161,9 +225,7 @@ export class UserActions {
    * @returns user
    */
   static async getUser(app: Application, userId: string, expect = 200) {
-    const response = await request(app).get(`/user/${userId}`).expect(expect);
-
-    return response;
+    return request(app).get(`/user/${userId}`).expect(expect);
   }
 
   /**
