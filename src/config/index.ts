@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import { cleanEnv, makeValidator, num, port, str } from 'envalid';
 import * as path from 'path';
 
-dotenv.config({ path: path.join(path.resolve(), '../.env') });
+dotenv.config({ path: path.join(path.resolve(), '.env') });
 
 export const evalValidator = makeValidator((value: string) => {
   if (!/^[\d+\-*/\s().]+$/.test(value)) {
