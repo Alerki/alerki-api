@@ -27,6 +27,7 @@ model User {
   birthDate             DateTime?
   password              String
   sessions              Session[]
+  isMaster              Boolean                       @default(false)
   masterProfile         MasterProfile?                @relation(fields: [masterProfileId], references: [id])
   masterProfileId       String?                       @unique
   clientProfile         ClientProfile?                @relation(fields: [clientProfileId], references: [id])
@@ -111,16 +112,16 @@ model MasterSchedule {
 }
 
 model MasterProfile {
-  id                     String               @id @default(uuid())
-  user                   User?
-  schedules              MasterSchedule[]
-  weeklySchedule         MasterWeeklySchedule @relation(fields: [weeklyScheduleId], references: [id])
-  weeklyScheduleId       String               @unique
-  masterService          MasterService[]
-  Appointments           Appointments[]
-  createdAt              DateTime             @default(now())
-  updatedAt              DateTime             @updatedAt
-  masterWeeklyScheduleId String
+  id               String               @id @default(uuid())
+  user             User?
+  schedules        MasterSchedule[]
+  masterService    MasterService[]
+  appointments     Appointments[]
+  weeklySchedule   MasterWeeklySchedule @relation(fields: [weeklyScheduleId], references: [id])
+  weeklyScheduleId String               @unique
+  available        Boolean              @default(true)
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
 
   @@map("MasterProfiles")
 }

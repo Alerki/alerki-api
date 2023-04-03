@@ -8,6 +8,12 @@ import { UserModuleService } from './services/user.module.service';
 export class UserController {
   constructor(private readonly userModuleService: UserModuleService) {}
 
+  // @Get('enable-master')
+  // async enableMaster() {}
+
+  // @Get('disable-master')
+  // async disableMaster() {}
+
   @UseGuards(JwtAuthGuard)
   @Get('')
   async getProtectedUser(@Req() req: ProtectedRequest) {
