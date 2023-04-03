@@ -20,7 +20,6 @@ export class SessionService {
   ) {
     const candidate = await this.findFirst(data);
 
-    console.log(candidate);
     if (!candidate) {
       if (callback) {
         callback();

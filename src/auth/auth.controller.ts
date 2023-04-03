@@ -48,18 +48,18 @@ export class AuthController {
 
   @Get('refresh')
   async refresh(
-    @GetCookies('refreshToken') refreshToken: string,
     @Res() res: Response,
+    @GetCookies('refreshToken') refreshToken: string,
   ) {
     const tokens = await this.authModuleService.refresh(refreshToken);
 
     res.cookie('refreshToken', tokens.refreshToken, {
       httpOnly: true,
-      expires: ENV.JWT_REFRESH_TOKEN_EXPIRES_IN,
+      maxAge: ENV.JWT_REFRESH_TOKEN_EXPIRES_IN,
     });
 
-    return {
+    res.json({
       accessToken: tokens.accessToken,
-    };
+    });
   }
 }

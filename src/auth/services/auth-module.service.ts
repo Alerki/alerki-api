@@ -115,8 +115,9 @@ export class AuthModuleService {
 
   async refresh(refreshToken: string) {
     let decodedRefreshToken: IJwtTokenData;
+
     try {
-      decodedRefreshToken = await this.jwtTokensService.validateRefreshToken(
+      decodedRefreshToken = await this.jwtTokensService.validateAccessToken(
         refreshToken,
       );
     } catch (e) {
@@ -134,9 +135,9 @@ export class AuthModuleService {
       throw new BadRequestException('Session not exists');
     }
 
-    const tokens = await this.jwtTokensService.generatePairTokens(
-      decodedRefreshToken,
-    );
+    const tokens = await this.jwtTokensService.generatePairTokens({
+      id: decodedRefreshToken.id,
+    });
 
     await this.sessionService.update({
       where: {
