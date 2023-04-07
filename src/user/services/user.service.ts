@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
@@ -21,5 +21,22 @@ export class UserService {
 
   async update(data: Prisma.Prisma.UserUpdateArgs) {
     return this.prismaService.user.update(data);
+  }
+
+  async findExists(
+    data: Prisma.Prisma.UserFindFirstArgs,
+    callback?: () => never,
+  ) {
+    const candidate = await this.prismaService.user.findFirst(data);
+
+    if (!candidate) {
+      if (callback) {
+        callback();
+      }
+
+      throw new NotFoundException('User not exists');
+    }
+
+    return candidate;
   }
 }

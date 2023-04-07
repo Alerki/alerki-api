@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { MasterProfileService } from '../master-profile.service';
+import { MasterProfileService } from '../services/master-profile.service';
 
 describe('MasterProfileService', () => {
   let service: MasterProfileService;
