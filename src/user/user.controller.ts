@@ -10,6 +10,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { IJwtTokenData } from '../auth/interfaces';
@@ -21,6 +22,7 @@ import {
 } from './dtos/master-service.dto';
 import { UserModuleService } from './services/user.module.service';
 
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private readonly userModuleService: UserModuleService) {}

@@ -151,14 +151,14 @@ model Service {
 }
 
 model Currency {
-  id           String         @id @default(uuid())
-  code         String         @unique
-  character    String
-  available    Boolean        @default(true)
+  id        String   @id @default(uuid())
+  code      String   @unique
+  character String
+  available Boolean  @default(true)
   // masterService MasterService[]
-  appointments Appointments[]
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  // appointments Appointments[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("Currencies")
 }
@@ -190,8 +190,9 @@ model Appointments {
   masterProfile   MasterProfile @relation(fields: [masterProfileId], references: [id])
   masterProfileId String
   duration        Int
-  currency        Currency      @relation(fields: [currencyId], references: [id])
-  currencyId      String
+  // currency        Currency      @relation(fields: [currencyId], references: [id])
+  // currencyId      String
+  currency        String
   price           Int
   startAt         DateTime
   endAt           DateTime

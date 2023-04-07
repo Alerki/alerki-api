@@ -1,4 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
 
 import { ENV } from '../config';
@@ -7,6 +8,7 @@ import { GetCookies } from '../shared/decorators/get-cookie.decorator';
 import { LogInDto, RegisterDto } from './dtos/auth.dto';
 import { AuthModuleService } from './services/auth-module.service';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authModuleService: AuthModuleService) {}
