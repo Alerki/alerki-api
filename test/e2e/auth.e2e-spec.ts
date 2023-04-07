@@ -5,11 +5,11 @@ import * as cookieParser from 'cookie-parser';
 import type { Application } from 'express';
 import * as request from 'supertest';
 
-import { AppModule } from '../src/app.module';
-import { UserActions } from './utils/actions.util';
-import { clearDatabaseUtil } from './utils/clear-database.util';
-import getCookieUtil from './utils/get-cookie.util';
-import { sleep } from './utils/sleep.util';
+import { AppModule } from '../../src/app.module';
+import { UserActions } from '../utils/actions.util';
+import { clearDatabaseUtil } from '../utils/clear-database.util';
+import getCookieUtil from '../utils/get-cookie.util';
+import { sleep } from '../utils/sleep.util';
 
 describe('Auth module testing', () => {
   let app: Application;

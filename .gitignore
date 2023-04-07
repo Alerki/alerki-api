@@ -39,4 +39,7 @@ prisma/*
 !prisma/schema.prisma
 
 # Dot env
-.env
+.env.dev
+
+# Docker volumes
+data/

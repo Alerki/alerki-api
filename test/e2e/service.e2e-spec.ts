@@ -4,8 +4,8 @@ import { PrismaClient } from '@prisma/client';
 import { Application } from 'express';
 import * as request from 'supertest';
 
-import { AppModule } from '../src/app.module';
-import { clearDatabaseUtil } from './utils/clear-database.util';
+import { AppModule } from '../../src/app.module';
+import { clearDatabaseUtil } from '../utils/clear-database.util';
 
 describe('Service module testing', () => {
   let app: Application;

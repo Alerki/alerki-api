@@ -14,11 +14,21 @@ export const evalValidator = makeValidator((value: string) => {
 
 export const ENV = cleanEnv(process.env, {
   PORT: port(),
+
   GOOGLE_CLIENT_ID: str(),
   GOOGLE_CLIENT_SECRET: str(),
+
+  DATABASE_USER: str(),
+  DATABASE_PASSWORD: str(),
+  DATABASE_HOST: str(),
+  DATABASE_PORT: num(),
+  DATABASE_NAME: str(),
+  DATABASE_URL: str(),
+
   JWT_ACCESS_TOKEN_SECRET: str(),
   JWT_ACCESS_TOKEN_EXPIRES_IN: evalValidator(),
   JWT_REFRESH_TOKEN_SECRET: str(),
   JWT_REFRESH_TOKEN_EXPIRES_IN: evalValidator(),
+
   PASSWORD_HASH: num(),
 });
