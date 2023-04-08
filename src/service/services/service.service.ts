@@ -15,8 +15,8 @@ export class ServiceService {
     return this.prismaService.service.findMany(data);
   }
 
-  async findExists(
-    data: Prisma.Prisma.ServiceFindFirstArgs,
+  async findExists<T extends Prisma.Prisma.ServiceFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceFindFirstArgs>,
     callback?: () => never,
   ) {
     const candidate = await this.prismaService.service.findFirst(data);

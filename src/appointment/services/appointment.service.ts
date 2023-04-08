@@ -27,8 +27,8 @@ export class AppointmentService {
     return this.prismaService.appointment.findMany(data);
   }
 
-  async findExists(
-    data: Prisma.AppointmentFindFirstArgs,
+  async findExists<T extends Prisma.AppointmentFindFirstArgs>(
+    data: Prisma.SelectSubset<T, Prisma.AppointmentFindFirstArgs>,
     callback?: () => never,
   ) {
     const candidate = await this.prismaService.appointment.findFirst(data);

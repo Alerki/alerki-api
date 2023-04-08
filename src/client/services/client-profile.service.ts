@@ -7,28 +7,38 @@ import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 export class ClientProfileService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(data: Prisma.ClientProfileCreateArgs) {
+  async create<T extends Prisma.ClientProfileCreateArgs>(
+    data: Prisma.SelectSubset<T, Prisma.ClientProfileCreateArgs>,
+  ) {
     return this.prismaService.clientProfile.create(data);
   }
 
-  async update(data: Prisma.ClientProfileUpdateArgs) {
+  async update<T extends Prisma.ClientProfileUpdateArgs>(
+    data: Prisma.SelectSubset<T, Prisma.ClientProfileUpdateArgs>,
+  ) {
     return this.prismaService.clientProfile.update(data);
   }
 
-  async delete(data: Prisma.ClientProfileDeleteArgs) {
+  async delete<T extends Prisma.ClientProfileDeleteArgs>(
+    data: Prisma.SelectSubset<T, Prisma.ClientProfileDeleteArgs>,
+  ) {
     return this.prismaService.clientProfile.delete(data);
   }
 
-  async findFirst(data: Prisma.ClientProfileFindFirstArgs) {
+  async findFirst<T extends Prisma.ClientProfileFindFirstArgs>(
+    data: Prisma.SelectSubset<T, Prisma.ClientProfileFindFirstArgs>,
+  ) {
     return this.prismaService.clientProfile.findFirst(data);
   }
 
-  async findMany(data: Prisma.ClientProfileFindManyArgs) {
+  async findMany<T extends Prisma.ClientProfileFindManyArgs>(
+    data: Prisma.SelectSubset<T, Prisma.ClientProfileFindManyArgs>,
+  ) {
     return this.prismaService.clientProfile.findMany(data);
   }
 
-  async findExists(
-    data: Prisma.ClientProfileFindFirstArgs,
+  async findExists<T extends Prisma.ClientProfileFindFirstArgs>(
+    data: Prisma.SelectSubset<T, Prisma.ClientProfileFindFirstArgs>,
     callback?: () => never,
   ) {
     const candidate = await this.prismaService.clientProfile.findFirst(data);

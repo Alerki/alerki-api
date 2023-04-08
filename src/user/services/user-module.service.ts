@@ -263,6 +263,7 @@ export class UserModuleService {
         id: user.id,
       },
       select: {
+        isMaster: true,
         masterProfileId: true,
       },
     });

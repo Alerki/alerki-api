@@ -14,8 +14,8 @@ export class SessionService {
     return this.prismaService.session.findMany(data);
   }
 
-  async findExists(
-    data: Prisma.Prisma.SessionFindFirstArgs,
+  async findExists<T extends Prisma.Prisma.SessionFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.SessionFindFirstArgs>,
     callback?: () => never,
   ) {
     const candidate = await this.findFirst(data);
