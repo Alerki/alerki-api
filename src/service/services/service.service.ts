@@ -7,11 +7,15 @@ import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 export class ServiceService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findFirst(data: Prisma.Prisma.ServiceFindFirstArgs) {
+  async findFirst<T extends Prisma.Prisma.ServiceFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceFindFirstArgs>,
+  ) {
     return this.prismaService.service.findFirst(data);
   }
 
-  async findMany(data: Prisma.Prisma.ServiceFindManyArgs) {
+  async findMany<T extends Prisma.Prisma.ServiceFindManyArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceFindManyArgs>,
+  ) {
     return this.prismaService.service.findMany(data);
   }
 
@@ -32,15 +36,21 @@ export class ServiceService {
     return candidate;
   }
 
-  async update(data: Prisma.Prisma.ServiceUpdateArgs) {
+  async update<T extends Prisma.Prisma.ServiceUpdateArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceUpdateArgs>,
+  ) {
     return this.prismaService.service.update(data);
   }
 
-  async create(data: Prisma.Prisma.ServiceCreateArgs) {
+  async create<T extends Prisma.Prisma.ServiceCreateArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceCreateArgs>,
+  ) {
     return this.prismaService.service.create(data);
   }
 
-  async delete(data: Prisma.Prisma.ServiceDeleteArgs) {
+  async delete<T extends Prisma.Prisma.ServiceDeleteArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceDeleteArgs>,
+  ) {
     return this.prismaService.service.delete(data);
   }
 

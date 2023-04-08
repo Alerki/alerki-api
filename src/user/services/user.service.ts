@@ -7,7 +7,9 @@ import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findFirst(data: Prisma.Prisma.UserFindFirstArgs) {
+  async findFirst<T extends Prisma.Prisma.UserFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.UserFindFirstArgs>,
+  ) {
     return this.prismaService.user.findFirst(data);
   }
 
