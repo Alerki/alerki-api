@@ -42,4 +42,4 @@ prisma/*
 .env.dev
 
 # Docker volumes
-data/
+data/*
