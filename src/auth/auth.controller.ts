@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
 
 import { ENV } from '../config';
@@ -13,11 +13,13 @@ import { AuthModuleService } from './services/auth-module.service';
 export class AuthController {
   constructor(private readonly authModuleService: AuthModuleService) {}
 
+  @ApiOperation({ description: 'Register new user' })
   @Post('register')
   async register(@Body() body: RegisterDto) {
     await this.authModuleService.register(body);
   }
 
+  @ApiOperation({ description: 'Log-in user' })
   @Post('log-in')
   async logIn(
     @Res() res: Response,

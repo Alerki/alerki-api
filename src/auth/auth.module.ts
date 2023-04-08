@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 
+import { ClientProfileModule } from '../client/client-profile.module';
 import { LocalStrategy } from '../google/google.strategy';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
@@ -20,7 +21,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     LocalStrategy,
     JwtStrategy,
   ],
-  imports: [UserModule, JwtModule],
+  imports: [UserModule, JwtModule, ClientProfileModule],
   exports: [AuthService, SessionService, JwtTokenService],
 })
 export class AuthModule {}

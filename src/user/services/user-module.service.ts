@@ -4,6 +4,7 @@ import { Prisma } from '@prisma/client';
 import { IJwtTokenData } from '../../auth/interfaces';
 import { MasterProfileService } from '../../master/services/master-profile.service';
 import { MasterServiceService } from '../../master/services/master-service.service';
+import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
 import { ServiceService } from '../../service/services/service.service';
 import {
   CreateMasterServiceDto,
@@ -17,23 +18,32 @@ export class UserModuleService {
     private readonly userService: UserService,
     private readonly masterProfileService: MasterProfileService,
     private readonly masterServiceService: MasterServiceService,
+    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
     private readonly serviceService: ServiceService,
   ) {}
 
   async getUser(username: string) {
-    return this.userService.findFirst({
+    const user = await this.userService.findExists({
       where: {
         username,
       },
     });
+
+    const { password, ...data } = user;
+
+    return data;
   }
 
   async getProtectedUser(data: IJwtTokenData) {
-    return this.userService.findFirst({
+    const user = await this.userService.findExists({
       where: {
         id: data.id,
       },
     });
+
+    const { password, ...userData } = user;
+
+    return userData;
   }
 
   async enableMaster(user: IJwtTokenData) {
@@ -53,11 +63,38 @@ export class UserModuleService {
 
     // If master profile for specific user not exists then create new one
     if (!userCandidate.masterProfileId) {
+      const startAt = new Date();
+      startAt.setUTCHours(9);
+      startAt.setUTCMinutes(0);
+      startAt.setUTCSeconds(0);
+      startAt.setUTCMilliseconds(0);
+
+      const endAt = new Date(startAt);
+      endAt.setHours(17);
+
+      const newWeeklySchedule = await this.masterWeeklyScheduleService.create({
+        data: {
+          startAt,
+          endAt,
+        },
+      });
+
       const newMasterProfile = await this.masterProfileService.create({
-        data: {},
+        data: {
+          weeklyScheduleId: newWeeklySchedule.id,
+        },
       });
 
       updateMasterProfileData.masterProfileId = newMasterProfile.id;
+    } else {
+      await this.masterProfileService.update({
+        where: {
+          id: userCandidate.masterProfileId,
+        },
+        data: {
+          available: true,
+        },
+      });
     }
 
     await this.userService.update({
@@ -112,11 +149,17 @@ export class UserModuleService {
       throw new BadRequestException('User is not a master');
     }
 
-    const serviceCandidate = await this.serviceService.findExists({
-      where: {
-        id: data.serviceId,
-      },
-    });
+    let serviceCandidate = await this.serviceService.searchFirstByName(
+      data.name,
+    );
+
+    if (!serviceCandidate) {
+      serviceCandidate = await this.serviceService.create({
+        data: {
+          name: data.name,
+        },
+      });
+    }
 
     const checkIfNotExists = await this.masterServiceService.findFirst({
       where: {
@@ -133,7 +176,9 @@ export class UserModuleService {
 
     return this.masterServiceService.create({
       data: {
-        ...data,
+        duration: data.duration,
+        currency: data.currency,
+        price: data.price,
         serviceId: serviceCandidate.id,
         masterProfileId: userCandidate.masterProfileId,
       },
@@ -146,6 +191,7 @@ export class UserModuleService {
         id: user.id,
       },
       select: {
+        isMaster: true,
         masterProfileId: true,
       },
     });
@@ -169,7 +215,7 @@ export class UserModuleService {
     });
 
     if (!masterCandidate.available) {
-      throw new BadRequestException('User is not a master');
+      throw new BadRequestException('Master is not available');
     }
 
     return this.masterServiceService.findMany({
@@ -190,12 +236,26 @@ export class UserModuleService {
       },
     });
 
-    if (data.serviceId !== masterServiceCandidate.serviceId) {
-      await this.serviceService.findExists({
-        where: {
-          id: data.serviceId,
-        },
-      });
+    const { name, ...otherData } = data;
+
+    const updateData: Prisma.MasterServiceUpdateArgs['data'] = {
+      ...otherData,
+    };
+
+    if (data.name) {
+      let serviceCandidate = await this.serviceService.searchFirstByName(
+        data.name,
+      );
+
+      if (!serviceCandidate) {
+        serviceCandidate = await this.serviceService.create({
+          data: {
+            name: data.name,
+          },
+        });
+      }
+
+      updateData.serviceId = serviceCandidate.id;
     }
 
     const userCandidate = await this.userService.findExists({
@@ -221,7 +281,7 @@ export class UserModuleService {
       where: {
         id: masterServiceCandidate.id,
       },
-      data,
+      data: updateData,
     });
   }
 

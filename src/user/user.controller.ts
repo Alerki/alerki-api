@@ -10,7 +10,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { IJwtTokenData } from '../auth/interfaces';
@@ -20,25 +20,28 @@ import {
   CreateMasterServiceDto,
   UpdateMasterServiceDto,
 } from './dtos/master-service.dto';
-import { UserModuleService } from './services/user.module.service';
+import { UserModuleService } from './services/user-module.service';
 
 @ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private readonly userModuleService: UserModuleService) {}
 
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Get('enable-master')
   async enableMaster(@GetUserFromRequest() user: IJwtTokenData) {
     return this.userModuleService.enableMaster(user);
   }
 
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Get('disable-master')
   async disableMaster(@GetUserFromRequest() user: IJwtTokenData) {
-    return this.userModuleService.enableMaster(user);
+    return this.userModuleService.disableMaster(user);
   }
 
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Post('master/service')
   async createMasterService(
@@ -48,6 +51,7 @@ export class UserController {
     return this.userModuleService.createMasterService(user, data);
   }
 
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Get('master/service')
   async getOwnMasterServices(@GetUserFromRequest() user: IJwtTokenData) {
@@ -59,6 +63,7 @@ export class UserController {
     return this.userModuleService.getMasterServicesByMasterId(id);
   }
 
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Patch('master/service/:id')
   async updateMasterService(
@@ -69,6 +74,7 @@ export class UserController {
     return this.userModuleService.updateMasterService(serviceId, user, data);
   }
 
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Delete('master/service/:id')
   async deleteMasterService(
@@ -83,6 +89,7 @@ export class UserController {
     return this.userModuleService.getUser(username);
   }
 
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Get('')
   async getProtectedUser(@Req() req: ProtectedRequest) {

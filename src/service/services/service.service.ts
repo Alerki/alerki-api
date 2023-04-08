@@ -55,4 +55,16 @@ export class ServiceService {
       },
     });
   }
+
+  async searchFirstByName(name: string) {
+    return this.findFirst({
+      where: {
+        name: {
+          contains: name.split(' ').join(' & '),
+          // search: name.split(' ').join(' & '),
+        },
+        available: true,
+      },
+    });
+  }
 }

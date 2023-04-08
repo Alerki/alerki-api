@@ -31,8 +31,8 @@ model User {
   isMaster              Boolean                       @default(false)
   masterProfile         MasterProfile?                @relation(fields: [masterProfileId], references: [id])
   masterProfileId       String?                       @unique
-  clientProfile         ClientProfile?                @relation(fields: [clientProfileId], references: [id])
-  clientProfileId       String?                       @unique
+  clientProfile         ClientProfile                 @relation(fields: [clientProfileId], references: [id])
+  clientProfileId       String                        @unique
   profileIsAvailable    Boolean                       @default(false)
   notificationRecipient UserRecipientOnNotification[]
   notificationSender    UserSenderOnNotification[]
@@ -81,20 +81,19 @@ model Session {
 }
 
 model MasterWeeklySchedule {
-  id              String         @id @default(uuid())
-  masterProfile   MasterProfile? @relation(fields: [masterProfileId], references: [id])
-  monday          Boolean        @default(true) // true means that the day is not a day off
-  tuesday         Boolean        @default(true)
-  wednesday       Boolean        @default(true)
-  thursday        Boolean        @default(true)
-  friday          Boolean        @default(true)
-  saturday        Boolean        @default(false) // saturday and sunday is a day off
-  sunday          Boolean        @default(false)
-  startAt         DateTime // start work time
-  endAt           DateTime // end work time
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  masterProfileId String?
+  id            String         @id @default(uuid())
+  MasterProfile MasterProfile?
+  monday        Boolean        @default(true) // true means that the day is not a day off
+  tuesday       Boolean        @default(true)
+  wednesday     Boolean        @default(true)
+  thursday      Boolean        @default(true)
+  friday        Boolean        @default(true)
+  saturday      Boolean        @default(false) // saturday and sunday is a day off
+  sunday        Boolean        @default(false)
+  startAt       DateTime // start work time
+  endAt         DateTime // end work time
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
   @@map("MastersWeeklySchedules")
 }
@@ -114,27 +113,26 @@ model MasterSchedule {
 }
 
 model MasterProfile {
-  id                   String                 @id @default(uuid())
-  user                 User?
-  schedules            MasterSchedule[]
-  masterService        MasterService[]
-  appointments         Appointments[]
-  // weeklySchedule MasterWeeklySchedule @relation(fields: [weeklyScheduleId], references: [id])
-  // weeklyScheduleId String               @unique
-  available            Boolean                @default(true)
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  MasterWeeklySchedule MasterWeeklySchedule[]
+  id               String               @id @default(uuid())
+  user             User?
+  schedules        MasterSchedule[]
+  masterService    MasterService[]
+  appointments     Appointment[]
+  weeklySchedule   MasterWeeklySchedule @relation(fields: [weeklyScheduleId], references: [id])
+  weeklyScheduleId String               @unique
+  available        Boolean              @default(true)
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
 
   @@map("MasterProfiles")
 }
 
 model ClientProfile {
-  id           String         @id @default(uuid())
+  id           String        @id @default(uuid())
   user         User?
-  appointments Appointments[]
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  appointments Appointment[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
   @@map("ClientProfiles")
 }
@@ -156,7 +154,7 @@ model Currency {
   character String
   available Boolean  @default(true)
   // masterService MasterService[]
-  // appointments Appointments[]
+  // appointments Appointment[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -164,24 +162,25 @@ model Currency {
 }
 
 model MasterService {
-  id              String         @id @default(uuid())
-  masterProfile   MasterProfile  @relation(fields: [masterProfileId], references: [id])
+  id              String        @id @default(uuid())
+  masterProfile   MasterProfile @relation(fields: [masterProfileId], references: [id])
   masterProfileId String
-  service         Service        @relation(fields: [serviceId], references: [id])
+  service         Service       @relation(fields: [serviceId], references: [id])
   serviceId       String
   duration        Int // In milliseconds
   // currency        Currency       @relation(fields: [currencyId], references: [id])
   // currencyId      String
   currency        String // temporary
   price           Int
-  Appointments    Appointments[]
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  available       Boolean       @default(true)
+  Appointments    Appointment[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 
   @@map("MastersServices")
 }
 
-model Appointments {
+model Appointment {
   id              String        @id @default(uuid())
   masterService   MasterService @relation(fields: [masterServiceId], references: [id])
   masterServiceId String

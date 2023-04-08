@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ClientProfileService } from '../client-profile.service';
+import { ClientProfileService } from '../services/client-profile.service';
 
 describe('ClientProfileService', () => {
   let service: ClientProfileService;

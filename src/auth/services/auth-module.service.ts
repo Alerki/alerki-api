@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcryptjs from 'bcryptjs';
 
+import { ClientProfileService } from '../../client/services/client-profile.service';
 import { ENV } from '../../config';
 import { UserService } from '../../user/services/user.service';
 import { LogInDto, RegisterDto } from '../dtos/auth.dto';
@@ -18,6 +19,7 @@ export class AuthModuleService {
     private readonly jwtTokensService: JwtTokenService,
     private readonly userService: UserService,
     private readonly sessionService: SessionService,
+    private readonly clientProfileService: ClientProfileService,
   ) {
     this.passwordHash = ENV.PASSWORD_HASH;
   }
@@ -44,6 +46,8 @@ export class AuthModuleService {
       }
     }
 
+    const clientProfile = await this.clientProfileService.create({ data: {} });
+
     const passwordHash = bcryptjs.hashSync(data.password, this.passwordHash);
 
     await this.userService.create({
@@ -51,6 +55,7 @@ export class AuthModuleService {
         email: data.email,
         username: data.username,
         password: passwordHash,
+        clientProfileId: clientProfile.id,
       },
     });
   }
