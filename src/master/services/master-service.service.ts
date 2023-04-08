@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import Prisma from '@prisma/client';
 
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 
@@ -7,38 +7,47 @@ import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 export class MasterServiceService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create<T extends Prisma.MasterServiceCreateArgs>(
-    data: Prisma.SelectSubset<T, Prisma.MasterServiceCreateArgs>,
+  async create<T extends Prisma.Prisma.MasterServiceCreateArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.MasterServiceCreateArgs>,
   ) {
     return this.prismaService.masterService.create(data);
   }
 
-  async update<T extends Prisma.MasterServiceUpdateArgs>(
-    data: Prisma.SelectSubset<T, Prisma.MasterServiceUpdateArgs>,
+  async update<T extends Prisma.Prisma.MasterServiceUpdateArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.MasterServiceUpdateArgs>,
   ) {
     return this.prismaService.masterService.update(data);
   }
 
-  async delete<T extends Prisma.MasterServiceDeleteArgs>(
-    data: Prisma.SelectSubset<T, Prisma.MasterServiceDeleteArgs>,
+  async delete<T extends Prisma.Prisma.MasterServiceDeleteArgs>(
+    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.MasterServiceDeleteArgs>,
   ) {
     return this.prismaService.masterService.delete(data);
   }
 
-  async findFirst<T extends Prisma.MasterServiceFindFirstArgs>(
-    data: Prisma.SelectSubset<T, Prisma.MasterServiceFindFirstArgs>,
+  async findFirst<T extends Prisma.Prisma.MasterServiceFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<
+      T,
+      Prisma.Prisma.MasterServiceFindFirstArgs
+    >,
   ) {
     return this.prismaService.masterService.findFirst(data);
   }
 
-  async findMany<T extends Prisma.MasterServiceFindManyArgs>(
-    data: Prisma.SelectSubset<T, Prisma.MasterServiceFindManyArgs>,
+  async findMany<T extends Prisma.Prisma.MasterServiceFindManyArgs>(
+    data: Prisma.Prisma.SelectSubset<
+      T,
+      Prisma.Prisma.MasterServiceFindManyArgs
+    >,
   ) {
     return this.prismaService.masterService.findMany(data);
   }
 
-  async findExists<T extends Prisma.MasterServiceFindFirstArgs>(
-    data: Prisma.SelectSubset<T, Prisma.MasterServiceFindFirstArgs>,
+  async findExists<T extends Prisma.Prisma.MasterServiceFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<
+      T,
+      Prisma.Prisma.MasterServiceFindFirstArgs
+    >,
     callback?: () => never,
   ) {
     const candidate = await this.prismaService.masterService.findFirst(data);

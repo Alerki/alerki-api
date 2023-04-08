@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import Prisma from '@prisma/client';
 
 import { IJwtTokenData } from '../../auth/interfaces';
 import { MasterProfileService } from '../../master/services/master-profile.service';
@@ -57,7 +57,7 @@ export class UserModuleService {
       throw new BadRequestException('User already is master');
     }
 
-    const updateMasterProfileData: Prisma.UserUpdateArgs['data'] = {
+    const updateMasterProfileData: Prisma.Prisma.UserUpdateArgs['data'] = {
       isMaster: true,
     };
 
@@ -238,7 +238,7 @@ export class UserModuleService {
 
     const { name, ...otherData } = data;
 
-    const updateData: Prisma.MasterServiceUpdateArgs['data'] = {
+    const updateData: Prisma.Prisma.MasterServiceUpdateArgs['data'] = {
       ...otherData,
     };
 
