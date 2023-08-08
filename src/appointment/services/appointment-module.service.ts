@@ -1,18 +1,15 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {BadRequestException, Injectable} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
-import { IJwtTokenData } from '../../auth/interfaces';
-import { weekDays } from '../../master/data';
-import { MasterProfileService } from '../../master/services/master-profile.service';
-import { MasterServiceService } from '../../master/services/master-service.service';
-import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
-import { PrismaService } from '../../shared/modules/prisma/prisma.service';
-import { UserService } from '../../user/services/user.service';
-import {
-  CreateAppointmentDto,
-  GetAppointmentQueriesDto,
-} from '../dtos/appointment.dto';
-import { AppointmentService } from './appointment.service';
+import {IJwtTokenData} from '../../auth/interfaces';
+import {weekDays} from '../../master/data';
+import {MasterProfileService} from '../../master/services/master-profile.service';
+import {MasterServiceService} from '../../master/services/master-service.service';
+import {MasterWeeklyScheduleService} from '../../master/services/master-weekly-schedule.service';
+import {PrismaService} from '../../shared/modules/prisma/prisma.service';
+import {UserService} from '../../user/services/user.service';
+import {CreateAppointmentDto, GetAppointmentQueriesDto,} from '../dtos/appointment.dto';
+import {AppointmentService} from './appointment.service';
 
 @Injectable()
 export class AppointmentModuleService {
@@ -69,7 +66,7 @@ export class AppointmentModuleService {
     // Check time
     if (
       data.startAt > masterProfile.weeklySchedule.endAt ||
-      masterProfile.weeklySchedule.endAt > endAt
+      masterProfile.weeklySchedule.startAt > endAt
     ) {
       throw new BadRequestException(
         'Service time out of work master work hours',
@@ -108,11 +105,8 @@ export class AppointmentModuleService {
 
     const where: Prisma.Prisma.AppointmentFindManyArgs['where'] = {};
 
-    if (query.master && !query.client) {
-      where.masterProfileId = userCandidate.masterProfileId;
-    } else if (!query.master && query.client) {
-      where.clientProfileId = userCandidate.clientProfileId;
-    } else {
+    // Create query
+    if (query.master && query.client) {
       where.OR = [
         {
           masterProfileId: userCandidate.masterProfileId,
@@ -121,6 +115,12 @@ export class AppointmentModuleService {
           clientProfileId: userCandidate.clientProfileId,
         },
       ];
+    } else {
+      if (query.master) {
+        where.masterProfileId = userCandidate.masterProfileId;
+      } else if (query.client) {
+        where.clientProfileId = userCandidate.clientProfileId;
+      }
     }
 
     return this.appointmentService.findMany({
