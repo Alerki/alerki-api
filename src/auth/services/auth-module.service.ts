@@ -1,14 +1,14 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {BadRequestException, Injectable} from '@nestjs/common';
 import * as bcryptjs from 'bcryptjs';
 
-import { ClientProfileService } from '../../client/services/client-profile.service';
-import { ENV } from '../../config';
-import { UserService } from '../../user/services/user.service';
-import { LogInDto, RegisterDto } from '../dtos/auth.dto';
-import { IJwtTokenData } from '../interfaces';
-import { AuthService } from './auth.service';
-import { JwtTokenService } from './jwt-token.service';
-import { SessionService } from './session.service';
+import {ClientProfileService} from '../../client/services/client-profile.service';
+import {ENV} from '../../config';
+import {UserService} from '../../user/services/user.service';
+import {LogInDto, RegisterDto} from '../dtos/auth.dto';
+import {IJwtTokenData} from '../interfaces';
+import {AuthService} from './auth.service';
+import {JwtTokenService} from './jwt-token.service';
+import {SessionService} from './session.service';
 
 @Injectable()
 export class AuthModuleService {
@@ -76,6 +76,10 @@ export class AuthModuleService {
 
     if (!candidate) {
       throw new BadRequestException('Bad email or password');
+    }
+
+    if (!bcryptjs.compareSync(data.password, candidate.password)) {
+      throw new BadRequestException('Wrong password');
     }
 
     const tokens = await this.jwtTokensService.generatePairTokens({
