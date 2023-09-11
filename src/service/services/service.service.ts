@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
@@ -45,6 +49,12 @@ export class ServiceService {
   async create<T extends Prisma.Prisma.ServiceCreateArgs>(
     data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceCreateArgs>,
   ) {
+    const candidate = await this.prismaService.service.findFirst(data);
+
+    if (candidate) {
+      throw new BadRequestException('Such service already exists');
+    }
+
     return this.prismaService.service.create(data);
   }
 
@@ -54,8 +64,8 @@ export class ServiceService {
     return this.prismaService.service.delete(data);
   }
 
-  async searchByName(name: string) {
-    return this.findMany({
+  async searchByName(name: string, limit: number, page: number) {
+    const r = await this.findMany({
       where: {
         name: {
           contains: name.split(' ').join(' & '),
@@ -63,7 +73,24 @@ export class ServiceService {
         },
         available: true,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: limit,
+      skip: limit * (page - 1),
     });
+
+    return {
+      totalNumber: await this.prismaService.service.count({
+        where: {
+          name: {
+            contains: name.split(' ').join(' & '),
+          },
+          available: true,
+        },
+      }),
+      data: r,
+    };
   }
 
   async searchFirstByName(name: string) {

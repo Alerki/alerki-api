@@ -1,16 +1,13 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {BadRequestException, Injectable} from '@nestjs/common';
 import Prisma from '@prisma/client';
 
-import { IJwtTokenData } from '../../auth/interfaces';
-import { MasterProfileService } from '../../master/services/master-profile.service';
-import { MasterServiceService } from '../../master/services/master-service.service';
-import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
-import { ServiceService } from '../../service/services/service.service';
-import {
-  CreateMasterServiceDto,
-  UpdateMasterServiceDto,
-} from '../dtos/master-service.dto';
-import { UserService } from './user.service';
+import {IJwtTokenData} from '../../auth/interfaces';
+import {MasterProfileService} from '../../master/services/master-profile.service';
+import {MasterServiceService} from '../../master/services/master-service.service';
+import {MasterWeeklyScheduleService} from '../../master/services/master-weekly-schedule.service';
+import {ServiceService} from '../../service/services/service.service';
+import {CreateMasterServiceDto, UpdateMasterServiceDto,} from '../dtos/master-service.dto';
+import {UserService} from './user.service';
 
 @Injectable()
 export class UserModuleService {
@@ -20,7 +17,7 @@ export class UserModuleService {
     private readonly masterServiceService: MasterServiceService,
     private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
     private readonly serviceService: ServiceService,
-  ) {}
+  ) { }
 
   async getUser(username: string) {
     const user = await this.userService.findExists({
@@ -39,6 +36,10 @@ export class UserModuleService {
       where: {
         id: data.id,
       },
+      include: {
+        userEmail: true,
+        userPhoneNumber: true,
+      }
     });
 
     const { password, ...userData } = user;
@@ -204,6 +205,9 @@ export class UserModuleService {
       where: {
         masterProfileId: userCandidate.masterProfileId,
       },
+      include: {
+        service: true,
+      }
     });
   }
 
@@ -222,6 +226,9 @@ export class UserModuleService {
       where: {
         masterProfileId: masterCandidate.id,
       },
+      include: {
+        service: true,
+      }
     });
   }
 
