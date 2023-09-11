@@ -1,31 +1,44 @@
 {
   "root": true,
   "env": {
-    "es2021": true,
-    "jest": true,
-    "node": true
+    "es2021": true
   },
-  "extends": [],
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["tsconfig.json"]
   },
+  "ignorePatterns": [".eslintrc.js"],
+  "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint/eslint-plugin",
+    "simple-import-sort",
+    "import"
   ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/strict",
+    "plugin:import/errors",
+    "plugin:import/typescript"
+  ],
+  "overrides": [],
   "rules": {
-    "max-len": ["error", { "code": 80, "ignorePattern": "^import .*" }],
-    "indent": ["error", 2,
-      {
-        "ignoredNodes": [
-          "PropertyDefinition"
-        ],
-        "SwitchCase": 1
-      }
-    ],
-    "comma-dangle": ["error", "always-multiline"],
-    "object-curly-spacing": ["error", "always"],
-    "semi": ["error", "always"],
-    "quotes": ["error", "single"]
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-extraneous-class": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-unnecessary-condition": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "import/no-extraneous-dependencies": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/no-deprecated": "warn",
+    "import/no-duplicates": "error",
+    "import/no-unresolved": "off",
+    "no-unexpected-multiline": "off"
   }
 }
