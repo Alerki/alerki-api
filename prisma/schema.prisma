@@ -16,30 +16,26 @@ generator dbml {
   outputName = "schema.dbml"
 }
 
-model User {
-  id                    String                        @id @default(uuid())
-  email                 String                        @unique
-  userEmail             UserEmail?
-  phoneNumber           String?                       @unique
-  userPhoneNumber       UserPhoneNumber?
-  username              String                        @unique
-  firstName             String?                       @db.VarChar(32)
-  lastName              String?                       @db.VarChar(32)
-  birthDate             DateTime?
-  password              String
-  sessions              Session[]
-  isMaster              Boolean                       @default(false)
-  masterProfile         MasterProfile?                @relation(fields: [masterProfileId], references: [id])
-  masterProfileId       String?                       @unique
-  clientProfile         ClientProfile                 @relation(fields: [clientProfileId], references: [id])
-  clientProfileId       String                        @unique
-  profileIsAvailable    Boolean                       @default(false)
-  notificationRecipient UserRecipientOnNotification[]
-  notificationSender    UserSenderOnNotification[]
-  createdAt             DateTime                      @default(now())
-  updatedAt             DateTime                      @updatedAt
+model Session {
+  id           String   @id @default(uuid())
+  deviceName   String
+  refreshToken String
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  @@map("Users")
+  @@map("Sessions")
+}
+
+model UserPicture {
+  id        String   @id @default(uuid())
+  picture   Bytes    @db.ByteA
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User?
+
+  @@map("UserPictures")
 }
 
 model UserEmail {
@@ -68,16 +64,32 @@ model UserPhoneNumber {
   @@map("UsersPhones")
 }
 
-model Session {
-  id           String   @id @default(uuid())
-  deviceName   String
-  refreshToken String
-  user         User     @relation(fields: [userId], references: [id])
-  userId       String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model User {
+  id                    String                        @id @default(uuid())
+  email                 String                        @unique
+  userEmail             UserEmail?
+  phoneNumber           String?                       @unique
+  userPhoneNumber       UserPhoneNumber?
+  picture               UserPicture?                  @relation(fields: [pictureId], references: [id])
+  pictureId             String?                       @unique @db.VarChar(36)
+  username              String                        @unique
+  firstName             String?                       @db.VarChar(32)
+  lastName              String?                       @db.VarChar(32)
+  birthDate             DateTime?
+  password              String
+  sessions              Session[]
+  isMaster              Boolean                       @default(false)
+  masterProfile         MasterProfile?                @relation(fields: [masterProfileId], references: [id])
+  masterProfileId       String?                       @unique
+  clientProfile         ClientProfile                 @relation(fields: [clientProfileId], references: [id])
+  clientProfileId       String                        @unique
+  profileIsAvailable    Boolean                       @default(false)
+  notificationRecipient UserRecipientOnNotification[]
+  notificationSender    UserSenderOnNotification[]
+  createdAt             DateTime                      @default(now())
+  updatedAt             DateTime                      @updatedAt
 
-  @@map("Sessions")
+  @@map("Users")
 }
 
 model MasterWeeklySchedule {
