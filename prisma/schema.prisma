@@ -23,8 +23,8 @@ model User {
   phoneNumber           String?                       @unique
   userPhoneNumber       UserPhoneNumber?
   username              String                        @unique
-  firstName             String?
-  lastName              String?
+  firstName             String?                       @db.VarChar(32)
+  lastName              String?                       @db.VarChar(32)
   birthDate             DateTime?
   password              String
   sessions              Session[]
