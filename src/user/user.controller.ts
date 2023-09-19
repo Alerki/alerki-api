@@ -29,9 +29,8 @@ import { GetUserFromRequest } from '../shared/decorators/get-user-from-request.d
 import {
   CreateMasterServiceDto,
   UpdateMasterServiceDto,
-  UpdateUserDto,
 } from './dtos/master.dto';
-import { PatchUserPictureDto } from './dtos/user.dto';
+import { PatchUserPictureDto, UpdateUserDto } from './dtos/user.dto';
 import { UserModuleService } from './services/user-module.service';
 
 @ApiTags('User')

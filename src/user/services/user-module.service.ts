@@ -18,8 +18,8 @@ import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 import {
   CreateMasterServiceDto,
   UpdateMasterServiceDto,
-  UpdateUserDto,
 } from '../dtos/master.dto';
+import { UpdateUserDto } from '../dtos/user.dto';
 import { UserService } from './user.service';
 
 @Injectable()
