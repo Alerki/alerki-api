@@ -1,6 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
-import { IsNumber, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsDateString,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateMasterServiceDto
   implements Pick<Prisma.MasterService, 'duration' | 'price' | 'currency'>
@@ -39,3 +47,46 @@ export class CreateMasterServiceDto
 }
 
 export class UpdateMasterServiceDto extends CreateMasterServiceDto {}
+
+export class UpdateUserDto
+  implements Pick<Prisma.User, 'firstName' | 'lastName' | 'birthDate'>
+{
+  @ApiProperty({
+    description: 'User first name',
+    type: String,
+    minLength: 1,
+    maxLength: 32,
+    required: false,
+    example: 'John',
+  })
+  @IsString()
+  @MinLength(1)
+  @MaxLength(32)
+  @IsOptional()
+  readonly firstName: string;
+
+  @ApiProperty({
+    description: 'User last name',
+    type: String,
+    minLength: 1,
+    maxLength: 32,
+    required: false,
+    example: 'Doe',
+  })
+  @IsString()
+  @MinLength(1)
+  @MaxLength(32)
+  @IsOptional()
+  readonly lastName: string;
+
+  @ApiProperty({
+    description: 'User birth date',
+    type: String,
+    required: false,
+    example: new Date().toISOString(),
+  })
+  @IsOptional()
+  @IsDateString()
+  @Type(() => Date)
+  readonly birthDate: Date;
+}
