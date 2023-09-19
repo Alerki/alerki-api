@@ -46,16 +46,20 @@ export class ServiceService {
     return this.prismaService.service.update(data);
   }
 
-  async create<T extends Prisma.Prisma.ServiceCreateArgs>(
-    data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceCreateArgs>,
-  ) {
-    const candidate = await this.prismaService.service.findFirst(data);
+  async create(name: string) {
+    const candidate = await this.prismaService.service.findFirst({
+      where: {
+        name,
+      },
+    });
 
     if (candidate) {
       throw new BadRequestException('Such service already exists');
     }
 
-    return this.prismaService.service.create(data);
+    return this.prismaService.service.create({
+      data: { name },
+    });
   }
 
   async delete<T extends Prisma.Prisma.ServiceDeleteArgs>(

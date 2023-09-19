@@ -1,23 +1,37 @@
-import {BadRequestException, Injectable} from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import Prisma from '@prisma/client';
+import * as imageSize from 'buffer-image-size';
+import * as imageType from 'image-type';
+import * as sharp from 'sharp';
 
-import {IJwtTokenData} from '../../auth/interfaces';
-import {MasterProfileService} from '../../master/services/master-profile.service';
-import {MasterServiceService} from '../../master/services/master-service.service';
-import {MasterWeeklyScheduleService} from '../../master/services/master-weekly-schedule.service';
-import {ServiceService} from '../../service/services/service.service';
-import {CreateMasterServiceDto, UpdateMasterServiceDto,} from '../dtos/master-service.dto';
-import {UserService} from './user.service';
+import { IJwtTokenData } from '../../auth/interfaces';
+import { apiConfig } from '../../config/api.config';
+import { MasterProfileService } from '../../master/services/master-profile.service';
+import { MasterServiceService } from '../../master/services/master-service.service';
+import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
+import { ServiceService } from '../../service/services/service.service';
+import { PrismaService } from '../../shared/modules/prisma/prisma.service';
+import {
+  CreateMasterServiceDto,
+  UpdateMasterServiceDto,
+} from '../dtos/master.dto';
+import { UpdateUserDto } from '../dtos/user.dto';
+import { UserService } from './user.service';
 
 @Injectable()
 export class UserModuleService {
   constructor(
+    private readonly prismaService: PrismaService,
     private readonly userService: UserService,
     private readonly masterProfileService: MasterProfileService,
     private readonly masterServiceService: MasterServiceService,
     private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
     private readonly serviceService: ServiceService,
-  ) { }
+  ) {}
 
   async getUser(username: string) {
     const user = await this.userService.findExists({
@@ -39,7 +53,7 @@ export class UserModuleService {
       include: {
         userEmail: true,
         userPhoneNumber: true,
-      }
+      },
     });
 
     const { password, ...userData } = user;
@@ -155,11 +169,7 @@ export class UserModuleService {
     );
 
     if (!serviceCandidate) {
-      serviceCandidate = await this.serviceService.create({
-        data: {
-          name: data.name,
-        },
-      });
+      serviceCandidate = await this.serviceService.create(data.name);
     }
 
     const checkIfNotExists = await this.masterServiceService.findFirst({
@@ -207,7 +217,7 @@ export class UserModuleService {
       },
       include: {
         service: true,
-      }
+      },
     });
   }
 
@@ -228,7 +238,7 @@ export class UserModuleService {
       },
       include: {
         service: true,
-      }
+      },
     });
   }
 
@@ -255,11 +265,7 @@ export class UserModuleService {
       );
 
       if (!serviceCandidate) {
-        serviceCandidate = await this.serviceService.create({
-          data: {
-            name: data.name,
-          },
-        });
+        serviceCandidate = await this.serviceService.create(data.name);
       }
 
       updateData.serviceId = serviceCandidate.id;
@@ -319,6 +325,115 @@ export class UserModuleService {
       where: {
         id: masterServiceCandidate.id,
       },
+    });
+  }
+
+  async updateUser(user: IJwtTokenData, data: UpdateUserDto) {
+    const candidate = await this.userService.findExists({
+      where: {
+        id: user.id,
+      },
+    });
+
+    return this.userService.update({
+      where: {
+        id: candidate.id,
+      },
+      data: {
+        ...data,
+      },
+    });
+  }
+
+  async getPicture(id: string) {
+    const picture = await this.prismaService.userPicture.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!picture) {
+      throw new NotFoundException('Picture not found');
+    }
+
+    return picture;
+  }
+
+  async patchUserPicture({
+    id,
+    picture,
+  }: Pick<Prisma.User, 'id'> & { picture: Express.Multer.File }) {
+    const candidate = await this.userService.findExists({
+      where: {
+        id,
+      },
+    });
+
+    let pictureBuffer: Buffer = picture.buffer;
+
+    // Check picture type
+    const pictureType = await imageType(pictureBuffer);
+
+    if (!pictureType) {
+      throw new BadRequestException(
+        `Validation failed (expected type is ${apiConfig.user.userPictureFormatRegExp.toString()})`,
+      );
+    }
+
+    // eslint-disable-next-line max-len
+    if (!pictureType.ext.match(apiConfig.user.userPictureFormatRegExp)) {
+      throw new BadRequestException(
+        `Validation failed (expected type is ${apiConfig.user.userPictureFormatRegExp.toString()})`,
+      );
+    }
+
+    // Check picture size
+    const { width, height } = imageSize(pictureBuffer);
+
+    if (width > 100 || height > 100) {
+      pictureBuffer = await sharp(picture.buffer)
+        .resize(50, 50)
+        .jpeg({ mozjpeg: true })
+        .toBuffer();
+    }
+
+    // Create or update picture
+    if (candidate.pictureId) {
+      await this.prismaService.userPicture.update({
+        where: {
+          id: candidate.pictureId,
+        },
+        data: {
+          picture: pictureBuffer,
+        },
+      });
+    } else {
+      await this.prismaService.userPicture.create({
+        data: {
+          picture: pictureBuffer,
+          user: {
+            connect: {
+              id,
+            },
+          },
+        },
+      });
+    }
+  }
+
+  async deletePicture({ id }: Pick<Prisma.UserPicture, 'id'>) {
+    const candidate = await this.userService.findExists({
+      where: {
+        id,
+      },
+    });
+
+    if (!candidate.pictureId) {
+      throw new NotFoundException('Picture not exists');
+    }
+
+    await this.prismaService.userPicture.delete({
+      where: { id: candidate.pictureId },
     });
   }
 }
