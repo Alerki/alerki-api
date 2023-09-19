@@ -1,8 +1,8 @@
-import {Controller, Get, Param, ParseUUIDPipe, Query} from '@nestjs/common';
-import {ApiTags} from '@nestjs/swagger';
+import { Controller, Get, Param, ParseUUIDPipe, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-import {FindMasterServices, GetServicesDto} from './dtos';
-import {ServiceModuleService} from './services/service-module.service';
+import { FindMasterServices, GetServicesDto } from './dtos';
+import { ServiceModuleService } from './services/service-module.service';
 
 @ApiTags('Service')
 @Controller('service')
@@ -11,7 +11,11 @@ export class ServiceController {
 
   @Get()
   async findService(@Query() data: GetServicesDto) {
-    return this.serviceModuleService.findService(data);
+    const r = await this.serviceModuleService.findService(data);
+
+    console.log(r);
+
+    return r;
   }
 
   @Get(':id/master')

@@ -169,11 +169,7 @@ export class UserModuleService {
     );
 
     if (!serviceCandidate) {
-      serviceCandidate = await this.serviceService.create({
-        data: {
-          name: data.name,
-        },
-      });
+      serviceCandidate = await this.serviceService.create(data.name);
     }
 
     const checkIfNotExists = await this.masterServiceService.findFirst({
@@ -269,11 +265,7 @@ export class UserModuleService {
       );
 
       if (!serviceCandidate) {
-        serviceCandidate = await this.serviceService.create({
-          data: {
-            name: data.name,
-          },
-        });
+        serviceCandidate = await this.serviceService.create(data.name);
       }
 
       updateData.serviceId = serviceCandidate.id;
