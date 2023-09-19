@@ -84,8 +84,6 @@ export class ServiceService {
       skip: limit * (page - 1),
     });
 
-    console.log(r, '<<<');
-
     return {
       totalNumber: await this.prismaService.service.count({
         where: {

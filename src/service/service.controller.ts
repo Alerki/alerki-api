@@ -11,11 +11,7 @@ export class ServiceController {
 
   @Get()
   async findService(@Query() data: GetServicesDto) {
-    const r = await this.serviceModuleService.findService(data);
-
-    console.log(r);
-
-    return r;
+    return this.serviceModuleService.findService(data);
   }
 
   @Get(':id/master')
