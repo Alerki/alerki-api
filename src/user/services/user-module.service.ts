@@ -31,7 +31,7 @@ export class UserModuleService {
     private readonly masterServiceService: MasterServiceService,
     private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
     private readonly serviceService: ServiceService,
-  ) {}
+  ) { }
 
   async getUser(username: string) {
     const user = await this.userService.findExists({
@@ -397,28 +397,29 @@ export class UserModuleService {
         .toBuffer();
     }
 
-    // Create or update picture
+    // If picture already exists delete that and create new one
     if (candidate.pictureId) {
-      await this.prismaService.userPicture.update({
+      await this.prismaService.userPicture.delete({
         where: {
           id: candidate.pictureId,
         },
-        data: {
-          picture: pictureBuffer,
-        },
-      });
-    } else {
-      await this.prismaService.userPicture.create({
-        data: {
-          picture: pictureBuffer,
-          user: {
-            connect: {
-              id,
-            },
-          },
-        },
-      });
+      })
     }
+
+    const updatedUser = await this.prismaService.user.update({
+      where: {
+        id,
+      },
+      data: {
+        picture: {
+          create: {
+            picture: pictureBuffer,
+          }
+        }
+      }
+    })
+
+    return updatedUser.pictureId;
   }
 
   async deletePicture({ id }: Pick<Prisma.UserPicture, 'id'>) {

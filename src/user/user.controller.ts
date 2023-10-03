@@ -36,7 +36,7 @@ import { UserModuleService } from './services/user-module.service';
 @ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userModuleService: UserModuleService) {}
+  constructor(private readonly userModuleService: UserModuleService) { }
 
   @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
