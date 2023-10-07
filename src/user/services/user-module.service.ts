@@ -10,15 +10,15 @@ import * as sharp from 'sharp';
 
 import { IJwtTokenData } from '../../auth/interfaces';
 import { apiConfig } from '../../config/api.config';
+import {
+  CreateMasterServiceDto,
+  UpdateMasterServiceDto,
+} from '../../master/dto/master.dto';
 import { MasterProfileService } from '../../master/services/master-profile.service';
 import { MasterServiceService } from '../../master/services/master-service.service';
 import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
 import { ServiceService } from '../../service/services/service.service';
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
-import {
-  CreateMasterServiceDto,
-  UpdateMasterServiceDto,
-} from '../dtos/master.dto';
 import { UpdateUserDto } from '../dtos/user.dto';
 import { UserService } from './user.service';
 
@@ -31,7 +31,7 @@ export class UserModuleService {
     private readonly masterServiceService: MasterServiceService,
     private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
     private readonly serviceService: ServiceService,
-  ) { }
+  ) {}
 
   async getUser(username: string) {
     const user = await this.userService.findExists({
@@ -403,7 +403,7 @@ export class UserModuleService {
         where: {
           id: candidate.pictureId,
         },
-      })
+      });
     }
 
     const updatedUser = await this.prismaService.user.update({
@@ -414,10 +414,10 @@ export class UserModuleService {
         picture: {
           create: {
             picture: pictureBuffer,
-          }
-        }
-      }
-    })
+          },
+        },
+      },
+    });
 
     return updatedUser.pictureId;
   }

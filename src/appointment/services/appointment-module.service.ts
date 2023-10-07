@@ -1,15 +1,18 @@
-import {BadRequestException, Injectable} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
-import {IJwtTokenData} from '../../auth/interfaces';
-import {weekDays} from '../../master/data';
-import {MasterProfileService} from '../../master/services/master-profile.service';
-import {MasterServiceService} from '../../master/services/master-service.service';
-import {MasterWeeklyScheduleService} from '../../master/services/master-weekly-schedule.service';
-import {PrismaService} from '../../shared/modules/prisma/prisma.service';
-import {UserService} from '../../user/services/user.service';
-import {CreateAppointmentDto, GetAppointmentQueriesDto,} from '../dtos/appointment.dto';
-import {AppointmentService} from './appointment.service';
+import { IJwtTokenData } from '../../auth/interfaces';
+import { weekDays } from '../../master/data';
+import { MasterProfileService } from '../../master/services/master-profile.service';
+import { MasterServiceService } from '../../master/services/master-service.service';
+import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
+import { PrismaService } from '../../shared/modules/prisma/prisma.service';
+import { UserService } from '../../user/services/user.service';
+import {
+  CreateAppointmentDto,
+  GetAppointmentQueriesDto,
+} from '../dtos/appointment.dto';
+import { AppointmentService } from './appointment.service';
 
 @Injectable()
 export class AppointmentModuleService {

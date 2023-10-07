@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 
 import { MasterProfileModule } from '../master/master-profile.module';
 import { ServiceModule } from '../service/service.module';
@@ -9,7 +9,7 @@ import { UserController } from './user.controller';
 @Module({
   providers: [UserService, UserModuleService],
   controllers: [UserController],
-  imports: [MasterProfileModule, ServiceModule],
+  imports: [forwardRef(() => MasterProfileModule), ServiceModule],
   exports: [UserService],
 })
 export class UserModule {}
