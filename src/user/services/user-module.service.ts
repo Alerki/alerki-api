@@ -31,7 +31,7 @@ export class UserModuleService {
     private readonly masterServiceService: MasterServiceService,
     private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
     private readonly serviceService: ServiceService,
-  ) {}
+  ) { }
 
   async getUser(username: string) {
     const user = await this.userService.findExists({
