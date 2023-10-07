@@ -10,6 +10,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
   Req,
   Res,
   UploadedFile,
@@ -17,7 +18,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import * as imageType from 'image-type';
 
@@ -25,18 +33,31 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { IJwtTokenData } from '../auth/interfaces';
 import { ProtectedRequest } from '../auth/interfaces/protected-request.interface';
 import { apiConfig } from '../config/api.config';
-import { GetUserFromRequest } from '../shared/decorators/get-user-from-request.decorator';
 import {
+  CreateMasterScheduleDto,
   CreateMasterServiceDto,
+  GetMasterCalendarQueryDto,
+  GetMasterScheduleQueryDto,
+  MasterScheduleDto,
+  MasterWeeklyScheduleDto,
+  UpdateMasterScheduleDto,
   UpdateMasterServiceDto,
-} from './dtos/master.dto';
+  UpdateMasterWeeklyScheduleDto,
+} from '../master/dto/master.dto';
+import { MasterScheduleService } from '../master/services/master-schedule.service';
+import { MasterWeeklyScheduleService } from '../master/services/master-weekly-schedule.service';
+import { GetUserFromRequest } from '../shared/decorators/get-user-from-request.decorator';
 import { PatchUserPictureDto, UpdateUserDto } from './dtos/user.dto';
 import { UserModuleService } from './services/user-module.service';
 
 @ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userModuleService: UserModuleService) { }
+  constructor(
+    private readonly userModuleService: UserModuleService,
+    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
+    private readonly masterScheduleService: MasterScheduleService,
+  ) {}
 
   @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
@@ -86,6 +107,140 @@ export class UserController {
     @GetUserFromRequest() user: IJwtTokenData,
   ) {
     return this.userModuleService.deleteMasterService(serviceId, user);
+  }
+
+  @ApiBearerAuth('Bearer')
+  @ApiOkResponse({
+    type: MasterWeeklyScheduleDto,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Patch('master/weekly-schedule')
+  async updateMasterWeeklySchedule(
+    @Body() data: UpdateMasterWeeklyScheduleDto,
+    @GetUserFromRequest() user: IJwtTokenData,
+  ) {
+    return this.masterWeeklyScheduleService.updateWeeklySchedule(user, data);
+  }
+
+  @ApiOperation({
+    summary: 'Create master schedule',
+    description: 'Create master schedule',
+  })
+  @ApiOkResponse({
+    type: MasterScheduleDto,
+  })
+  @ApiBearerAuth('Bearer')
+  @UseGuards(JwtAuthGuard)
+  @Post('master/schedule')
+  async createMasterSchedule(
+    @GetUserFromRequest() user: IJwtTokenData,
+    @Body() data: CreateMasterScheduleDto,
+  ) {
+    return this.masterScheduleService.create(user, data);
+  }
+
+  @ApiOperation({
+    summary: 'Update master schedule',
+    description: 'Update master schedule',
+  })
+  @ApiOkResponse({
+    type: MasterScheduleDto,
+  })
+  @ApiParam({
+    description: 'Master schedule ID',
+    name: 'id',
+    type: String,
+    example: '2a3ca6b2-c726-4880-96e4-0ddb4542b76b',
+  })
+  @ApiBearerAuth('Bearer')
+  @UseGuards(JwtAuthGuard)
+  @Patch('master/schedule/:id')
+  async updateMasterSchedule(
+    @GetUserFromRequest() user: IJwtTokenData,
+    @Body() data: UpdateMasterScheduleDto,
+    @Param('id') id: string,
+  ) {
+    return this.masterScheduleService.updateSchedule(user, id, data);
+  }
+
+  @ApiOperation({
+    summary: 'Get master schedule',
+    description: 'Get master schedule',
+  })
+  @ApiOkResponse({
+    type: MasterScheduleDto,
+  })
+  @ApiParam({
+    description: 'Master profile ID',
+    name: 'masterId',
+    type: String,
+    example: '2a3ca6b2-c726-4880-96e4-0ddb4542b76b',
+  })
+  @Get('master/:masterId/schedule')
+  async getMasterSchedule(
+    @Query() query: GetMasterScheduleQueryDto,
+    @Param('masterId') masterId: string,
+  ) {
+    return this.masterScheduleService.getMasterSchedule(masterId, query);
+  }
+
+  @ApiOperation({
+    summary: 'Get master schedule',
+    description: 'Get master schedule',
+  })
+  @ApiOkResponse({
+    type: MasterScheduleDto,
+  })
+  @ApiParam({
+    description: 'Master schedule ID',
+    name: 'scheduleId',
+    type: String,
+    example: '2a3ca6b2-c726-4880-96e4-0ddb4542b711',
+  })
+  @Get('master/schedule/:scheduleId')
+  async getMasterScheduleById(@Param('scheduleId') scheduleId: string) {
+    return this.masterScheduleService.getMasterScheduleById(scheduleId);
+  }
+
+  @ApiOperation({
+    summary: 'Get master calendar',
+    description: 'Get master calendar',
+  })
+  // @ApiOkResponse({
+  //   type: MasterScheduleDto,
+  // })
+  @ApiParam({
+    description: 'Master profile ID',
+    name: 'masterId',
+    type: String,
+    example: '2a3ca6b2-c726-4880-96e4-0ddb4542b76b',
+  })
+  @Get('master/:masterId/calendar')
+  async getMasterCalendar(
+    @Param('masterId') masterId: string,
+    @Query() query: GetMasterCalendarQueryDto,
+  ) {
+    return this.masterScheduleService.getMasterCalendar(masterId, query);
+  }
+
+  @ApiOperation({
+    summary: 'Get master weekly schedule',
+    description: 'Get master weekly schedule',
+  })
+  @ApiParam({
+    description: 'Master profile ID',
+    name: 'id',
+    type: String,
+    example: '69290f7c-b095-4278-bf0b-b01df03bace6',
+  })
+  @ApiOkResponse({
+    type: MasterWeeklyScheduleDto,
+  })
+  @ApiBearerAuth('Bearer')
+  @UseGuards(JwtAuthGuard)
+  @Get('master/:id/weekly-schedule')
+  async getMasterWeeklySchedule(@Param('id') id: string) {
+    return this.masterWeeklyScheduleService.getMasterWeeklySchedule(id);
   }
 
   @Get(':username')
