@@ -23,7 +23,7 @@ export class AppointmentController {
   ) {}
 
   @ApiOperation({ description: 'Create appointment' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Post()
   async createAppointment(
@@ -48,7 +48,7 @@ export class AppointmentController {
     required: false,
   })
   @ApiOperation({ description: 'Get appointments list' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Get()
   async getAppointments(

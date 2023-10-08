@@ -8,6 +8,8 @@ import { MasterServiceService } from '../../master/services/master-service.servi
 import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 import { UserService } from '../../user/services/user.service';
+import { createDate0 } from '../../util/date.util';
+
 import {
   CreateAppointmentDto,
   GetAppointmentQueriesDto,
@@ -55,26 +57,31 @@ export class AppointmentModuleService {
     });
 
     // Create end time based on start time from body and service duration
-    const endAt = new Date(data.startAt);
+    const startAt = new Date(data.startAt);
+    const endAt = new Date(startAt);
 
     endAt.setMilliseconds(
       endAt.getMilliseconds() + masterServiceCandidate.duration,
     );
 
     // Check if it is not day off
-    if (!masterProfile.weeklySchedule[weekDays[data.startAt.getUTCDay() + 1]]) {
+    if (!masterProfile.weeklySchedule[weekDays[startAt.getUTCDay() + 1]]) {
       throw new BadRequestException('This is day off');
     }
 
+    // TODO implement check also by schedule
+
     // Check time
     if (
-      data.startAt > masterProfile.weeklySchedule.endAt ||
-      masterProfile.weeklySchedule.startAt > endAt
+      createDate0(startAt) > createDate0(masterProfile.weeklySchedule.endAt) ||
+      createDate0(masterProfile.weeklySchedule.startAt) > createDate0(endAt)
     ) {
       throw new BadRequestException(
         'Service time out of work master work hours',
       );
     }
+
+    // TODO add date check
 
     return this.appointmentService.create({
       data: {
@@ -84,7 +91,7 @@ export class AppointmentModuleService {
         currency: masterServiceCandidate.currency,
         price: masterServiceCandidate.price,
         duration: masterServiceCandidate.duration,
-        startAt: data.startAt,
+        startAt: startAt,
         endAt: endAt,
       },
     });
@@ -102,7 +109,10 @@ export class AppointmentModuleService {
       },
     });
 
-    if (!userCandidate.isMaster || !userCandidate.masterProfileId) {
+    if (
+      query.master &&
+      (!userCandidate.isMaster || !userCandidate.masterProfileId)
+    ) {
       throw new BadRequestException('User is not a master');
     }
 
@@ -112,22 +122,41 @@ export class AppointmentModuleService {
     if (query.master && query.client) {
       where.OR = [
         {
-          masterProfileId: userCandidate.masterProfileId,
+          masterProfileId: userCandidate.masterProfileId!,
         },
         {
           clientProfileId: userCandidate.clientProfileId,
         },
       ];
+    } else if (query.master) {
+      where.masterProfileId = userCandidate.masterProfileId!;
     } else {
-      if (query.master) {
-        where.masterProfileId = userCandidate.masterProfileId;
-      } else if (query.client) {
-        where.clientProfileId = userCandidate.clientProfileId;
-      }
+      where.clientProfileId = userCandidate.clientProfileId;
     }
 
+    const selectUser = {
+      select: {
+        user: {
+          select: {
+            firstName: true,
+            lastName: true,
+            username: true,
+            pictureId: true,
+          },
+        },
+      },
+    };
     return this.appointmentService.findMany({
       where,
+      include: {
+        clientProfile: selectUser,
+        masterProfile: selectUser,
+        masterService: {
+          include: {
+            service: true,
+          },
+        },
+      },
     });
   }
 }
