@@ -40,10 +40,32 @@ export function setTime0(date: Date) {
   date.setUTCMilliseconds(0);
 }
 
+export function createTime0(date: Date) {
+  const newDate = new Date(date);
+
+  newDate.setUTCDate(0);
+  newDate.setUTCHours(0);
+  newDate.setUTCMinutes(0);
+  newDate.setUTCSeconds(0);
+  newDate.setUTCMilliseconds(0);
+
+  return newDate;
+}
+
 export function setDate0(date: Date) {
   date.setUTCFullYear(1970);
   date.setUTCMonth(0);
   date.setUTCDate(1);
+}
+
+export function createDate0(date: Date) {
+  const newDate = new Date(date);
+
+  newDate.setUTCFullYear(1970);
+  newDate.setUTCMonth(0);
+  newDate.setUTCDate(1);
+
+  return newDate;
 }
 
 export function getDayStartsFromMonday(date: Date) {

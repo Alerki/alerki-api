@@ -196,7 +196,7 @@ model Appointment {
   id              String        @id @default(uuid())
   masterService   MasterService @relation(fields: [masterServiceId], references: [id])
   masterServiceId String
-  clientId        ClientProfile @relation(fields: [clientProfileId], references: [id])
+  clientProfile   ClientProfile @relation(fields: [clientProfileId], references: [id])
   clientProfileId String
   masterProfile   MasterProfile @relation(fields: [masterProfileId], references: [id])
   masterProfileId String
