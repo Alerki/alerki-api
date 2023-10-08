@@ -133,11 +133,23 @@ export class AppointmentModuleService {
       where.clientProfileId = userCandidate.clientProfileId;
     }
 
+    const selectUser = {
+      select: {
+        user: {
+          select: {
+            firstName: true,
+            lastName: true,
+            username: true,
+            pictureId: true,
+          },
+        },
+      },
+    };
     return this.appointmentService.findMany({
       where,
       include: {
-        clientProfile: true,
-        masterProfile: true,
+        clientProfile: selectUser,
+        masterProfile: selectUser,
         masterService: {
           include: {
             service: true,
