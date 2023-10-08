@@ -181,7 +181,7 @@ export class UserModuleService {
 
     if (checkIfNotExists) {
       throw new BadRequestException(
-        'Master service with this service already exists',
+        'Master service with this name already exists',
       );
     }
 
@@ -192,6 +192,9 @@ export class UserModuleService {
         price: data.price,
         serviceId: serviceCandidate.id,
         masterProfileId: userCandidate.masterProfileId,
+      },
+      include: {
+        service: true,
       },
     });
   }
