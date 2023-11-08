@@ -423,6 +423,32 @@ export class GetMasterCalendarQueryDto {
   readonly month: string;
 }
 
+export class GetSlotsQueryDto extends GetMasterCalendarQueryDto {
+  @ApiProperty({
+    description: 'Year to get slots for',
+    type: String,
+    example: 2023,
+  })
+  @IsNumberString()
+  readonly year: string;
+
+  @ApiProperty({
+    description: 'Month to get slots for',
+    type: String,
+    example: 10,
+  })
+  @IsNumberString()
+  readonly month: string;
+
+  @ApiProperty({
+    description: 'Date to get slots for',
+    type: String,
+    example: 12,
+  })
+  @IsNumberString()
+  readonly date: string;
+}
+
 class CalendarDayDto {
   @ApiProperty({
     description: 'Date',

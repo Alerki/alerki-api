@@ -3,7 +3,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import Prisma from '@prisma/client';
+import Prisma, {
+  MasterSchedule,
+  MasterService,
+  MasterWeeklySchedule,
+} from '@prisma/client';
 
 import { IJwtTokenData } from '../../auth/interfaces';
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
@@ -11,6 +15,9 @@ import { UserService } from '../../user/services/user.service';
 import {
   checkIfStartTimeLessThanEndAsString,
   getDayStartsFromMonday,
+  isDateInRange,
+  mergeDate,
+  mergeTime,
   setDate0,
   setTime0,
 } from '../../util/date.util';
@@ -20,8 +27,10 @@ import {
   CreateMasterScheduleDto,
   GetMasterCalendarQueryDto,
   GetMasterScheduleQueryDto,
+  GetSlotsQueryDto,
   UpdateMasterScheduleDto,
 } from '../dto/master.dto';
+import { CalendarDaysI, CalendarSlotI } from '../interfaces';
 import { MasterProfileService } from './master-profile.service';
 
 @Injectable()
@@ -189,10 +198,10 @@ export class MasterScheduleService {
 
   async getMasterCalendar(masterId: string, query: GetMasterCalendarQueryDto) {
     const dateFrom = new Date(0);
-    setTime0(dateFrom);
     dateFrom.setUTCFullYear(+query.year);
     dateFrom.setUTCMonth(+query.month - 1);
     dateFrom.setUTCDate(1);
+    setTime0(dateFrom);
 
     const dateTo = new Date(dateFrom);
     dateTo.setUTCMonth(dateTo.getUTCMonth() + 1);
@@ -214,12 +223,7 @@ export class MasterScheduleService {
       },
     });
 
-    const calendar: ({
-      date: number;
-      dayOff: boolean;
-      startAt: string | null;
-      endAt: string | null;
-    } | null)[][] = [];
+    const calendar: CalendarDaysI = [];
 
     let weekI = 0;
 
@@ -230,9 +234,11 @@ export class MasterScheduleService {
       calendar[0].push(null);
     }
 
-    while (dateFrom.getUTCMonth() < +query.month) {
-      const calendarDate = dateFrom.getUTCDate();
-      const calendarDay = getDayStartsFromMonday(dateFrom);
+    const dateFromLoop = new Date(dateFrom);
+
+    while (dateFromLoop.getUTCMonth() < dateTo.getUTCMonth()) {
+      const calendarDate = dateFromLoop.getUTCDate();
+      const calendarDay = getDayStartsFromMonday(dateFromLoop);
 
       // Check if there is no a schedule to the day
       const schedule = master.schedules.find(
@@ -241,14 +247,15 @@ export class MasterScheduleService {
 
       if (schedule) {
         calendar[weekI].push({
-          date: dateFrom.getUTCDate(),
+          date: dateFromLoop.getUTCDate(),
           dayOff: schedule.dayOff,
           startAt: schedule.startAt ? schedule.startAt.toISOString() : null,
           endAt: schedule.endAt ? schedule.endAt.toISOString() : null,
+          slots: [],
         });
       } else {
         calendar[weekI].push({
-          date: dateFrom.getUTCDate(),
+          date: dateFromLoop.getUTCDate(),
           dayOff: !master.weeklySchedule[weekDays[calendarDay]],
           startAt: master.weeklySchedule.startAt
             ? master.weeklySchedule.startAt.toISOString()
@@ -256,15 +263,16 @@ export class MasterScheduleService {
           endAt: master.weeklySchedule.endAt
             ? master.weeklySchedule.endAt.toISOString()
             : null,
+          slots: [],
         });
       }
 
-      if (getDayStartsFromMonday(dateFrom) === 6) {
+      if (getDayStartsFromMonday(dateFromLoop) === 6) {
         weekI++;
         calendar.push([]);
       }
 
-      dateFrom.setUTCDate(dateFrom.getUTCDate() + 1);
+      dateFromLoop.setUTCDate(dateFromLoop.getUTCDate() + 1);
     }
 
     // Fill up the rest of the days
@@ -276,10 +284,130 @@ export class MasterScheduleService {
     }
 
     return {
-      month: +query.month,
-      year: +query.year,
+      month: dateFrom.getUTCMonth(),
+      year: dateFrom.getUTCFullYear(),
       calendar,
     };
+  }
+
+  async getSlots(serviceId: string, query: GetSlotsQueryDto) {
+    const dateFrom = new Date();
+    setTime0(dateFrom);
+    dateFrom.setUTCFullYear(+query.year);
+    dateFrom.setUTCMonth(+query.month);
+    dateFrom.setUTCDate(+query.date);
+
+    const dateTo = new Date(dateFrom);
+    dateTo.setUTCDate(dateTo.getUTCDate() + 1);
+
+    // Find service, weeklySchedule, and day specific schedule
+    const serviceCandidate = await this.prismaService.masterService.findFirst({
+      where: {
+        id: serviceId,
+      },
+      include: {
+        masterProfile: {
+          include: {
+            weeklySchedule: true,
+            schedules: {
+              where: {
+                date: dateFrom,
+              },
+              take: 1,
+            },
+          },
+        },
+      },
+    });
+
+    if (!serviceCandidate) {
+      throw new BadRequestException('Service not exists');
+    }
+
+    const daySpecificSchedule = serviceCandidate.masterProfile.schedules[0];
+
+    const schedule = this.createScheduleFromWeeklyAndDaySpecificSchedules(
+      serviceCandidate.masterProfile.weeklySchedule,
+      daySpecificSchedule,
+      dateFrom,
+    );
+
+    if (schedule.dayOff || !schedule.startAt || !schedule.endAt) {
+      throw new BadRequestException('The day is day off');
+    }
+
+    const appointments = await this.prismaService.appointment.findMany({
+      where: {
+        masterProfileId: serviceCandidate.masterProfileId,
+        startAt: {
+          gte: dateFrom,
+          lt: dateTo,
+        },
+      },
+    });
+
+    const slots: CalendarSlotI[] = [];
+    const duration = serviceCandidate.duration;
+
+    const generateSlotsUpTo = new Date();
+    mergeDate(generateSlotsUpTo, dateFrom);
+    mergeTime(generateSlotsUpTo, schedule.endAt);
+
+    const generateSlotsTimeFrom = new Date(0);
+    mergeDate(generateSlotsTimeFrom, dateFrom);
+    mergeTime(generateSlotsTimeFrom, schedule.startAt);
+
+    let generateSlotsTimeTo = new Date(generateSlotsTimeFrom);
+    generateSlotsTimeTo.setUTCMilliseconds(duration);
+
+    while (generateSlotsTimeTo < generateSlotsUpTo) {
+      let collision = false;
+
+      // Check for collisions with other appointments
+      for (let i = 0; i < appointments.length; i++) {
+        const appointment = appointments[i];
+        if (
+          !isDateInRange(
+            generateSlotsTimeFrom,
+            appointment.startAt,
+            appointment.endAt,
+          ) ||
+          !isDateInRange(
+            generateSlotsTimeTo,
+            appointment.startAt,
+            appointment.endAt,
+          )
+        ) {
+          collision = true;
+
+          // Remove appointment since we move forward
+          appointments.splice(i, 1);
+
+          // Set generateSlotsTimeFrom at the end of the appointment
+          mergeTime(generateSlotsTimeFrom, appointment.endAt);
+          generateSlotsTimeTo = new Date(generateSlotsTimeFrom);
+          generateSlotsTimeTo.setUTCMilliseconds(duration);
+
+          break;
+        }
+      }
+
+      // Continue if there are collision
+      if (collision) {
+        continue;
+      } else {
+        slots.push({
+          from: new Date(generateSlotsTimeFrom),
+          to: new Date(generateSlotsTimeTo),
+        });
+      }
+
+      // Append generateSlotsTimeFrom and generateSlotsTimeTo for next slot
+      generateSlotsTimeFrom.setUTCMilliseconds(duration);
+      generateSlotsTimeTo.setUTCMilliseconds(duration);
+    }
+
+    return slots;
   }
 
   async findExists<T extends Prisma.Prisma.MasterScheduleFindFirstArgs>(
@@ -300,5 +428,54 @@ export class MasterScheduleService {
     }
 
     return candidate;
+  }
+
+  private async fillOutSlots(
+    date: { dateFrom: Date; dateTo: Date },
+    service: MasterService,
+  ) {
+    // const appointments = await this.prismaService.appointment.findMany({
+    //   where: {
+    //     masterProfileId: service.masterProfileId,
+    //     startAt: {
+    //       gte: date.dateFrom,
+    //       lt: date.dateTo,
+    //     },
+    //   },
+    // });
+    //
+    // const appointmentsForTheDay = appointments.filter(
+    //   (i) => i.startAt.getUTCDate() === date.dateFrom.getUTCDate(),
+    // );
+    //
+    // const dayStartAt = new Date(date.dateFrom!);
+    // const dayEndAt = new Date(date.dateTo!);
+    //
+    // const slots: CalendarSlotI[] = [];
+    //
+    // const generateSlotsTimeFrom = new Date(0);
+    // generateSlotsTimeFrom.setUTCFullYear(calendar.year);
+    // generateSlotsTimeFrom.setUTCFullYear(calendar.month);
+    // mergeTime(generateSlotsTimeFrom, dayStartAt);
+    //
+    // const generateSlotsTimeTo = new Date(0);
+    // while (generateSlotsTimeFrom < dayEndAt) {
+    //   generateSlotsTimeFrom.setUTCMilliseconds();
+    //   break;
+    // }
+  }
+
+  private createScheduleFromWeeklyAndDaySpecificSchedules(
+    weeklySchedule: MasterWeeklySchedule,
+    schedule: MasterSchedule,
+    date: Date,
+  ) {
+    return {
+      dayOff: schedule
+        ? schedule.dayOff
+        : !weeklySchedule[weekDays[date.getUTCDay()]],
+      startAt: schedule ? schedule.startAt : weeklySchedule.startAt,
+      endAt: schedule ? schedule.endAt : weeklySchedule.endAt,
+    };
   }
 }
