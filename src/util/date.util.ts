@@ -33,7 +33,6 @@ export function checkIfStartTimeLessThanEndAsString(
 }
 
 export function setTime0(date: Date) {
-  date.setUTCDate(0);
   date.setUTCHours(0);
   date.setUTCMinutes(0);
   date.setUTCSeconds(0);
@@ -75,4 +74,25 @@ export function getDayStartsFromMonday(date: Date) {
   } else {
     return date.getUTCDay() - 1;
   }
+}
+
+export function mergeTime(date: Date, time: Date) {
+  date.setUTCHours(time.getUTCHours());
+  date.setUTCMinutes(time.getUTCMinutes());
+  date.setUTCSeconds(time.getUTCSeconds());
+  date.setUTCMilliseconds(time.getUTCMilliseconds());
+}
+
+export function mergeDate(date: Date, merge: Date) {
+  date.setUTCFullYear(merge.getUTCFullYear());
+  date.setUTCMonth(merge.getUTCMonth());
+  date.setUTCDate(merge.getUTCDate());
+}
+
+export function isDateInRange(
+  date: Date,
+  dateFrom: Date,
+  dateTo: Date,
+): boolean {
+  return date <= dateFrom || date >= dateTo;
 }

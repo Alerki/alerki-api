@@ -52,6 +52,20 @@ export class ServiceModuleService {
       where: {
         serviceId: id,
       },
+      include: {
+        masterProfile: {
+          include: {
+            user: {
+              select: {
+                firstName: true,
+                lastName: true,
+                username: true,
+                pictureId: true,
+              },
+            },
+          },
+        },
+      },
       orderBy: {
         createdAt: 'desc',
       },

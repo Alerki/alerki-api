@@ -38,6 +38,7 @@ import {
   CreateMasterServiceDto,
   GetMasterCalendarQueryDto,
   GetMasterScheduleQueryDto,
+  GetSlotsQueryDto,
   MasterScheduleDto,
   MasterWeeklyScheduleDto,
   UpdateMasterScheduleDto,
@@ -217,10 +218,28 @@ export class UserController {
   })
   @Get('master/:masterId/calendar')
   async getMasterCalendar(
-    @Param('masterId') masterId: string,
+    @Param('masterId', ParseUUIDPipe) masterId: string,
     @Query() query: GetMasterCalendarQueryDto,
   ) {
     return this.masterScheduleService.getMasterCalendar(masterId, query);
+  }
+
+  @ApiOperation({
+    summary: 'Get slots for specific day',
+    description: 'Get slots for specific day',
+  })
+  @ApiParam({
+    description: 'Master service ID',
+    name: 'serviceId',
+    type: String,
+    example: '2a3ca6b2-c726-4880-96e4-0ddb4542b76b',
+  })
+  @Get('master/service/:serviceId/slots')
+  async getTime(
+    @Param('serviceId', ParseUUIDPipe) serviceId: string,
+    @Query() query: GetSlotsQueryDto,
+  ) {
+    return this.masterScheduleService.getSlots(serviceId, query);
   }
 
   @ApiOperation({
