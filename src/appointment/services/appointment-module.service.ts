@@ -9,7 +9,6 @@ import { MasterWeeklyScheduleService } from '../../master/services/master-weekly
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 import { UserService } from '../../user/services/user.service';
 import { createDate0 } from '../../util/date.util';
-
 import {
   CreateAppointmentDto,
   GetAppointmentQueriesDto,
@@ -146,7 +145,8 @@ export class AppointmentModuleService {
         },
       },
     };
-    return this.appointmentService.findMany({
+
+    const appointments = await this.appointmentService.findMany({
       where,
       include: {
         clientProfile: selectUser,
@@ -157,6 +157,15 @@ export class AppointmentModuleService {
           },
         },
       },
+      take: query.limit,
+      skip: query.limit * (query.page - 1),
     });
+
+    return {
+      totalNumber: await this.prismaService.appointment.count({
+        where,
+      }),
+      data: appointments,
+    };
   }
 }

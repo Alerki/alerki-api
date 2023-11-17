@@ -3,6 +3,8 @@ import Prisma from '@prisma/client';
 import { Transform } from 'class-transformer';
 import { IsBoolean, IsString, IsUUID } from 'class-validator';
 
+import { PaginationDto } from '../../shared/dto/Pagination.dto';
+
 export class CreateAppointmentDto
   implements Pick<Prisma.Appointment, 'masterServiceId'>
 {
@@ -20,7 +22,7 @@ export class CreateAppointmentDto
   readonly startAt: string;
 }
 
-export class GetAppointmentQueriesDto {
+export class GetAppointmentQueriesDto extends PaginationDto {
   @IsBoolean()
   @Transform(({ value }) => value === 'true')
   readonly master?: boolean;

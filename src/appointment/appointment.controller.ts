@@ -33,6 +33,8 @@ export class AppointmentController {
     return this.appointmentModuleService.createAppointment(user, data);
   }
 
+  @ApiOperation({ description: 'Get appointments list' })
+  @ApiBearerAuth('Bearer')
   @ApiQuery({
     name: 'master',
     description: 'Indicate to get appointment for master profile',
@@ -47,8 +49,6 @@ export class AppointmentController {
     example: false,
     required: false,
   })
-  @ApiOperation({ description: 'Get appointments list' })
-  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Get()
   async getAppointments(
