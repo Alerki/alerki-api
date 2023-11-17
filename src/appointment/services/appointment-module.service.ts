@@ -207,4 +207,53 @@ export class AppointmentModuleService {
       data: appointments,
     };
   }
+
+  async cancelAppointment(id: string, user: IJwtTokenData) {
+    const appointmentCandidate = await this.appointmentService.findExists({
+      where: {
+        id,
+      },
+    });
+
+    if (
+      appointmentCandidate.masterProfileId !== user.id ||
+      appointmentCandidate.clientProfileId !== user.id
+    ) {
+      throw new BadRequestException('This appointment not belongs to you');
+    }
+
+    // TODO send notification
+
+    return this.prismaService.appointment.update({
+      where: {
+        id,
+      },
+      data: {
+        cancelled: true,
+      },
+    });
+  }
+
+  async confirmAppointment(id: string, user: IJwtTokenData) {
+    const appointmentCandidate = await this.appointmentService.findExists({
+      where: {
+        id,
+      },
+    });
+
+    if (appointmentCandidate.masterProfileId !== user.id) {
+      throw new BadRequestException('Only master can confirm appointment');
+    }
+
+    // TODO send notification
+
+    return this.prismaService.appointment.update({
+      where: {
+        id,
+      },
+      data: {
+        confirmed: true,
+      },
+    });
+  }
 }
