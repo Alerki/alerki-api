@@ -8,7 +8,6 @@ export interface CalendarDayI {
   dayOff: boolean;
   startAt: string | null;
   endAt: string | null;
-  slots: CalendarSlotI[];
 }
 
 export type CalendarDaysI = (CalendarDayI | null)[][];

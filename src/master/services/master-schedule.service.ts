@@ -251,7 +251,6 @@ export class MasterScheduleService {
           dayOff: schedule.dayOff,
           startAt: schedule.startAt ? schedule.startAt.toISOString() : null,
           endAt: schedule.endAt ? schedule.endAt.toISOString() : null,
-          slots: [],
         });
       } else {
         calendar[weekI].push({
@@ -263,7 +262,6 @@ export class MasterScheduleService {
           endAt: master.weeklySchedule.endAt
             ? master.weeklySchedule.endAt.toISOString()
             : null,
-          slots: [],
         });
       }
 
