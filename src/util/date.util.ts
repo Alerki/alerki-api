@@ -1,5 +1,10 @@
 import { BadRequestException } from '@nestjs/common';
 
+export interface DateRangeI {
+  from: Date;
+  to: Date;
+}
+
 export function checkIfStartTimeLessThanEnd(start: Date, end: Date) {
   if (start > end) {
     throw new BadRequestException('Start time should be less than end');
@@ -89,10 +94,34 @@ export function mergeDate(date: Date, merge: Date) {
   date.setUTCDate(merge.getUTCDate());
 }
 
+export function createOneDayDateRange(date: Date) {
+  const dateFrom = new Date(date);
+  setTime0(dateFrom);
+
+  const dateTo = new Date(dateFrom);
+  dateTo.setUTCDate(dateTo.getUTCDate() + 1);
+
+  return {
+    dateFrom,
+    dateTo,
+  };
+}
+
 export function isDateInRange(
   date: Date,
   dateFrom: Date,
   dateTo: Date,
 ): boolean {
-  return date <= dateFrom || date >= dateTo;
+  return date < dateFrom || date > dateTo;
+}
+
+export function isCollision(xRange: DateRangeI, yRange: DateRangeI) {
+  return !(xRange.to <= yRange.from || xRange.from >= yRange.to);
+}
+
+export function isDatesInRange(checkDates: DateRangeI, limitRange: DateRangeI) {
+  return (
+    createDate0(checkDates.from) >= createDate0(limitRange.from) &&
+    createDate0(checkDates.to) <= createDate0(limitRange.to)
+  );
 }

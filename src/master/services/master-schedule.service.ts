@@ -5,13 +5,15 @@ import {
 } from '@nestjs/common';
 import Prisma, { MasterSchedule, MasterWeeklySchedule } from '@prisma/client';
 
+import { AppointmentService } from '../../appointment/services/appointment.service';
 import { IJwtTokenData } from '../../auth/interfaces';
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 import { UserService } from '../../user/services/user.service';
 import {
   checkIfStartTimeLessThanEndAsString,
+  DateRangeI,
   getDayStartsFromMonday,
-  isDateInRange,
+  isDatesInRange,
   mergeDate,
   mergeTime,
   setDate0,
@@ -35,6 +37,7 @@ export class MasterScheduleService {
     private readonly prismaService: PrismaService,
     private readonly userService: UserService,
     private readonly masterProfileService: MasterProfileService,
+    private readonly appointmentService: AppointmentService,
   ) {}
 
   async create(user: IJwtTokenData, data: CreateMasterScheduleDto) {
@@ -354,34 +357,49 @@ export class MasterScheduleService {
     let generateSlotsTimeTo = new Date(generateSlotsTimeFrom);
     generateSlotsTimeTo.setUTCMilliseconds(duration);
 
-    while (generateSlotsTimeTo < generateSlotsUpTo) {
+    let i = 0;
+
+    while (generateSlotsTimeTo <= generateSlotsUpTo) {
+      i++;
+      console.log(i);
       let collision = false;
 
       // Check for collisions with other appointments
       for (let i = 0; i < appointments.length; i++) {
         const appointment = appointments[i];
-        if (
-          !isDateInRange(
-            generateSlotsTimeFrom,
-            appointment.startAt,
-            appointment.endAt,
-          ) ||
-          !isDateInRange(
-            generateSlotsTimeTo,
-            appointment.startAt,
-            appointment.endAt,
-          )
-        ) {
-          collision = true;
 
-          // Remove appointment since we move forward
-          appointments.splice(i, 1);
+        const isCollisionWithEndpoint =
+          await this.appointmentService.checkForCollisionWithOtherAppointments(
+            appointments,
+            {
+              from: generateSlotsTimeFrom,
+              to: generateSlotsTimeTo,
+            },
+            {
+              callback: (appointment) => {
+                console.log(
+                  {
+                    from: generateSlotsTimeFrom,
+                    to: generateSlotsTimeTo,
+                  },
+                  appointment.startAt,
+                  appointment.endAt,
+                );
 
-          // Set generateSlotsTimeFrom at the end of the appointment
-          mergeTime(generateSlotsTimeFrom, appointment.endAt);
-          generateSlotsTimeTo = new Date(generateSlotsTimeFrom);
-          generateSlotsTimeTo.setUTCMilliseconds(duration);
+                collision = true;
 
+                // Remove appointment since we move forward
+                appointments.splice(i, 1);
+
+                // Set generateSlotsTimeFrom at the end of the appointment
+                mergeTime(generateSlotsTimeFrom, appointment.endAt);
+                generateSlotsTimeTo = new Date(generateSlotsTimeFrom);
+                generateSlotsTimeTo.setUTCMilliseconds(duration);
+              },
+            },
+          );
+
+        if (isCollisionWithEndpoint) {
           break;
         }
       }
@@ -424,17 +442,45 @@ export class MasterScheduleService {
     return candidate;
   }
 
-  private createScheduleFromWeeklyAndDaySpecificSchedules(
+  checkIfDateRangeSatisfiesMasterSchedule(
     weeklySchedule: MasterWeeklySchedule,
-    schedule: MasterSchedule,
+    daySpecificSchedule: MasterSchedule | null,
+    date: Date,
+    checkDateRange: DateRangeI,
+  ) {
+    const schedule = this.createScheduleFromWeeklyAndDaySpecificSchedules(
+      weeklySchedule,
+      daySpecificSchedule,
+      date,
+    );
+
+    // Check if day is not a day off
+    if (schedule.dayOff) {
+      throw new BadRequestException('The day is day off');
+    }
+
+    // Check if appointment time is in working hours
+    if (
+      !isDatesInRange(checkDateRange, {
+        from: schedule.startAt,
+        to: schedule.endAt,
+      })
+    ) {
+      throw new BadRequestException('Time out of work master work hours');
+    }
+  }
+
+  createScheduleFromWeeklyAndDaySpecificSchedules(
+    weeklySchedule: MasterWeeklySchedule,
+    schedule: MasterSchedule | null,
     date: Date,
   ) {
     return {
       dayOff: schedule
         ? schedule.dayOff
         : !weeklySchedule[weekDays[date.getUTCDay()]],
-      startAt: schedule ? schedule.startAt : weeklySchedule.startAt,
-      endAt: schedule ? schedule.endAt : weeklySchedule.endAt,
+      startAt: schedule?.startAt || weeklySchedule.startAt,
+      endAt: schedule?.endAt || weeklySchedule.endAt,
     };
   }
 }
