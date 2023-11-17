@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -22,7 +31,10 @@ export class AppointmentController {
     private readonly appointmentModuleService: AppointmentModuleService,
   ) {}
 
-  @ApiOperation({ description: 'Create appointment' })
+  @ApiOperation({
+    description: 'Create appointment',
+    summary: 'Create appointment',
+  })
   @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -33,6 +45,11 @@ export class AppointmentController {
     return this.appointmentModuleService.createAppointment(user, data);
   }
 
+  @ApiOperation({
+    description: 'Get appointments list',
+    summary: 'Get appointments list',
+  })
+  @ApiBearerAuth('Bearer')
   @ApiQuery({
     name: 'master',
     description: 'Indicate to get appointment for master profile',
@@ -47,8 +64,6 @@ export class AppointmentController {
     example: false,
     required: false,
   })
-  @ApiOperation({ description: 'Get appointments list' })
-  @ApiBearerAuth('Bearer')
   @UseGuards(JwtAuthGuard)
   @Get()
   async getAppointments(
@@ -56,5 +71,33 @@ export class AppointmentController {
     @Query() query: GetAppointmentQueriesDto,
   ) {
     return this.appointmentModuleService.getAppointments(user, query);
+  }
+
+  @ApiOperation({
+    summary: 'Cancel appointment',
+    description: 'Cancel appointment',
+  })
+  @ApiBearerAuth('Bearer')
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/cancel')
+  async cancelAppointment(
+    @Param('id') id: string,
+    @GetUserFromRequest() user: IJwtTokenData,
+  ) {
+    return this.appointmentModuleService.cancelAppointment(id, user);
+  }
+
+  @ApiOperation({
+    description: 'Confirm appointment. Only master can config appointment',
+    summary: 'Confirm appointment',
+  })
+  @ApiBearerAuth('Bearer')
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id/confirm')
+  async confirmAppointment(
+    @Param('id') id: string,
+    @GetUserFromRequest() user: IJwtTokenData,
+  ) {
+    return this.appointmentModuleService.confirmAppointment(id, user);
   }
 }

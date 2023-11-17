@@ -1,7 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import { Transform } from 'class-transformer';
-import { IsBoolean, IsString, IsUUID } from 'class-validator';
+import {
+  IsBoolean,
+  IsDateString,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
+
+import { PaginationDto } from '../../shared/dto/Pagination.dto';
 
 export class CreateAppointmentDto
   implements Pick<Prisma.Appointment, 'masterServiceId'>
@@ -20,7 +28,7 @@ export class CreateAppointmentDto
   readonly startAt: string;
 }
 
-export class GetAppointmentQueriesDto {
+export class GetAppointmentQueriesDto extends PaginationDto {
   @IsBoolean()
   @Transform(({ value }) => value === 'true')
   readonly master?: boolean;
@@ -28,4 +36,11 @@ export class GetAppointmentQueriesDto {
   @IsBoolean()
   @Transform(({ value }) => value === 'true')
   readonly client?: boolean;
+
+  @IsDateString()
+  readonly from: string;
+
+  @IsDateString()
+  @IsOptional()
+  readonly to: string;
 }

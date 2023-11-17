@@ -2,14 +2,12 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import Prisma from '@prisma/client';
 
 import { IJwtTokenData } from '../../auth/interfaces';
-import { weekDays } from '../../master/data';
 import { MasterProfileService } from '../../master/services/master-profile.service';
+import { MasterScheduleService } from '../../master/services/master-schedule.service';
 import { MasterServiceService } from '../../master/services/master-service.service';
-import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 import { UserService } from '../../user/services/user.service';
-import { createDate0 } from '../../util/date.util';
-
+import { createOneDayDateRange } from '../../util/date.util';
 import {
   CreateAppointmentDto,
   GetAppointmentQueriesDto,
@@ -22,7 +20,7 @@ export class AppointmentModuleService {
     private readonly userService: UserService,
     private readonly appointmentService: AppointmentService,
     private readonly masterServiceService: MasterServiceService,
-    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
+    private readonly masterScheduleService: MasterScheduleService,
     private readonly masterProfileService: MasterProfileService,
     private readonly prismaService: PrismaService,
   ) {}
@@ -34,7 +32,9 @@ export class AppointmentModuleService {
         id: user.id,
       },
       select: {
+        id: true,
         clientProfileId: true,
+        masterProfileId: true,
       },
     });
 
@@ -45,6 +45,15 @@ export class AppointmentModuleService {
         available: true,
       },
     });
+
+    // Check if user is not trying to create appointment for himself
+    if (
+      masterServiceCandidate.masterProfileId === clientCandidate.masterProfileId
+    ) {
+      throw new BadRequestException(
+        'Unable to create an appointment for yourself',
+      );
+    }
 
     // Get master profile with weekly schedule
     const masterProfile = await this.masterProfileService.findExists({
@@ -59,29 +68,57 @@ export class AppointmentModuleService {
     // Create end time based on start time from body and service duration
     const startAt = new Date(data.startAt);
     const endAt = new Date(startAt);
-
     endAt.setMilliseconds(
       endAt.getMilliseconds() + masterServiceCandidate.duration,
     );
 
-    // Check if it is not day off
-    if (!masterProfile.weeklySchedule[weekDays[startAt.getUTCDay() + 1]]) {
-      throw new BadRequestException('This is day off');
-    }
+    // Create date range for the appointment
+    const appointmentDateRange = createOneDayDateRange(startAt);
 
-    // TODO implement check also by schedule
+    // Find day specific schedule
+    const daySpecificSchedule =
+      await this.prismaService.masterSchedule.findFirst({
+        where: {
+          date: {
+            gte: appointmentDateRange.dateFrom,
+            lt: appointmentDateRange.dateTo,
+          },
+        },
+      });
 
-    // Check time
-    if (
-      createDate0(startAt) > createDate0(masterProfile.weeklySchedule.endAt) ||
-      createDate0(masterProfile.weeklySchedule.startAt) > createDate0(endAt)
-    ) {
-      throw new BadRequestException(
-        'Service time out of work master work hours',
-      );
-    }
+    // Check if the new appointment satisfies master schedule
+    this.masterScheduleService.checkIfDateRangeSatisfiesMasterSchedule(
+      masterProfile.weeklySchedule,
+      daySpecificSchedule,
+      appointmentDateRange.dateFrom,
+      {
+        from: startAt,
+        to: endAt,
+      },
+    );
 
-    // TODO add date check
+    // Get appointments to check for collision with the new one
+    const appointments = await this.prismaService.appointment.findMany({
+      where: {
+        startAt: {
+          gte: appointmentDateRange.dateFrom,
+          lt: appointmentDateRange.dateTo,
+        },
+        cancelled: false,
+      },
+    });
+
+    // Check for collisions
+    await this.appointmentService.checkForCollisionWithOtherAppointments(
+      appointments,
+      {
+        from: startAt,
+        to: endAt,
+      },
+      {
+        throwError: true,
+      },
+    );
 
     return this.appointmentService.create({
       data: {
@@ -116,7 +153,18 @@ export class AppointmentModuleService {
       throw new BadRequestException('User is not a master');
     }
 
-    const where: Prisma.Prisma.AppointmentFindManyArgs['where'] = {};
+    const where: Prisma.Prisma.AppointmentFindManyArgs['where'] = {
+      startAt: {
+        gte: query.from,
+      },
+    };
+
+    if (query.to) {
+      where.startAt = {
+        gte: query.from,
+        lt: query.to,
+      };
+    }
 
     // Create query
     if (query.master && query.client) {
@@ -146,7 +194,8 @@ export class AppointmentModuleService {
         },
       },
     };
-    return this.appointmentService.findMany({
+
+    const appointments = await this.appointmentService.findMany({
       where,
       include: {
         clientProfile: selectUser,
@@ -156,6 +205,64 @@ export class AppointmentModuleService {
             service: true,
           },
         },
+      },
+      take: query.limit,
+      skip: query.limit * (query.page - 1),
+    });
+
+    return {
+      totalNumber: await this.prismaService.appointment.count({
+        where,
+      }),
+      data: appointments,
+    };
+  }
+
+  async cancelAppointment(id: string, user: IJwtTokenData) {
+    const appointmentCandidate = await this.appointmentService.findExists({
+      where: {
+        id,
+      },
+    });
+
+    if (
+      appointmentCandidate.masterProfileId !== user.id ||
+      appointmentCandidate.clientProfileId !== user.id
+    ) {
+      throw new BadRequestException('This appointment not belongs to you');
+    }
+
+    // TODO send notification
+
+    return this.prismaService.appointment.update({
+      where: {
+        id,
+      },
+      data: {
+        cancelled: true,
+      },
+    });
+  }
+
+  async confirmAppointment(id: string, user: IJwtTokenData) {
+    const appointmentCandidate = await this.appointmentService.findExists({
+      where: {
+        id,
+      },
+    });
+
+    if (appointmentCandidate.masterProfileId !== user.id) {
+      throw new BadRequestException('Only master can confirm appointment');
+    }
+
+    // TODO send notification
+
+    return this.prismaService.appointment.update({
+      where: {
+        id,
+      },
+      data: {
+        confirmed: true,
       },
     });
   }

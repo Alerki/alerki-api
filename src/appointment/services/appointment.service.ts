@@ -1,7 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import Prisma from '@prisma/client';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import Prisma, { Appointment } from '@prisma/client';
 
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
+import { isAsync } from '../../util/bunch.util';
+import { DateRangeI, isCollision } from '../../util/date.util';
 
 @Injectable()
 export class AppointmentService {
@@ -52,5 +58,41 @@ export class AppointmentService {
     }
 
     return candidate;
+  }
+
+  async checkForCollisionWithOtherAppointments(
+    appointments: Appointment[],
+    date: DateRangeI,
+    options?: {
+      throwError?: boolean;
+      callback?: (appointment: Appointment) => void | Promise<void>;
+    },
+  ) {
+    for (const appointment of appointments) {
+      if (
+        isCollision(date, {
+          from: appointment.startAt,
+          to: appointment.endAt,
+        })
+      ) {
+        if (options?.throwError === true) {
+          throw new BadRequestException(
+            'There are collision with other endpoint',
+          );
+        }
+
+        if (typeof options?.callback !== 'undefined') {
+          if (isAsync(options?.callback)) {
+            await options?.callback(appointment);
+          } else {
+            options?.callback(appointment);
+          }
+        }
+
+        return true;
+      }
+    }
+
+    return false;
   }
 }

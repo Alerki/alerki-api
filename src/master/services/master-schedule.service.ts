@@ -3,19 +3,17 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import Prisma, {
-  MasterSchedule,
-  MasterService,
-  MasterWeeklySchedule,
-} from '@prisma/client';
+import Prisma, { MasterSchedule, MasterWeeklySchedule } from '@prisma/client';
 
+import { AppointmentService } from '../../appointment/services/appointment.service';
 import { IJwtTokenData } from '../../auth/interfaces';
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 import { UserService } from '../../user/services/user.service';
 import {
   checkIfStartTimeLessThanEndAsString,
+  DateRangeI,
   getDayStartsFromMonday,
-  isDateInRange,
+  isDatesInRange,
   mergeDate,
   mergeTime,
   setDate0,
@@ -39,6 +37,7 @@ export class MasterScheduleService {
     private readonly prismaService: PrismaService,
     private readonly userService: UserService,
     private readonly masterProfileService: MasterProfileService,
+    private readonly appointmentService: AppointmentService,
   ) {}
 
   async create(user: IJwtTokenData, data: CreateMasterScheduleDto) {
@@ -251,7 +250,6 @@ export class MasterScheduleService {
           dayOff: schedule.dayOff,
           startAt: schedule.startAt ? schedule.startAt.toISOString() : null,
           endAt: schedule.endAt ? schedule.endAt.toISOString() : null,
-          slots: [],
         });
       } else {
         calendar[weekI].push({
@@ -263,7 +261,6 @@ export class MasterScheduleService {
           endAt: master.weeklySchedule.endAt
             ? master.weeklySchedule.endAt.toISOString()
             : null,
-          slots: [],
         });
       }
 
@@ -294,7 +291,7 @@ export class MasterScheduleService {
     const dateFrom = new Date();
     setTime0(dateFrom);
     dateFrom.setUTCFullYear(+query.year);
-    dateFrom.setUTCMonth(+query.month);
+    dateFrom.setUTCMonth(+query.month - 1);
     dateFrom.setUTCDate(+query.date);
 
     const dateTo = new Date(dateFrom);
@@ -343,6 +340,7 @@ export class MasterScheduleService {
           gte: dateFrom,
           lt: dateTo,
         },
+        cancelled: false,
       },
     });
 
@@ -360,34 +358,49 @@ export class MasterScheduleService {
     let generateSlotsTimeTo = new Date(generateSlotsTimeFrom);
     generateSlotsTimeTo.setUTCMilliseconds(duration);
 
-    while (generateSlotsTimeTo < generateSlotsUpTo) {
+    let i = 0;
+
+    while (generateSlotsTimeTo <= generateSlotsUpTo) {
+      i++;
+      console.log(i);
       let collision = false;
 
       // Check for collisions with other appointments
       for (let i = 0; i < appointments.length; i++) {
         const appointment = appointments[i];
-        if (
-          !isDateInRange(
-            generateSlotsTimeFrom,
-            appointment.startAt,
-            appointment.endAt,
-          ) ||
-          !isDateInRange(
-            generateSlotsTimeTo,
-            appointment.startAt,
-            appointment.endAt,
-          )
-        ) {
-          collision = true;
 
-          // Remove appointment since we move forward
-          appointments.splice(i, 1);
+        const isCollisionWithEndpoint =
+          await this.appointmentService.checkForCollisionWithOtherAppointments(
+            appointments,
+            {
+              from: generateSlotsTimeFrom,
+              to: generateSlotsTimeTo,
+            },
+            {
+              callback: (appointment) => {
+                console.log(
+                  {
+                    from: generateSlotsTimeFrom,
+                    to: generateSlotsTimeTo,
+                  },
+                  appointment.startAt,
+                  appointment.endAt,
+                );
 
-          // Set generateSlotsTimeFrom at the end of the appointment
-          mergeTime(generateSlotsTimeFrom, appointment.endAt);
-          generateSlotsTimeTo = new Date(generateSlotsTimeFrom);
-          generateSlotsTimeTo.setUTCMilliseconds(duration);
+                collision = true;
 
+                // Remove appointment since we move forward
+                appointments.splice(i, 1);
+
+                // Set generateSlotsTimeFrom at the end of the appointment
+                mergeTime(generateSlotsTimeFrom, appointment.endAt);
+                generateSlotsTimeTo = new Date(generateSlotsTimeFrom);
+                generateSlotsTimeTo.setUTCMilliseconds(duration);
+              },
+            },
+          );
+
+        if (isCollisionWithEndpoint) {
           break;
         }
       }
@@ -430,52 +443,45 @@ export class MasterScheduleService {
     return candidate;
   }
 
-  private async fillOutSlots(
-    date: { dateFrom: Date; dateTo: Date },
-    service: MasterService,
+  checkIfDateRangeSatisfiesMasterSchedule(
+    weeklySchedule: MasterWeeklySchedule,
+    daySpecificSchedule: MasterSchedule | null,
+    date: Date,
+    checkDateRange: DateRangeI,
   ) {
-    // const appointments = await this.prismaService.appointment.findMany({
-    //   where: {
-    //     masterProfileId: service.masterProfileId,
-    //     startAt: {
-    //       gte: date.dateFrom,
-    //       lt: date.dateTo,
-    //     },
-    //   },
-    // });
-    //
-    // const appointmentsForTheDay = appointments.filter(
-    //   (i) => i.startAt.getUTCDate() === date.dateFrom.getUTCDate(),
-    // );
-    //
-    // const dayStartAt = new Date(date.dateFrom!);
-    // const dayEndAt = new Date(date.dateTo!);
-    //
-    // const slots: CalendarSlotI[] = [];
-    //
-    // const generateSlotsTimeFrom = new Date(0);
-    // generateSlotsTimeFrom.setUTCFullYear(calendar.year);
-    // generateSlotsTimeFrom.setUTCFullYear(calendar.month);
-    // mergeTime(generateSlotsTimeFrom, dayStartAt);
-    //
-    // const generateSlotsTimeTo = new Date(0);
-    // while (generateSlotsTimeFrom < dayEndAt) {
-    //   generateSlotsTimeFrom.setUTCMilliseconds();
-    //   break;
-    // }
+    const schedule = this.createScheduleFromWeeklyAndDaySpecificSchedules(
+      weeklySchedule,
+      daySpecificSchedule,
+      date,
+    );
+
+    // Check if day is not a day off
+    if (schedule.dayOff) {
+      throw new BadRequestException('The day is day off');
+    }
+
+    // Check if appointment time is in working hours
+    if (
+      !isDatesInRange(checkDateRange, {
+        from: schedule.startAt,
+        to: schedule.endAt,
+      })
+    ) {
+      throw new BadRequestException('Time out of work master work hours');
+    }
   }
 
-  private createScheduleFromWeeklyAndDaySpecificSchedules(
+  createScheduleFromWeeklyAndDaySpecificSchedules(
     weeklySchedule: MasterWeeklySchedule,
-    schedule: MasterSchedule,
+    schedule: MasterSchedule | null,
     date: Date,
   ) {
     return {
       dayOff: schedule
         ? schedule.dayOff
         : !weeklySchedule[weekDays[date.getUTCDay()]],
-      startAt: schedule ? schedule.startAt : weeklySchedule.startAt,
-      endAt: schedule ? schedule.endAt : weeklySchedule.endAt,
+      startAt: schedule?.startAt || weeklySchedule.startAt,
+      endAt: schedule?.endAt || weeklySchedule.endAt,
     };
   }
 }

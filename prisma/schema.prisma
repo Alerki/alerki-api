@@ -207,6 +207,8 @@ model Appointment {
   price           Int
   startAt         DateTime
   endAt           DateTime
+  confirmed       Boolean       @default(false)
+  cancelled       Boolean       @default(false)
   updatedAt       DateTime      @default(now())
   createdAt       DateTime      @updatedAt
 

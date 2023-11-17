@@ -1,5 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 
+import { AppointmentModule } from '../appointment/appointment.module';
 import { UserModule } from '../user/user.module';
 import { MasterProfileService } from './services/master-profile.service';
 import { MasterScheduleService } from './services/master-schedule.service';
@@ -14,7 +15,7 @@ import { MasterWeeklyScheduleService } from './services/master-weekly-schedule.s
     MasterWeeklyScheduleService,
     MasterScheduleService,
   ],
-  imports: [forwardRef(() => UserModule)],
+  imports: [forwardRef(() => UserModule), forwardRef(() => AppointmentModule)],
   exports: [
     MasterProfileService,
     MasterServiceService,
