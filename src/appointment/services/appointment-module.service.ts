@@ -64,7 +64,7 @@ export class AppointmentModuleService {
     );
 
     // Check if it is not day off
-    if (!masterProfile.weeklySchedule[weekDays[startAt.getUTCDay() + 1]]) {
+    if (!masterProfile.weeklySchedule[weekDays[startAt.getUTCDay()]]) {
       throw new BadRequestException('This is day off');
     }
 

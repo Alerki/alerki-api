@@ -3,11 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import Prisma, {
-  MasterSchedule,
-  MasterService,
-  MasterWeeklySchedule,
-} from '@prisma/client';
+import Prisma, { MasterSchedule, MasterWeeklySchedule } from '@prisma/client';
 
 import { IJwtTokenData } from '../../auth/interfaces';
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
@@ -292,7 +288,7 @@ export class MasterScheduleService {
     const dateFrom = new Date();
     setTime0(dateFrom);
     dateFrom.setUTCFullYear(+query.year);
-    dateFrom.setUTCMonth(+query.month);
+    dateFrom.setUTCMonth(+query.month - 1);
     dateFrom.setUTCDate(+query.date);
 
     const dateTo = new Date(dateFrom);
@@ -426,41 +422,6 @@ export class MasterScheduleService {
     }
 
     return candidate;
-  }
-
-  private async fillOutSlots(
-    date: { dateFrom: Date; dateTo: Date },
-    service: MasterService,
-  ) {
-    // const appointments = await this.prismaService.appointment.findMany({
-    //   where: {
-    //     masterProfileId: service.masterProfileId,
-    //     startAt: {
-    //       gte: date.dateFrom,
-    //       lt: date.dateTo,
-    //     },
-    //   },
-    // });
-    //
-    // const appointmentsForTheDay = appointments.filter(
-    //   (i) => i.startAt.getUTCDate() === date.dateFrom.getUTCDate(),
-    // );
-    //
-    // const dayStartAt = new Date(date.dateFrom!);
-    // const dayEndAt = new Date(date.dateTo!);
-    //
-    // const slots: CalendarSlotI[] = [];
-    //
-    // const generateSlotsTimeFrom = new Date(0);
-    // generateSlotsTimeFrom.setUTCFullYear(calendar.year);
-    // generateSlotsTimeFrom.setUTCFullYear(calendar.month);
-    // mergeTime(generateSlotsTimeFrom, dayStartAt);
-    //
-    // const generateSlotsTimeTo = new Date(0);
-    // while (generateSlotsTimeFrom < dayEndAt) {
-    //   generateSlotsTimeFrom.setUTCMilliseconds();
-    //   break;
-    // }
   }
 
   private createScheduleFromWeeklyAndDaySpecificSchedules(
