@@ -5,7 +5,6 @@ import { IJwtTokenData } from '../../auth/interfaces';
 import { MasterProfileService } from '../../master/services/master-profile.service';
 import { MasterScheduleService } from '../../master/services/master-schedule.service';
 import { MasterServiceService } from '../../master/services/master-service.service';
-import { MasterWeeklyScheduleService } from '../../master/services/master-weekly-schedule.service';
 import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 import { UserService } from '../../user/services/user.service';
 import { createOneDayDateRange } from '../../util/date.util';
@@ -21,7 +20,6 @@ export class AppointmentModuleService {
     private readonly userService: UserService,
     private readonly appointmentService: AppointmentService,
     private readonly masterServiceService: MasterServiceService,
-    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
     private readonly masterScheduleService: MasterScheduleService,
     private readonly masterProfileService: MasterProfileService,
     private readonly prismaService: PrismaService,
@@ -106,6 +104,7 @@ export class AppointmentModuleService {
           gte: appointmentDateRange.dateFrom,
           lt: appointmentDateRange.dateTo,
         },
+        cancelled: false,
       },
     });
 
@@ -154,7 +153,18 @@ export class AppointmentModuleService {
       throw new BadRequestException('User is not a master');
     }
 
-    const where: Prisma.Prisma.AppointmentFindManyArgs['where'] = {};
+    const where: Prisma.Prisma.AppointmentFindManyArgs['where'] = {
+      startAt: {
+        gte: query.from,
+      },
+    };
+
+    if (query.to) {
+      where.startAt = {
+        gte: query.from,
+        lt: query.to,
+      };
+    }
 
     // Create query
     if (query.master && query.client) {

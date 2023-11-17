@@ -340,6 +340,7 @@ export class MasterScheduleService {
           gte: dateFrom,
           lt: dateTo,
         },
+        cancelled: false,
       },
     });
 
