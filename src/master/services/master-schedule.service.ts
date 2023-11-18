@@ -237,7 +237,7 @@ export class MasterScheduleService {
 
     while (dateFromLoop.getUTCMonth() < dateTo.getUTCMonth()) {
       const calendarDate = dateFromLoop.getUTCDate();
-      const calendarDay = getDayStartsFromMonday(dateFromLoop);
+      const calendarDay = dateFromLoop.getUTCDay();
 
       // Check if there is no a schedule to the day
       const schedule = master.schedules.find(
@@ -281,7 +281,7 @@ export class MasterScheduleService {
     }
 
     return {
-      month: dateFrom.getUTCMonth(),
+      month: dateFrom.getUTCMonth() + 1,
       year: dateFrom.getUTCFullYear(),
       calendar,
     };
@@ -362,7 +362,6 @@ export class MasterScheduleService {
 
     while (generateSlotsTimeTo <= generateSlotsUpTo) {
       i++;
-      console.log(i);
       let collision = false;
 
       // Check for collisions with other appointments
@@ -378,15 +377,6 @@ export class MasterScheduleService {
             },
             {
               callback: (appointment) => {
-                console.log(
-                  {
-                    from: generateSlotsTimeFrom,
-                    to: generateSlotsTimeTo,
-                  },
-                  appointment.startAt,
-                  appointment.endAt,
-                );
-
                 collision = true;
 
                 // Remove appointment since we move forward

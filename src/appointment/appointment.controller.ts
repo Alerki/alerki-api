@@ -8,12 +8,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiQuery,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { IJwtTokenData } from '../auth/interfaces';
@@ -50,20 +45,6 @@ export class AppointmentController {
     summary: 'Get appointments list',
   })
   @ApiBearerAuth('Bearer')
-  @ApiQuery({
-    name: 'master',
-    description: 'Indicate to get appointment for master profile',
-    type: 'boolean',
-    example: true,
-    required: false,
-  })
-  @ApiQuery({
-    name: 'client',
-    description: 'Indicate to get appointment for client profile',
-    type: 'boolean',
-    example: false,
-    required: false,
-  })
   @UseGuards(JwtAuthGuard)
   @Get()
   async getAppointments(
