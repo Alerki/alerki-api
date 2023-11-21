@@ -208,6 +208,9 @@ export class AppointmentModuleService {
       },
       take: query.limit,
       skip: query.limit * (query.page - 1),
+      orderBy: {
+        startAt: 'asc',
+      },
     });
 
     return {
