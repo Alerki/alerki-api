@@ -86,12 +86,16 @@ export function mergeTime(date: Date, time: Date) {
   date.setUTCMinutes(time.getUTCMinutes());
   date.setUTCSeconds(time.getUTCSeconds());
   date.setUTCMilliseconds(time.getUTCMilliseconds());
+
+  return date;
 }
 
 export function mergeDate(date: Date, merge: Date) {
   date.setUTCFullYear(merge.getUTCFullYear());
   date.setUTCMonth(merge.getUTCMonth());
   date.setUTCDate(merge.getUTCDate());
+
+  return date;
 }
 
 export function createOneDayDateRange(date: Date) {

@@ -235,7 +235,7 @@ export class MasterScheduleService {
 
     const dateFromLoop = new Date(dateFrom);
 
-    while (dateFromLoop.getUTCMonth() < dateTo.getUTCMonth()) {
+    while (dateFromLoop.getUTCMonth() !== dateTo.getUTCMonth()) {
       const calendarDate = dateFromLoop.getUTCDate();
       const calendarDay = dateFromLoop.getUTCDay();
 
@@ -248,23 +248,30 @@ export class MasterScheduleService {
         calendar[weekI].push({
           date: dateFromLoop.getUTCDate(),
           dayOff: schedule.dayOff,
-          startAt: schedule.startAt ? schedule.startAt.toISOString() : null,
-          endAt: schedule.endAt ? schedule.endAt.toISOString() : null,
+          startAt: schedule.startAt
+            ? mergeTime(new Date(0), schedule.startAt).toISOString()
+            : null,
+          endAt: schedule.endAt
+            ? mergeTime(new Date(0), schedule.endAt).toISOString()
+            : null,
         });
       } else {
         calendar[weekI].push({
           date: dateFromLoop.getUTCDate(),
           dayOff: !master.weeklySchedule[weekDays[calendarDay]],
           startAt: master.weeklySchedule.startAt
-            ? master.weeklySchedule.startAt.toISOString()
+            ? mergeTime(
+                new Date(0),
+                master.weeklySchedule.startAt,
+              ).toISOString()
             : null,
           endAt: master.weeklySchedule.endAt
-            ? master.weeklySchedule.endAt.toISOString()
+            ? mergeTime(new Date(0), master.weeklySchedule.endAt).toISOString()
             : null,
         });
       }
 
-      if (getDayStartsFromMonday(dateFromLoop) === 6) {
+      if (dateFromLoop.getUTCDay() === 0) {
         weekI++;
         calendar.push([]);
       }
