@@ -235,9 +235,9 @@ export class MasterScheduleService {
 
     const dateFromLoop = new Date(dateFrom);
 
-    while (dateFromLoop.getUTCMonth() < dateTo.getUTCMonth()) {
+    while (dateFromLoop.getUTCMonth() !== dateTo.getUTCMonth()) {
       const calendarDate = dateFromLoop.getUTCDate();
-      const calendarDay = getDayStartsFromMonday(dateFromLoop);
+      const calendarDay = dateFromLoop.getUTCDay();
 
       // Check if there is no a schedule to the day
       const schedule = master.schedules.find(
@@ -248,23 +248,30 @@ export class MasterScheduleService {
         calendar[weekI].push({
           date: dateFromLoop.getUTCDate(),
           dayOff: schedule.dayOff,
-          startAt: schedule.startAt ? schedule.startAt.toISOString() : null,
-          endAt: schedule.endAt ? schedule.endAt.toISOString() : null,
+          startAt: schedule.startAt
+            ? mergeTime(new Date(0), schedule.startAt).toISOString()
+            : null,
+          endAt: schedule.endAt
+            ? mergeTime(new Date(0), schedule.endAt).toISOString()
+            : null,
         });
       } else {
         calendar[weekI].push({
           date: dateFromLoop.getUTCDate(),
           dayOff: !master.weeklySchedule[weekDays[calendarDay]],
           startAt: master.weeklySchedule.startAt
-            ? master.weeklySchedule.startAt.toISOString()
+            ? mergeTime(
+                new Date(0),
+                master.weeklySchedule.startAt,
+              ).toISOString()
             : null,
           endAt: master.weeklySchedule.endAt
-            ? master.weeklySchedule.endAt.toISOString()
+            ? mergeTime(new Date(0), master.weeklySchedule.endAt).toISOString()
             : null,
         });
       }
 
-      if (getDayStartsFromMonday(dateFromLoop) === 6) {
+      if (dateFromLoop.getUTCDay() === 0) {
         weekI++;
         calendar.push([]);
       }
@@ -281,7 +288,7 @@ export class MasterScheduleService {
     }
 
     return {
-      month: dateFrom.getUTCMonth(),
+      month: dateFrom.getUTCMonth() + 1,
       year: dateFrom.getUTCFullYear(),
       calendar,
     };
@@ -362,7 +369,6 @@ export class MasterScheduleService {
 
     while (generateSlotsTimeTo <= generateSlotsUpTo) {
       i++;
-      console.log(i);
       let collision = false;
 
       // Check for collisions with other appointments
@@ -378,15 +384,6 @@ export class MasterScheduleService {
             },
             {
               callback: (appointment) => {
-                console.log(
-                  {
-                    from: generateSlotsTimeFrom,
-                    to: generateSlotsTimeTo,
-                  },
-                  appointment.startAt,
-                  appointment.endAt,
-                );
-
                 collision = true;
 
                 // Remove appointment since we move forward

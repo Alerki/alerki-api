@@ -208,6 +208,9 @@ export class AppointmentModuleService {
       },
       take: query.limit,
       skip: query.limit * (query.page - 1),
+      orderBy: {
+        startAt: 'asc',
+      },
     });
 
     return {
@@ -219,6 +222,12 @@ export class AppointmentModuleService {
   }
 
   async cancelAppointment(id: string, user: IJwtTokenData) {
+    const userCandidate = await this.userService.findExists({
+      where: {
+        id: user.id,
+      },
+    });
+
     const appointmentCandidate = await this.appointmentService.findExists({
       where: {
         id,
@@ -226,8 +235,8 @@ export class AppointmentModuleService {
     });
 
     if (
-      appointmentCandidate.masterProfileId !== user.id ||
-      appointmentCandidate.clientProfileId !== user.id
+      appointmentCandidate.masterProfileId !== userCandidate.masterProfileId &&
+      appointmentCandidate.clientProfileId !== userCandidate.clientProfileId
     ) {
       throw new BadRequestException('This appointment not belongs to you');
     }
