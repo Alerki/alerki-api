@@ -393,9 +393,9 @@ export class UserModuleService {
     // Check picture size
     const { width, height } = imageSize(pictureBuffer);
 
-    if (width > 100 || height > 100) {
+    if (width > 200 || height > 200) {
       pictureBuffer = await sharp(picture.buffer)
-        .resize(50, 50)
+        .resize(200, 200)
         .jpeg({ mozjpeg: true })
         .toBuffer();
     }
