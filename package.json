@@ -23,6 +23,7 @@
     "migrate:dev": "dotenv -e .env.dev -- prisma migrate dev",
     "migrate:test": "dotenv -e .env.test -- prisma migrate reset --force",
     "prisma:dbml": "prisma generate",
+    "prisma:dev:pull": "dotenv -e .env.dev -- prisma db pull",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "lint:fix": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\" --fix",
     "format:check": "prettier --check \"{**/*,*}.{js,ts,jsx,tsx,json,yaml,yml}\"",
