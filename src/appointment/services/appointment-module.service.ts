@@ -146,13 +146,6 @@ export class AppointmentModuleService {
       },
     });
 
-    if (
-      query.master &&
-      (!userCandidate.isMaster || !userCandidate.masterProfileId)
-    ) {
-      throw new BadRequestException('User is not a master');
-    }
-
     const where: Prisma.Prisma.AppointmentFindManyArgs['where'] = {
       startAt: {
         gte: query.from,
@@ -166,20 +159,16 @@ export class AppointmentModuleService {
       };
     }
 
-    // Create query
-    if (query.master && query.client) {
-      where.OR = [
-        {
-          masterProfileId: userCandidate.masterProfileId!,
-        },
-        {
-          clientProfileId: userCandidate.clientProfileId,
-        },
-      ];
-    } else if (query.master) {
-      where.masterProfileId = userCandidate.masterProfileId!;
-    } else {
-      where.clientProfileId = userCandidate.clientProfileId;
+    where.OR = [
+      {
+        clientProfileId: userCandidate.clientProfileId,
+      },
+    ];
+
+    if (userCandidate.masterProfileId) {
+      where.OR.push({
+        masterProfileId: userCandidate.masterProfileId,
+      });
     }
 
     const selectUser = {
@@ -226,6 +215,10 @@ export class AppointmentModuleService {
       where: {
         id: user.id,
       },
+      select: {
+        masterProfileId: true,
+        clientProfileId: true,
+      },
     });
 
     const appointmentCandidate = await this.appointmentService.findExists({
@@ -254,13 +247,24 @@ export class AppointmentModuleService {
   }
 
   async confirmAppointment(id: string, user: IJwtTokenData) {
+    const userCandidate = await this.userService.findExists({
+      where: {
+        id: user.id,
+      },
+      select: {
+        masterProfileId: true,
+      },
+    });
+
     const appointmentCandidate = await this.appointmentService.findExists({
       where: {
         id,
       },
     });
 
-    if (appointmentCandidate.masterProfileId !== user.id) {
+    if (
+      appointmentCandidate.masterProfileId !== userCandidate.masterProfileId
+    ) {
       throw new BadRequestException('Only master can confirm appointment');
     }
 

@@ -1,13 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
-import { Transform } from 'class-transformer';
-import {
-  IsBoolean,
-  IsDateString,
-  IsOptional,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsDateString, IsOptional, IsString, IsUUID } from 'class-validator';
 
 import { PaginationDto } from '../../shared/dto/Pagination.dto';
 
@@ -29,26 +22,6 @@ export class CreateAppointmentDto
 }
 
 export class GetAppointmentQueriesDto extends PaginationDto {
-  @ApiProperty({
-    description: 'Indicate to get appointment for master profile',
-    type: Boolean,
-    example: true,
-    required: false,
-  })
-  @IsBoolean()
-  @Transform(({ value }) => value === 'true')
-  readonly master?: boolean;
-
-  @ApiProperty({
-    description: 'Indicate to get appointment for client profile',
-    type: Boolean,
-    example: false,
-    required: false,
-  })
-  @IsBoolean()
-  @Transform(({ value }) => value === 'true')
-  readonly client?: boolean;
-
   @ApiProperty({
     description: 'Date to get appointments from',
     type: Date,
