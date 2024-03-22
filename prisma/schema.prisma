@@ -9,6 +9,11 @@ generator dbml {
   outputName = "schema.dbml"
 }
 
+generator nestgraphql {
+  provider = "node node_modules/prisma-nestjs-graphql"
+  output   = "../src/@generated"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -171,7 +176,7 @@ model User {
   date_created                                                         DateTime?                     @db.Timestamptz(6)
   date_updated                                                         DateTime?                     @db.Timestamptz(6)
   email                                                                String                        @unique(map: "user_email_unique") @db.VarChar(320)
-  phoneNumber                                                          String                        @unique(map: "user_phonenumber_unique") @db.VarChar(13)
+  phoneNumber                                                          String?                       @unique(map: "user_phonenumber_unique") @db.VarChar(255)
   username                                                             String                        @unique(map: "user_username_unique") @db.VarChar(20)
   firstName                                                            String?                       @db.VarChar(32)
   lastName                                                             String?                       @db.VarChar(32)

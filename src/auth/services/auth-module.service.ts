@@ -1,5 +1,6 @@
 import {BadRequestException, Injectable} from '@nestjs/common';
 import * as bcryptjs from 'bcryptjs';
+import { PrismaService } from 'src/shared/modules/prisma/prisma.service';
 
 import {ClientProfileService} from '../../client/services/client-profile.service';
 import {ENV} from '../../config';
@@ -17,15 +18,16 @@ export class AuthModuleService {
   constructor(
     private readonly authService: AuthService,
     private readonly jwtTokensService: JwtTokenService,
-    private readonly userService: UserService,
+    // private readonly userService: UserService,
     private readonly sessionService: SessionService,
     private readonly clientProfileService: ClientProfileService,
+    private readonly prismaService: PrismaService,
   ) {
     this.passwordHash = ENV.PASSWORD_HASH;
   }
 
   async register(data: RegisterDto) {
-    const candidate = await this.userService.findFirst({
+    const candidate = await this.prismaService.user.findFirst({
       where: {
         OR: [
           {
@@ -46,22 +48,24 @@ export class AuthModuleService {
       }
     }
 
-    const clientProfile = await this.clientProfileService.create({ data: {} });
+    const clientProfile = await this.prismaService.clientProfile.create({ data: { id: '123' }});
 
     const passwordHash = bcryptjs.hashSync(data.password, this.passwordHash);
 
-    await this.userService.create({
+    await this.prismaService.user.create({
       data: {
+        id :'asdf',
         email: data.email,
         username: data.username,
         password: passwordHash,
-        clientProfileId: clientProfile.id,
+        // clientProfileId: clientProfile.id,
+        clientProfile: clientProfile.id,
       },
     });
   }
 
   async logIn(data: LogInDto, deviceName: string) {
-    const candidate = await this.userService.findFirst({
+    const candidate = await this.prismaService.user.findFirst({
       where: {
         OR: [
           {
@@ -86,11 +90,15 @@ export class AuthModuleService {
       id: candidate.id,
     });
 
-    await this.sessionService.create({
+    await this.prismaService.session.create({
       data: {
         refreshToken: tokens.refreshToken,
         deviceName,
-        userId: candidate.id,
+        User_Session: {
+          create: {
+            User_id: candidate.id,
+          }
+        }
       },
     });
 
@@ -111,7 +119,11 @@ export class AuthModuleService {
     const sessionCandidate = await this.sessionService.findExists({
       where: {
         refreshToken,
-        userId: decodedRefreshToken.id,
+        User_Session: {
+          some: {
+            User_id: decodedRefreshToken.id
+          }
+        }
       },
     });
 
@@ -136,7 +148,11 @@ export class AuthModuleService {
     const sessionCandidate = await this.sessionService.findExists({
       where: {
         refreshToken,
-        userId: decodedRefreshToken.id,
+        User_Session: {
+          some: {
+            User_id: decodedRefreshToken.id
+          }
+        },
       },
     });
 
