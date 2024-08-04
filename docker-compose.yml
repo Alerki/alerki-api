@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+  cache:
+    image: redis:6
+    container_name: cache
+    ports:
+      - 6379:6379
+  directus:
+    image: directus/directus:10.10.4
+    container_name: directus
+    ports:
+      - 8055:8055
+    environment:
+      KEY: '255d861b-5ea1-5191-9aa3-922530ec40b1'
+      SECRET: '6116487b-cda1-5222-b5b5-c8022c45e263'
+      DB_CLIENT: 'pg'
+      DB_HOST: 'database'
+      DB_PORT: '5432'
+      DB_DATABASE: 'alerki'
+      DB_USER: 'alerki'
+      DB_PASSWORD: 'root'
+      CACHE_ENABLED: 'true'
+      CACHE_STORE: 'redis'
+      REDIS: 'redis://cache:6379'
+      ADMIN_EMAIL: 'root@gmail.com'
+      ADMIN_PASSWORD: 'root'
+    depends_on:
+      - cache
+      - database
+    volumes:
+      - ./data/dev/directus/uploads:/directus/uploads
+      - ./data/dev/directus/extensions:/directus/extensions
+  database:
+    image: postgres
+    container_name: database
+    environment:
+      POSTGRES_DB: alerki
+      POSTGRES_USER: alerki
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/dev/postgres:/var/lib/postgresql/data
