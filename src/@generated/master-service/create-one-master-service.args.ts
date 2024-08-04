@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneMasterServiceArgs {
-
-    @Field(() => MasterServiceCreateInput, {nullable:false})
-    @Type(() => MasterServiceCreateInput)
-    data!: MasterServiceCreateInput;
+  @Field(() => MasterServiceCreateInput, { nullable: false })
+  @Type(() => MasterServiceCreateInput)
+  data!: MasterServiceCreateInput;
 }

@@ -8,16 +8,15 @@ import { CurrencyUpdateInput } from './currency-update.input';
 
 @ArgsType()
 export class UpsertOneCurrencyArgs {
+  @Field(() => CurrencyWhereUniqueInput, { nullable: false })
+  @Type(() => CurrencyWhereUniqueInput)
+  where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
-    @Type(() => CurrencyWhereUniqueInput)
-    where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
+  @Field(() => CurrencyCreateInput, { nullable: false })
+  @Type(() => CurrencyCreateInput)
+  create!: CurrencyCreateInput;
 
-    @Field(() => CurrencyCreateInput, {nullable:false})
-    @Type(() => CurrencyCreateInput)
-    create!: CurrencyCreateInput;
-
-    @Field(() => CurrencyUpdateInput, {nullable:false})
-    @Type(() => CurrencyUpdateInput)
-    update!: CurrencyUpdateInput;
+  @Field(() => CurrencyUpdateInput, { nullable: false })
+  @Type(() => CurrencyUpdateInput)
+  update!: CurrencyUpdateInput;
 }

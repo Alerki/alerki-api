@@ -5,10 +5,11 @@ import { UserCreateNestedOneWithoutUser_SessionInput } from '../user/user-create
 
 @InputType()
 export class User_SessionCreateInput {
+  @Field(() => SessionCreateNestedOneWithoutUser_SessionInput, {
+    nullable: false,
+  })
+  Session!: SessionCreateNestedOneWithoutUser_SessionInput;
 
-    @Field(() => SessionCreateNestedOneWithoutUser_SessionInput, {nullable:true})
-    Session?: SessionCreateNestedOneWithoutUser_SessionInput;
-
-    @Field(() => UserCreateNestedOneWithoutUser_SessionInput, {nullable:true})
-    User?: UserCreateNestedOneWithoutUser_SessionInput;
+  @Field(() => UserCreateNestedOneWithoutUser_SessionInput, { nullable: false })
+  User!: UserCreateNestedOneWithoutUser_SessionInput;
 }

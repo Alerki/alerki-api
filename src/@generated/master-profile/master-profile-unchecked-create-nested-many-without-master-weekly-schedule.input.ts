@@ -9,20 +9,25 @@ import { MasterProfileWhereUniqueInput } from './master-profile-where-unique.inp
 
 @InputType()
 export class MasterProfileUncheckedCreateNestedManyWithoutMasterWeeklyScheduleInput {
+  @Field(() => [MasterProfileCreateWithoutMasterWeeklyScheduleInput], {
+    nullable: true,
+  })
+  @Type(() => MasterProfileCreateWithoutMasterWeeklyScheduleInput)
+  create?: Array<MasterProfileCreateWithoutMasterWeeklyScheduleInput>;
 
-    @Field(() => [MasterProfileCreateWithoutMasterWeeklyScheduleInput], {nullable:true})
-    @Type(() => MasterProfileCreateWithoutMasterWeeklyScheduleInput)
-    create?: Array<MasterProfileCreateWithoutMasterWeeklyScheduleInput>;
+  @Field(() => [MasterProfileCreateOrConnectWithoutMasterWeeklyScheduleInput], {
+    nullable: true,
+  })
+  @Type(() => MasterProfileCreateOrConnectWithoutMasterWeeklyScheduleInput)
+  connectOrCreate?: Array<MasterProfileCreateOrConnectWithoutMasterWeeklyScheduleInput>;
 
-    @Field(() => [MasterProfileCreateOrConnectWithoutMasterWeeklyScheduleInput], {nullable:true})
-    @Type(() => MasterProfileCreateOrConnectWithoutMasterWeeklyScheduleInput)
-    connectOrCreate?: Array<MasterProfileCreateOrConnectWithoutMasterWeeklyScheduleInput>;
+  @Field(() => MasterProfileCreateManyMasterWeeklyScheduleInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => MasterProfileCreateManyMasterWeeklyScheduleInputEnvelope)
+  createMany?: MasterProfileCreateManyMasterWeeklyScheduleInputEnvelope;
 
-    @Field(() => MasterProfileCreateManyMasterWeeklyScheduleInputEnvelope, {nullable:true})
-    @Type(() => MasterProfileCreateManyMasterWeeklyScheduleInputEnvelope)
-    createMany?: MasterProfileCreateManyMasterWeeklyScheduleInputEnvelope;
-
-    @Field(() => [MasterProfileWhereUniqueInput], {nullable:true})
-    @Type(() => MasterProfileWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>>;
+  @Field(() => [MasterProfileWhereUniqueInput], { nullable: true })
+  @Type(() => MasterProfileWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>>;
 }

@@ -6,13 +6,12 @@ import { Directus_foldersMaxAggregate } from './directus-folders-max-aggregate.o
 
 @ObjectType()
 export class AggregateDirectus_folders {
+  @Field(() => Directus_foldersCountAggregate, { nullable: true })
+  _count?: Directus_foldersCountAggregate;
 
-    @Field(() => Directus_foldersCountAggregate, {nullable:true})
-    _count?: Directus_foldersCountAggregate;
+  @Field(() => Directus_foldersMinAggregate, { nullable: true })
+  _min?: Directus_foldersMinAggregate;
 
-    @Field(() => Directus_foldersMinAggregate, {nullable:true})
-    _min?: Directus_foldersMinAggregate;
-
-    @Field(() => Directus_foldersMaxAggregate, {nullable:true})
-    _max?: Directus_foldersMaxAggregate;
+  @Field(() => Directus_foldersMaxAggregate, { nullable: true })
+  _max?: Directus_foldersMaxAggregate;
 }

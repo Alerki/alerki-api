@@ -7,34 +7,36 @@ import { directus_revisionsUpdateManyWithoutDirectus_activityNestedInput } from 
 
 @InputType()
 export class directus_activityUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  action?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    action?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  user?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    user?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  timestamp?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    timestamp?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  ip?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    ip?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  user_agent?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    user_agent?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  collection?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    collection?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  item?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    item?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  comment?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    comment?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  origin?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    origin?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => directus_revisionsUpdateManyWithoutDirectus_activityNestedInput, {nullable:true})
-    directus_revisions?: directus_revisionsUpdateManyWithoutDirectus_activityNestedInput;
+  @Field(
+    () => directus_revisionsUpdateManyWithoutDirectus_activityNestedInput,
+    { nullable: true },
+  )
+  directus_revisions?: directus_revisionsUpdateManyWithoutDirectus_activityNestedInput;
 }

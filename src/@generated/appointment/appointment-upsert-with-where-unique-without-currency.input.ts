@@ -8,16 +8,15 @@ import { AppointmentCreateWithoutCurrencyInput } from './appointment-create-with
 
 @InputType()
 export class AppointmentUpsertWithWhereUniqueWithoutCurrencyInput {
+  @Field(() => AppointmentWhereUniqueInput, { nullable: false })
+  @Type(() => AppointmentWhereUniqueInput)
+  where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
 
-    @Field(() => AppointmentWhereUniqueInput, {nullable:false})
-    @Type(() => AppointmentWhereUniqueInput)
-    where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
+  @Field(() => AppointmentUpdateWithoutCurrencyInput, { nullable: false })
+  @Type(() => AppointmentUpdateWithoutCurrencyInput)
+  update!: AppointmentUpdateWithoutCurrencyInput;
 
-    @Field(() => AppointmentUpdateWithoutCurrencyInput, {nullable:false})
-    @Type(() => AppointmentUpdateWithoutCurrencyInput)
-    update!: AppointmentUpdateWithoutCurrencyInput;
-
-    @Field(() => AppointmentCreateWithoutCurrencyInput, {nullable:false})
-    @Type(() => AppointmentCreateWithoutCurrencyInput)
-    create!: AppointmentCreateWithoutCurrencyInput;
+  @Field(() => AppointmentCreateWithoutCurrencyInput, { nullable: false })
+  @Type(() => AppointmentCreateWithoutCurrencyInput)
+  create!: AppointmentCreateWithoutCurrencyInput;
 }

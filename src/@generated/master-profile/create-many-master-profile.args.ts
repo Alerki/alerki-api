@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManyMasterProfileArgs {
+  @Field(() => [MasterProfileCreateManyInput], { nullable: false })
+  @Type(() => MasterProfileCreateManyInput)
+  data!: Array<MasterProfileCreateManyInput>;
 
-    @Field(() => [MasterProfileCreateManyInput], {nullable:false})
-    @Type(() => MasterProfileCreateManyInput)
-    data!: Array<MasterProfileCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

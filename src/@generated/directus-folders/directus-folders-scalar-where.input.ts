@@ -6,22 +6,21 @@ import { UuidNullableFilter } from '../prisma/uuid-nullable-filter.input';
 
 @InputType()
 export class directus_foldersScalarWhereInput {
+  @Field(() => [directus_foldersScalarWhereInput], { nullable: true })
+  AND?: Array<directus_foldersScalarWhereInput>;
 
-    @Field(() => [directus_foldersScalarWhereInput], {nullable:true})
-    AND?: Array<directus_foldersScalarWhereInput>;
+  @Field(() => [directus_foldersScalarWhereInput], { nullable: true })
+  OR?: Array<directus_foldersScalarWhereInput>;
 
-    @Field(() => [directus_foldersScalarWhereInput], {nullable:true})
-    OR?: Array<directus_foldersScalarWhereInput>;
+  @Field(() => [directus_foldersScalarWhereInput], { nullable: true })
+  NOT?: Array<directus_foldersScalarWhereInput>;
 
-    @Field(() => [directus_foldersScalarWhereInput], {nullable:true})
-    NOT?: Array<directus_foldersScalarWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
-
-    @Field(() => UuidNullableFilter, {nullable:true})
-    parent?: UuidNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  parent?: UuidNullableFilter;
 }

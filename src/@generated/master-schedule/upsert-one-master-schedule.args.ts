@@ -8,16 +8,15 @@ import { MasterScheduleUpdateInput } from './master-schedule-update.input';
 
 @ArgsType()
 export class UpsertOneMasterScheduleArgs {
+  @Field(() => MasterScheduleWhereUniqueInput, { nullable: false })
+  @Type(() => MasterScheduleWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterScheduleWhereUniqueInput, {nullable:false})
-    @Type(() => MasterScheduleWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>;
+  @Field(() => MasterScheduleCreateInput, { nullable: false })
+  @Type(() => MasterScheduleCreateInput)
+  create!: MasterScheduleCreateInput;
 
-    @Field(() => MasterScheduleCreateInput, {nullable:false})
-    @Type(() => MasterScheduleCreateInput)
-    create!: MasterScheduleCreateInput;
-
-    @Field(() => MasterScheduleUpdateInput, {nullable:false})
-    @Type(() => MasterScheduleUpdateInput)
-    update!: MasterScheduleUpdateInput;
+  @Field(() => MasterScheduleUpdateInput, { nullable: false })
+  @Type(() => MasterScheduleUpdateInput)
+  update!: MasterScheduleUpdateInput;
 }

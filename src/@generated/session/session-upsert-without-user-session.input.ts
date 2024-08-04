@@ -6,12 +6,11 @@ import { SessionCreateWithoutUser_SessionInput } from './session-create-without-
 
 @InputType()
 export class SessionUpsertWithoutUser_SessionInput {
+  @Field(() => SessionUpdateWithoutUser_SessionInput, { nullable: false })
+  @Type(() => SessionUpdateWithoutUser_SessionInput)
+  update!: SessionUpdateWithoutUser_SessionInput;
 
-    @Field(() => SessionUpdateWithoutUser_SessionInput, {nullable:false})
-    @Type(() => SessionUpdateWithoutUser_SessionInput)
-    update!: SessionUpdateWithoutUser_SessionInput;
-
-    @Field(() => SessionCreateWithoutUser_SessionInput, {nullable:false})
-    @Type(() => SessionCreateWithoutUser_SessionInput)
-    create!: SessionCreateWithoutUser_SessionInput;
+  @Field(() => SessionCreateWithoutUser_SessionInput, { nullable: false })
+  @Type(() => SessionCreateWithoutUser_SessionInput)
+  create!: SessionCreateWithoutUser_SessionInput;
 }

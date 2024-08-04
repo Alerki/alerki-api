@@ -5,19 +5,18 @@ import { directus_translationsOrderByRelevanceInput } from './directus-translati
 
 @InputType()
 export class directus_translationsOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  language?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    language?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  key?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    key?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  value?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    value?: keyof typeof SortOrder;
-
-    @Field(() => directus_translationsOrderByRelevanceInput, {nullable:true})
-    _relevance?: directus_translationsOrderByRelevanceInput;
+  @Field(() => directus_translationsOrderByRelevanceInput, { nullable: true })
+  _relevance?: directus_translationsOrderByRelevanceInput;
 }

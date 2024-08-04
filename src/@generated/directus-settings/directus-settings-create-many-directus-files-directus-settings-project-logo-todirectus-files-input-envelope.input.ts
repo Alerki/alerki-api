@@ -5,11 +5,18 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class directus_settingsCreateManyDirectus_files_directus_settings_project_logoTodirectus_filesInputEnvelope {
+  @Field(
+    () => [
+      directus_settingsCreateManyDirectus_files_directus_settings_project_logoTodirectus_filesInput,
+    ],
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_settingsCreateManyDirectus_files_directus_settings_project_logoTodirectus_filesInput,
+  )
+  data!: Array<directus_settingsCreateManyDirectus_files_directus_settings_project_logoTodirectus_filesInput>;
 
-    @Field(() => [directus_settingsCreateManyDirectus_files_directus_settings_project_logoTodirectus_filesInput], {nullable:false})
-    @Type(() => directus_settingsCreateManyDirectus_files_directus_settings_project_logoTodirectus_filesInput)
-    data!: Array<directus_settingsCreateManyDirectus_files_directus_settings_project_logoTodirectus_filesInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

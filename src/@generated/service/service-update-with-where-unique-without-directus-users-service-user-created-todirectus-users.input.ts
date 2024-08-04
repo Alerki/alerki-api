@@ -7,12 +7,18 @@ import { ServiceUpdateWithoutDirectus_users_Service_user_createdTodirectus_users
 
 @InputType()
 export class ServiceUpdateWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput {
+  @Field(() => ServiceWhereUniqueInput, { nullable: false })
+  @Type(() => ServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => ServiceWhereUniqueInput, {nullable:false})
-    @Type(() => ServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
-
-    @Field(() => ServiceUpdateWithoutDirectus_users_Service_user_createdTodirectus_usersInput, {nullable:false})
-    @Type(() => ServiceUpdateWithoutDirectus_users_Service_user_createdTodirectus_usersInput)
-    data!: ServiceUpdateWithoutDirectus_users_Service_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      ServiceUpdateWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      ServiceUpdateWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+  )
+  data!: ServiceUpdateWithoutDirectus_users_Service_user_createdTodirectus_usersInput;
 }

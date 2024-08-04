@@ -6,12 +6,11 @@ import { ServiceUpdateManyMutationInput } from './service-update-many-mutation.i
 
 @InputType()
 export class ServiceUpdateManyWithWhereWithoutDirectus_users_Service_user_createdTodirectus_usersInput {
+  @Field(() => ServiceScalarWhereInput, { nullable: false })
+  @Type(() => ServiceScalarWhereInput)
+  where!: ServiceScalarWhereInput;
 
-    @Field(() => ServiceScalarWhereInput, {nullable:false})
-    @Type(() => ServiceScalarWhereInput)
-    where!: ServiceScalarWhereInput;
-
-    @Field(() => ServiceUpdateManyMutationInput, {nullable:false})
-    @Type(() => ServiceUpdateManyMutationInput)
-    data!: ServiceUpdateManyMutationInput;
+  @Field(() => ServiceUpdateManyMutationInput, { nullable: false })
+  @Type(() => ServiceUpdateManyMutationInput)
+  data!: ServiceUpdateManyMutationInput;
 }

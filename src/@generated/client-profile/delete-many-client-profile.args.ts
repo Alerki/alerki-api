@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyClientProfileArgs {
-
-    @Field(() => ClientProfileWhereInput, {nullable:true})
-    @Type(() => ClientProfileWhereInput)
-    where?: ClientProfileWhereInput;
+  @Field(() => ClientProfileWhereInput, { nullable: true })
+  @Type(() => ClientProfileWhereInput)
+  where?: ClientProfileWhereInput;
 }

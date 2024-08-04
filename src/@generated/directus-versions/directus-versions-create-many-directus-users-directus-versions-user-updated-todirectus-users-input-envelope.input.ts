@@ -5,11 +5,18 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInputEnvelope {
+  @Field(
+    () => [
+      directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  data!: Array<directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInput], {nullable:false})
-    @Type(() => directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInput)
-    data!: Array<directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

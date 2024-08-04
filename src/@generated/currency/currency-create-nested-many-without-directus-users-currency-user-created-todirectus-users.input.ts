@@ -9,20 +9,42 @@ import { CurrencyWhereUniqueInput } from './currency-where-unique.input';
 
 @InputType()
 export class CurrencyCreateNestedManyWithoutDirectus_users_Currency_user_createdTodirectus_usersInput {
+  @Field(
+    () => [
+      CurrencyCreateWithoutDirectus_users_Currency_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyCreateWithoutDirectus_users_Currency_user_createdTodirectus_usersInput,
+  )
+  create?: Array<CurrencyCreateWithoutDirectus_users_Currency_user_createdTodirectus_usersInput>;
 
-    @Field(() => [CurrencyCreateWithoutDirectus_users_Currency_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => CurrencyCreateWithoutDirectus_users_Currency_user_createdTodirectus_usersInput)
-    create?: Array<CurrencyCreateWithoutDirectus_users_Currency_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_createdTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_createdTodirectus_usersInput>;
 
-    @Field(() => [CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_createdTodirectus_usersInput)
-    connectOrCreate?: Array<CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_createdTodirectus_usersInput>;
+  @Field(
+    () =>
+      CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInputEnvelope,
+  )
+  createMany?: CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInputEnvelope;
 
-    @Field(() => CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInputEnvelope)
-    createMany?: CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInputEnvelope;
-
-    @Field(() => [CurrencyWhereUniqueInput], {nullable:true})
-    @Type(() => CurrencyWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
+  @Field(() => [CurrencyWhereUniqueInput], { nullable: true })
+  @Type(() => CurrencyWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
 }

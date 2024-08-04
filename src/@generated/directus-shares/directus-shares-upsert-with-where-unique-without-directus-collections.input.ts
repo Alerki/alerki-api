@@ -8,16 +8,19 @@ import { directus_sharesCreateWithoutDirectus_collectionsInput } from './directu
 
 @InputType()
 export class directus_sharesUpsertWithWhereUniqueWithoutDirectus_collectionsInput {
+  @Field(() => directus_sharesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sharesWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_sharesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sharesWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>;
+  @Field(() => directus_sharesUpdateWithoutDirectus_collectionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_sharesUpdateWithoutDirectus_collectionsInput)
+  update!: directus_sharesUpdateWithoutDirectus_collectionsInput;
 
-    @Field(() => directus_sharesUpdateWithoutDirectus_collectionsInput, {nullable:false})
-    @Type(() => directus_sharesUpdateWithoutDirectus_collectionsInput)
-    update!: directus_sharesUpdateWithoutDirectus_collectionsInput;
-
-    @Field(() => directus_sharesCreateWithoutDirectus_collectionsInput, {nullable:false})
-    @Type(() => directus_sharesCreateWithoutDirectus_collectionsInput)
-    create!: directus_sharesCreateWithoutDirectus_collectionsInput;
+  @Field(() => directus_sharesCreateWithoutDirectus_collectionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_sharesCreateWithoutDirectus_collectionsInput)
+  create!: directus_sharesCreateWithoutDirectus_collectionsInput;
 }

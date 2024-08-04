@@ -8,19 +8,18 @@ import { Directus_revisionsMaxAggregate } from './directus-revisions-max-aggrega
 
 @ObjectType()
 export class AggregateDirectus_revisions {
+  @Field(() => Directus_revisionsCountAggregate, { nullable: true })
+  _count?: Directus_revisionsCountAggregate;
 
-    @Field(() => Directus_revisionsCountAggregate, {nullable:true})
-    _count?: Directus_revisionsCountAggregate;
+  @Field(() => Directus_revisionsAvgAggregate, { nullable: true })
+  _avg?: Directus_revisionsAvgAggregate;
 
-    @Field(() => Directus_revisionsAvgAggregate, {nullable:true})
-    _avg?: Directus_revisionsAvgAggregate;
+  @Field(() => Directus_revisionsSumAggregate, { nullable: true })
+  _sum?: Directus_revisionsSumAggregate;
 
-    @Field(() => Directus_revisionsSumAggregate, {nullable:true})
-    _sum?: Directus_revisionsSumAggregate;
+  @Field(() => Directus_revisionsMinAggregate, { nullable: true })
+  _min?: Directus_revisionsMinAggregate;
 
-    @Field(() => Directus_revisionsMinAggregate, {nullable:true})
-    _min?: Directus_revisionsMinAggregate;
-
-    @Field(() => Directus_revisionsMaxAggregate, {nullable:true})
-    _max?: Directus_revisionsMaxAggregate;
+  @Field(() => Directus_revisionsMaxAggregate, { nullable: true })
+  _max?: Directus_revisionsMaxAggregate;
 }

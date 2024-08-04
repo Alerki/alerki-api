@@ -6,12 +6,11 @@ import { Service_translationsWhereInput } from '../service-translations/service-
 
 @ArgsType()
 export class UpdateManyServiceTranslationsArgs {
+  @Field(() => Service_translationsUpdateManyMutationInput, { nullable: false })
+  @Type(() => Service_translationsUpdateManyMutationInput)
+  data!: Service_translationsUpdateManyMutationInput;
 
-    @Field(() => Service_translationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => Service_translationsUpdateManyMutationInput)
-    data!: Service_translationsUpdateManyMutationInput;
-
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    @Type(() => Service_translationsWhereInput)
-    where?: Service_translationsWhereInput;
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  @Type(() => Service_translationsWhereInput)
+  where?: Service_translationsWhereInput;
 }

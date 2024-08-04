@@ -7,22 +7,25 @@ import { User_SessionOrderByRelevanceInput } from './user-session-order-by-relev
 
 @InputType()
 export class User_SessionOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  User_id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    User_id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  Session_id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    Session_id?: keyof typeof SortOrder;
+  @Field(() => SessionOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  Session?: SessionOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => SessionOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    Session?: SessionOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  User?: UserOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    User?: UserOrderByWithRelationAndSearchRelevanceInput;
-
-    @Field(() => User_SessionOrderByRelevanceInput, {nullable:true})
-    _relevance?: User_SessionOrderByRelevanceInput;
+  @Field(() => User_SessionOrderByRelevanceInput, { nullable: true })
+  _relevance?: User_SessionOrderByRelevanceInput;
 }

@@ -7,34 +7,35 @@ import { directus_dashboardsOrderByRelevanceInput } from './directus-dashboards-
 
 @InputType()
 export class directus_dashboardsOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  icon?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    icon?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  note?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    note?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  color?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    color?: keyof typeof SortOrder;
+  @Field(() => directus_usersOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  directus_users?: directus_usersOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => directus_usersOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    directus_users?: directus_usersOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => directus_panelsOrderByRelationAggregateInput, { nullable: true })
+  directus_panels?: directus_panelsOrderByRelationAggregateInput;
 
-    @Field(() => directus_panelsOrderByRelationAggregateInput, {nullable:true})
-    directus_panels?: directus_panelsOrderByRelationAggregateInput;
-
-    @Field(() => directus_dashboardsOrderByRelevanceInput, {nullable:true})
-    _relevance?: directus_dashboardsOrderByRelevanceInput;
+  @Field(() => directus_dashboardsOrderByRelevanceInput, { nullable: true })
+  _relevance?: directus_dashboardsOrderByRelevanceInput;
 }

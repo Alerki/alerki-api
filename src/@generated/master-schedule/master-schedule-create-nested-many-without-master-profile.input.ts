@@ -9,20 +9,25 @@ import { MasterScheduleWhereUniqueInput } from './master-schedule-where-unique.i
 
 @InputType()
 export class MasterScheduleCreateNestedManyWithoutMasterProfileInput {
+  @Field(() => [MasterScheduleCreateWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleCreateWithoutMasterProfileInput)
+  create?: Array<MasterScheduleCreateWithoutMasterProfileInput>;
 
-    @Field(() => [MasterScheduleCreateWithoutMasterProfileInput], {nullable:true})
-    @Type(() => MasterScheduleCreateWithoutMasterProfileInput)
-    create?: Array<MasterScheduleCreateWithoutMasterProfileInput>;
+  @Field(() => [MasterScheduleCreateOrConnectWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleCreateOrConnectWithoutMasterProfileInput)
+  connectOrCreate?: Array<MasterScheduleCreateOrConnectWithoutMasterProfileInput>;
 
-    @Field(() => [MasterScheduleCreateOrConnectWithoutMasterProfileInput], {nullable:true})
-    @Type(() => MasterScheduleCreateOrConnectWithoutMasterProfileInput)
-    connectOrCreate?: Array<MasterScheduleCreateOrConnectWithoutMasterProfileInput>;
+  @Field(() => MasterScheduleCreateManyMasterProfileInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleCreateManyMasterProfileInputEnvelope)
+  createMany?: MasterScheduleCreateManyMasterProfileInputEnvelope;
 
-    @Field(() => MasterScheduleCreateManyMasterProfileInputEnvelope, {nullable:true})
-    @Type(() => MasterScheduleCreateManyMasterProfileInputEnvelope)
-    createMany?: MasterScheduleCreateManyMasterProfileInputEnvelope;
-
-    @Field(() => [MasterScheduleWhereUniqueInput], {nullable:true})
-    @Type(() => MasterScheduleWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
+  @Field(() => [MasterScheduleWhereUniqueInput], { nullable: true })
+  @Type(() => MasterScheduleWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
 }

@@ -7,25 +7,30 @@ import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-fil
 
 @InputType()
 export class Service_translationsScalarWhereWithAggregatesInput {
+  @Field(() => [Service_translationsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<Service_translationsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [Service_translationsScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<Service_translationsScalarWhereWithAggregatesInput>;
+  @Field(() => [Service_translationsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<Service_translationsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [Service_translationsScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<Service_translationsScalarWhereWithAggregatesInput>;
+  @Field(() => [Service_translationsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<Service_translationsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [Service_translationsScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<Service_translationsScalarWhereWithAggregatesInput>;
+  @Field(() => IntWithAggregatesFilter, { nullable: true })
+  id?: IntWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  Service_id?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    Service_id?: UuidNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  languages_id?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    languages_id?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    name?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  name?: StringWithAggregatesFilter;
 }

@@ -12,32 +12,31 @@ import { ClientProfileMaxAggregateInput } from './client-profile-max-aggregate.i
 
 @ArgsType()
 export class ClientProfileGroupByArgs {
+  @Field(() => ClientProfileWhereInput, { nullable: true })
+  @Type(() => ClientProfileWhereInput)
+  where?: ClientProfileWhereInput;
 
-    @Field(() => ClientProfileWhereInput, {nullable:true})
-    @Type(() => ClientProfileWhereInput)
-    where?: ClientProfileWhereInput;
+  @Field(() => [ClientProfileOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<ClientProfileOrderByWithAggregationInput>;
 
-    @Field(() => [ClientProfileOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<ClientProfileOrderByWithAggregationInput>;
+  @Field(() => [ClientProfileScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof ClientProfileScalarFieldEnum>;
 
-    @Field(() => [ClientProfileScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof ClientProfileScalarFieldEnum>;
+  @Field(() => ClientProfileScalarWhereWithAggregatesInput, { nullable: true })
+  having?: ClientProfileScalarWhereWithAggregatesInput;
 
-    @Field(() => ClientProfileScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ClientProfileScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => ClientProfileCountAggregateInput, { nullable: true })
+  _count?: ClientProfileCountAggregateInput;
 
-    @Field(() => ClientProfileCountAggregateInput, {nullable:true})
-    _count?: ClientProfileCountAggregateInput;
+  @Field(() => ClientProfileMinAggregateInput, { nullable: true })
+  _min?: ClientProfileMinAggregateInput;
 
-    @Field(() => ClientProfileMinAggregateInput, {nullable:true})
-    _min?: ClientProfileMinAggregateInput;
-
-    @Field(() => ClientProfileMaxAggregateInput, {nullable:true})
-    _max?: ClientProfileMaxAggregateInput;
+  @Field(() => ClientProfileMaxAggregateInput, { nullable: true })
+  _max?: ClientProfileMaxAggregateInput;
 }

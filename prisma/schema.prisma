@@ -20,7 +20,7 @@ datasource db {
 }
 
 model Appointment {
-  id                                                     String        @id @db.Uuid
+  id                                                     String        @id @default(uuid()) @db.Uuid
   date_created                                           DateTime?     @db.Timestamptz(6)
   date_updated                                           DateTime?     @db.Timestamptz(6)
   masterService                                          String        @db.Uuid
@@ -40,7 +40,7 @@ model Appointment {
 }
 
 model ClientProfile {
-  id           String        @id @db.Uuid
+  id           String        @id @default(uuid()) @db.Uuid
   date_created DateTime?     @db.Timestamptz(6)
   date_updated DateTime?     @db.Timestamptz(6)
   Appointment  Appointment[]
@@ -48,7 +48,7 @@ model ClientProfile {
 }
 
 model Currency {
-  id                                                   String          @id @db.Uuid
+  id                                                   String          @id @default(uuid()) @db.Uuid
   status                                               String          @default("draft") @db.VarChar(255)
   sort                                                 Int?
   user_created                                         String?         @db.Uuid
@@ -64,7 +64,7 @@ model Currency {
 }
 
 model MasterProfile {
-  id                                                   String               @id @db.Uuid
+  id                                                   String               @id @default(uuid()) @db.Uuid
   date_created                                         DateTime?            @db.Timestamptz(6)
   date_updated                                         DateTime?            @db.Timestamptz(6)
   masterWeeklySchedule                                 String               @db.Uuid
@@ -77,7 +77,7 @@ model MasterProfile {
 }
 
 model MasterSchedule {
-  id            String        @id @db.Uuid
+  id            String        @id @default(uuid()) @db.Uuid
   status        String        @default("draft") @db.VarChar(255)
   date_created  DateTime?     @db.Timestamptz(6)
   date_updated  DateTime?     @db.Timestamptz(6)
@@ -90,7 +90,7 @@ model MasterSchedule {
 }
 
 model MasterService {
-  id                   String               @id @db.Uuid
+  id                   String               @id @default(uuid()) @db.Uuid
   status               String               @default("draft") @db.VarChar(255)
   date_created         DateTime?            @db.Timestamptz(6)
   date_updated         DateTime?            @db.Timestamptz(6)
@@ -105,7 +105,7 @@ model MasterService {
 }
 
 model MasterWeeklySchedule {
-  id            String          @id @db.Uuid
+  id            String          @id @default(uuid()) @db.Uuid
   status        String          @default("draft") @db.VarChar(255)
   sort          Int?
   date_created  DateTime?       @db.Timestamptz(6)
@@ -121,26 +121,26 @@ model MasterWeeklySchedule {
 }
 
 model Notification {
-  id                          String                        @id @db.Uuid
-  date_created                DateTime?                     @db.Timestamptz(6)
-  date_updated                DateTime?                     @db.Timestamptz(6)
-  UserRecipientOnNotification UserRecipientOnNotification[]
+  id               String           @id @default(uuid()) @db.Uuid
+  date_created     DateTime?        @db.Timestamptz(6)
+  date_updated     DateTime?        @db.Timestamptz(6)
+  type             String           @db.Uuid
+  NotificationType NotificationType @relation(fields: [type], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "notification_type_foreign")
 }
 
 model NotificationType {
-  id                                                           Int             @id @default(autoincrement())
-  sort                                                         Int?
+  id                                                           String          @id @default(uuid()) @db.Uuid
   user_created                                                 String?         @db.Uuid
   date_created                                                 DateTime?       @db.Timestamptz(6)
   user_updated                                                 String?         @db.Uuid
   date_updated                                                 DateTime?       @db.Timestamptz(6)
-  name                                                         String          @unique(map: "notificationtype_name_unique") @db.VarChar(32)
+  Notification                                                 Notification[]
   directus_users_NotificationType_user_createdTodirectus_users directus_users? @relation("NotificationType_user_createdTodirectus_users", fields: [user_created], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "notificationtype_user_created_foreign")
   directus_users_NotificationType_user_updatedTodirectus_users directus_users? @relation("NotificationType_user_updatedTodirectus_users", fields: [user_updated], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "notificationtype_user_updated_foreign")
 }
 
 model Service {
-  id                                                  String                 @id @db.Uuid
+  id                                                  String                 @id @default(uuid()) @db.Uuid
   status                                              String                 @default("draft") @db.VarChar(255)
   sort                                                Int?
   user_created                                        String?                @db.Uuid
@@ -163,7 +163,7 @@ model Service_translations {
 }
 
 model Session {
-  id           String         @id @db.Uuid
+  id           String         @id @default(uuid()) @db.Uuid
   date_created DateTime?      @db.Timestamptz(6)
   date_updated DateTime?      @db.Timestamptz(6)
   deviceName   String         @default("undefined") @db.VarChar(255)
@@ -172,30 +172,28 @@ model Session {
 }
 
 model User {
-  id                                                                   String                        @id @db.Uuid
-  date_created                                                         DateTime?                     @db.Timestamptz(6)
-  date_updated                                                         DateTime?                     @db.Timestamptz(6)
-  email                                                                String                        @unique(map: "user_email_unique") @db.VarChar(320)
-  phoneNumber                                                          String?                       @unique(map: "user_phonenumber_unique") @db.VarChar(255)
-  username                                                             String                        @unique(map: "user_username_unique") @db.VarChar(20)
-  firstName                                                            String?                       @db.VarChar(32)
-  lastName                                                             String?                       @db.VarChar(32)
-  birthDate                                                            DateTime?                     @db.Timestamp(6)
-  picture                                                              String?                       @db.Uuid
-  masterProfile                                                        String?                       @db.Uuid
-  clientProfile                                                        String                        @db.Uuid
-  password                                                             String                        @db.VarChar(1024)
-  ClientProfile                                                        ClientProfile                 @relation(fields: [clientProfile], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_clientprofile_foreign")
-  MasterProfile                                                        MasterProfile?                @relation(fields: [masterProfile], references: [id], onUpdate: NoAction, map: "user_masterprofile_foreign")
-  UserPicture                                                          UserPicture?                  @relation(fields: [picture], references: [id], onUpdate: NoAction, map: "user_picture_foreign")
-  UserRecipientOnNotification                                          UserRecipientOnNotification[]
-  UserSenderOnNotification_UserSenderOnNotification_notificationToUser UserSenderOnNotification[]    @relation("UserSenderOnNotification_notificationToUser")
-  UserSenderOnNotification_UserSenderOnNotification_userToUser         UserSenderOnNotification[]    @relation("UserSenderOnNotification_userToUser")
-  User_Session                                                         User_Session[]
+  id             String           @id @default(uuid()) @db.Uuid
+  date_created   DateTime?        @db.Timestamptz(6)
+  date_updated   DateTime?        @db.Timestamptz(6)
+  email          String           @unique(map: "user_email_unique") @db.VarChar(320)
+  phoneNumber    String?          @unique(map: "user_phonenumber_unique") @db.VarChar(255)
+  username       String           @unique(map: "user_username_unique") @db.VarChar(20)
+  firstName      String?          @db.VarChar(32)
+  lastName       String?          @db.VarChar(32)
+  birthDate      DateTime?        @db.Timestamp(6)
+  picture        String?          @db.Uuid
+  masterProfile  String?          @db.Uuid
+  clientProfile  String           @db.Uuid
+  password       String           @db.VarChar(1024)
+  ClientProfile  ClientProfile    @relation(fields: [clientProfile], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_clientprofile_foreign")
+  MasterProfile  MasterProfile?   @relation(fields: [masterProfile], references: [id], onUpdate: NoAction, map: "user_masterprofile_foreign")
+  UserPicture    UserPicture?     @relation(fields: [picture], references: [id], onUpdate: NoAction, map: "user_picture_foreign")
+  User_Session   User_Session[]
+  User_UserRoles User_UserRoles[]
 }
 
 model UserPicture {
-  id             String         @id @db.Uuid
+  id             String         @id @default(uuid()) @db.Uuid
   date_created   DateTime?      @db.Timestamptz(6)
   date_updated   DateTime?      @db.Timestamptz(6)
   picture        String         @db.Uuid
@@ -203,39 +201,20 @@ model UserPicture {
   directus_files directus_files @relation(fields: [picture], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userpicture_picture_foreign")
 }
 
-model UserRecipientOnNotification {
-  id           String       @id @db.Uuid
-  date_created DateTime?    @db.Timestamptz(6)
-  date_updated DateTime?    @db.Timestamptz(6)
-  user         String       @db.Uuid
-  notification String       @db.Uuid
-  Notification Notification @relation(fields: [notification], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userrecipientonnotification_notification_foreign")
-  User         User         @relation(fields: [user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userrecipientonnotification_user_foreign")
-}
-
 model UserRoles {
-  id           String    @id @db.Uuid
-  date_created DateTime? @db.Timestamptz(6)
-  date_updated DateTime? @db.Timestamptz(6)
-  name         String    @unique(map: "userroles_name_unique") @db.VarChar(32)
-}
-
-model UserSenderOnNotification {
-  id                                               String    @id @db.Uuid
-  date_created                                     DateTime? @db.Timestamptz(6)
-  date_updated                                     DateTime? @db.Timestamptz(6)
-  user                                             String    @db.Uuid
-  notification                                     String    @db.Uuid
-  User_UserSenderOnNotification_notificationToUser User      @relation("UserSenderOnNotification_notificationToUser", fields: [notification], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "usersenderonnotification_notification_foreign")
-  User_UserSenderOnNotification_userToUser         User      @relation("UserSenderOnNotification_userToUser", fields: [user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "usersenderonnotification_user_foreign")
+  id             String           @id @default(uuid()) @db.Uuid
+  date_created   DateTime?        @db.Timestamptz(6)
+  date_updated   DateTime?        @db.Timestamptz(6)
+  name           String           @unique(map: "userroles_name_unique") @db.VarChar(32)
+  User_UserRoles User_UserRoles[]
 }
 
 model User_Session {
-  id         Int      @id @default(autoincrement())
-  User_id    String?  @db.Uuid
-  Session_id String?  @db.Uuid
-  Session    Session? @relation(fields: [Session_id], references: [id], onUpdate: NoAction, map: "user_session_session_id_foreign")
-  User       User?    @relation(fields: [User_id], references: [id], onUpdate: NoAction, map: "user_session_user_id_foreign")
+  id         Int     @id @default(autoincrement())
+  User_id    String  @db.Uuid
+  Session_id String  @db.Uuid
+  Session    Session @relation(fields: [Session_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_session_session_id_foreign")
+  User       User    @relation(fields: [User_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_session_user_id_foreign")
 }
 
 model directus_activity {
@@ -671,4 +650,12 @@ model languages {
   name                 String?                @db.VarChar(255)
   direction            String?                @default("ltr") @db.VarChar(255)
   Service_translations Service_translations[]
+}
+
+model User_UserRoles {
+  id           Int       @id @default(autoincrement())
+  User_id      String    @db.Uuid
+  UserRoles_id String    @db.Uuid
+  User         User      @relation(fields: [User_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_userroles_user_id_foreign")
+  UserRoles    UserRoles @relation(fields: [UserRoles_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_userroles_userroles_id_foreign")
 }

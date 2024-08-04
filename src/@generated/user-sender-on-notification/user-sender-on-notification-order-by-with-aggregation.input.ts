@@ -7,28 +7,33 @@ import { UserSenderOnNotificationMinOrderByAggregateInput } from './user-sender-
 
 @InputType()
 export class UserSenderOnNotificationOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  notification?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    notification?: keyof typeof SortOrder;
+  @Field(() => UserSenderOnNotificationCountOrderByAggregateInput, {
+    nullable: true,
+  })
+  _count?: UserSenderOnNotificationCountOrderByAggregateInput;
 
-    @Field(() => UserSenderOnNotificationCountOrderByAggregateInput, {nullable:true})
-    _count?: UserSenderOnNotificationCountOrderByAggregateInput;
+  @Field(() => UserSenderOnNotificationMaxOrderByAggregateInput, {
+    nullable: true,
+  })
+  _max?: UserSenderOnNotificationMaxOrderByAggregateInput;
 
-    @Field(() => UserSenderOnNotificationMaxOrderByAggregateInput, {nullable:true})
-    _max?: UserSenderOnNotificationMaxOrderByAggregateInput;
-
-    @Field(() => UserSenderOnNotificationMinOrderByAggregateInput, {nullable:true})
-    _min?: UserSenderOnNotificationMinOrderByAggregateInput;
+  @Field(() => UserSenderOnNotificationMinOrderByAggregateInput, {
+    nullable: true,
+  })
+  _min?: UserSenderOnNotificationMinOrderByAggregateInput;
 }

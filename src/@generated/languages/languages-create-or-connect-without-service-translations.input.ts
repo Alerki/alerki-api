@@ -7,12 +7,13 @@ import { languagesCreateWithoutService_translationsInput } from './languages-cre
 
 @InputType()
 export class languagesCreateOrConnectWithoutService_translationsInput {
+  @Field(() => languagesWhereUniqueInput, { nullable: false })
+  @Type(() => languagesWhereUniqueInput)
+  where!: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
 
-    @Field(() => languagesWhereUniqueInput, {nullable:false})
-    @Type(() => languagesWhereUniqueInput)
-    where!: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
-
-    @Field(() => languagesCreateWithoutService_translationsInput, {nullable:false})
-    @Type(() => languagesCreateWithoutService_translationsInput)
-    create!: languagesCreateWithoutService_translationsInput;
+  @Field(() => languagesCreateWithoutService_translationsInput, {
+    nullable: false,
+  })
+  @Type(() => languagesCreateWithoutService_translationsInput)
+  create!: languagesCreateWithoutService_translationsInput;
 }

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManydirectusOperationsArgs {
-
-    @Field(() => directus_operationsWhereInput, {nullable:true})
-    @Type(() => directus_operationsWhereInput)
-    where?: directus_operationsWhereInput;
+  @Field(() => directus_operationsWhereInput, { nullable: true })
+  @Type(() => directus_operationsWhereInput)
+  where?: directus_operationsWhereInput;
 }

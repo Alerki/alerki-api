@@ -7,12 +7,18 @@ import { NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updat
 
 @InputType()
 export class NotificationTypeUpdateWithWhereUniqueWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput {
+  @Field(() => NotificationTypeWhereUniqueInput, { nullable: false })
+  @Type(() => NotificationTypeWhereUniqueInput)
+  where!: Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>;
 
-    @Field(() => NotificationTypeWhereUniqueInput, {nullable:false})
-    @Type(() => NotificationTypeWhereUniqueInput)
-    where!: Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>;
-
-    @Field(() => NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput)
-    data!: NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput;
+  @Field(
+    () =>
+      NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput,
+  )
+  data!: NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput;
 }

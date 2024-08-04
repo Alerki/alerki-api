@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniquedirectusRelationsArgs {
-
-    @Field(() => directus_relationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_relationsWhereUniqueInput)
-    where!: directus_relationsWhereUniqueInput;
+  @Field(() => directus_relationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_relationsWhereUniqueInput)
+  where!: directus_relationsWhereUniqueInput;
 }

@@ -6,12 +6,11 @@ import { directus_sharesWhereUniqueInput } from '../directus-shares/directus-sha
 
 @ArgsType()
 export class UpdateOnedirectusSharesArgs {
+  @Field(() => directus_sharesUpdateInput, { nullable: false })
+  @Type(() => directus_sharesUpdateInput)
+  data!: directus_sharesUpdateInput;
 
-    @Field(() => directus_sharesUpdateInput, {nullable:false})
-    @Type(() => directus_sharesUpdateInput)
-    data!: directus_sharesUpdateInput;
-
-    @Field(() => directus_sharesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sharesWhereUniqueInput)
-    where!: directus_sharesWhereUniqueInput;
+  @Field(() => directus_sharesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sharesWhereUniqueInput)
+  where!: directus_sharesWhereUniqueInput;
 }

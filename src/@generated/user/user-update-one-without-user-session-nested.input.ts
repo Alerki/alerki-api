@@ -10,30 +10,32 @@ import { UserUpdateWithoutUser_SessionInput } from './user-update-without-user-s
 
 @InputType()
 export class UserUpdateOneWithoutUser_SessionNestedInput {
+  @Field(() => UserCreateWithoutUser_SessionInput, { nullable: true })
+  @Type(() => UserCreateWithoutUser_SessionInput)
+  create?: UserCreateWithoutUser_SessionInput;
 
-    @Field(() => UserCreateWithoutUser_SessionInput, {nullable:true})
-    @Type(() => UserCreateWithoutUser_SessionInput)
-    create?: UserCreateWithoutUser_SessionInput;
+  @Field(() => UserCreateOrConnectWithoutUser_SessionInput, { nullable: true })
+  @Type(() => UserCreateOrConnectWithoutUser_SessionInput)
+  connectOrCreate?: UserCreateOrConnectWithoutUser_SessionInput;
 
-    @Field(() => UserCreateOrConnectWithoutUser_SessionInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutUser_SessionInput)
-    connectOrCreate?: UserCreateOrConnectWithoutUser_SessionInput;
+  @Field(() => UserUpsertWithoutUser_SessionInput, { nullable: true })
+  @Type(() => UserUpsertWithoutUser_SessionInput)
+  upsert?: UserUpsertWithoutUser_SessionInput;
 
-    @Field(() => UserUpsertWithoutUser_SessionInput, {nullable:true})
-    @Type(() => UserUpsertWithoutUser_SessionInput)
-    upsert?: UserUpsertWithoutUser_SessionInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserUpdateWithoutUser_SessionInput, {nullable:true})
-    @Type(() => UserUpdateWithoutUser_SessionInput)
-    update?: UserUpdateWithoutUser_SessionInput;
+  @Field(() => UserUpdateWithoutUser_SessionInput, { nullable: true })
+  @Type(() => UserUpdateWithoutUser_SessionInput)
+  update?: UserUpdateWithoutUser_SessionInput;
 }

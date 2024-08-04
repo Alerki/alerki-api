@@ -3,7 +3,6 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class directus_sessionsWhereUniqueInput {
-
-    @Field(() => String, {nullable:true})
-    token?: string;
+  @Field(() => String, { nullable: true })
+  token?: string;
 }

@@ -6,25 +6,24 @@ import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-fil
 
 @InputType()
 export class UserRolesScalarWhereWithAggregatesInput {
+  @Field(() => [UserRolesScalarWhereWithAggregatesInput], { nullable: true })
+  AND?: Array<UserRolesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserRolesScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<UserRolesScalarWhereWithAggregatesInput>;
+  @Field(() => [UserRolesScalarWhereWithAggregatesInput], { nullable: true })
+  OR?: Array<UserRolesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserRolesScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<UserRolesScalarWhereWithAggregatesInput>;
+  @Field(() => [UserRolesScalarWhereWithAggregatesInput], { nullable: true })
+  NOT?: Array<UserRolesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserRolesScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<UserRolesScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_updated?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_updated?: DateTimeNullableWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    name?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  name?: StringWithAggregatesFilter;
 }

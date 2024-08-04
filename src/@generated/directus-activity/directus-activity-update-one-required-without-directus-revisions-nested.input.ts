@@ -10,24 +10,31 @@ import { directus_activityUpdateWithoutDirectus_revisionsInput } from './directu
 
 @InputType()
 export class directus_activityUpdateOneRequiredWithoutDirectus_revisionsNestedInput {
+  @Field(() => directus_activityCreateWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_activityCreateWithoutDirectus_revisionsInput)
+  create?: directus_activityCreateWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_activityCreateWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_activityCreateWithoutDirectus_revisionsInput)
-    create?: directus_activityCreateWithoutDirectus_revisionsInput;
+  @Field(() => directus_activityCreateOrConnectWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_activityCreateOrConnectWithoutDirectus_revisionsInput)
+  connectOrCreate?: directus_activityCreateOrConnectWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_activityCreateOrConnectWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_activityCreateOrConnectWithoutDirectus_revisionsInput)
-    connectOrCreate?: directus_activityCreateOrConnectWithoutDirectus_revisionsInput;
+  @Field(() => directus_activityUpsertWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_activityUpsertWithoutDirectus_revisionsInput)
+  upsert?: directus_activityUpsertWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_activityUpsertWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_activityUpsertWithoutDirectus_revisionsInput)
-    upsert?: directus_activityUpsertWithoutDirectus_revisionsInput;
+  @Field(() => directus_activityWhereUniqueInput, { nullable: true })
+  @Type(() => directus_activityWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_activityWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_activityWhereUniqueInput, {nullable:true})
-    @Type(() => directus_activityWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_activityWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_activityUpdateWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_activityUpdateWithoutDirectus_revisionsInput)
-    update?: directus_activityUpdateWithoutDirectus_revisionsInput;
+  @Field(() => directus_activityUpdateWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_activityUpdateWithoutDirectus_revisionsInput)
+  update?: directus_activityUpdateWithoutDirectus_revisionsInput;
 }

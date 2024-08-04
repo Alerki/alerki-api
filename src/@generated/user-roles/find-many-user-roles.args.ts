@@ -10,23 +10,24 @@ import { UserRolesScalarFieldEnum } from './user-roles-scalar-field.enum';
 
 @ArgsType()
 export class FindManyUserRolesArgs {
+  @Field(() => UserRolesWhereInput, { nullable: true })
+  @Type(() => UserRolesWhereInput)
+  where?: UserRolesWhereInput;
 
-    @Field(() => UserRolesWhereInput, {nullable:true})
-    @Type(() => UserRolesWhereInput)
-    where?: UserRolesWhereInput;
+  @Field(() => [UserRolesOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<UserRolesOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [UserRolesOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<UserRolesOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => UserRolesWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<UserRolesWhereUniqueInput, 'id' | 'name'>;
 
-    @Field(() => UserRolesWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<UserRolesWhereUniqueInput, 'id' | 'name'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [UserRolesScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof UserRolesScalarFieldEnum>;
+  @Field(() => [UserRolesScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof UserRolesScalarFieldEnum>;
 }

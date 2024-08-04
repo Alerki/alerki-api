@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserUpdateOneWithoutUser_SessionNestedInput } from '../user/user-update-one-without-user-session-nested.input';
+import { UserUpdateOneRequiredWithoutUser_SessionNestedInput } from '../user/user-update-one-required-without-user-session-nested.input';
 
 @InputType()
 export class User_SessionUpdateWithoutSessionInput {
-
-    @Field(() => UserUpdateOneWithoutUser_SessionNestedInput, {nullable:true})
-    User?: UserUpdateOneWithoutUser_SessionNestedInput;
+  @Field(() => UserUpdateOneRequiredWithoutUser_SessionNestedInput, {
+    nullable: true,
+  })
+  User?: UserUpdateOneRequiredWithoutUser_SessionNestedInput;
 }

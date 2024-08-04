@@ -6,12 +6,11 @@ import { MasterScheduleUpdateManyMutationInput } from './master-schedule-update-
 
 @InputType()
 export class MasterScheduleUpdateManyWithWhereWithoutMasterProfileInput {
+  @Field(() => MasterScheduleScalarWhereInput, { nullable: false })
+  @Type(() => MasterScheduleScalarWhereInput)
+  where!: MasterScheduleScalarWhereInput;
 
-    @Field(() => MasterScheduleScalarWhereInput, {nullable:false})
-    @Type(() => MasterScheduleScalarWhereInput)
-    where!: MasterScheduleScalarWhereInput;
-
-    @Field(() => MasterScheduleUpdateManyMutationInput, {nullable:false})
-    @Type(() => MasterScheduleUpdateManyMutationInput)
-    data!: MasterScheduleUpdateManyMutationInput;
+  @Field(() => MasterScheduleUpdateManyMutationInput, { nullable: false })
+  @Type(() => MasterScheduleUpdateManyMutationInput)
+  data!: MasterScheduleUpdateManyMutationInput;
 }

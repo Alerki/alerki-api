@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_collectionsSumAggregate {
-
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 }

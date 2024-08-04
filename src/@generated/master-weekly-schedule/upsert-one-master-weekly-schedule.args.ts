@@ -8,16 +8,15 @@ import { MasterWeeklyScheduleUpdateInput } from './master-weekly-schedule-update
 
 @ArgsType()
 export class UpsertOneMasterWeeklyScheduleArgs {
+  @Field(() => MasterWeeklyScheduleWhereUniqueInput, { nullable: false })
+  @Type(() => MasterWeeklyScheduleWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterWeeklyScheduleWhereUniqueInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
+  @Field(() => MasterWeeklyScheduleCreateInput, { nullable: false })
+  @Type(() => MasterWeeklyScheduleCreateInput)
+  create!: MasterWeeklyScheduleCreateInput;
 
-    @Field(() => MasterWeeklyScheduleCreateInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleCreateInput)
-    create!: MasterWeeklyScheduleCreateInput;
-
-    @Field(() => MasterWeeklyScheduleUpdateInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleUpdateInput)
-    update!: MasterWeeklyScheduleUpdateInput;
+  @Field(() => MasterWeeklyScheduleUpdateInput, { nullable: false })
+  @Type(() => MasterWeeklyScheduleUpdateInput)
+  update!: MasterWeeklyScheduleUpdateInput;
 }

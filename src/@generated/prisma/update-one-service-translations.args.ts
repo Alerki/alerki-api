@@ -6,12 +6,11 @@ import { Service_translationsWhereUniqueInput } from '../service-translations/se
 
 @ArgsType()
 export class UpdateOneServiceTranslationsArgs {
+  @Field(() => Service_translationsUpdateInput, { nullable: false })
+  @Type(() => Service_translationsUpdateInput)
+  data!: Service_translationsUpdateInput;
 
-    @Field(() => Service_translationsUpdateInput, {nullable:false})
-    @Type(() => Service_translationsUpdateInput)
-    data!: Service_translationsUpdateInput;
-
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:false})
-    @Type(() => Service_translationsWhereUniqueInput)
-    where!: Service_translationsWhereUniqueInput;
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: false })
+  @Type(() => Service_translationsWhereUniqueInput)
+  where!: Service_translationsWhereUniqueInput;
 }

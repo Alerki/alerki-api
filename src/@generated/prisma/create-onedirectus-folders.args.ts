@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusFoldersArgs {
-
-    @Field(() => directus_foldersCreateInput, {nullable:false})
-    @Type(() => directus_foldersCreateInput)
-    data!: directus_foldersCreateInput;
+  @Field(() => directus_foldersCreateInput, { nullable: false })
+  @Type(() => directus_foldersCreateInput)
+  data!: directus_foldersCreateInput;
 }

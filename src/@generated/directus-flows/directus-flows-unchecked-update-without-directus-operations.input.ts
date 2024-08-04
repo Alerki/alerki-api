@@ -7,40 +7,39 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 
 @InputType()
 export class directus_flowsUncheckedUpdateWithoutDirectus_operationsInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  icon?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    icon?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  color?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    color?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  description?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    description?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  status?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    status?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  trigger?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    trigger?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  accountability?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    accountability?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    options?: any;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  operation?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    operation?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    user_created?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  user_created?: NullableStringFieldUpdateOperationsInput;
 }

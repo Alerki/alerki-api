@@ -6,28 +6,33 @@ import { UserSenderOnNotificationOrderByRelevanceInput } from './user-sender-on-
 
 @InputType()
 export class UserSenderOnNotificationOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  notification?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    notification?: keyof typeof SortOrder;
+  @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  User_UserSenderOnNotification_notificationToUser?: UserOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    User_UserSenderOnNotification_notificationToUser?: UserOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  User_UserSenderOnNotification_userToUser?: UserOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    User_UserSenderOnNotification_userToUser?: UserOrderByWithRelationAndSearchRelevanceInput;
-
-    @Field(() => UserSenderOnNotificationOrderByRelevanceInput, {nullable:true})
-    _relevance?: UserSenderOnNotificationOrderByRelevanceInput;
+  @Field(() => UserSenderOnNotificationOrderByRelevanceInput, {
+    nullable: true,
+  })
+  _relevance?: UserSenderOnNotificationOrderByRelevanceInput;
 }

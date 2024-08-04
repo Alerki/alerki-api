@@ -8,19 +8,18 @@ import { MasterServiceMaxAggregate } from './master-service-max-aggregate.output
 
 @ObjectType()
 export class AggregateMasterService {
+  @Field(() => MasterServiceCountAggregate, { nullable: true })
+  _count?: MasterServiceCountAggregate;
 
-    @Field(() => MasterServiceCountAggregate, {nullable:true})
-    _count?: MasterServiceCountAggregate;
+  @Field(() => MasterServiceAvgAggregate, { nullable: true })
+  _avg?: MasterServiceAvgAggregate;
 
-    @Field(() => MasterServiceAvgAggregate, {nullable:true})
-    _avg?: MasterServiceAvgAggregate;
+  @Field(() => MasterServiceSumAggregate, { nullable: true })
+  _sum?: MasterServiceSumAggregate;
 
-    @Field(() => MasterServiceSumAggregate, {nullable:true})
-    _sum?: MasterServiceSumAggregate;
+  @Field(() => MasterServiceMinAggregate, { nullable: true })
+  _min?: MasterServiceMinAggregate;
 
-    @Field(() => MasterServiceMinAggregate, {nullable:true})
-    _min?: MasterServiceMinAggregate;
-
-    @Field(() => MasterServiceMaxAggregate, {nullable:true})
-    _max?: MasterServiceMaxAggregate;
+  @Field(() => MasterServiceMaxAggregate, { nullable: true })
+  _max?: MasterServiceMaxAggregate;
 }

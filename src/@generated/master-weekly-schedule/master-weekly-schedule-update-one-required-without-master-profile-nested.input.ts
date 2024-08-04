@@ -10,24 +10,31 @@ import { MasterWeeklyScheduleUpdateWithoutMasterProfileInput } from './master-we
 
 @InputType()
 export class MasterWeeklyScheduleUpdateOneRequiredWithoutMasterProfileNestedInput {
+  @Field(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  @Type(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput)
+  create?: MasterWeeklyScheduleCreateWithoutMasterProfileInput;
 
-    @Field(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput)
-    create?: MasterWeeklyScheduleCreateWithoutMasterProfileInput;
+  @Field(() => MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  @Type(() => MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput)
+  connectOrCreate?: MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput;
 
-    @Field(() => MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput)
-    connectOrCreate?: MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput;
+  @Field(() => MasterWeeklyScheduleUpsertWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  @Type(() => MasterWeeklyScheduleUpsertWithoutMasterProfileInput)
+  upsert?: MasterWeeklyScheduleUpsertWithoutMasterProfileInput;
 
-    @Field(() => MasterWeeklyScheduleUpsertWithoutMasterProfileInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleUpsertWithoutMasterProfileInput)
-    upsert?: MasterWeeklyScheduleUpsertWithoutMasterProfileInput;
+  @Field(() => MasterWeeklyScheduleWhereUniqueInput, { nullable: true })
+  @Type(() => MasterWeeklyScheduleWhereUniqueInput)
+  connect?: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterWeeklyScheduleWhereUniqueInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleWhereUniqueInput)
-    connect?: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterWeeklyScheduleUpdateWithoutMasterProfileInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleUpdateWithoutMasterProfileInput)
-    update?: MasterWeeklyScheduleUpdateWithoutMasterProfileInput;
+  @Field(() => MasterWeeklyScheduleUpdateWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  @Type(() => MasterWeeklyScheduleUpdateWithoutMasterProfileInput)
+  update?: MasterWeeklyScheduleUpdateWithoutMasterProfileInput;
 }

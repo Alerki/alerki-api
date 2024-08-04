@@ -7,12 +7,21 @@ import { directus_operationsCreateWithoutOther_directus_operations_directus_oper
 
 @InputType()
 export class directus_operationsCreateOrConnectWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsInput {
+  @Field(() => directus_operationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_operationsWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    directus_operationsWhereUniqueInput,
+    'id' | 'resolve' | 'reject'
+  >;
 
-    @Field(() => directus_operationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_operationsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>;
-
-    @Field(() => directus_operationsCreateWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsInput, {nullable:false})
-    @Type(() => directus_operationsCreateWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsInput)
-    create!: directus_operationsCreateWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsInput;
+  @Field(
+    () =>
+      directus_operationsCreateWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_operationsCreateWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsInput,
+  )
+  create!: directus_operationsCreateWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsInput;
 }

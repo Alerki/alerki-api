@@ -10,24 +10,31 @@ import { MasterProfileUpdateWithoutMasterScheduleInput } from './master-profile-
 
 @InputType()
 export class MasterProfileUpdateOneRequiredWithoutMasterScheduleNestedInput {
+  @Field(() => MasterProfileCreateWithoutMasterScheduleInput, {
+    nullable: true,
+  })
+  @Type(() => MasterProfileCreateWithoutMasterScheduleInput)
+  create?: MasterProfileCreateWithoutMasterScheduleInput;
 
-    @Field(() => MasterProfileCreateWithoutMasterScheduleInput, {nullable:true})
-    @Type(() => MasterProfileCreateWithoutMasterScheduleInput)
-    create?: MasterProfileCreateWithoutMasterScheduleInput;
+  @Field(() => MasterProfileCreateOrConnectWithoutMasterScheduleInput, {
+    nullable: true,
+  })
+  @Type(() => MasterProfileCreateOrConnectWithoutMasterScheduleInput)
+  connectOrCreate?: MasterProfileCreateOrConnectWithoutMasterScheduleInput;
 
-    @Field(() => MasterProfileCreateOrConnectWithoutMasterScheduleInput, {nullable:true})
-    @Type(() => MasterProfileCreateOrConnectWithoutMasterScheduleInput)
-    connectOrCreate?: MasterProfileCreateOrConnectWithoutMasterScheduleInput;
+  @Field(() => MasterProfileUpsertWithoutMasterScheduleInput, {
+    nullable: true,
+  })
+  @Type(() => MasterProfileUpsertWithoutMasterScheduleInput)
+  upsert?: MasterProfileUpsertWithoutMasterScheduleInput;
 
-    @Field(() => MasterProfileUpsertWithoutMasterScheduleInput, {nullable:true})
-    @Type(() => MasterProfileUpsertWithoutMasterScheduleInput)
-    upsert?: MasterProfileUpsertWithoutMasterScheduleInput;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: true })
+  @Type(() => MasterProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:true})
-    @Type(() => MasterProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterProfileUpdateWithoutMasterScheduleInput, {nullable:true})
-    @Type(() => MasterProfileUpdateWithoutMasterScheduleInput)
-    update?: MasterProfileUpdateWithoutMasterScheduleInput;
+  @Field(() => MasterProfileUpdateWithoutMasterScheduleInput, {
+    nullable: true,
+  })
+  @Type(() => MasterProfileUpdateWithoutMasterScheduleInput)
+  update?: MasterProfileUpdateWithoutMasterScheduleInput;
 }

@@ -4,10 +4,9 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_operationsSumAggregate {
+  @Field(() => Int, { nullable: true })
+  position_x?: number;
 
-    @Field(() => Int, {nullable:true})
-    position_x?: number;
-
-    @Field(() => Int, {nullable:true})
-    position_y?: number;
+  @Field(() => Int, { nullable: true })
+  position_y?: number;
 }

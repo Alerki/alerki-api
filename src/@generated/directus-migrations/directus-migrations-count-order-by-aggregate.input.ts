@@ -4,13 +4,12 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class directus_migrationsCountOrderByAggregateInput {
+  @Field(() => SortOrder, { nullable: true })
+  version?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    version?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    timestamp?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  timestamp?: keyof typeof SortOrder;
 }

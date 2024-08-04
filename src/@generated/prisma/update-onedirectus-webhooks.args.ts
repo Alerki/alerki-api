@@ -6,12 +6,11 @@ import { directus_webhooksWhereUniqueInput } from '../directus-webhooks/directus
 
 @ArgsType()
 export class UpdateOnedirectusWebhooksArgs {
+  @Field(() => directus_webhooksUpdateInput, { nullable: false })
+  @Type(() => directus_webhooksUpdateInput)
+  data!: directus_webhooksUpdateInput;
 
-    @Field(() => directus_webhooksUpdateInput, {nullable:false})
-    @Type(() => directus_webhooksUpdateInput)
-    data!: directus_webhooksUpdateInput;
-
-    @Field(() => directus_webhooksWhereUniqueInput, {nullable:false})
-    @Type(() => directus_webhooksWhereUniqueInput)
-    where!: directus_webhooksWhereUniqueInput;
+  @Field(() => directus_webhooksWhereUniqueInput, { nullable: false })
+  @Type(() => directus_webhooksWhereUniqueInput)
+  where!: directus_webhooksWhereUniqueInput;
 }

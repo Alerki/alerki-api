@@ -7,12 +7,14 @@ import { UserCreateWithoutMasterProfileInput } from './user-create-without-maste
 
 @InputType()
 export class UserCreateOrConnectWithoutMasterProfileInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserCreateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => UserCreateWithoutMasterProfileInput)
-    create!: UserCreateWithoutMasterProfileInput;
+  @Field(() => UserCreateWithoutMasterProfileInput, { nullable: false })
+  @Type(() => UserCreateWithoutMasterProfileInput)
+  create!: UserCreateWithoutMasterProfileInput;
 }

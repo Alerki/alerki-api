@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManydirectusPresetsArgs {
-
-    @Field(() => directus_presetsWhereInput, {nullable:true})
-    @Type(() => directus_presetsWhereInput)
-    where?: directus_presetsWhereInput;
+  @Field(() => directus_presetsWhereInput, { nullable: true })
+  @Type(() => directus_presetsWhereInput)
+  where?: directus_presetsWhereInput;
 }

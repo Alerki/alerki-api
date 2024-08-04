@@ -9,20 +9,42 @@ import { directus_filesWhereUniqueInput } from './directus-files-where-unique.in
 
 @InputType()
 export class directus_filesCreateNestedManyWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput {
+  @Field(
+    () => [
+      directus_filesCreateWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesCreateWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput,
+  )
+  create?: Array<directus_filesCreateWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput>;
 
-    @Field(() => [directus_filesCreateWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_filesCreateWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput)
-    create?: Array<directus_filesCreateWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput>;
+  @Field(
+    () => [
+      directus_filesCreateOrConnectWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesCreateOrConnectWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<directus_filesCreateOrConnectWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput>;
 
-    @Field(() => [directus_filesCreateOrConnectWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_filesCreateOrConnectWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput)
-    connectOrCreate?: Array<directus_filesCreateOrConnectWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersInput>;
+  @Field(
+    () =>
+      directus_filesCreateManyDirectus_users_directus_files_uploaded_byTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesCreateManyDirectus_users_directus_files_uploaded_byTodirectus_usersInputEnvelope,
+  )
+  createMany?: directus_filesCreateManyDirectus_users_directus_files_uploaded_byTodirectus_usersInputEnvelope;
 
-    @Field(() => directus_filesCreateManyDirectus_users_directus_files_uploaded_byTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_filesCreateManyDirectus_users_directus_files_uploaded_byTodirectus_usersInputEnvelope)
-    createMany?: directus_filesCreateManyDirectus_users_directus_files_uploaded_byTodirectus_usersInputEnvelope;
-
-    @Field(() => [directus_filesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_filesWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_filesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_filesWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
 }

@@ -9,23 +9,25 @@ import { Directus_permissionsScalarFieldEnum } from './directus-permissions-scal
 
 @ArgsType()
 export class FindManydirectusPermissionsArgs {
+  @Field(() => directus_permissionsWhereInput, { nullable: true })
+  @Type(() => directus_permissionsWhereInput)
+  where?: directus_permissionsWhereInput;
 
-    @Field(() => directus_permissionsWhereInput, {nullable:true})
-    @Type(() => directus_permissionsWhereInput)
-    where?: directus_permissionsWhereInput;
+  @Field(
+    () => [directus_permissionsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<directus_permissionsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_permissionsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_permissionsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_permissionsWhereUniqueInput, { nullable: true })
+  cursor?: directus_permissionsWhereUniqueInput;
 
-    @Field(() => directus_permissionsWhereUniqueInput, {nullable:true})
-    cursor?: directus_permissionsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_permissionsScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_permissionsScalarFieldEnum>;
+  @Field(() => [Directus_permissionsScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_permissionsScalarFieldEnum>;
 }

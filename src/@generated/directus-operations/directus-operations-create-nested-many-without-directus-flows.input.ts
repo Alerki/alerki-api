@@ -9,20 +9,30 @@ import { directus_operationsWhereUniqueInput } from './directus-operations-where
 
 @InputType()
 export class directus_operationsCreateNestedManyWithoutDirectus_flowsInput {
+  @Field(() => [directus_operationsCreateWithoutDirectus_flowsInput], {
+    nullable: true,
+  })
+  @Type(() => directus_operationsCreateWithoutDirectus_flowsInput)
+  create?: Array<directus_operationsCreateWithoutDirectus_flowsInput>;
 
-    @Field(() => [directus_operationsCreateWithoutDirectus_flowsInput], {nullable:true})
-    @Type(() => directus_operationsCreateWithoutDirectus_flowsInput)
-    create?: Array<directus_operationsCreateWithoutDirectus_flowsInput>;
+  @Field(() => [directus_operationsCreateOrConnectWithoutDirectus_flowsInput], {
+    nullable: true,
+  })
+  @Type(() => directus_operationsCreateOrConnectWithoutDirectus_flowsInput)
+  connectOrCreate?: Array<directus_operationsCreateOrConnectWithoutDirectus_flowsInput>;
 
-    @Field(() => [directus_operationsCreateOrConnectWithoutDirectus_flowsInput], {nullable:true})
-    @Type(() => directus_operationsCreateOrConnectWithoutDirectus_flowsInput)
-    connectOrCreate?: Array<directus_operationsCreateOrConnectWithoutDirectus_flowsInput>;
+  @Field(() => directus_operationsCreateManyDirectus_flowsInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_operationsCreateManyDirectus_flowsInputEnvelope)
+  createMany?: directus_operationsCreateManyDirectus_flowsInputEnvelope;
 
-    @Field(() => directus_operationsCreateManyDirectus_flowsInputEnvelope, {nullable:true})
-    @Type(() => directus_operationsCreateManyDirectus_flowsInputEnvelope)
-    createMany?: directus_operationsCreateManyDirectus_flowsInputEnvelope;
-
-    @Field(() => [directus_operationsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_operationsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>>;
+  @Field(() => [directus_operationsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_operationsWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<
+      directus_operationsWhereUniqueInput,
+      'id' | 'resolve' | 'reject'
+    >
+  >;
 }

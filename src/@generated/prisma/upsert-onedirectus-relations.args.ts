@@ -7,16 +7,15 @@ import { directus_relationsUpdateInput } from '../directus-relations/directus-re
 
 @ArgsType()
 export class UpsertOnedirectusRelationsArgs {
+  @Field(() => directus_relationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_relationsWhereUniqueInput)
+  where!: directus_relationsWhereUniqueInput;
 
-    @Field(() => directus_relationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_relationsWhereUniqueInput)
-    where!: directus_relationsWhereUniqueInput;
+  @Field(() => directus_relationsCreateInput, { nullable: false })
+  @Type(() => directus_relationsCreateInput)
+  create!: directus_relationsCreateInput;
 
-    @Field(() => directus_relationsCreateInput, {nullable:false})
-    @Type(() => directus_relationsCreateInput)
-    create!: directus_relationsCreateInput;
-
-    @Field(() => directus_relationsUpdateInput, {nullable:false})
-    @Type(() => directus_relationsUpdateInput)
-    update!: directus_relationsUpdateInput;
+  @Field(() => directus_relationsUpdateInput, { nullable: false })
+  @Type(() => directus_relationsUpdateInput)
+  update!: directus_relationsUpdateInput;
 }

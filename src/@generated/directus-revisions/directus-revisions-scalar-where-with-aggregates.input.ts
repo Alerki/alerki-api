@@ -9,38 +9,43 @@ import { UuidNullableWithAggregatesFilter } from '../prisma/uuid-nullable-with-a
 
 @InputType()
 export class directus_revisionsScalarWhereWithAggregatesInput {
+  @Field(() => [directus_revisionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_revisionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_revisionsScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_revisionsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_revisionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_revisionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_revisionsScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_revisionsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_revisionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_revisionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_revisionsScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_revisionsScalarWhereWithAggregatesInput>;
+  @Field(() => IntWithAggregatesFilter, { nullable: true })
+  id?: IntWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+  @Field(() => IntWithAggregatesFilter, { nullable: true })
+  activity?: IntWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    activity?: IntWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  collection?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    collection?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  item?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    item?: StringWithAggregatesFilter;
+  @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
+  @Type(() => JsonNullableWithAggregatesFilter)
+  data?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    @Type(() => JsonNullableWithAggregatesFilter)
-    data?: JsonNullableWithAggregatesFilter;
+  @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
+  delta?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    delta?: JsonNullableWithAggregatesFilter;
+  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
+  parent?: IntNullableWithAggregatesFilter;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    parent?: IntNullableWithAggregatesFilter;
-
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    version?: UuidNullableWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  version?: UuidNullableWithAggregatesFilter;
 }

@@ -6,22 +6,23 @@ import { User_SessionUncheckedUpdateManyWithoutSessionNestedInput } from '../use
 
 @InputType()
 export class SessionUncheckedUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  deviceName?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    deviceName?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  refreshToken?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    refreshToken?: StringFieldUpdateOperationsInput;
-
-    @Field(() => User_SessionUncheckedUpdateManyWithoutSessionNestedInput, {nullable:true})
-    User_Session?: User_SessionUncheckedUpdateManyWithoutSessionNestedInput;
+  @Field(() => User_SessionUncheckedUpdateManyWithoutSessionNestedInput, {
+    nullable: true,
+  })
+  User_Session?: User_SessionUncheckedUpdateManyWithoutSessionNestedInput;
 }

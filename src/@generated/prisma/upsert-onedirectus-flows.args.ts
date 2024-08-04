@@ -7,16 +7,15 @@ import { directus_flowsUpdateInput } from '../directus-flows/directus-flows-upda
 
 @ArgsType()
 export class UpsertOnedirectusFlowsArgs {
+  @Field(() => directus_flowsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_flowsWhereUniqueInput)
+  where!: directus_flowsWhereUniqueInput;
 
-    @Field(() => directus_flowsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_flowsWhereUniqueInput)
-    where!: directus_flowsWhereUniqueInput;
+  @Field(() => directus_flowsCreateInput, { nullable: false })
+  @Type(() => directus_flowsCreateInput)
+  create!: directus_flowsCreateInput;
 
-    @Field(() => directus_flowsCreateInput, {nullable:false})
-    @Type(() => directus_flowsCreateInput)
-    create!: directus_flowsCreateInput;
-
-    @Field(() => directus_flowsUpdateInput, {nullable:false})
-    @Type(() => directus_flowsUpdateInput)
-    update!: directus_flowsUpdateInput;
+  @Field(() => directus_flowsUpdateInput, { nullable: false })
+  @Type(() => directus_flowsUpdateInput)
+  update!: directus_flowsUpdateInput;
 }

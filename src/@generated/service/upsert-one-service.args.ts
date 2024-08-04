@@ -8,16 +8,15 @@ import { ServiceUpdateInput } from './service-update.input';
 
 @ArgsType()
 export class UpsertOneServiceArgs {
+  @Field(() => ServiceWhereUniqueInput, { nullable: false })
+  @Type(() => ServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => ServiceWhereUniqueInput, {nullable:false})
-    @Type(() => ServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
+  @Field(() => ServiceCreateInput, { nullable: false })
+  @Type(() => ServiceCreateInput)
+  create!: ServiceCreateInput;
 
-    @Field(() => ServiceCreateInput, {nullable:false})
-    @Type(() => ServiceCreateInput)
-    create!: ServiceCreateInput;
-
-    @Field(() => ServiceUpdateInput, {nullable:false})
-    @Type(() => ServiceUpdateInput)
-    update!: ServiceUpdateInput;
+  @Field(() => ServiceUpdateInput, { nullable: false })
+  @Type(() => ServiceUpdateInput)
+  update!: ServiceUpdateInput;
 }

@@ -13,48 +13,94 @@ import { directus_filesScalarWhereInput } from './directus-files-scalar-where.in
 
 @InputType()
 export class directus_filesUpdateManyWithoutDirectus_users_directus_files_modified_byTodirectus_usersNestedInput {
+  @Field(
+    () => [
+      directus_filesCreateWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesCreateWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+  )
+  create?: Array<directus_filesCreateWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
 
-    @Field(() => [directus_filesCreateWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_filesCreateWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput)
-    create?: Array<directus_filesCreateWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
+  @Field(
+    () => [
+      directus_filesCreateOrConnectWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesCreateOrConnectWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<directus_filesCreateOrConnectWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
 
-    @Field(() => [directus_filesCreateOrConnectWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_filesCreateOrConnectWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput)
-    connectOrCreate?: Array<directus_filesCreateOrConnectWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
+  @Field(
+    () => [
+      directus_filesUpsertWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesUpsertWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+  )
+  upsert?: Array<directus_filesUpsertWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
 
-    @Field(() => [directus_filesUpsertWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_filesUpsertWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput)
-    upsert?: Array<directus_filesUpsertWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
+  @Field(
+    () =>
+      directus_filesCreateManyDirectus_users_directus_files_modified_byTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesCreateManyDirectus_users_directus_files_modified_byTodirectus_usersInputEnvelope,
+  )
+  createMany?: directus_filesCreateManyDirectus_users_directus_files_modified_byTodirectus_usersInputEnvelope;
 
-    @Field(() => directus_filesCreateManyDirectus_users_directus_files_modified_byTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_filesCreateManyDirectus_users_directus_files_modified_byTodirectus_usersInputEnvelope)
-    createMany?: directus_filesCreateManyDirectus_users_directus_files_modified_byTodirectus_usersInputEnvelope;
+  @Field(() => [directus_filesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_filesWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_filesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_filesWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_filesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_filesWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_filesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_filesWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_filesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_filesWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_filesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_filesWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_filesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_filesWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_filesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_filesWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [
+      directus_filesUpdateWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesUpdateWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+  )
+  update?: Array<directus_filesUpdateWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
 
-    @Field(() => [directus_filesUpdateWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_filesUpdateWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput)
-    update?: Array<directus_filesUpdateWithWhereUniqueWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
+  @Field(
+    () => [
+      directus_filesUpdateManyWithWhereWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_filesUpdateManyWithWhereWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput,
+  )
+  updateMany?: Array<directus_filesUpdateManyWithWhereWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
 
-    @Field(() => [directus_filesUpdateManyWithWhereWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_filesUpdateManyWithWhereWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput)
-    updateMany?: Array<directus_filesUpdateManyWithWhereWithoutDirectus_users_directus_files_modified_byTodirectus_usersInput>;
-
-    @Field(() => [directus_filesScalarWhereInput], {nullable:true})
-    @Type(() => directus_filesScalarWhereInput)
-    deleteMany?: Array<directus_filesScalarWhereInput>;
+  @Field(() => [directus_filesScalarWhereInput], { nullable: true })
+  @Type(() => directus_filesScalarWhereInput)
+  deleteMany?: Array<directus_filesScalarWhereInput>;
 }

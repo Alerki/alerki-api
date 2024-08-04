@@ -9,31 +9,30 @@ import { Service_translationsMaxAggregate } from './service-translations-max-agg
 
 @ObjectType()
 export class Service_translationsGroupBy {
+  @Field(() => Int, { nullable: false })
+  id!: number;
 
-    @Field(() => Int, {nullable:false})
-    id!: number;
+  @Field(() => String, { nullable: true })
+  Service_id?: string;
 
-    @Field(() => String, {nullable:true})
-    Service_id?: string;
+  @Field(() => String, { nullable: true })
+  languages_id?: string;
 
-    @Field(() => String, {nullable:true})
-    languages_id?: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => Service_translationsCountAggregate, { nullable: true })
+  _count?: Service_translationsCountAggregate;
 
-    @Field(() => Service_translationsCountAggregate, {nullable:true})
-    _count?: Service_translationsCountAggregate;
+  @Field(() => Service_translationsAvgAggregate, { nullable: true })
+  _avg?: Service_translationsAvgAggregate;
 
-    @Field(() => Service_translationsAvgAggregate, {nullable:true})
-    _avg?: Service_translationsAvgAggregate;
+  @Field(() => Service_translationsSumAggregate, { nullable: true })
+  _sum?: Service_translationsSumAggregate;
 
-    @Field(() => Service_translationsSumAggregate, {nullable:true})
-    _sum?: Service_translationsSumAggregate;
+  @Field(() => Service_translationsMinAggregate, { nullable: true })
+  _min?: Service_translationsMinAggregate;
 
-    @Field(() => Service_translationsMinAggregate, {nullable:true})
-    _min?: Service_translationsMinAggregate;
-
-    @Field(() => Service_translationsMaxAggregate, {nullable:true})
-    _max?: Service_translationsMaxAggregate;
+  @Field(() => Service_translationsMaxAggregate, { nullable: true })
+  _max?: Service_translationsMaxAggregate;
 }

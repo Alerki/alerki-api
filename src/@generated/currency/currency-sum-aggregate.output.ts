@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class CurrencySumAggregate {
-
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 }

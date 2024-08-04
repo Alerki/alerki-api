@@ -4,10 +4,9 @@ import { directus_activityWhereInput } from '../directus-activity/directus-activ
 
 @InputType()
 export class Directus_activityRelationFilter {
+  @Field(() => directus_activityWhereInput, { nullable: true })
+  is?: directus_activityWhereInput;
 
-    @Field(() => directus_activityWhereInput, {nullable:true})
-    is?: directus_activityWhereInput;
-
-    @Field(() => directus_activityWhereInput, {nullable:true})
-    isNot?: directus_activityWhereInput;
+  @Field(() => directus_activityWhereInput, { nullable: true })
+  isNot?: directus_activityWhereInput;
 }

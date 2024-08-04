@@ -6,12 +6,11 @@ import { directus_activityWhereUniqueInput } from '../directus-activity/directus
 
 @ArgsType()
 export class UpdateOnedirectusActivityArgs {
+  @Field(() => directus_activityUpdateInput, { nullable: false })
+  @Type(() => directus_activityUpdateInput)
+  data!: directus_activityUpdateInput;
 
-    @Field(() => directus_activityUpdateInput, {nullable:false})
-    @Type(() => directus_activityUpdateInput)
-    data!: directus_activityUpdateInput;
-
-    @Field(() => directus_activityWhereUniqueInput, {nullable:false})
-    @Type(() => directus_activityWhereUniqueInput)
-    where!: directus_activityWhereUniqueInput;
+  @Field(() => directus_activityWhereUniqueInput, { nullable: false })
+  @Type(() => directus_activityWhereUniqueInput)
+  where!: directus_activityWhereUniqueInput;
 }

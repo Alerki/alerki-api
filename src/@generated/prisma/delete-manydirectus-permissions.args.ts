@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManydirectusPermissionsArgs {
-
-    @Field(() => directus_permissionsWhereInput, {nullable:true})
-    @Type(() => directus_permissionsWhereInput)
-    where?: directus_permissionsWhereInput;
+  @Field(() => directus_permissionsWhereInput, { nullable: true })
+  @Type(() => directus_permissionsWhereInput)
+  where?: directus_permissionsWhereInput;
 }

@@ -4,19 +4,20 @@ import { UserUncheckedCreateNestedManyWithoutUserPictureInput } from '../user/us
 
 @InputType()
 export class UserPictureUncheckedCreateInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  picture!: string;
 
-    @Field(() => String, {nullable:false})
-    picture!: string;
-
-    @Field(() => UserUncheckedCreateNestedManyWithoutUserPictureInput, {nullable:true})
-    User?: UserUncheckedCreateNestedManyWithoutUserPictureInput;
+  @Field(() => UserUncheckedCreateNestedManyWithoutUserPictureInput, {
+    nullable: true,
+  })
+  User?: UserUncheckedCreateNestedManyWithoutUserPictureInput;
 }

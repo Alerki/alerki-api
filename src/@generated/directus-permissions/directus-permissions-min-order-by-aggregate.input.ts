@@ -4,19 +4,18 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class directus_permissionsMinOrderByAggregateInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  role?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    role?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  collection?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    collection?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  action?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    action?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    fields?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  fields?: keyof typeof SortOrder;
 }

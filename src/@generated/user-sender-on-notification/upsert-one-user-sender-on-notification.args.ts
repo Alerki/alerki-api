@@ -8,16 +8,15 @@ import { UserSenderOnNotificationUpdateInput } from './user-sender-on-notificati
 
 @ArgsType()
 export class UpsertOneUserSenderOnNotificationArgs {
+  @Field(() => UserSenderOnNotificationWhereUniqueInput, { nullable: false })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => UserSenderOnNotificationWhereUniqueInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
+  @Field(() => UserSenderOnNotificationCreateInput, { nullable: false })
+  @Type(() => UserSenderOnNotificationCreateInput)
+  create!: UserSenderOnNotificationCreateInput;
 
-    @Field(() => UserSenderOnNotificationCreateInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationCreateInput)
-    create!: UserSenderOnNotificationCreateInput;
-
-    @Field(() => UserSenderOnNotificationUpdateInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationUpdateInput)
-    update!: UserSenderOnNotificationUpdateInput;
+  @Field(() => UserSenderOnNotificationUpdateInput, { nullable: false })
+  @Type(() => UserSenderOnNotificationUpdateInput)
+  update!: UserSenderOnNotificationUpdateInput;
 }

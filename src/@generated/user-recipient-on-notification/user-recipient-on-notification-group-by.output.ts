@@ -6,28 +6,27 @@ import { UserRecipientOnNotificationMaxAggregate } from './user-recipient-on-not
 
 @ObjectType()
 export class UserRecipientOnNotificationGroupBy {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  user!: string;
 
-    @Field(() => String, {nullable:false})
-    user!: string;
+  @Field(() => String, { nullable: false })
+  notification!: string;
 
-    @Field(() => String, {nullable:false})
-    notification!: string;
+  @Field(() => UserRecipientOnNotificationCountAggregate, { nullable: true })
+  _count?: UserRecipientOnNotificationCountAggregate;
 
-    @Field(() => UserRecipientOnNotificationCountAggregate, {nullable:true})
-    _count?: UserRecipientOnNotificationCountAggregate;
+  @Field(() => UserRecipientOnNotificationMinAggregate, { nullable: true })
+  _min?: UserRecipientOnNotificationMinAggregate;
 
-    @Field(() => UserRecipientOnNotificationMinAggregate, {nullable:true})
-    _min?: UserRecipientOnNotificationMinAggregate;
-
-    @Field(() => UserRecipientOnNotificationMaxAggregate, {nullable:true})
-    _max?: UserRecipientOnNotificationMaxAggregate;
+  @Field(() => UserRecipientOnNotificationMaxAggregate, { nullable: true })
+  _max?: UserRecipientOnNotificationMaxAggregate;
 }

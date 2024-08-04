@@ -6,13 +6,12 @@ import { Directus_versionsMaxAggregate } from './directus-versions-max-aggregate
 
 @ObjectType()
 export class AggregateDirectus_versions {
+  @Field(() => Directus_versionsCountAggregate, { nullable: true })
+  _count?: Directus_versionsCountAggregate;
 
-    @Field(() => Directus_versionsCountAggregate, {nullable:true})
-    _count?: Directus_versionsCountAggregate;
+  @Field(() => Directus_versionsMinAggregate, { nullable: true })
+  _min?: Directus_versionsMinAggregate;
 
-    @Field(() => Directus_versionsMinAggregate, {nullable:true})
-    _min?: Directus_versionsMinAggregate;
-
-    @Field(() => Directus_versionsMaxAggregate, {nullable:true})
-    _max?: Directus_versionsMaxAggregate;
+  @Field(() => Directus_versionsMaxAggregate, { nullable: true })
+  _max?: Directus_versionsMaxAggregate;
 }

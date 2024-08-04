@@ -6,12 +6,11 @@ import { directus_usersWhereUniqueInput } from '../directus-users/directus-users
 
 @ArgsType()
 export class UpdateOnedirectusUsersArgs {
+  @Field(() => directus_usersUpdateInput, { nullable: false })
+  @Type(() => directus_usersUpdateInput)
+  data!: directus_usersUpdateInput;
 
-    @Field(() => directus_usersUpdateInput, {nullable:false})
-    @Type(() => directus_usersUpdateInput)
-    data!: directus_usersUpdateInput;
-
-    @Field(() => directus_usersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_usersWhereUniqueInput)
-    where!: directus_usersWhereUniqueInput;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_usersWhereUniqueInput)
+  where!: directus_usersWhereUniqueInput;
 }

@@ -2,11 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 import Prisma from '@prisma/client';
 import { IsDateString, IsOptional, IsString, IsUUID } from 'class-validator';
 
-import { PaginationDto } from '../../shared/dto/Pagination.dto';
+import { PaginationDto } from '../../shared/dto/pagination.dto';
 
-export class CreateAppointmentDto
-  implements Pick<Prisma.Appointment, 'masterServiceId'>
-{
+export class CreateAppointmentDto {
   @ApiProperty({
     description: 'Master service ID',
     type: 'string',

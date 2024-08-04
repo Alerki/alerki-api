@@ -6,12 +6,15 @@ import { directus_usersCreateWithoutDirectus_operationsInput } from './directus-
 
 @InputType()
 export class directus_usersUpsertWithoutDirectus_operationsInput {
+  @Field(() => directus_usersUpdateWithoutDirectus_operationsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersUpdateWithoutDirectus_operationsInput)
+  update!: directus_usersUpdateWithoutDirectus_operationsInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_operationsInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_operationsInput)
-    update!: directus_usersUpdateWithoutDirectus_operationsInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_operationsInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_operationsInput)
-    create!: directus_usersCreateWithoutDirectus_operationsInput;
+  @Field(() => directus_usersCreateWithoutDirectus_operationsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_operationsInput)
+  create!: directus_usersCreateWithoutDirectus_operationsInput;
 }

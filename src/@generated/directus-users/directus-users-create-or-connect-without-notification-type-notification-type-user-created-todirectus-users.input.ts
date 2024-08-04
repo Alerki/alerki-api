@@ -7,12 +7,21 @@ import { directus_usersCreateWithoutNotificationType_NotificationType_user_creat
 
 @InputType()
 export class directus_usersCreateOrConnectWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput {
+  @Field(() => directus_usersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_usersWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_usersWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput)
-    create!: directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+  )
+  create!: directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
 }

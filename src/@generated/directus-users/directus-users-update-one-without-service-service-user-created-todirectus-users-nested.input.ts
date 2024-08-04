@@ -10,30 +10,60 @@ import { directus_usersUpdateWithoutService_Service_user_createdTodirectus_users
 
 @InputType()
 export class directus_usersUpdateOneWithoutService_Service_user_createdTodirectus_usersNestedInput {
+  @Field(
+    () =>
+      directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput,
+  )
+  create?: directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput)
-    create?: directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateOrConnectWithoutService_Service_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateOrConnectWithoutService_Service_user_createdTodirectus_usersInput,
+  )
+  connectOrCreate?: directus_usersCreateOrConnectWithoutService_Service_user_createdTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateOrConnectWithoutService_Service_user_createdTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateOrConnectWithoutService_Service_user_createdTodirectus_usersInput)
-    connectOrCreate?: directus_usersCreateOrConnectWithoutService_Service_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersUpsertWithoutService_Service_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersUpsertWithoutService_Service_user_createdTodirectus_usersInput,
+  )
+  upsert?: directus_usersUpsertWithoutService_Service_user_createdTodirectus_usersInput;
 
-    @Field(() => directus_usersUpsertWithoutService_Service_user_createdTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersUpsertWithoutService_Service_user_createdTodirectus_usersInput)
-    upsert?: directus_usersUpsertWithoutService_Service_user_createdTodirectus_usersInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_usersWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_usersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersUpdateWithoutService_Service_user_createdTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersUpdateWithoutService_Service_user_createdTodirectus_usersInput)
-    update?: directus_usersUpdateWithoutService_Service_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersUpdateWithoutService_Service_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersUpdateWithoutService_Service_user_createdTodirectus_usersInput,
+  )
+  update?: directus_usersUpdateWithoutService_Service_user_createdTodirectus_usersInput;
 }

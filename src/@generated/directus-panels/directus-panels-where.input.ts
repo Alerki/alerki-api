@@ -13,64 +13,63 @@ import { Directus_usersRelationFilter } from '../prisma/directus-users-relation-
 
 @InputType()
 export class directus_panelsWhereInput {
+  @Field(() => [directus_panelsWhereInput], { nullable: true })
+  AND?: Array<directus_panelsWhereInput>;
 
-    @Field(() => [directus_panelsWhereInput], {nullable:true})
-    AND?: Array<directus_panelsWhereInput>;
+  @Field(() => [directus_panelsWhereInput], { nullable: true })
+  OR?: Array<directus_panelsWhereInput>;
 
-    @Field(() => [directus_panelsWhereInput], {nullable:true})
-    OR?: Array<directus_panelsWhereInput>;
+  @Field(() => [directus_panelsWhereInput], { nullable: true })
+  NOT?: Array<directus_panelsWhereInput>;
 
-    @Field(() => [directus_panelsWhereInput], {nullable:true})
-    NOT?: Array<directus_panelsWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => UuidFilter, { nullable: true })
+  dashboard?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    dashboard?: UuidFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  name?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    name?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  icon?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    icon?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  color?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    color?: StringNullableFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  show_header?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    show_header?: BoolFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  note?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    note?: StringNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  type?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    type?: StringFilter;
+  @Field(() => IntFilter, { nullable: true })
+  position_x?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    position_x?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  position_y?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    position_y?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  width?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    width?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  height?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    height?: IntFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  options?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    options?: JsonNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
+  @Field(() => Directus_dashboardsRelationFilter, { nullable: true })
+  directus_dashboards?: Directus_dashboardsRelationFilter;
 
-    @Field(() => Directus_dashboardsRelationFilter, {nullable:true})
-    directus_dashboards?: Directus_dashboardsRelationFilter;
-
-    @Field(() => Directus_usersRelationFilter, {nullable:true})
-    directus_users?: Directus_usersRelationFilter;
+  @Field(() => Directus_usersRelationFilter, { nullable: true })
+  directus_users?: Directus_usersRelationFilter;
 }

@@ -9,23 +9,25 @@ import { Directus_operationsScalarFieldEnum } from './directus-operations-scalar
 
 @ArgsType()
 export class FindManydirectusOperationsArgs {
+  @Field(() => directus_operationsWhereInput, { nullable: true })
+  @Type(() => directus_operationsWhereInput)
+  where?: directus_operationsWhereInput;
 
-    @Field(() => directus_operationsWhereInput, {nullable:true})
-    @Type(() => directus_operationsWhereInput)
-    where?: directus_operationsWhereInput;
+  @Field(
+    () => [directus_operationsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<directus_operationsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_operationsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_operationsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_operationsWhereUniqueInput, { nullable: true })
+  cursor?: directus_operationsWhereUniqueInput;
 
-    @Field(() => directus_operationsWhereUniqueInput, {nullable:true})
-    cursor?: directus_operationsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_operationsScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_operationsScalarFieldEnum>;
+  @Field(() => [Directus_operationsScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_operationsScalarFieldEnum>;
 }

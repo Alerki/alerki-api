@@ -9,20 +9,27 @@ import { Service_translationsWhereUniqueInput } from './service-translations-whe
 
 @InputType()
 export class Service_translationsCreateNestedManyWithoutServiceInput {
+  @Field(() => [Service_translationsCreateWithoutServiceInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateWithoutServiceInput)
+  create?: Array<Service_translationsCreateWithoutServiceInput>;
 
-    @Field(() => [Service_translationsCreateWithoutServiceInput], {nullable:true})
-    @Type(() => Service_translationsCreateWithoutServiceInput)
-    create?: Array<Service_translationsCreateWithoutServiceInput>;
+  @Field(() => [Service_translationsCreateOrConnectWithoutServiceInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateOrConnectWithoutServiceInput)
+  connectOrCreate?: Array<Service_translationsCreateOrConnectWithoutServiceInput>;
 
-    @Field(() => [Service_translationsCreateOrConnectWithoutServiceInput], {nullable:true})
-    @Type(() => Service_translationsCreateOrConnectWithoutServiceInput)
-    connectOrCreate?: Array<Service_translationsCreateOrConnectWithoutServiceInput>;
+  @Field(() => Service_translationsCreateManyServiceInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateManyServiceInputEnvelope)
+  createMany?: Service_translationsCreateManyServiceInputEnvelope;
 
-    @Field(() => Service_translationsCreateManyServiceInputEnvelope, {nullable:true})
-    @Type(() => Service_translationsCreateManyServiceInputEnvelope)
-    createMany?: Service_translationsCreateManyServiceInputEnvelope;
-
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 }

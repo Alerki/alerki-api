@@ -11,43 +11,52 @@ import { directus_usersUpdateOneWithoutDirectus_sharesNestedInput } from '../dir
 
 @InputType()
 export class directus_sharesUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  name?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    name?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  item?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    item?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  password?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    password?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_start?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_start?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_end?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_end?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  times_used?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    times_used?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  max_uses?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    max_uses?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => directus_sessionsUpdateManyWithoutDirectus_sharesNestedInput, {
+    nullable: true,
+  })
+  directus_sessions?: directus_sessionsUpdateManyWithoutDirectus_sharesNestedInput;
 
-    @Field(() => directus_sessionsUpdateManyWithoutDirectus_sharesNestedInput, {nullable:true})
-    directus_sessions?: directus_sessionsUpdateManyWithoutDirectus_sharesNestedInput;
+  @Field(
+    () =>
+      directus_collectionsUpdateOneRequiredWithoutDirectus_sharesNestedInput,
+    { nullable: true },
+  )
+  directus_collections?: directus_collectionsUpdateOneRequiredWithoutDirectus_sharesNestedInput;
 
-    @Field(() => directus_collectionsUpdateOneRequiredWithoutDirectus_sharesNestedInput, {nullable:true})
-    directus_collections?: directus_collectionsUpdateOneRequiredWithoutDirectus_sharesNestedInput;
+  @Field(() => directus_rolesUpdateOneWithoutDirectus_sharesNestedInput, {
+    nullable: true,
+  })
+  directus_roles?: directus_rolesUpdateOneWithoutDirectus_sharesNestedInput;
 
-    @Field(() => directus_rolesUpdateOneWithoutDirectus_sharesNestedInput, {nullable:true})
-    directus_roles?: directus_rolesUpdateOneWithoutDirectus_sharesNestedInput;
-
-    @Field(() => directus_usersUpdateOneWithoutDirectus_sharesNestedInput, {nullable:true})
-    directus_users?: directus_usersUpdateOneWithoutDirectus_sharesNestedInput;
+  @Field(() => directus_usersUpdateOneWithoutDirectus_sharesNestedInput, {
+    nullable: true,
+  })
+  directus_users?: directus_usersUpdateOneWithoutDirectus_sharesNestedInput;
 }

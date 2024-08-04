@@ -1,26 +1,20 @@
-import {BadRequestException, Injectable} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcryptjs from 'bcryptjs';
 import { PrismaService } from 'src/shared/modules/prisma/prisma.service';
 
-import {ClientProfileService} from '../../client/services/client-profile.service';
-import {ENV} from '../../config';
-import {UserService} from '../../user/services/user.service';
-import {LogInDto, RegisterDto} from '../dtos/auth.dto';
-import {IJwtTokenData} from '../interfaces';
-import {AuthService} from './auth.service';
-import {JwtTokenService} from './jwt-token.service';
-import {SessionService} from './session.service';
+import { ENV } from '../../config';
+import { LogInDto, RegisterDto } from '../dtos/auth.dto';
+import { IJwtTokenData } from '../interfaces';
+import { JwtTokenService } from './jwt-token.service';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class AuthModuleService {
   private readonly passwordHash: number;
 
   constructor(
-    private readonly authService: AuthService,
     private readonly jwtTokensService: JwtTokenService,
-    // private readonly userService: UserService,
     private readonly sessionService: SessionService,
-    private readonly clientProfileService: ClientProfileService,
     private readonly prismaService: PrismaService,
   ) {
     this.passwordHash = ENV.PASSWORD_HASH;
@@ -48,17 +42,17 @@ export class AuthModuleService {
       }
     }
 
-    const clientProfile = await this.prismaService.clientProfile.create({ data: { id: '123' }});
+    const clientProfile = await this.prismaService.clientProfile.create({
+      data: {},
+    });
 
     const passwordHash = bcryptjs.hashSync(data.password, this.passwordHash);
 
     await this.prismaService.user.create({
       data: {
-        id :'asdf',
         email: data.email,
         username: data.username,
         password: passwordHash,
-        // clientProfileId: clientProfile.id,
         clientProfile: clientProfile.id,
       },
     });
@@ -76,6 +70,13 @@ export class AuthModuleService {
           },
         ],
       },
+      include: {
+        User_UserRoles: {
+          include: {
+            UserRoles: true,
+          },
+        },
+      },
     });
 
     if (!candidate) {
@@ -86,8 +87,13 @@ export class AuthModuleService {
       throw new BadRequestException('Wrong password');
     }
 
+    const roles = candidate?.User_UserRoles?.map(
+      (User_UserRoles) => User_UserRoles.UserRoles?.name,
+    );
+
     const tokens = await this.jwtTokensService.generatePairTokens({
       id: candidate.id,
+      roles,
     });
 
     await this.prismaService.session.create({
@@ -97,8 +103,8 @@ export class AuthModuleService {
         User_Session: {
           create: {
             User_id: candidate.id,
-          }
-        }
+          },
+        },
       },
     });
 
@@ -109,9 +115,8 @@ export class AuthModuleService {
     let decodedRefreshToken: IJwtTokenData;
 
     try {
-      decodedRefreshToken = await this.jwtTokensService.validateRefreshToken(
-        refreshToken,
-      );
+      decodedRefreshToken =
+        await this.jwtTokensService.validateRefreshToken(refreshToken);
     } catch (e) {
       throw new BadRequestException('Bad refresh token');
     }
@@ -121,9 +126,9 @@ export class AuthModuleService {
         refreshToken,
         User_Session: {
           some: {
-            User_id: decodedRefreshToken.id
-          }
-        }
+            User_id: decodedRefreshToken.id,
+          },
+        },
       },
     });
 
@@ -138,9 +143,8 @@ export class AuthModuleService {
     let decodedRefreshToken: IJwtTokenData;
 
     try {
-      decodedRefreshToken = await this.jwtTokensService.validateAccessToken(
-        refreshToken,
-      );
+      decodedRefreshToken =
+        await this.jwtTokensService.validateAccessToken(refreshToken);
     } catch (e) {
       throw new BadRequestException('Bad refresh token');
     }
@@ -150,8 +154,23 @@ export class AuthModuleService {
         refreshToken,
         User_Session: {
           some: {
-            User_id: decodedRefreshToken.id
-          }
+            User_id: decodedRefreshToken.id,
+          },
+        },
+      },
+      include: {
+        User_Session: {
+          include: {
+            User: {
+              include: {
+                User_UserRoles: {
+                  include: {
+                    UserRoles: true,
+                  },
+                },
+              },
+            },
+          },
         },
       },
     });
@@ -160,8 +179,13 @@ export class AuthModuleService {
       throw new BadRequestException('Session not exists');
     }
 
+    const roles = sessionCandidate.User_Session?.[0]?.User?.User_UserRoles?.map(
+      (User_UserRoles) => User_UserRoles.UserRoles?.name,
+    );
+
     const tokens = await this.jwtTokensService.generatePairTokens({
       id: decodedRefreshToken.id,
+      roles,
     });
 
     await this.sessionService.update({

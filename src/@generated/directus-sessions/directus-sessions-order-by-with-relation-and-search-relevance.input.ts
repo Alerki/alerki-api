@@ -7,34 +7,37 @@ import { directus_sessionsOrderByRelevanceInput } from './directus-sessions-orde
 
 @InputType()
 export class directus_sessionsOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  token?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    token?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  expires?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    expires?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  ip?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    ip?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_agent?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_agent?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  share?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    share?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  origin?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    origin?: keyof typeof SortOrder;
+  @Field(() => directus_sharesOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  directus_shares?: directus_sharesOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => directus_sharesOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    directus_shares?: directus_sharesOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => directus_usersOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  directus_users?: directus_usersOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => directus_usersOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    directus_users?: directus_usersOrderByWithRelationAndSearchRelevanceInput;
-
-    @Field(() => directus_sessionsOrderByRelevanceInput, {nullable:true})
-    _relevance?: directus_sessionsOrderByRelevanceInput;
+  @Field(() => directus_sessionsOrderByRelevanceInput, { nullable: true })
+  _relevance?: directus_sessionsOrderByRelevanceInput;
 }

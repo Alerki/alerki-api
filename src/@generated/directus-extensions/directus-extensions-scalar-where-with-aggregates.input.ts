@@ -7,28 +7,33 @@ import { UuidNullableWithAggregatesFilter } from '../prisma/uuid-nullable-with-a
 
 @InputType()
 export class directus_extensionsScalarWhereWithAggregatesInput {
+  @Field(() => [directus_extensionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_extensionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_extensionsScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_extensionsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_extensionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_extensionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_extensionsScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_extensionsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_extensionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_extensionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_extensionsScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_extensionsScalarWhereWithAggregatesInput>;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  enabled?: BoolWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    enabled?: BoolWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  folder?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    folder?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  source?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    source?: StringWithAggregatesFilter;
-
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    bundle?: UuidNullableWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  bundle?: UuidNullableWithAggregatesFilter;
 }

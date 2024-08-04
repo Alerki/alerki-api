@@ -6,12 +6,11 @@ import { MasterServiceUpdateManyMutationInput } from './master-service-update-ma
 
 @InputType()
 export class MasterServiceUpdateManyWithWhereWithoutCurrencyInput {
+  @Field(() => MasterServiceScalarWhereInput, { nullable: false })
+  @Type(() => MasterServiceScalarWhereInput)
+  where!: MasterServiceScalarWhereInput;
 
-    @Field(() => MasterServiceScalarWhereInput, {nullable:false})
-    @Type(() => MasterServiceScalarWhereInput)
-    where!: MasterServiceScalarWhereInput;
-
-    @Field(() => MasterServiceUpdateManyMutationInput, {nullable:false})
-    @Type(() => MasterServiceUpdateManyMutationInput)
-    data!: MasterServiceUpdateManyMutationInput;
+  @Field(() => MasterServiceUpdateManyMutationInput, { nullable: false })
+  @Type(() => MasterServiceUpdateManyMutationInput)
+  data!: MasterServiceUpdateManyMutationInput;
 }

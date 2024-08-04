@@ -4,10 +4,9 @@ import { languagesWhereInput } from '../languages/languages-where.input';
 
 @InputType()
 export class LanguagesRelationFilter {
+  @Field(() => languagesWhereInput, { nullable: true })
+  is?: languagesWhereInput;
 
-    @Field(() => languagesWhereInput, {nullable:true})
-    is?: languagesWhereInput;
-
-    @Field(() => languagesWhereInput, {nullable:true})
-    isNot?: languagesWhereInput;
+  @Field(() => languagesWhereInput, { nullable: true })
+  isNot?: languagesWhereInput;
 }

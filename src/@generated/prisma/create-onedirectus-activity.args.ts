@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusActivityArgs {
-
-    @Field(() => directus_activityCreateInput, {nullable:false})
-    @Type(() => directus_activityCreateInput)
-    data!: directus_activityCreateInput;
+  @Field(() => directus_activityCreateInput, { nullable: false })
+  @Type(() => directus_activityCreateInput)
+  data!: directus_activityCreateInput;
 }

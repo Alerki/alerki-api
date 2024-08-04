@@ -7,12 +7,11 @@ import { UserPictureCreateWithoutUserInput } from './user-picture-create-without
 
 @InputType()
 export class UserPictureCreateOrConnectWithoutUserInput {
+  @Field(() => UserPictureWhereUniqueInput, { nullable: false })
+  @Type(() => UserPictureWhereUniqueInput)
+  where!: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
 
-    @Field(() => UserPictureWhereUniqueInput, {nullable:false})
-    @Type(() => UserPictureWhereUniqueInput)
-    where!: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
-
-    @Field(() => UserPictureCreateWithoutUserInput, {nullable:false})
-    @Type(() => UserPictureCreateWithoutUserInput)
-    create!: UserPictureCreateWithoutUserInput;
+  @Field(() => UserPictureCreateWithoutUserInput, { nullable: false })
+  @Type(() => UserPictureCreateWithoutUserInput)
+  create!: UserPictureCreateWithoutUserInput;
 }

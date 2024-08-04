@@ -7,16 +7,15 @@ import { directus_panelsUpdateInput } from '../directus-panels/directus-panels-u
 
 @ArgsType()
 export class UpsertOnedirectusPanelsArgs {
+  @Field(() => directus_panelsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_panelsWhereUniqueInput)
+  where!: directus_panelsWhereUniqueInput;
 
-    @Field(() => directus_panelsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_panelsWhereUniqueInput)
-    where!: directus_panelsWhereUniqueInput;
+  @Field(() => directus_panelsCreateInput, { nullable: false })
+  @Type(() => directus_panelsCreateInput)
+  create!: directus_panelsCreateInput;
 
-    @Field(() => directus_panelsCreateInput, {nullable:false})
-    @Type(() => directus_panelsCreateInput)
-    create!: directus_panelsCreateInput;
-
-    @Field(() => directus_panelsUpdateInput, {nullable:false})
-    @Type(() => directus_panelsUpdateInput)
-    update!: directus_panelsUpdateInput;
+  @Field(() => directus_panelsUpdateInput, { nullable: false })
+  @Type(() => directus_panelsUpdateInput)
+  update!: directus_panelsUpdateInput;
 }

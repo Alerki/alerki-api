@@ -9,20 +9,42 @@ import { ServiceWhereUniqueInput } from './service-where-unique.input';
 
 @InputType()
 export class ServiceCreateNestedManyWithoutDirectus_users_Service_user_createdTodirectus_usersInput {
+  @Field(
+    () => [
+      ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+  )
+  create?: Array<ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
 
-    @Field(() => [ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput)
-    create?: Array<ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
 
-    @Field(() => [ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput)
-    connectOrCreate?: Array<ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
+  @Field(
+    () =>
+      ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope,
+  )
+  createMany?: ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope;
 
-    @Field(() => ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope)
-    createMany?: ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope;
-
-    @Field(() => [ServiceWhereUniqueInput], {nullable:true})
-    @Type(() => ServiceWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
+  @Field(() => [ServiceWhereUniqueInput], { nullable: true })
+  @Type(() => ServiceWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
 }

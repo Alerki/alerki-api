@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class UserCreateManyUserPictureInputEnvelope {
+  @Field(() => [UserCreateManyUserPictureInput], { nullable: false })
+  @Type(() => UserCreateManyUserPictureInput)
+  data!: Array<UserCreateManyUserPictureInput>;
 
-    @Field(() => [UserCreateManyUserPictureInput], {nullable:false})
-    @Type(() => UserCreateManyUserPictureInput)
-    data!: Array<UserCreateManyUserPictureInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

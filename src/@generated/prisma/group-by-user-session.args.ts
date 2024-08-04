@@ -9,23 +9,22 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class GroupByUserSessionArgs {
+  @Field(() => User_SessionWhereInput, { nullable: true })
+  @Type(() => User_SessionWhereInput)
+  where?: User_SessionWhereInput;
 
-    @Field(() => User_SessionWhereInput, {nullable:true})
-    @Type(() => User_SessionWhereInput)
-    where?: User_SessionWhereInput;
+  @Field(() => [User_SessionOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<User_SessionOrderByWithAggregationInput>;
 
-    @Field(() => [User_SessionOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<User_SessionOrderByWithAggregationInput>;
+  @Field(() => [User_SessionScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof User_SessionScalarFieldEnum>;
 
-    @Field(() => [User_SessionScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof User_SessionScalarFieldEnum>;
+  @Field(() => User_SessionScalarWhereWithAggregatesInput, { nullable: true })
+  having?: User_SessionScalarWhereWithAggregatesInput;
 
-    @Field(() => User_SessionScalarWhereWithAggregatesInput, {nullable:true})
-    having?: User_SessionScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

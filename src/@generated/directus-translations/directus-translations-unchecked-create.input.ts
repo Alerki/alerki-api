@@ -3,16 +3,15 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class directus_translationsUncheckedCreateInput {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false })
+  language!: string;
 
-    @Field(() => String, {nullable:false})
-    language!: string;
+  @Field(() => String, { nullable: false })
+  key!: string;
 
-    @Field(() => String, {nullable:false})
-    key!: string;
-
-    @Field(() => String, {nullable:false})
-    value!: string;
+  @Field(() => String, { nullable: false })
+  value!: string;
 }

@@ -8,19 +8,18 @@ import { Directus_permissionsMaxAggregate } from './directus-permissions-max-agg
 
 @ObjectType()
 export class AggregateDirectus_permissions {
+  @Field(() => Directus_permissionsCountAggregate, { nullable: true })
+  _count?: Directus_permissionsCountAggregate;
 
-    @Field(() => Directus_permissionsCountAggregate, {nullable:true})
-    _count?: Directus_permissionsCountAggregate;
+  @Field(() => Directus_permissionsAvgAggregate, { nullable: true })
+  _avg?: Directus_permissionsAvgAggregate;
 
-    @Field(() => Directus_permissionsAvgAggregate, {nullable:true})
-    _avg?: Directus_permissionsAvgAggregate;
+  @Field(() => Directus_permissionsSumAggregate, { nullable: true })
+  _sum?: Directus_permissionsSumAggregate;
 
-    @Field(() => Directus_permissionsSumAggregate, {nullable:true})
-    _sum?: Directus_permissionsSumAggregate;
+  @Field(() => Directus_permissionsMinAggregate, { nullable: true })
+  _min?: Directus_permissionsMinAggregate;
 
-    @Field(() => Directus_permissionsMinAggregate, {nullable:true})
-    _min?: Directus_permissionsMinAggregate;
-
-    @Field(() => Directus_permissionsMaxAggregate, {nullable:true})
-    _max?: Directus_permissionsMaxAggregate;
+  @Field(() => Directus_permissionsMaxAggregate, { nullable: true })
+  _max?: Directus_permissionsMaxAggregate;
 }

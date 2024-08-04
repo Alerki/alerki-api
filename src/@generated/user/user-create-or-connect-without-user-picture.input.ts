@@ -7,12 +7,14 @@ import { UserCreateWithoutUserPictureInput } from './user-create-without-user-pi
 
 @InputType()
 export class UserCreateOrConnectWithoutUserPictureInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserCreateWithoutUserPictureInput, {nullable:false})
-    @Type(() => UserCreateWithoutUserPictureInput)
-    create!: UserCreateWithoutUserPictureInput;
+  @Field(() => UserCreateWithoutUserPictureInput, { nullable: false })
+  @Type(() => UserCreateWithoutUserPictureInput)
+  create!: UserCreateWithoutUserPictureInput;
 }

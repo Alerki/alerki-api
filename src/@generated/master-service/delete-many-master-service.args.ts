@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyMasterServiceArgs {
-
-    @Field(() => MasterServiceWhereInput, {nullable:true})
-    @Type(() => MasterServiceWhereInput)
-    where?: MasterServiceWhereInput;
+  @Field(() => MasterServiceWhereInput, { nullable: true })
+  @Type(() => MasterServiceWhereInput)
+  where?: MasterServiceWhereInput;
 }

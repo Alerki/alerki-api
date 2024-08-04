@@ -6,12 +6,11 @@ import { ClientProfileCreateWithoutUserInput } from './client-profile-create-wit
 
 @InputType()
 export class ClientProfileUpsertWithoutUserInput {
+  @Field(() => ClientProfileUpdateWithoutUserInput, { nullable: false })
+  @Type(() => ClientProfileUpdateWithoutUserInput)
+  update!: ClientProfileUpdateWithoutUserInput;
 
-    @Field(() => ClientProfileUpdateWithoutUserInput, {nullable:false})
-    @Type(() => ClientProfileUpdateWithoutUserInput)
-    update!: ClientProfileUpdateWithoutUserInput;
-
-    @Field(() => ClientProfileCreateWithoutUserInput, {nullable:false})
-    @Type(() => ClientProfileCreateWithoutUserInput)
-    create!: ClientProfileCreateWithoutUserInput;
+  @Field(() => ClientProfileCreateWithoutUserInput, { nullable: false })
+  @Type(() => ClientProfileCreateWithoutUserInput)
+  create!: ClientProfileCreateWithoutUserInput;
 }

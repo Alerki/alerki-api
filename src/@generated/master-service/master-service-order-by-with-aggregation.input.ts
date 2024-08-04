@@ -9,46 +9,45 @@ import { MasterServiceSumOrderByAggregateInput } from './master-service-sum-orde
 
 @InputType()
 export class MasterServiceOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  status?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  masterProfile?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    masterProfile?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  duration?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    duration?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  price?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  currency?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    currency?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  service?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    service?: keyof typeof SortOrder;
+  @Field(() => MasterServiceCountOrderByAggregateInput, { nullable: true })
+  _count?: MasterServiceCountOrderByAggregateInput;
 
-    @Field(() => MasterServiceCountOrderByAggregateInput, {nullable:true})
-    _count?: MasterServiceCountOrderByAggregateInput;
+  @Field(() => MasterServiceAvgOrderByAggregateInput, { nullable: true })
+  _avg?: MasterServiceAvgOrderByAggregateInput;
 
-    @Field(() => MasterServiceAvgOrderByAggregateInput, {nullable:true})
-    _avg?: MasterServiceAvgOrderByAggregateInput;
+  @Field(() => MasterServiceMaxOrderByAggregateInput, { nullable: true })
+  _max?: MasterServiceMaxOrderByAggregateInput;
 
-    @Field(() => MasterServiceMaxOrderByAggregateInput, {nullable:true})
-    _max?: MasterServiceMaxOrderByAggregateInput;
+  @Field(() => MasterServiceMinOrderByAggregateInput, { nullable: true })
+  _min?: MasterServiceMinOrderByAggregateInput;
 
-    @Field(() => MasterServiceMinOrderByAggregateInput, {nullable:true})
-    _min?: MasterServiceMinOrderByAggregateInput;
-
-    @Field(() => MasterServiceSumOrderByAggregateInput, {nullable:true})
-    _sum?: MasterServiceSumOrderByAggregateInput;
+  @Field(() => MasterServiceSumOrderByAggregateInput, { nullable: true })
+  _sum?: MasterServiceSumOrderByAggregateInput;
 }

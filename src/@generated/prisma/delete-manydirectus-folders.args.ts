@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManydirectusFoldersArgs {
-
-    @Field(() => directus_foldersWhereInput, {nullable:true})
-    @Type(() => directus_foldersWhereInput)
-    where?: directus_foldersWhereInput;
+  @Field(() => directus_foldersWhereInput, { nullable: true })
+  @Type(() => directus_foldersWhereInput)
+  where?: directus_foldersWhereInput;
 }

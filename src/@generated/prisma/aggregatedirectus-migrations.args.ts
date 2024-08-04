@@ -8,20 +8,22 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class AggregatedirectusMigrationsArgs {
+  @Field(() => directus_migrationsWhereInput, { nullable: true })
+  @Type(() => directus_migrationsWhereInput)
+  where?: directus_migrationsWhereInput;
 
-    @Field(() => directus_migrationsWhereInput, {nullable:true})
-    @Type(() => directus_migrationsWhereInput)
-    where?: directus_migrationsWhereInput;
+  @Field(
+    () => [directus_migrationsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<directus_migrationsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_migrationsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_migrationsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_migrationsWhereUniqueInput, { nullable: true })
+  cursor?: directus_migrationsWhereUniqueInput;
 
-    @Field(() => directus_migrationsWhereUniqueInput, {nullable:true})
-    cursor?: directus_migrationsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

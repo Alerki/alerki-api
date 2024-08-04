@@ -7,12 +7,13 @@ import { NotificationCreateWithoutUserRecipientOnNotificationInput } from './not
 
 @InputType()
 export class NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput {
+  @Field(() => NotificationWhereUniqueInput, { nullable: false })
+  @Type(() => NotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<NotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => NotificationWhereUniqueInput, {nullable:false})
-    @Type(() => NotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<NotificationWhereUniqueInput, 'id'>;
-
-    @Field(() => NotificationCreateWithoutUserRecipientOnNotificationInput, {nullable:false})
-    @Type(() => NotificationCreateWithoutUserRecipientOnNotificationInput)
-    create!: NotificationCreateWithoutUserRecipientOnNotificationInput;
+  @Field(() => NotificationCreateWithoutUserRecipientOnNotificationInput, {
+    nullable: false,
+  })
+  @Type(() => NotificationCreateWithoutUserRecipientOnNotificationInput)
+  create!: NotificationCreateWithoutUserRecipientOnNotificationInput;
 }

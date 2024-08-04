@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueUserSenderOnNotificationOrThrowArgs {
-
-    @Field(() => UserSenderOnNotificationWhereUniqueInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
+  @Field(() => UserSenderOnNotificationWhereUniqueInput, { nullable: false })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
 }

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneCurrencyArgs {
-
-    @Field(() => CurrencyCreateInput, {nullable:false})
-    @Type(() => CurrencyCreateInput)
-    data!: CurrencyCreateInput;
+  @Field(() => CurrencyCreateInput, { nullable: false })
+  @Type(() => CurrencyCreateInput)
+  data!: CurrencyCreateInput;
 }

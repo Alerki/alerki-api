@@ -10,23 +10,24 @@ import { UserPictureScalarFieldEnum } from './user-picture-scalar-field.enum';
 
 @ArgsType()
 export class FindManyUserPictureArgs {
+  @Field(() => UserPictureWhereInput, { nullable: true })
+  @Type(() => UserPictureWhereInput)
+  where?: UserPictureWhereInput;
 
-    @Field(() => UserPictureWhereInput, {nullable:true})
-    @Type(() => UserPictureWhereInput)
-    where?: UserPictureWhereInput;
+  @Field(() => [UserPictureOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<UserPictureOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [UserPictureOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<UserPictureOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => UserPictureWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
 
-    @Field(() => UserPictureWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [UserPictureScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof UserPictureScalarFieldEnum>;
+  @Field(() => [UserPictureScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof UserPictureScalarFieldEnum>;
 }

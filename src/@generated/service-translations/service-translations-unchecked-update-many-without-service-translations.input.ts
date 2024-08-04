@@ -6,13 +6,12 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 
 @InputType()
 export class Service_translationsUncheckedUpdateManyWithoutService_translationsInput {
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  id?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  languages_id?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    languages_id?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 }

@@ -9,20 +9,25 @@ import { directus_sessionsWhereUniqueInput } from './directus-sessions-where-uni
 
 @InputType()
 export class directus_sessionsCreateNestedManyWithoutDirectus_usersInput {
+  @Field(() => [directus_sessionsCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sessionsCreateWithoutDirectus_usersInput)
+  create?: Array<directus_sessionsCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sessionsCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sessionsCreateWithoutDirectus_usersInput)
-    create?: Array<directus_sessionsCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_sessionsCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sessionsCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_sessionsCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sessionsCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sessionsCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_sessionsCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(() => directus_sessionsCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_sessionsCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_sessionsCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_sessionsCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_sessionsCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_sessionsCreateManyDirectus_usersInputEnvelope;
-
-    @Field(() => [directus_sessionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
+  @Field(() => [directus_sessionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
 }

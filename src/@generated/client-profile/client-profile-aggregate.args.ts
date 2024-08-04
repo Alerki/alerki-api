@@ -12,29 +12,30 @@ import { ClientProfileMaxAggregateInput } from './client-profile-max-aggregate.i
 
 @ArgsType()
 export class ClientProfileAggregateArgs {
+  @Field(() => ClientProfileWhereInput, { nullable: true })
+  @Type(() => ClientProfileWhereInput)
+  where?: ClientProfileWhereInput;
 
-    @Field(() => ClientProfileWhereInput, {nullable:true})
-    @Type(() => ClientProfileWhereInput)
-    where?: ClientProfileWhereInput;
+  @Field(() => [ClientProfileOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<ClientProfileOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [ClientProfileOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<ClientProfileOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => ClientProfileCountAggregateInput, { nullable: true })
+  _count?: ClientProfileCountAggregateInput;
 
-    @Field(() => ClientProfileCountAggregateInput, {nullable:true})
-    _count?: ClientProfileCountAggregateInput;
+  @Field(() => ClientProfileMinAggregateInput, { nullable: true })
+  _min?: ClientProfileMinAggregateInput;
 
-    @Field(() => ClientProfileMinAggregateInput, {nullable:true})
-    _min?: ClientProfileMinAggregateInput;
-
-    @Field(() => ClientProfileMaxAggregateInput, {nullable:true})
-    _max?: ClientProfileMaxAggregateInput;
+  @Field(() => ClientProfileMaxAggregateInput, { nullable: true })
+  _max?: ClientProfileMaxAggregateInput;
 }

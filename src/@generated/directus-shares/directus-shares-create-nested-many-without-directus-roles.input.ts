@@ -9,20 +9,25 @@ import { directus_sharesWhereUniqueInput } from './directus-shares-where-unique.
 
 @InputType()
 export class directus_sharesCreateNestedManyWithoutDirectus_rolesInput {
+  @Field(() => [directus_sharesCreateWithoutDirectus_rolesInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sharesCreateWithoutDirectus_rolesInput)
+  create?: Array<directus_sharesCreateWithoutDirectus_rolesInput>;
 
-    @Field(() => [directus_sharesCreateWithoutDirectus_rolesInput], {nullable:true})
-    @Type(() => directus_sharesCreateWithoutDirectus_rolesInput)
-    create?: Array<directus_sharesCreateWithoutDirectus_rolesInput>;
+  @Field(() => [directus_sharesCreateOrConnectWithoutDirectus_rolesInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sharesCreateOrConnectWithoutDirectus_rolesInput)
+  connectOrCreate?: Array<directus_sharesCreateOrConnectWithoutDirectus_rolesInput>;
 
-    @Field(() => [directus_sharesCreateOrConnectWithoutDirectus_rolesInput], {nullable:true})
-    @Type(() => directus_sharesCreateOrConnectWithoutDirectus_rolesInput)
-    connectOrCreate?: Array<directus_sharesCreateOrConnectWithoutDirectus_rolesInput>;
+  @Field(() => directus_sharesCreateManyDirectus_rolesInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_sharesCreateManyDirectus_rolesInputEnvelope)
+  createMany?: directus_sharesCreateManyDirectus_rolesInputEnvelope;
 
-    @Field(() => directus_sharesCreateManyDirectus_rolesInputEnvelope, {nullable:true})
-    @Type(() => directus_sharesCreateManyDirectus_rolesInputEnvelope)
-    createMany?: directus_sharesCreateManyDirectus_rolesInputEnvelope;
-
-    @Field(() => [directus_sharesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sharesWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_sharesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sharesWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
 }

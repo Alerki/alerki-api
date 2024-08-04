@@ -8,16 +8,22 @@ import { directus_usersWhereUniqueInput } from './directus-users-where-unique.in
 
 @InputType()
 export class directus_usersCreateNestedOneWithoutDirectus_presetsInput {
+  @Field(() => directus_usersCreateWithoutDirectus_presetsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_presetsInput)
+  create?: directus_usersCreateWithoutDirectus_presetsInput;
 
-    @Field(() => directus_usersCreateWithoutDirectus_presetsInput, {nullable:true})
-    @Type(() => directus_usersCreateWithoutDirectus_presetsInput)
-    create?: directus_usersCreateWithoutDirectus_presetsInput;
+  @Field(() => directus_usersCreateOrConnectWithoutDirectus_presetsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_usersCreateOrConnectWithoutDirectus_presetsInput)
+  connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_presetsInput;
 
-    @Field(() => directus_usersCreateOrConnectWithoutDirectus_presetsInput, {nullable:true})
-    @Type(() => directus_usersCreateOrConnectWithoutDirectus_presetsInput)
-    connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_presetsInput;
-
-    @Field(() => directus_usersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_usersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_usersWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 }

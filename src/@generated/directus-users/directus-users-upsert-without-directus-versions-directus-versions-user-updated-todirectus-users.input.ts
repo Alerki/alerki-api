@@ -6,12 +6,25 @@ import { directus_usersCreateWithoutDirectus_versions_directus_versions_user_upd
 
 @InputType()
 export class directus_usersUpsertWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput {
+  @Field(
+    () =>
+      directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  update!: directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput)
-    update!: directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput)
-    create!: directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  create!: directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
 }

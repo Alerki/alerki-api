@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManydirectusPresetsArgs {
+  @Field(() => [directus_presetsCreateManyInput], { nullable: false })
+  @Type(() => directus_presetsCreateManyInput)
+  data!: Array<directus_presetsCreateManyInput>;
 
-    @Field(() => [directus_presetsCreateManyInput], {nullable:false})
-    @Type(() => directus_presetsCreateManyInput)
-    data!: Array<directus_presetsCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

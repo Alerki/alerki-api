@@ -8,34 +8,39 @@ import { UuidNullableWithAggregatesFilter } from '../prisma/uuid-nullable-with-a
 
 @InputType()
 export class directus_dashboardsScalarWhereWithAggregatesInput {
+  @Field(() => [directus_dashboardsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_dashboardsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_dashboardsScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_dashboardsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_dashboardsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_dashboardsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_dashboardsScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_dashboardsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_dashboardsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_dashboardsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_dashboardsScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_dashboardsScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  name?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    name?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  icon?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    icon?: StringWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  note?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    note?: StringNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  user_created?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    user_created?: UuidNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    color?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  color?: StringNullableWithAggregatesFilter;
 }

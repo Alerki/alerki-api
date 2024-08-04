@@ -4,13 +4,12 @@ import { directus_foldersWhereInput } from '../directus-folders/directus-folders
 
 @InputType()
 export class Directus_foldersListRelationFilter {
+  @Field(() => directus_foldersWhereInput, { nullable: true })
+  every?: directus_foldersWhereInput;
 
-    @Field(() => directus_foldersWhereInput, {nullable:true})
-    every?: directus_foldersWhereInput;
+  @Field(() => directus_foldersWhereInput, { nullable: true })
+  some?: directus_foldersWhereInput;
 
-    @Field(() => directus_foldersWhereInput, {nullable:true})
-    some?: directus_foldersWhereInput;
-
-    @Field(() => directus_foldersWhereInput, {nullable:true})
-    none?: directus_foldersWhereInput;
+  @Field(() => directus_foldersWhereInput, { nullable: true })
+  none?: directus_foldersWhereInput;
 }

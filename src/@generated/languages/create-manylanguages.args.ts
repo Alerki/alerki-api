@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManylanguagesArgs {
+  @Field(() => [languagesCreateManyInput], { nullable: false })
+  @Type(() => languagesCreateManyInput)
+  data!: Array<languagesCreateManyInput>;
 
-    @Field(() => [languagesCreateManyInput], {nullable:false})
-    @Type(() => languagesCreateManyInput)
-    data!: Array<languagesCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

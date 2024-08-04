@@ -8,16 +8,19 @@ import { directus_sessionsCreateWithoutDirectus_sharesInput } from './directus-s
 
 @InputType()
 export class directus_sessionsUpsertWithWhereUniqueWithoutDirectus_sharesInput {
+  @Field(() => directus_sessionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>;
 
-    @Field(() => directus_sessionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>;
+  @Field(() => directus_sessionsUpdateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_sessionsUpdateWithoutDirectus_sharesInput)
+  update!: directus_sessionsUpdateWithoutDirectus_sharesInput;
 
-    @Field(() => directus_sessionsUpdateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_sessionsUpdateWithoutDirectus_sharesInput)
-    update!: directus_sessionsUpdateWithoutDirectus_sharesInput;
-
-    @Field(() => directus_sessionsCreateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_sessionsCreateWithoutDirectus_sharesInput)
-    create!: directus_sessionsCreateWithoutDirectus_sharesInput;
+  @Field(() => directus_sessionsCreateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_sessionsCreateWithoutDirectus_sharesInput)
+  create!: directus_sessionsCreateWithoutDirectus_sharesInput;
 }

@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_revisionsCount {
-
-    @Field(() => Int, {nullable:false})
-    other_directus_revisions!: number;
+  @Field(() => Int, { nullable: false })
+  other_directus_revisions!: number;
 }

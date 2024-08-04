@@ -8,40 +8,39 @@ import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.inpu
 
 @InputType()
 export class CurrencyScalarWhereInput {
+  @Field(() => [CurrencyScalarWhereInput], { nullable: true })
+  AND?: Array<CurrencyScalarWhereInput>;
 
-    @Field(() => [CurrencyScalarWhereInput], {nullable:true})
-    AND?: Array<CurrencyScalarWhereInput>;
+  @Field(() => [CurrencyScalarWhereInput], { nullable: true })
+  OR?: Array<CurrencyScalarWhereInput>;
 
-    @Field(() => [CurrencyScalarWhereInput], {nullable:true})
-    OR?: Array<CurrencyScalarWhereInput>;
+  @Field(() => [CurrencyScalarWhereInput], { nullable: true })
+  NOT?: Array<CurrencyScalarWhereInput>;
 
-    @Field(() => [CurrencyScalarWhereInput], {nullable:true})
-    NOT?: Array<CurrencyScalarWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  status?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    status?: StringFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  sort?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    sort?: IntNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_updated?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_updated?: UuidNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  code?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    code?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    character?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  character?: StringFilter;
 }

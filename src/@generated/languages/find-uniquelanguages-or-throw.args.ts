@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniquelanguagesOrThrowArgs {
-
-    @Field(() => languagesWhereUniqueInput, {nullable:false})
-    @Type(() => languagesWhereUniqueInput)
-    where!: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
+  @Field(() => languagesWhereUniqueInput, { nullable: false })
+  @Type(() => languagesWhereUniqueInput)
+  where!: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
 }

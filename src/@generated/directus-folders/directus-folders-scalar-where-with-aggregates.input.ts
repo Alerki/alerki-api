@@ -6,22 +6,27 @@ import { UuidNullableWithAggregatesFilter } from '../prisma/uuid-nullable-with-a
 
 @InputType()
 export class directus_foldersScalarWhereWithAggregatesInput {
+  @Field(() => [directus_foldersScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_foldersScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_foldersScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_foldersScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_foldersScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_foldersScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_foldersScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_foldersScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_foldersScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_foldersScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_foldersScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_foldersScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  name?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    name?: StringWithAggregatesFilter;
-
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    parent?: UuidNullableWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  parent?: UuidNullableWithAggregatesFilter;
 }

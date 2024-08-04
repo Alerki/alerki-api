@@ -6,16 +6,17 @@ import { Service_translationsUpdateManyWithoutLanguagesNestedInput } from '../se
 
 @InputType()
 export class languagesUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  code?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    code?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  name?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    name?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  direction?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    direction?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => Service_translationsUpdateManyWithoutLanguagesNestedInput, {nullable:true})
-    Service_translations?: Service_translationsUpdateManyWithoutLanguagesNestedInput;
+  @Field(() => Service_translationsUpdateManyWithoutLanguagesNestedInput, {
+    nullable: true,
+  })
+  Service_translations?: Service_translationsUpdateManyWithoutLanguagesNestedInput;
 }

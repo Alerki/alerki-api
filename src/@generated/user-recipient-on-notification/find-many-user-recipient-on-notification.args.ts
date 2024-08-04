@@ -10,23 +10,27 @@ import { UserRecipientOnNotificationScalarFieldEnum } from './user-recipient-on-
 
 @ArgsType()
 export class FindManyUserRecipientOnNotificationArgs {
+  @Field(() => UserRecipientOnNotificationWhereInput, { nullable: true })
+  @Type(() => UserRecipientOnNotificationWhereInput)
+  where?: UserRecipientOnNotificationWhereInput;
 
-    @Field(() => UserRecipientOnNotificationWhereInput, {nullable:true})
-    @Type(() => UserRecipientOnNotificationWhereInput)
-    where?: UserRecipientOnNotificationWhereInput;
+  @Field(
+    () => [
+      UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput,
+    ],
+    { nullable: true },
+  )
+  orderBy?: Array<UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => UserRecipientOnNotificationWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => UserRecipientOnNotificationWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [UserRecipientOnNotificationScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof UserRecipientOnNotificationScalarFieldEnum>;
+  @Field(() => [UserRecipientOnNotificationScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof UserRecipientOnNotificationScalarFieldEnum>;
 }

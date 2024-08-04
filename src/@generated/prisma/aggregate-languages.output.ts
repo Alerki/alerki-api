@@ -6,13 +6,12 @@ import { LanguagesMaxAggregate } from './languages-max-aggregate.output';
 
 @ObjectType()
 export class AggregateLanguages {
+  @Field(() => LanguagesCountAggregate, { nullable: true })
+  _count?: LanguagesCountAggregate;
 
-    @Field(() => LanguagesCountAggregate, {nullable:true})
-    _count?: LanguagesCountAggregate;
+  @Field(() => LanguagesMinAggregate, { nullable: true })
+  _min?: LanguagesMinAggregate;
 
-    @Field(() => LanguagesMinAggregate, {nullable:true})
-    _min?: LanguagesMinAggregate;
-
-    @Field(() => LanguagesMaxAggregate, {nullable:true})
-    _max?: LanguagesMaxAggregate;
+  @Field(() => LanguagesMaxAggregate, { nullable: true })
+  _max?: LanguagesMaxAggregate;
 }

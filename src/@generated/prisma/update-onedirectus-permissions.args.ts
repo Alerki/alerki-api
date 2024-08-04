@@ -6,12 +6,11 @@ import { directus_permissionsWhereUniqueInput } from '../directus-permissions/di
 
 @ArgsType()
 export class UpdateOnedirectusPermissionsArgs {
+  @Field(() => directus_permissionsUpdateInput, { nullable: false })
+  @Type(() => directus_permissionsUpdateInput)
+  data!: directus_permissionsUpdateInput;
 
-    @Field(() => directus_permissionsUpdateInput, {nullable:false})
-    @Type(() => directus_permissionsUpdateInput)
-    data!: directus_permissionsUpdateInput;
-
-    @Field(() => directus_permissionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_permissionsWhereUniqueInput)
-    where!: directus_permissionsWhereUniqueInput;
+  @Field(() => directus_permissionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_permissionsWhereUniqueInput)
+  where!: directus_permissionsWhereUniqueInput;
 }

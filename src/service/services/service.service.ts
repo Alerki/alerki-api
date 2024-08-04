@@ -9,103 +9,73 @@ import { PrismaService } from '../../shared/modules/prisma/prisma.service';
 
 @Injectable()
 export class ServiceService {
-  // constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
-  // async findFirst<T extends Prisma.Prisma.ServiceFindFirstArgs>(
-  //   data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceFindFirstArgs>,
-  // ) {
-  //   return this.prismaService.service.findFirst(data);
-  // }
+  async findExists<T extends Prisma.Prisma.Service_translationsFindFirstArgs>(
+    data: Prisma.Prisma.SelectSubset<
+      T,
+      Prisma.Prisma.Service_translationsFindFirstArgs
+    >,
+    callback?: () => never,
+  ) {
+    const candidate =
+      await this.prismaService.service_translations.findFirst(data);
 
-  // async findMany<T extends Prisma.Prisma.ServiceFindManyArgs>(
-  //   data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceFindManyArgs>,
-  // ) {
-  //   return this.prismaService.service.findMany(data);
-  // }
+    if (!candidate) {
+      if (callback) {
+        callback();
+      }
 
-  // async findExists<T extends Prisma.Prisma.ServiceFindFirstArgs>(
-  //   data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceFindFirstArgs>,
-  //   callback?: () => never,
-  // ) {
-  //   const candidate = await this.prismaService.service.findFirst(data);
+      throw new NotFoundException('Service not exists');
+    }
 
-  //   if (!candidate) {
-  //     if (callback) {
-  //       callback();
-  //     }
+    return candidate;
+  }
 
-  //     throw new NotFoundException('Service not exists');
-  //   }
+  async searchByName(name: string, limit?: number, page?: number) {
+    const r = await this.prismaService.service_translations.findMany({
+      where: {
+        name: {
+          contains: name.split(' ').join(' & '),
+          // search: name.split(' ').join(' & '),
+        },
+      },
+      orderBy: {
+        Service: {
+          date_created: 'desc',
+        },
+      },
+      include: {
+        Service: {
+          select: {
+            date_created: true,
+          },
+        },
+      },
+      take: limit || 100,
+      skip: limit ? limit * ((page || 1) - 1) : 0,
+    });
 
-  //   return candidate;
-  // }
+    return {
+      totalNumber: await this.prismaService.service_translations.count({
+        where: {
+          name: {
+            contains: name.split(' ').join(' & '),
+          },
+        },
+      }),
+      data: r,
+    };
+  }
 
-  // async update<T extends Prisma.Prisma.ServiceUpdateArgs>(
-  //   data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceUpdateArgs>,
-  // ) {
-  //   return this.prismaService.service.update(data);
-  // }
-
-  // async create(name: string) {
-  //   const candidate = await this.prismaService.service.findFirst({
-  //     where: {
-  //       name,
-  //     },
-  //   });
-
-  //   if (candidate) {
-  //     throw new BadRequestException('Such service already exists');
-  //   }
-
-  //   return this.prismaService.service.create({
-  //     data: { name },
-  //   });
-  // }
-
-  // async delete<T extends Prisma.Prisma.ServiceDeleteArgs>(
-  //   data: Prisma.Prisma.SelectSubset<T, Prisma.Prisma.ServiceDeleteArgs>,
-  // ) {
-  //   return this.prismaService.service.delete(data);
-  // }
-
-  // async searchByName(name: string, limit: number, page: number) {
-  //   const r = await this.findMany({
-  //     where: {
-  //       name: {
-  //         contains: name.split(' ').join(' & '),
-  //         // search: name.split(' ').join(' & '),
-  //       },
-  //       available: true,
-  //     },
-  //     orderBy: {
-  //       createdAt: 'desc',
-  //     },
-  //     take: limit,
-  //     skip: limit * (page - 1),
-  //   });
-
-  //   return {
-  //     totalNumber: await this.prismaService.service.count({
-  //       where: {
-  //         name: {
-  //           contains: name.split(' ').join(' & '),
-  //         },
-  //         available: true,
-  //       },
-  //     }),
-  //     data: r,
-  //   };
-  // }
-
-  // async searchFirstByName(name: string) {
-  //   return this.findFirst({
-  //     where: {
-  //       name: {
-  //         contains: name.split(' ').join(' & '),
-  //         // search: name.split(' ').join(' & '),
-  //       },
-  //       available: true,
-  //     },
-  //   });
-  // }
+  async searchFirstByName(name: string) {
+    return this.prismaService.service_translations.findFirst({
+      where: {
+        name: {
+          contains: name.split(' ').join(' & '),
+          // search: name.split(' ').join(' & '),
+        },
+      },
+    });
+  }
 }

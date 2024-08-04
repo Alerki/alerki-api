@@ -6,12 +6,11 @@ import { MasterProfileWhereInput } from './master-profile-where.input';
 
 @ArgsType()
 export class UpdateManyMasterProfileArgs {
+  @Field(() => MasterProfileUpdateManyMutationInput, { nullable: false })
+  @Type(() => MasterProfileUpdateManyMutationInput)
+  data!: MasterProfileUpdateManyMutationInput;
 
-    @Field(() => MasterProfileUpdateManyMutationInput, {nullable:false})
-    @Type(() => MasterProfileUpdateManyMutationInput)
-    data!: MasterProfileUpdateManyMutationInput;
-
-    @Field(() => MasterProfileWhereInput, {nullable:true})
-    @Type(() => MasterProfileWhereInput)
-    where?: MasterProfileWhereInput;
+  @Field(() => MasterProfileWhereInput, { nullable: true })
+  @Type(() => MasterProfileWhereInput)
+  where?: MasterProfileWhereInput;
 }

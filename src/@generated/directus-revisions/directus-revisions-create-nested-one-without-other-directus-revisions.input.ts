@@ -8,16 +8,22 @@ import { directus_revisionsWhereUniqueInput } from './directus-revisions-where-u
 
 @InputType()
 export class directus_revisionsCreateNestedOneWithoutOther_directus_revisionsInput {
+  @Field(() => directus_revisionsCreateWithoutOther_directus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_revisionsCreateWithoutOther_directus_revisionsInput)
+  create?: directus_revisionsCreateWithoutOther_directus_revisionsInput;
 
-    @Field(() => directus_revisionsCreateWithoutOther_directus_revisionsInput, {nullable:true})
-    @Type(() => directus_revisionsCreateWithoutOther_directus_revisionsInput)
-    create?: directus_revisionsCreateWithoutOther_directus_revisionsInput;
+  @Field(
+    () => directus_revisionsCreateOrConnectWithoutOther_directus_revisionsInput,
+    { nullable: true },
+  )
+  @Type(
+    () => directus_revisionsCreateOrConnectWithoutOther_directus_revisionsInput,
+  )
+  connectOrCreate?: directus_revisionsCreateOrConnectWithoutOther_directus_revisionsInput;
 
-    @Field(() => directus_revisionsCreateOrConnectWithoutOther_directus_revisionsInput, {nullable:true})
-    @Type(() => directus_revisionsCreateOrConnectWithoutOther_directus_revisionsInput)
-    connectOrCreate?: directus_revisionsCreateOrConnectWithoutOther_directus_revisionsInput;
-
-    @Field(() => directus_revisionsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_revisionsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>;
+  @Field(() => directus_revisionsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_revisionsWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>;
 }

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyCurrencyArgs {
-
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    @Type(() => CurrencyWhereInput)
-    where?: CurrencyWhereInput;
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  @Type(() => CurrencyWhereInput)
+  where?: CurrencyWhereInput;
 }

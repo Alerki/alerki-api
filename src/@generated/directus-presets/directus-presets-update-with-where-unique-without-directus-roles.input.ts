@@ -7,12 +7,13 @@ import { directus_presetsUpdateWithoutDirectus_rolesInput } from './directus-pre
 
 @InputType()
 export class directus_presetsUpdateWithWhereUniqueWithoutDirectus_rolesInput {
+  @Field(() => directus_presetsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_presetsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_presetsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_presetsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_presetsUpdateWithoutDirectus_rolesInput, {nullable:false})
-    @Type(() => directus_presetsUpdateWithoutDirectus_rolesInput)
-    data!: directus_presetsUpdateWithoutDirectus_rolesInput;
+  @Field(() => directus_presetsUpdateWithoutDirectus_rolesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_presetsUpdateWithoutDirectus_rolesInput)
+  data!: directus_presetsUpdateWithoutDirectus_rolesInput;
 }

@@ -6,12 +6,11 @@ import { directus_usersUpdateManyMutationInput } from './directus-users-update-m
 
 @InputType()
 export class directus_usersUpdateManyWithWhereWithoutDirectus_rolesInput {
+  @Field(() => directus_usersScalarWhereInput, { nullable: false })
+  @Type(() => directus_usersScalarWhereInput)
+  where!: directus_usersScalarWhereInput;
 
-    @Field(() => directus_usersScalarWhereInput, {nullable:false})
-    @Type(() => directus_usersScalarWhereInput)
-    where!: directus_usersScalarWhereInput;
-
-    @Field(() => directus_usersUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_usersUpdateManyMutationInput)
-    data!: directus_usersUpdateManyMutationInput;
+  @Field(() => directus_usersUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_usersUpdateManyMutationInput)
+  data!: directus_usersUpdateManyMutationInput;
 }

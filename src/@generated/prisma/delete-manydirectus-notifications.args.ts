@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManydirectusNotificationsArgs {
-
-    @Field(() => directus_notificationsWhereInput, {nullable:true})
-    @Type(() => directus_notificationsWhereInput)
-    where?: directus_notificationsWhereInput;
+  @Field(() => directus_notificationsWhereInput, { nullable: true })
+  @Type(() => directus_notificationsWhereInput)
+  where?: directus_notificationsWhereInput;
 }

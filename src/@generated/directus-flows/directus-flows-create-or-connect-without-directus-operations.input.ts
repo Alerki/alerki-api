@@ -7,12 +7,13 @@ import { directus_flowsCreateWithoutDirectus_operationsInput } from './directus-
 
 @InputType()
 export class directus_flowsCreateOrConnectWithoutDirectus_operationsInput {
+  @Field(() => directus_flowsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_flowsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>;
 
-    @Field(() => directus_flowsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_flowsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>;
-
-    @Field(() => directus_flowsCreateWithoutDirectus_operationsInput, {nullable:false})
-    @Type(() => directus_flowsCreateWithoutDirectus_operationsInput)
-    create!: directus_flowsCreateWithoutDirectus_operationsInput;
+  @Field(() => directus_flowsCreateWithoutDirectus_operationsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_flowsCreateWithoutDirectus_operationsInput)
+  create!: directus_flowsCreateWithoutDirectus_operationsInput;
 }

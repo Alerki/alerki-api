@@ -21,7 +21,11 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     LocalStrategy,
     JwtStrategy,
   ],
-  imports: [UserModule, JwtModule, ClientProfileModule],
+  imports: [
+    UserModule,
+    JwtModule,
+    // ClientProfileModule
+  ],
   exports: [AuthService, SessionService, JwtTokenService],
 })
 export class AuthModule {}

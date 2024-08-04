@@ -7,12 +7,13 @@ import { MasterServiceUpdateWithoutService_translationsInput } from './master-se
 
 @InputType()
 export class MasterServiceUpdateWithWhereUniqueWithoutService_translationsInput {
+  @Field(() => MasterServiceWhereUniqueInput, { nullable: false })
+  @Type(() => MasterServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterServiceWhereUniqueInput, {nullable:false})
-    @Type(() => MasterServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterServiceUpdateWithoutService_translationsInput, {nullable:false})
-    @Type(() => MasterServiceUpdateWithoutService_translationsInput)
-    data!: MasterServiceUpdateWithoutService_translationsInput;
+  @Field(() => MasterServiceUpdateWithoutService_translationsInput, {
+    nullable: false,
+  })
+  @Type(() => MasterServiceUpdateWithoutService_translationsInput)
+  data!: MasterServiceUpdateWithoutService_translationsInput;
 }

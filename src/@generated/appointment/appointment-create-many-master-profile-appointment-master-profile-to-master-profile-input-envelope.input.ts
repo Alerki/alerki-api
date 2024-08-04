@@ -5,11 +5,18 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInputEnvelope {
+  @Field(
+    () => [
+      AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInput,
+    ],
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInput,
+  )
+  data!: Array<AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInput>;
 
-    @Field(() => [AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInput], {nullable:false})
-    @Type(() => AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInput)
-    data!: Array<AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

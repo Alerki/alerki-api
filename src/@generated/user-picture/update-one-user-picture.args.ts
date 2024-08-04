@@ -7,12 +7,11 @@ import { UserPictureWhereUniqueInput } from './user-picture-where-unique.input';
 
 @ArgsType()
 export class UpdateOneUserPictureArgs {
+  @Field(() => UserPictureUpdateInput, { nullable: false })
+  @Type(() => UserPictureUpdateInput)
+  data!: UserPictureUpdateInput;
 
-    @Field(() => UserPictureUpdateInput, {nullable:false})
-    @Type(() => UserPictureUpdateInput)
-    data!: UserPictureUpdateInput;
-
-    @Field(() => UserPictureWhereUniqueInput, {nullable:false})
-    @Type(() => UserPictureWhereUniqueInput)
-    where!: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
+  @Field(() => UserPictureWhereUniqueInput, { nullable: false })
+  @Type(() => UserPictureWhereUniqueInput)
+  where!: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
 }

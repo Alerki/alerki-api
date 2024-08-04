@@ -6,12 +6,11 @@ import { Service_translationsUpdateManyMutationInput } from './service-translati
 
 @InputType()
 export class Service_translationsUpdateManyWithWhereWithoutServiceInput {
+  @Field(() => Service_translationsScalarWhereInput, { nullable: false })
+  @Type(() => Service_translationsScalarWhereInput)
+  where!: Service_translationsScalarWhereInput;
 
-    @Field(() => Service_translationsScalarWhereInput, {nullable:false})
-    @Type(() => Service_translationsScalarWhereInput)
-    where!: Service_translationsScalarWhereInput;
-
-    @Field(() => Service_translationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => Service_translationsUpdateManyMutationInput)
-    data!: Service_translationsUpdateManyMutationInput;
+  @Field(() => Service_translationsUpdateManyMutationInput, { nullable: false })
+  @Type(() => Service_translationsUpdateManyMutationInput)
+  data!: Service_translationsUpdateManyMutationInput;
 }

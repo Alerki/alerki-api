@@ -6,12 +6,13 @@ import { directus_notificationsUpdateManyMutationInput } from './directus-notifi
 
 @InputType()
 export class directus_notificationsUpdateManyWithWhereWithoutDirectus_users_directus_notifications_senderTodirectus_usersInput {
+  @Field(() => directus_notificationsScalarWhereInput, { nullable: false })
+  @Type(() => directus_notificationsScalarWhereInput)
+  where!: directus_notificationsScalarWhereInput;
 
-    @Field(() => directus_notificationsScalarWhereInput, {nullable:false})
-    @Type(() => directus_notificationsScalarWhereInput)
-    where!: directus_notificationsScalarWhereInput;
-
-    @Field(() => directus_notificationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_notificationsUpdateManyMutationInput)
-    data!: directus_notificationsUpdateManyMutationInput;
+  @Field(() => directus_notificationsUpdateManyMutationInput, {
+    nullable: false,
+  })
+  @Type(() => directus_notificationsUpdateManyMutationInput)
+  data!: directus_notificationsUpdateManyMutationInput;
 }

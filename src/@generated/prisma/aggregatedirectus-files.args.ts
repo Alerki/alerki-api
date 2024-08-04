@@ -8,20 +8,21 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class AggregatedirectusFilesArgs {
+  @Field(() => directus_filesWhereInput, { nullable: true })
+  @Type(() => directus_filesWhereInput)
+  where?: directus_filesWhereInput;
 
-    @Field(() => directus_filesWhereInput, {nullable:true})
-    @Type(() => directus_filesWhereInput)
-    where?: directus_filesWhereInput;
+  @Field(() => [directus_filesOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_filesOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_filesOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_filesOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_filesWhereUniqueInput, { nullable: true })
+  cursor?: directus_filesWhereUniqueInput;
 
-    @Field(() => directus_filesWhereUniqueInput, {nullable:true})
-    cursor?: directus_filesWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

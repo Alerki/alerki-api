@@ -10,28 +10,41 @@ import { UserUpdateManyWithoutMasterProfileNestedInput } from '../user/user-upda
 
 @InputType()
 export class MasterProfileUpdateWithoutMasterWeeklyScheduleInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(
+    () =>
+      AppointmentUpdateManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileNestedInput,
+    { nullable: true },
+  )
+  Appointment_Appointment_masterProfileToMasterProfile?: AppointmentUpdateManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileNestedInput;
 
-    @Field(() => AppointmentUpdateManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileNestedInput, {nullable:true})
-    Appointment_Appointment_masterProfileToMasterProfile?: AppointmentUpdateManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileNestedInput;
+  @Field(
+    () =>
+      AppointmentUpdateManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileNestedInput,
+    { nullable: true },
+  )
+  Appointment_Appointment_masterServiceToMasterProfile?: AppointmentUpdateManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileNestedInput;
 
-    @Field(() => AppointmentUpdateManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileNestedInput, {nullable:true})
-    Appointment_Appointment_masterServiceToMasterProfile?: AppointmentUpdateManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileNestedInput;
+  @Field(() => MasterScheduleUpdateManyWithoutMasterProfileNestedInput, {
+    nullable: true,
+  })
+  MasterSchedule?: MasterScheduleUpdateManyWithoutMasterProfileNestedInput;
 
-    @Field(() => MasterScheduleUpdateManyWithoutMasterProfileNestedInput, {nullable:true})
-    MasterSchedule?: MasterScheduleUpdateManyWithoutMasterProfileNestedInput;
+  @Field(() => MasterServiceUpdateManyWithoutMasterProfileNestedInput, {
+    nullable: true,
+  })
+  MasterService?: MasterServiceUpdateManyWithoutMasterProfileNestedInput;
 
-    @Field(() => MasterServiceUpdateManyWithoutMasterProfileNestedInput, {nullable:true})
-    MasterService?: MasterServiceUpdateManyWithoutMasterProfileNestedInput;
-
-    @Field(() => UserUpdateManyWithoutMasterProfileNestedInput, {nullable:true})
-    User?: UserUpdateManyWithoutMasterProfileNestedInput;
+  @Field(() => UserUpdateManyWithoutMasterProfileNestedInput, {
+    nullable: true,
+  })
+  User?: UserUpdateManyWithoutMasterProfileNestedInput;
 }

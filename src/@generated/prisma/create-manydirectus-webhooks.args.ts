@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManydirectusWebhooksArgs {
+  @Field(() => [directus_webhooksCreateManyInput], { nullable: false })
+  @Type(() => directus_webhooksCreateManyInput)
+  data!: Array<directus_webhooksCreateManyInput>;
 
-    @Field(() => [directus_webhooksCreateManyInput], {nullable:false})
-    @Type(() => directus_webhooksCreateManyInput)
-    data!: Array<directus_webhooksCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

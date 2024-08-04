@@ -4,13 +4,12 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class languagesMaxOrderByAggregateInput {
+  @Field(() => SortOrder, { nullable: true })
+  code?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    code?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    direction?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  direction?: keyof typeof SortOrder;
 }

@@ -3,13 +3,15 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class NotificationMaxAggregateInput {
+  @Field(() => Boolean, { nullable: true })
+  id?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
+  @Field(() => Boolean, { nullable: true })
+  date_created?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    date_created?: true;
+  @Field(() => Boolean, { nullable: true })
+  date_updated?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    date_updated?: true;
+  @Field(() => Boolean, { nullable: true })
+  type?: true;
 }

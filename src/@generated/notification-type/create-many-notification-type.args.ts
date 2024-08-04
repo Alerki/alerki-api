@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManyNotificationTypeArgs {
+  @Field(() => [NotificationTypeCreateManyInput], { nullable: false })
+  @Type(() => NotificationTypeCreateManyInput)
+  data!: Array<NotificationTypeCreateManyInput>;
 
-    @Field(() => [NotificationTypeCreateManyInput], {nullable:false})
-    @Type(() => NotificationTypeCreateManyInput)
-    data!: Array<NotificationTypeCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

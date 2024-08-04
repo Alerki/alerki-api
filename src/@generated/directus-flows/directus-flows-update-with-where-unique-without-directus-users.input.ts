@@ -7,12 +7,13 @@ import { directus_flowsUpdateWithoutDirectus_usersInput } from './directus-flows
 
 @InputType()
 export class directus_flowsUpdateWithWhereUniqueWithoutDirectus_usersInput {
+  @Field(() => directus_flowsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_flowsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>;
 
-    @Field(() => directus_flowsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_flowsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>;
-
-    @Field(() => directus_flowsUpdateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_flowsUpdateWithoutDirectus_usersInput)
-    data!: directus_flowsUpdateWithoutDirectus_usersInput;
+  @Field(() => directus_flowsUpdateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_flowsUpdateWithoutDirectus_usersInput)
+  data!: directus_flowsUpdateWithoutDirectus_usersInput;
 }

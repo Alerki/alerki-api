@@ -9,20 +9,31 @@ import { directus_collectionsWhereUniqueInput } from './directus-collections-whe
 
 @InputType()
 export class directus_collectionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput {
+  @Field(() => [directus_collectionsCreateWithoutDirectus_collectionsInput], {
+    nullable: true,
+  })
+  @Type(() => directus_collectionsCreateWithoutDirectus_collectionsInput)
+  create?: Array<directus_collectionsCreateWithoutDirectus_collectionsInput>;
 
-    @Field(() => [directus_collectionsCreateWithoutDirectus_collectionsInput], {nullable:true})
-    @Type(() => directus_collectionsCreateWithoutDirectus_collectionsInput)
-    create?: Array<directus_collectionsCreateWithoutDirectus_collectionsInput>;
+  @Field(
+    () => [directus_collectionsCreateOrConnectWithoutDirectus_collectionsInput],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_collectionsCreateOrConnectWithoutDirectus_collectionsInput,
+  )
+  connectOrCreate?: Array<directus_collectionsCreateOrConnectWithoutDirectus_collectionsInput>;
 
-    @Field(() => [directus_collectionsCreateOrConnectWithoutDirectus_collectionsInput], {nullable:true})
-    @Type(() => directus_collectionsCreateOrConnectWithoutDirectus_collectionsInput)
-    connectOrCreate?: Array<directus_collectionsCreateOrConnectWithoutDirectus_collectionsInput>;
+  @Field(
+    () => directus_collectionsCreateManyDirectus_collectionsInputEnvelope,
+    { nullable: true },
+  )
+  @Type(() => directus_collectionsCreateManyDirectus_collectionsInputEnvelope)
+  createMany?: directus_collectionsCreateManyDirectus_collectionsInputEnvelope;
 
-    @Field(() => directus_collectionsCreateManyDirectus_collectionsInputEnvelope, {nullable:true})
-    @Type(() => directus_collectionsCreateManyDirectus_collectionsInputEnvelope)
-    createMany?: directus_collectionsCreateManyDirectus_collectionsInputEnvelope;
-
-    @Field(() => [directus_collectionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_collectionsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>>;
+  @Field(() => [directus_collectionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_collectionsWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>
+  >;
 }

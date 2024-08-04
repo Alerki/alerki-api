@@ -7,46 +7,45 @@ import { MasterWeeklyScheduleCount } from './master-weekly-schedule-count.output
 
 @ObjectType()
 export class MasterWeeklySchedule {
+  @Field(() => ID, { nullable: false })
+  id!: string;
 
-    @Field(() => ID, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false, defaultValue: 'draft' })
+  status!: string;
 
-    @Field(() => String, {nullable:false,defaultValue:'draft'})
-    status!: string;
+  @Field(() => Int, { nullable: true })
+  sort!: number | null;
 
-    @Field(() => Int, {nullable:true})
-    sort!: number | null;
+  @Field(() => Date, { nullable: true })
+  date_created!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_created!: Date | null;
+  @Field(() => Date, { nullable: true })
+  date_updated!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_updated!: Date | null;
+  @Field(() => Boolean, { nullable: true, defaultValue: true })
+  monday!: boolean | null;
 
-    @Field(() => Boolean, {nullable:true,defaultValue:true})
-    monday!: boolean | null;
+  @Field(() => Boolean, { nullable: false, defaultValue: true })
+  tuesday!: boolean;
 
-    @Field(() => Boolean, {nullable:false,defaultValue:true})
-    tuesday!: boolean;
+  @Field(() => Boolean, { nullable: false, defaultValue: true })
+  wednesday!: boolean;
 
-    @Field(() => Boolean, {nullable:false,defaultValue:true})
-    wednesday!: boolean;
+  @Field(() => Boolean, { nullable: false, defaultValue: true })
+  thursday!: boolean;
 
-    @Field(() => Boolean, {nullable:false,defaultValue:true})
-    thursday!: boolean;
+  @Field(() => Boolean, { nullable: false, defaultValue: true })
+  friday!: boolean;
 
-    @Field(() => Boolean, {nullable:false,defaultValue:true})
-    friday!: boolean;
+  @Field(() => Boolean, { nullable: true, defaultValue: false })
+  saturday!: boolean | null;
 
-    @Field(() => Boolean, {nullable:true,defaultValue:false})
-    saturday!: boolean | null;
+  @Field(() => Boolean, { nullable: true, defaultValue: false })
+  sunday!: boolean | null;
 
-    @Field(() => Boolean, {nullable:true,defaultValue:false})
-    sunday!: boolean | null;
+  @Field(() => [MasterProfile], { nullable: true })
+  MasterProfile?: Array<MasterProfile>;
 
-    @Field(() => [MasterProfile], {nullable:true})
-    MasterProfile?: Array<MasterProfile>;
-
-    @Field(() => MasterWeeklyScheduleCount, {nullable:false})
-    _count?: MasterWeeklyScheduleCount;
+  @Field(() => MasterWeeklyScheduleCount, { nullable: false })
+  _count?: MasterWeeklyScheduleCount;
 }

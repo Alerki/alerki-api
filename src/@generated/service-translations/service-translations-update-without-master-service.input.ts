@@ -6,13 +6,16 @@ import { ServiceUpdateOneWithoutService_translationsNestedInput } from '../servi
 
 @InputType()
 export class Service_translationsUpdateWithoutMasterServiceInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => languagesUpdateOneWithoutService_translationsNestedInput, {
+    nullable: true,
+  })
+  languages?: languagesUpdateOneWithoutService_translationsNestedInput;
 
-    @Field(() => languagesUpdateOneWithoutService_translationsNestedInput, {nullable:true})
-    languages?: languagesUpdateOneWithoutService_translationsNestedInput;
-
-    @Field(() => ServiceUpdateOneWithoutService_translationsNestedInput, {nullable:true})
-    Service?: ServiceUpdateOneWithoutService_translationsNestedInput;
+  @Field(() => ServiceUpdateOneWithoutService_translationsNestedInput, {
+    nullable: true,
+  })
+  Service?: ServiceUpdateOneWithoutService_translationsNestedInput;
 }

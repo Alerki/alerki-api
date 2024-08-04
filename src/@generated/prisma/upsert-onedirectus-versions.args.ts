@@ -7,16 +7,15 @@ import { directus_versionsUpdateInput } from '../directus-versions/directus-vers
 
 @ArgsType()
 export class UpsertOnedirectusVersionsArgs {
+  @Field(() => directus_versionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_versionsWhereUniqueInput)
+  where!: directus_versionsWhereUniqueInput;
 
-    @Field(() => directus_versionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_versionsWhereUniqueInput)
-    where!: directus_versionsWhereUniqueInput;
+  @Field(() => directus_versionsCreateInput, { nullable: false })
+  @Type(() => directus_versionsCreateInput)
+  create!: directus_versionsCreateInput;
 
-    @Field(() => directus_versionsCreateInput, {nullable:false})
-    @Type(() => directus_versionsCreateInput)
-    create!: directus_versionsCreateInput;
-
-    @Field(() => directus_versionsUpdateInput, {nullable:false})
-    @Type(() => directus_versionsUpdateInput)
-    update!: directus_versionsUpdateInput;
+  @Field(() => directus_versionsUpdateInput, { nullable: false })
+  @Type(() => directus_versionsUpdateInput)
+  update!: directus_versionsUpdateInput;
 }

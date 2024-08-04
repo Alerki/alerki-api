@@ -8,16 +8,19 @@ import { directus_versionsCreateWithoutDirectus_collectionsInput } from './direc
 
 @InputType()
 export class directus_versionsUpsertWithWhereUniqueWithoutDirectus_collectionsInput {
+  @Field(() => directus_versionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_versionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_versionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_versionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>;
+  @Field(() => directus_versionsUpdateWithoutDirectus_collectionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_versionsUpdateWithoutDirectus_collectionsInput)
+  update!: directus_versionsUpdateWithoutDirectus_collectionsInput;
 
-    @Field(() => directus_versionsUpdateWithoutDirectus_collectionsInput, {nullable:false})
-    @Type(() => directus_versionsUpdateWithoutDirectus_collectionsInput)
-    update!: directus_versionsUpdateWithoutDirectus_collectionsInput;
-
-    @Field(() => directus_versionsCreateWithoutDirectus_collectionsInput, {nullable:false})
-    @Type(() => directus_versionsCreateWithoutDirectus_collectionsInput)
-    create!: directus_versionsCreateWithoutDirectus_collectionsInput;
+  @Field(() => directus_versionsCreateWithoutDirectus_collectionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_versionsCreateWithoutDirectus_collectionsInput)
+  create!: directus_versionsCreateWithoutDirectus_collectionsInput;
 }

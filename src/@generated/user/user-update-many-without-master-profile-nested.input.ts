@@ -13,48 +13,75 @@ import { UserScalarWhereInput } from './user-scalar-where.input';
 
 @InputType()
 export class UserUpdateManyWithoutMasterProfileNestedInput {
+  @Field(() => [UserCreateWithoutMasterProfileInput], { nullable: true })
+  @Type(() => UserCreateWithoutMasterProfileInput)
+  create?: Array<UserCreateWithoutMasterProfileInput>;
 
-    @Field(() => [UserCreateWithoutMasterProfileInput], {nullable:true})
-    @Type(() => UserCreateWithoutMasterProfileInput)
-    create?: Array<UserCreateWithoutMasterProfileInput>;
+  @Field(() => [UserCreateOrConnectWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => UserCreateOrConnectWithoutMasterProfileInput)
+  connectOrCreate?: Array<UserCreateOrConnectWithoutMasterProfileInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutMasterProfileInput], {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutMasterProfileInput)
-    connectOrCreate?: Array<UserCreateOrConnectWithoutMasterProfileInput>;
+  @Field(() => [UserUpsertWithWhereUniqueWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => UserUpsertWithWhereUniqueWithoutMasterProfileInput)
+  upsert?: Array<UserUpsertWithWhereUniqueWithoutMasterProfileInput>;
 
-    @Field(() => [UserUpsertWithWhereUniqueWithoutMasterProfileInput], {nullable:true})
-    @Type(() => UserUpsertWithWhereUniqueWithoutMasterProfileInput)
-    upsert?: Array<UserUpsertWithWhereUniqueWithoutMasterProfileInput>;
+  @Field(() => UserCreateManyMasterProfileInputEnvelope, { nullable: true })
+  @Type(() => UserCreateManyMasterProfileInputEnvelope)
+  createMany?: UserCreateManyMasterProfileInputEnvelope;
 
-    @Field(() => UserCreateManyMasterProfileInputEnvelope, {nullable:true})
-    @Type(() => UserCreateManyMasterProfileInputEnvelope)
-    createMany?: UserCreateManyMasterProfileInputEnvelope;
+  @Field(() => [UserWhereUniqueInput], { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  set?: Array<
+    Prisma.AtLeast<
+      UserWhereUniqueInput,
+      'id' | 'email' | 'phoneNumber' | 'username'
+    >
+  >;
 
-    @Field(() => [UserWhereUniqueInput], {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>>;
+  @Field(() => [UserWhereUniqueInput], { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  disconnect?: Array<
+    Prisma.AtLeast<
+      UserWhereUniqueInput,
+      'id' | 'email' | 'phoneNumber' | 'username'
+    >
+  >;
 
-    @Field(() => [UserWhereUniqueInput], {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>>;
+  @Field(() => [UserWhereUniqueInput], { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  delete?: Array<
+    Prisma.AtLeast<
+      UserWhereUniqueInput,
+      'id' | 'email' | 'phoneNumber' | 'username'
+    >
+  >;
 
-    @Field(() => [UserWhereUniqueInput], {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>>;
+  @Field(() => [UserWhereUniqueInput], { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<
+      UserWhereUniqueInput,
+      'id' | 'email' | 'phoneNumber' | 'username'
+    >
+  >;
 
-    @Field(() => [UserWhereUniqueInput], {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>>;
+  @Field(() => [UserUpdateWithWhereUniqueWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => UserUpdateWithWhereUniqueWithoutMasterProfileInput)
+  update?: Array<UserUpdateWithWhereUniqueWithoutMasterProfileInput>;
 
-    @Field(() => [UserUpdateWithWhereUniqueWithoutMasterProfileInput], {nullable:true})
-    @Type(() => UserUpdateWithWhereUniqueWithoutMasterProfileInput)
-    update?: Array<UserUpdateWithWhereUniqueWithoutMasterProfileInput>;
+  @Field(() => [UserUpdateManyWithWhereWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => UserUpdateManyWithWhereWithoutMasterProfileInput)
+  updateMany?: Array<UserUpdateManyWithWhereWithoutMasterProfileInput>;
 
-    @Field(() => [UserUpdateManyWithWhereWithoutMasterProfileInput], {nullable:true})
-    @Type(() => UserUpdateManyWithWhereWithoutMasterProfileInput)
-    updateMany?: Array<UserUpdateManyWithWhereWithoutMasterProfileInput>;
-
-    @Field(() => [UserScalarWhereInput], {nullable:true})
-    @Type(() => UserScalarWhereInput)
-    deleteMany?: Array<UserScalarWhereInput>;
+  @Field(() => [UserScalarWhereInput], { nullable: true })
+  @Type(() => UserScalarWhereInput)
+  deleteMany?: Array<UserScalarWhereInput>;
 }

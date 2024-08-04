@@ -8,19 +8,18 @@ import { Directus_panelsMaxAggregate } from './directus-panels-max-aggregate.out
 
 @ObjectType()
 export class AggregateDirectus_panels {
+  @Field(() => Directus_panelsCountAggregate, { nullable: true })
+  _count?: Directus_panelsCountAggregate;
 
-    @Field(() => Directus_panelsCountAggregate, {nullable:true})
-    _count?: Directus_panelsCountAggregate;
+  @Field(() => Directus_panelsAvgAggregate, { nullable: true })
+  _avg?: Directus_panelsAvgAggregate;
 
-    @Field(() => Directus_panelsAvgAggregate, {nullable:true})
-    _avg?: Directus_panelsAvgAggregate;
+  @Field(() => Directus_panelsSumAggregate, { nullable: true })
+  _sum?: Directus_panelsSumAggregate;
 
-    @Field(() => Directus_panelsSumAggregate, {nullable:true})
-    _sum?: Directus_panelsSumAggregate;
+  @Field(() => Directus_panelsMinAggregate, { nullable: true })
+  _min?: Directus_panelsMinAggregate;
 
-    @Field(() => Directus_panelsMinAggregate, {nullable:true})
-    _min?: Directus_panelsMinAggregate;
-
-    @Field(() => Directus_panelsMaxAggregate, {nullable:true})
-    _max?: Directus_panelsMaxAggregate;
+  @Field(() => Directus_panelsMaxAggregate, { nullable: true })
+  _max?: Directus_panelsMaxAggregate;
 }

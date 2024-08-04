@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteOnedirectusSessionsArgs {
-
-    @Field(() => directus_sessionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    where!: directus_sessionsWhereUniqueInput;
+  @Field(() => directus_sessionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  where!: directus_sessionsWhereUniqueInput;
 }

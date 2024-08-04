@@ -8,16 +8,19 @@ import { directus_collectionsWhereUniqueInput } from './directus-collections-whe
 
 @InputType()
 export class directus_collectionsCreateNestedOneWithoutDirectus_sharesInput {
+  @Field(() => directus_collectionsCreateWithoutDirectus_sharesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_collectionsCreateWithoutDirectus_sharesInput)
+  create?: directus_collectionsCreateWithoutDirectus_sharesInput;
 
-    @Field(() => directus_collectionsCreateWithoutDirectus_sharesInput, {nullable:true})
-    @Type(() => directus_collectionsCreateWithoutDirectus_sharesInput)
-    create?: directus_collectionsCreateWithoutDirectus_sharesInput;
+  @Field(() => directus_collectionsCreateOrConnectWithoutDirectus_sharesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_collectionsCreateOrConnectWithoutDirectus_sharesInput)
+  connectOrCreate?: directus_collectionsCreateOrConnectWithoutDirectus_sharesInput;
 
-    @Field(() => directus_collectionsCreateOrConnectWithoutDirectus_sharesInput, {nullable:true})
-    @Type(() => directus_collectionsCreateOrConnectWithoutDirectus_sharesInput)
-    connectOrCreate?: directus_collectionsCreateOrConnectWithoutDirectus_sharesInput;
-
-    @Field(() => directus_collectionsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_collectionsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>;
+  @Field(() => directus_collectionsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_collectionsWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>;
 }

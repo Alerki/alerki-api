@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManyAppointmentArgs {
+  @Field(() => [AppointmentCreateManyInput], { nullable: false })
+  @Type(() => AppointmentCreateManyInput)
+  data!: Array<AppointmentCreateManyInput>;
 
-    @Field(() => [AppointmentCreateManyInput], {nullable:false})
-    @Type(() => AppointmentCreateManyInput)
-    data!: Array<AppointmentCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

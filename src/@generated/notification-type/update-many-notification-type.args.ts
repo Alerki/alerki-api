@@ -6,12 +6,11 @@ import { NotificationTypeWhereInput } from './notification-type-where.input';
 
 @ArgsType()
 export class UpdateManyNotificationTypeArgs {
+  @Field(() => NotificationTypeUpdateManyMutationInput, { nullable: false })
+  @Type(() => NotificationTypeUpdateManyMutationInput)
+  data!: NotificationTypeUpdateManyMutationInput;
 
-    @Field(() => NotificationTypeUpdateManyMutationInput, {nullable:false})
-    @Type(() => NotificationTypeUpdateManyMutationInput)
-    data!: NotificationTypeUpdateManyMutationInput;
-
-    @Field(() => NotificationTypeWhereInput, {nullable:true})
-    @Type(() => NotificationTypeWhereInput)
-    where?: NotificationTypeWhereInput;
+  @Field(() => NotificationTypeWhereInput, { nullable: true })
+  @Type(() => NotificationTypeWhereInput)
+  where?: NotificationTypeWhereInput;
 }

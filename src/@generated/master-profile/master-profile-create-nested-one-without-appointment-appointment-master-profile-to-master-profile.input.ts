@@ -8,16 +8,29 @@ import { MasterProfileWhereUniqueInput } from './master-profile-where-unique.inp
 
 @InputType()
 export class MasterProfileCreateNestedOneWithoutAppointment_Appointment_masterProfileToMasterProfileInput {
+  @Field(
+    () =>
+      MasterProfileCreateWithoutAppointment_Appointment_masterProfileToMasterProfileInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      MasterProfileCreateWithoutAppointment_Appointment_masterProfileToMasterProfileInput,
+  )
+  create?: MasterProfileCreateWithoutAppointment_Appointment_masterProfileToMasterProfileInput;
 
-    @Field(() => MasterProfileCreateWithoutAppointment_Appointment_masterProfileToMasterProfileInput, {nullable:true})
-    @Type(() => MasterProfileCreateWithoutAppointment_Appointment_masterProfileToMasterProfileInput)
-    create?: MasterProfileCreateWithoutAppointment_Appointment_masterProfileToMasterProfileInput;
+  @Field(
+    () =>
+      MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterProfileToMasterProfileInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterProfileToMasterProfileInput,
+  )
+  connectOrCreate?: MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterProfileToMasterProfileInput;
 
-    @Field(() => MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterProfileToMasterProfileInput, {nullable:true})
-    @Type(() => MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterProfileToMasterProfileInput)
-    connectOrCreate?: MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterProfileToMasterProfileInput;
-
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:true})
-    @Type(() => MasterProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: true })
+  @Type(() => MasterProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 }

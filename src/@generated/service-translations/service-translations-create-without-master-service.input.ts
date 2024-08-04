@@ -5,13 +5,16 @@ import { ServiceCreateNestedOneWithoutService_translationsInput } from '../servi
 
 @InputType()
 export class Service_translationsCreateWithoutMasterServiceInput {
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => languagesCreateNestedOneWithoutService_translationsInput, {
+    nullable: true,
+  })
+  languages?: languagesCreateNestedOneWithoutService_translationsInput;
 
-    @Field(() => languagesCreateNestedOneWithoutService_translationsInput, {nullable:true})
-    languages?: languagesCreateNestedOneWithoutService_translationsInput;
-
-    @Field(() => ServiceCreateNestedOneWithoutService_translationsInput, {nullable:true})
-    Service?: ServiceCreateNestedOneWithoutService_translationsInput;
+  @Field(() => ServiceCreateNestedOneWithoutService_translationsInput, {
+    nullable: true,
+  })
+  Service?: ServiceCreateNestedOneWithoutService_translationsInput;
 }

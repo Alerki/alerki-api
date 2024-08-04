@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManydirectusFoldersArgs {
+  @Field(() => [directus_foldersCreateManyInput], { nullable: false })
+  @Type(() => directus_foldersCreateManyInput)
+  data!: Array<directus_foldersCreateManyInput>;
 
-    @Field(() => [directus_foldersCreateManyInput], {nullable:false})
-    @Type(() => directus_foldersCreateManyInput)
-    data!: Array<directus_foldersCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

@@ -13,48 +13,59 @@ import { MasterScheduleScalarWhereInput } from './master-schedule-scalar-where.i
 
 @InputType()
 export class MasterScheduleUncheckedUpdateManyWithoutMasterProfileNestedInput {
+  @Field(() => [MasterScheduleCreateWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleCreateWithoutMasterProfileInput)
+  create?: Array<MasterScheduleCreateWithoutMasterProfileInput>;
 
-    @Field(() => [MasterScheduleCreateWithoutMasterProfileInput], {nullable:true})
-    @Type(() => MasterScheduleCreateWithoutMasterProfileInput)
-    create?: Array<MasterScheduleCreateWithoutMasterProfileInput>;
+  @Field(() => [MasterScheduleCreateOrConnectWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleCreateOrConnectWithoutMasterProfileInput)
+  connectOrCreate?: Array<MasterScheduleCreateOrConnectWithoutMasterProfileInput>;
 
-    @Field(() => [MasterScheduleCreateOrConnectWithoutMasterProfileInput], {nullable:true})
-    @Type(() => MasterScheduleCreateOrConnectWithoutMasterProfileInput)
-    connectOrCreate?: Array<MasterScheduleCreateOrConnectWithoutMasterProfileInput>;
+  @Field(() => [MasterScheduleUpsertWithWhereUniqueWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleUpsertWithWhereUniqueWithoutMasterProfileInput)
+  upsert?: Array<MasterScheduleUpsertWithWhereUniqueWithoutMasterProfileInput>;
 
-    @Field(() => [MasterScheduleUpsertWithWhereUniqueWithoutMasterProfileInput], {nullable:true})
-    @Type(() => MasterScheduleUpsertWithWhereUniqueWithoutMasterProfileInput)
-    upsert?: Array<MasterScheduleUpsertWithWhereUniqueWithoutMasterProfileInput>;
+  @Field(() => MasterScheduleCreateManyMasterProfileInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleCreateManyMasterProfileInputEnvelope)
+  createMany?: MasterScheduleCreateManyMasterProfileInputEnvelope;
 
-    @Field(() => MasterScheduleCreateManyMasterProfileInputEnvelope, {nullable:true})
-    @Type(() => MasterScheduleCreateManyMasterProfileInputEnvelope)
-    createMany?: MasterScheduleCreateManyMasterProfileInputEnvelope;
+  @Field(() => [MasterScheduleWhereUniqueInput], { nullable: true })
+  @Type(() => MasterScheduleWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
 
-    @Field(() => [MasterScheduleWhereUniqueInput], {nullable:true})
-    @Type(() => MasterScheduleWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
+  @Field(() => [MasterScheduleWhereUniqueInput], { nullable: true })
+  @Type(() => MasterScheduleWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
 
-    @Field(() => [MasterScheduleWhereUniqueInput], {nullable:true})
-    @Type(() => MasterScheduleWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
+  @Field(() => [MasterScheduleWhereUniqueInput], { nullable: true })
+  @Type(() => MasterScheduleWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
 
-    @Field(() => [MasterScheduleWhereUniqueInput], {nullable:true})
-    @Type(() => MasterScheduleWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
+  @Field(() => [MasterScheduleWhereUniqueInput], { nullable: true })
+  @Type(() => MasterScheduleWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
 
-    @Field(() => [MasterScheduleWhereUniqueInput], {nullable:true})
-    @Type(() => MasterScheduleWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>>;
+  @Field(() => [MasterScheduleUpdateWithWhereUniqueWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleUpdateWithWhereUniqueWithoutMasterProfileInput)
+  update?: Array<MasterScheduleUpdateWithWhereUniqueWithoutMasterProfileInput>;
 
-    @Field(() => [MasterScheduleUpdateWithWhereUniqueWithoutMasterProfileInput], {nullable:true})
-    @Type(() => MasterScheduleUpdateWithWhereUniqueWithoutMasterProfileInput)
-    update?: Array<MasterScheduleUpdateWithWhereUniqueWithoutMasterProfileInput>;
+  @Field(() => [MasterScheduleUpdateManyWithWhereWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => MasterScheduleUpdateManyWithWhereWithoutMasterProfileInput)
+  updateMany?: Array<MasterScheduleUpdateManyWithWhereWithoutMasterProfileInput>;
 
-    @Field(() => [MasterScheduleUpdateManyWithWhereWithoutMasterProfileInput], {nullable:true})
-    @Type(() => MasterScheduleUpdateManyWithWhereWithoutMasterProfileInput)
-    updateMany?: Array<MasterScheduleUpdateManyWithWhereWithoutMasterProfileInput>;
-
-    @Field(() => [MasterScheduleScalarWhereInput], {nullable:true})
-    @Type(() => MasterScheduleScalarWhereInput)
-    deleteMany?: Array<MasterScheduleScalarWhereInput>;
+  @Field(() => [MasterScheduleScalarWhereInput], { nullable: true })
+  @Type(() => MasterScheduleScalarWhereInput)
+  deleteMany?: Array<MasterScheduleScalarWhereInput>;
 }

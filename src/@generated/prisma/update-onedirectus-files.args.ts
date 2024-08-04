@@ -6,12 +6,11 @@ import { directus_filesWhereUniqueInput } from '../directus-files/directus-files
 
 @ArgsType()
 export class UpdateOnedirectusFilesArgs {
+  @Field(() => directus_filesUpdateInput, { nullable: false })
+  @Type(() => directus_filesUpdateInput)
+  data!: directus_filesUpdateInput;
 
-    @Field(() => directus_filesUpdateInput, {nullable:false})
-    @Type(() => directus_filesUpdateInput)
-    data!: directus_filesUpdateInput;
-
-    @Field(() => directus_filesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_filesWhereUniqueInput)
-    where!: directus_filesWhereUniqueInput;
+  @Field(() => directus_filesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_filesWhereUniqueInput)
+  where!: directus_filesWhereUniqueInput;
 }

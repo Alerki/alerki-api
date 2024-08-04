@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueCurrencyArgs {
-
-    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
-    @Type(() => CurrencyWhereUniqueInput)
-    where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: false })
+  @Type(() => CurrencyWhereUniqueInput)
+  where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 }

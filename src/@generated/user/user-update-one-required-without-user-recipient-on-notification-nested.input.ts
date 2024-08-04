@@ -10,24 +10,34 @@ import { UserUpdateWithoutUserRecipientOnNotificationInput } from './user-update
 
 @InputType()
 export class UserUpdateOneRequiredWithoutUserRecipientOnNotificationNestedInput {
+  @Field(() => UserCreateWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => UserCreateWithoutUserRecipientOnNotificationInput)
+  create?: UserCreateWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => UserCreateWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => UserCreateWithoutUserRecipientOnNotificationInput)
-    create?: UserCreateWithoutUserRecipientOnNotificationInput;
+  @Field(() => UserCreateOrConnectWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => UserCreateOrConnectWithoutUserRecipientOnNotificationInput)
+  connectOrCreate?: UserCreateOrConnectWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => UserCreateOrConnectWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutUserRecipientOnNotificationInput)
-    connectOrCreate?: UserCreateOrConnectWithoutUserRecipientOnNotificationInput;
+  @Field(() => UserUpsertWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => UserUpsertWithoutUserRecipientOnNotificationInput)
+  upsert?: UserUpsertWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => UserUpsertWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => UserUpsertWithoutUserRecipientOnNotificationInput)
-    upsert?: UserUpsertWithoutUserRecipientOnNotificationInput;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserUpdateWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => UserUpdateWithoutUserRecipientOnNotificationInput)
-    update?: UserUpdateWithoutUserRecipientOnNotificationInput;
+  @Field(() => UserUpdateWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => UserUpdateWithoutUserRecipientOnNotificationInput)
+  update?: UserUpdateWithoutUserRecipientOnNotificationInput;
 }

@@ -1,3 +1,4 @@
+import { ArgsType, Field } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, Max, Min } from 'class-validator';
@@ -36,4 +37,13 @@ export class PaginationDto {
   @Type(() => Number)
   @IsOptional()
   readonly page: number = PAGE_DEFAULT;
+}
+
+@ArgsType()
+export class PaginationQuery {
+  @Field(() => Number, { nullable: true })
+  limit?: number;
+
+  @Field(() => Number, { nullable: true })
+  page?: number;
 }

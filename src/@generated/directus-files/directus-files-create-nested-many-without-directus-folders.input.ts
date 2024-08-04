@@ -9,20 +9,25 @@ import { directus_filesWhereUniqueInput } from './directus-files-where-unique.in
 
 @InputType()
 export class directus_filesCreateNestedManyWithoutDirectus_foldersInput {
+  @Field(() => [directus_filesCreateWithoutDirectus_foldersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_filesCreateWithoutDirectus_foldersInput)
+  create?: Array<directus_filesCreateWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_filesCreateWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_filesCreateWithoutDirectus_foldersInput)
-    create?: Array<directus_filesCreateWithoutDirectus_foldersInput>;
+  @Field(() => [directus_filesCreateOrConnectWithoutDirectus_foldersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_filesCreateOrConnectWithoutDirectus_foldersInput)
+  connectOrCreate?: Array<directus_filesCreateOrConnectWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_filesCreateOrConnectWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_filesCreateOrConnectWithoutDirectus_foldersInput)
-    connectOrCreate?: Array<directus_filesCreateOrConnectWithoutDirectus_foldersInput>;
+  @Field(() => directus_filesCreateManyDirectus_foldersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_filesCreateManyDirectus_foldersInputEnvelope)
+  createMany?: directus_filesCreateManyDirectus_foldersInputEnvelope;
 
-    @Field(() => directus_filesCreateManyDirectus_foldersInputEnvelope, {nullable:true})
-    @Type(() => directus_filesCreateManyDirectus_foldersInputEnvelope)
-    createMany?: directus_filesCreateManyDirectus_foldersInputEnvelope;
-
-    @Field(() => [directus_filesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_filesWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_filesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_filesWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>>;
 }

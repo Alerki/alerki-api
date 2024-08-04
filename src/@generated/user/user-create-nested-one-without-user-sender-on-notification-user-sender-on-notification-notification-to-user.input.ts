@@ -8,16 +8,32 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateNestedOneWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput {
+  @Field(
+    () =>
+      UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput,
+  )
+  create?: UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput;
 
-    @Field(() => UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput, {nullable:true})
-    @Type(() => UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput)
-    create?: UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput;
+  @Field(
+    () =>
+      UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput,
+  )
+  connectOrCreate?: UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput;
 
-    @Field(() => UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput)
-    connectOrCreate?: UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput;
-
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 }

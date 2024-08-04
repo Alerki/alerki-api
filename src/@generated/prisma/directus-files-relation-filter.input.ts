@@ -4,10 +4,9 @@ import { directus_filesWhereInput } from '../directus-files/directus-files-where
 
 @InputType()
 export class Directus_filesRelationFilter {
+  @Field(() => directus_filesWhereInput, { nullable: true })
+  is?: directus_filesWhereInput;
 
-    @Field(() => directus_filesWhereInput, {nullable:true})
-    is?: directus_filesWhereInput;
-
-    @Field(() => directus_filesWhereInput, {nullable:true})
-    isNot?: directus_filesWhereInput;
+  @Field(() => directus_filesWhereInput, { nullable: true })
+  isNot?: directus_filesWhereInput;
 }

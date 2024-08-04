@@ -8,28 +8,35 @@ import { directus_usersUpdateOneWithoutDirectus_notifications_directus_notificat
 
 @InputType()
 export class directus_notificationsUpdateInput {
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  timestamp?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    timestamp?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  status?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    status?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  subject?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    subject?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  message?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    message?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  collection?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    collection?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  item?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    item?: NullableStringFieldUpdateOperationsInput;
+  @Field(
+    () =>
+      directus_usersUpdateOneRequiredWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_users_directus_notifications_recipientTodirectus_users?: directus_usersUpdateOneRequiredWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersNestedInput;
 
-    @Field(() => directus_usersUpdateOneRequiredWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersNestedInput, {nullable:true})
-    directus_users_directus_notifications_recipientTodirectus_users?: directus_usersUpdateOneRequiredWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersNestedInput;
-
-    @Field(() => directus_usersUpdateOneWithoutDirectus_notifications_directus_notifications_senderTodirectus_usersNestedInput, {nullable:true})
-    directus_users_directus_notifications_senderTodirectus_users?: directus_usersUpdateOneWithoutDirectus_notifications_directus_notifications_senderTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_usersUpdateOneWithoutDirectus_notifications_directus_notifications_senderTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_users_directus_notifications_senderTodirectus_users?: directus_usersUpdateOneWithoutDirectus_notifications_directus_notifications_senderTodirectus_usersNestedInput;
 }

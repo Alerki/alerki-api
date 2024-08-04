@@ -7,34 +7,41 @@ import { MasterServiceCreateNestedManyWithoutCurrencyInput } from '../master-ser
 
 @InputType()
 export class CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: true })
+  status?: string;
 
-    @Field(() => String, {nullable:true})
-    status?: string;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  code!: string;
 
-    @Field(() => String, {nullable:false})
-    code!: string;
+  @Field(() => String, { nullable: false })
+  character!: string;
 
-    @Field(() => String, {nullable:false})
-    character!: string;
+  @Field(() => AppointmentCreateNestedManyWithoutCurrencyInput, {
+    nullable: true,
+  })
+  Appointment?: AppointmentCreateNestedManyWithoutCurrencyInput;
 
-    @Field(() => AppointmentCreateNestedManyWithoutCurrencyInput, {nullable:true})
-    Appointment?: AppointmentCreateNestedManyWithoutCurrencyInput;
+  @Field(
+    () =>
+      directus_usersCreateNestedOneWithoutCurrency_Currency_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  directus_users_Currency_user_createdTodirectus_users?: directus_usersCreateNestedOneWithoutCurrency_Currency_user_createdTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateNestedOneWithoutCurrency_Currency_user_createdTodirectus_usersInput, {nullable:true})
-    directus_users_Currency_user_createdTodirectus_users?: directus_usersCreateNestedOneWithoutCurrency_Currency_user_createdTodirectus_usersInput;
-
-    @Field(() => MasterServiceCreateNestedManyWithoutCurrencyInput, {nullable:true})
-    MasterService?: MasterServiceCreateNestedManyWithoutCurrencyInput;
+  @Field(() => MasterServiceCreateNestedManyWithoutCurrencyInput, {
+    nullable: true,
+  })
+  MasterService?: MasterServiceCreateNestedManyWithoutCurrencyInput;
 }

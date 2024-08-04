@@ -6,12 +6,15 @@ import { directus_usersCreateWithoutDirectus_presetsInput } from './directus-use
 
 @InputType()
 export class directus_usersUpsertWithoutDirectus_presetsInput {
+  @Field(() => directus_usersUpdateWithoutDirectus_presetsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersUpdateWithoutDirectus_presetsInput)
+  update!: directus_usersUpdateWithoutDirectus_presetsInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_presetsInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_presetsInput)
-    update!: directus_usersUpdateWithoutDirectus_presetsInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_presetsInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_presetsInput)
-    create!: directus_usersCreateWithoutDirectus_presetsInput;
+  @Field(() => directus_usersCreateWithoutDirectus_presetsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_presetsInput)
+  create!: directus_usersCreateWithoutDirectus_presetsInput;
 }

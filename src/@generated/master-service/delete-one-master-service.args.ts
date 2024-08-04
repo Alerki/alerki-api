@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteOneMasterServiceArgs {
-
-    @Field(() => MasterServiceWhereUniqueInput, {nullable:false})
-    @Type(() => MasterServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
+  @Field(() => MasterServiceWhereUniqueInput, { nullable: false })
+  @Type(() => MasterServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
 }

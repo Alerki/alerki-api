@@ -5,22 +5,24 @@ import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullab
 
 @InputType()
 export class NotificationScalarWhereWithAggregatesInput {
+  @Field(() => [NotificationScalarWhereWithAggregatesInput], { nullable: true })
+  AND?: Array<NotificationScalarWhereWithAggregatesInput>;
 
-    @Field(() => [NotificationScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<NotificationScalarWhereWithAggregatesInput>;
+  @Field(() => [NotificationScalarWhereWithAggregatesInput], { nullable: true })
+  OR?: Array<NotificationScalarWhereWithAggregatesInput>;
 
-    @Field(() => [NotificationScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<NotificationScalarWhereWithAggregatesInput>;
+  @Field(() => [NotificationScalarWhereWithAggregatesInput], { nullable: true })
+  NOT?: Array<NotificationScalarWhereWithAggregatesInput>;
 
-    @Field(() => [NotificationScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<NotificationScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_updated?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_updated?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  type?: UuidWithAggregatesFilter;
 }

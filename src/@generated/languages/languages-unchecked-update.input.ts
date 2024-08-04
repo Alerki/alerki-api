@@ -6,16 +6,18 @@ import { Service_translationsUncheckedUpdateManyWithoutLanguagesNestedInput } fr
 
 @InputType()
 export class languagesUncheckedUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  code?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    code?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  name?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    name?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  direction?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    direction?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => Service_translationsUncheckedUpdateManyWithoutLanguagesNestedInput, {nullable:true})
-    Service_translations?: Service_translationsUncheckedUpdateManyWithoutLanguagesNestedInput;
+  @Field(
+    () => Service_translationsUncheckedUpdateManyWithoutLanguagesNestedInput,
+    { nullable: true },
+  )
+  Service_translations?: Service_translationsUncheckedUpdateManyWithoutLanguagesNestedInput;
 }

@@ -11,106 +11,105 @@ import { Directus_foldersRelationFilter } from '../prisma/directus-folders-relat
 
 @InputType()
 export class directus_settingsWhereInput {
+  @Field(() => [directus_settingsWhereInput], { nullable: true })
+  AND?: Array<directus_settingsWhereInput>;
 
-    @Field(() => [directus_settingsWhereInput], {nullable:true})
-    AND?: Array<directus_settingsWhereInput>;
+  @Field(() => [directus_settingsWhereInput], { nullable: true })
+  OR?: Array<directus_settingsWhereInput>;
 
-    @Field(() => [directus_settingsWhereInput], {nullable:true})
-    OR?: Array<directus_settingsWhereInput>;
+  @Field(() => [directus_settingsWhereInput], { nullable: true })
+  NOT?: Array<directus_settingsWhereInput>;
 
-    @Field(() => [directus_settingsWhereInput], {nullable:true})
-    NOT?: Array<directus_settingsWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  project_name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    project_name?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  project_url?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    project_url?: StringNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  project_color?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    project_color?: StringFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  project_logo?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    project_logo?: UuidNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  public_foreground?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    public_foreground?: UuidNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  public_background?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    public_background?: UuidNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  public_note?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    public_note?: StringNullableFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  auth_login_attempts?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    auth_login_attempts?: IntNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  auth_password_policy?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    auth_password_policy?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  storage_asset_transform?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    storage_asset_transform?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  storage_asset_presets?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    storage_asset_presets?: JsonNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  custom_css?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    custom_css?: StringNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  storage_default_folder?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    storage_default_folder?: UuidNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  basemaps?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    basemaps?: JsonNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  mapbox_key?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    mapbox_key?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  module_bar?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    module_bar?: JsonNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  project_descriptor?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    project_descriptor?: StringNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  default_language?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    default_language?: StringFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  custom_aspect_ratios?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    custom_aspect_ratios?: JsonNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  public_favicon?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    public_favicon?: UuidNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  default_appearance?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    default_appearance?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  default_theme_light?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    default_theme_light?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  theme_light_overrides?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    theme_light_overrides?: JsonNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  default_theme_dark?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    default_theme_dark?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  theme_dark_overrides?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    theme_dark_overrides?: JsonNullableFilter;
+  @Field(() => Directus_filesRelationFilter, { nullable: true })
+  directus_files_directus_settings_project_logoTodirectus_files?: Directus_filesRelationFilter;
 
-    @Field(() => Directus_filesRelationFilter, {nullable:true})
-    directus_files_directus_settings_project_logoTodirectus_files?: Directus_filesRelationFilter;
+  @Field(() => Directus_filesRelationFilter, { nullable: true })
+  directus_files_directus_settings_public_backgroundTodirectus_files?: Directus_filesRelationFilter;
 
-    @Field(() => Directus_filesRelationFilter, {nullable:true})
-    directus_files_directus_settings_public_backgroundTodirectus_files?: Directus_filesRelationFilter;
+  @Field(() => Directus_filesRelationFilter, { nullable: true })
+  directus_files_directus_settings_public_faviconTodirectus_files?: Directus_filesRelationFilter;
 
-    @Field(() => Directus_filesRelationFilter, {nullable:true})
-    directus_files_directus_settings_public_faviconTodirectus_files?: Directus_filesRelationFilter;
+  @Field(() => Directus_filesRelationFilter, { nullable: true })
+  directus_files_directus_settings_public_foregroundTodirectus_files?: Directus_filesRelationFilter;
 
-    @Field(() => Directus_filesRelationFilter, {nullable:true})
-    directus_files_directus_settings_public_foregroundTodirectus_files?: Directus_filesRelationFilter;
-
-    @Field(() => Directus_foldersRelationFilter, {nullable:true})
-    directus_folders?: Directus_foldersRelationFilter;
+  @Field(() => Directus_foldersRelationFilter, { nullable: true })
+  directus_folders?: Directus_foldersRelationFilter;
 }

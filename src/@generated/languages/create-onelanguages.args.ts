@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnelanguagesArgs {
-
-    @Field(() => languagesCreateInput, {nullable:false})
-    @Type(() => languagesCreateInput)
-    data!: languagesCreateInput;
+  @Field(() => languagesCreateInput, { nullable: false })
+  @Type(() => languagesCreateInput)
+  data!: languagesCreateInput;
 }

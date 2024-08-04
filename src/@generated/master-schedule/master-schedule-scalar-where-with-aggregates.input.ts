@@ -8,40 +8,45 @@ import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.
 
 @InputType()
 export class MasterScheduleScalarWhereWithAggregatesInput {
+  @Field(() => [MasterScheduleScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<MasterScheduleScalarWhereWithAggregatesInput>;
 
-    @Field(() => [MasterScheduleScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<MasterScheduleScalarWhereWithAggregatesInput>;
+  @Field(() => [MasterScheduleScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<MasterScheduleScalarWhereWithAggregatesInput>;
 
-    @Field(() => [MasterScheduleScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<MasterScheduleScalarWhereWithAggregatesInput>;
+  @Field(() => [MasterScheduleScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<MasterScheduleScalarWhereWithAggregatesInput>;
 
-    @Field(() => [MasterScheduleScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<MasterScheduleScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  status?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    status?: StringWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_updated?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_updated?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
+  date?: DateTimeWithAggregatesFilter;
 
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    date?: DateTimeWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  startTime?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    startTime?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  endTime?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    endTime?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  dayOff?: BoolWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    dayOff?: BoolWithAggregatesFilter;
-
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    masterProfile?: UuidWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  masterProfile?: UuidWithAggregatesFilter;
 }

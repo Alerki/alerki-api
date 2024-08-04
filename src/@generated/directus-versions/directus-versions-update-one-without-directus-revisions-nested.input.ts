@@ -10,30 +10,37 @@ import { directus_versionsUpdateWithoutDirectus_revisionsInput } from './directu
 
 @InputType()
 export class directus_versionsUpdateOneWithoutDirectus_revisionsNestedInput {
+  @Field(() => directus_versionsCreateWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_versionsCreateWithoutDirectus_revisionsInput)
+  create?: directus_versionsCreateWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_versionsCreateWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_versionsCreateWithoutDirectus_revisionsInput)
-    create?: directus_versionsCreateWithoutDirectus_revisionsInput;
+  @Field(() => directus_versionsCreateOrConnectWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_versionsCreateOrConnectWithoutDirectus_revisionsInput)
+  connectOrCreate?: directus_versionsCreateOrConnectWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_versionsCreateOrConnectWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_versionsCreateOrConnectWithoutDirectus_revisionsInput)
-    connectOrCreate?: directus_versionsCreateOrConnectWithoutDirectus_revisionsInput;
+  @Field(() => directus_versionsUpsertWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_versionsUpsertWithoutDirectus_revisionsInput)
+  upsert?: directus_versionsUpsertWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_versionsUpsertWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_versionsUpsertWithoutDirectus_revisionsInput)
-    upsert?: directus_versionsUpsertWithoutDirectus_revisionsInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_versionsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_versionsWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_versionsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_versionsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_versionsUpdateWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_versionsUpdateWithoutDirectus_revisionsInput)
-    update?: directus_versionsUpdateWithoutDirectus_revisionsInput;
+  @Field(() => directus_versionsUpdateWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_versionsUpdateWithoutDirectus_revisionsInput)
+  update?: directus_versionsUpdateWithoutDirectus_revisionsInput;
 }

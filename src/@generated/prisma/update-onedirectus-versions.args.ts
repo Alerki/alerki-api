@@ -6,12 +6,11 @@ import { directus_versionsWhereUniqueInput } from '../directus-versions/directus
 
 @ArgsType()
 export class UpdateOnedirectusVersionsArgs {
+  @Field(() => directus_versionsUpdateInput, { nullable: false })
+  @Type(() => directus_versionsUpdateInput)
+  data!: directus_versionsUpdateInput;
 
-    @Field(() => directus_versionsUpdateInput, {nullable:false})
-    @Type(() => directus_versionsUpdateInput)
-    data!: directus_versionsUpdateInput;
-
-    @Field(() => directus_versionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_versionsWhereUniqueInput)
-    where!: directus_versionsWhereUniqueInput;
+  @Field(() => directus_versionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_versionsWhereUniqueInput)
+  where!: directus_versionsWhereUniqueInput;
 }

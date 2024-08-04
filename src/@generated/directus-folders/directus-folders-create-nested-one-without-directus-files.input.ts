@@ -8,16 +8,19 @@ import { directus_foldersWhereUniqueInput } from './directus-folders-where-uniqu
 
 @InputType()
 export class directus_foldersCreateNestedOneWithoutDirectus_filesInput {
+  @Field(() => directus_foldersCreateWithoutDirectus_filesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_foldersCreateWithoutDirectus_filesInput)
+  create?: directus_foldersCreateWithoutDirectus_filesInput;
 
-    @Field(() => directus_foldersCreateWithoutDirectus_filesInput, {nullable:true})
-    @Type(() => directus_foldersCreateWithoutDirectus_filesInput)
-    create?: directus_foldersCreateWithoutDirectus_filesInput;
+  @Field(() => directus_foldersCreateOrConnectWithoutDirectus_filesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_foldersCreateOrConnectWithoutDirectus_filesInput)
+  connectOrCreate?: directus_foldersCreateOrConnectWithoutDirectus_filesInput;
 
-    @Field(() => directus_foldersCreateOrConnectWithoutDirectus_filesInput, {nullable:true})
-    @Type(() => directus_foldersCreateOrConnectWithoutDirectus_filesInput)
-    connectOrCreate?: directus_foldersCreateOrConnectWithoutDirectus_filesInput;
-
-    @Field(() => directus_foldersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_foldersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_foldersWhereUniqueInput, 'id'>;
+  @Field(() => directus_foldersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_foldersWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_foldersWhereUniqueInput, 'id'>;
 }

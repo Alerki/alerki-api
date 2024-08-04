@@ -5,25 +5,24 @@ import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.inpu
 
 @InputType()
 export class MasterProfileScalarWhereInput {
+  @Field(() => [MasterProfileScalarWhereInput], { nullable: true })
+  AND?: Array<MasterProfileScalarWhereInput>;
 
-    @Field(() => [MasterProfileScalarWhereInput], {nullable:true})
-    AND?: Array<MasterProfileScalarWhereInput>;
+  @Field(() => [MasterProfileScalarWhereInput], { nullable: true })
+  OR?: Array<MasterProfileScalarWhereInput>;
 
-    @Field(() => [MasterProfileScalarWhereInput], {nullable:true})
-    OR?: Array<MasterProfileScalarWhereInput>;
+  @Field(() => [MasterProfileScalarWhereInput], { nullable: true })
+  NOT?: Array<MasterProfileScalarWhereInput>;
 
-    @Field(() => [MasterProfileScalarWhereInput], {nullable:true})
-    NOT?: Array<MasterProfileScalarWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
-
-    @Field(() => UuidFilter, {nullable:true})
-    masterWeeklySchedule?: UuidFilter;
+  @Field(() => UuidFilter, { nullable: true })
+  masterWeeklySchedule?: UuidFilter;
 }

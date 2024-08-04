@@ -9,37 +9,42 @@ import { directus_usersUpdateManyWithoutDirectus_rolesNestedInput } from '../dir
 
 @InputType()
 export class directus_rolesUpdateWithoutDirectus_presetsInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  icon?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    icon?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  description?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    description?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  ip_access?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    ip_access?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  enforce_tfa?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    enforce_tfa?: BoolFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  admin_access?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    admin_access?: BoolFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  app_access?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    app_access?: BoolFieldUpdateOperationsInput;
+  @Field(() => directus_permissionsUpdateManyWithoutDirectus_rolesNestedInput, {
+    nullable: true,
+  })
+  directus_permissions?: directus_permissionsUpdateManyWithoutDirectus_rolesNestedInput;
 
-    @Field(() => directus_permissionsUpdateManyWithoutDirectus_rolesNestedInput, {nullable:true})
-    directus_permissions?: directus_permissionsUpdateManyWithoutDirectus_rolesNestedInput;
+  @Field(() => directus_sharesUpdateManyWithoutDirectus_rolesNestedInput, {
+    nullable: true,
+  })
+  directus_shares?: directus_sharesUpdateManyWithoutDirectus_rolesNestedInput;
 
-    @Field(() => directus_sharesUpdateManyWithoutDirectus_rolesNestedInput, {nullable:true})
-    directus_shares?: directus_sharesUpdateManyWithoutDirectus_rolesNestedInput;
-
-    @Field(() => directus_usersUpdateManyWithoutDirectus_rolesNestedInput, {nullable:true})
-    directus_users?: directus_usersUpdateManyWithoutDirectus_rolesNestedInput;
+  @Field(() => directus_usersUpdateManyWithoutDirectus_rolesNestedInput, {
+    nullable: true,
+  })
+  directus_users?: directus_usersUpdateManyWithoutDirectus_rolesNestedInput;
 }

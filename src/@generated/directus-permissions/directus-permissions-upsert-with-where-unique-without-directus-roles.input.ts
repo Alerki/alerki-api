@@ -8,16 +8,19 @@ import { directus_permissionsCreateWithoutDirectus_rolesInput } from './directus
 
 @InputType()
 export class directus_permissionsUpsertWithWhereUniqueWithoutDirectus_rolesInput {
+  @Field(() => directus_permissionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_permissionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_permissionsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_permissionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_permissionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_permissionsWhereUniqueInput, 'id'>;
+  @Field(() => directus_permissionsUpdateWithoutDirectus_rolesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_permissionsUpdateWithoutDirectus_rolesInput)
+  update!: directus_permissionsUpdateWithoutDirectus_rolesInput;
 
-    @Field(() => directus_permissionsUpdateWithoutDirectus_rolesInput, {nullable:false})
-    @Type(() => directus_permissionsUpdateWithoutDirectus_rolesInput)
-    update!: directus_permissionsUpdateWithoutDirectus_rolesInput;
-
-    @Field(() => directus_permissionsCreateWithoutDirectus_rolesInput, {nullable:false})
-    @Type(() => directus_permissionsCreateWithoutDirectus_rolesInput)
-    create!: directus_permissionsCreateWithoutDirectus_rolesInput;
+  @Field(() => directus_permissionsCreateWithoutDirectus_rolesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_permissionsCreateWithoutDirectus_rolesInput)
+  create!: directus_permissionsCreateWithoutDirectus_rolesInput;
 }

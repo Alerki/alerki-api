@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusWebhooksArgs {
-
-    @Field(() => directus_webhooksCreateInput, {nullable:false})
-    @Type(() => directus_webhooksCreateInput)
-    data!: directus_webhooksCreateInput;
+  @Field(() => directus_webhooksCreateInput, { nullable: false })
+  @Type(() => directus_webhooksCreateInput)
+  data!: directus_webhooksCreateInput;
 }

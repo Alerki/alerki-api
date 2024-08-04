@@ -8,19 +8,18 @@ import { Directus_operationsMaxAggregate } from './directus-operations-max-aggre
 
 @ObjectType()
 export class AggregateDirectus_operations {
+  @Field(() => Directus_operationsCountAggregate, { nullable: true })
+  _count?: Directus_operationsCountAggregate;
 
-    @Field(() => Directus_operationsCountAggregate, {nullable:true})
-    _count?: Directus_operationsCountAggregate;
+  @Field(() => Directus_operationsAvgAggregate, { nullable: true })
+  _avg?: Directus_operationsAvgAggregate;
 
-    @Field(() => Directus_operationsAvgAggregate, {nullable:true})
-    _avg?: Directus_operationsAvgAggregate;
+  @Field(() => Directus_operationsSumAggregate, { nullable: true })
+  _sum?: Directus_operationsSumAggregate;
 
-    @Field(() => Directus_operationsSumAggregate, {nullable:true})
-    _sum?: Directus_operationsSumAggregate;
+  @Field(() => Directus_operationsMinAggregate, { nullable: true })
+  _min?: Directus_operationsMinAggregate;
 
-    @Field(() => Directus_operationsMinAggregate, {nullable:true})
-    _min?: Directus_operationsMinAggregate;
-
-    @Field(() => Directus_operationsMaxAggregate, {nullable:true})
-    _max?: Directus_operationsMaxAggregate;
+  @Field(() => Directus_operationsMaxAggregate, { nullable: true })
+  _max?: Directus_operationsMaxAggregate;
 }

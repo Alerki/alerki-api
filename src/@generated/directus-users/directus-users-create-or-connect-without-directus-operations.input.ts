@@ -7,12 +7,16 @@ import { directus_usersCreateWithoutDirectus_operationsInput } from './directus-
 
 @InputType()
 export class directus_usersCreateOrConnectWithoutDirectus_operationsInput {
+  @Field(() => directus_usersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_usersWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_usersWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersCreateWithoutDirectus_operationsInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_operationsInput)
-    create!: directus_usersCreateWithoutDirectus_operationsInput;
+  @Field(() => directus_usersCreateWithoutDirectus_operationsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_operationsInput)
+  create!: directus_usersCreateWithoutDirectus_operationsInput;
 }

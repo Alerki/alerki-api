@@ -12,32 +12,31 @@ import { MasterScheduleMaxAggregateInput } from './master-schedule-max-aggregate
 
 @ArgsType()
 export class MasterScheduleGroupByArgs {
+  @Field(() => MasterScheduleWhereInput, { nullable: true })
+  @Type(() => MasterScheduleWhereInput)
+  where?: MasterScheduleWhereInput;
 
-    @Field(() => MasterScheduleWhereInput, {nullable:true})
-    @Type(() => MasterScheduleWhereInput)
-    where?: MasterScheduleWhereInput;
+  @Field(() => [MasterScheduleOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<MasterScheduleOrderByWithAggregationInput>;
 
-    @Field(() => [MasterScheduleOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<MasterScheduleOrderByWithAggregationInput>;
+  @Field(() => [MasterScheduleScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof MasterScheduleScalarFieldEnum>;
 
-    @Field(() => [MasterScheduleScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof MasterScheduleScalarFieldEnum>;
+  @Field(() => MasterScheduleScalarWhereWithAggregatesInput, { nullable: true })
+  having?: MasterScheduleScalarWhereWithAggregatesInput;
 
-    @Field(() => MasterScheduleScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MasterScheduleScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => MasterScheduleCountAggregateInput, { nullable: true })
+  _count?: MasterScheduleCountAggregateInput;
 
-    @Field(() => MasterScheduleCountAggregateInput, {nullable:true})
-    _count?: MasterScheduleCountAggregateInput;
+  @Field(() => MasterScheduleMinAggregateInput, { nullable: true })
+  _min?: MasterScheduleMinAggregateInput;
 
-    @Field(() => MasterScheduleMinAggregateInput, {nullable:true})
-    _min?: MasterScheduleMinAggregateInput;
-
-    @Field(() => MasterScheduleMaxAggregateInput, {nullable:true})
-    _max?: MasterScheduleMaxAggregateInput;
+  @Field(() => MasterScheduleMaxAggregateInput, { nullable: true })
+  _max?: MasterScheduleMaxAggregateInput;
 }

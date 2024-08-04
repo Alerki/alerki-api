@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueMasterWeeklyScheduleOrThrowArgs {
-
-    @Field(() => MasterWeeklyScheduleWhereUniqueInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
+  @Field(() => MasterWeeklyScheduleWhereUniqueInput, { nullable: false })
+  @Type(() => MasterWeeklyScheduleWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
 }

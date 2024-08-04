@@ -7,12 +7,11 @@ import { AppointmentUpdateWithoutClientProfileInput } from './appointment-update
 
 @InputType()
 export class AppointmentUpdateWithWhereUniqueWithoutClientProfileInput {
+  @Field(() => AppointmentWhereUniqueInput, { nullable: false })
+  @Type(() => AppointmentWhereUniqueInput)
+  where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
 
-    @Field(() => AppointmentWhereUniqueInput, {nullable:false})
-    @Type(() => AppointmentWhereUniqueInput)
-    where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
-
-    @Field(() => AppointmentUpdateWithoutClientProfileInput, {nullable:false})
-    @Type(() => AppointmentUpdateWithoutClientProfileInput)
-    data!: AppointmentUpdateWithoutClientProfileInput;
+  @Field(() => AppointmentUpdateWithoutClientProfileInput, { nullable: false })
+  @Type(() => AppointmentUpdateWithoutClientProfileInput)
+  data!: AppointmentUpdateWithoutClientProfileInput;
 }

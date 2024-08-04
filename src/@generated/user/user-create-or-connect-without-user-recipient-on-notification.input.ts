@@ -7,12 +7,16 @@ import { UserCreateWithoutUserRecipientOnNotificationInput } from './user-create
 
 @InputType()
 export class UserCreateOrConnectWithoutUserRecipientOnNotificationInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserCreateWithoutUserRecipientOnNotificationInput, {nullable:false})
-    @Type(() => UserCreateWithoutUserRecipientOnNotificationInput)
-    create!: UserCreateWithoutUserRecipientOnNotificationInput;
+  @Field(() => UserCreateWithoutUserRecipientOnNotificationInput, {
+    nullable: false,
+  })
+  @Type(() => UserCreateWithoutUserRecipientOnNotificationInput)
+  create!: UserCreateWithoutUserRecipientOnNotificationInput;
 }

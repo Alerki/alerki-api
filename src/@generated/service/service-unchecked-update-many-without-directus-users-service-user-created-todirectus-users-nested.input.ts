@@ -13,48 +13,94 @@ import { ServiceScalarWhereInput } from './service-scalar-where.input';
 
 @InputType()
 export class ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_createdTodirectus_usersNestedInput {
+  @Field(
+    () => [
+      ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+  )
+  create?: Array<ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
 
-    @Field(() => [ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput)
-    create?: Array<ServiceCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
 
-    @Field(() => [ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput)
-    connectOrCreate?: Array<ServiceCreateOrConnectWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      ServiceUpsertWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceUpsertWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+  )
+  upsert?: Array<ServiceUpsertWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
 
-    @Field(() => [ServiceUpsertWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => ServiceUpsertWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput)
-    upsert?: Array<ServiceUpsertWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
+  @Field(
+    () =>
+      ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope,
+  )
+  createMany?: ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope;
 
-    @Field(() => ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope)
-    createMany?: ServiceCreateManyDirectus_users_Service_user_createdTodirectus_usersInputEnvelope;
+  @Field(() => [ServiceWhereUniqueInput], { nullable: true })
+  @Type(() => ServiceWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
 
-    @Field(() => [ServiceWhereUniqueInput], {nullable:true})
-    @Type(() => ServiceWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
+  @Field(() => [ServiceWhereUniqueInput], { nullable: true })
+  @Type(() => ServiceWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
 
-    @Field(() => [ServiceWhereUniqueInput], {nullable:true})
-    @Type(() => ServiceWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
+  @Field(() => [ServiceWhereUniqueInput], { nullable: true })
+  @Type(() => ServiceWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
 
-    @Field(() => [ServiceWhereUniqueInput], {nullable:true})
-    @Type(() => ServiceWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
+  @Field(() => [ServiceWhereUniqueInput], { nullable: true })
+  @Type(() => ServiceWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
 
-    @Field(() => [ServiceWhereUniqueInput], {nullable:true})
-    @Type(() => ServiceWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [
+      ServiceUpdateWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceUpdateWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+  )
+  update?: Array<ServiceUpdateWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
 
-    @Field(() => [ServiceUpdateWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => ServiceUpdateWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput)
-    update?: Array<ServiceUpdateWithWhereUniqueWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      ServiceUpdateManyWithWhereWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      ServiceUpdateManyWithWhereWithoutDirectus_users_Service_user_createdTodirectus_usersInput,
+  )
+  updateMany?: Array<ServiceUpdateManyWithWhereWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
 
-    @Field(() => [ServiceUpdateManyWithWhereWithoutDirectus_users_Service_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => ServiceUpdateManyWithWhereWithoutDirectus_users_Service_user_createdTodirectus_usersInput)
-    updateMany?: Array<ServiceUpdateManyWithWhereWithoutDirectus_users_Service_user_createdTodirectus_usersInput>;
-
-    @Field(() => [ServiceScalarWhereInput], {nullable:true})
-    @Type(() => ServiceScalarWhereInput)
-    deleteMany?: Array<ServiceScalarWhereInput>;
+  @Field(() => [ServiceScalarWhereInput], { nullable: true })
+  @Type(() => ServiceScalarWhereInput)
+  deleteMany?: Array<ServiceScalarWhereInput>;
 }

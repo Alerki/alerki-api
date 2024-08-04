@@ -7,25 +7,30 @@ import { directus_translationsMinOrderByAggregateInput } from './directus-transl
 
 @InputType()
 export class directus_translationsOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  language?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    language?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  key?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    key?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  value?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    value?: keyof typeof SortOrder;
+  @Field(() => directus_translationsCountOrderByAggregateInput, {
+    nullable: true,
+  })
+  _count?: directus_translationsCountOrderByAggregateInput;
 
-    @Field(() => directus_translationsCountOrderByAggregateInput, {nullable:true})
-    _count?: directus_translationsCountOrderByAggregateInput;
+  @Field(() => directus_translationsMaxOrderByAggregateInput, {
+    nullable: true,
+  })
+  _max?: directus_translationsMaxOrderByAggregateInput;
 
-    @Field(() => directus_translationsMaxOrderByAggregateInput, {nullable:true})
-    _max?: directus_translationsMaxOrderByAggregateInput;
-
-    @Field(() => directus_translationsMinOrderByAggregateInput, {nullable:true})
-    _min?: directus_translationsMinOrderByAggregateInput;
+  @Field(() => directus_translationsMinOrderByAggregateInput, {
+    nullable: true,
+  })
+  _min?: directus_translationsMinOrderByAggregateInput;
 }

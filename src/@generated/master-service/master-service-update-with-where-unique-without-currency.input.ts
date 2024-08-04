@@ -7,12 +7,11 @@ import { MasterServiceUpdateWithoutCurrencyInput } from './master-service-update
 
 @InputType()
 export class MasterServiceUpdateWithWhereUniqueWithoutCurrencyInput {
+  @Field(() => MasterServiceWhereUniqueInput, { nullable: false })
+  @Type(() => MasterServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterServiceWhereUniqueInput, {nullable:false})
-    @Type(() => MasterServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterServiceUpdateWithoutCurrencyInput, {nullable:false})
-    @Type(() => MasterServiceUpdateWithoutCurrencyInput)
-    data!: MasterServiceUpdateWithoutCurrencyInput;
+  @Field(() => MasterServiceUpdateWithoutCurrencyInput, { nullable: false })
+  @Type(() => MasterServiceUpdateWithoutCurrencyInput)
+  data!: MasterServiceUpdateWithoutCurrencyInput;
 }

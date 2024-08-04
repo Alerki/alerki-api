@@ -6,12 +6,11 @@ import { directus_settingsUpdateManyMutationInput } from './directus-settings-up
 
 @InputType()
 export class directus_settingsUpdateManyWithWhereWithoutDirectus_foldersInput {
+  @Field(() => directus_settingsScalarWhereInput, { nullable: false })
+  @Type(() => directus_settingsScalarWhereInput)
+  where!: directus_settingsScalarWhereInput;
 
-    @Field(() => directus_settingsScalarWhereInput, {nullable:false})
-    @Type(() => directus_settingsScalarWhereInput)
-    where!: directus_settingsScalarWhereInput;
-
-    @Field(() => directus_settingsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_settingsUpdateManyMutationInput)
-    data!: directus_settingsUpdateManyMutationInput;
+  @Field(() => directus_settingsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_settingsUpdateManyMutationInput)
+  data!: directus_settingsUpdateManyMutationInput;
 }

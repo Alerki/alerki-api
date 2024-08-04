@@ -5,11 +5,18 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInputEnvelope {
+  @Field(
+    () => [
+      CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInput,
+    ],
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInput,
+  )
+  data!: Array<CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInput>;
 
-    @Field(() => [CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInput], {nullable:false})
-    @Type(() => CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInput)
-    data!: Array<CurrencyCreateManyDirectus_users_Currency_user_createdTodirectus_usersInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

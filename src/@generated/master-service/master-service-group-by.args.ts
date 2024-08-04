@@ -14,38 +14,37 @@ import { MasterServiceMaxAggregateInput } from './master-service-max-aggregate.i
 
 @ArgsType()
 export class MasterServiceGroupByArgs {
+  @Field(() => MasterServiceWhereInput, { nullable: true })
+  @Type(() => MasterServiceWhereInput)
+  where?: MasterServiceWhereInput;
 
-    @Field(() => MasterServiceWhereInput, {nullable:true})
-    @Type(() => MasterServiceWhereInput)
-    where?: MasterServiceWhereInput;
+  @Field(() => [MasterServiceOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<MasterServiceOrderByWithAggregationInput>;
 
-    @Field(() => [MasterServiceOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<MasterServiceOrderByWithAggregationInput>;
+  @Field(() => [MasterServiceScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof MasterServiceScalarFieldEnum>;
 
-    @Field(() => [MasterServiceScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof MasterServiceScalarFieldEnum>;
+  @Field(() => MasterServiceScalarWhereWithAggregatesInput, { nullable: true })
+  having?: MasterServiceScalarWhereWithAggregatesInput;
 
-    @Field(() => MasterServiceScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MasterServiceScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => MasterServiceCountAggregateInput, { nullable: true })
+  _count?: MasterServiceCountAggregateInput;
 
-    @Field(() => MasterServiceCountAggregateInput, {nullable:true})
-    _count?: MasterServiceCountAggregateInput;
+  @Field(() => MasterServiceAvgAggregateInput, { nullable: true })
+  _avg?: MasterServiceAvgAggregateInput;
 
-    @Field(() => MasterServiceAvgAggregateInput, {nullable:true})
-    _avg?: MasterServiceAvgAggregateInput;
+  @Field(() => MasterServiceSumAggregateInput, { nullable: true })
+  _sum?: MasterServiceSumAggregateInput;
 
-    @Field(() => MasterServiceSumAggregateInput, {nullable:true})
-    _sum?: MasterServiceSumAggregateInput;
+  @Field(() => MasterServiceMinAggregateInput, { nullable: true })
+  _min?: MasterServiceMinAggregateInput;
 
-    @Field(() => MasterServiceMinAggregateInput, {nullable:true})
-    _min?: MasterServiceMinAggregateInput;
-
-    @Field(() => MasterServiceMaxAggregateInput, {nullable:true})
-    _max?: MasterServiceMaxAggregateInput;
+  @Field(() => MasterServiceMaxAggregateInput, { nullable: true })
+  _max?: MasterServiceMaxAggregateInput;
 }

@@ -5,11 +5,12 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class MasterServiceCreateManyService_translationsInputEnvelope {
+  @Field(() => [MasterServiceCreateManyService_translationsInput], {
+    nullable: false,
+  })
+  @Type(() => MasterServiceCreateManyService_translationsInput)
+  data!: Array<MasterServiceCreateManyService_translationsInput>;
 
-    @Field(() => [MasterServiceCreateManyService_translationsInput], {nullable:false})
-    @Type(() => MasterServiceCreateManyService_translationsInput)
-    data!: Array<MasterServiceCreateManyService_translationsInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

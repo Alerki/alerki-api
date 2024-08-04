@@ -4,16 +4,18 @@ import { Service_translationsUncheckedCreateNestedManyWithoutLanguagesInput } fr
 
 @InputType()
 export class languagesUncheckedCreateInput {
+  @Field(() => String, { nullable: false })
+  code!: string;
 
-    @Field(() => String, {nullable:false})
-    code!: string;
+  @Field(() => String, { nullable: true })
+  name?: string;
 
-    @Field(() => String, {nullable:true})
-    name?: string;
+  @Field(() => String, { nullable: true })
+  direction?: string;
 
-    @Field(() => String, {nullable:true})
-    direction?: string;
-
-    @Field(() => Service_translationsUncheckedCreateNestedManyWithoutLanguagesInput, {nullable:true})
-    Service_translations?: Service_translationsUncheckedCreateNestedManyWithoutLanguagesInput;
+  @Field(
+    () => Service_translationsUncheckedCreateNestedManyWithoutLanguagesInput,
+    { nullable: true },
+  )
+  Service_translations?: Service_translationsUncheckedCreateNestedManyWithoutLanguagesInput;
 }

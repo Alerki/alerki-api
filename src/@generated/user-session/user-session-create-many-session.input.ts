@@ -4,10 +4,9 @@ import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class User_SessionCreateManySessionInput {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
-
-    @Field(() => String, {nullable:true})
-    User_id?: string;
+  @Field(() => String, { nullable: false })
+  User_id!: string;
 }

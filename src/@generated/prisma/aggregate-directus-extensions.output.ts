@@ -6,13 +6,12 @@ import { Directus_extensionsMaxAggregate } from './directus-extensions-max-aggre
 
 @ObjectType()
 export class AggregateDirectus_extensions {
+  @Field(() => Directus_extensionsCountAggregate, { nullable: true })
+  _count?: Directus_extensionsCountAggregate;
 
-    @Field(() => Directus_extensionsCountAggregate, {nullable:true})
-    _count?: Directus_extensionsCountAggregate;
+  @Field(() => Directus_extensionsMinAggregate, { nullable: true })
+  _min?: Directus_extensionsMinAggregate;
 
-    @Field(() => Directus_extensionsMinAggregate, {nullable:true})
-    _min?: Directus_extensionsMinAggregate;
-
-    @Field(() => Directus_extensionsMaxAggregate, {nullable:true})
-    _max?: Directus_extensionsMaxAggregate;
+  @Field(() => Directus_extensionsMaxAggregate, { nullable: true })
+  _max?: Directus_extensionsMaxAggregate;
 }

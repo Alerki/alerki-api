@@ -6,25 +6,24 @@ import { SessionOrderByRelevanceInput } from './session-order-by-relevance.input
 
 @InputType()
 export class SessionOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  deviceName?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    deviceName?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  refreshToken?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    refreshToken?: keyof typeof SortOrder;
+  @Field(() => User_SessionOrderByRelationAggregateInput, { nullable: true })
+  User_Session?: User_SessionOrderByRelationAggregateInput;
 
-    @Field(() => User_SessionOrderByRelationAggregateInput, {nullable:true})
-    User_Session?: User_SessionOrderByRelationAggregateInput;
-
-    @Field(() => SessionOrderByRelevanceInput, {nullable:true})
-    _relevance?: SessionOrderByRelevanceInput;
+  @Field(() => SessionOrderByRelevanceInput, { nullable: true })
+  _relevance?: SessionOrderByRelevanceInput;
 }

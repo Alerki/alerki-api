@@ -6,12 +6,15 @@ import { directus_foldersCreateWithoutDirectus_filesInput } from './directus-fol
 
 @InputType()
 export class directus_foldersUpsertWithoutDirectus_filesInput {
+  @Field(() => directus_foldersUpdateWithoutDirectus_filesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_foldersUpdateWithoutDirectus_filesInput)
+  update!: directus_foldersUpdateWithoutDirectus_filesInput;
 
-    @Field(() => directus_foldersUpdateWithoutDirectus_filesInput, {nullable:false})
-    @Type(() => directus_foldersUpdateWithoutDirectus_filesInput)
-    update!: directus_foldersUpdateWithoutDirectus_filesInput;
-
-    @Field(() => directus_foldersCreateWithoutDirectus_filesInput, {nullable:false})
-    @Type(() => directus_foldersCreateWithoutDirectus_filesInput)
-    create!: directus_foldersCreateWithoutDirectus_filesInput;
+  @Field(() => directus_foldersCreateWithoutDirectus_filesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_foldersCreateWithoutDirectus_filesInput)
+  create!: directus_foldersCreateWithoutDirectus_filesInput;
 }

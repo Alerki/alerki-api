@@ -10,30 +10,60 @@ import { directus_usersUpdateWithoutDirectus_versions_directus_versions_user_upd
 
 @InputType()
 export class directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersNestedInput {
+  @Field(
+    () =>
+      directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  create?: directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput)
-    create?: directus_usersCreateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateOrConnectWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateOrConnectWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateOrConnectWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateOrConnectWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput)
-    connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersUpsertWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersUpsertWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  upsert?: directus_usersUpsertWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
 
-    @Field(() => directus_usersUpsertWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersUpsertWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput)
-    upsert?: directus_usersUpsertWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_usersWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_usersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput)
-    update?: directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  update?: directus_usersUpdateWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersInput;
 }

@@ -6,13 +6,12 @@ import { UserSenderOnNotificationMaxAggregate } from './user-sender-on-notificat
 
 @ObjectType()
 export class AggregateUserSenderOnNotification {
+  @Field(() => UserSenderOnNotificationCountAggregate, { nullable: true })
+  _count?: UserSenderOnNotificationCountAggregate;
 
-    @Field(() => UserSenderOnNotificationCountAggregate, {nullable:true})
-    _count?: UserSenderOnNotificationCountAggregate;
+  @Field(() => UserSenderOnNotificationMinAggregate, { nullable: true })
+  _min?: UserSenderOnNotificationMinAggregate;
 
-    @Field(() => UserSenderOnNotificationMinAggregate, {nullable:true})
-    _min?: UserSenderOnNotificationMinAggregate;
-
-    @Field(() => UserSenderOnNotificationMaxAggregate, {nullable:true})
-    _max?: UserSenderOnNotificationMaxAggregate;
+  @Field(() => UserSenderOnNotificationMaxAggregate, { nullable: true })
+  _max?: UserSenderOnNotificationMaxAggregate;
 }

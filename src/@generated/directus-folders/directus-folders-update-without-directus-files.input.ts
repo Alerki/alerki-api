@@ -7,19 +7,25 @@ import { directus_settingsUpdateManyWithoutDirectus_foldersNestedInput } from '.
 
 @InputType()
 export class directus_foldersUpdateWithoutDirectus_filesInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(
+    () => directus_foldersUpdateOneWithoutOther_directus_foldersNestedInput,
+    { nullable: true },
+  )
+  directus_folders?: directus_foldersUpdateOneWithoutOther_directus_foldersNestedInput;
 
-    @Field(() => directus_foldersUpdateOneWithoutOther_directus_foldersNestedInput, {nullable:true})
-    directus_folders?: directus_foldersUpdateOneWithoutOther_directus_foldersNestedInput;
+  @Field(() => directus_foldersUpdateManyWithoutDirectus_foldersNestedInput, {
+    nullable: true,
+  })
+  other_directus_folders?: directus_foldersUpdateManyWithoutDirectus_foldersNestedInput;
 
-    @Field(() => directus_foldersUpdateManyWithoutDirectus_foldersNestedInput, {nullable:true})
-    other_directus_folders?: directus_foldersUpdateManyWithoutDirectus_foldersNestedInput;
-
-    @Field(() => directus_settingsUpdateManyWithoutDirectus_foldersNestedInput, {nullable:true})
-    directus_settings?: directus_settingsUpdateManyWithoutDirectus_foldersNestedInput;
+  @Field(() => directus_settingsUpdateManyWithoutDirectus_foldersNestedInput, {
+    nullable: true,
+  })
+  directus_settings?: directus_settingsUpdateManyWithoutDirectus_foldersNestedInput;
 }

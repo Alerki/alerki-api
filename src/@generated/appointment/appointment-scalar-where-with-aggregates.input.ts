@@ -8,52 +8,51 @@ import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.
 
 @InputType()
 export class AppointmentScalarWhereWithAggregatesInput {
+  @Field(() => [AppointmentScalarWhereWithAggregatesInput], { nullable: true })
+  AND?: Array<AppointmentScalarWhereWithAggregatesInput>;
 
-    @Field(() => [AppointmentScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<AppointmentScalarWhereWithAggregatesInput>;
+  @Field(() => [AppointmentScalarWhereWithAggregatesInput], { nullable: true })
+  OR?: Array<AppointmentScalarWhereWithAggregatesInput>;
 
-    @Field(() => [AppointmentScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<AppointmentScalarWhereWithAggregatesInput>;
+  @Field(() => [AppointmentScalarWhereWithAggregatesInput], { nullable: true })
+  NOT?: Array<AppointmentScalarWhereWithAggregatesInput>;
 
-    @Field(() => [AppointmentScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<AppointmentScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_updated?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_updated?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  masterService?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    masterService?: UuidWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  clientProfile?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    clientProfile?: UuidWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  masterProfile?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    masterProfile?: UuidWithAggregatesFilter;
+  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
+  duration?: DateTimeWithAggregatesFilter;
 
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    duration?: DateTimeWithAggregatesFilter;
+  @Field(() => IntWithAggregatesFilter, { nullable: true })
+  price?: IntWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    price?: IntWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  currency?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    currency?: UuidWithAggregatesFilter;
+  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
+  startAt?: DateTimeWithAggregatesFilter;
 
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    startAt?: DateTimeWithAggregatesFilter;
+  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
+  endAt?: DateTimeWithAggregatesFilter;
 
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    endAt?: DateTimeWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  confirmed?: BoolWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    confirmed?: BoolWithAggregatesFilter;
-
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    cancelled?: BoolWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  cancelled?: BoolWithAggregatesFilter;
 }

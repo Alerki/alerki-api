@@ -5,11 +5,12 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class directus_presetsCreateManyDirectus_rolesInputEnvelope {
+  @Field(() => [directus_presetsCreateManyDirectus_rolesInput], {
+    nullable: false,
+  })
+  @Type(() => directus_presetsCreateManyDirectus_rolesInput)
+  data!: Array<directus_presetsCreateManyDirectus_rolesInput>;
 
-    @Field(() => [directus_presetsCreateManyDirectus_rolesInput], {nullable:false})
-    @Type(() => directus_presetsCreateManyDirectus_rolesInput)
-    data!: Array<directus_presetsCreateManyDirectus_rolesInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

@@ -7,34 +7,33 @@ import { UserRelationFilter } from '../user/user-relation-filter.input';
 
 @InputType()
 export class UserRecipientOnNotificationWhereInput {
+  @Field(() => [UserRecipientOnNotificationWhereInput], { nullable: true })
+  AND?: Array<UserRecipientOnNotificationWhereInput>;
 
-    @Field(() => [UserRecipientOnNotificationWhereInput], {nullable:true})
-    AND?: Array<UserRecipientOnNotificationWhereInput>;
+  @Field(() => [UserRecipientOnNotificationWhereInput], { nullable: true })
+  OR?: Array<UserRecipientOnNotificationWhereInput>;
 
-    @Field(() => [UserRecipientOnNotificationWhereInput], {nullable:true})
-    OR?: Array<UserRecipientOnNotificationWhereInput>;
+  @Field(() => [UserRecipientOnNotificationWhereInput], { nullable: true })
+  NOT?: Array<UserRecipientOnNotificationWhereInput>;
 
-    @Field(() => [UserRecipientOnNotificationWhereInput], {nullable:true})
-    NOT?: Array<UserRecipientOnNotificationWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => UuidFilter, { nullable: true })
+  user?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    user?: UuidFilter;
+  @Field(() => UuidFilter, { nullable: true })
+  notification?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    notification?: UuidFilter;
+  @Field(() => NotificationRelationFilter, { nullable: true })
+  Notification?: NotificationRelationFilter;
 
-    @Field(() => NotificationRelationFilter, {nullable:true})
-    Notification?: NotificationRelationFilter;
-
-    @Field(() => UserRelationFilter, {nullable:true})
-    User?: UserRelationFilter;
+  @Field(() => UserRelationFilter, { nullable: true })
+  User?: UserRelationFilter;
 }

@@ -7,43 +7,42 @@ import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-fi
 
 @InputType()
 export class directus_presetsUncheckedUpdateManyInput {
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  id?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  bookmark?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    bookmark?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  user?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    user?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  role?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    role?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  collection?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    collection?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  search?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    search?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  layout?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    layout?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  layout_query?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    layout_query?: any;
+  @Field(() => GraphQLJSON, { nullable: true })
+  layout_options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    layout_options?: any;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  refresh_interval?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    refresh_interval?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  filter?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    filter?: any;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  icon?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    icon?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    color?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  color?: NullableStringFieldUpdateOperationsInput;
 }

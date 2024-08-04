@@ -7,16 +7,15 @@ import { directus_filesUpdateInput } from '../directus-files/directus-files-upda
 
 @ArgsType()
 export class UpsertOnedirectusFilesArgs {
+  @Field(() => directus_filesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_filesWhereUniqueInput)
+  where!: directus_filesWhereUniqueInput;
 
-    @Field(() => directus_filesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_filesWhereUniqueInput)
-    where!: directus_filesWhereUniqueInput;
+  @Field(() => directus_filesCreateInput, { nullable: false })
+  @Type(() => directus_filesCreateInput)
+  create!: directus_filesCreateInput;
 
-    @Field(() => directus_filesCreateInput, {nullable:false})
-    @Type(() => directus_filesCreateInput)
-    create!: directus_filesCreateInput;
-
-    @Field(() => directus_filesUpdateInput, {nullable:false})
-    @Type(() => directus_filesUpdateInput)
-    update!: directus_filesUpdateInput;
+  @Field(() => directus_filesUpdateInput, { nullable: false })
+  @Type(() => directus_filesUpdateInput)
+  update!: directus_filesUpdateInput;
 }

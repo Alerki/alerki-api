@@ -8,16 +8,19 @@ import { directus_settingsCreateWithoutDirectus_foldersInput } from './directus-
 
 @InputType()
 export class directus_settingsUpsertWithWhereUniqueWithoutDirectus_foldersInput {
+  @Field(() => directus_settingsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_settingsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_settingsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_settingsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>;
+  @Field(() => directus_settingsUpdateWithoutDirectus_foldersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_settingsUpdateWithoutDirectus_foldersInput)
+  update!: directus_settingsUpdateWithoutDirectus_foldersInput;
 
-    @Field(() => directus_settingsUpdateWithoutDirectus_foldersInput, {nullable:false})
-    @Type(() => directus_settingsUpdateWithoutDirectus_foldersInput)
-    update!: directus_settingsUpdateWithoutDirectus_foldersInput;
-
-    @Field(() => directus_settingsCreateWithoutDirectus_foldersInput, {nullable:false})
-    @Type(() => directus_settingsCreateWithoutDirectus_foldersInput)
-    create!: directus_settingsCreateWithoutDirectus_foldersInput;
+  @Field(() => directus_settingsCreateWithoutDirectus_foldersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_settingsCreateWithoutDirectus_foldersInput)
+  create!: directus_settingsCreateWithoutDirectus_foldersInput;
 }

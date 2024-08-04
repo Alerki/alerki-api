@@ -3,19 +3,18 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class directus_extensionsCreateManyInput {
+  @Field(() => Boolean, { nullable: true })
+  enabled?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    enabled?: boolean;
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false })
+  folder!: string;
 
-    @Field(() => String, {nullable:false})
-    folder!: string;
+  @Field(() => String, { nullable: false })
+  source!: string;
 
-    @Field(() => String, {nullable:false})
-    source!: string;
-
-    @Field(() => String, {nullable:true})
-    bundle?: string;
+  @Field(() => String, { nullable: true })
+  bundle?: string;
 }

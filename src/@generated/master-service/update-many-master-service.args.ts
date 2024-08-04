@@ -6,12 +6,11 @@ import { MasterServiceWhereInput } from './master-service-where.input';
 
 @ArgsType()
 export class UpdateManyMasterServiceArgs {
+  @Field(() => MasterServiceUpdateManyMutationInput, { nullable: false })
+  @Type(() => MasterServiceUpdateManyMutationInput)
+  data!: MasterServiceUpdateManyMutationInput;
 
-    @Field(() => MasterServiceUpdateManyMutationInput, {nullable:false})
-    @Type(() => MasterServiceUpdateManyMutationInput)
-    data!: MasterServiceUpdateManyMutationInput;
-
-    @Field(() => MasterServiceWhereInput, {nullable:true})
-    @Type(() => MasterServiceWhereInput)
-    where?: MasterServiceWhereInput;
+  @Field(() => MasterServiceWhereInput, { nullable: true })
+  @Type(() => MasterServiceWhereInput)
+  where?: MasterServiceWhereInput;
 }

@@ -12,7 +12,18 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, inputPassword: string) {
-    const user = await this.userService.findFirst({ where: { username } });
+    const user = await this.prismaService.user.findFirst({
+      where: {
+        OR: [
+          {
+            email: username,
+          },
+          {
+            username,
+          },
+        ],
+      },
+    });
 
     if (user && bcryptjs.compareSync(inputPassword, user.password)) {
       const { password, ...result } = user;

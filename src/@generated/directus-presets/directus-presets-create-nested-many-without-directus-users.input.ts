@@ -9,20 +9,25 @@ import { directus_presetsWhereUniqueInput } from './directus-presets-where-uniqu
 
 @InputType()
 export class directus_presetsCreateNestedManyWithoutDirectus_usersInput {
+  @Field(() => [directus_presetsCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_presetsCreateWithoutDirectus_usersInput)
+  create?: Array<directus_presetsCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_presetsCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_presetsCreateWithoutDirectus_usersInput)
-    create?: Array<directus_presetsCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_presetsCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_presetsCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_presetsCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_presetsCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_presetsCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_presetsCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(() => directus_presetsCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_presetsCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_presetsCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_presetsCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_presetsCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_presetsCreateManyDirectus_usersInputEnvelope;
-
-    @Field(() => [directus_presetsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_presetsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_presetsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_presetsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
 }

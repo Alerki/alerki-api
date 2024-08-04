@@ -8,28 +8,31 @@ import { Service_translationsOrderByRelevanceInput } from './service-translation
 
 @InputType()
 export class Service_translationsOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  Service_id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    Service_id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  languages_id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    languages_id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => MasterServiceOrderByRelationAggregateInput, { nullable: true })
+  MasterService?: MasterServiceOrderByRelationAggregateInput;
 
-    @Field(() => MasterServiceOrderByRelationAggregateInput, {nullable:true})
-    MasterService?: MasterServiceOrderByRelationAggregateInput;
+  @Field(() => languagesOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  languages?: languagesOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => languagesOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    languages?: languagesOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => ServiceOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  Service?: ServiceOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => ServiceOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    Service?: ServiceOrderByWithRelationAndSearchRelevanceInput;
-
-    @Field(() => Service_translationsOrderByRelevanceInput, {nullable:true})
-    _relevance?: Service_translationsOrderByRelevanceInput;
+  @Field(() => Service_translationsOrderByRelevanceInput, { nullable: true })
+  _relevance?: Service_translationsOrderByRelevanceInput;
 }

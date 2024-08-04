@@ -7,28 +7,33 @@ import { UserRecipientOnNotificationOrderByRelevanceInput } from './user-recipie
 
 @InputType()
 export class UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  notification?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    notification?: keyof typeof SortOrder;
+  @Field(() => NotificationOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  Notification?: NotificationOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => NotificationOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    Notification?: NotificationOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  User?: UserOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    User?: UserOrderByWithRelationAndSearchRelevanceInput;
-
-    @Field(() => UserRecipientOnNotificationOrderByRelevanceInput, {nullable:true})
-    _relevance?: UserRecipientOnNotificationOrderByRelevanceInput;
+  @Field(() => UserRecipientOnNotificationOrderByRelevanceInput, {
+    nullable: true,
+  })
+  _relevance?: UserRecipientOnNotificationOrderByRelevanceInput;
 }

@@ -32,46 +32,36 @@ export class UserModuleService {
   //   private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
   //   private readonly serviceService: ServiceService,
   // ) { }
-
   // async getUser(username: string) {
   //   const user = await this.userService.findExists({
   //     where: {
   //       username,
   //     },
   //   });
-
   //   const { password, ...data } = user;
-
   //   return data;
   // }
-
   // async getProtectedUser(data: IJwtTokenData) {
   //   const user = await this.userService.findExists({
   //     where: {
   //       id: data.id,
   //     },
   //   });
-
   //   const { password, ...userData } = user;
-
   //   return userData;
   // }
-
   // async enableMaster(user: IJwtTokenData) {
   //   const userCandidate = await this.userService.findExists({
   //     where: {
   //       id: user.id,
   //     },
   //   });
-
   //   // if (userCandidate.isMaster) {
   //   //   throw new BadRequestException('User already is master');
   //   // }
-
   //   // const updateMasterProfileData: Prisma.Prisma.UserUpdateArgs['data'] = {
   //   //   isMaster: true,
   //   // };
-
   //   // If master profile for specific user not exists then create new one
   //   // if (!userCandidate.masterProfileId) {
   //   //   const startAt = new Date();
@@ -79,23 +69,19 @@ export class UserModuleService {
   //   //   startAt.setUTCMinutes(0);
   //   //   startAt.setUTCSeconds(0);
   //   //   startAt.setUTCMilliseconds(0);
-
   //   //   const endAt = new Date(startAt);
   //   //   endAt.setHours(17);
-
   //   //   const newWeeklySchedule = await this.masterWeeklyScheduleService.create({
   //   //     data: {
   //   //       startAt,
   //   //       endAt,
   //   //     },
   //   //   });
-
   //   //   const newMasterProfile = await this.masterProfileService.create({
   //   //     data: {
   //   //       weeklyScheduleId: newWeeklySchedule.id,
   //   //     },
   //   //   });
-
   //   //   updateMasterProfileData.masterProfileId = newMasterProfile.id;
   //   // } else {
   //   //   await this.masterProfileService.update({
@@ -107,7 +93,6 @@ export class UserModuleService {
   //   //     },
   //   //   });
   //   // }
-
   //   // await this.userService.update({
   //   //   where: {
   //   //     id: user.id,
@@ -115,18 +100,15 @@ export class UserModuleService {
   //   //   data: updateMasterProfileData,
   //   // });
   // }
-
   // async disableMaster(user: IJwtTokenData) {
   //   const userCandidate = await this.userService.findExists({
   //     where: {
   //       id: user.id,
   //     },
   //   });
-
   //   if (!userCandidate.isMaster || !userCandidate.masterProfileId) {
   //     throw new BadRequestException('User is not a master');
   //   }
-
   //   await this.masterProfileService.update({
   //     where: {
   //       id: userCandidate.masterProfileId,
@@ -135,7 +117,6 @@ export class UserModuleService {
   //       available: false,
   //     },
   //   });
-
   //   await this.userService.update({
   //     where: {
   //       id: userCandidate.id,
@@ -145,7 +126,6 @@ export class UserModuleService {
   //     },
   //   });
   // }
-
   // async createMasterService(user: IJwtTokenData, data: CreateMasterServiceDto) {
   //   const userCandidate = await this.userService.findExists({
   //     where: {
@@ -155,32 +135,26 @@ export class UserModuleService {
   //       masterProfileId: true,
   //     },
   //   });
-
   //   if (!userCandidate.masterProfileId) {
   //     throw new BadRequestException('User is not a master');
   //   }
-
   //   let serviceCandidate = await this.serviceService.searchFirstByName(
   //     data.name,
   //   );
-
   //   if (!serviceCandidate) {
   //     serviceCandidate = await this.serviceService.create(data.name);
   //   }
-
   //   const checkIfNotExists = await this.masterServiceService.findFirst({
   //     where: {
   //       masterProfileId: userCandidate.masterProfileId,
   //       serviceId: serviceCandidate.id,
   //     },
   //   });
-
   //   if (checkIfNotExists) {
   //     throw new BadRequestException(
   //       'Master service with this name already exists',
   //     );
   //   }
-
   //   return this.masterServiceService.create({
   //     data: {
   //       duration: data.duration,
@@ -194,7 +168,6 @@ export class UserModuleService {
   //     },
   //   });
   // }
-
   // async getOwnMasterServices(user: IJwtTokenData) {
   //   const userCandidate = await this.userService.findExists({
   //     where: {
@@ -205,11 +178,9 @@ export class UserModuleService {
   //       masterProfileId: true,
   //     },
   //   });
-
   //   if (!userCandidate.isMaster || !userCandidate.masterProfileId) {
   //     throw new BadRequestException('User is not a master');
   //   }
-
   //   return this.masterServiceService.findMany({
   //     where: {
   //       masterProfileId: userCandidate.masterProfileId,
@@ -219,18 +190,15 @@ export class UserModuleService {
   //     },
   //   });
   // }
-
   // async getMasterServicesByMasterId(id: string) {
   //   const masterCandidate = await this.masterProfileService.findExists({
   //     where: {
   //       id,
   //     },
   //   });
-
   //   if (!masterCandidate.available) {
   //     throw new BadRequestException('Master is not available');
   //   }
-
   //   return this.masterServiceService.findMany({
   //     where: {
   //       masterProfileId: masterCandidate.id,
@@ -240,7 +208,6 @@ export class UserModuleService {
   //     },
   //   });
   // }
-
   // async updateMasterService(
   //   serviceId: string,
   //   user: IJwtTokenData,
@@ -251,25 +218,19 @@ export class UserModuleService {
   //       id: serviceId,
   //     },
   //   });
-
   //   const { name, ...otherData } = data;
-
   //   const updateData: Prisma.Prisma.MasterServiceUpdateArgs['data'] = {
   //     ...otherData,
   //   };
-
   //   if (data.name) {
   //     let serviceCandidate = await this.serviceService.searchFirstByName(
   //       data.name,
   //     );
-
   //     if (!serviceCandidate) {
   //       serviceCandidate = await this.serviceService.create(data.name);
   //     }
-
   //     updateData.serviceId = serviceCandidate.id;
   //   }
-
   //   const userCandidate = await this.userService.findExists({
   //     where: {
   //       id: user.id,
@@ -279,17 +240,14 @@ export class UserModuleService {
   //       masterProfileId: true,
   //     },
   //   });
-
   //   if (!userCandidate.isMaster || !userCandidate.masterProfileId) {
   //     throw new BadRequestException('User is not a master');
   //   }
-
   //   if (
   //     masterServiceCandidate.masterProfileId !== userCandidate.masterProfileId
   //   ) {
   //     throw new BadRequestException('This service not belongs to the user');
   //   }
-
   //   return this.masterServiceService.update({
   //     where: {
   //       id: masterServiceCandidate.id,
@@ -297,14 +255,12 @@ export class UserModuleService {
   //     data: updateData,
   //   });
   // }
-
   // async deleteMasterService(serviceId: string, user: IJwtTokenData) {
   //   const masterServiceCandidate = await this.masterServiceService.findExists({
   //     where: {
   //       id: serviceId,
   //     },
   //   });
-
   //   const userCandidate = await this.userService.findExists({
   //     where: {
   //       id: user.id,
@@ -313,27 +269,23 @@ export class UserModuleService {
   //       masterProfileId: true,
   //     },
   //   });
-
   //   if (
   //     masterServiceCandidate.masterProfileId !== userCandidate.masterProfileId
   //   ) {
   //     throw new BadRequestException('This service not belongs to the user');
   //   }
-
   //   await this.masterServiceService.delete({
   //     where: {
   //       id: masterServiceCandidate.id,
   //     },
   //   });
   // }
-
   // async updateUser(user: IJwtTokenData, data: UpdateUserDto) {
   //   const candidate = await this.userService.findExists({
   //     where: {
   //       id: user.id,
   //     },
   //   });
-
   //   return this.userService.update({
   //     where: {
   //       id: candidate.id,
@@ -343,21 +295,17 @@ export class UserModuleService {
   //     },
   //   });
   // }
-
   // async getPicture(id: string) {
   //   const picture = await this.prismaService.userPicture.findFirst({
   //     where: {
   //       id,
   //     },
   //   });
-
   //   if (!picture) {
   //     throw new NotFoundException('Picture not found');
   //   }
-
   //   return picture;
   // }
-
   // async patchUserPicture({
   //   id,
   //   picture,
@@ -367,35 +315,28 @@ export class UserModuleService {
   //       id,
   //     },
   //   });
-
   //   let pictureBuffer: Buffer = picture.buffer;
-
   //   // Check picture type
   //   const pictureType = await imageType(pictureBuffer);
-
   //   if (!pictureType) {
   //     throw new BadRequestException(
   //       `Validation failed (expected type is ${apiConfig.user.userPictureFormatRegExp.toString()})`,
   //     );
   //   }
-
   //   // eslint-disable-next-line max-len
   //   if (!pictureType.ext.match(apiConfig.user.userPictureFormatRegExp)) {
   //     throw new BadRequestException(
   //       `Validation failed (expected type is ${apiConfig.user.userPictureFormatRegExp.toString()})`,
   //     );
   //   }
-
   //   // Check picture size
   //   const { width, height } = imageSize(pictureBuffer);
-
   //   if (width > 200 || height > 200) {
   //     pictureBuffer = await sharp(picture.buffer)
   //       .resize(200, 200)
   //       .jpeg({ mozjpeg: true })
   //       .toBuffer();
   //   }
-
   //   // If picture already exists delete that and create new one
   //   if (candidate.pictureId) {
   //     await this.prismaService.userPicture.delete({
@@ -404,7 +345,6 @@ export class UserModuleService {
   //       },
   //     });
   //   }
-
   //   // const updatedUser = await this.prismaService.user.update({
   //   //   where: {
   //   //     id,
@@ -417,21 +357,17 @@ export class UserModuleService {
   //   //     },
   //   //   },
   //   // });
-
   //   // return updatedUser.pictureId;
   // }
-
   // async deletePicture({ id }: Pick<Prisma.UserPicture, 'id'>) {
   //   const candidate = await this.userService.findExists({
   //     where: {
   //       id,
   //     },
   //   });
-
   //   // if (!candidate.pictureId) {
   //   //   throw new NotFoundException('Picture not exists');
   //   // }
-
   //   // await this.prismaService.userPicture.delete({
   //   //   where: { id: candidate.pictureId },
   //   // });

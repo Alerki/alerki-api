@@ -8,16 +8,29 @@ import { AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMaster
 
 @InputType()
 export class AppointmentUpsertWithWhereUniqueWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput {
+  @Field(() => AppointmentWhereUniqueInput, { nullable: false })
+  @Type(() => AppointmentWhereUniqueInput)
+  where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
 
-    @Field(() => AppointmentWhereUniqueInput, {nullable:false})
-    @Type(() => AppointmentWhereUniqueInput)
-    where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
+  @Field(
+    () =>
+      AppointmentUpdateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      AppointmentUpdateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+  )
+  update!: AppointmentUpdateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput;
 
-    @Field(() => AppointmentUpdateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput, {nullable:false})
-    @Type(() => AppointmentUpdateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput)
-    update!: AppointmentUpdateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput;
-
-    @Field(() => AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput, {nullable:false})
-    @Type(() => AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput)
-    create!: AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput;
+  @Field(
+    () =>
+      AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+  )
+  create!: AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput;
 }

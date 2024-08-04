@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManyUserSessionArgs {
+  @Field(() => [User_SessionCreateManyInput], { nullable: false })
+  @Type(() => User_SessionCreateManyInput)
+  data!: Array<User_SessionCreateManyInput>;
 
-    @Field(() => [User_SessionCreateManyInput], {nullable:false})
-    @Type(() => User_SessionCreateManyInput)
-    data!: Array<User_SessionCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

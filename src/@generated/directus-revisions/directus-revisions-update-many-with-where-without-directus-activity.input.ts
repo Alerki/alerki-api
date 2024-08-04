@@ -6,12 +6,11 @@ import { directus_revisionsUpdateManyMutationInput } from './directus-revisions-
 
 @InputType()
 export class directus_revisionsUpdateManyWithWhereWithoutDirectus_activityInput {
+  @Field(() => directus_revisionsScalarWhereInput, { nullable: false })
+  @Type(() => directus_revisionsScalarWhereInput)
+  where!: directus_revisionsScalarWhereInput;
 
-    @Field(() => directus_revisionsScalarWhereInput, {nullable:false})
-    @Type(() => directus_revisionsScalarWhereInput)
-    where!: directus_revisionsScalarWhereInput;
-
-    @Field(() => directus_revisionsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_revisionsUpdateManyMutationInput)
-    data!: directus_revisionsUpdateManyMutationInput;
+  @Field(() => directus_revisionsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_revisionsUpdateManyMutationInput)
+  data!: directus_revisionsUpdateManyMutationInput;
 }

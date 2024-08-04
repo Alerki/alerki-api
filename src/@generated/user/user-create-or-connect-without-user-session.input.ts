@@ -7,12 +7,14 @@ import { UserCreateWithoutUser_SessionInput } from './user-create-without-user-s
 
 @InputType()
 export class UserCreateOrConnectWithoutUser_SessionInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserCreateWithoutUser_SessionInput, {nullable:false})
-    @Type(() => UserCreateWithoutUser_SessionInput)
-    create!: UserCreateWithoutUser_SessionInput;
+  @Field(() => UserCreateWithoutUser_SessionInput, { nullable: false })
+  @Type(() => UserCreateWithoutUser_SessionInput)
+  create!: UserCreateWithoutUser_SessionInput;
 }

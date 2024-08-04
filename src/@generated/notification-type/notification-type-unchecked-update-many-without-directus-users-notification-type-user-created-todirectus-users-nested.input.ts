@@ -13,48 +13,94 @@ import { NotificationTypeScalarWhereInput } from './notification-type-scalar-whe
 
 @InputType()
 export class NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_createdTodirectus_usersNestedInput {
+  @Field(
+    () => [
+      NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+  )
+  create?: Array<NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
 
-    @Field(() => [NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput)
-    create?: Array<NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
 
-    @Field(() => [NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput)
-    connectOrCreate?: Array<NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      NotificationTypeUpsertWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeUpsertWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+  )
+  upsert?: Array<NotificationTypeUpsertWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
 
-    @Field(() => [NotificationTypeUpsertWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => NotificationTypeUpsertWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput)
-    upsert?: Array<NotificationTypeUpsertWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
+  @Field(
+    () =>
+      NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope,
+  )
+  createMany?: NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope;
 
-    @Field(() => NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope)
-    createMany?: NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope;
+  @Field(() => [NotificationTypeWhereUniqueInput], { nullable: true })
+  @Type(() => NotificationTypeWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>>;
 
-    @Field(() => [NotificationTypeWhereUniqueInput], {nullable:true})
-    @Type(() => NotificationTypeWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [NotificationTypeWhereUniqueInput], { nullable: true })
+  @Type(() => NotificationTypeWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>>;
 
-    @Field(() => [NotificationTypeWhereUniqueInput], {nullable:true})
-    @Type(() => NotificationTypeWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [NotificationTypeWhereUniqueInput], { nullable: true })
+  @Type(() => NotificationTypeWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>>;
 
-    @Field(() => [NotificationTypeWhereUniqueInput], {nullable:true})
-    @Type(() => NotificationTypeWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [NotificationTypeWhereUniqueInput], { nullable: true })
+  @Type(() => NotificationTypeWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>>;
 
-    @Field(() => [NotificationTypeWhereUniqueInput], {nullable:true})
-    @Type(() => NotificationTypeWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>>;
+  @Field(
+    () => [
+      NotificationTypeUpdateWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeUpdateWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+  )
+  update?: Array<NotificationTypeUpdateWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
 
-    @Field(() => [NotificationTypeUpdateWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => NotificationTypeUpdateWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput)
-    update?: Array<NotificationTypeUpdateWithWhereUniqueWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      NotificationTypeUpdateManyWithWhereWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeUpdateManyWithWhereWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+  )
+  updateMany?: Array<NotificationTypeUpdateManyWithWhereWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
 
-    @Field(() => [NotificationTypeUpdateManyWithWhereWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => NotificationTypeUpdateManyWithWhereWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput)
-    updateMany?: Array<NotificationTypeUpdateManyWithWhereWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
-
-    @Field(() => [NotificationTypeScalarWhereInput], {nullable:true})
-    @Type(() => NotificationTypeScalarWhereInput)
-    deleteMany?: Array<NotificationTypeScalarWhereInput>;
+  @Field(() => [NotificationTypeScalarWhereInput], { nullable: true })
+  @Type(() => NotificationTypeScalarWhereInput)
+  deleteMany?: Array<NotificationTypeScalarWhereInput>;
 }

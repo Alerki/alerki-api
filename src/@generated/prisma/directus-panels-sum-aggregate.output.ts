@@ -4,16 +4,15 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_panelsSumAggregate {
+  @Field(() => Int, { nullable: true })
+  position_x?: number;
 
-    @Field(() => Int, {nullable:true})
-    position_x?: number;
+  @Field(() => Int, { nullable: true })
+  position_y?: number;
 
-    @Field(() => Int, {nullable:true})
-    position_y?: number;
+  @Field(() => Int, { nullable: true })
+  width?: number;
 
-    @Field(() => Int, {nullable:true})
-    width?: number;
-
-    @Field(() => Int, {nullable:true})
-    height?: number;
+  @Field(() => Int, { nullable: true })
+  height?: number;
 }

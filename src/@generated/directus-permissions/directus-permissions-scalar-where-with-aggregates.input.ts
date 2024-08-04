@@ -8,37 +8,42 @@ import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-wi
 
 @InputType()
 export class directus_permissionsScalarWhereWithAggregatesInput {
+  @Field(() => [directus_permissionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_permissionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_permissionsScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_permissionsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_permissionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_permissionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_permissionsScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_permissionsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_permissionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_permissionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_permissionsScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_permissionsScalarWhereWithAggregatesInput>;
+  @Field(() => IntWithAggregatesFilter, { nullable: true })
+  id?: IntWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  role?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    role?: UuidNullableWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  collection?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    collection?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  action?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    action?: StringWithAggregatesFilter;
+  @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
+  permissions?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    permissions?: JsonNullableWithAggregatesFilter;
+  @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
+  validation?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    validation?: JsonNullableWithAggregatesFilter;
+  @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
+  presets?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    presets?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    fields?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  fields?: StringNullableWithAggregatesFilter;
 }

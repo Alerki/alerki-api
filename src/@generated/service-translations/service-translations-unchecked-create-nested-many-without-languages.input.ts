@@ -9,20 +9,27 @@ import { Service_translationsWhereUniqueInput } from './service-translations-whe
 
 @InputType()
 export class Service_translationsUncheckedCreateNestedManyWithoutLanguagesInput {
+  @Field(() => [Service_translationsCreateWithoutLanguagesInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateWithoutLanguagesInput)
+  create?: Array<Service_translationsCreateWithoutLanguagesInput>;
 
-    @Field(() => [Service_translationsCreateWithoutLanguagesInput], {nullable:true})
-    @Type(() => Service_translationsCreateWithoutLanguagesInput)
-    create?: Array<Service_translationsCreateWithoutLanguagesInput>;
+  @Field(() => [Service_translationsCreateOrConnectWithoutLanguagesInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateOrConnectWithoutLanguagesInput)
+  connectOrCreate?: Array<Service_translationsCreateOrConnectWithoutLanguagesInput>;
 
-    @Field(() => [Service_translationsCreateOrConnectWithoutLanguagesInput], {nullable:true})
-    @Type(() => Service_translationsCreateOrConnectWithoutLanguagesInput)
-    connectOrCreate?: Array<Service_translationsCreateOrConnectWithoutLanguagesInput>;
+  @Field(() => Service_translationsCreateManyLanguagesInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateManyLanguagesInputEnvelope)
+  createMany?: Service_translationsCreateManyLanguagesInputEnvelope;
 
-    @Field(() => Service_translationsCreateManyLanguagesInputEnvelope, {nullable:true})
-    @Type(() => Service_translationsCreateManyLanguagesInputEnvelope)
-    createMany?: Service_translationsCreateManyLanguagesInputEnvelope;
-
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 }

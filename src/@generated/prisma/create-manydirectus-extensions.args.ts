@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManydirectusExtensionsArgs {
+  @Field(() => [directus_extensionsCreateManyInput], { nullable: false })
+  @Type(() => directus_extensionsCreateManyInput)
+  data!: Array<directus_extensionsCreateManyInput>;
 
-    @Field(() => [directus_extensionsCreateManyInput], {nullable:false})
-    @Type(() => directus_extensionsCreateManyInput)
-    data!: Array<directus_extensionsCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

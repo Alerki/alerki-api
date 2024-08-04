@@ -13,48 +13,61 @@ import { directus_panelsScalarWhereInput } from './directus-panels-scalar-where.
 
 @InputType()
 export class directus_panelsUncheckedUpdateManyWithoutDirectus_usersNestedInput {
+  @Field(() => [directus_panelsCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_panelsCreateWithoutDirectus_usersInput)
+  create?: Array<directus_panelsCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_panelsCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_panelsCreateWithoutDirectus_usersInput)
-    create?: Array<directus_panelsCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_panelsCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_panelsCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_panelsCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_panelsCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_panelsCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_panelsCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(
+    () => [directus_panelsUpsertWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_panelsUpsertWithWhereUniqueWithoutDirectus_usersInput)
+  upsert?: Array<directus_panelsUpsertWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_panelsUpsertWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_panelsUpsertWithWhereUniqueWithoutDirectus_usersInput)
-    upsert?: Array<directus_panelsUpsertWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(() => directus_panelsCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_panelsCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_panelsCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_panelsCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_panelsCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_panelsCreateManyDirectus_usersInputEnvelope;
+  @Field(() => [directus_panelsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_panelsWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_panelsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_panelsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_panelsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_panelsWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_panelsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_panelsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_panelsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_panelsWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_panelsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_panelsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_panelsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_panelsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_panelsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_panelsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [directus_panelsUpdateWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_panelsUpdateWithWhereUniqueWithoutDirectus_usersInput)
+  update?: Array<directus_panelsUpdateWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_panelsUpdateWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_panelsUpdateWithWhereUniqueWithoutDirectus_usersInput)
-    update?: Array<directus_panelsUpdateWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(() => [directus_panelsUpdateManyWithWhereWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_panelsUpdateManyWithWhereWithoutDirectus_usersInput)
+  updateMany?: Array<directus_panelsUpdateManyWithWhereWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_panelsUpdateManyWithWhereWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_panelsUpdateManyWithWhereWithoutDirectus_usersInput)
-    updateMany?: Array<directus_panelsUpdateManyWithWhereWithoutDirectus_usersInput>;
-
-    @Field(() => [directus_panelsScalarWhereInput], {nullable:true})
-    @Type(() => directus_panelsScalarWhereInput)
-    deleteMany?: Array<directus_panelsScalarWhereInput>;
+  @Field(() => [directus_panelsScalarWhereInput], { nullable: true })
+  @Type(() => directus_panelsScalarWhereInput)
+  deleteMany?: Array<directus_panelsScalarWhereInput>;
 }

@@ -13,48 +13,55 @@ import { AppointmentScalarWhereInput } from './appointment-scalar-where.input';
 
 @InputType()
 export class AppointmentUncheckedUpdateManyWithoutCurrencyNestedInput {
+  @Field(() => [AppointmentCreateWithoutCurrencyInput], { nullable: true })
+  @Type(() => AppointmentCreateWithoutCurrencyInput)
+  create?: Array<AppointmentCreateWithoutCurrencyInput>;
 
-    @Field(() => [AppointmentCreateWithoutCurrencyInput], {nullable:true})
-    @Type(() => AppointmentCreateWithoutCurrencyInput)
-    create?: Array<AppointmentCreateWithoutCurrencyInput>;
+  @Field(() => [AppointmentCreateOrConnectWithoutCurrencyInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentCreateOrConnectWithoutCurrencyInput)
+  connectOrCreate?: Array<AppointmentCreateOrConnectWithoutCurrencyInput>;
 
-    @Field(() => [AppointmentCreateOrConnectWithoutCurrencyInput], {nullable:true})
-    @Type(() => AppointmentCreateOrConnectWithoutCurrencyInput)
-    connectOrCreate?: Array<AppointmentCreateOrConnectWithoutCurrencyInput>;
+  @Field(() => [AppointmentUpsertWithWhereUniqueWithoutCurrencyInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentUpsertWithWhereUniqueWithoutCurrencyInput)
+  upsert?: Array<AppointmentUpsertWithWhereUniqueWithoutCurrencyInput>;
 
-    @Field(() => [AppointmentUpsertWithWhereUniqueWithoutCurrencyInput], {nullable:true})
-    @Type(() => AppointmentUpsertWithWhereUniqueWithoutCurrencyInput)
-    upsert?: Array<AppointmentUpsertWithWhereUniqueWithoutCurrencyInput>;
+  @Field(() => AppointmentCreateManyCurrencyInputEnvelope, { nullable: true })
+  @Type(() => AppointmentCreateManyCurrencyInputEnvelope)
+  createMany?: AppointmentCreateManyCurrencyInputEnvelope;
 
-    @Field(() => AppointmentCreateManyCurrencyInputEnvelope, {nullable:true})
-    @Type(() => AppointmentCreateManyCurrencyInputEnvelope)
-    createMany?: AppointmentCreateManyCurrencyInputEnvelope;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentUpdateWithWhereUniqueWithoutCurrencyInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentUpdateWithWhereUniqueWithoutCurrencyInput)
+  update?: Array<AppointmentUpdateWithWhereUniqueWithoutCurrencyInput>;
 
-    @Field(() => [AppointmentUpdateWithWhereUniqueWithoutCurrencyInput], {nullable:true})
-    @Type(() => AppointmentUpdateWithWhereUniqueWithoutCurrencyInput)
-    update?: Array<AppointmentUpdateWithWhereUniqueWithoutCurrencyInput>;
+  @Field(() => [AppointmentUpdateManyWithWhereWithoutCurrencyInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentUpdateManyWithWhereWithoutCurrencyInput)
+  updateMany?: Array<AppointmentUpdateManyWithWhereWithoutCurrencyInput>;
 
-    @Field(() => [AppointmentUpdateManyWithWhereWithoutCurrencyInput], {nullable:true})
-    @Type(() => AppointmentUpdateManyWithWhereWithoutCurrencyInput)
-    updateMany?: Array<AppointmentUpdateManyWithWhereWithoutCurrencyInput>;
-
-    @Field(() => [AppointmentScalarWhereInput], {nullable:true})
-    @Type(() => AppointmentScalarWhereInput)
-    deleteMany?: Array<AppointmentScalarWhereInput>;
+  @Field(() => [AppointmentScalarWhereInput], { nullable: true })
+  @Type(() => AppointmentScalarWhereInput)
+  deleteMany?: Array<AppointmentScalarWhereInput>;
 }

@@ -5,11 +5,18 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInputEnvelope {
+  @Field(
+    () => [
+      UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInput,
+    ],
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInput,
+  )
+  data!: Array<UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInput>;
 
-    @Field(() => [UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInput], {nullable:false})
-    @Type(() => UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInput)
-    data!: Array<UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

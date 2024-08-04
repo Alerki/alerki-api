@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class AppointmentCreateManyCurrencyInputEnvelope {
+  @Field(() => [AppointmentCreateManyCurrencyInput], { nullable: false })
+  @Type(() => AppointmentCreateManyCurrencyInput)
+  data!: Array<AppointmentCreateManyCurrencyInput>;
 
-    @Field(() => [AppointmentCreateManyCurrencyInput], {nullable:false})
-    @Type(() => AppointmentCreateManyCurrencyInput)
-    data!: Array<AppointmentCreateManyCurrencyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

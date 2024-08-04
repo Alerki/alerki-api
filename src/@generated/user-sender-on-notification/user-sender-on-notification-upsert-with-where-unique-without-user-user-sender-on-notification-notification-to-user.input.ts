@@ -8,16 +8,29 @@ import { UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_noti
 
 @InputType()
 export class UserSenderOnNotificationUpsertWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput {
+  @Field(() => UserSenderOnNotificationWhereUniqueInput, { nullable: false })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => UserSenderOnNotificationWhereUniqueInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
+  @Field(
+    () =>
+      UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput,
+  )
+  update!: UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput;
 
-    @Field(() => UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput)
-    update!: UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput;
-
-    @Field(() => UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput)
-    create!: UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput;
+  @Field(
+    () =>
+      UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput,
+  )
+  create!: UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput;
 }

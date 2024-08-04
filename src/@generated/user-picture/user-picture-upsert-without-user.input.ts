@@ -6,12 +6,11 @@ import { UserPictureCreateWithoutUserInput } from './user-picture-create-without
 
 @InputType()
 export class UserPictureUpsertWithoutUserInput {
+  @Field(() => UserPictureUpdateWithoutUserInput, { nullable: false })
+  @Type(() => UserPictureUpdateWithoutUserInput)
+  update!: UserPictureUpdateWithoutUserInput;
 
-    @Field(() => UserPictureUpdateWithoutUserInput, {nullable:false})
-    @Type(() => UserPictureUpdateWithoutUserInput)
-    update!: UserPictureUpdateWithoutUserInput;
-
-    @Field(() => UserPictureCreateWithoutUserInput, {nullable:false})
-    @Type(() => UserPictureCreateWithoutUserInput)
-    create!: UserPictureCreateWithoutUserInput;
+  @Field(() => UserPictureCreateWithoutUserInput, { nullable: false })
+  @Type(() => UserPictureCreateWithoutUserInput)
+  create!: UserPictureCreateWithoutUserInput;
 }

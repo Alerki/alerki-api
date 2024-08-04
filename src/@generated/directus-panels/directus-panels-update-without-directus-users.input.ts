@@ -10,46 +10,48 @@ import { directus_dashboardsUpdateOneRequiredWithoutDirectus_panelsNestedInput }
 
 @InputType()
 export class directus_panelsUpdateWithoutDirectus_usersInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  name?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    name?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  icon?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    icon?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  color?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    color?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  show_header?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    show_header?: BoolFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  note?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    note?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  type?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    type?: StringFieldUpdateOperationsInput;
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  position_x?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    position_x?: IntFieldUpdateOperationsInput;
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  position_y?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    position_y?: IntFieldUpdateOperationsInput;
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  width?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    width?: IntFieldUpdateOperationsInput;
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  height?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    height?: IntFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    options?: any;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
-
-    @Field(() => directus_dashboardsUpdateOneRequiredWithoutDirectus_panelsNestedInput, {nullable:true})
-    directus_dashboards?: directus_dashboardsUpdateOneRequiredWithoutDirectus_panelsNestedInput;
+  @Field(
+    () => directus_dashboardsUpdateOneRequiredWithoutDirectus_panelsNestedInput,
+    { nullable: true },
+  )
+  directus_dashboards?: directus_dashboardsUpdateOneRequiredWithoutDirectus_panelsNestedInput;
 }

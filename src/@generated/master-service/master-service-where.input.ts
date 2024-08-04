@@ -11,49 +11,48 @@ import { Service_translationsRelationFilter } from '../service-translations/serv
 
 @InputType()
 export class MasterServiceWhereInput {
+  @Field(() => [MasterServiceWhereInput], { nullable: true })
+  AND?: Array<MasterServiceWhereInput>;
 
-    @Field(() => [MasterServiceWhereInput], {nullable:true})
-    AND?: Array<MasterServiceWhereInput>;
+  @Field(() => [MasterServiceWhereInput], { nullable: true })
+  OR?: Array<MasterServiceWhereInput>;
 
-    @Field(() => [MasterServiceWhereInput], {nullable:true})
-    OR?: Array<MasterServiceWhereInput>;
+  @Field(() => [MasterServiceWhereInput], { nullable: true })
+  NOT?: Array<MasterServiceWhereInput>;
 
-    @Field(() => [MasterServiceWhereInput], {nullable:true})
-    NOT?: Array<MasterServiceWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  status?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    status?: StringFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => UuidFilter, { nullable: true })
+  masterProfile?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    masterProfile?: UuidFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  duration?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    duration?: DateTimeFilter;
+  @Field(() => IntFilter, { nullable: true })
+  price?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    price?: IntFilter;
+  @Field(() => UuidFilter, { nullable: true })
+  currency?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    currency?: UuidFilter;
+  @Field(() => IntFilter, { nullable: true })
+  service?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    service?: IntFilter;
+  @Field(() => CurrencyRelationFilter, { nullable: true })
+  Currency?: CurrencyRelationFilter;
 
-    @Field(() => CurrencyRelationFilter, {nullable:true})
-    Currency?: CurrencyRelationFilter;
+  @Field(() => MasterProfileRelationFilter, { nullable: true })
+  MasterProfile?: MasterProfileRelationFilter;
 
-    @Field(() => MasterProfileRelationFilter, {nullable:true})
-    MasterProfile?: MasterProfileRelationFilter;
-
-    @Field(() => Service_translationsRelationFilter, {nullable:true})
-    Service_translations?: Service_translationsRelationFilter;
+  @Field(() => Service_translationsRelationFilter, { nullable: true })
+  Service_translations?: Service_translationsRelationFilter;
 }

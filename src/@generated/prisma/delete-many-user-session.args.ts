@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyUserSessionArgs {
-
-    @Field(() => User_SessionWhereInput, {nullable:true})
-    @Type(() => User_SessionWhereInput)
-    where?: User_SessionWhereInput;
+  @Field(() => User_SessionWhereInput, { nullable: true })
+  @Type(() => User_SessionWhereInput)
+  where?: User_SessionWhereInput;
 }

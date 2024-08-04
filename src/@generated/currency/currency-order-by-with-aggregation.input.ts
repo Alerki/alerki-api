@@ -9,46 +9,45 @@ import { CurrencySumOrderByAggregateInput } from './currency-sum-order-by-aggreg
 
 @InputType()
 export class CurrencyOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  status?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  sort?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    sort?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  code?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    code?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  character?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    character?: keyof typeof SortOrder;
+  @Field(() => CurrencyCountOrderByAggregateInput, { nullable: true })
+  _count?: CurrencyCountOrderByAggregateInput;
 
-    @Field(() => CurrencyCountOrderByAggregateInput, {nullable:true})
-    _count?: CurrencyCountOrderByAggregateInput;
+  @Field(() => CurrencyAvgOrderByAggregateInput, { nullable: true })
+  _avg?: CurrencyAvgOrderByAggregateInput;
 
-    @Field(() => CurrencyAvgOrderByAggregateInput, {nullable:true})
-    _avg?: CurrencyAvgOrderByAggregateInput;
+  @Field(() => CurrencyMaxOrderByAggregateInput, { nullable: true })
+  _max?: CurrencyMaxOrderByAggregateInput;
 
-    @Field(() => CurrencyMaxOrderByAggregateInput, {nullable:true})
-    _max?: CurrencyMaxOrderByAggregateInput;
+  @Field(() => CurrencyMinOrderByAggregateInput, { nullable: true })
+  _min?: CurrencyMinOrderByAggregateInput;
 
-    @Field(() => CurrencyMinOrderByAggregateInput, {nullable:true})
-    _min?: CurrencyMinOrderByAggregateInput;
-
-    @Field(() => CurrencySumOrderByAggregateInput, {nullable:true})
-    _sum?: CurrencySumOrderByAggregateInput;
+  @Field(() => CurrencySumOrderByAggregateInput, { nullable: true })
+  _sum?: CurrencySumOrderByAggregateInput;
 }

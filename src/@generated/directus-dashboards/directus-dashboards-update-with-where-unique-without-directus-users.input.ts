@@ -7,12 +7,13 @@ import { directus_dashboardsUpdateWithoutDirectus_usersInput } from './directus-
 
 @InputType()
 export class directus_dashboardsUpdateWithWhereUniqueWithoutDirectus_usersInput {
+  @Field(() => directus_dashboardsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_dashboardsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_dashboardsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_dashboardsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_dashboardsUpdateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_dashboardsUpdateWithoutDirectus_usersInput)
-    data!: directus_dashboardsUpdateWithoutDirectus_usersInput;
+  @Field(() => directus_dashboardsUpdateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_dashboardsUpdateWithoutDirectus_usersInput)
+  data!: directus_dashboardsUpdateWithoutDirectus_usersInput;
 }

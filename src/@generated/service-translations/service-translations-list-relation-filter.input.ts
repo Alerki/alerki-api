@@ -4,13 +4,12 @@ import { Service_translationsWhereInput } from './service-translations-where.inp
 
 @InputType()
 export class Service_translationsListRelationFilter {
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  every?: Service_translationsWhereInput;
 
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    every?: Service_translationsWhereInput;
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  some?: Service_translationsWhereInput;
 
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    some?: Service_translationsWhereInput;
-
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    none?: Service_translationsWhereInput;
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  none?: Service_translationsWhereInput;
 }

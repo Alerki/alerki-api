@@ -3,19 +3,18 @@ import { ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class UserRecipientOnNotificationMaxAggregate {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:true})
-    id?: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: true })
+  user?: string;
 
-    @Field(() => String, {nullable:true})
-    user?: string;
-
-    @Field(() => String, {nullable:true})
-    notification?: string;
+  @Field(() => String, { nullable: true })
+  notification?: string;
 }

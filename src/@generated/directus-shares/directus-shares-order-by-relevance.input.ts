@@ -5,13 +5,12 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class directus_sharesOrderByRelevanceInput {
+  @Field(() => [directus_sharesOrderByRelevanceFieldEnum], { nullable: false })
+  fields!: Array<keyof typeof directus_sharesOrderByRelevanceFieldEnum>;
 
-    @Field(() => [directus_sharesOrderByRelevanceFieldEnum], {nullable:false})
-    fields!: Array<keyof typeof directus_sharesOrderByRelevanceFieldEnum>;
+  @Field(() => SortOrder, { nullable: false })
+  sort!: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:false})
-    sort!: keyof typeof SortOrder;
-
-    @Field(() => String, {nullable:false})
-    search!: string;
+  @Field(() => String, { nullable: false })
+  search!: string;
 }

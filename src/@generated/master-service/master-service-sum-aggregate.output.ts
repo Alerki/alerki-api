@@ -4,10 +4,9 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class MasterServiceSumAggregate {
+  @Field(() => Int, { nullable: true })
+  price?: number;
 
-    @Field(() => Int, {nullable:true})
-    price?: number;
-
-    @Field(() => Int, {nullable:true})
-    service?: number;
+  @Field(() => Int, { nullable: true })
+  service?: number;
 }

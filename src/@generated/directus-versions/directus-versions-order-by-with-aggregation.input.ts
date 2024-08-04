@@ -7,43 +7,42 @@ import { directus_versionsMinOrderByAggregateInput } from './directus-versions-m
 
 @InputType()
 export class directus_versionsOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  key?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    key?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  collection?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    collection?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  item?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    item?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  hash?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    hash?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_updated?: keyof typeof SortOrder;
+  @Field(() => directus_versionsCountOrderByAggregateInput, { nullable: true })
+  _count?: directus_versionsCountOrderByAggregateInput;
 
-    @Field(() => directus_versionsCountOrderByAggregateInput, {nullable:true})
-    _count?: directus_versionsCountOrderByAggregateInput;
+  @Field(() => directus_versionsMaxOrderByAggregateInput, { nullable: true })
+  _max?: directus_versionsMaxOrderByAggregateInput;
 
-    @Field(() => directus_versionsMaxOrderByAggregateInput, {nullable:true})
-    _max?: directus_versionsMaxOrderByAggregateInput;
-
-    @Field(() => directus_versionsMinOrderByAggregateInput, {nullable:true})
-    _min?: directus_versionsMinOrderByAggregateInput;
+  @Field(() => directus_versionsMinOrderByAggregateInput, { nullable: true })
+  _min?: directus_versionsMinOrderByAggregateInput;
 }

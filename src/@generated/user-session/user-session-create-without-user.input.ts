@@ -4,7 +4,8 @@ import { SessionCreateNestedOneWithoutUser_SessionInput } from '../session/sessi
 
 @InputType()
 export class User_SessionCreateWithoutUserInput {
-
-    @Field(() => SessionCreateNestedOneWithoutUser_SessionInput, {nullable:true})
-    Session?: SessionCreateNestedOneWithoutUser_SessionInput;
+  @Field(() => SessionCreateNestedOneWithoutUser_SessionInput, {
+    nullable: false,
+  })
+  Session!: SessionCreateNestedOneWithoutUser_SessionInput;
 }

@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueClientProfileArgs {
-
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:false})
-    @Type(() => ClientProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: false })
+  @Type(() => ClientProfileWhereUniqueInput)
+  where!: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 }

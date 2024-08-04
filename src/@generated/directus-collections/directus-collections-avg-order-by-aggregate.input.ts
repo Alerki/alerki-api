@@ -4,7 +4,6 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class directus_collectionsAvgOrderByAggregateInput {
-
-    @Field(() => SortOrder, {nullable:true})
-    sort?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  sort?: keyof typeof SortOrder;
 }

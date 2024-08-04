@@ -6,12 +6,15 @@ import { languagesCreateWithoutService_translationsInput } from './languages-cre
 
 @InputType()
 export class languagesUpsertWithoutService_translationsInput {
+  @Field(() => languagesUpdateWithoutService_translationsInput, {
+    nullable: false,
+  })
+  @Type(() => languagesUpdateWithoutService_translationsInput)
+  update!: languagesUpdateWithoutService_translationsInput;
 
-    @Field(() => languagesUpdateWithoutService_translationsInput, {nullable:false})
-    @Type(() => languagesUpdateWithoutService_translationsInput)
-    update!: languagesUpdateWithoutService_translationsInput;
-
-    @Field(() => languagesCreateWithoutService_translationsInput, {nullable:false})
-    @Type(() => languagesCreateWithoutService_translationsInput)
-    create!: languagesCreateWithoutService_translationsInput;
+  @Field(() => languagesCreateWithoutService_translationsInput, {
+    nullable: false,
+  })
+  @Type(() => languagesCreateWithoutService_translationsInput)
+  create!: languagesCreateWithoutService_translationsInput;
 }

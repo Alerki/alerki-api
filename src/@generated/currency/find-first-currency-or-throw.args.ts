@@ -10,23 +10,24 @@ import { CurrencyScalarFieldEnum } from './currency-scalar-field.enum';
 
 @ArgsType()
 export class FindFirstCurrencyOrThrowArgs {
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  @Type(() => CurrencyWhereInput)
+  where?: CurrencyWhereInput;
 
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    @Type(() => CurrencyWhereInput)
-    where?: CurrencyWhereInput;
+  @Field(() => [CurrencyOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<CurrencyOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [CurrencyOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<CurrencyOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [CurrencyScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof CurrencyScalarFieldEnum>;
+  @Field(() => [CurrencyScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof CurrencyScalarFieldEnum>;
 }

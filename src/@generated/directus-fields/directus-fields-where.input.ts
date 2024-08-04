@@ -10,70 +10,69 @@ import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
 
 @InputType()
 export class directus_fieldsWhereInput {
+  @Field(() => [directus_fieldsWhereInput], { nullable: true })
+  AND?: Array<directus_fieldsWhereInput>;
 
-    @Field(() => [directus_fieldsWhereInput], {nullable:true})
-    AND?: Array<directus_fieldsWhereInput>;
+  @Field(() => [directus_fieldsWhereInput], { nullable: true })
+  OR?: Array<directus_fieldsWhereInput>;
 
-    @Field(() => [directus_fieldsWhereInput], {nullable:true})
-    OR?: Array<directus_fieldsWhereInput>;
+  @Field(() => [directus_fieldsWhereInput], { nullable: true })
+  NOT?: Array<directus_fieldsWhereInput>;
 
-    @Field(() => [directus_fieldsWhereInput], {nullable:true})
-    NOT?: Array<directus_fieldsWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  collection?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    collection?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  field?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    field?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  special?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    special?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  interface?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    interface?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  options?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    options?: JsonNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  display?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    display?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  display_options?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    display_options?: JsonNullableFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  readonly?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    readonly?: BoolFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  hidden?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    hidden?: BoolFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  sort?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    sort?: IntNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  width?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    width?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  translations?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    translations?: JsonNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  note?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    note?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  conditions?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    conditions?: JsonNullableFilter;
+  @Field(() => BoolNullableFilter, { nullable: true })
+  required?: BoolNullableFilter;
 
-    @Field(() => BoolNullableFilter, {nullable:true})
-    required?: BoolNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  group?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    group?: StringNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  validation?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    validation?: JsonNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    validation_message?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  validation_message?: StringNullableFilter;
 }

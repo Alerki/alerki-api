@@ -4,16 +4,15 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class Service_translationsMinOrderByAggregateInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  Service_id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    Service_id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  languages_id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    languages_id?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 }

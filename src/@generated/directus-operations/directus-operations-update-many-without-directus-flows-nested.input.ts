@@ -13,48 +13,86 @@ import { directus_operationsScalarWhereInput } from './directus-operations-scala
 
 @InputType()
 export class directus_operationsUpdateManyWithoutDirectus_flowsNestedInput {
+  @Field(() => [directus_operationsCreateWithoutDirectus_flowsInput], {
+    nullable: true,
+  })
+  @Type(() => directus_operationsCreateWithoutDirectus_flowsInput)
+  create?: Array<directus_operationsCreateWithoutDirectus_flowsInput>;
 
-    @Field(() => [directus_operationsCreateWithoutDirectus_flowsInput], {nullable:true})
-    @Type(() => directus_operationsCreateWithoutDirectus_flowsInput)
-    create?: Array<directus_operationsCreateWithoutDirectus_flowsInput>;
+  @Field(() => [directus_operationsCreateOrConnectWithoutDirectus_flowsInput], {
+    nullable: true,
+  })
+  @Type(() => directus_operationsCreateOrConnectWithoutDirectus_flowsInput)
+  connectOrCreate?: Array<directus_operationsCreateOrConnectWithoutDirectus_flowsInput>;
 
-    @Field(() => [directus_operationsCreateOrConnectWithoutDirectus_flowsInput], {nullable:true})
-    @Type(() => directus_operationsCreateOrConnectWithoutDirectus_flowsInput)
-    connectOrCreate?: Array<directus_operationsCreateOrConnectWithoutDirectus_flowsInput>;
+  @Field(
+    () => [directus_operationsUpsertWithWhereUniqueWithoutDirectus_flowsInput],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_operationsUpsertWithWhereUniqueWithoutDirectus_flowsInput,
+  )
+  upsert?: Array<directus_operationsUpsertWithWhereUniqueWithoutDirectus_flowsInput>;
 
-    @Field(() => [directus_operationsUpsertWithWhereUniqueWithoutDirectus_flowsInput], {nullable:true})
-    @Type(() => directus_operationsUpsertWithWhereUniqueWithoutDirectus_flowsInput)
-    upsert?: Array<directus_operationsUpsertWithWhereUniqueWithoutDirectus_flowsInput>;
+  @Field(() => directus_operationsCreateManyDirectus_flowsInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_operationsCreateManyDirectus_flowsInputEnvelope)
+  createMany?: directus_operationsCreateManyDirectus_flowsInputEnvelope;
 
-    @Field(() => directus_operationsCreateManyDirectus_flowsInputEnvelope, {nullable:true})
-    @Type(() => directus_operationsCreateManyDirectus_flowsInputEnvelope)
-    createMany?: directus_operationsCreateManyDirectus_flowsInputEnvelope;
+  @Field(() => [directus_operationsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_operationsWhereUniqueInput)
+  set?: Array<
+    Prisma.AtLeast<
+      directus_operationsWhereUniqueInput,
+      'id' | 'resolve' | 'reject'
+    >
+  >;
 
-    @Field(() => [directus_operationsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_operationsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>>;
+  @Field(() => [directus_operationsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_operationsWhereUniqueInput)
+  disconnect?: Array<
+    Prisma.AtLeast<
+      directus_operationsWhereUniqueInput,
+      'id' | 'resolve' | 'reject'
+    >
+  >;
 
-    @Field(() => [directus_operationsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_operationsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>>;
+  @Field(() => [directus_operationsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_operationsWhereUniqueInput)
+  delete?: Array<
+    Prisma.AtLeast<
+      directus_operationsWhereUniqueInput,
+      'id' | 'resolve' | 'reject'
+    >
+  >;
 
-    @Field(() => [directus_operationsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_operationsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>>;
+  @Field(() => [directus_operationsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_operationsWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<
+      directus_operationsWhereUniqueInput,
+      'id' | 'resolve' | 'reject'
+    >
+  >;
 
-    @Field(() => [directus_operationsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_operationsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>>;
+  @Field(
+    () => [directus_operationsUpdateWithWhereUniqueWithoutDirectus_flowsInput],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_operationsUpdateWithWhereUniqueWithoutDirectus_flowsInput,
+  )
+  update?: Array<directus_operationsUpdateWithWhereUniqueWithoutDirectus_flowsInput>;
 
-    @Field(() => [directus_operationsUpdateWithWhereUniqueWithoutDirectus_flowsInput], {nullable:true})
-    @Type(() => directus_operationsUpdateWithWhereUniqueWithoutDirectus_flowsInput)
-    update?: Array<directus_operationsUpdateWithWhereUniqueWithoutDirectus_flowsInput>;
+  @Field(
+    () => [directus_operationsUpdateManyWithWhereWithoutDirectus_flowsInput],
+    { nullable: true },
+  )
+  @Type(() => directus_operationsUpdateManyWithWhereWithoutDirectus_flowsInput)
+  updateMany?: Array<directus_operationsUpdateManyWithWhereWithoutDirectus_flowsInput>;
 
-    @Field(() => [directus_operationsUpdateManyWithWhereWithoutDirectus_flowsInput], {nullable:true})
-    @Type(() => directus_operationsUpdateManyWithWhereWithoutDirectus_flowsInput)
-    updateMany?: Array<directus_operationsUpdateManyWithWhereWithoutDirectus_flowsInput>;
-
-    @Field(() => [directus_operationsScalarWhereInput], {nullable:true})
-    @Type(() => directus_operationsScalarWhereInput)
-    deleteMany?: Array<directus_operationsScalarWhereInput>;
+  @Field(() => [directus_operationsScalarWhereInput], { nullable: true })
+  @Type(() => directus_operationsScalarWhereInput)
+  deleteMany?: Array<directus_operationsScalarWhereInput>;
 }

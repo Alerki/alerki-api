@@ -7,16 +7,19 @@ import { MasterServiceUncheckedUpdateManyWithoutService_translationsNestedInput 
 
 @InputType()
 export class Service_translationsUncheckedUpdateWithoutLanguagesInput {
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  id?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  Service_id?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    Service_id?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
-
-    @Field(() => MasterServiceUncheckedUpdateManyWithoutService_translationsNestedInput, {nullable:true})
-    MasterService?: MasterServiceUncheckedUpdateManyWithoutService_translationsNestedInput;
+  @Field(
+    () =>
+      MasterServiceUncheckedUpdateManyWithoutService_translationsNestedInput,
+    { nullable: true },
+  )
+  MasterService?: MasterServiceUncheckedUpdateManyWithoutService_translationsNestedInput;
 }

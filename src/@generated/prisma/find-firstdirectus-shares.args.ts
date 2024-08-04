@@ -9,23 +9,24 @@ import { Directus_sharesScalarFieldEnum } from './directus-shares-scalar-field.e
 
 @ArgsType()
 export class FindFirstdirectusSharesArgs {
+  @Field(() => directus_sharesWhereInput, { nullable: true })
+  @Type(() => directus_sharesWhereInput)
+  where?: directus_sharesWhereInput;
 
-    @Field(() => directus_sharesWhereInput, {nullable:true})
-    @Type(() => directus_sharesWhereInput)
-    where?: directus_sharesWhereInput;
+  @Field(() => [directus_sharesOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_sharesOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_sharesOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_sharesOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_sharesWhereUniqueInput, { nullable: true })
+  cursor?: directus_sharesWhereUniqueInput;
 
-    @Field(() => directus_sharesWhereUniqueInput, {nullable:true})
-    cursor?: directus_sharesWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_sharesScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_sharesScalarFieldEnum>;
+  @Field(() => [Directus_sharesScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_sharesScalarFieldEnum>;
 }

@@ -4,13 +4,12 @@ import { directus_permissionsWhereInput } from '../directus-permissions/directus
 
 @InputType()
 export class Directus_permissionsListRelationFilter {
+  @Field(() => directus_permissionsWhereInput, { nullable: true })
+  every?: directus_permissionsWhereInput;
 
-    @Field(() => directus_permissionsWhereInput, {nullable:true})
-    every?: directus_permissionsWhereInput;
+  @Field(() => directus_permissionsWhereInput, { nullable: true })
+  some?: directus_permissionsWhereInput;
 
-    @Field(() => directus_permissionsWhereInput, {nullable:true})
-    some?: directus_permissionsWhereInput;
-
-    @Field(() => directus_permissionsWhereInput, {nullable:true})
-    none?: directus_permissionsWhereInput;
+  @Field(() => directus_permissionsWhereInput, { nullable: true })
+  none?: directus_permissionsWhereInput;
 }

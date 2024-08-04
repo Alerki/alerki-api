@@ -9,38 +9,37 @@ import { UuidNullableFilter } from '../prisma/uuid-nullable-filter.input';
 
 @InputType()
 export class directus_revisionsScalarWhereInput {
+  @Field(() => [directus_revisionsScalarWhereInput], { nullable: true })
+  AND?: Array<directus_revisionsScalarWhereInput>;
 
-    @Field(() => [directus_revisionsScalarWhereInput], {nullable:true})
-    AND?: Array<directus_revisionsScalarWhereInput>;
+  @Field(() => [directus_revisionsScalarWhereInput], { nullable: true })
+  OR?: Array<directus_revisionsScalarWhereInput>;
 
-    @Field(() => [directus_revisionsScalarWhereInput], {nullable:true})
-    OR?: Array<directus_revisionsScalarWhereInput>;
+  @Field(() => [directus_revisionsScalarWhereInput], { nullable: true })
+  NOT?: Array<directus_revisionsScalarWhereInput>;
 
-    @Field(() => [directus_revisionsScalarWhereInput], {nullable:true})
-    NOT?: Array<directus_revisionsScalarWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  activity?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    activity?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  collection?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    collection?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  item?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    item?: StringFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  @Type(() => JsonNullableFilter)
+  data?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    @Type(() => JsonNullableFilter)
-    data?: JsonNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  delta?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    delta?: JsonNullableFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  parent?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    parent?: IntNullableFilter;
-
-    @Field(() => UuidNullableFilter, {nullable:true})
-    version?: UuidNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  version?: UuidNullableFilter;
 }

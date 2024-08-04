@@ -12,32 +12,31 @@ import { UserPictureMaxAggregateInput } from './user-picture-max-aggregate.input
 
 @ArgsType()
 export class UserPictureGroupByArgs {
+  @Field(() => UserPictureWhereInput, { nullable: true })
+  @Type(() => UserPictureWhereInput)
+  where?: UserPictureWhereInput;
 
-    @Field(() => UserPictureWhereInput, {nullable:true})
-    @Type(() => UserPictureWhereInput)
-    where?: UserPictureWhereInput;
+  @Field(() => [UserPictureOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<UserPictureOrderByWithAggregationInput>;
 
-    @Field(() => [UserPictureOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<UserPictureOrderByWithAggregationInput>;
+  @Field(() => [UserPictureScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof UserPictureScalarFieldEnum>;
 
-    @Field(() => [UserPictureScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof UserPictureScalarFieldEnum>;
+  @Field(() => UserPictureScalarWhereWithAggregatesInput, { nullable: true })
+  having?: UserPictureScalarWhereWithAggregatesInput;
 
-    @Field(() => UserPictureScalarWhereWithAggregatesInput, {nullable:true})
-    having?: UserPictureScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => UserPictureCountAggregateInput, { nullable: true })
+  _count?: UserPictureCountAggregateInput;
 
-    @Field(() => UserPictureCountAggregateInput, {nullable:true})
-    _count?: UserPictureCountAggregateInput;
+  @Field(() => UserPictureMinAggregateInput, { nullable: true })
+  _min?: UserPictureMinAggregateInput;
 
-    @Field(() => UserPictureMinAggregateInput, {nullable:true})
-    _min?: UserPictureMinAggregateInput;
-
-    @Field(() => UserPictureMaxAggregateInput, {nullable:true})
-    _max?: UserPictureMaxAggregateInput;
+  @Field(() => UserPictureMaxAggregateInput, { nullable: true })
+  _max?: UserPictureMaxAggregateInput;
 }

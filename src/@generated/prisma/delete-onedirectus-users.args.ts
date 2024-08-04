@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteOnedirectusUsersArgs {
-
-    @Field(() => directus_usersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_usersWhereUniqueInput)
-    where!: directus_usersWhereUniqueInput;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_usersWhereUniqueInput)
+  where!: directus_usersWhereUniqueInput;
 }

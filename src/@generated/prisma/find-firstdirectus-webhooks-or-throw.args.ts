@@ -9,23 +9,24 @@ import { Directus_webhooksScalarFieldEnum } from './directus-webhooks-scalar-fie
 
 @ArgsType()
 export class FindFirstdirectusWebhooksOrThrowArgs {
+  @Field(() => directus_webhooksWhereInput, { nullable: true })
+  @Type(() => directus_webhooksWhereInput)
+  where?: directus_webhooksWhereInput;
 
-    @Field(() => directus_webhooksWhereInput, {nullable:true})
-    @Type(() => directus_webhooksWhereInput)
-    where?: directus_webhooksWhereInput;
+  @Field(() => [directus_webhooksOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_webhooksOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_webhooksOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_webhooksOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_webhooksWhereUniqueInput, { nullable: true })
+  cursor?: directus_webhooksWhereUniqueInput;
 
-    @Field(() => directus_webhooksWhereUniqueInput, {nullable:true})
-    cursor?: directus_webhooksWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_webhooksScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_webhooksScalarFieldEnum>;
+  @Field(() => [Directus_webhooksScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_webhooksScalarFieldEnum>;
 }

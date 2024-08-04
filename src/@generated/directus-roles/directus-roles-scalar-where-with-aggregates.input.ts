@@ -7,37 +7,42 @@ import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.
 
 @InputType()
 export class directus_rolesScalarWhereWithAggregatesInput {
+  @Field(() => [directus_rolesScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_rolesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_rolesScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_rolesScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_rolesScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_rolesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_rolesScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_rolesScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_rolesScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_rolesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_rolesScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_rolesScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  name?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    name?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  icon?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    icon?: StringWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  description?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    description?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  ip_access?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    ip_access?: StringNullableWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  enforce_tfa?: BoolWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    enforce_tfa?: BoolWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  admin_access?: BoolWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    admin_access?: BoolWithAggregatesFilter;
-
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    app_access?: BoolWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  app_access?: BoolWithAggregatesFilter;
 }

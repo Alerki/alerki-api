@@ -7,12 +7,11 @@ import { CurrencyCreateWithoutMasterServiceInput } from './currency-create-witho
 
 @InputType()
 export class CurrencyCreateOrConnectWithoutMasterServiceInput {
+  @Field(() => CurrencyWhereUniqueInput, { nullable: false })
+  @Type(() => CurrencyWhereUniqueInput)
+  where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
-    @Type(() => CurrencyWhereUniqueInput)
-    where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
-
-    @Field(() => CurrencyCreateWithoutMasterServiceInput, {nullable:false})
-    @Type(() => CurrencyCreateWithoutMasterServiceInput)
-    create!: CurrencyCreateWithoutMasterServiceInput;
+  @Field(() => CurrencyCreateWithoutMasterServiceInput, { nullable: false })
+  @Type(() => CurrencyCreateWithoutMasterServiceInput)
+  create!: CurrencyCreateWithoutMasterServiceInput;
 }

@@ -7,31 +7,30 @@ import { User_SessionListRelationFilter } from '../user-session/user-session-lis
 
 @InputType()
 export class SessionWhereInput {
+  @Field(() => [SessionWhereInput], { nullable: true })
+  AND?: Array<SessionWhereInput>;
 
-    @Field(() => [SessionWhereInput], {nullable:true})
-    AND?: Array<SessionWhereInput>;
+  @Field(() => [SessionWhereInput], { nullable: true })
+  OR?: Array<SessionWhereInput>;
 
-    @Field(() => [SessionWhereInput], {nullable:true})
-    OR?: Array<SessionWhereInput>;
+  @Field(() => [SessionWhereInput], { nullable: true })
+  NOT?: Array<SessionWhereInput>;
 
-    @Field(() => [SessionWhereInput], {nullable:true})
-    NOT?: Array<SessionWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  deviceName?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    deviceName?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  refreshToken?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    refreshToken?: StringFilter;
-
-    @Field(() => User_SessionListRelationFilter, {nullable:true})
-    User_Session?: User_SessionListRelationFilter;
+  @Field(() => User_SessionListRelationFilter, { nullable: true })
+  User_Session?: User_SessionListRelationFilter;
 }

@@ -7,16 +7,15 @@ import { directus_sessionsUpdateInput } from '../directus-sessions/directus-sess
 
 @ArgsType()
 export class UpsertOnedirectusSessionsArgs {
+  @Field(() => directus_sessionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  where!: directus_sessionsWhereUniqueInput;
 
-    @Field(() => directus_sessionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    where!: directus_sessionsWhereUniqueInput;
+  @Field(() => directus_sessionsCreateInput, { nullable: false })
+  @Type(() => directus_sessionsCreateInput)
+  create!: directus_sessionsCreateInput;
 
-    @Field(() => directus_sessionsCreateInput, {nullable:false})
-    @Type(() => directus_sessionsCreateInput)
-    create!: directus_sessionsCreateInput;
-
-    @Field(() => directus_sessionsUpdateInput, {nullable:false})
-    @Type(() => directus_sessionsUpdateInput)
-    update!: directus_sessionsUpdateInput;
+  @Field(() => directus_sessionsUpdateInput, { nullable: false })
+  @Type(() => directus_sessionsUpdateInput)
+  update!: directus_sessionsUpdateInput;
 }

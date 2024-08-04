@@ -9,34 +9,43 @@ import { directus_usersUpdateOneWithoutCurrency_Currency_user_updatedTodirectus_
 
 @InputType()
 export class CurrencyUpdateWithoutMasterServiceInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  status?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    status?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  sort?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    sort?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  code?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    code?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  character?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    character?: StringFieldUpdateOperationsInput;
+  @Field(() => AppointmentUpdateManyWithoutCurrencyNestedInput, {
+    nullable: true,
+  })
+  Appointment?: AppointmentUpdateManyWithoutCurrencyNestedInput;
 
-    @Field(() => AppointmentUpdateManyWithoutCurrencyNestedInput, {nullable:true})
-    Appointment?: AppointmentUpdateManyWithoutCurrencyNestedInput;
+  @Field(
+    () =>
+      directus_usersUpdateOneWithoutCurrency_Currency_user_createdTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_users_Currency_user_createdTodirectus_users?: directus_usersUpdateOneWithoutCurrency_Currency_user_createdTodirectus_usersNestedInput;
 
-    @Field(() => directus_usersUpdateOneWithoutCurrency_Currency_user_createdTodirectus_usersNestedInput, {nullable:true})
-    directus_users_Currency_user_createdTodirectus_users?: directus_usersUpdateOneWithoutCurrency_Currency_user_createdTodirectus_usersNestedInput;
-
-    @Field(() => directus_usersUpdateOneWithoutCurrency_Currency_user_updatedTodirectus_usersNestedInput, {nullable:true})
-    directus_users_Currency_user_updatedTodirectus_users?: directus_usersUpdateOneWithoutCurrency_Currency_user_updatedTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_usersUpdateOneWithoutCurrency_Currency_user_updatedTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_users_Currency_user_updatedTodirectus_users?: directus_usersUpdateOneWithoutCurrency_Currency_user_updatedTodirectus_usersNestedInput;
 }

@@ -9,52 +9,61 @@ import { User_SessionCreateNestedManyWithoutUserInput } from '../user-session/us
 
 @InputType()
 export class UserCreateWithoutUserRecipientOnNotificationInput {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  email!: string;
 
-    @Field(() => String, {nullable:false})
-    email!: string;
+  @Field(() => String, { nullable: true })
+  phoneNumber?: string;
 
-    @Field(() => String, {nullable:true})
-    phoneNumber?: string;
+  @Field(() => String, { nullable: false })
+  username!: string;
 
-    @Field(() => String, {nullable:false})
-    username!: string;
+  @Field(() => String, { nullable: true })
+  firstName?: string;
 
-    @Field(() => String, {nullable:true})
-    firstName?: string;
+  @Field(() => String, { nullable: true })
+  lastName?: string;
 
-    @Field(() => String, {nullable:true})
-    lastName?: string;
+  @Field(() => Date, { nullable: true })
+  birthDate?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    birthDate?: Date | string;
+  @Field(() => String, { nullable: false })
+  password!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+  @Field(() => ClientProfileCreateNestedOneWithoutUserInput, {
+    nullable: false,
+  })
+  ClientProfile!: ClientProfileCreateNestedOneWithoutUserInput;
 
-    @Field(() => ClientProfileCreateNestedOneWithoutUserInput, {nullable:false})
-    ClientProfile!: ClientProfileCreateNestedOneWithoutUserInput;
+  @Field(() => MasterProfileCreateNestedOneWithoutUserInput, { nullable: true })
+  MasterProfile?: MasterProfileCreateNestedOneWithoutUserInput;
 
-    @Field(() => MasterProfileCreateNestedOneWithoutUserInput, {nullable:true})
-    MasterProfile?: MasterProfileCreateNestedOneWithoutUserInput;
+  @Field(() => UserPictureCreateNestedOneWithoutUserInput, { nullable: true })
+  UserPicture?: UserPictureCreateNestedOneWithoutUserInput;
 
-    @Field(() => UserPictureCreateNestedOneWithoutUserInput, {nullable:true})
-    UserPicture?: UserPictureCreateNestedOneWithoutUserInput;
+  @Field(
+    () =>
+      UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    { nullable: true },
+  )
+  UserSenderOnNotification_UserSenderOnNotification_notificationToUser?: UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_notificationToUserInput;
 
-    @Field(() => UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_notificationToUserInput, {nullable:true})
-    UserSenderOnNotification_UserSenderOnNotification_notificationToUser?: UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_notificationToUserInput;
+  @Field(
+    () =>
+      UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput,
+    { nullable: true },
+  )
+  UserSenderOnNotification_UserSenderOnNotification_userToUser?: UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput;
 
-    @Field(() => UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput, {nullable:true})
-    UserSenderOnNotification_UserSenderOnNotification_userToUser?: UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput;
-
-    @Field(() => User_SessionCreateNestedManyWithoutUserInput, {nullable:true})
-    User_Session?: User_SessionCreateNestedManyWithoutUserInput;
+  @Field(() => User_SessionCreateNestedManyWithoutUserInput, { nullable: true })
+  User_Session?: User_SessionCreateNestedManyWithoutUserInput;
 }

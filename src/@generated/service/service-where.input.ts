@@ -10,43 +10,42 @@ import { Service_translationsListRelationFilter } from '../service-translations/
 
 @InputType()
 export class ServiceWhereInput {
+  @Field(() => [ServiceWhereInput], { nullable: true })
+  AND?: Array<ServiceWhereInput>;
 
-    @Field(() => [ServiceWhereInput], {nullable:true})
-    AND?: Array<ServiceWhereInput>;
+  @Field(() => [ServiceWhereInput], { nullable: true })
+  OR?: Array<ServiceWhereInput>;
 
-    @Field(() => [ServiceWhereInput], {nullable:true})
-    OR?: Array<ServiceWhereInput>;
+  @Field(() => [ServiceWhereInput], { nullable: true })
+  NOT?: Array<ServiceWhereInput>;
 
-    @Field(() => [ServiceWhereInput], {nullable:true})
-    NOT?: Array<ServiceWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  status?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    status?: StringFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  sort?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    sort?: IntNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_updated?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_updated?: UuidNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => Directus_usersRelationFilter, { nullable: true })
+  directus_users_Service_user_createdTodirectus_users?: Directus_usersRelationFilter;
 
-    @Field(() => Directus_usersRelationFilter, {nullable:true})
-    directus_users_Service_user_createdTodirectus_users?: Directus_usersRelationFilter;
+  @Field(() => Directus_usersRelationFilter, { nullable: true })
+  directus_users_Service_user_updatedTodirectus_users?: Directus_usersRelationFilter;
 
-    @Field(() => Directus_usersRelationFilter, {nullable:true})
-    directus_users_Service_user_updatedTodirectus_users?: Directus_usersRelationFilter;
-
-    @Field(() => Service_translationsListRelationFilter, {nullable:true})
-    Service_translations?: Service_translationsListRelationFilter;
+  @Field(() => Service_translationsListRelationFilter, { nullable: true })
+  Service_translations?: Service_translationsListRelationFilter;
 }

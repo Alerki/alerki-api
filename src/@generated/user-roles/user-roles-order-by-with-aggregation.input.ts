@@ -7,25 +7,24 @@ import { UserRolesMinOrderByAggregateInput } from './user-roles-min-order-by-agg
 
 @InputType()
 export class UserRolesOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => UserRolesCountOrderByAggregateInput, { nullable: true })
+  _count?: UserRolesCountOrderByAggregateInput;
 
-    @Field(() => UserRolesCountOrderByAggregateInput, {nullable:true})
-    _count?: UserRolesCountOrderByAggregateInput;
+  @Field(() => UserRolesMaxOrderByAggregateInput, { nullable: true })
+  _max?: UserRolesMaxOrderByAggregateInput;
 
-    @Field(() => UserRolesMaxOrderByAggregateInput, {nullable:true})
-    _max?: UserRolesMaxOrderByAggregateInput;
-
-    @Field(() => UserRolesMinOrderByAggregateInput, {nullable:true})
-    _min?: UserRolesMinOrderByAggregateInput;
+  @Field(() => UserRolesMinOrderByAggregateInput, { nullable: true })
+  _min?: UserRolesMinOrderByAggregateInput;
 }

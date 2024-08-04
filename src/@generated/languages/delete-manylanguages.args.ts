@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManylanguagesArgs {
-
-    @Field(() => languagesWhereInput, {nullable:true})
-    @Type(() => languagesWhereInput)
-    where?: languagesWhereInput;
+  @Field(() => languagesWhereInput, { nullable: true })
+  @Type(() => languagesWhereInput)
+  where?: languagesWhereInput;
 }

@@ -6,13 +6,16 @@ import { languagesUpdateOneWithoutService_translationsNestedInput } from '../lan
 
 @InputType()
 export class Service_translationsUpdateWithoutServiceInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => MasterServiceUpdateManyWithoutService_translationsNestedInput, {
+    nullable: true,
+  })
+  MasterService?: MasterServiceUpdateManyWithoutService_translationsNestedInput;
 
-    @Field(() => MasterServiceUpdateManyWithoutService_translationsNestedInput, {nullable:true})
-    MasterService?: MasterServiceUpdateManyWithoutService_translationsNestedInput;
-
-    @Field(() => languagesUpdateOneWithoutService_translationsNestedInput, {nullable:true})
-    languages?: languagesUpdateOneWithoutService_translationsNestedInput;
+  @Field(() => languagesUpdateOneWithoutService_translationsNestedInput, {
+    nullable: true,
+  })
+  languages?: languagesUpdateOneWithoutService_translationsNestedInput;
 }

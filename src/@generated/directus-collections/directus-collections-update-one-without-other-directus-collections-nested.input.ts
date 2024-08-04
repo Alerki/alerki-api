@@ -10,30 +10,45 @@ import { directus_collectionsUpdateWithoutOther_directus_collectionsInput } from
 
 @InputType()
 export class directus_collectionsUpdateOneWithoutOther_directus_collectionsNestedInput {
+  @Field(
+    () => directus_collectionsCreateWithoutOther_directus_collectionsInput,
+    { nullable: true },
+  )
+  @Type(() => directus_collectionsCreateWithoutOther_directus_collectionsInput)
+  create?: directus_collectionsCreateWithoutOther_directus_collectionsInput;
 
-    @Field(() => directus_collectionsCreateWithoutOther_directus_collectionsInput, {nullable:true})
-    @Type(() => directus_collectionsCreateWithoutOther_directus_collectionsInput)
-    create?: directus_collectionsCreateWithoutOther_directus_collectionsInput;
+  @Field(
+    () =>
+      directus_collectionsCreateOrConnectWithoutOther_directus_collectionsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_collectionsCreateOrConnectWithoutOther_directus_collectionsInput,
+  )
+  connectOrCreate?: directus_collectionsCreateOrConnectWithoutOther_directus_collectionsInput;
 
-    @Field(() => directus_collectionsCreateOrConnectWithoutOther_directus_collectionsInput, {nullable:true})
-    @Type(() => directus_collectionsCreateOrConnectWithoutOther_directus_collectionsInput)
-    connectOrCreate?: directus_collectionsCreateOrConnectWithoutOther_directus_collectionsInput;
+  @Field(
+    () => directus_collectionsUpsertWithoutOther_directus_collectionsInput,
+    { nullable: true },
+  )
+  @Type(() => directus_collectionsUpsertWithoutOther_directus_collectionsInput)
+  upsert?: directus_collectionsUpsertWithoutOther_directus_collectionsInput;
 
-    @Field(() => directus_collectionsUpsertWithoutOther_directus_collectionsInput, {nullable:true})
-    @Type(() => directus_collectionsUpsertWithoutOther_directus_collectionsInput)
-    upsert?: directus_collectionsUpsertWithoutOther_directus_collectionsInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_collectionsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_collectionsWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>;
 
-    @Field(() => directus_collectionsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_collectionsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>;
-
-    @Field(() => directus_collectionsUpdateWithoutOther_directus_collectionsInput, {nullable:true})
-    @Type(() => directus_collectionsUpdateWithoutOther_directus_collectionsInput)
-    update?: directus_collectionsUpdateWithoutOther_directus_collectionsInput;
+  @Field(
+    () => directus_collectionsUpdateWithoutOther_directus_collectionsInput,
+    { nullable: true },
+  )
+  @Type(() => directus_collectionsUpdateWithoutOther_directus_collectionsInput)
+  update?: directus_collectionsUpdateWithoutOther_directus_collectionsInput;
 }

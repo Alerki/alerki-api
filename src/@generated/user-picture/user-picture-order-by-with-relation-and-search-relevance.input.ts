@@ -7,25 +7,26 @@ import { UserPictureOrderByRelevanceInput } from './user-picture-order-by-releva
 
 @InputType()
 export class UserPictureOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  picture?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    picture?: keyof typeof SortOrder;
+  @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
+  User?: UserOrderByRelationAggregateInput;
 
-    @Field(() => UserOrderByRelationAggregateInput, {nullable:true})
-    User?: UserOrderByRelationAggregateInput;
+  @Field(() => directus_filesOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  directus_files?: directus_filesOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => directus_filesOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    directus_files?: directus_filesOrderByWithRelationAndSearchRelevanceInput;
-
-    @Field(() => UserPictureOrderByRelevanceInput, {nullable:true})
-    _relevance?: UserPictureOrderByRelevanceInput;
+  @Field(() => UserPictureOrderByRelevanceInput, { nullable: true })
+  _relevance?: UserPictureOrderByRelevanceInput;
 }

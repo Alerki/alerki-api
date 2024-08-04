@@ -5,34 +5,33 @@ import { directus_webhooksOrderByRelevanceInput } from './directus-webhooks-orde
 
 @InputType()
 export class directus_webhooksOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  method?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    method?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  url?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    url?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  status?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  data?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    data?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  actions?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    actions?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  collections?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    collections?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  headers?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    headers?: keyof typeof SortOrder;
-
-    @Field(() => directus_webhooksOrderByRelevanceInput, {nullable:true})
-    _relevance?: directus_webhooksOrderByRelevanceInput;
+  @Field(() => directus_webhooksOrderByRelevanceInput, { nullable: true })
+  _relevance?: directus_webhooksOrderByRelevanceInput;
 }

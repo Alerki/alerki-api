@@ -8,16 +8,29 @@ import { CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_use
 
 @InputType()
 export class CurrencyUpsertWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput {
+  @Field(() => CurrencyWhereUniqueInput, { nullable: false })
+  @Type(() => CurrencyWhereUniqueInput)
+  where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
-    @Type(() => CurrencyWhereUniqueInput)
-    where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
+  @Field(
+    () =>
+      CurrencyUpdateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      CurrencyUpdateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+  )
+  update!: CurrencyUpdateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput;
 
-    @Field(() => CurrencyUpdateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => CurrencyUpdateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput)
-    update!: CurrencyUpdateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput;
-
-    @Field(() => CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput)
-    create!: CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput;
+  @Field(
+    () =>
+      CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+  )
+  create!: CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput;
 }

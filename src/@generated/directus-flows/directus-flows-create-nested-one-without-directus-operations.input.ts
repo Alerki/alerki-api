@@ -8,16 +8,19 @@ import { directus_flowsWhereUniqueInput } from './directus-flows-where-unique.in
 
 @InputType()
 export class directus_flowsCreateNestedOneWithoutDirectus_operationsInput {
+  @Field(() => directus_flowsCreateWithoutDirectus_operationsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_flowsCreateWithoutDirectus_operationsInput)
+  create?: directus_flowsCreateWithoutDirectus_operationsInput;
 
-    @Field(() => directus_flowsCreateWithoutDirectus_operationsInput, {nullable:true})
-    @Type(() => directus_flowsCreateWithoutDirectus_operationsInput)
-    create?: directus_flowsCreateWithoutDirectus_operationsInput;
+  @Field(() => directus_flowsCreateOrConnectWithoutDirectus_operationsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_flowsCreateOrConnectWithoutDirectus_operationsInput)
+  connectOrCreate?: directus_flowsCreateOrConnectWithoutDirectus_operationsInput;
 
-    @Field(() => directus_flowsCreateOrConnectWithoutDirectus_operationsInput, {nullable:true})
-    @Type(() => directus_flowsCreateOrConnectWithoutDirectus_operationsInput)
-    connectOrCreate?: directus_flowsCreateOrConnectWithoutDirectus_operationsInput;
-
-    @Field(() => directus_flowsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_flowsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>;
+  @Field(() => directus_flowsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_flowsWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>;
 }

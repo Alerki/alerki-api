@@ -6,12 +6,11 @@ import { directus_usersWhereInput } from '../directus-users/directus-users-where
 
 @ArgsType()
 export class UpdateManydirectusUsersArgs {
+  @Field(() => directus_usersUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_usersUpdateManyMutationInput)
+  data!: directus_usersUpdateManyMutationInput;
 
-    @Field(() => directus_usersUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_usersUpdateManyMutationInput)
-    data!: directus_usersUpdateManyMutationInput;
-
-    @Field(() => directus_usersWhereInput, {nullable:true})
-    @Type(() => directus_usersWhereInput)
-    where?: directus_usersWhereInput;
+  @Field(() => directus_usersWhereInput, { nullable: true })
+  @Type(() => directus_usersWhereInput)
+  where?: directus_usersWhereInput;
 }

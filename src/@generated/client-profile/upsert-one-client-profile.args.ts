@@ -8,16 +8,15 @@ import { ClientProfileUpdateInput } from './client-profile-update.input';
 
 @ArgsType()
 export class UpsertOneClientProfileArgs {
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: false })
+  @Type(() => ClientProfileWhereUniqueInput)
+  where!: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:false})
-    @Type(() => ClientProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
+  @Field(() => ClientProfileCreateInput, { nullable: false })
+  @Type(() => ClientProfileCreateInput)
+  create!: ClientProfileCreateInput;
 
-    @Field(() => ClientProfileCreateInput, {nullable:false})
-    @Type(() => ClientProfileCreateInput)
-    create!: ClientProfileCreateInput;
-
-    @Field(() => ClientProfileUpdateInput, {nullable:false})
-    @Type(() => ClientProfileUpdateInput)
-    update!: ClientProfileUpdateInput;
+  @Field(() => ClientProfileUpdateInput, { nullable: false })
+  @Type(() => ClientProfileUpdateInput)
+  update!: ClientProfileUpdateInput;
 }

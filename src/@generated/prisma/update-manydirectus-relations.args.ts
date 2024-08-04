@@ -6,12 +6,11 @@ import { directus_relationsWhereInput } from '../directus-relations/directus-rel
 
 @ArgsType()
 export class UpdateManydirectusRelationsArgs {
+  @Field(() => directus_relationsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_relationsUpdateManyMutationInput)
+  data!: directus_relationsUpdateManyMutationInput;
 
-    @Field(() => directus_relationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_relationsUpdateManyMutationInput)
-    data!: directus_relationsUpdateManyMutationInput;
-
-    @Field(() => directus_relationsWhereInput, {nullable:true})
-    @Type(() => directus_relationsWhereInput)
-    where?: directus_relationsWhereInput;
+  @Field(() => directus_relationsWhereInput, { nullable: true })
+  @Type(() => directus_relationsWhereInput)
+  where?: directus_relationsWhereInput;
 }

@@ -6,12 +6,11 @@ import { CurrencyCreateWithoutAppointmentInput } from './currency-create-without
 
 @InputType()
 export class CurrencyUpsertWithoutAppointmentInput {
+  @Field(() => CurrencyUpdateWithoutAppointmentInput, { nullable: false })
+  @Type(() => CurrencyUpdateWithoutAppointmentInput)
+  update!: CurrencyUpdateWithoutAppointmentInput;
 
-    @Field(() => CurrencyUpdateWithoutAppointmentInput, {nullable:false})
-    @Type(() => CurrencyUpdateWithoutAppointmentInput)
-    update!: CurrencyUpdateWithoutAppointmentInput;
-
-    @Field(() => CurrencyCreateWithoutAppointmentInput, {nullable:false})
-    @Type(() => CurrencyCreateWithoutAppointmentInput)
-    create!: CurrencyCreateWithoutAppointmentInput;
+  @Field(() => CurrencyCreateWithoutAppointmentInput, { nullable: false })
+  @Type(() => CurrencyCreateWithoutAppointmentInput)
+  create!: CurrencyCreateWithoutAppointmentInput;
 }

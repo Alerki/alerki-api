@@ -11,82 +11,87 @@ import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-a
 
 @InputType()
 export class directus_filesScalarWhereWithAggregatesInput {
+  @Field(() => [directus_filesScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_filesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_filesScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_filesScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_filesScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_filesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_filesScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_filesScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_filesScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_filesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_filesScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_filesScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  storage?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    storage?: StringWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  filename_disk?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    filename_disk?: StringNullableWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  filename_download?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    filename_download?: StringWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  title?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    title?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  type?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    type?: StringNullableWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  folder?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    folder?: UuidNullableWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  uploaded_by?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    uploaded_by?: UuidNullableWithAggregatesFilter;
+  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
+  uploaded_on?: DateTimeWithAggregatesFilter;
 
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    uploaded_on?: DateTimeWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  modified_by?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    modified_by?: UuidNullableWithAggregatesFilter;
+  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
+  modified_on?: DateTimeWithAggregatesFilter;
 
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    modified_on?: DateTimeWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  charset?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    charset?: StringNullableWithAggregatesFilter;
+  @Field(() => BigIntNullableWithAggregatesFilter, { nullable: true })
+  filesize?: BigIntNullableWithAggregatesFilter;
 
-    @Field(() => BigIntNullableWithAggregatesFilter, {nullable:true})
-    filesize?: BigIntNullableWithAggregatesFilter;
+  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
+  width?: IntNullableWithAggregatesFilter;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    width?: IntNullableWithAggregatesFilter;
+  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
+  height?: IntNullableWithAggregatesFilter;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    height?: IntNullableWithAggregatesFilter;
+  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
+  duration?: IntNullableWithAggregatesFilter;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    duration?: IntNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  embed?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    embed?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  description?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    description?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  location?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    location?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  tags?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    tags?: StringNullableWithAggregatesFilter;
+  @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
+  metadata?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    metadata?: JsonNullableWithAggregatesFilter;
+  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
+  focal_point_x?: IntNullableWithAggregatesFilter;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    focal_point_x?: IntNullableWithAggregatesFilter;
-
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    focal_point_y?: IntNullableWithAggregatesFilter;
+  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
+  focal_point_y?: IntNullableWithAggregatesFilter;
 }

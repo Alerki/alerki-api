@@ -10,24 +10,54 @@ import { directus_usersUpdateWithoutDirectus_notifications_directus_notification
 
 @InputType()
 export class directus_usersUpdateOneRequiredWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersNestedInput {
+  @Field(
+    () =>
+      directus_usersCreateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput,
+  )
+  create?: directus_usersCreateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput)
-    create?: directus_usersCreateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateOrConnectWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateOrConnectWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput,
+  )
+  connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateOrConnectWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateOrConnectWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput)
-    connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersUpsertWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersUpsertWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput,
+  )
+  upsert?: directus_usersUpsertWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput;
 
-    @Field(() => directus_usersUpsertWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersUpsertWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput)
-    upsert?: directus_usersUpsertWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_usersWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_usersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersUpdateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersUpdateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput)
-    update?: directus_usersUpdateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersUpdateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersUpdateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput,
+  )
+  update?: directus_usersUpdateWithoutDirectus_notifications_directus_notifications_recipientTodirectus_usersInput;
 }

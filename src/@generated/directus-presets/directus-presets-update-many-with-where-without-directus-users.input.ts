@@ -6,12 +6,11 @@ import { directus_presetsUpdateManyMutationInput } from './directus-presets-upda
 
 @InputType()
 export class directus_presetsUpdateManyWithWhereWithoutDirectus_usersInput {
+  @Field(() => directus_presetsScalarWhereInput, { nullable: false })
+  @Type(() => directus_presetsScalarWhereInput)
+  where!: directus_presetsScalarWhereInput;
 
-    @Field(() => directus_presetsScalarWhereInput, {nullable:false})
-    @Type(() => directus_presetsScalarWhereInput)
-    where!: directus_presetsScalarWhereInput;
-
-    @Field(() => directus_presetsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_presetsUpdateManyMutationInput)
-    data!: directus_presetsUpdateManyMutationInput;
+  @Field(() => directus_presetsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_presetsUpdateManyMutationInput)
+  data!: directus_presetsUpdateManyMutationInput;
 }

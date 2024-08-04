@@ -7,12 +7,11 @@ import { MasterProfileWhereUniqueInput } from './master-profile-where-unique.inp
 
 @ArgsType()
 export class UpdateOneMasterProfileArgs {
+  @Field(() => MasterProfileUpdateInput, { nullable: false })
+  @Type(() => MasterProfileUpdateInput)
+  data!: MasterProfileUpdateInput;
 
-    @Field(() => MasterProfileUpdateInput, {nullable:false})
-    @Type(() => MasterProfileUpdateInput)
-    data!: MasterProfileUpdateInput;
-
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:false})
-    @Type(() => MasterProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: false })
+  @Type(() => MasterProfileWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 }

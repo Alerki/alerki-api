@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusTranslationsArgs {
-
-    @Field(() => directus_translationsCreateInput, {nullable:false})
-    @Type(() => directus_translationsCreateInput)
-    data!: directus_translationsCreateInput;
+  @Field(() => directus_translationsCreateInput, { nullable: false })
+  @Type(() => directus_translationsCreateInput)
+  data!: directus_translationsCreateInput;
 }

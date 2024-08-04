@@ -6,12 +6,11 @@ import { ServiceWhereInput } from './service-where.input';
 
 @ArgsType()
 export class UpdateManyServiceArgs {
+  @Field(() => ServiceUpdateManyMutationInput, { nullable: false })
+  @Type(() => ServiceUpdateManyMutationInput)
+  data!: ServiceUpdateManyMutationInput;
 
-    @Field(() => ServiceUpdateManyMutationInput, {nullable:false})
-    @Type(() => ServiceUpdateManyMutationInput)
-    data!: ServiceUpdateManyMutationInput;
-
-    @Field(() => ServiceWhereInput, {nullable:true})
-    @Type(() => ServiceWhereInput)
-    where?: ServiceWhereInput;
+  @Field(() => ServiceWhereInput, { nullable: true })
+  @Type(() => ServiceWhereInput)
+  where?: ServiceWhereInput;
 }

@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class User_SessionWhereUniqueInput {
-
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => Int, { nullable: true })
+  id?: number;
 }

@@ -7,12 +7,11 @@ import { ServiceWhereUniqueInput } from './service-where-unique.input';
 
 @ArgsType()
 export class UpdateOneServiceArgs {
+  @Field(() => ServiceUpdateInput, { nullable: false })
+  @Type(() => ServiceUpdateInput)
+  data!: ServiceUpdateInput;
 
-    @Field(() => ServiceUpdateInput, {nullable:false})
-    @Type(() => ServiceUpdateInput)
-    data!: ServiceUpdateInput;
-
-    @Field(() => ServiceWhereUniqueInput, {nullable:false})
-    @Type(() => ServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
+  @Field(() => ServiceWhereUniqueInput, { nullable: false })
+  @Type(() => ServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
 }

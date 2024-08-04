@@ -6,12 +6,13 @@ import { directus_translationsWhereInput } from '../directus-translations/direct
 
 @ArgsType()
 export class UpdateManydirectusTranslationsArgs {
+  @Field(() => directus_translationsUpdateManyMutationInput, {
+    nullable: false,
+  })
+  @Type(() => directus_translationsUpdateManyMutationInput)
+  data!: directus_translationsUpdateManyMutationInput;
 
-    @Field(() => directus_translationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_translationsUpdateManyMutationInput)
-    data!: directus_translationsUpdateManyMutationInput;
-
-    @Field(() => directus_translationsWhereInput, {nullable:true})
-    @Type(() => directus_translationsWhereInput)
-    where?: directus_translationsWhereInput;
+  @Field(() => directus_translationsWhereInput, { nullable: true })
+  @Type(() => directus_translationsWhereInput)
+  where?: directus_translationsWhereInput;
 }

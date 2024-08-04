@@ -6,12 +6,13 @@ import { User_SessionUncheckedUpdateManyWithoutUser_SessionInput } from './user-
 
 @InputType()
 export class User_SessionUpdateManyWithWhereWithoutUserInput {
+  @Field(() => User_SessionScalarWhereInput, { nullable: false })
+  @Type(() => User_SessionScalarWhereInput)
+  where!: User_SessionScalarWhereInput;
 
-    @Field(() => User_SessionScalarWhereInput, {nullable:false})
-    @Type(() => User_SessionScalarWhereInput)
-    where!: User_SessionScalarWhereInput;
-
-    @Field(() => User_SessionUncheckedUpdateManyWithoutUser_SessionInput, {nullable:false})
-    @Type(() => User_SessionUncheckedUpdateManyWithoutUser_SessionInput)
-    data!: User_SessionUncheckedUpdateManyWithoutUser_SessionInput;
+  @Field(() => User_SessionUncheckedUpdateManyWithoutUser_SessionInput, {
+    nullable: false,
+  })
+  @Type(() => User_SessionUncheckedUpdateManyWithoutUser_SessionInput)
+  data!: User_SessionUncheckedUpdateManyWithoutUser_SessionInput;
 }

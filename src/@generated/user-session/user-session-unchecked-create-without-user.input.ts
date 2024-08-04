@@ -4,10 +4,9 @@ import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class User_SessionUncheckedCreateWithoutUserInput {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
-
-    @Field(() => String, {nullable:true})
-    Session_id?: string;
+  @Field(() => String, { nullable: false })
+  Session_id!: string;
 }

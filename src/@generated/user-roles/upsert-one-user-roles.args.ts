@@ -8,16 +8,15 @@ import { UserRolesUpdateInput } from './user-roles-update.input';
 
 @ArgsType()
 export class UpsertOneUserRolesArgs {
+  @Field(() => UserRolesWhereUniqueInput, { nullable: false })
+  @Type(() => UserRolesWhereUniqueInput)
+  where!: Prisma.AtLeast<UserRolesWhereUniqueInput, 'id' | 'name'>;
 
-    @Field(() => UserRolesWhereUniqueInput, {nullable:false})
-    @Type(() => UserRolesWhereUniqueInput)
-    where!: Prisma.AtLeast<UserRolesWhereUniqueInput, 'id' | 'name'>;
+  @Field(() => UserRolesCreateInput, { nullable: false })
+  @Type(() => UserRolesCreateInput)
+  create!: UserRolesCreateInput;
 
-    @Field(() => UserRolesCreateInput, {nullable:false})
-    @Type(() => UserRolesCreateInput)
-    create!: UserRolesCreateInput;
-
-    @Field(() => UserRolesUpdateInput, {nullable:false})
-    @Type(() => UserRolesUpdateInput)
-    update!: UserRolesUpdateInput;
+  @Field(() => UserRolesUpdateInput, { nullable: false })
+  @Type(() => UserRolesUpdateInput)
+  update!: UserRolesUpdateInput;
 }

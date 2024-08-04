@@ -12,43 +12,54 @@ import { MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterServ
 
 @InputType()
 export class AppointmentUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  duration?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    duration?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  price?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    price?: IntFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  startAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    startAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  endAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    endAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  confirmed?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    confirmed?: BoolFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  cancelled?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    cancelled?: BoolFieldUpdateOperationsInput;
+  @Field(() => ClientProfileUpdateOneRequiredWithoutAppointmentNestedInput, {
+    nullable: true,
+  })
+  ClientProfile?: ClientProfileUpdateOneRequiredWithoutAppointmentNestedInput;
 
-    @Field(() => ClientProfileUpdateOneRequiredWithoutAppointmentNestedInput, {nullable:true})
-    ClientProfile?: ClientProfileUpdateOneRequiredWithoutAppointmentNestedInput;
+  @Field(() => CurrencyUpdateOneRequiredWithoutAppointmentNestedInput, {
+    nullable: true,
+  })
+  Currency?: CurrencyUpdateOneRequiredWithoutAppointmentNestedInput;
 
-    @Field(() => CurrencyUpdateOneRequiredWithoutAppointmentNestedInput, {nullable:true})
-    Currency?: CurrencyUpdateOneRequiredWithoutAppointmentNestedInput;
+  @Field(
+    () =>
+      MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterProfileToMasterProfileNestedInput,
+    { nullable: true },
+  )
+  MasterProfile_Appointment_masterProfileToMasterProfile?: MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterProfileToMasterProfileNestedInput;
 
-    @Field(() => MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterProfileToMasterProfileNestedInput, {nullable:true})
-    MasterProfile_Appointment_masterProfileToMasterProfile?: MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterProfileToMasterProfileNestedInput;
-
-    @Field(() => MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterServiceToMasterProfileNestedInput, {nullable:true})
-    MasterProfile_Appointment_masterServiceToMasterProfile?: MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterServiceToMasterProfileNestedInput;
+  @Field(
+    () =>
+      MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterServiceToMasterProfileNestedInput,
+    { nullable: true },
+  )
+  MasterProfile_Appointment_masterServiceToMasterProfile?: MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterServiceToMasterProfileNestedInput;
 }

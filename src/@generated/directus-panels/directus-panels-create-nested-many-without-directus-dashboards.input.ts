@@ -9,20 +9,26 @@ import { directus_panelsWhereUniqueInput } from './directus-panels-where-unique.
 
 @InputType()
 export class directus_panelsCreateNestedManyWithoutDirectus_dashboardsInput {
+  @Field(() => [directus_panelsCreateWithoutDirectus_dashboardsInput], {
+    nullable: true,
+  })
+  @Type(() => directus_panelsCreateWithoutDirectus_dashboardsInput)
+  create?: Array<directus_panelsCreateWithoutDirectus_dashboardsInput>;
 
-    @Field(() => [directus_panelsCreateWithoutDirectus_dashboardsInput], {nullable:true})
-    @Type(() => directus_panelsCreateWithoutDirectus_dashboardsInput)
-    create?: Array<directus_panelsCreateWithoutDirectus_dashboardsInput>;
+  @Field(
+    () => [directus_panelsCreateOrConnectWithoutDirectus_dashboardsInput],
+    { nullable: true },
+  )
+  @Type(() => directus_panelsCreateOrConnectWithoutDirectus_dashboardsInput)
+  connectOrCreate?: Array<directus_panelsCreateOrConnectWithoutDirectus_dashboardsInput>;
 
-    @Field(() => [directus_panelsCreateOrConnectWithoutDirectus_dashboardsInput], {nullable:true})
-    @Type(() => directus_panelsCreateOrConnectWithoutDirectus_dashboardsInput)
-    connectOrCreate?: Array<directus_panelsCreateOrConnectWithoutDirectus_dashboardsInput>;
+  @Field(() => directus_panelsCreateManyDirectus_dashboardsInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_panelsCreateManyDirectus_dashboardsInputEnvelope)
+  createMany?: directus_panelsCreateManyDirectus_dashboardsInputEnvelope;
 
-    @Field(() => directus_panelsCreateManyDirectus_dashboardsInputEnvelope, {nullable:true})
-    @Type(() => directus_panelsCreateManyDirectus_dashboardsInputEnvelope)
-    createMany?: directus_panelsCreateManyDirectus_dashboardsInputEnvelope;
-
-    @Field(() => [directus_panelsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_panelsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_panelsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_panelsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
 }

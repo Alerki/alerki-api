@@ -11,52 +11,51 @@ import { MasterServiceListRelationFilter } from '../master-service/master-servic
 
 @InputType()
 export class CurrencyWhereInput {
+  @Field(() => [CurrencyWhereInput], { nullable: true })
+  AND?: Array<CurrencyWhereInput>;
 
-    @Field(() => [CurrencyWhereInput], {nullable:true})
-    AND?: Array<CurrencyWhereInput>;
+  @Field(() => [CurrencyWhereInput], { nullable: true })
+  OR?: Array<CurrencyWhereInput>;
 
-    @Field(() => [CurrencyWhereInput], {nullable:true})
-    OR?: Array<CurrencyWhereInput>;
+  @Field(() => [CurrencyWhereInput], { nullable: true })
+  NOT?: Array<CurrencyWhereInput>;
 
-    @Field(() => [CurrencyWhereInput], {nullable:true})
-    NOT?: Array<CurrencyWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  status?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    status?: StringFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  sort?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    sort?: IntNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_updated?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_updated?: UuidNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  code?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    code?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  character?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    character?: StringFilter;
+  @Field(() => AppointmentListRelationFilter, { nullable: true })
+  Appointment?: AppointmentListRelationFilter;
 
-    @Field(() => AppointmentListRelationFilter, {nullable:true})
-    Appointment?: AppointmentListRelationFilter;
+  @Field(() => Directus_usersRelationFilter, { nullable: true })
+  directus_users_Currency_user_createdTodirectus_users?: Directus_usersRelationFilter;
 
-    @Field(() => Directus_usersRelationFilter, {nullable:true})
-    directus_users_Currency_user_createdTodirectus_users?: Directus_usersRelationFilter;
+  @Field(() => Directus_usersRelationFilter, { nullable: true })
+  directus_users_Currency_user_updatedTodirectus_users?: Directus_usersRelationFilter;
 
-    @Field(() => Directus_usersRelationFilter, {nullable:true})
-    directus_users_Currency_user_updatedTodirectus_users?: Directus_usersRelationFilter;
-
-    @Field(() => MasterServiceListRelationFilter, {nullable:true})
-    MasterService?: MasterServiceListRelationFilter;
+  @Field(() => MasterServiceListRelationFilter, { nullable: true })
+  MasterService?: MasterServiceListRelationFilter;
 }

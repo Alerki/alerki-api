@@ -6,13 +6,12 @@ import { Directus_sessionsMaxAggregate } from './directus-sessions-max-aggregate
 
 @ObjectType()
 export class AggregateDirectus_sessions {
+  @Field(() => Directus_sessionsCountAggregate, { nullable: true })
+  _count?: Directus_sessionsCountAggregate;
 
-    @Field(() => Directus_sessionsCountAggregate, {nullable:true})
-    _count?: Directus_sessionsCountAggregate;
+  @Field(() => Directus_sessionsMinAggregate, { nullable: true })
+  _min?: Directus_sessionsMinAggregate;
 
-    @Field(() => Directus_sessionsMinAggregate, {nullable:true})
-    _min?: Directus_sessionsMinAggregate;
-
-    @Field(() => Directus_sessionsMaxAggregate, {nullable:true})
-    _max?: Directus_sessionsMaxAggregate;
+  @Field(() => Directus_sessionsMaxAggregate, { nullable: true })
+  _max?: Directus_sessionsMaxAggregate;
 }

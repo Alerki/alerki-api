@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManyServiceArgs {
+  @Field(() => [ServiceCreateManyInput], { nullable: false })
+  @Type(() => ServiceCreateManyInput)
+  data!: Array<ServiceCreateManyInput>;
 
-    @Field(() => [ServiceCreateManyInput], {nullable:false})
-    @Type(() => ServiceCreateManyInput)
-    data!: Array<ServiceCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

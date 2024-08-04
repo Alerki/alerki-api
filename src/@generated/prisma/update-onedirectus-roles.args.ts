@@ -6,12 +6,11 @@ import { directus_rolesWhereUniqueInput } from '../directus-roles/directus-roles
 
 @ArgsType()
 export class UpdateOnedirectusRolesArgs {
+  @Field(() => directus_rolesUpdateInput, { nullable: false })
+  @Type(() => directus_rolesUpdateInput)
+  data!: directus_rolesUpdateInput;
 
-    @Field(() => directus_rolesUpdateInput, {nullable:false})
-    @Type(() => directus_rolesUpdateInput)
-    data!: directus_rolesUpdateInput;
-
-    @Field(() => directus_rolesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_rolesWhereUniqueInput)
-    where!: directus_rolesWhereUniqueInput;
+  @Field(() => directus_rolesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_rolesWhereUniqueInput)
+  where!: directus_rolesWhereUniqueInput;
 }

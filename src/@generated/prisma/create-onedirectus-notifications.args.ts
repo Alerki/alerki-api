@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusNotificationsArgs {
-
-    @Field(() => directus_notificationsCreateInput, {nullable:false})
-    @Type(() => directus_notificationsCreateInput)
-    data!: directus_notificationsCreateInput;
+  @Field(() => directus_notificationsCreateInput, { nullable: false })
+  @Type(() => directus_notificationsCreateInput)
+  data!: directus_notificationsCreateInput;
 }

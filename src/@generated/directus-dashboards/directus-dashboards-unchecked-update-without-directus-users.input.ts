@@ -7,25 +7,28 @@ import { directus_panelsUncheckedUpdateManyWithoutDirectus_dashboardsNestedInput
 
 @InputType()
 export class directus_dashboardsUncheckedUpdateWithoutDirectus_usersInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  icon?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    icon?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  note?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    note?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  color?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    color?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => directus_panelsUncheckedUpdateManyWithoutDirectus_dashboardsNestedInput, {nullable:true})
-    directus_panels?: directus_panelsUncheckedUpdateManyWithoutDirectus_dashboardsNestedInput;
+  @Field(
+    () =>
+      directus_panelsUncheckedUpdateManyWithoutDirectus_dashboardsNestedInput,
+    { nullable: true },
+  )
+  directus_panels?: directus_panelsUncheckedUpdateManyWithoutDirectus_dashboardsNestedInput;
 }

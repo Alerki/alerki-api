@@ -5,19 +5,20 @@ import { directus_filesCreateNestedOneWithoutUserPictureInput } from '../directu
 
 @InputType()
 export class UserPictureCreateInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => UserCreateNestedManyWithoutUserPictureInput, { nullable: true })
+  User?: UserCreateNestedManyWithoutUserPictureInput;
 
-    @Field(() => UserCreateNestedManyWithoutUserPictureInput, {nullable:true})
-    User?: UserCreateNestedManyWithoutUserPictureInput;
-
-    @Field(() => directus_filesCreateNestedOneWithoutUserPictureInput, {nullable:false})
-    directus_files!: directus_filesCreateNestedOneWithoutUserPictureInput;
+  @Field(() => directus_filesCreateNestedOneWithoutUserPictureInput, {
+    nullable: false,
+  })
+  directus_files!: directus_filesCreateNestedOneWithoutUserPictureInput;
 }

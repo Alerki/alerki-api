@@ -7,22 +7,24 @@ import { NotificationMinOrderByAggregateInput } from './notification-min-order-b
 
 @InputType()
 export class NotificationOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  type?: keyof typeof SortOrder;
 
-    @Field(() => NotificationCountOrderByAggregateInput, {nullable:true})
-    _count?: NotificationCountOrderByAggregateInput;
+  @Field(() => NotificationCountOrderByAggregateInput, { nullable: true })
+  _count?: NotificationCountOrderByAggregateInput;
 
-    @Field(() => NotificationMaxOrderByAggregateInput, {nullable:true})
-    _max?: NotificationMaxOrderByAggregateInput;
+  @Field(() => NotificationMaxOrderByAggregateInput, { nullable: true })
+  _max?: NotificationMaxOrderByAggregateInput;
 
-    @Field(() => NotificationMinOrderByAggregateInput, {nullable:true})
-    _min?: NotificationMinOrderByAggregateInput;
+  @Field(() => NotificationMinOrderByAggregateInput, { nullable: true })
+  _min?: NotificationMinOrderByAggregateInput;
 }

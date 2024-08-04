@@ -7,12 +7,11 @@ import { SessionCreateWithoutUser_SessionInput } from './session-create-without-
 
 @InputType()
 export class SessionCreateOrConnectWithoutUser_SessionInput {
+  @Field(() => SessionWhereUniqueInput, { nullable: false })
+  @Type(() => SessionWhereUniqueInput)
+  where!: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
 
-    @Field(() => SessionWhereUniqueInput, {nullable:false})
-    @Type(() => SessionWhereUniqueInput)
-    where!: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
-
-    @Field(() => SessionCreateWithoutUser_SessionInput, {nullable:false})
-    @Type(() => SessionCreateWithoutUser_SessionInput)
-    create!: SessionCreateWithoutUser_SessionInput;
+  @Field(() => SessionCreateWithoutUser_SessionInput, { nullable: false })
+  @Type(() => SessionCreateWithoutUser_SessionInput)
+  create!: SessionCreateWithoutUser_SessionInput;
 }

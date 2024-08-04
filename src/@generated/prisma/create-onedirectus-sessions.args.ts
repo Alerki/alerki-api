@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusSessionsArgs {
-
-    @Field(() => directus_sessionsCreateInput, {nullable:false})
-    @Type(() => directus_sessionsCreateInput)
-    data!: directus_sessionsCreateInput;
+  @Field(() => directus_sessionsCreateInput, { nullable: false })
+  @Type(() => directus_sessionsCreateInput)
+  data!: directus_sessionsCreateInput;
 }

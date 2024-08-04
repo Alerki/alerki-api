@@ -8,73 +8,78 @@ import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-agg
 
 @InputType()
 export class directus_collectionsScalarWhereWithAggregatesInput {
+  @Field(() => [directus_collectionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_collectionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_collectionsScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_collectionsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_collectionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_collectionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_collectionsScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_collectionsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_collectionsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_collectionsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_collectionsScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_collectionsScalarWhereWithAggregatesInput>;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  collection?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    collection?: StringWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  icon?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    icon?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  note?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    note?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  display_template?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    display_template?: StringNullableWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  hidden?: BoolWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    hidden?: BoolWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  singleton?: BoolWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    singleton?: BoolWithAggregatesFilter;
+  @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
+  translations?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    translations?: JsonNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  archive_field?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    archive_field?: StringNullableWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  archive_app_filter?: BoolWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    archive_app_filter?: BoolWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  archive_value?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    archive_value?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  unarchive_value?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    unarchive_value?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  sort_field?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    sort_field?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  accountability?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    accountability?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  color?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    color?: StringNullableWithAggregatesFilter;
+  @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
+  item_duplication_fields?: JsonNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    item_duplication_fields?: JsonNullableWithAggregatesFilter;
+  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
+  sort?: IntNullableWithAggregatesFilter;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    sort?: IntNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  group?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    group?: StringNullableWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  collapse?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    collapse?: StringWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  preview_url?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    preview_url?: StringNullableWithAggregatesFilter;
-
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    versioning?: BoolWithAggregatesFilter;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  versioning?: BoolWithAggregatesFilter;
 }

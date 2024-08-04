@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueServiceTranslationsOrThrowArgs {
-
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:false})
-    @Type(() => Service_translationsWhereUniqueInput)
-    where!: Service_translationsWhereUniqueInput;
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: false })
+  @Type(() => Service_translationsWhereUniqueInput)
+  where!: Service_translationsWhereUniqueInput;
 }

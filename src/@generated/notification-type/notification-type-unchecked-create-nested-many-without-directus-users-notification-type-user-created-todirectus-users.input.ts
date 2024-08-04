@@ -9,20 +9,42 @@ import { NotificationTypeWhereUniqueInput } from './notification-type-where-uniq
 
 @InputType()
 export class NotificationTypeUncheckedCreateNestedManyWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput {
+  @Field(
+    () => [
+      NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+  )
+  create?: Array<NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
 
-    @Field(() => [NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput)
-    create?: Array<NotificationTypeCreateWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
+  @Field(
+    () => [
+      NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
 
-    @Field(() => [NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput], {nullable:true})
-    @Type(() => NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput)
-    connectOrCreate?: Array<NotificationTypeCreateOrConnectWithoutDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
+  @Field(
+    () =>
+      NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope,
+  )
+  createMany?: NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope;
 
-    @Field(() => NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope)
-    createMany?: NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope;
-
-    @Field(() => [NotificationTypeWhereUniqueInput], {nullable:true})
-    @Type(() => NotificationTypeWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [NotificationTypeWhereUniqueInput], { nullable: true })
+  @Type(() => NotificationTypeWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>>;
 }

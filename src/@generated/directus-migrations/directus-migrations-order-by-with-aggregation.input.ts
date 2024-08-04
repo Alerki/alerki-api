@@ -7,22 +7,23 @@ import { directus_migrationsMinOrderByAggregateInput } from './directus-migratio
 
 @InputType()
 export class directus_migrationsOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  version?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    version?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  timestamp?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    timestamp?: keyof typeof SortOrder;
+  @Field(() => directus_migrationsCountOrderByAggregateInput, {
+    nullable: true,
+  })
+  _count?: directus_migrationsCountOrderByAggregateInput;
 
-    @Field(() => directus_migrationsCountOrderByAggregateInput, {nullable:true})
-    _count?: directus_migrationsCountOrderByAggregateInput;
+  @Field(() => directus_migrationsMaxOrderByAggregateInput, { nullable: true })
+  _max?: directus_migrationsMaxOrderByAggregateInput;
 
-    @Field(() => directus_migrationsMaxOrderByAggregateInput, {nullable:true})
-    _max?: directus_migrationsMaxOrderByAggregateInput;
-
-    @Field(() => directus_migrationsMinOrderByAggregateInput, {nullable:true})
-    _min?: directus_migrationsMinOrderByAggregateInput;
+  @Field(() => directus_migrationsMinOrderByAggregateInput, { nullable: true })
+  _min?: directus_migrationsMinOrderByAggregateInput;
 }

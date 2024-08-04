@@ -32,10 +32,7 @@ export class AuthController {
       httpOnly: true,
       maxAge: ENV.JWT_REFRESH_TOKEN_EXPIRES_IN,
     });
-
-    res.json({
-      accessToken: tokens.accessToken,
-    });
+    res.json(tokens);
   }
 
   @Get('log-out')

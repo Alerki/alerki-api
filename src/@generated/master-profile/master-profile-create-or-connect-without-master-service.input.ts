@@ -7,12 +7,13 @@ import { MasterProfileCreateWithoutMasterServiceInput } from './master-profile-c
 
 @InputType()
 export class MasterProfileCreateOrConnectWithoutMasterServiceInput {
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: false })
+  @Type(() => MasterProfileWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:false})
-    @Type(() => MasterProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterProfileCreateWithoutMasterServiceInput, {nullable:false})
-    @Type(() => MasterProfileCreateWithoutMasterServiceInput)
-    create!: MasterProfileCreateWithoutMasterServiceInput;
+  @Field(() => MasterProfileCreateWithoutMasterServiceInput, {
+    nullable: false,
+  })
+  @Type(() => MasterProfileCreateWithoutMasterServiceInput)
+  create!: MasterProfileCreateWithoutMasterServiceInput;
 }

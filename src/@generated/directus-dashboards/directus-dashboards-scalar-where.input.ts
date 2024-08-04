@@ -8,34 +8,33 @@ import { UuidNullableFilter } from '../prisma/uuid-nullable-filter.input';
 
 @InputType()
 export class directus_dashboardsScalarWhereInput {
+  @Field(() => [directus_dashboardsScalarWhereInput], { nullable: true })
+  AND?: Array<directus_dashboardsScalarWhereInput>;
 
-    @Field(() => [directus_dashboardsScalarWhereInput], {nullable:true})
-    AND?: Array<directus_dashboardsScalarWhereInput>;
+  @Field(() => [directus_dashboardsScalarWhereInput], { nullable: true })
+  OR?: Array<directus_dashboardsScalarWhereInput>;
 
-    @Field(() => [directus_dashboardsScalarWhereInput], {nullable:true})
-    OR?: Array<directus_dashboardsScalarWhereInput>;
+  @Field(() => [directus_dashboardsScalarWhereInput], { nullable: true })
+  NOT?: Array<directus_dashboardsScalarWhereInput>;
 
-    @Field(() => [directus_dashboardsScalarWhereInput], {nullable:true})
-    NOT?: Array<directus_dashboardsScalarWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  icon?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    icon?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  note?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    note?: StringNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    color?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  color?: StringNullableFilter;
 }

@@ -6,16 +6,17 @@ import { AppointmentUncheckedUpdateManyWithoutClientProfileNestedInput } from '.
 
 @InputType()
 export class ClientProfileUncheckedUpdateWithoutUserInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
-
-    @Field(() => AppointmentUncheckedUpdateManyWithoutClientProfileNestedInput, {nullable:true})
-    Appointment?: AppointmentUncheckedUpdateManyWithoutClientProfileNestedInput;
+  @Field(() => AppointmentUncheckedUpdateManyWithoutClientProfileNestedInput, {
+    nullable: true,
+  })
+  Appointment?: AppointmentUncheckedUpdateManyWithoutClientProfileNestedInput;
 }

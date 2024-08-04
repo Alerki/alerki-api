@@ -7,16 +7,15 @@ import { directus_notificationsUpdateInput } from '../directus-notifications/dir
 
 @ArgsType()
 export class UpsertOnedirectusNotificationsArgs {
+  @Field(() => directus_notificationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_notificationsWhereUniqueInput)
+  where!: directus_notificationsWhereUniqueInput;
 
-    @Field(() => directus_notificationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_notificationsWhereUniqueInput)
-    where!: directus_notificationsWhereUniqueInput;
+  @Field(() => directus_notificationsCreateInput, { nullable: false })
+  @Type(() => directus_notificationsCreateInput)
+  create!: directus_notificationsCreateInput;
 
-    @Field(() => directus_notificationsCreateInput, {nullable:false})
-    @Type(() => directus_notificationsCreateInput)
-    create!: directus_notificationsCreateInput;
-
-    @Field(() => directus_notificationsUpdateInput, {nullable:false})
-    @Type(() => directus_notificationsUpdateInput)
-    update!: directus_notificationsUpdateInput;
+  @Field(() => directus_notificationsUpdateInput, { nullable: false })
+  @Type(() => directus_notificationsUpdateInput)
+  update!: directus_notificationsUpdateInput;
 }

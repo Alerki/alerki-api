@@ -7,12 +7,11 @@ import { MasterProfileCreateWithoutUserInput } from './master-profile-create-wit
 
 @InputType()
 export class MasterProfileCreateOrConnectWithoutUserInput {
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: false })
+  @Type(() => MasterProfileWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:false})
-    @Type(() => MasterProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterProfileCreateWithoutUserInput, {nullable:false})
-    @Type(() => MasterProfileCreateWithoutUserInput)
-    create!: MasterProfileCreateWithoutUserInput;
+  @Field(() => MasterProfileCreateWithoutUserInput, { nullable: false })
+  @Type(() => MasterProfileCreateWithoutUserInput)
+  create!: MasterProfileCreateWithoutUserInput;
 }

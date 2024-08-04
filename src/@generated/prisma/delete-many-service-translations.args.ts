@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyServiceTranslationsArgs {
-
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    @Type(() => Service_translationsWhereInput)
-    where?: Service_translationsWhereInput;
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  @Type(() => Service_translationsWhereInput)
+  where?: Service_translationsWhereInput;
 }

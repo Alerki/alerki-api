@@ -7,12 +7,13 @@ import { directus_rolesCreateWithoutDirectus_sharesInput } from './directus-role
 
 @InputType()
 export class directus_rolesCreateOrConnectWithoutDirectus_sharesInput {
+  @Field(() => directus_rolesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_rolesWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_rolesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_rolesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_rolesWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_rolesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_rolesCreateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_rolesCreateWithoutDirectus_sharesInput)
-    create!: directus_rolesCreateWithoutDirectus_sharesInput;
+  @Field(() => directus_rolesCreateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesCreateWithoutDirectus_sharesInput)
+  create!: directus_rolesCreateWithoutDirectus_sharesInput;
 }

@@ -4,16 +4,15 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class UserPictureMaxOrderByAggregateInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    picture?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  picture?: keyof typeof SortOrder;
 }

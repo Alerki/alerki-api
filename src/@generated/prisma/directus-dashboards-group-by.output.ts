@@ -6,34 +6,33 @@ import { Directus_dashboardsMaxAggregate } from './directus-dashboards-max-aggre
 
 @ObjectType()
 export class Directus_dashboardsGroupBy {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => String, { nullable: false })
+  icon!: string;
 
-    @Field(() => String, {nullable:false})
-    icon!: string;
+  @Field(() => String, { nullable: true })
+  note?: string;
 
-    @Field(() => String, {nullable:true})
-    note?: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => String, { nullable: true })
+  user_created?: string;
 
-    @Field(() => String, {nullable:true})
-    user_created?: string;
+  @Field(() => String, { nullable: true })
+  color?: string;
 
-    @Field(() => String, {nullable:true})
-    color?: string;
+  @Field(() => Directus_dashboardsCountAggregate, { nullable: true })
+  _count?: Directus_dashboardsCountAggregate;
 
-    @Field(() => Directus_dashboardsCountAggregate, {nullable:true})
-    _count?: Directus_dashboardsCountAggregate;
+  @Field(() => Directus_dashboardsMinAggregate, { nullable: true })
+  _min?: Directus_dashboardsMinAggregate;
 
-    @Field(() => Directus_dashboardsMinAggregate, {nullable:true})
-    _min?: Directus_dashboardsMinAggregate;
-
-    @Field(() => Directus_dashboardsMaxAggregate, {nullable:true})
-    _max?: Directus_dashboardsMaxAggregate;
+  @Field(() => Directus_dashboardsMaxAggregate, { nullable: true })
+  _max?: Directus_dashboardsMaxAggregate;
 }

@@ -4,7 +4,6 @@ import { Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class AppointmentAvgAggregate {
-
-    @Field(() => Float, {nullable:true})
-    price?: number;
+  @Field(() => Float, { nullable: true })
+  price?: number;
 }

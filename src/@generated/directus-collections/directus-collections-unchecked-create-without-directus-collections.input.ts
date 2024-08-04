@@ -8,70 +8,81 @@ import { directus_versionsUncheckedCreateNestedManyWithoutDirectus_collectionsIn
 
 @InputType()
 export class directus_collectionsUncheckedCreateWithoutDirectus_collectionsInput {
+  @Field(() => String, { nullable: false })
+  collection!: string;
 
-    @Field(() => String, {nullable:false})
-    collection!: string;
+  @Field(() => String, { nullable: true })
+  icon?: string;
 
-    @Field(() => String, {nullable:true})
-    icon?: string;
+  @Field(() => String, { nullable: true })
+  note?: string;
 
-    @Field(() => String, {nullable:true})
-    note?: string;
+  @Field(() => String, { nullable: true })
+  display_template?: string;
 
-    @Field(() => String, {nullable:true})
-    display_template?: string;
+  @Field(() => Boolean, { nullable: true })
+  hidden?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    hidden?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  singleton?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    singleton?: boolean;
+  @Field(() => GraphQLJSON, { nullable: true })
+  translations?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    translations?: any;
+  @Field(() => String, { nullable: true })
+  archive_field?: string;
 
-    @Field(() => String, {nullable:true})
-    archive_field?: string;
+  @Field(() => Boolean, { nullable: true })
+  archive_app_filter?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    archive_app_filter?: boolean;
+  @Field(() => String, { nullable: true })
+  archive_value?: string;
 
-    @Field(() => String, {nullable:true})
-    archive_value?: string;
+  @Field(() => String, { nullable: true })
+  unarchive_value?: string;
 
-    @Field(() => String, {nullable:true})
-    unarchive_value?: string;
+  @Field(() => String, { nullable: true })
+  sort_field?: string;
 
-    @Field(() => String, {nullable:true})
-    sort_field?: string;
+  @Field(() => String, { nullable: true })
+  accountability?: string;
 
-    @Field(() => String, {nullable:true})
-    accountability?: string;
+  @Field(() => String, { nullable: true })
+  color?: string;
 
-    @Field(() => String, {nullable:true})
-    color?: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  item_duplication_fields?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    item_duplication_fields?: any;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => String, { nullable: true })
+  collapse?: string;
 
-    @Field(() => String, {nullable:true})
-    collapse?: string;
+  @Field(() => String, { nullable: true })
+  preview_url?: string;
 
-    @Field(() => String, {nullable:true})
-    preview_url?: string;
+  @Field(() => Boolean, { nullable: true })
+  versioning?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    versioning?: boolean;
+  @Field(
+    () =>
+      directus_collectionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput,
+    { nullable: true },
+  )
+  other_directus_collections?: directus_collectionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput;
 
-    @Field(() => directus_collectionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput, {nullable:true})
-    other_directus_collections?: directus_collectionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput;
+  @Field(
+    () =>
+      directus_sharesUncheckedCreateNestedManyWithoutDirectus_collectionsInput,
+    { nullable: true },
+  )
+  directus_shares?: directus_sharesUncheckedCreateNestedManyWithoutDirectus_collectionsInput;
 
-    @Field(() => directus_sharesUncheckedCreateNestedManyWithoutDirectus_collectionsInput, {nullable:true})
-    directus_shares?: directus_sharesUncheckedCreateNestedManyWithoutDirectus_collectionsInput;
-
-    @Field(() => directus_versionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput, {nullable:true})
-    directus_versions?: directus_versionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput;
+  @Field(
+    () =>
+      directus_versionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput,
+    { nullable: true },
+  )
+  directus_versions?: directus_versionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput;
 }

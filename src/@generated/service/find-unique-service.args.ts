@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueServiceArgs {
-
-    @Field(() => ServiceWhereUniqueInput, {nullable:false})
-    @Type(() => ServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
+  @Field(() => ServiceWhereUniqueInput, { nullable: false })
+  @Type(() => ServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
 }

@@ -6,12 +6,11 @@ import { languagesWhereInput } from './languages-where.input';
 
 @ArgsType()
 export class UpdateManylanguagesArgs {
+  @Field(() => languagesUpdateManyMutationInput, { nullable: false })
+  @Type(() => languagesUpdateManyMutationInput)
+  data!: languagesUpdateManyMutationInput;
 
-    @Field(() => languagesUpdateManyMutationInput, {nullable:false})
-    @Type(() => languagesUpdateManyMutationInput)
-    data!: languagesUpdateManyMutationInput;
-
-    @Field(() => languagesWhereInput, {nullable:true})
-    @Type(() => languagesWhereInput)
-    where?: languagesWhereInput;
+  @Field(() => languagesWhereInput, { nullable: true })
+  @Type(() => languagesWhereInput)
+  where?: languagesWhereInput;
 }

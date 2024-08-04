@@ -8,16 +8,22 @@ import { NotificationWhereUniqueInput } from './notification-where-unique.input'
 
 @InputType()
 export class NotificationCreateNestedOneWithoutUserRecipientOnNotificationInput {
+  @Field(() => NotificationCreateWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => NotificationCreateWithoutUserRecipientOnNotificationInput)
+  create?: NotificationCreateWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => NotificationCreateWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => NotificationCreateWithoutUserRecipientOnNotificationInput)
-    create?: NotificationCreateWithoutUserRecipientOnNotificationInput;
+  @Field(
+    () => NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput,
+    { nullable: true },
+  )
+  @Type(
+    () => NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput,
+  )
+  connectOrCreate?: NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput)
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput;
-
-    @Field(() => NotificationWhereUniqueInput, {nullable:true})
-    @Type(() => NotificationWhereUniqueInput)
-    connect?: Prisma.AtLeast<NotificationWhereUniqueInput, 'id'>;
+  @Field(() => NotificationWhereUniqueInput, { nullable: true })
+  @Type(() => NotificationWhereUniqueInput)
+  connect?: Prisma.AtLeast<NotificationWhereUniqueInput, 'id'>;
 }

@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_activitySumAggregate {
-
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => Int, { nullable: true })
+  id?: number;
 }

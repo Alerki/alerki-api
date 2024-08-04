@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class AppointmentCreateManyClientProfileInputEnvelope {
+  @Field(() => [AppointmentCreateManyClientProfileInput], { nullable: false })
+  @Type(() => AppointmentCreateManyClientProfileInput)
+  data!: Array<AppointmentCreateManyClientProfileInput>;
 
-    @Field(() => [AppointmentCreateManyClientProfileInput], {nullable:false})
-    @Type(() => AppointmentCreateManyClientProfileInput)
-    data!: Array<AppointmentCreateManyClientProfileInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

@@ -7,12 +7,14 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @ArgsType()
 export class UpdateOneUserArgs {
+  @Field(() => UserUpdateInput, { nullable: false })
+  @Type(() => UserUpdateInput)
+  data!: UserUpdateInput;
 
-    @Field(() => UserUpdateInput, {nullable:false})
-    @Type(() => UserUpdateInput)
-    data!: UserUpdateInput;
-
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 }

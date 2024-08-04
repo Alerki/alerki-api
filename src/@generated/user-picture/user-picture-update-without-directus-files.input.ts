@@ -6,16 +6,15 @@ import { UserUpdateManyWithoutUserPictureNestedInput } from '../user/user-update
 
 @InputType()
 export class UserPictureUpdateWithoutDirectus_filesInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
-
-    @Field(() => UserUpdateManyWithoutUserPictureNestedInput, {nullable:true})
-    User?: UserUpdateManyWithoutUserPictureNestedInput;
+  @Field(() => UserUpdateManyWithoutUserPictureNestedInput, { nullable: true })
+  User?: UserUpdateManyWithoutUserPictureNestedInput;
 }

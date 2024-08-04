@@ -7,16 +7,15 @@ import { directus_webhooksUpdateInput } from '../directus-webhooks/directus-webh
 
 @ArgsType()
 export class UpsertOnedirectusWebhooksArgs {
+  @Field(() => directus_webhooksWhereUniqueInput, { nullable: false })
+  @Type(() => directus_webhooksWhereUniqueInput)
+  where!: directus_webhooksWhereUniqueInput;
 
-    @Field(() => directus_webhooksWhereUniqueInput, {nullable:false})
-    @Type(() => directus_webhooksWhereUniqueInput)
-    where!: directus_webhooksWhereUniqueInput;
+  @Field(() => directus_webhooksCreateInput, { nullable: false })
+  @Type(() => directus_webhooksCreateInput)
+  create!: directus_webhooksCreateInput;
 
-    @Field(() => directus_webhooksCreateInput, {nullable:false})
-    @Type(() => directus_webhooksCreateInput)
-    create!: directus_webhooksCreateInput;
-
-    @Field(() => directus_webhooksUpdateInput, {nullable:false})
-    @Type(() => directus_webhooksUpdateInput)
-    update!: directus_webhooksUpdateInput;
+  @Field(() => directus_webhooksUpdateInput, { nullable: false })
+  @Type(() => directus_webhooksUpdateInput)
+  update!: directus_webhooksUpdateInput;
 }

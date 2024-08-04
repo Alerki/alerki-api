@@ -8,16 +8,15 @@ import { languagesUpdateInput } from './languages-update.input';
 
 @ArgsType()
 export class UpsertOnelanguagesArgs {
+  @Field(() => languagesWhereUniqueInput, { nullable: false })
+  @Type(() => languagesWhereUniqueInput)
+  where!: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
 
-    @Field(() => languagesWhereUniqueInput, {nullable:false})
-    @Type(() => languagesWhereUniqueInput)
-    where!: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
+  @Field(() => languagesCreateInput, { nullable: false })
+  @Type(() => languagesCreateInput)
+  create!: languagesCreateInput;
 
-    @Field(() => languagesCreateInput, {nullable:false})
-    @Type(() => languagesCreateInput)
-    create!: languagesCreateInput;
-
-    @Field(() => languagesUpdateInput, {nullable:false})
-    @Type(() => languagesUpdateInput)
-    update!: languagesUpdateInput;
+  @Field(() => languagesUpdateInput, { nullable: false })
+  @Type(() => languagesUpdateInput)
+  update!: languagesUpdateInput;
 }

@@ -9,23 +9,24 @@ import { Directus_rolesScalarFieldEnum } from './directus-roles-scalar-field.enu
 
 @ArgsType()
 export class FindFirstdirectusRolesArgs {
+  @Field(() => directus_rolesWhereInput, { nullable: true })
+  @Type(() => directus_rolesWhereInput)
+  where?: directus_rolesWhereInput;
 
-    @Field(() => directus_rolesWhereInput, {nullable:true})
-    @Type(() => directus_rolesWhereInput)
-    where?: directus_rolesWhereInput;
+  @Field(() => [directus_rolesOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_rolesOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_rolesOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_rolesOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_rolesWhereUniqueInput, { nullable: true })
+  cursor?: directus_rolesWhereUniqueInput;
 
-    @Field(() => directus_rolesWhereUniqueInput, {nullable:true})
-    cursor?: directus_rolesWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_rolesScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_rolesScalarFieldEnum>;
+  @Field(() => [Directus_rolesScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_rolesScalarFieldEnum>;
 }

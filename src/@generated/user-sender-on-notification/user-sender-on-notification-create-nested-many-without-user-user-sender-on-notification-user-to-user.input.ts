@@ -9,20 +9,44 @@ import { UserSenderOnNotificationWhereUniqueInput } from './user-sender-on-notif
 
 @InputType()
 export class UserSenderOnNotificationCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput {
+  @Field(
+    () => [
+      UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_userToUserInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_userToUserInput,
+  )
+  create?: Array<UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_userToUserInput>;
 
-    @Field(() => [UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_userToUserInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_userToUserInput)
-    create?: Array<UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_userToUserInput>;
+  @Field(
+    () => [
+      UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_userToUserInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_userToUserInput,
+  )
+  connectOrCreate?: Array<UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_userToUserInput>;
 
-    @Field(() => [UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_userToUserInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_userToUserInput)
-    connectOrCreate?: Array<UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_userToUserInput>;
+  @Field(
+    () =>
+      UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInputEnvelope,
+  )
+  createMany?: UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInputEnvelope;
 
-    @Field(() => UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInputEnvelope, {nullable:true})
-    @Type(() => UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInputEnvelope)
-    createMany?: UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_userToUserInputEnvelope;
-
-    @Field(() => [UserSenderOnNotificationWhereUniqueInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>>;
+  @Field(() => [UserSenderOnNotificationWhereUniqueInput], { nullable: true })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>
+  >;
 }

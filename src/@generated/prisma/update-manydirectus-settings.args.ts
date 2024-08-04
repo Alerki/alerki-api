@@ -6,12 +6,11 @@ import { directus_settingsWhereInput } from '../directus-settings/directus-setti
 
 @ArgsType()
 export class UpdateManydirectusSettingsArgs {
+  @Field(() => directus_settingsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_settingsUpdateManyMutationInput)
+  data!: directus_settingsUpdateManyMutationInput;
 
-    @Field(() => directus_settingsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_settingsUpdateManyMutationInput)
-    data!: directus_settingsUpdateManyMutationInput;
-
-    @Field(() => directus_settingsWhereInput, {nullable:true})
-    @Type(() => directus_settingsWhereInput)
-    where?: directus_settingsWhereInput;
+  @Field(() => directus_settingsWhereInput, { nullable: true })
+  @Type(() => directus_settingsWhereInput)
+  where?: directus_settingsWhereInput;
 }

@@ -5,11 +5,18 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInputEnvelope {
+  @Field(
+    () => [
+      NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+    ],
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInput,
+  )
+  data!: Array<NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
 
-    @Field(() => [NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInput], {nullable:false})
-    @Type(() => NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInput)
-    data!: Array<NotificationTypeCreateManyDirectus_users_NotificationType_user_createdTodirectus_usersInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

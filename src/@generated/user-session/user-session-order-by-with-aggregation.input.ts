@@ -9,28 +9,27 @@ import { User_SessionSumOrderByAggregateInput } from './user-session-sum-order-b
 
 @InputType()
 export class User_SessionOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  User_id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    User_id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  Session_id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    Session_id?: keyof typeof SortOrder;
+  @Field(() => User_SessionCountOrderByAggregateInput, { nullable: true })
+  _count?: User_SessionCountOrderByAggregateInput;
 
-    @Field(() => User_SessionCountOrderByAggregateInput, {nullable:true})
-    _count?: User_SessionCountOrderByAggregateInput;
+  @Field(() => User_SessionAvgOrderByAggregateInput, { nullable: true })
+  _avg?: User_SessionAvgOrderByAggregateInput;
 
-    @Field(() => User_SessionAvgOrderByAggregateInput, {nullable:true})
-    _avg?: User_SessionAvgOrderByAggregateInput;
+  @Field(() => User_SessionMaxOrderByAggregateInput, { nullable: true })
+  _max?: User_SessionMaxOrderByAggregateInput;
 
-    @Field(() => User_SessionMaxOrderByAggregateInput, {nullable:true})
-    _max?: User_SessionMaxOrderByAggregateInput;
+  @Field(() => User_SessionMinOrderByAggregateInput, { nullable: true })
+  _min?: User_SessionMinOrderByAggregateInput;
 
-    @Field(() => User_SessionMinOrderByAggregateInput, {nullable:true})
-    _min?: User_SessionMinOrderByAggregateInput;
-
-    @Field(() => User_SessionSumOrderByAggregateInput, {nullable:true})
-    _sum?: User_SessionSumOrderByAggregateInput;
+  @Field(() => User_SessionSumOrderByAggregateInput, { nullable: true })
+  _sum?: User_SessionSumOrderByAggregateInput;
 }

@@ -14,38 +14,37 @@ import { CurrencyMaxAggregateInput } from './currency-max-aggregate.input';
 
 @ArgsType()
 export class CurrencyGroupByArgs {
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  @Type(() => CurrencyWhereInput)
+  where?: CurrencyWhereInput;
 
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    @Type(() => CurrencyWhereInput)
-    where?: CurrencyWhereInput;
+  @Field(() => [CurrencyOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<CurrencyOrderByWithAggregationInput>;
 
-    @Field(() => [CurrencyOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<CurrencyOrderByWithAggregationInput>;
+  @Field(() => [CurrencyScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof CurrencyScalarFieldEnum>;
 
-    @Field(() => [CurrencyScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof CurrencyScalarFieldEnum>;
+  @Field(() => CurrencyScalarWhereWithAggregatesInput, { nullable: true })
+  having?: CurrencyScalarWhereWithAggregatesInput;
 
-    @Field(() => CurrencyScalarWhereWithAggregatesInput, {nullable:true})
-    having?: CurrencyScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => CurrencyCountAggregateInput, { nullable: true })
+  _count?: CurrencyCountAggregateInput;
 
-    @Field(() => CurrencyCountAggregateInput, {nullable:true})
-    _count?: CurrencyCountAggregateInput;
+  @Field(() => CurrencyAvgAggregateInput, { nullable: true })
+  _avg?: CurrencyAvgAggregateInput;
 
-    @Field(() => CurrencyAvgAggregateInput, {nullable:true})
-    _avg?: CurrencyAvgAggregateInput;
+  @Field(() => CurrencySumAggregateInput, { nullable: true })
+  _sum?: CurrencySumAggregateInput;
 
-    @Field(() => CurrencySumAggregateInput, {nullable:true})
-    _sum?: CurrencySumAggregateInput;
+  @Field(() => CurrencyMinAggregateInput, { nullable: true })
+  _min?: CurrencyMinAggregateInput;
 
-    @Field(() => CurrencyMinAggregateInput, {nullable:true})
-    _min?: CurrencyMinAggregateInput;
-
-    @Field(() => CurrencyMaxAggregateInput, {nullable:true})
-    _max?: CurrencyMaxAggregateInput;
+  @Field(() => CurrencyMaxAggregateInput, { nullable: true })
+  _max?: CurrencyMaxAggregateInput;
 }

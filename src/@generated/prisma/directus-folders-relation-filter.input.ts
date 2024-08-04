@@ -4,10 +4,9 @@ import { directus_foldersWhereInput } from '../directus-folders/directus-folders
 
 @InputType()
 export class Directus_foldersRelationFilter {
+  @Field(() => directus_foldersWhereInput, { nullable: true })
+  is?: directus_foldersWhereInput;
 
-    @Field(() => directus_foldersWhereInput, {nullable:true})
-    is?: directus_foldersWhereInput;
-
-    @Field(() => directus_foldersWhereInput, {nullable:true})
-    isNot?: directus_foldersWhereInput;
+  @Field(() => directus_foldersWhereInput, { nullable: true })
+  isNot?: directus_foldersWhereInput;
 }

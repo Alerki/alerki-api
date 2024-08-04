@@ -10,30 +10,37 @@ import { directus_rolesUpdateWithoutDirectus_sharesInput } from './directus-role
 
 @InputType()
 export class directus_rolesUpdateOneWithoutDirectus_sharesNestedInput {
+  @Field(() => directus_rolesCreateWithoutDirectus_sharesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesCreateWithoutDirectus_sharesInput)
+  create?: directus_rolesCreateWithoutDirectus_sharesInput;
 
-    @Field(() => directus_rolesCreateWithoutDirectus_sharesInput, {nullable:true})
-    @Type(() => directus_rolesCreateWithoutDirectus_sharesInput)
-    create?: directus_rolesCreateWithoutDirectus_sharesInput;
+  @Field(() => directus_rolesCreateOrConnectWithoutDirectus_sharesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesCreateOrConnectWithoutDirectus_sharesInput)
+  connectOrCreate?: directus_rolesCreateOrConnectWithoutDirectus_sharesInput;
 
-    @Field(() => directus_rolesCreateOrConnectWithoutDirectus_sharesInput, {nullable:true})
-    @Type(() => directus_rolesCreateOrConnectWithoutDirectus_sharesInput)
-    connectOrCreate?: directus_rolesCreateOrConnectWithoutDirectus_sharesInput;
+  @Field(() => directus_rolesUpsertWithoutDirectus_sharesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesUpsertWithoutDirectus_sharesInput)
+  upsert?: directus_rolesUpsertWithoutDirectus_sharesInput;
 
-    @Field(() => directus_rolesUpsertWithoutDirectus_sharesInput, {nullable:true})
-    @Type(() => directus_rolesUpsertWithoutDirectus_sharesInput)
-    upsert?: directus_rolesUpsertWithoutDirectus_sharesInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_rolesWhereUniqueInput, { nullable: true })
+  @Type(() => directus_rolesWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_rolesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_rolesWhereUniqueInput, {nullable:true})
-    @Type(() => directus_rolesWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_rolesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_rolesUpdateWithoutDirectus_sharesInput, {nullable:true})
-    @Type(() => directus_rolesUpdateWithoutDirectus_sharesInput)
-    update?: directus_rolesUpdateWithoutDirectus_sharesInput;
+  @Field(() => directus_rolesUpdateWithoutDirectus_sharesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesUpdateWithoutDirectus_sharesInput)
+  update?: directus_rolesUpdateWithoutDirectus_sharesInput;
 }

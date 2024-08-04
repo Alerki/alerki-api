@@ -6,12 +6,11 @@ import { directus_presetsWhereUniqueInput } from '../directus-presets/directus-p
 
 @ArgsType()
 export class UpdateOnedirectusPresetsArgs {
+  @Field(() => directus_presetsUpdateInput, { nullable: false })
+  @Type(() => directus_presetsUpdateInput)
+  data!: directus_presetsUpdateInput;
 
-    @Field(() => directus_presetsUpdateInput, {nullable:false})
-    @Type(() => directus_presetsUpdateInput)
-    data!: directus_presetsUpdateInput;
-
-    @Field(() => directus_presetsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_presetsWhereUniqueInput)
-    where!: directus_presetsWhereUniqueInput;
+  @Field(() => directus_presetsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_presetsWhereUniqueInput)
+  where!: directus_presetsWhereUniqueInput;
 }

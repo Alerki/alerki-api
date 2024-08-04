@@ -4,10 +4,9 @@ import { directus_versionsWhereInput } from '../directus-versions/directus-versi
 
 @InputType()
 export class Directus_versionsRelationFilter {
+  @Field(() => directus_versionsWhereInput, { nullable: true })
+  is?: directus_versionsWhereInput;
 
-    @Field(() => directus_versionsWhereInput, {nullable:true})
-    is?: directus_versionsWhereInput;
-
-    @Field(() => directus_versionsWhereInput, {nullable:true})
-    isNot?: directus_versionsWhereInput;
+  @Field(() => directus_versionsWhereInput, { nullable: true })
+  isNot?: directus_versionsWhereInput;
 }

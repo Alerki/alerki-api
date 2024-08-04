@@ -9,20 +9,42 @@ import { AppointmentWhereUniqueInput } from './appointment-where-unique.input';
 
 @InputType()
 export class AppointmentCreateNestedManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput {
+  @Field(
+    () => [
+      AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+  )
+  create?: Array<AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput>;
 
-    @Field(() => [AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput], {nullable:true})
-    @Type(() => AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput)
-    create?: Array<AppointmentCreateWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput>;
+  @Field(
+    () => [
+      AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+  )
+  connectOrCreate?: Array<AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput>;
 
-    @Field(() => [AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput], {nullable:true})
-    @Type(() => AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput)
-    connectOrCreate?: Array<AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput>;
+  @Field(
+    () =>
+      AppointmentCreateManyMasterProfile_Appointment_masterServiceToMasterProfileInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentCreateManyMasterProfile_Appointment_masterServiceToMasterProfileInputEnvelope,
+  )
+  createMany?: AppointmentCreateManyMasterProfile_Appointment_masterServiceToMasterProfileInputEnvelope;
 
-    @Field(() => AppointmentCreateManyMasterProfile_Appointment_masterServiceToMasterProfileInputEnvelope, {nullable:true})
-    @Type(() => AppointmentCreateManyMasterProfile_Appointment_masterServiceToMasterProfileInputEnvelope)
-    createMany?: AppointmentCreateManyMasterProfile_Appointment_masterServiceToMasterProfileInputEnvelope;
-
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 }

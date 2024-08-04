@@ -24,7 +24,6 @@ export class AppointmentModuleService {
   //   private readonly masterProfileService: MasterProfileService,
   //   private readonly prismaService: PrismaService,
   // ) {}
-
   // async createAppointment(user: IJwtTokenData, data: CreateAppointmentDto) {
   //   // Get client profile using user ID from JWT token
   //   const clientCandidate = await this.userService.findExists({
@@ -37,7 +36,6 @@ export class AppointmentModuleService {
   //       masterProfileId: true,
   //     },
   //   });
-
   //   // Get master service
   //   const masterServiceCandidate = await this.masterServiceService.findExists({
   //     where: {
@@ -45,7 +43,6 @@ export class AppointmentModuleService {
   //       available: true,
   //     },
   //   });
-
   //   // Check if user is not trying to create appointment for himself
   //   if (
   //     masterServiceCandidate.masterProfileId === clientCandidate.masterProfileId
@@ -54,7 +51,6 @@ export class AppointmentModuleService {
   //       'Unable to create an appointment for yourself',
   //     );
   //   }
-
   //   // Get master profile with weekly schedule
   //   const masterProfile = await this.masterProfileService.findExists({
   //     where: {
@@ -64,17 +60,14 @@ export class AppointmentModuleService {
   //       weeklySchedule: true,
   //     },
   //   });
-
   //   // Create end time based on start time from body and service duration
   //   const startAt = new Date(data.startAt);
   //   const endAt = new Date(startAt);
   //   endAt.setMilliseconds(
   //     endAt.getMilliseconds() + masterServiceCandidate.duration,
   //   );
-
   //   // Create date range for the appointment
   //   const appointmentDateRange = createOneDayDateRange(startAt);
-
   //   // Find day specific schedule
   //   const daySpecificSchedule =
   //     await this.prismaService.masterSchedule.findFirst({
@@ -85,7 +78,6 @@ export class AppointmentModuleService {
   //         },
   //       },
   //     });
-
   //   // Check if the new appointment satisfies master schedule
   //   this.masterScheduleService.checkIfDateRangeSatisfiesMasterSchedule(
   //     masterProfile.weeklySchedule,
@@ -96,7 +88,6 @@ export class AppointmentModuleService {
   //       to: endAt,
   //     },
   //   );
-
   //   // Get appointments to check for collision with the new one
   //   const appointments = await this.prismaService.appointment.findMany({
   //     where: {
@@ -107,7 +98,6 @@ export class AppointmentModuleService {
   //       cancelled: false,
   //     },
   //   });
-
   //   // Check for collisions
   //   await this.appointmentService.checkForCollisionWithOtherAppointments(
   //     appointments,
@@ -119,7 +109,6 @@ export class AppointmentModuleService {
   //       throwError: true,
   //     },
   //   );
-
   //   return this.appointmentService.create({
   //     data: {
   //       clientProfileId: clientCandidate.clientProfileId,
@@ -133,7 +122,6 @@ export class AppointmentModuleService {
   //     },
   //   });
   // }
-
   // async getAppointments(user: IJwtTokenData, query: GetAppointmentQueriesDto) {
   //   const userCandidate = await this.userService.findExists({
   //     where: {
@@ -145,32 +133,27 @@ export class AppointmentModuleService {
   //       isMaster: true,
   //     },
   //   });
-
   //   const where: Prisma.Prisma.AppointmentFindManyArgs['where'] = {
   //     startAt: {
   //       gte: query.from,
   //     },
   //   };
-
   //   if (query.to) {
   //     where.startAt = {
   //       gte: query.from,
   //       lt: query.to,
   //     };
   //   }
-
   //   where.OR = [
   //     {
   //       clientProfileId: userCandidate.clientProfileId,
   //     },
   //   ];
-
   //   if (userCandidate.masterProfileId) {
   //     where.OR.push({
   //       masterProfileId: userCandidate.masterProfileId,
   //     });
   //   }
-
   //   const selectUser = {
   //     select: {
   //       user: {
@@ -183,7 +166,6 @@ export class AppointmentModuleService {
   //       },
   //     },
   //   };
-
   //   const appointments = await this.appointmentService.findMany({
   //     where,
   //     include: {
@@ -201,7 +183,6 @@ export class AppointmentModuleService {
   //       startAt: 'asc',
   //     },
   //   });
-
   //   return {
   //     totalNumber: await this.prismaService.appointment.count({
   //       where,
@@ -209,7 +190,6 @@ export class AppointmentModuleService {
   //     data: appointments,
   //   };
   // }
-
   // async cancelAppointment(id: string, user: IJwtTokenData) {
   //   const userCandidate = await this.userService.findExists({
   //     where: {
@@ -220,22 +200,18 @@ export class AppointmentModuleService {
   //       clientProfileId: true,
   //     },
   //   });
-
   //   const appointmentCandidate = await this.appointmentService.findExists({
   //     where: {
   //       id,
   //     },
   //   });
-
   //   if (
   //     appointmentCandidate.masterProfileId !== userCandidate.masterProfileId &&
   //     appointmentCandidate.clientProfileId !== userCandidate.clientProfileId
   //   ) {
   //     throw new BadRequestException('This appointment not belongs to you');
   //   }
-
   //   // TODO send notification
-
   //   return this.prismaService.appointment.update({
   //     where: {
   //       id,
@@ -245,7 +221,6 @@ export class AppointmentModuleService {
   //     },
   //   });
   // }
-
   // async confirmAppointment(id: string, user: IJwtTokenData) {
   //   const userCandidate = await this.userService.findExists({
   //     where: {
@@ -255,21 +230,17 @@ export class AppointmentModuleService {
   //       masterProfileId: true,
   //     },
   //   });
-
   //   const appointmentCandidate = await this.appointmentService.findExists({
   //     where: {
   //       id,
   //     },
   //   });
-
   //   if (
   //     appointmentCandidate.masterProfileId !== userCandidate.masterProfileId
   //   ) {
   //     throw new BadRequestException('Only master can confirm appointment');
   //   }
-
   //   // TODO send notification
-
   //   return this.prismaService.appointment.update({
   //     where: {
   //       id,

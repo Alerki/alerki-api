@@ -13,48 +13,73 @@ import { directus_revisionsScalarWhereInput } from './directus-revisions-scalar-
 
 @InputType()
 export class directus_revisionsUncheckedUpdateManyWithoutDirectus_versionsNestedInput {
+  @Field(() => [directus_revisionsCreateWithoutDirectus_versionsInput], {
+    nullable: true,
+  })
+  @Type(() => directus_revisionsCreateWithoutDirectus_versionsInput)
+  create?: Array<directus_revisionsCreateWithoutDirectus_versionsInput>;
 
-    @Field(() => [directus_revisionsCreateWithoutDirectus_versionsInput], {nullable:true})
-    @Type(() => directus_revisionsCreateWithoutDirectus_versionsInput)
-    create?: Array<directus_revisionsCreateWithoutDirectus_versionsInput>;
+  @Field(
+    () => [directus_revisionsCreateOrConnectWithoutDirectus_versionsInput],
+    { nullable: true },
+  )
+  @Type(() => directus_revisionsCreateOrConnectWithoutDirectus_versionsInput)
+  connectOrCreate?: Array<directus_revisionsCreateOrConnectWithoutDirectus_versionsInput>;
 
-    @Field(() => [directus_revisionsCreateOrConnectWithoutDirectus_versionsInput], {nullable:true})
-    @Type(() => directus_revisionsCreateOrConnectWithoutDirectus_versionsInput)
-    connectOrCreate?: Array<directus_revisionsCreateOrConnectWithoutDirectus_versionsInput>;
+  @Field(
+    () => [
+      directus_revisionsUpsertWithWhereUniqueWithoutDirectus_versionsInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_revisionsUpsertWithWhereUniqueWithoutDirectus_versionsInput,
+  )
+  upsert?: Array<directus_revisionsUpsertWithWhereUniqueWithoutDirectus_versionsInput>;
 
-    @Field(() => [directus_revisionsUpsertWithWhereUniqueWithoutDirectus_versionsInput], {nullable:true})
-    @Type(() => directus_revisionsUpsertWithWhereUniqueWithoutDirectus_versionsInput)
-    upsert?: Array<directus_revisionsUpsertWithWhereUniqueWithoutDirectus_versionsInput>;
+  @Field(() => directus_revisionsCreateManyDirectus_versionsInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_revisionsCreateManyDirectus_versionsInputEnvelope)
+  createMany?: directus_revisionsCreateManyDirectus_versionsInputEnvelope;
 
-    @Field(() => directus_revisionsCreateManyDirectus_versionsInputEnvelope, {nullable:true})
-    @Type(() => directus_revisionsCreateManyDirectus_versionsInputEnvelope)
-    createMany?: directus_revisionsCreateManyDirectus_versionsInputEnvelope;
+  @Field(() => [directus_revisionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_revisionsWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_revisionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_revisionsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_revisionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_revisionsWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_revisionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_revisionsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_revisionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_revisionsWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_revisionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_revisionsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_revisionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_revisionsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_revisionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_revisionsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [
+      directus_revisionsUpdateWithWhereUniqueWithoutDirectus_versionsInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_revisionsUpdateWithWhereUniqueWithoutDirectus_versionsInput,
+  )
+  update?: Array<directus_revisionsUpdateWithWhereUniqueWithoutDirectus_versionsInput>;
 
-    @Field(() => [directus_revisionsUpdateWithWhereUniqueWithoutDirectus_versionsInput], {nullable:true})
-    @Type(() => directus_revisionsUpdateWithWhereUniqueWithoutDirectus_versionsInput)
-    update?: Array<directus_revisionsUpdateWithWhereUniqueWithoutDirectus_versionsInput>;
+  @Field(
+    () => [directus_revisionsUpdateManyWithWhereWithoutDirectus_versionsInput],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_revisionsUpdateManyWithWhereWithoutDirectus_versionsInput,
+  )
+  updateMany?: Array<directus_revisionsUpdateManyWithWhereWithoutDirectus_versionsInput>;
 
-    @Field(() => [directus_revisionsUpdateManyWithWhereWithoutDirectus_versionsInput], {nullable:true})
-    @Type(() => directus_revisionsUpdateManyWithWhereWithoutDirectus_versionsInput)
-    updateMany?: Array<directus_revisionsUpdateManyWithWhereWithoutDirectus_versionsInput>;
-
-    @Field(() => [directus_revisionsScalarWhereInput], {nullable:true})
-    @Type(() => directus_revisionsScalarWhereInput)
-    deleteMany?: Array<directus_revisionsScalarWhereInput>;
+  @Field(() => [directus_revisionsScalarWhereInput], { nullable: true })
+  @Type(() => directus_revisionsScalarWhereInput)
+  deleteMany?: Array<directus_revisionsScalarWhereInput>;
 }

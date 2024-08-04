@@ -7,16 +7,15 @@ import { directus_migrationsUpdateInput } from '../directus-migrations/directus-
 
 @ArgsType()
 export class UpsertOnedirectusMigrationsArgs {
+  @Field(() => directus_migrationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_migrationsWhereUniqueInput)
+  where!: directus_migrationsWhereUniqueInput;
 
-    @Field(() => directus_migrationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_migrationsWhereUniqueInput)
-    where!: directus_migrationsWhereUniqueInput;
+  @Field(() => directus_migrationsCreateInput, { nullable: false })
+  @Type(() => directus_migrationsCreateInput)
+  create!: directus_migrationsCreateInput;
 
-    @Field(() => directus_migrationsCreateInput, {nullable:false})
-    @Type(() => directus_migrationsCreateInput)
-    create!: directus_migrationsCreateInput;
-
-    @Field(() => directus_migrationsUpdateInput, {nullable:false})
-    @Type(() => directus_migrationsUpdateInput)
-    update!: directus_migrationsUpdateInput;
+  @Field(() => directus_migrationsUpdateInput, { nullable: false })
+  @Type(() => directus_migrationsUpdateInput)
+  update!: directus_migrationsUpdateInput;
 }

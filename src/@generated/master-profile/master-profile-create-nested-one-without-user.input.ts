@@ -8,16 +8,15 @@ import { MasterProfileWhereUniqueInput } from './master-profile-where-unique.inp
 
 @InputType()
 export class MasterProfileCreateNestedOneWithoutUserInput {
+  @Field(() => MasterProfileCreateWithoutUserInput, { nullable: true })
+  @Type(() => MasterProfileCreateWithoutUserInput)
+  create?: MasterProfileCreateWithoutUserInput;
 
-    @Field(() => MasterProfileCreateWithoutUserInput, {nullable:true})
-    @Type(() => MasterProfileCreateWithoutUserInput)
-    create?: MasterProfileCreateWithoutUserInput;
+  @Field(() => MasterProfileCreateOrConnectWithoutUserInput, { nullable: true })
+  @Type(() => MasterProfileCreateOrConnectWithoutUserInput)
+  connectOrCreate?: MasterProfileCreateOrConnectWithoutUserInput;
 
-    @Field(() => MasterProfileCreateOrConnectWithoutUserInput, {nullable:true})
-    @Type(() => MasterProfileCreateOrConnectWithoutUserInput)
-    connectOrCreate?: MasterProfileCreateOrConnectWithoutUserInput;
-
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:true})
-    @Type(() => MasterProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: true })
+  @Type(() => MasterProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 }

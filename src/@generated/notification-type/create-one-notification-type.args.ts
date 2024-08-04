@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneNotificationTypeArgs {
-
-    @Field(() => NotificationTypeCreateInput, {nullable:false})
-    @Type(() => NotificationTypeCreateInput)
-    data!: NotificationTypeCreateInput;
+  @Field(() => NotificationTypeCreateInput, { nullable: false })
+  @Type(() => NotificationTypeCreateInput)
+  data!: NotificationTypeCreateInput;
 }

@@ -6,12 +6,15 @@ import { directus_collectionsCreateWithoutDirectus_versionsInput } from './direc
 
 @InputType()
 export class directus_collectionsUpsertWithoutDirectus_versionsInput {
+  @Field(() => directus_collectionsUpdateWithoutDirectus_versionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_collectionsUpdateWithoutDirectus_versionsInput)
+  update!: directus_collectionsUpdateWithoutDirectus_versionsInput;
 
-    @Field(() => directus_collectionsUpdateWithoutDirectus_versionsInput, {nullable:false})
-    @Type(() => directus_collectionsUpdateWithoutDirectus_versionsInput)
-    update!: directus_collectionsUpdateWithoutDirectus_versionsInput;
-
-    @Field(() => directus_collectionsCreateWithoutDirectus_versionsInput, {nullable:false})
-    @Type(() => directus_collectionsCreateWithoutDirectus_versionsInput)
-    create!: directus_collectionsCreateWithoutDirectus_versionsInput;
+  @Field(() => directus_collectionsCreateWithoutDirectus_versionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_collectionsCreateWithoutDirectus_versionsInput)
+  create!: directus_collectionsCreateWithoutDirectus_versionsInput;
 }

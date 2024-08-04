@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class MasterServiceCreateManyMasterProfileInputEnvelope {
+  @Field(() => [MasterServiceCreateManyMasterProfileInput], { nullable: false })
+  @Type(() => MasterServiceCreateManyMasterProfileInput)
+  data!: Array<MasterServiceCreateManyMasterProfileInput>;
 
-    @Field(() => [MasterServiceCreateManyMasterProfileInput], {nullable:false})
-    @Type(() => MasterServiceCreateManyMasterProfileInput)
-    data!: Array<MasterServiceCreateManyMasterProfileInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

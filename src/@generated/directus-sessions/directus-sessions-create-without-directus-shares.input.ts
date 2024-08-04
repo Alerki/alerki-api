@@ -4,22 +4,23 @@ import { directus_usersCreateNestedOneWithoutDirectus_sessionsInput } from '../d
 
 @InputType()
 export class directus_sessionsCreateWithoutDirectus_sharesInput {
+  @Field(() => String, { nullable: false })
+  token!: string;
 
-    @Field(() => String, {nullable:false})
-    token!: string;
+  @Field(() => Date, { nullable: false })
+  expires!: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    expires!: Date | string;
+  @Field(() => String, { nullable: true })
+  ip?: string;
 
-    @Field(() => String, {nullable:true})
-    ip?: string;
+  @Field(() => String, { nullable: true })
+  user_agent?: string;
 
-    @Field(() => String, {nullable:true})
-    user_agent?: string;
+  @Field(() => String, { nullable: true })
+  origin?: string;
 
-    @Field(() => String, {nullable:true})
-    origin?: string;
-
-    @Field(() => directus_usersCreateNestedOneWithoutDirectus_sessionsInput, {nullable:true})
-    directus_users?: directus_usersCreateNestedOneWithoutDirectus_sessionsInput;
+  @Field(() => directus_usersCreateNestedOneWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  directus_users?: directus_usersCreateNestedOneWithoutDirectus_sessionsInput;
 }

@@ -6,12 +6,11 @@ import { MasterProfileCreateWithoutUserInput } from './master-profile-create-wit
 
 @InputType()
 export class MasterProfileUpsertWithoutUserInput {
+  @Field(() => MasterProfileUpdateWithoutUserInput, { nullable: false })
+  @Type(() => MasterProfileUpdateWithoutUserInput)
+  update!: MasterProfileUpdateWithoutUserInput;
 
-    @Field(() => MasterProfileUpdateWithoutUserInput, {nullable:false})
-    @Type(() => MasterProfileUpdateWithoutUserInput)
-    update!: MasterProfileUpdateWithoutUserInput;
-
-    @Field(() => MasterProfileCreateWithoutUserInput, {nullable:false})
-    @Type(() => MasterProfileCreateWithoutUserInput)
-    create!: MasterProfileCreateWithoutUserInput;
+  @Field(() => MasterProfileCreateWithoutUserInput, { nullable: false })
+  @Type(() => MasterProfileCreateWithoutUserInput)
+  create!: MasterProfileCreateWithoutUserInput;
 }

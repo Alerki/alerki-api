@@ -9,23 +9,25 @@ import { Directus_dashboardsScalarFieldEnum } from './directus-dashboards-scalar
 
 @ArgsType()
 export class FindManydirectusDashboardsArgs {
+  @Field(() => directus_dashboardsWhereInput, { nullable: true })
+  @Type(() => directus_dashboardsWhereInput)
+  where?: directus_dashboardsWhereInput;
 
-    @Field(() => directus_dashboardsWhereInput, {nullable:true})
-    @Type(() => directus_dashboardsWhereInput)
-    where?: directus_dashboardsWhereInput;
+  @Field(
+    () => [directus_dashboardsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<directus_dashboardsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_dashboardsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_dashboardsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_dashboardsWhereUniqueInput, { nullable: true })
+  cursor?: directus_dashboardsWhereUniqueInput;
 
-    @Field(() => directus_dashboardsWhereUniqueInput, {nullable:true})
-    cursor?: directus_dashboardsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_dashboardsScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_dashboardsScalarFieldEnum>;
+  @Field(() => [Directus_dashboardsScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_dashboardsScalarFieldEnum>;
 }

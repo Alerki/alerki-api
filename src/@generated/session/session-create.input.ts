@@ -4,22 +4,23 @@ import { User_SessionCreateNestedManyWithoutSessionInput } from '../user-session
 
 @InputType()
 export class SessionCreateInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: true })
+  deviceName?: string;
 
-    @Field(() => String, {nullable:true})
-    deviceName?: string;
+  @Field(() => String, { nullable: false })
+  refreshToken!: string;
 
-    @Field(() => String, {nullable:false})
-    refreshToken!: string;
-
-    @Field(() => User_SessionCreateNestedManyWithoutSessionInput, {nullable:true})
-    User_Session?: User_SessionCreateNestedManyWithoutSessionInput;
+  @Field(() => User_SessionCreateNestedManyWithoutSessionInput, {
+    nullable: true,
+  })
+  User_Session?: User_SessionCreateNestedManyWithoutSessionInput;
 }

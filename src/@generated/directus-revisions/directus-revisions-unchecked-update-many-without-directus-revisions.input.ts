@@ -8,25 +8,24 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 
 @InputType()
 export class directus_revisionsUncheckedUpdateManyWithoutDirectus_revisionsInput {
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  id?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  collection?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    collection?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  item?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    item?: StringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  data?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    data?: any;
+  @Field(() => GraphQLJSON, { nullable: true })
+  delta?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    delta?: any;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  parent?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    parent?: NullableIntFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    version?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  version?: NullableStringFieldUpdateOperationsInput;
 }

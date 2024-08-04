@@ -9,28 +9,37 @@ import { Service_translationsUpdateManyWithoutServiceNestedInput } from '../serv
 
 @InputType()
 export class ServiceUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  status?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    status?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  sort?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    sort?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(
+    () =>
+      directus_usersUpdateOneWithoutService_Service_user_createdTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_users_Service_user_createdTodirectus_users?: directus_usersUpdateOneWithoutService_Service_user_createdTodirectus_usersNestedInput;
 
-    @Field(() => directus_usersUpdateOneWithoutService_Service_user_createdTodirectus_usersNestedInput, {nullable:true})
-    directus_users_Service_user_createdTodirectus_users?: directus_usersUpdateOneWithoutService_Service_user_createdTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_usersUpdateOneWithoutService_Service_user_updatedTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_users_Service_user_updatedTodirectus_users?: directus_usersUpdateOneWithoutService_Service_user_updatedTodirectus_usersNestedInput;
 
-    @Field(() => directus_usersUpdateOneWithoutService_Service_user_updatedTodirectus_usersNestedInput, {nullable:true})
-    directus_users_Service_user_updatedTodirectus_users?: directus_usersUpdateOneWithoutService_Service_user_updatedTodirectus_usersNestedInput;
-
-    @Field(() => Service_translationsUpdateManyWithoutServiceNestedInput, {nullable:true})
-    Service_translations?: Service_translationsUpdateManyWithoutServiceNestedInput;
+  @Field(() => Service_translationsUpdateManyWithoutServiceNestedInput, {
+    nullable: true,
+  })
+  Service_translations?: Service_translationsUpdateManyWithoutServiceNestedInput;
 }

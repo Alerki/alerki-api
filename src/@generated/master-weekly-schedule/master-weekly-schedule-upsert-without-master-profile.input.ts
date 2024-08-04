@@ -6,12 +6,15 @@ import { MasterWeeklyScheduleCreateWithoutMasterProfileInput } from './master-we
 
 @InputType()
 export class MasterWeeklyScheduleUpsertWithoutMasterProfileInput {
+  @Field(() => MasterWeeklyScheduleUpdateWithoutMasterProfileInput, {
+    nullable: false,
+  })
+  @Type(() => MasterWeeklyScheduleUpdateWithoutMasterProfileInput)
+  update!: MasterWeeklyScheduleUpdateWithoutMasterProfileInput;
 
-    @Field(() => MasterWeeklyScheduleUpdateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleUpdateWithoutMasterProfileInput)
-    update!: MasterWeeklyScheduleUpdateWithoutMasterProfileInput;
-
-    @Field(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput)
-    create!: MasterWeeklyScheduleCreateWithoutMasterProfileInput;
+  @Field(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput, {
+    nullable: false,
+  })
+  @Type(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput)
+  create!: MasterWeeklyScheduleCreateWithoutMasterProfileInput;
 }

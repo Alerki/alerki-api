@@ -6,12 +6,15 @@ import { ServiceCreateWithoutService_translationsInput } from './service-create-
 
 @InputType()
 export class ServiceUpsertWithoutService_translationsInput {
+  @Field(() => ServiceUpdateWithoutService_translationsInput, {
+    nullable: false,
+  })
+  @Type(() => ServiceUpdateWithoutService_translationsInput)
+  update!: ServiceUpdateWithoutService_translationsInput;
 
-    @Field(() => ServiceUpdateWithoutService_translationsInput, {nullable:false})
-    @Type(() => ServiceUpdateWithoutService_translationsInput)
-    update!: ServiceUpdateWithoutService_translationsInput;
-
-    @Field(() => ServiceCreateWithoutService_translationsInput, {nullable:false})
-    @Type(() => ServiceCreateWithoutService_translationsInput)
-    create!: ServiceCreateWithoutService_translationsInput;
+  @Field(() => ServiceCreateWithoutService_translationsInput, {
+    nullable: false,
+  })
+  @Type(() => ServiceCreateWithoutService_translationsInput)
+  create!: ServiceCreateWithoutService_translationsInput;
 }

@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_dashboardsCount {
-
-    @Field(() => Int, {nullable:false})
-    directus_panels!: number;
+  @Field(() => Int, { nullable: false })
+  directus_panels!: number;
 }

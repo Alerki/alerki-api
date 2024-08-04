@@ -8,41 +8,40 @@ import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 
 @InputType()
 export class directus_webhooksWhereInput {
+  @Field(() => [directus_webhooksWhereInput], { nullable: true })
+  AND?: Array<directus_webhooksWhereInput>;
 
-    @Field(() => [directus_webhooksWhereInput], {nullable:true})
-    AND?: Array<directus_webhooksWhereInput>;
+  @Field(() => [directus_webhooksWhereInput], { nullable: true })
+  OR?: Array<directus_webhooksWhereInput>;
 
-    @Field(() => [directus_webhooksWhereInput], {nullable:true})
-    OR?: Array<directus_webhooksWhereInput>;
+  @Field(() => [directus_webhooksWhereInput], { nullable: true })
+  NOT?: Array<directus_webhooksWhereInput>;
 
-    @Field(() => [directus_webhooksWhereInput], {nullable:true})
-    NOT?: Array<directus_webhooksWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  method?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    method?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  url?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    url?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  status?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    status?: StringFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  @Type(() => BoolFilter)
+  data?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    @Type(() => BoolFilter)
-    data?: BoolFilter;
+  @Field(() => StringFilter, { nullable: true })
+  actions?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    actions?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  collections?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    collections?: StringFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    headers?: JsonNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  headers?: JsonNullableFilter;
 }

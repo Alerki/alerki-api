@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueNotificationArgs {
-
-    @Field(() => NotificationWhereUniqueInput, {nullable:false})
-    @Type(() => NotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<NotificationWhereUniqueInput, 'id'>;
+  @Field(() => NotificationWhereUniqueInput, { nullable: false })
+  @Type(() => NotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<NotificationWhereUniqueInput, 'id'>;
 }

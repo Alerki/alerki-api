@@ -6,12 +6,11 @@ import { directus_settingsWhereUniqueInput } from '../directus-settings/directus
 
 @ArgsType()
 export class UpdateOnedirectusSettingsArgs {
+  @Field(() => directus_settingsUpdateInput, { nullable: false })
+  @Type(() => directus_settingsUpdateInput)
+  data!: directus_settingsUpdateInput;
 
-    @Field(() => directus_settingsUpdateInput, {nullable:false})
-    @Type(() => directus_settingsUpdateInput)
-    data!: directus_settingsUpdateInput;
-
-    @Field(() => directus_settingsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_settingsWhereUniqueInput)
-    where!: directus_settingsWhereUniqueInput;
+  @Field(() => directus_settingsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_settingsWhereUniqueInput)
+  where!: directus_settingsWhereUniqueInput;
 }

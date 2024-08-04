@@ -7,12 +7,18 @@ import { directus_filesCreateWithoutDirectus_settings_directus_settings_public_f
 
 @InputType()
 export class directus_filesCreateOrConnectWithoutDirectus_settings_directus_settings_public_faviconTodirectus_filesInput {
+  @Field(() => directus_filesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_filesWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_filesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_filesWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_filesCreateWithoutDirectus_settings_directus_settings_public_faviconTodirectus_filesInput, {nullable:false})
-    @Type(() => directus_filesCreateWithoutDirectus_settings_directus_settings_public_faviconTodirectus_filesInput)
-    create!: directus_filesCreateWithoutDirectus_settings_directus_settings_public_faviconTodirectus_filesInput;
+  @Field(
+    () =>
+      directus_filesCreateWithoutDirectus_settings_directus_settings_public_faviconTodirectus_filesInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_filesCreateWithoutDirectus_settings_directus_settings_public_faviconTodirectus_filesInput,
+  )
+  create!: directus_filesCreateWithoutDirectus_settings_directus_settings_public_faviconTodirectus_filesInput;
 }

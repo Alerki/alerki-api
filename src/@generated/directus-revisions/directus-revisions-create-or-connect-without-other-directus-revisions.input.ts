@@ -7,12 +7,13 @@ import { directus_revisionsCreateWithoutOther_directus_revisionsInput } from './
 
 @InputType()
 export class directus_revisionsCreateOrConnectWithoutOther_directus_revisionsInput {
+  @Field(() => directus_revisionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_revisionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_revisionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_revisionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_revisionsCreateWithoutOther_directus_revisionsInput, {nullable:false})
-    @Type(() => directus_revisionsCreateWithoutOther_directus_revisionsInput)
-    create!: directus_revisionsCreateWithoutOther_directus_revisionsInput;
+  @Field(() => directus_revisionsCreateWithoutOther_directus_revisionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_revisionsCreateWithoutOther_directus_revisionsInput)
+  create!: directus_revisionsCreateWithoutOther_directus_revisionsInput;
 }

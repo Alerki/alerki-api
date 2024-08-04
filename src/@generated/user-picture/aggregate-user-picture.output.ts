@@ -6,13 +6,12 @@ import { UserPictureMaxAggregate } from './user-picture-max-aggregate.output';
 
 @ObjectType()
 export class AggregateUserPicture {
+  @Field(() => UserPictureCountAggregate, { nullable: true })
+  _count?: UserPictureCountAggregate;
 
-    @Field(() => UserPictureCountAggregate, {nullable:true})
-    _count?: UserPictureCountAggregate;
+  @Field(() => UserPictureMinAggregate, { nullable: true })
+  _min?: UserPictureMinAggregate;
 
-    @Field(() => UserPictureMinAggregate, {nullable:true})
-    _min?: UserPictureMinAggregate;
-
-    @Field(() => UserPictureMaxAggregate, {nullable:true})
-    _max?: UserPictureMaxAggregate;
+  @Field(() => UserPictureMaxAggregate, { nullable: true })
+  _max?: UserPictureMaxAggregate;
 }

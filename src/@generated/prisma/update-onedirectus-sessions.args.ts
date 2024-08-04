@@ -6,12 +6,11 @@ import { directus_sessionsWhereUniqueInput } from '../directus-sessions/directus
 
 @ArgsType()
 export class UpdateOnedirectusSessionsArgs {
+  @Field(() => directus_sessionsUpdateInput, { nullable: false })
+  @Type(() => directus_sessionsUpdateInput)
+  data!: directus_sessionsUpdateInput;
 
-    @Field(() => directus_sessionsUpdateInput, {nullable:false})
-    @Type(() => directus_sessionsUpdateInput)
-    data!: directus_sessionsUpdateInput;
-
-    @Field(() => directus_sessionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    where!: directus_sessionsWhereUniqueInput;
+  @Field(() => directus_sessionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  where!: directus_sessionsWhereUniqueInput;
 }

@@ -6,13 +6,12 @@ import { Directus_dashboardsMaxAggregate } from './directus-dashboards-max-aggre
 
 @ObjectType()
 export class AggregateDirectus_dashboards {
+  @Field(() => Directus_dashboardsCountAggregate, { nullable: true })
+  _count?: Directus_dashboardsCountAggregate;
 
-    @Field(() => Directus_dashboardsCountAggregate, {nullable:true})
-    _count?: Directus_dashboardsCountAggregate;
+  @Field(() => Directus_dashboardsMinAggregate, { nullable: true })
+  _min?: Directus_dashboardsMinAggregate;
 
-    @Field(() => Directus_dashboardsMinAggregate, {nullable:true})
-    _min?: Directus_dashboardsMinAggregate;
-
-    @Field(() => Directus_dashboardsMaxAggregate, {nullable:true})
-    _max?: Directus_dashboardsMaxAggregate;
+  @Field(() => Directus_dashboardsMaxAggregate, { nullable: true })
+  _max?: Directus_dashboardsMaxAggregate;
 }

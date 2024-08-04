@@ -7,12 +7,11 @@ import { SessionWhereUniqueInput } from './session-where-unique.input';
 
 @ArgsType()
 export class UpdateOneSessionArgs {
+  @Field(() => SessionUpdateInput, { nullable: false })
+  @Type(() => SessionUpdateInput)
+  data!: SessionUpdateInput;
 
-    @Field(() => SessionUpdateInput, {nullable:false})
-    @Type(() => SessionUpdateInput)
-    data!: SessionUpdateInput;
-
-    @Field(() => SessionWhereUniqueInput, {nullable:false})
-    @Type(() => SessionWhereUniqueInput)
-    where!: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
+  @Field(() => SessionWhereUniqueInput, { nullable: false })
+  @Type(() => SessionWhereUniqueInput)
+  where!: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
 }

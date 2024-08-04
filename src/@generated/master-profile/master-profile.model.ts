@@ -10,37 +10,36 @@ import { MasterProfileCount } from './master-profile-count.output';
 
 @ObjectType()
 export class MasterProfile {
+  @Field(() => ID, { nullable: false })
+  id!: string;
 
-    @Field(() => ID, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_created!: Date | null;
+  @Field(() => Date, { nullable: true })
+  date_updated!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_updated!: Date | null;
+  @Field(() => String, { nullable: false })
+  masterWeeklySchedule!: string;
 
-    @Field(() => String, {nullable:false})
-    masterWeeklySchedule!: string;
+  @Field(() => [Appointment], { nullable: true })
+  Appointment_Appointment_masterProfileToMasterProfile?: Array<Appointment>;
 
-    @Field(() => [Appointment], {nullable:true})
-    Appointment_Appointment_masterProfileToMasterProfile?: Array<Appointment>;
+  @Field(() => [Appointment], { nullable: true })
+  Appointment_Appointment_masterServiceToMasterProfile?: Array<Appointment>;
 
-    @Field(() => [Appointment], {nullable:true})
-    Appointment_Appointment_masterServiceToMasterProfile?: Array<Appointment>;
+  @Field(() => MasterWeeklySchedule, { nullable: false })
+  MasterWeeklySchedule?: MasterWeeklySchedule;
 
-    @Field(() => MasterWeeklySchedule, {nullable:false})
-    MasterWeeklySchedule?: MasterWeeklySchedule;
+  @Field(() => [MasterSchedule], { nullable: true })
+  MasterSchedule?: Array<MasterSchedule>;
 
-    @Field(() => [MasterSchedule], {nullable:true})
-    MasterSchedule?: Array<MasterSchedule>;
+  @Field(() => [MasterService], { nullable: true })
+  MasterService?: Array<MasterService>;
 
-    @Field(() => [MasterService], {nullable:true})
-    MasterService?: Array<MasterService>;
+  @Field(() => [User], { nullable: true })
+  User?: Array<User>;
 
-    @Field(() => [User], {nullable:true})
-    User?: Array<User>;
-
-    @Field(() => MasterProfileCount, {nullable:false})
-    _count?: MasterProfileCount;
+  @Field(() => MasterProfileCount, { nullable: false })
+  _count?: MasterProfileCount;
 }

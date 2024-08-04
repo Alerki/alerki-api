@@ -10,23 +10,24 @@ import { ServiceScalarFieldEnum } from './service-scalar-field.enum';
 
 @ArgsType()
 export class FindManyServiceArgs {
+  @Field(() => ServiceWhereInput, { nullable: true })
+  @Type(() => ServiceWhereInput)
+  where?: ServiceWhereInput;
 
-    @Field(() => ServiceWhereInput, {nullable:true})
-    @Type(() => ServiceWhereInput)
-    where?: ServiceWhereInput;
+  @Field(() => [ServiceOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<ServiceOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [ServiceOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<ServiceOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => ServiceWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => ServiceWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [ServiceScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof ServiceScalarFieldEnum>;
+  @Field(() => [ServiceScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof ServiceScalarFieldEnum>;
 }

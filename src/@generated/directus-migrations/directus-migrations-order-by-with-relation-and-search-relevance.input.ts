@@ -5,16 +5,15 @@ import { directus_migrationsOrderByRelevanceInput } from './directus-migrations-
 
 @InputType()
 export class directus_migrationsOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  version?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    version?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  timestamp?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    timestamp?: keyof typeof SortOrder;
-
-    @Field(() => directus_migrationsOrderByRelevanceInput, {nullable:true})
-    _relevance?: directus_migrationsOrderByRelevanceInput;
+  @Field(() => directus_migrationsOrderByRelevanceInput, { nullable: true })
+  _relevance?: directus_migrationsOrderByRelevanceInput;
 }

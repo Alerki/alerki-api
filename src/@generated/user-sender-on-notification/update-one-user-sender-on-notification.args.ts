@@ -7,12 +7,11 @@ import { UserSenderOnNotificationWhereUniqueInput } from './user-sender-on-notif
 
 @ArgsType()
 export class UpdateOneUserSenderOnNotificationArgs {
+  @Field(() => UserSenderOnNotificationUpdateInput, { nullable: false })
+  @Type(() => UserSenderOnNotificationUpdateInput)
+  data!: UserSenderOnNotificationUpdateInput;
 
-    @Field(() => UserSenderOnNotificationUpdateInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationUpdateInput)
-    data!: UserSenderOnNotificationUpdateInput;
-
-    @Field(() => UserSenderOnNotificationWhereUniqueInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
+  @Field(() => UserSenderOnNotificationWhereUniqueInput, { nullable: false })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
 }

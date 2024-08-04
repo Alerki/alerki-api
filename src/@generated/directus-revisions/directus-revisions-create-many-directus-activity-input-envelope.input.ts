@@ -5,11 +5,12 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class directus_revisionsCreateManyDirectus_activityInputEnvelope {
+  @Field(() => [directus_revisionsCreateManyDirectus_activityInput], {
+    nullable: false,
+  })
+  @Type(() => directus_revisionsCreateManyDirectus_activityInput)
+  data!: Array<directus_revisionsCreateManyDirectus_activityInput>;
 
-    @Field(() => [directus_revisionsCreateManyDirectus_activityInput], {nullable:false})
-    @Type(() => directus_revisionsCreateManyDirectus_activityInput)
-    data!: Array<directus_revisionsCreateManyDirectus_activityInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

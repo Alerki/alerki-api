@@ -4,13 +4,12 @@ import { AppointmentWhereInput } from './appointment-where.input';
 
 @InputType()
 export class AppointmentListRelationFilter {
+  @Field(() => AppointmentWhereInput, { nullable: true })
+  every?: AppointmentWhereInput;
 
-    @Field(() => AppointmentWhereInput, {nullable:true})
-    every?: AppointmentWhereInput;
+  @Field(() => AppointmentWhereInput, { nullable: true })
+  some?: AppointmentWhereInput;
 
-    @Field(() => AppointmentWhereInput, {nullable:true})
-    some?: AppointmentWhereInput;
-
-    @Field(() => AppointmentWhereInput, {nullable:true})
-    none?: AppointmentWhereInput;
+  @Field(() => AppointmentWhereInput, { nullable: true })
+  none?: AppointmentWhereInput;
 }

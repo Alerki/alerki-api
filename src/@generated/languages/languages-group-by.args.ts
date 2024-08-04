@@ -9,23 +9,22 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class languagesGroupByArgs {
+  @Field(() => languagesWhereInput, { nullable: true })
+  @Type(() => languagesWhereInput)
+  where?: languagesWhereInput;
 
-    @Field(() => languagesWhereInput, {nullable:true})
-    @Type(() => languagesWhereInput)
-    where?: languagesWhereInput;
+  @Field(() => [languagesOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<languagesOrderByWithAggregationInput>;
 
-    @Field(() => [languagesOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<languagesOrderByWithAggregationInput>;
+  @Field(() => [LanguagesScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof LanguagesScalarFieldEnum>;
 
-    @Field(() => [LanguagesScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof LanguagesScalarFieldEnum>;
+  @Field(() => languagesScalarWhereWithAggregatesInput, { nullable: true })
+  having?: languagesScalarWhereWithAggregatesInput;
 
-    @Field(() => languagesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: languagesScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

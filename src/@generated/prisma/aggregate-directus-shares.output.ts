@@ -8,19 +8,18 @@ import { Directus_sharesMaxAggregate } from './directus-shares-max-aggregate.out
 
 @ObjectType()
 export class AggregateDirectus_shares {
+  @Field(() => Directus_sharesCountAggregate, { nullable: true })
+  _count?: Directus_sharesCountAggregate;
 
-    @Field(() => Directus_sharesCountAggregate, {nullable:true})
-    _count?: Directus_sharesCountAggregate;
+  @Field(() => Directus_sharesAvgAggregate, { nullable: true })
+  _avg?: Directus_sharesAvgAggregate;
 
-    @Field(() => Directus_sharesAvgAggregate, {nullable:true})
-    _avg?: Directus_sharesAvgAggregate;
+  @Field(() => Directus_sharesSumAggregate, { nullable: true })
+  _sum?: Directus_sharesSumAggregate;
 
-    @Field(() => Directus_sharesSumAggregate, {nullable:true})
-    _sum?: Directus_sharesSumAggregate;
+  @Field(() => Directus_sharesMinAggregate, { nullable: true })
+  _min?: Directus_sharesMinAggregate;
 
-    @Field(() => Directus_sharesMinAggregate, {nullable:true})
-    _min?: Directus_sharesMinAggregate;
-
-    @Field(() => Directus_sharesMaxAggregate, {nullable:true})
-    _max?: Directus_sharesMaxAggregate;
+  @Field(() => Directus_sharesMaxAggregate, { nullable: true })
+  _max?: Directus_sharesMaxAggregate;
 }

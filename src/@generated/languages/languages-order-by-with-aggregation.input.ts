@@ -7,22 +7,21 @@ import { languagesMinOrderByAggregateInput } from './languages-min-order-by-aggr
 
 @InputType()
 export class languagesOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  code?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    code?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  direction?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    direction?: keyof typeof SortOrder;
+  @Field(() => languagesCountOrderByAggregateInput, { nullable: true })
+  _count?: languagesCountOrderByAggregateInput;
 
-    @Field(() => languagesCountOrderByAggregateInput, {nullable:true})
-    _count?: languagesCountOrderByAggregateInput;
+  @Field(() => languagesMaxOrderByAggregateInput, { nullable: true })
+  _max?: languagesMaxOrderByAggregateInput;
 
-    @Field(() => languagesMaxOrderByAggregateInput, {nullable:true})
-    _max?: languagesMaxOrderByAggregateInput;
-
-    @Field(() => languagesMinOrderByAggregateInput, {nullable:true})
-    _min?: languagesMinOrderByAggregateInput;
+  @Field(() => languagesMinOrderByAggregateInput, { nullable: true })
+  _min?: languagesMinOrderByAggregateInput;
 }

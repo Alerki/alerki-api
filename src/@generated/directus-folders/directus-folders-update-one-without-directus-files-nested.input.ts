@@ -10,30 +10,37 @@ import { directus_foldersUpdateWithoutDirectus_filesInput } from './directus-fol
 
 @InputType()
 export class directus_foldersUpdateOneWithoutDirectus_filesNestedInput {
+  @Field(() => directus_foldersCreateWithoutDirectus_filesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_foldersCreateWithoutDirectus_filesInput)
+  create?: directus_foldersCreateWithoutDirectus_filesInput;
 
-    @Field(() => directus_foldersCreateWithoutDirectus_filesInput, {nullable:true})
-    @Type(() => directus_foldersCreateWithoutDirectus_filesInput)
-    create?: directus_foldersCreateWithoutDirectus_filesInput;
+  @Field(() => directus_foldersCreateOrConnectWithoutDirectus_filesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_foldersCreateOrConnectWithoutDirectus_filesInput)
+  connectOrCreate?: directus_foldersCreateOrConnectWithoutDirectus_filesInput;
 
-    @Field(() => directus_foldersCreateOrConnectWithoutDirectus_filesInput, {nullable:true})
-    @Type(() => directus_foldersCreateOrConnectWithoutDirectus_filesInput)
-    connectOrCreate?: directus_foldersCreateOrConnectWithoutDirectus_filesInput;
+  @Field(() => directus_foldersUpsertWithoutDirectus_filesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_foldersUpsertWithoutDirectus_filesInput)
+  upsert?: directus_foldersUpsertWithoutDirectus_filesInput;
 
-    @Field(() => directus_foldersUpsertWithoutDirectus_filesInput, {nullable:true})
-    @Type(() => directus_foldersUpsertWithoutDirectus_filesInput)
-    upsert?: directus_foldersUpsertWithoutDirectus_filesInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_foldersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_foldersWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_foldersWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_foldersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_foldersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_foldersWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_foldersUpdateWithoutDirectus_filesInput, {nullable:true})
-    @Type(() => directus_foldersUpdateWithoutDirectus_filesInput)
-    update?: directus_foldersUpdateWithoutDirectus_filesInput;
+  @Field(() => directus_foldersUpdateWithoutDirectus_filesInput, {
+    nullable: true,
+  })
+  @Type(() => directus_foldersUpdateWithoutDirectus_filesInput)
+  update?: directus_foldersUpdateWithoutDirectus_filesInput;
 }

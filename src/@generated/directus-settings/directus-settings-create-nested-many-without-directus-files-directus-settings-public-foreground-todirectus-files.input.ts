@@ -9,20 +9,42 @@ import { directus_settingsWhereUniqueInput } from './directus-settings-where-uni
 
 @InputType()
 export class directus_settingsCreateNestedManyWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput {
+  @Field(
+    () => [
+      directus_settingsCreateWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_settingsCreateWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput,
+  )
+  create?: Array<directus_settingsCreateWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput>;
 
-    @Field(() => [directus_settingsCreateWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput], {nullable:true})
-    @Type(() => directus_settingsCreateWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput)
-    create?: Array<directus_settingsCreateWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput>;
+  @Field(
+    () => [
+      directus_settingsCreateOrConnectWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_settingsCreateOrConnectWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput,
+  )
+  connectOrCreate?: Array<directus_settingsCreateOrConnectWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput>;
 
-    @Field(() => [directus_settingsCreateOrConnectWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput], {nullable:true})
-    @Type(() => directus_settingsCreateOrConnectWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput)
-    connectOrCreate?: Array<directus_settingsCreateOrConnectWithoutDirectus_files_directus_settings_public_foregroundTodirectus_filesInput>;
+  @Field(
+    () =>
+      directus_settingsCreateManyDirectus_files_directus_settings_public_foregroundTodirectus_filesInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_settingsCreateManyDirectus_files_directus_settings_public_foregroundTodirectus_filesInputEnvelope,
+  )
+  createMany?: directus_settingsCreateManyDirectus_files_directus_settings_public_foregroundTodirectus_filesInputEnvelope;
 
-    @Field(() => directus_settingsCreateManyDirectus_files_directus_settings_public_foregroundTodirectus_filesInputEnvelope, {nullable:true})
-    @Type(() => directus_settingsCreateManyDirectus_files_directus_settings_public_foregroundTodirectus_filesInputEnvelope)
-    createMany?: directus_settingsCreateManyDirectus_files_directus_settings_public_foregroundTodirectus_filesInputEnvelope;
-
-    @Field(() => [directus_settingsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_settingsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_settingsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_settingsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
 }

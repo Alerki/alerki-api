@@ -4,10 +4,9 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class NotificationTypeSumAggregate {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
-
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 }

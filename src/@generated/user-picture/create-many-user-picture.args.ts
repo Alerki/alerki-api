@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManyUserPictureArgs {
+  @Field(() => [UserPictureCreateManyInput], { nullable: false })
+  @Type(() => UserPictureCreateManyInput)
+  data!: Array<UserPictureCreateManyInput>;
 
-    @Field(() => [UserPictureCreateManyInput], {nullable:false})
-    @Type(() => UserPictureCreateManyInput)
-    data!: Array<UserPictureCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

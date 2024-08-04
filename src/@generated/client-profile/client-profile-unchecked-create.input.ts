@@ -5,19 +5,22 @@ import { UserUncheckedCreateNestedManyWithoutClientProfileInput } from '../user/
 
 @InputType()
 export class ClientProfileUncheckedCreateInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => AppointmentUncheckedCreateNestedManyWithoutClientProfileInput, {
+    nullable: true,
+  })
+  Appointment?: AppointmentUncheckedCreateNestedManyWithoutClientProfileInput;
 
-    @Field(() => AppointmentUncheckedCreateNestedManyWithoutClientProfileInput, {nullable:true})
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutClientProfileInput;
-
-    @Field(() => UserUncheckedCreateNestedManyWithoutClientProfileInput, {nullable:true})
-    User?: UserUncheckedCreateNestedManyWithoutClientProfileInput;
+  @Field(() => UserUncheckedCreateNestedManyWithoutClientProfileInput, {
+    nullable: true,
+  })
+  User?: UserUncheckedCreateNestedManyWithoutClientProfileInput;
 }

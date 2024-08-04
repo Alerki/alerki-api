@@ -8,16 +8,18 @@ import { UserUpdateInput } from './user-update.input';
 
 @ArgsType()
 export class UpsertOneUserArgs {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
+  @Field(() => UserCreateInput, { nullable: false })
+  @Type(() => UserCreateInput)
+  create!: UserCreateInput;
 
-    @Field(() => UserCreateInput, {nullable:false})
-    @Type(() => UserCreateInput)
-    create!: UserCreateInput;
-
-    @Field(() => UserUpdateInput, {nullable:false})
-    @Type(() => UserUpdateInput)
-    update!: UserUpdateInput;
+  @Field(() => UserUpdateInput, { nullable: false })
+  @Type(() => UserUpdateInput)
+  update!: UserUpdateInput;
 }

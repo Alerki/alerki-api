@@ -10,70 +10,77 @@ import { directus_versionsUncheckedUpdateManyWithoutDirectus_collectionsNestedIn
 
 @InputType()
 export class directus_collectionsUncheckedUpdateWithoutDirectus_sharesInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  collection?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    collection?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  icon?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    icon?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  note?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    note?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  display_template?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    display_template?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  hidden?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    hidden?: BoolFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  singleton?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    singleton?: BoolFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  translations?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    translations?: any;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  archive_field?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    archive_field?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  archive_app_filter?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    archive_app_filter?: BoolFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  archive_value?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    archive_value?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  unarchive_value?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    unarchive_value?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  sort_field?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    sort_field?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  accountability?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    accountability?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  color?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    color?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  item_duplication_fields?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    item_duplication_fields?: any;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  sort?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    sort?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  group?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    group?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  collapse?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    collapse?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  preview_url?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    preview_url?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  versioning?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    versioning?: BoolFieldUpdateOperationsInput;
+  @Field(
+    () =>
+      directus_collectionsUncheckedUpdateManyWithoutDirectus_collectionsNestedInput,
+    { nullable: true },
+  )
+  other_directus_collections?: directus_collectionsUncheckedUpdateManyWithoutDirectus_collectionsNestedInput;
 
-    @Field(() => directus_collectionsUncheckedUpdateManyWithoutDirectus_collectionsNestedInput, {nullable:true})
-    other_directus_collections?: directus_collectionsUncheckedUpdateManyWithoutDirectus_collectionsNestedInput;
-
-    @Field(() => directus_versionsUncheckedUpdateManyWithoutDirectus_collectionsNestedInput, {nullable:true})
-    directus_versions?: directus_versionsUncheckedUpdateManyWithoutDirectus_collectionsNestedInput;
+  @Field(
+    () =>
+      directus_versionsUncheckedUpdateManyWithoutDirectus_collectionsNestedInput,
+    { nullable: true },
+  )
+  directus_versions?: directus_versionsUncheckedUpdateManyWithoutDirectus_collectionsNestedInput;
 }

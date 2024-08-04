@@ -4,16 +4,18 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class NotificationCountAggregate {
+  @Field(() => Int, { nullable: false })
+  id!: number;
 
-    @Field(() => Int, {nullable:false})
-    id!: number;
+  @Field(() => Int, { nullable: false })
+  date_created!: number;
 
-    @Field(() => Int, {nullable:false})
-    date_created!: number;
+  @Field(() => Int, { nullable: false })
+  date_updated!: number;
 
-    @Field(() => Int, {nullable:false})
-    date_updated!: number;
+  @Field(() => Int, { nullable: false })
+  type!: number;
 
-    @Field(() => Int, {nullable:false})
-    _all!: number;
+  @Field(() => Int, { nullable: false })
+  _all!: number;
 }

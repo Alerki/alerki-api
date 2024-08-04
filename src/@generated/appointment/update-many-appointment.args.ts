@@ -6,12 +6,11 @@ import { AppointmentWhereInput } from './appointment-where.input';
 
 @ArgsType()
 export class UpdateManyAppointmentArgs {
+  @Field(() => AppointmentUpdateManyMutationInput, { nullable: false })
+  @Type(() => AppointmentUpdateManyMutationInput)
+  data!: AppointmentUpdateManyMutationInput;
 
-    @Field(() => AppointmentUpdateManyMutationInput, {nullable:false})
-    @Type(() => AppointmentUpdateManyMutationInput)
-    data!: AppointmentUpdateManyMutationInput;
-
-    @Field(() => AppointmentWhereInput, {nullable:true})
-    @Type(() => AppointmentWhereInput)
-    where?: AppointmentWhereInput;
+  @Field(() => AppointmentWhereInput, { nullable: true })
+  @Type(() => AppointmentWhereInput)
+  where?: AppointmentWhereInput;
 }

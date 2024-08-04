@@ -7,16 +7,15 @@ import { directus_revisionsUpdateInput } from '../directus-revisions/directus-re
 
 @ArgsType()
 export class UpsertOnedirectusRevisionsArgs {
+  @Field(() => directus_revisionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_revisionsWhereUniqueInput)
+  where!: directus_revisionsWhereUniqueInput;
 
-    @Field(() => directus_revisionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_revisionsWhereUniqueInput)
-    where!: directus_revisionsWhereUniqueInput;
+  @Field(() => directus_revisionsCreateInput, { nullable: false })
+  @Type(() => directus_revisionsCreateInput)
+  create!: directus_revisionsCreateInput;
 
-    @Field(() => directus_revisionsCreateInput, {nullable:false})
-    @Type(() => directus_revisionsCreateInput)
-    create!: directus_revisionsCreateInput;
-
-    @Field(() => directus_revisionsUpdateInput, {nullable:false})
-    @Type(() => directus_revisionsUpdateInput)
-    update!: directus_revisionsUpdateInput;
+  @Field(() => directus_revisionsUpdateInput, { nullable: false })
+  @Type(() => directus_revisionsUpdateInput)
+  update!: directus_revisionsUpdateInput;
 }

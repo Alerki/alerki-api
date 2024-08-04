@@ -7,16 +7,15 @@ import { Service_translationsUpdateInput } from '../service-translations/service
 
 @ArgsType()
 export class UpsertOneServiceTranslationsArgs {
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: false })
+  @Type(() => Service_translationsWhereUniqueInput)
+  where!: Service_translationsWhereUniqueInput;
 
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:false})
-    @Type(() => Service_translationsWhereUniqueInput)
-    where!: Service_translationsWhereUniqueInput;
+  @Field(() => Service_translationsCreateInput, { nullable: false })
+  @Type(() => Service_translationsCreateInput)
+  create!: Service_translationsCreateInput;
 
-    @Field(() => Service_translationsCreateInput, {nullable:false})
-    @Type(() => Service_translationsCreateInput)
-    create!: Service_translationsCreateInput;
-
-    @Field(() => Service_translationsUpdateInput, {nullable:false})
-    @Type(() => Service_translationsUpdateInput)
-    update!: Service_translationsUpdateInput;
+  @Field(() => Service_translationsUpdateInput, { nullable: false })
+  @Type(() => Service_translationsUpdateInput)
+  update!: Service_translationsUpdateInput;
 }

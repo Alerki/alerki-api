@@ -6,12 +6,15 @@ import { directus_rolesCreateWithoutDirectus_presetsInput } from './directus-rol
 
 @InputType()
 export class directus_rolesUpsertWithoutDirectus_presetsInput {
+  @Field(() => directus_rolesUpdateWithoutDirectus_presetsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesUpdateWithoutDirectus_presetsInput)
+  update!: directus_rolesUpdateWithoutDirectus_presetsInput;
 
-    @Field(() => directus_rolesUpdateWithoutDirectus_presetsInput, {nullable:false})
-    @Type(() => directus_rolesUpdateWithoutDirectus_presetsInput)
-    update!: directus_rolesUpdateWithoutDirectus_presetsInput;
-
-    @Field(() => directus_rolesCreateWithoutDirectus_presetsInput, {nullable:false})
-    @Type(() => directus_rolesCreateWithoutDirectus_presetsInput)
-    create!: directus_rolesCreateWithoutDirectus_presetsInput;
+  @Field(() => directus_rolesCreateWithoutDirectus_presetsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesCreateWithoutDirectus_presetsInput)
+  create!: directus_rolesCreateWithoutDirectus_presetsInput;
 }

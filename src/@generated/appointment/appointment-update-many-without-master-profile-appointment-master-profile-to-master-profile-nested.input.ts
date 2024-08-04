@@ -13,48 +13,94 @@ import { AppointmentScalarWhereInput } from './appointment-scalar-where.input';
 
 @InputType()
 export class AppointmentUpdateManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileNestedInput {
+  @Field(
+    () => [
+      AppointmentCreateWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentCreateWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+  )
+  create?: Array<AppointmentCreateWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
 
-    @Field(() => [AppointmentCreateWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput], {nullable:true})
-    @Type(() => AppointmentCreateWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput)
-    create?: Array<AppointmentCreateWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
+  @Field(
+    () => [
+      AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+  )
+  connectOrCreate?: Array<AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
 
-    @Field(() => [AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput], {nullable:true})
-    @Type(() => AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput)
-    connectOrCreate?: Array<AppointmentCreateOrConnectWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
+  @Field(
+    () => [
+      AppointmentUpsertWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentUpsertWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+  )
+  upsert?: Array<AppointmentUpsertWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
 
-    @Field(() => [AppointmentUpsertWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput], {nullable:true})
-    @Type(() => AppointmentUpsertWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput)
-    upsert?: Array<AppointmentUpsertWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
+  @Field(
+    () =>
+      AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInputEnvelope,
+  )
+  createMany?: AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInputEnvelope;
 
-    @Field(() => AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInputEnvelope, {nullable:true})
-    @Type(() => AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInputEnvelope)
-    createMany?: AppointmentCreateManyMasterProfile_Appointment_masterProfileToMasterProfileInputEnvelope;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [
+      AppointmentUpdateWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentUpdateWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+  )
+  update?: Array<AppointmentUpdateWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
 
-    @Field(() => [AppointmentUpdateWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput], {nullable:true})
-    @Type(() => AppointmentUpdateWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput)
-    update?: Array<AppointmentUpdateWithWhereUniqueWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
+  @Field(
+    () => [
+      AppointmentUpdateManyWithWhereWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      AppointmentUpdateManyWithWhereWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+  )
+  updateMany?: Array<AppointmentUpdateManyWithWhereWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
 
-    @Field(() => [AppointmentUpdateManyWithWhereWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput], {nullable:true})
-    @Type(() => AppointmentUpdateManyWithWhereWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput)
-    updateMany?: Array<AppointmentUpdateManyWithWhereWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput>;
-
-    @Field(() => [AppointmentScalarWhereInput], {nullable:true})
-    @Type(() => AppointmentScalarWhereInput)
-    deleteMany?: Array<AppointmentScalarWhereInput>;
+  @Field(() => [AppointmentScalarWhereInput], { nullable: true })
+  @Type(() => AppointmentScalarWhereInput)
+  deleteMany?: Array<AppointmentScalarWhereInput>;
 }

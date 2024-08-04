@@ -7,16 +7,15 @@ import { directus_dashboardsUpdateInput } from '../directus-dashboards/directus-
 
 @ArgsType()
 export class UpsertOnedirectusDashboardsArgs {
+  @Field(() => directus_dashboardsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_dashboardsWhereUniqueInput)
+  where!: directus_dashboardsWhereUniqueInput;
 
-    @Field(() => directus_dashboardsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_dashboardsWhereUniqueInput)
-    where!: directus_dashboardsWhereUniqueInput;
+  @Field(() => directus_dashboardsCreateInput, { nullable: false })
+  @Type(() => directus_dashboardsCreateInput)
+  create!: directus_dashboardsCreateInput;
 
-    @Field(() => directus_dashboardsCreateInput, {nullable:false})
-    @Type(() => directus_dashboardsCreateInput)
-    create!: directus_dashboardsCreateInput;
-
-    @Field(() => directus_dashboardsUpdateInput, {nullable:false})
-    @Type(() => directus_dashboardsUpdateInput)
-    update!: directus_dashboardsUpdateInput;
+  @Field(() => directus_dashboardsUpdateInput, { nullable: false })
+  @Type(() => directus_dashboardsUpdateInput)
+  update!: directus_dashboardsUpdateInput;
 }

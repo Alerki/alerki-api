@@ -6,12 +6,11 @@ import { MasterWeeklyScheduleWhereInput } from './master-weekly-schedule-where.i
 
 @ArgsType()
 export class UpdateManyMasterWeeklyScheduleArgs {
+  @Field(() => MasterWeeklyScheduleUpdateManyMutationInput, { nullable: false })
+  @Type(() => MasterWeeklyScheduleUpdateManyMutationInput)
+  data!: MasterWeeklyScheduleUpdateManyMutationInput;
 
-    @Field(() => MasterWeeklyScheduleUpdateManyMutationInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleUpdateManyMutationInput)
-    data!: MasterWeeklyScheduleUpdateManyMutationInput;
-
-    @Field(() => MasterWeeklyScheduleWhereInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleWhereInput)
-    where?: MasterWeeklyScheduleWhereInput;
+  @Field(() => MasterWeeklyScheduleWhereInput, { nullable: true })
+  @Type(() => MasterWeeklyScheduleWhereInput)
+  where?: MasterWeeklyScheduleWhereInput;
 }

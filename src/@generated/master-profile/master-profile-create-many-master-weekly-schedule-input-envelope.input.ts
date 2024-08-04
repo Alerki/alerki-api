@@ -5,11 +5,12 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class MasterProfileCreateManyMasterWeeklyScheduleInputEnvelope {
+  @Field(() => [MasterProfileCreateManyMasterWeeklyScheduleInput], {
+    nullable: false,
+  })
+  @Type(() => MasterProfileCreateManyMasterWeeklyScheduleInput)
+  data!: Array<MasterProfileCreateManyMasterWeeklyScheduleInput>;
 
-    @Field(() => [MasterProfileCreateManyMasterWeeklyScheduleInput], {nullable:false})
-    @Type(() => MasterProfileCreateManyMasterWeeklyScheduleInput)
-    data!: Array<MasterProfileCreateManyMasterWeeklyScheduleInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

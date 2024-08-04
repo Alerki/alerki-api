@@ -10,34 +10,33 @@ import { Directus_settingsListRelationFilter } from '../prisma/directus-settings
 
 @InputType()
 export class directus_foldersWhereInput {
+  @Field(() => [directus_foldersWhereInput], { nullable: true })
+  AND?: Array<directus_foldersWhereInput>;
 
-    @Field(() => [directus_foldersWhereInput], {nullable:true})
-    AND?: Array<directus_foldersWhereInput>;
+  @Field(() => [directus_foldersWhereInput], { nullable: true })
+  OR?: Array<directus_foldersWhereInput>;
 
-    @Field(() => [directus_foldersWhereInput], {nullable:true})
-    OR?: Array<directus_foldersWhereInput>;
+  @Field(() => [directus_foldersWhereInput], { nullable: true })
+  NOT?: Array<directus_foldersWhereInput>;
 
-    @Field(() => [directus_foldersWhereInput], {nullable:true})
-    NOT?: Array<directus_foldersWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  parent?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    parent?: UuidNullableFilter;
+  @Field(() => Directus_filesListRelationFilter, { nullable: true })
+  directus_files?: Directus_filesListRelationFilter;
 
-    @Field(() => Directus_filesListRelationFilter, {nullable:true})
-    directus_files?: Directus_filesListRelationFilter;
+  @Field(() => Directus_foldersRelationFilter, { nullable: true })
+  directus_folders?: Directus_foldersRelationFilter;
 
-    @Field(() => Directus_foldersRelationFilter, {nullable:true})
-    directus_folders?: Directus_foldersRelationFilter;
+  @Field(() => Directus_foldersListRelationFilter, { nullable: true })
+  other_directus_folders?: Directus_foldersListRelationFilter;
 
-    @Field(() => Directus_foldersListRelationFilter, {nullable:true})
-    other_directus_folders?: Directus_foldersListRelationFilter;
-
-    @Field(() => Directus_settingsListRelationFilter, {nullable:true})
-    directus_settings?: Directus_settingsListRelationFilter;
+  @Field(() => Directus_settingsListRelationFilter, { nullable: true })
+  directus_settings?: Directus_settingsListRelationFilter;
 }

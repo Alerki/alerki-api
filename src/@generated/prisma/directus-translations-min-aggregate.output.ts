@@ -3,16 +3,15 @@ import { ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_translationsMinAggregate {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:true})
-    id?: string;
+  @Field(() => String, { nullable: true })
+  language?: string;
 
-    @Field(() => String, {nullable:true})
-    language?: string;
+  @Field(() => String, { nullable: true })
+  key?: string;
 
-    @Field(() => String, {nullable:true})
-    key?: string;
-
-    @Field(() => String, {nullable:true})
-    value?: string;
+  @Field(() => String, { nullable: true })
+  value?: string;
 }

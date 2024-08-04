@@ -7,12 +7,11 @@ import { CurrencyWhereUniqueInput } from './currency-where-unique.input';
 
 @ArgsType()
 export class UpdateOneCurrencyArgs {
+  @Field(() => CurrencyUpdateInput, { nullable: false })
+  @Type(() => CurrencyUpdateInput)
+  data!: CurrencyUpdateInput;
 
-    @Field(() => CurrencyUpdateInput, {nullable:false})
-    @Type(() => CurrencyUpdateInput)
-    data!: CurrencyUpdateInput;
-
-    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
-    @Type(() => CurrencyWhereUniqueInput)
-    where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: false })
+  @Type(() => CurrencyWhereUniqueInput)
+  where!: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 }

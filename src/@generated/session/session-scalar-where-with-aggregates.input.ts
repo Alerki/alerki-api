@@ -6,28 +6,27 @@ import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-fil
 
 @InputType()
 export class SessionScalarWhereWithAggregatesInput {
+  @Field(() => [SessionScalarWhereWithAggregatesInput], { nullable: true })
+  AND?: Array<SessionScalarWhereWithAggregatesInput>;
 
-    @Field(() => [SessionScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<SessionScalarWhereWithAggregatesInput>;
+  @Field(() => [SessionScalarWhereWithAggregatesInput], { nullable: true })
+  OR?: Array<SessionScalarWhereWithAggregatesInput>;
 
-    @Field(() => [SessionScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<SessionScalarWhereWithAggregatesInput>;
+  @Field(() => [SessionScalarWhereWithAggregatesInput], { nullable: true })
+  NOT?: Array<SessionScalarWhereWithAggregatesInput>;
 
-    @Field(() => [SessionScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<SessionScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_updated?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_updated?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  deviceName?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    deviceName?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    refreshToken?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  refreshToken?: StringWithAggregatesFilter;
 }

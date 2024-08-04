@@ -6,12 +6,15 @@ import { directus_collectionsCreateWithoutDirectus_sharesInput } from './directu
 
 @InputType()
 export class directus_collectionsUpsertWithoutDirectus_sharesInput {
+  @Field(() => directus_collectionsUpdateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_collectionsUpdateWithoutDirectus_sharesInput)
+  update!: directus_collectionsUpdateWithoutDirectus_sharesInput;
 
-    @Field(() => directus_collectionsUpdateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_collectionsUpdateWithoutDirectus_sharesInput)
-    update!: directus_collectionsUpdateWithoutDirectus_sharesInput;
-
-    @Field(() => directus_collectionsCreateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_collectionsCreateWithoutDirectus_sharesInput)
-    create!: directus_collectionsCreateWithoutDirectus_sharesInput;
+  @Field(() => directus_collectionsCreateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_collectionsCreateWithoutDirectus_sharesInput)
+  create!: directus_collectionsCreateWithoutDirectus_sharesInput;
 }

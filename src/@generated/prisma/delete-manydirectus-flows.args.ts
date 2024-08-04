@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManydirectusFlowsArgs {
-
-    @Field(() => directus_flowsWhereInput, {nullable:true})
-    @Type(() => directus_flowsWhereInput)
-    where?: directus_flowsWhereInput;
+  @Field(() => directus_flowsWhereInput, { nullable: true })
+  @Type(() => directus_flowsWhereInput)
+  where?: directus_flowsWhereInput;
 }

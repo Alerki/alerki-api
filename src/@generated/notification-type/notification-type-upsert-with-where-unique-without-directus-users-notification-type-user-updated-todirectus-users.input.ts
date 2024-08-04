@@ -8,16 +8,29 @@ import { NotificationTypeCreateWithoutDirectus_users_NotificationType_user_updat
 
 @InputType()
 export class NotificationTypeUpsertWithWhereUniqueWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput {
+  @Field(() => NotificationTypeWhereUniqueInput, { nullable: false })
+  @Type(() => NotificationTypeWhereUniqueInput)
+  where!: Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>;
 
-    @Field(() => NotificationTypeWhereUniqueInput, {nullable:false})
-    @Type(() => NotificationTypeWhereUniqueInput)
-    where!: Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>;
+  @Field(
+    () =>
+      NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput,
+  )
+  update!: NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput;
 
-    @Field(() => NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput)
-    update!: NotificationTypeUpdateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput;
-
-    @Field(() => NotificationTypeCreateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => NotificationTypeCreateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput)
-    create!: NotificationTypeCreateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput;
+  @Field(
+    () =>
+      NotificationTypeCreateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      NotificationTypeCreateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput,
+  )
+  create!: NotificationTypeCreateWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput;
 }

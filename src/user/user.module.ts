@@ -9,7 +9,10 @@ import { UserController } from './user.controller';
 @Module({
   providers: [UserService, UserModuleService],
   controllers: [UserController],
-  imports: [forwardRef(() => MasterProfileModule), ServiceModule],
+  imports: [
+    // forwardRef(() => MasterProfileModule),
+    ServiceModule,
+  ],
   exports: [UserService],
 })
 export class UserModule {}

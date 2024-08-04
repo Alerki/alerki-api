@@ -6,22 +6,24 @@ import { NotificationMaxAggregate } from './notification-max-aggregate.output';
 
 @ObjectType()
 export class NotificationGroupBy {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  type!: string;
 
-    @Field(() => NotificationCountAggregate, {nullable:true})
-    _count?: NotificationCountAggregate;
+  @Field(() => NotificationCountAggregate, { nullable: true })
+  _count?: NotificationCountAggregate;
 
-    @Field(() => NotificationMinAggregate, {nullable:true})
-    _min?: NotificationMinAggregate;
+  @Field(() => NotificationMinAggregate, { nullable: true })
+  _min?: NotificationMinAggregate;
 
-    @Field(() => NotificationMaxAggregate, {nullable:true})
-    _max?: NotificationMaxAggregate;
+  @Field(() => NotificationMaxAggregate, { nullable: true })
+  _max?: NotificationMaxAggregate;
 }

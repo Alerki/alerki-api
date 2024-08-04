@@ -7,12 +7,18 @@ import { directus_filesCreateWithoutDirectus_settings_directus_settings_project_
 
 @InputType()
 export class directus_filesCreateOrConnectWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput {
+  @Field(() => directus_filesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_filesWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_filesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_filesWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput, {nullable:false})
-    @Type(() => directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput)
-    create!: directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput;
+  @Field(
+    () =>
+      directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput,
+  )
+  create!: directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput;
 }

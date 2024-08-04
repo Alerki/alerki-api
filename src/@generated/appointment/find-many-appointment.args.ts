@@ -10,23 +10,24 @@ import { AppointmentScalarFieldEnum } from './appointment-scalar-field.enum';
 
 @ArgsType()
 export class FindManyAppointmentArgs {
+  @Field(() => AppointmentWhereInput, { nullable: true })
+  @Type(() => AppointmentWhereInput)
+  where?: AppointmentWhereInput;
 
-    @Field(() => AppointmentWhereInput, {nullable:true})
-    @Type(() => AppointmentWhereInput)
-    where?: AppointmentWhereInput;
+  @Field(() => [AppointmentOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<AppointmentOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [AppointmentOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<AppointmentOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => AppointmentWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
 
-    @Field(() => AppointmentWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [AppointmentScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof AppointmentScalarFieldEnum>;
+  @Field(() => [AppointmentScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof AppointmentScalarFieldEnum>;
 }

@@ -9,20 +9,42 @@ import { directus_versionsWhereUniqueInput } from './directus-versions-where-uni
 
 @InputType()
 export class directus_versionsCreateNestedManyWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput {
+  @Field(
+    () => [
+      directus_versionsCreateWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_versionsCreateWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  create?: Array<directus_versionsCreateWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [directus_versionsCreateWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_versionsCreateWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput)
-    create?: Array<directus_versionsCreateWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput>;
+  @Field(
+    () => [
+      directus_versionsCreateOrConnectWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_versionsCreateOrConnectWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<directus_versionsCreateOrConnectWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [directus_versionsCreateOrConnectWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput], {nullable:true})
-    @Type(() => directus_versionsCreateOrConnectWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput)
-    connectOrCreate?: Array<directus_versionsCreateOrConnectWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersInput>;
+  @Field(
+    () =>
+      directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInputEnvelope,
+  )
+  createMany?: directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInputEnvelope;
 
-    @Field(() => directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInputEnvelope)
-    createMany?: directus_versionsCreateManyDirectus_users_directus_versions_user_updatedTodirectus_usersInputEnvelope;
-
-    @Field(() => [directus_versionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_versionsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_versionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_versionsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>>;
 }

@@ -6,12 +6,15 @@ import { directus_usersCreateWithoutDirectus_sessionsInput } from './directus-us
 
 @InputType()
 export class directus_usersUpsertWithoutDirectus_sessionsInput {
+  @Field(() => directus_usersUpdateWithoutDirectus_sessionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersUpdateWithoutDirectus_sessionsInput)
+  update!: directus_usersUpdateWithoutDirectus_sessionsInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_sessionsInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_sessionsInput)
-    update!: directus_usersUpdateWithoutDirectus_sessionsInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_sessionsInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_sessionsInput)
-    create!: directus_usersCreateWithoutDirectus_sessionsInput;
+  @Field(() => directus_usersCreateWithoutDirectus_sessionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_sessionsInput)
+  create!: directus_usersCreateWithoutDirectus_sessionsInput;
 }

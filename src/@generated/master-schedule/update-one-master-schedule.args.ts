@@ -7,12 +7,11 @@ import { MasterScheduleWhereUniqueInput } from './master-schedule-where-unique.i
 
 @ArgsType()
 export class UpdateOneMasterScheduleArgs {
+  @Field(() => MasterScheduleUpdateInput, { nullable: false })
+  @Type(() => MasterScheduleUpdateInput)
+  data!: MasterScheduleUpdateInput;
 
-    @Field(() => MasterScheduleUpdateInput, {nullable:false})
-    @Type(() => MasterScheduleUpdateInput)
-    data!: MasterScheduleUpdateInput;
-
-    @Field(() => MasterScheduleWhereUniqueInput, {nullable:false})
-    @Type(() => MasterScheduleWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>;
+  @Field(() => MasterScheduleWhereUniqueInput, { nullable: false })
+  @Type(() => MasterScheduleWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>;
 }

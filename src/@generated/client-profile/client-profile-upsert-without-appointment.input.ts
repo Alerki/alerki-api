@@ -6,12 +6,11 @@ import { ClientProfileCreateWithoutAppointmentInput } from './client-profile-cre
 
 @InputType()
 export class ClientProfileUpsertWithoutAppointmentInput {
+  @Field(() => ClientProfileUpdateWithoutAppointmentInput, { nullable: false })
+  @Type(() => ClientProfileUpdateWithoutAppointmentInput)
+  update!: ClientProfileUpdateWithoutAppointmentInput;
 
-    @Field(() => ClientProfileUpdateWithoutAppointmentInput, {nullable:false})
-    @Type(() => ClientProfileUpdateWithoutAppointmentInput)
-    update!: ClientProfileUpdateWithoutAppointmentInput;
-
-    @Field(() => ClientProfileCreateWithoutAppointmentInput, {nullable:false})
-    @Type(() => ClientProfileCreateWithoutAppointmentInput)
-    create!: ClientProfileCreateWithoutAppointmentInput;
+  @Field(() => ClientProfileCreateWithoutAppointmentInput, { nullable: false })
+  @Type(() => ClientProfileCreateWithoutAppointmentInput)
+  create!: ClientProfileCreateWithoutAppointmentInput;
 }

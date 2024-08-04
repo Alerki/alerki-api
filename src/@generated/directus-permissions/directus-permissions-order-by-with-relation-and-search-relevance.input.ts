@@ -6,34 +6,35 @@ import { directus_permissionsOrderByRelevanceInput } from './directus-permission
 
 @InputType()
 export class directus_permissionsOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  role?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    role?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  collection?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    collection?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  action?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    action?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  permissions?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    permissions?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  validation?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    validation?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  presets?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    presets?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  fields?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    fields?: keyof typeof SortOrder;
+  @Field(() => directus_rolesOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  directus_roles?: directus_rolesOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => directus_rolesOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    directus_roles?: directus_rolesOrderByWithRelationAndSearchRelevanceInput;
-
-    @Field(() => directus_permissionsOrderByRelevanceInput, {nullable:true})
-    _relevance?: directus_permissionsOrderByRelevanceInput;
+  @Field(() => directus_permissionsOrderByRelevanceInput, { nullable: true })
+  _relevance?: directus_permissionsOrderByRelevanceInput;
 }

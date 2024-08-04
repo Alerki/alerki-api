@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class User_SessionCreateManyUserInputEnvelope {
+  @Field(() => [User_SessionCreateManyUserInput], { nullable: false })
+  @Type(() => User_SessionCreateManyUserInput)
+  data!: Array<User_SessionCreateManyUserInput>;
 
-    @Field(() => [User_SessionCreateManyUserInput], {nullable:false})
-    @Type(() => User_SessionCreateManyUserInput)
-    data!: Array<User_SessionCreateManyUserInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

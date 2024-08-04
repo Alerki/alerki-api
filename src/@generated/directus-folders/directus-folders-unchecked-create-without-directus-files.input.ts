@@ -5,19 +5,25 @@ import { directus_settingsUncheckedCreateNestedManyWithoutDirectus_foldersInput 
 
 @InputType()
 export class directus_foldersUncheckedCreateWithoutDirectus_filesInput {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => String, { nullable: true })
+  parent?: string;
 
-    @Field(() => String, {nullable:true})
-    parent?: string;
+  @Field(
+    () => directus_foldersUncheckedCreateNestedManyWithoutDirectus_foldersInput,
+    { nullable: true },
+  )
+  other_directus_folders?: directus_foldersUncheckedCreateNestedManyWithoutDirectus_foldersInput;
 
-    @Field(() => directus_foldersUncheckedCreateNestedManyWithoutDirectus_foldersInput, {nullable:true})
-    other_directus_folders?: directus_foldersUncheckedCreateNestedManyWithoutDirectus_foldersInput;
-
-    @Field(() => directus_settingsUncheckedCreateNestedManyWithoutDirectus_foldersInput, {nullable:true})
-    directus_settings?: directus_settingsUncheckedCreateNestedManyWithoutDirectus_foldersInput;
+  @Field(
+    () =>
+      directus_settingsUncheckedCreateNestedManyWithoutDirectus_foldersInput,
+    { nullable: true },
+  )
+  directus_settings?: directus_settingsUncheckedCreateNestedManyWithoutDirectus_foldersInput;
 }

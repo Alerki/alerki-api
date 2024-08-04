@@ -6,12 +6,11 @@ import { CurrencyCreateWithoutMasterServiceInput } from './currency-create-witho
 
 @InputType()
 export class CurrencyUpsertWithoutMasterServiceInput {
+  @Field(() => CurrencyUpdateWithoutMasterServiceInput, { nullable: false })
+  @Type(() => CurrencyUpdateWithoutMasterServiceInput)
+  update!: CurrencyUpdateWithoutMasterServiceInput;
 
-    @Field(() => CurrencyUpdateWithoutMasterServiceInput, {nullable:false})
-    @Type(() => CurrencyUpdateWithoutMasterServiceInput)
-    update!: CurrencyUpdateWithoutMasterServiceInput;
-
-    @Field(() => CurrencyCreateWithoutMasterServiceInput, {nullable:false})
-    @Type(() => CurrencyCreateWithoutMasterServiceInput)
-    create!: CurrencyCreateWithoutMasterServiceInput;
+  @Field(() => CurrencyCreateWithoutMasterServiceInput, { nullable: false })
+  @Type(() => CurrencyCreateWithoutMasterServiceInput)
+  create!: CurrencyCreateWithoutMasterServiceInput;
 }

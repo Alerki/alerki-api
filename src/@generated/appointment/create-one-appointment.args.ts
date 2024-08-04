@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneAppointmentArgs {
-
-    @Field(() => AppointmentCreateInput, {nullable:false})
-    @Type(() => AppointmentCreateInput)
-    data!: AppointmentCreateInput;
+  @Field(() => AppointmentCreateInput, { nullable: false })
+  @Type(() => AppointmentCreateInput)
+  data!: AppointmentCreateInput;
 }

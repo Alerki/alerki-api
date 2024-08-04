@@ -8,16 +8,32 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateNestedOneWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput {
+  @Field(
+    () =>
+      UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+  )
+  create?: UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
 
-    @Field(() => UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput, {nullable:true})
-    @Type(() => UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput)
-    create?: UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
+  @Field(
+    () =>
+      UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+  )
+  connectOrCreate?: UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
 
-    @Field(() => UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput)
-    connectOrCreate?: UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
-
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 }

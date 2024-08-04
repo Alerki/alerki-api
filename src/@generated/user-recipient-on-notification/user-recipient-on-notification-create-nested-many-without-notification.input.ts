@@ -9,20 +9,32 @@ import { UserRecipientOnNotificationWhereUniqueInput } from './user-recipient-on
 
 @InputType()
 export class UserRecipientOnNotificationCreateNestedManyWithoutNotificationInput {
+  @Field(() => [UserRecipientOnNotificationCreateWithoutNotificationInput], {
+    nullable: true,
+  })
+  @Type(() => UserRecipientOnNotificationCreateWithoutNotificationInput)
+  create?: Array<UserRecipientOnNotificationCreateWithoutNotificationInput>;
 
-    @Field(() => [UserRecipientOnNotificationCreateWithoutNotificationInput], {nullable:true})
-    @Type(() => UserRecipientOnNotificationCreateWithoutNotificationInput)
-    create?: Array<UserRecipientOnNotificationCreateWithoutNotificationInput>;
+  @Field(
+    () => [UserRecipientOnNotificationCreateOrConnectWithoutNotificationInput],
+    { nullable: true },
+  )
+  @Type(
+    () => UserRecipientOnNotificationCreateOrConnectWithoutNotificationInput,
+  )
+  connectOrCreate?: Array<UserRecipientOnNotificationCreateOrConnectWithoutNotificationInput>;
 
-    @Field(() => [UserRecipientOnNotificationCreateOrConnectWithoutNotificationInput], {nullable:true})
-    @Type(() => UserRecipientOnNotificationCreateOrConnectWithoutNotificationInput)
-    connectOrCreate?: Array<UserRecipientOnNotificationCreateOrConnectWithoutNotificationInput>;
+  @Field(() => UserRecipientOnNotificationCreateManyNotificationInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => UserRecipientOnNotificationCreateManyNotificationInputEnvelope)
+  createMany?: UserRecipientOnNotificationCreateManyNotificationInputEnvelope;
 
-    @Field(() => UserRecipientOnNotificationCreateManyNotificationInputEnvelope, {nullable:true})
-    @Type(() => UserRecipientOnNotificationCreateManyNotificationInputEnvelope)
-    createMany?: UserRecipientOnNotificationCreateManyNotificationInputEnvelope;
-
-    @Field(() => [UserRecipientOnNotificationWhereUniqueInput], {nullable:true})
-    @Type(() => UserRecipientOnNotificationWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>>;
+  @Field(() => [UserRecipientOnNotificationWhereUniqueInput], {
+    nullable: true,
+  })
+  @Type(() => UserRecipientOnNotificationWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>
+  >;
 }

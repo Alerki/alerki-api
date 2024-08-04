@@ -6,12 +6,15 @@ import { directus_versionsCreateWithoutDirectus_revisionsInput } from './directu
 
 @InputType()
 export class directus_versionsUpsertWithoutDirectus_revisionsInput {
+  @Field(() => directus_versionsUpdateWithoutDirectus_revisionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_versionsUpdateWithoutDirectus_revisionsInput)
+  update!: directus_versionsUpdateWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_versionsUpdateWithoutDirectus_revisionsInput, {nullable:false})
-    @Type(() => directus_versionsUpdateWithoutDirectus_revisionsInput)
-    update!: directus_versionsUpdateWithoutDirectus_revisionsInput;
-
-    @Field(() => directus_versionsCreateWithoutDirectus_revisionsInput, {nullable:false})
-    @Type(() => directus_versionsCreateWithoutDirectus_revisionsInput)
-    create!: directus_versionsCreateWithoutDirectus_revisionsInput;
+  @Field(() => directus_versionsCreateWithoutDirectus_revisionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_versionsCreateWithoutDirectus_revisionsInput)
+  create!: directus_versionsCreateWithoutDirectus_revisionsInput;
 }

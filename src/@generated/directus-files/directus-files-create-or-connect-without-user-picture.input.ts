@@ -7,12 +7,11 @@ import { directus_filesCreateWithoutUserPictureInput } from './directus-files-cr
 
 @InputType()
 export class directus_filesCreateOrConnectWithoutUserPictureInput {
+  @Field(() => directus_filesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_filesWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_filesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_filesWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_filesCreateWithoutUserPictureInput, {nullable:false})
-    @Type(() => directus_filesCreateWithoutUserPictureInput)
-    create!: directus_filesCreateWithoutUserPictureInput;
+  @Field(() => directus_filesCreateWithoutUserPictureInput, { nullable: false })
+  @Type(() => directus_filesCreateWithoutUserPictureInput)
+  create!: directus_filesCreateWithoutUserPictureInput;
 }

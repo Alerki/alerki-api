@@ -8,16 +8,19 @@ import { MasterServiceCreateWithoutMasterProfileInput } from './master-service-c
 
 @InputType()
 export class MasterServiceUpsertWithWhereUniqueWithoutMasterProfileInput {
+  @Field(() => MasterServiceWhereUniqueInput, { nullable: false })
+  @Type(() => MasterServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterServiceWhereUniqueInput, {nullable:false})
-    @Type(() => MasterServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
+  @Field(() => MasterServiceUpdateWithoutMasterProfileInput, {
+    nullable: false,
+  })
+  @Type(() => MasterServiceUpdateWithoutMasterProfileInput)
+  update!: MasterServiceUpdateWithoutMasterProfileInput;
 
-    @Field(() => MasterServiceUpdateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => MasterServiceUpdateWithoutMasterProfileInput)
-    update!: MasterServiceUpdateWithoutMasterProfileInput;
-
-    @Field(() => MasterServiceCreateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => MasterServiceCreateWithoutMasterProfileInput)
-    create!: MasterServiceCreateWithoutMasterProfileInput;
+  @Field(() => MasterServiceCreateWithoutMasterProfileInput, {
+    nullable: false,
+  })
+  @Type(() => MasterServiceCreateWithoutMasterProfileInput)
+  create!: MasterServiceCreateWithoutMasterProfileInput;
 }

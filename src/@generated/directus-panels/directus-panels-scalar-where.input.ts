@@ -11,58 +11,57 @@ import { UuidNullableFilter } from '../prisma/uuid-nullable-filter.input';
 
 @InputType()
 export class directus_panelsScalarWhereInput {
+  @Field(() => [directus_panelsScalarWhereInput], { nullable: true })
+  AND?: Array<directus_panelsScalarWhereInput>;
 
-    @Field(() => [directus_panelsScalarWhereInput], {nullable:true})
-    AND?: Array<directus_panelsScalarWhereInput>;
+  @Field(() => [directus_panelsScalarWhereInput], { nullable: true })
+  OR?: Array<directus_panelsScalarWhereInput>;
 
-    @Field(() => [directus_panelsScalarWhereInput], {nullable:true})
-    OR?: Array<directus_panelsScalarWhereInput>;
+  @Field(() => [directus_panelsScalarWhereInput], { nullable: true })
+  NOT?: Array<directus_panelsScalarWhereInput>;
 
-    @Field(() => [directus_panelsScalarWhereInput], {nullable:true})
-    NOT?: Array<directus_panelsScalarWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => UuidFilter, { nullable: true })
+  dashboard?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    dashboard?: UuidFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  name?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    name?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  icon?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    icon?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  color?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    color?: StringNullableFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  show_header?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    show_header?: BoolFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  note?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    note?: StringNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  type?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    type?: StringFilter;
+  @Field(() => IntFilter, { nullable: true })
+  position_x?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    position_x?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  position_y?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    position_y?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  width?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    width?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  height?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    height?: IntFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  options?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    options?: JsonNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
-
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 }

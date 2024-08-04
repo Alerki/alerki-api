@@ -10,76 +10,75 @@ import { Directus_fieldsMaxAggregate } from './directus-fields-max-aggregate.out
 
 @ObjectType()
 export class Directus_fieldsGroupBy {
+  @Field(() => Int, { nullable: false })
+  id!: number;
 
-    @Field(() => Int, {nullable:false})
-    id!: number;
+  @Field(() => String, { nullable: false })
+  collection!: string;
 
-    @Field(() => String, {nullable:false})
-    collection!: string;
+  @Field(() => String, { nullable: false })
+  field!: string;
 
-    @Field(() => String, {nullable:false})
-    field!: string;
+  @Field(() => String, { nullable: true })
+  special?: string;
 
-    @Field(() => String, {nullable:true})
-    special?: string;
+  @Field(() => String, { nullable: true })
+  interface?: string;
 
-    @Field(() => String, {nullable:true})
-    interface?: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    options?: any;
+  @Field(() => String, { nullable: true })
+  display?: string;
 
-    @Field(() => String, {nullable:true})
-    display?: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  display_options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    display_options?: any;
+  @Field(() => Boolean, { nullable: false })
+  readonly!: boolean;
 
-    @Field(() => Boolean, {nullable:false})
-    readonly!: boolean;
+  @Field(() => Boolean, { nullable: false })
+  hidden!: boolean;
 
-    @Field(() => Boolean, {nullable:false})
-    hidden!: boolean;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => String, { nullable: true })
+  width?: string;
 
-    @Field(() => String, {nullable:true})
-    width?: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  translations?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    translations?: any;
+  @Field(() => String, { nullable: true })
+  note?: string;
 
-    @Field(() => String, {nullable:true})
-    note?: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  conditions?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    conditions?: any;
+  @Field(() => Boolean, { nullable: true })
+  required?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    required?: boolean;
+  @Field(() => String, { nullable: true })
+  group?: string;
 
-    @Field(() => String, {nullable:true})
-    group?: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  validation?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    validation?: any;
+  @Field(() => String, { nullable: true })
+  validation_message?: string;
 
-    @Field(() => String, {nullable:true})
-    validation_message?: string;
+  @Field(() => Directus_fieldsCountAggregate, { nullable: true })
+  _count?: Directus_fieldsCountAggregate;
 
-    @Field(() => Directus_fieldsCountAggregate, {nullable:true})
-    _count?: Directus_fieldsCountAggregate;
+  @Field(() => Directus_fieldsAvgAggregate, { nullable: true })
+  _avg?: Directus_fieldsAvgAggregate;
 
-    @Field(() => Directus_fieldsAvgAggregate, {nullable:true})
-    _avg?: Directus_fieldsAvgAggregate;
+  @Field(() => Directus_fieldsSumAggregate, { nullable: true })
+  _sum?: Directus_fieldsSumAggregate;
 
-    @Field(() => Directus_fieldsSumAggregate, {nullable:true})
-    _sum?: Directus_fieldsSumAggregate;
+  @Field(() => Directus_fieldsMinAggregate, { nullable: true })
+  _min?: Directus_fieldsMinAggregate;
 
-    @Field(() => Directus_fieldsMinAggregate, {nullable:true})
-    _min?: Directus_fieldsMinAggregate;
-
-    @Field(() => Directus_fieldsMaxAggregate, {nullable:true})
-    _max?: Directus_fieldsMaxAggregate;
+  @Field(() => Directus_fieldsMaxAggregate, { nullable: true })
+  _max?: Directus_fieldsMaxAggregate;
 }

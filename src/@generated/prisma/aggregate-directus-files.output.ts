@@ -8,19 +8,18 @@ import { Directus_filesMaxAggregate } from './directus-files-max-aggregate.outpu
 
 @ObjectType()
 export class AggregateDirectus_files {
+  @Field(() => Directus_filesCountAggregate, { nullable: true })
+  _count?: Directus_filesCountAggregate;
 
-    @Field(() => Directus_filesCountAggregate, {nullable:true})
-    _count?: Directus_filesCountAggregate;
+  @Field(() => Directus_filesAvgAggregate, { nullable: true })
+  _avg?: Directus_filesAvgAggregate;
 
-    @Field(() => Directus_filesAvgAggregate, {nullable:true})
-    _avg?: Directus_filesAvgAggregate;
+  @Field(() => Directus_filesSumAggregate, { nullable: true })
+  _sum?: Directus_filesSumAggregate;
 
-    @Field(() => Directus_filesSumAggregate, {nullable:true})
-    _sum?: Directus_filesSumAggregate;
+  @Field(() => Directus_filesMinAggregate, { nullable: true })
+  _min?: Directus_filesMinAggregate;
 
-    @Field(() => Directus_filesMinAggregate, {nullable:true})
-    _min?: Directus_filesMinAggregate;
-
-    @Field(() => Directus_filesMaxAggregate, {nullable:true})
-    _max?: Directus_filesMaxAggregate;
+  @Field(() => Directus_filesMaxAggregate, { nullable: true })
+  _max?: Directus_filesMaxAggregate;
 }

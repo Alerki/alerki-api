@@ -4,10 +4,9 @@ import { directus_rolesWhereInput } from '../directus-roles/directus-roles-where
 
 @InputType()
 export class Directus_rolesRelationFilter {
+  @Field(() => directus_rolesWhereInput, { nullable: true })
+  is?: directus_rolesWhereInput;
 
-    @Field(() => directus_rolesWhereInput, {nullable:true})
-    is?: directus_rolesWhereInput;
-
-    @Field(() => directus_rolesWhereInput, {nullable:true})
-    isNot?: directus_rolesWhereInput;
+  @Field(() => directus_rolesWhereInput, { nullable: true })
+  isNot?: directus_rolesWhereInput;
 }

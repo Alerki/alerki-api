@@ -13,48 +13,64 @@ import { directus_sessionsScalarWhereInput } from './directus-sessions-scalar-wh
 
 @InputType()
 export class directus_sessionsUpdateManyWithoutDirectus_usersNestedInput {
+  @Field(() => [directus_sessionsCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sessionsCreateWithoutDirectus_usersInput)
+  create?: Array<directus_sessionsCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sessionsCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sessionsCreateWithoutDirectus_usersInput)
-    create?: Array<directus_sessionsCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_sessionsCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sessionsCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_sessionsCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sessionsCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sessionsCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_sessionsCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(
+    () => [directus_sessionsUpsertWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_sessionsUpsertWithWhereUniqueWithoutDirectus_usersInput)
+  upsert?: Array<directus_sessionsUpsertWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sessionsUpsertWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sessionsUpsertWithWhereUniqueWithoutDirectus_usersInput)
-    upsert?: Array<directus_sessionsUpsertWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(() => directus_sessionsCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_sessionsCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_sessionsCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_sessionsCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_sessionsCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_sessionsCreateManyDirectus_usersInputEnvelope;
+  @Field(() => [directus_sessionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
 
-    @Field(() => [directus_sessionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
+  @Field(() => [directus_sessionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  disconnect?: Array<
+    Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>
+  >;
 
-    @Field(() => [directus_sessionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
+  @Field(() => [directus_sessionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
 
-    @Field(() => [directus_sessionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
+  @Field(() => [directus_sessionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
 
-    @Field(() => [directus_sessionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>>;
+  @Field(
+    () => [directus_sessionsUpdateWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_sessionsUpdateWithWhereUniqueWithoutDirectus_usersInput)
+  update?: Array<directus_sessionsUpdateWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sessionsUpdateWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sessionsUpdateWithWhereUniqueWithoutDirectus_usersInput)
-    update?: Array<directus_sessionsUpdateWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(
+    () => [directus_sessionsUpdateManyWithWhereWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_sessionsUpdateManyWithWhereWithoutDirectus_usersInput)
+  updateMany?: Array<directus_sessionsUpdateManyWithWhereWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sessionsUpdateManyWithWhereWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sessionsUpdateManyWithWhereWithoutDirectus_usersInput)
-    updateMany?: Array<directus_sessionsUpdateManyWithWhereWithoutDirectus_usersInput>;
-
-    @Field(() => [directus_sessionsScalarWhereInput], {nullable:true})
-    @Type(() => directus_sessionsScalarWhereInput)
-    deleteMany?: Array<directus_sessionsScalarWhereInput>;
+  @Field(() => [directus_sessionsScalarWhereInput], { nullable: true })
+  @Type(() => directus_sessionsScalarWhereInput)
+  deleteMany?: Array<directus_sessionsScalarWhereInput>;
 }

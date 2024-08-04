@@ -12,29 +12,30 @@ import { UserPictureMaxAggregateInput } from './user-picture-max-aggregate.input
 
 @ArgsType()
 export class UserPictureAggregateArgs {
+  @Field(() => UserPictureWhereInput, { nullable: true })
+  @Type(() => UserPictureWhereInput)
+  where?: UserPictureWhereInput;
 
-    @Field(() => UserPictureWhereInput, {nullable:true})
-    @Type(() => UserPictureWhereInput)
-    where?: UserPictureWhereInput;
+  @Field(() => [UserPictureOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<UserPictureOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [UserPictureOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<UserPictureOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => UserPictureWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
 
-    @Field(() => UserPictureWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => UserPictureCountAggregateInput, { nullable: true })
+  _count?: UserPictureCountAggregateInput;
 
-    @Field(() => UserPictureCountAggregateInput, {nullable:true})
-    _count?: UserPictureCountAggregateInput;
+  @Field(() => UserPictureMinAggregateInput, { nullable: true })
+  _min?: UserPictureMinAggregateInput;
 
-    @Field(() => UserPictureMinAggregateInput, {nullable:true})
-    _min?: UserPictureMinAggregateInput;
-
-    @Field(() => UserPictureMaxAggregateInput, {nullable:true})
-    _max?: UserPictureMaxAggregateInput;
+  @Field(() => UserPictureMaxAggregateInput, { nullable: true })
+  _max?: UserPictureMaxAggregateInput;
 }

@@ -7,12 +7,11 @@ import { UserPictureCreateWithoutDirectus_filesInput } from './user-picture-crea
 
 @InputType()
 export class UserPictureCreateOrConnectWithoutDirectus_filesInput {
+  @Field(() => UserPictureWhereUniqueInput, { nullable: false })
+  @Type(() => UserPictureWhereUniqueInput)
+  where!: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
 
-    @Field(() => UserPictureWhereUniqueInput, {nullable:false})
-    @Type(() => UserPictureWhereUniqueInput)
-    where!: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
-
-    @Field(() => UserPictureCreateWithoutDirectus_filesInput, {nullable:false})
-    @Type(() => UserPictureCreateWithoutDirectus_filesInput)
-    create!: UserPictureCreateWithoutDirectus_filesInput;
+  @Field(() => UserPictureCreateWithoutDirectus_filesInput, { nullable: false })
+  @Type(() => UserPictureCreateWithoutDirectus_filesInput)
+  create!: UserPictureCreateWithoutDirectus_filesInput;
 }

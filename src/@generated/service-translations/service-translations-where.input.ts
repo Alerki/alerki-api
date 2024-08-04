@@ -10,34 +10,33 @@ import { ServiceRelationFilter } from '../service/service-relation-filter.input'
 
 @InputType()
 export class Service_translationsWhereInput {
+  @Field(() => [Service_translationsWhereInput], { nullable: true })
+  AND?: Array<Service_translationsWhereInput>;
 
-    @Field(() => [Service_translationsWhereInput], {nullable:true})
-    AND?: Array<Service_translationsWhereInput>;
+  @Field(() => [Service_translationsWhereInput], { nullable: true })
+  OR?: Array<Service_translationsWhereInput>;
 
-    @Field(() => [Service_translationsWhereInput], {nullable:true})
-    OR?: Array<Service_translationsWhereInput>;
+  @Field(() => [Service_translationsWhereInput], { nullable: true })
+  NOT?: Array<Service_translationsWhereInput>;
 
-    @Field(() => [Service_translationsWhereInput], {nullable:true})
-    NOT?: Array<Service_translationsWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  Service_id?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    Service_id?: UuidNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  languages_id?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    languages_id?: StringNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => MasterServiceListRelationFilter, { nullable: true })
+  MasterService?: MasterServiceListRelationFilter;
 
-    @Field(() => MasterServiceListRelationFilter, {nullable:true})
-    MasterService?: MasterServiceListRelationFilter;
+  @Field(() => LanguagesRelationFilter, { nullable: true })
+  languages?: LanguagesRelationFilter;
 
-    @Field(() => LanguagesRelationFilter, {nullable:true})
-    languages?: LanguagesRelationFilter;
-
-    @Field(() => ServiceRelationFilter, {nullable:true})
-    Service?: ServiceRelationFilter;
+  @Field(() => ServiceRelationFilter, { nullable: true })
+  Service?: ServiceRelationFilter;
 }

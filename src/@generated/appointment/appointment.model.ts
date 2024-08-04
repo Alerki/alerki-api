@@ -8,55 +8,54 @@ import { MasterProfile } from '../master-profile/master-profile.model';
 
 @ObjectType()
 export class Appointment {
+  @Field(() => ID, { nullable: false })
+  id!: string;
 
-    @Field(() => ID, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_created!: Date | null;
+  @Field(() => Date, { nullable: true })
+  date_updated!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_updated!: Date | null;
+  @Field(() => String, { nullable: false })
+  masterService!: string;
 
-    @Field(() => String, {nullable:false})
-    masterService!: string;
+  @Field(() => String, { nullable: false })
+  clientProfile!: string;
 
-    @Field(() => String, {nullable:false})
-    clientProfile!: string;
+  @Field(() => String, { nullable: false })
+  masterProfile!: string;
 
-    @Field(() => String, {nullable:false})
-    masterProfile!: string;
+  @Field(() => Date, { nullable: false })
+  duration!: Date;
 
-    @Field(() => Date, {nullable:false})
-    duration!: Date;
+  @Field(() => Int, { nullable: false })
+  price!: number;
 
-    @Field(() => Int, {nullable:false})
-    price!: number;
+  @Field(() => String, { nullable: false })
+  currency!: string;
 
-    @Field(() => String, {nullable:false})
-    currency!: string;
+  @Field(() => Date, { nullable: false })
+  startAt!: Date;
 
-    @Field(() => Date, {nullable:false})
-    startAt!: Date;
+  @Field(() => Date, { nullable: false })
+  endAt!: Date;
 
-    @Field(() => Date, {nullable:false})
-    endAt!: Date;
+  @Field(() => Boolean, { nullable: false, defaultValue: false })
+  confirmed!: boolean;
 
-    @Field(() => Boolean, {nullable:false,defaultValue:false})
-    confirmed!: boolean;
+  @Field(() => Boolean, { nullable: false, defaultValue: false })
+  cancelled!: boolean;
 
-    @Field(() => Boolean, {nullable:false,defaultValue:false})
-    cancelled!: boolean;
+  @Field(() => ClientProfile, { nullable: false })
+  ClientProfile?: ClientProfile;
 
-    @Field(() => ClientProfile, {nullable:false})
-    ClientProfile?: ClientProfile;
+  @Field(() => Currency, { nullable: false })
+  Currency?: Currency;
 
-    @Field(() => Currency, {nullable:false})
-    Currency?: Currency;
+  @Field(() => MasterProfile, { nullable: false })
+  MasterProfile_Appointment_masterProfileToMasterProfile?: MasterProfile;
 
-    @Field(() => MasterProfile, {nullable:false})
-    MasterProfile_Appointment_masterProfileToMasterProfile?: MasterProfile;
-
-    @Field(() => MasterProfile, {nullable:false})
-    MasterProfile_Appointment_masterServiceToMasterProfile?: MasterProfile;
+  @Field(() => MasterProfile, { nullable: false })
+  MasterProfile_Appointment_masterServiceToMasterProfile?: MasterProfile;
 }

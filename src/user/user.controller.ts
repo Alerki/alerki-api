@@ -59,21 +59,18 @@ export class UserController {
   //   private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
   //   private readonly masterScheduleService: MasterScheduleService,
   // ) {}
-
   // @ApiBearerAuth('Bearer')
   // @UseGuards(JwtAuthGuard)
   // @Get('enable-master')
   // async enableMaster(@GetUserFromRequest() user: IJwtTokenData) {
   //   return this.userModuleService.enableMaster(user);
   // }
-
   // @ApiBearerAuth('Bearer')
   // @UseGuards(JwtAuthGuard)
   // @Get('disable-master')
   // async disableMaster(@GetUserFromRequest() user: IJwtTokenData) {
   //   return this.userModuleService.disableMaster(user);
   // }
-
   // @ApiBearerAuth('Bearer')
   // @UseGuards(JwtAuthGuard)
   // @Post('master/service')
@@ -83,12 +80,10 @@ export class UserController {
   // ) {
   //   return this.userModuleService.createMasterService(user, data);
   // }
-
   // @Get('master/:id/service')
   // async getMasterServices(@Param('id', ParseUUIDPipe) id: string) {
   //   return this.userModuleService.getMasterServicesByMasterId(id);
   // }
-
   // @ApiBearerAuth('Bearer')
   // @UseGuards(JwtAuthGuard)
   // @Patch('master/service/:id')
@@ -99,7 +94,6 @@ export class UserController {
   // ) {
   //   return this.userModuleService.updateMasterService(serviceId, user, data);
   // }
-
   // @ApiBearerAuth('Bearer')
   // @UseGuards(JwtAuthGuard)
   // @Delete('master/service/:id')
@@ -109,7 +103,6 @@ export class UserController {
   // ) {
   //   return this.userModuleService.deleteMasterService(serviceId, user);
   // }
-
   // @ApiBearerAuth('Bearer')
   // @ApiOkResponse({
   //   type: MasterWeeklyScheduleDto,
@@ -122,7 +115,6 @@ export class UserController {
   // ) {
   //   return this.masterWeeklyScheduleService.updateWeeklySchedule(user, data);
   // }
-
   // @ApiOperation({
   //   summary: 'Create master schedule',
   //   description: 'Create master schedule',
@@ -139,7 +131,6 @@ export class UserController {
   // ) {
   //   return this.masterScheduleService.create(user, data);
   // }
-
   // @ApiOperation({
   //   summary: 'Update master schedule',
   //   description: 'Update master schedule',
@@ -163,7 +154,6 @@ export class UserController {
   // ) {
   //   return this.masterScheduleService.updateSchedule(user, id, data);
   // }
-
   // @ApiOperation({
   //   summary: 'Get master schedule',
   //   description: 'Get master schedule',
@@ -184,7 +174,6 @@ export class UserController {
   // ) {
   //   return this.masterScheduleService.getMasterSchedule(masterId, query);
   // }
-
   // @ApiOperation({
   //   summary: 'Get master schedule',
   //   description: 'Get master schedule',
@@ -202,7 +191,6 @@ export class UserController {
   // async getMasterScheduleById(@Param('scheduleId') scheduleId: string) {
   //   return this.masterScheduleService.getMasterScheduleById(scheduleId);
   // }
-
   // @ApiOperation({
   //   summary: 'Get master calendar',
   //   description: 'Get master calendar',
@@ -223,7 +211,6 @@ export class UserController {
   // ) {
   //   return this.masterScheduleService.getMasterCalendar(masterId, query);
   // }
-
   // @ApiOperation({
   //   summary: 'Get slots for specific day',
   //   description: 'Get slots for specific day',
@@ -241,7 +228,6 @@ export class UserController {
   // ) {
   //   return this.masterScheduleService.getSlots(serviceId, query);
   // }
-
   // @ApiOperation({
   //   summary: 'Get master weekly schedule',
   //   description: 'Get master weekly schedule',
@@ -261,26 +247,22 @@ export class UserController {
   // async getMasterWeeklySchedule(@Param('id') id: string) {
   //   return this.masterWeeklyScheduleService.getMasterWeeklySchedule(id);
   // }
-
   // @Get(':username')
   // async getUser(@Param('username') username: string) {
   //   return this.userModuleService.getUser(username);
   // }
-
   // @ApiBearerAuth('Bearer')
   // @UseGuards(JwtAuthGuard)
   // @Get('')
   // async getProtectedUser(@Req() req: ProtectedRequest) {
   //   return this.userModuleService.getProtectedUser(req.user);
   // }
-
   // @ApiBearerAuth('Bearer')
   // @UseGuards(JwtAuthGuard)
   // @Patch()
   // async updateUser(@Req() req: ProtectedRequest, @Body() data: UpdateUserDto) {
   //   return this.userModuleService.updateUser(req.user, data);
   // }
-
   // @ApiParam({ name: 'id', description: 'Picture ID' })
   // @Get('picture/:id')
   // async getPicture(
@@ -288,13 +270,10 @@ export class UserController {
   //   @Res() res: Response,
   // ) {
   //   const { picture } = await this.userModuleService.getPicture(id);
-
   //   // const pictureType = await imageType(picture);
-
   //   // res.type(pictureType!.mime || 'jpg');
   //   // res.send(picture);
   // }
-
   // @ApiBearerAuth('Bearer')
   // @ApiConsumes('multipart/form-data')
   // @UseInterceptors(FileInterceptor('picture'))
@@ -320,7 +299,6 @@ export class UserController {
   //     picture,
   //   });
   // }
-
   // @ApiBearerAuth('Bearer')
   // @UseGuards(JwtAuthGuard)
   // @Delete('picture')

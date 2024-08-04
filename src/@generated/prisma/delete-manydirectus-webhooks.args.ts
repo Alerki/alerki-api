@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManydirectusWebhooksArgs {
-
-    @Field(() => directus_webhooksWhereInput, {nullable:true})
-    @Type(() => directus_webhooksWhereInput)
-    where?: directus_webhooksWhereInput;
+  @Field(() => directus_webhooksWhereInput, { nullable: true })
+  @Type(() => directus_webhooksWhereInput)
+  where?: directus_webhooksWhereInput;
 }

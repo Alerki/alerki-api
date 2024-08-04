@@ -7,12 +7,14 @@ import { UserUpdateWithoutClientProfileInput } from './user-update-without-clien
 
 @InputType()
 export class UserUpdateWithWhereUniqueWithoutClientProfileInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserUpdateWithoutClientProfileInput, {nullable:false})
-    @Type(() => UserUpdateWithoutClientProfileInput)
-    data!: UserUpdateWithoutClientProfileInput;
+  @Field(() => UserUpdateWithoutClientProfileInput, { nullable: false })
+  @Type(() => UserUpdateWithoutClientProfileInput)
+  data!: UserUpdateWithoutClientProfileInput;
 }

@@ -6,12 +6,11 @@ import { directus_sharesUpdateManyMutationInput } from './directus-shares-update
 
 @InputType()
 export class directus_sharesUpdateManyWithWhereWithoutDirectus_rolesInput {
+  @Field(() => directus_sharesScalarWhereInput, { nullable: false })
+  @Type(() => directus_sharesScalarWhereInput)
+  where!: directus_sharesScalarWhereInput;
 
-    @Field(() => directus_sharesScalarWhereInput, {nullable:false})
-    @Type(() => directus_sharesScalarWhereInput)
-    where!: directus_sharesScalarWhereInput;
-
-    @Field(() => directus_sharesUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_sharesUpdateManyMutationInput)
-    data!: directus_sharesUpdateManyMutationInput;
+  @Field(() => directus_sharesUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_sharesUpdateManyMutationInput)
+  data!: directus_sharesUpdateManyMutationInput;
 }

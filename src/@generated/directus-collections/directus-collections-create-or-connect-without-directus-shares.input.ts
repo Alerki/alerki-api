@@ -7,12 +7,13 @@ import { directus_collectionsCreateWithoutDirectus_sharesInput } from './directu
 
 @InputType()
 export class directus_collectionsCreateOrConnectWithoutDirectus_sharesInput {
+  @Field(() => directus_collectionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_collectionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>;
 
-    @Field(() => directus_collectionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_collectionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>;
-
-    @Field(() => directus_collectionsCreateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_collectionsCreateWithoutDirectus_sharesInput)
-    create!: directus_collectionsCreateWithoutDirectus_sharesInput;
+  @Field(() => directus_collectionsCreateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_collectionsCreateWithoutDirectus_sharesInput)
+  create!: directus_collectionsCreateWithoutDirectus_sharesInput;
 }

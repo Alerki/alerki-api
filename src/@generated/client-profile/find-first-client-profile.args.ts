@@ -10,23 +10,24 @@ import { ClientProfileScalarFieldEnum } from './client-profile-scalar-field.enum
 
 @ArgsType()
 export class FindFirstClientProfileArgs {
+  @Field(() => ClientProfileWhereInput, { nullable: true })
+  @Type(() => ClientProfileWhereInput)
+  where?: ClientProfileWhereInput;
 
-    @Field(() => ClientProfileWhereInput, {nullable:true})
-    @Type(() => ClientProfileWhereInput)
-    where?: ClientProfileWhereInput;
+  @Field(() => [ClientProfileOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<ClientProfileOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [ClientProfileOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<ClientProfileOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [ClientProfileScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof ClientProfileScalarFieldEnum>;
+  @Field(() => [ClientProfileScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof ClientProfileScalarFieldEnum>;
 }

@@ -13,67 +13,66 @@ import { Directus_usersRelationFilter } from '../prisma/directus-users-relation-
 
 @InputType()
 export class directus_operationsWhereInput {
+  @Field(() => [directus_operationsWhereInput], { nullable: true })
+  AND?: Array<directus_operationsWhereInput>;
 
-    @Field(() => [directus_operationsWhereInput], {nullable:true})
-    AND?: Array<directus_operationsWhereInput>;
+  @Field(() => [directus_operationsWhereInput], { nullable: true })
+  OR?: Array<directus_operationsWhereInput>;
 
-    @Field(() => [directus_operationsWhereInput], {nullable:true})
-    OR?: Array<directus_operationsWhereInput>;
+  @Field(() => [directus_operationsWhereInput], { nullable: true })
+  NOT?: Array<directus_operationsWhereInput>;
 
-    @Field(() => [directus_operationsWhereInput], {nullable:true})
-    NOT?: Array<directus_operationsWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  name?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    name?: StringNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  key?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    key?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  type?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    type?: StringFilter;
+  @Field(() => IntFilter, { nullable: true })
+  position_x?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    position_x?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  position_y?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    position_y?: IntFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  options?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    options?: JsonNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  resolve?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    resolve?: UuidNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  reject?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    reject?: UuidNullableFilter;
+  @Field(() => UuidFilter, { nullable: true })
+  flow?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    flow?: UuidFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
+  @Field(() => Directus_flowsRelationFilter, { nullable: true })
+  directus_flows?: Directus_flowsRelationFilter;
 
-    @Field(() => Directus_flowsRelationFilter, {nullable:true})
-    directus_flows?: Directus_flowsRelationFilter;
+  @Field(() => Directus_operationsRelationFilter, { nullable: true })
+  directus_operations_directus_operations_rejectTodirectus_operations?: Directus_operationsRelationFilter;
 
-    @Field(() => Directus_operationsRelationFilter, {nullable:true})
-    directus_operations_directus_operations_rejectTodirectus_operations?: Directus_operationsRelationFilter;
+  @Field(() => Directus_operationsRelationFilter, { nullable: true })
+  other_directus_operations_directus_operations_rejectTodirectus_operations?: Directus_operationsRelationFilter;
 
-    @Field(() => Directus_operationsRelationFilter, {nullable:true})
-    other_directus_operations_directus_operations_rejectTodirectus_operations?: Directus_operationsRelationFilter;
+  @Field(() => Directus_operationsRelationFilter, { nullable: true })
+  directus_operations_directus_operations_resolveTodirectus_operations?: Directus_operationsRelationFilter;
 
-    @Field(() => Directus_operationsRelationFilter, {nullable:true})
-    directus_operations_directus_operations_resolveTodirectus_operations?: Directus_operationsRelationFilter;
+  @Field(() => Directus_operationsRelationFilter, { nullable: true })
+  other_directus_operations_directus_operations_resolveTodirectus_operations?: Directus_operationsRelationFilter;
 
-    @Field(() => Directus_operationsRelationFilter, {nullable:true})
-    other_directus_operations_directus_operations_resolveTodirectus_operations?: Directus_operationsRelationFilter;
-
-    @Field(() => Directus_usersRelationFilter, {nullable:true})
-    directus_users?: Directus_usersRelationFilter;
+  @Field(() => Directus_usersRelationFilter, { nullable: true })
+  directus_users?: Directus_usersRelationFilter;
 }

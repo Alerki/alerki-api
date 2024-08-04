@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyAppointmentArgs {
-
-    @Field(() => AppointmentWhereInput, {nullable:true})
-    @Type(() => AppointmentWhereInput)
-    where?: AppointmentWhereInput;
+  @Field(() => AppointmentWhereInput, { nullable: true })
+  @Type(() => AppointmentWhereInput)
+  where?: AppointmentWhereInput;
 }

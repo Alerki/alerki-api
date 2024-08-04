@@ -6,12 +6,13 @@ import { UserRecipientOnNotificationWhereInput } from './user-recipient-on-notif
 
 @ArgsType()
 export class UpdateManyUserRecipientOnNotificationArgs {
+  @Field(() => UserRecipientOnNotificationUpdateManyMutationInput, {
+    nullable: false,
+  })
+  @Type(() => UserRecipientOnNotificationUpdateManyMutationInput)
+  data!: UserRecipientOnNotificationUpdateManyMutationInput;
 
-    @Field(() => UserRecipientOnNotificationUpdateManyMutationInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationUpdateManyMutationInput)
-    data!: UserRecipientOnNotificationUpdateManyMutationInput;
-
-    @Field(() => UserRecipientOnNotificationWhereInput, {nullable:true})
-    @Type(() => UserRecipientOnNotificationWhereInput)
-    where?: UserRecipientOnNotificationWhereInput;
+  @Field(() => UserRecipientOnNotificationWhereInput, { nullable: true })
+  @Type(() => UserRecipientOnNotificationWhereInput)
+  where?: UserRecipientOnNotificationWhereInput;
 }

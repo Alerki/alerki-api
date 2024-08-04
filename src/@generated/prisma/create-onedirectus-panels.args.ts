@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusPanelsArgs {
-
-    @Field(() => directus_panelsCreateInput, {nullable:false})
-    @Type(() => directus_panelsCreateInput)
-    data!: directus_panelsCreateInput;
+  @Field(() => directus_panelsCreateInput, { nullable: false })
+  @Type(() => directus_panelsCreateInput)
+  data!: directus_panelsCreateInput;
 }

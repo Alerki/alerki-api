@@ -7,12 +7,21 @@ import { directus_usersCreateWithoutCurrency_Currency_user_createdTodirectus_use
 
 @InputType()
 export class directus_usersCreateOrConnectWithoutCurrency_Currency_user_createdTodirectus_usersInput {
+  @Field(() => directus_usersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_usersWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_usersWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersCreateWithoutCurrency_Currency_user_createdTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutCurrency_Currency_user_createdTodirectus_usersInput)
-    create!: directus_usersCreateWithoutCurrency_Currency_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateWithoutCurrency_Currency_user_createdTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutCurrency_Currency_user_createdTodirectus_usersInput,
+  )
+  create!: directus_usersCreateWithoutCurrency_Currency_user_createdTodirectus_usersInput;
 }

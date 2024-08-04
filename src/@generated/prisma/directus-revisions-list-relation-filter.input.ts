@@ -4,13 +4,12 @@ import { directus_revisionsWhereInput } from '../directus-revisions/directus-rev
 
 @InputType()
 export class Directus_revisionsListRelationFilter {
+  @Field(() => directus_revisionsWhereInput, { nullable: true })
+  every?: directus_revisionsWhereInput;
 
-    @Field(() => directus_revisionsWhereInput, {nullable:true})
-    every?: directus_revisionsWhereInput;
+  @Field(() => directus_revisionsWhereInput, { nullable: true })
+  some?: directus_revisionsWhereInput;
 
-    @Field(() => directus_revisionsWhereInput, {nullable:true})
-    some?: directus_revisionsWhereInput;
-
-    @Field(() => directus_revisionsWhereInput, {nullable:true})
-    none?: directus_revisionsWhereInput;
+  @Field(() => directus_revisionsWhereInput, { nullable: true })
+  none?: directus_revisionsWhereInput;
 }

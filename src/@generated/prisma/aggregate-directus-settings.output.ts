@@ -8,19 +8,18 @@ import { Directus_settingsMaxAggregate } from './directus-settings-max-aggregate
 
 @ObjectType()
 export class AggregateDirectus_settings {
+  @Field(() => Directus_settingsCountAggregate, { nullable: true })
+  _count?: Directus_settingsCountAggregate;
 
-    @Field(() => Directus_settingsCountAggregate, {nullable:true})
-    _count?: Directus_settingsCountAggregate;
+  @Field(() => Directus_settingsAvgAggregate, { nullable: true })
+  _avg?: Directus_settingsAvgAggregate;
 
-    @Field(() => Directus_settingsAvgAggregate, {nullable:true})
-    _avg?: Directus_settingsAvgAggregate;
+  @Field(() => Directus_settingsSumAggregate, { nullable: true })
+  _sum?: Directus_settingsSumAggregate;
 
-    @Field(() => Directus_settingsSumAggregate, {nullable:true})
-    _sum?: Directus_settingsSumAggregate;
+  @Field(() => Directus_settingsMinAggregate, { nullable: true })
+  _min?: Directus_settingsMinAggregate;
 
-    @Field(() => Directus_settingsMinAggregate, {nullable:true})
-    _min?: Directus_settingsMinAggregate;
-
-    @Field(() => Directus_settingsMaxAggregate, {nullable:true})
-    _max?: Directus_settingsMaxAggregate;
+  @Field(() => Directus_settingsMaxAggregate, { nullable: true })
+  _max?: Directus_settingsMaxAggregate;
 }

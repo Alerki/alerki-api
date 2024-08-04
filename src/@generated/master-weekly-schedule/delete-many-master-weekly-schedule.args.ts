@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyMasterWeeklyScheduleArgs {
-
-    @Field(() => MasterWeeklyScheduleWhereInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleWhereInput)
-    where?: MasterWeeklyScheduleWhereInput;
+  @Field(() => MasterWeeklyScheduleWhereInput, { nullable: true })
+  @Type(() => MasterWeeklyScheduleWhereInput)
+  where?: MasterWeeklyScheduleWhereInput;
 }

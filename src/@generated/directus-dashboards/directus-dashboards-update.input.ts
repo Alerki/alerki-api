@@ -8,28 +8,31 @@ import { directus_panelsUpdateManyWithoutDirectus_dashboardsNestedInput } from '
 
 @InputType()
 export class directus_dashboardsUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  icon?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    icon?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  note?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    note?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  color?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    color?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => directus_usersUpdateOneWithoutDirectus_dashboardsNestedInput, {
+    nullable: true,
+  })
+  directus_users?: directus_usersUpdateOneWithoutDirectus_dashboardsNestedInput;
 
-    @Field(() => directus_usersUpdateOneWithoutDirectus_dashboardsNestedInput, {nullable:true})
-    directus_users?: directus_usersUpdateOneWithoutDirectus_dashboardsNestedInput;
-
-    @Field(() => directus_panelsUpdateManyWithoutDirectus_dashboardsNestedInput, {nullable:true})
-    directus_panels?: directus_panelsUpdateManyWithoutDirectus_dashboardsNestedInput;
+  @Field(() => directus_panelsUpdateManyWithoutDirectus_dashboardsNestedInput, {
+    nullable: true,
+  })
+  directus_panels?: directus_panelsUpdateManyWithoutDirectus_dashboardsNestedInput;
 }

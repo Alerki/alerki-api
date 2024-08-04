@@ -4,10 +4,9 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_presetsSumAggregate {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
-
-    @Field(() => Int, {nullable:true})
-    refresh_interval?: number;
+  @Field(() => Int, { nullable: true })
+  refresh_interval?: number;
 }

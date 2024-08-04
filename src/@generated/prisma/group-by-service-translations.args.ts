@@ -9,23 +9,26 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class GroupByServiceTranslationsArgs {
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  @Type(() => Service_translationsWhereInput)
+  where?: Service_translationsWhereInput;
 
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    @Type(() => Service_translationsWhereInput)
-    where?: Service_translationsWhereInput;
+  @Field(() => [Service_translationsOrderByWithAggregationInput], {
+    nullable: true,
+  })
+  orderBy?: Array<Service_translationsOrderByWithAggregationInput>;
 
-    @Field(() => [Service_translationsOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<Service_translationsOrderByWithAggregationInput>;
+  @Field(() => [Service_translationsScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof Service_translationsScalarFieldEnum>;
 
-    @Field(() => [Service_translationsScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof Service_translationsScalarFieldEnum>;
+  @Field(() => Service_translationsScalarWhereWithAggregatesInput, {
+    nullable: true,
+  })
+  having?: Service_translationsScalarWhereWithAggregatesInput;
 
-    @Field(() => Service_translationsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: Service_translationsScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

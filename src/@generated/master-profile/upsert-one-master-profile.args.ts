@@ -8,16 +8,15 @@ import { MasterProfileUpdateInput } from './master-profile-update.input';
 
 @ArgsType()
 export class UpsertOneMasterProfileArgs {
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: false })
+  @Type(() => MasterProfileWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:false})
-    @Type(() => MasterProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
+  @Field(() => MasterProfileCreateInput, { nullable: false })
+  @Type(() => MasterProfileCreateInput)
+  create!: MasterProfileCreateInput;
 
-    @Field(() => MasterProfileCreateInput, {nullable:false})
-    @Type(() => MasterProfileCreateInput)
-    create!: MasterProfileCreateInput;
-
-    @Field(() => MasterProfileUpdateInput, {nullable:false})
-    @Type(() => MasterProfileUpdateInput)
-    update!: MasterProfileUpdateInput;
+  @Field(() => MasterProfileUpdateInput, { nullable: false })
+  @Type(() => MasterProfileUpdateInput)
+  update!: MasterProfileUpdateInput;
 }

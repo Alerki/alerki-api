@@ -4,10 +4,9 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class MasterServiceAvgOrderByAggregateInput {
+  @Field(() => SortOrder, { nullable: true })
+  price?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    price?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    service?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  service?: keyof typeof SortOrder;
 }

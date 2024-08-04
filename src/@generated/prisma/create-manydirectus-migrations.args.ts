@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManydirectusMigrationsArgs {
+  @Field(() => [directus_migrationsCreateManyInput], { nullable: false })
+  @Type(() => directus_migrationsCreateManyInput)
+  data!: Array<directus_migrationsCreateManyInput>;
 
-    @Field(() => [directus_migrationsCreateManyInput], {nullable:false})
-    @Type(() => directus_migrationsCreateManyInput)
-    data!: Array<directus_migrationsCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

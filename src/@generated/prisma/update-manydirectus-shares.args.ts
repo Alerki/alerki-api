@@ -6,12 +6,11 @@ import { directus_sharesWhereInput } from '../directus-shares/directus-shares-wh
 
 @ArgsType()
 export class UpdateManydirectusSharesArgs {
+  @Field(() => directus_sharesUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_sharesUpdateManyMutationInput)
+  data!: directus_sharesUpdateManyMutationInput;
 
-    @Field(() => directus_sharesUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_sharesUpdateManyMutationInput)
-    data!: directus_sharesUpdateManyMutationInput;
-
-    @Field(() => directus_sharesWhereInput, {nullable:true})
-    @Type(() => directus_sharesWhereInput)
-    where?: directus_sharesWhereInput;
+  @Field(() => directus_sharesWhereInput, { nullable: true })
+  @Type(() => directus_sharesWhereInput)
+  where?: directus_sharesWhereInput;
 }

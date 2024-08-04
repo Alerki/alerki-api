@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class MasterWeeklyScheduleCount {
-
-    @Field(() => Int, {nullable:false})
-    MasterProfile?: number;
+  @Field(() => Int, { nullable: false })
+  MasterProfile?: number;
 }

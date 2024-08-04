@@ -6,12 +6,11 @@ import { directus_filesWhereInput } from '../directus-files/directus-files-where
 
 @ArgsType()
 export class UpdateManydirectusFilesArgs {
+  @Field(() => directus_filesUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_filesUpdateManyMutationInput)
+  data!: directus_filesUpdateManyMutationInput;
 
-    @Field(() => directus_filesUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_filesUpdateManyMutationInput)
-    data!: directus_filesUpdateManyMutationInput;
-
-    @Field(() => directus_filesWhereInput, {nullable:true})
-    @Type(() => directus_filesWhereInput)
-    where?: directus_filesWhereInput;
+  @Field(() => directus_filesWhereInput, { nullable: true })
+  @Type(() => directus_filesWhereInput)
+  where?: directus_filesWhereInput;
 }

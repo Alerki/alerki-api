@@ -1,9 +1,11 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum MasterWeeklyScheduleOrderByRelevanceFieldEnum {
-    id = "id",
-    status = "status"
+  id = 'id',
+  status = 'status',
 }
 
-
-registerEnumType(MasterWeeklyScheduleOrderByRelevanceFieldEnum, { name: 'MasterWeeklyScheduleOrderByRelevanceFieldEnum', description: undefined })
+registerEnumType(MasterWeeklyScheduleOrderByRelevanceFieldEnum, {
+  name: 'MasterWeeklyScheduleOrderByRelevanceFieldEnum',
+  description: undefined,
+});

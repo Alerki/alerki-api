@@ -25,7 +25,6 @@ export class AppointmentController {
   // constructor(
   //   private readonly appointmentModuleService: AppointmentModuleService,
   // ) {}
-
   // @ApiOperation({
   //   description: 'Create appointment',
   //   summary: 'Create appointment',
@@ -39,7 +38,6 @@ export class AppointmentController {
   // ) {
   //   return this.appointmentModuleService.createAppointment(user, data);
   // }
-
   // @ApiOperation({
   //   description: 'Get appointments list',
   //   summary: 'Get appointments list',
@@ -53,7 +51,6 @@ export class AppointmentController {
   // ) {
   //   return this.appointmentModuleService.getAppointments(user, query);
   // }
-
   // @ApiOperation({
   //   summary: 'Cancel appointment',
   //   description: 'Cancel appointment',
@@ -67,7 +64,6 @@ export class AppointmentController {
   // ) {
   //   return this.appointmentModuleService.cancelAppointment(id, user);
   // }
-
   // @ApiOperation({
   //   description: 'Confirm appointment. Only master can config appointment',
   //   summary: 'Confirm appointment',

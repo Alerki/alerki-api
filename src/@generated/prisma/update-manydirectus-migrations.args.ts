@@ -6,12 +6,11 @@ import { directus_migrationsWhereInput } from '../directus-migrations/directus-m
 
 @ArgsType()
 export class UpdateManydirectusMigrationsArgs {
+  @Field(() => directus_migrationsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_migrationsUpdateManyMutationInput)
+  data!: directus_migrationsUpdateManyMutationInput;
 
-    @Field(() => directus_migrationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_migrationsUpdateManyMutationInput)
-    data!: directus_migrationsUpdateManyMutationInput;
-
-    @Field(() => directus_migrationsWhereInput, {nullable:true})
-    @Type(() => directus_migrationsWhereInput)
-    where?: directus_migrationsWhereInput;
+  @Field(() => directus_migrationsWhereInput, { nullable: true })
+  @Type(() => directus_migrationsWhereInput)
+  where?: directus_migrationsWhereInput;
 }

@@ -13,50 +13,49 @@ import { Directus_versionsRelationFilter } from '../prisma/directus-versions-rel
 
 @InputType()
 export class directus_revisionsWhereInput {
+  @Field(() => [directus_revisionsWhereInput], { nullable: true })
+  AND?: Array<directus_revisionsWhereInput>;
 
-    @Field(() => [directus_revisionsWhereInput], {nullable:true})
-    AND?: Array<directus_revisionsWhereInput>;
+  @Field(() => [directus_revisionsWhereInput], { nullable: true })
+  OR?: Array<directus_revisionsWhereInput>;
 
-    @Field(() => [directus_revisionsWhereInput], {nullable:true})
-    OR?: Array<directus_revisionsWhereInput>;
+  @Field(() => [directus_revisionsWhereInput], { nullable: true })
+  NOT?: Array<directus_revisionsWhereInput>;
 
-    @Field(() => [directus_revisionsWhereInput], {nullable:true})
-    NOT?: Array<directus_revisionsWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => IntFilter, { nullable: true })
+  activity?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    activity?: IntFilter;
+  @Field(() => StringFilter, { nullable: true })
+  collection?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    collection?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  item?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    item?: StringFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  @Type(() => JsonNullableFilter)
+  data?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    @Type(() => JsonNullableFilter)
-    data?: JsonNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  delta?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    delta?: JsonNullableFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  parent?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    parent?: IntNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  version?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    version?: UuidNullableFilter;
+  @Field(() => Directus_activityRelationFilter, { nullable: true })
+  directus_activity?: Directus_activityRelationFilter;
 
-    @Field(() => Directus_activityRelationFilter, {nullable:true})
-    directus_activity?: Directus_activityRelationFilter;
+  @Field(() => Directus_revisionsRelationFilter, { nullable: true })
+  directus_revisions?: Directus_revisionsRelationFilter;
 
-    @Field(() => Directus_revisionsRelationFilter, {nullable:true})
-    directus_revisions?: Directus_revisionsRelationFilter;
+  @Field(() => Directus_revisionsListRelationFilter, { nullable: true })
+  other_directus_revisions?: Directus_revisionsListRelationFilter;
 
-    @Field(() => Directus_revisionsListRelationFilter, {nullable:true})
-    other_directus_revisions?: Directus_revisionsListRelationFilter;
-
-    @Field(() => Directus_versionsRelationFilter, {nullable:true})
-    directus_versions?: Directus_versionsRelationFilter;
+  @Field(() => Directus_versionsRelationFilter, { nullable: true })
+  directus_versions?: Directus_versionsRelationFilter;
 }

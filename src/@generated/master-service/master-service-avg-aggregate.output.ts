@@ -4,10 +4,9 @@ import { Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class MasterServiceAvgAggregate {
+  @Field(() => Float, { nullable: true })
+  price?: number;
 
-    @Field(() => Float, {nullable:true})
-    price?: number;
-
-    @Field(() => Float, {nullable:true})
-    service?: number;
+  @Field(() => Float, { nullable: true })
+  service?: number;
 }

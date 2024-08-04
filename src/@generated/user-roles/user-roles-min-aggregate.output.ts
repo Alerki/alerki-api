@@ -3,16 +3,15 @@ import { ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class UserRolesMinAggregate {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:true})
-    id?: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
-
-    @Field(() => String, {nullable:true})
-    name?: string;
+  @Field(() => String, { nullable: true })
+  name?: string;
 }

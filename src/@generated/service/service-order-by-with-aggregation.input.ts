@@ -9,40 +9,39 @@ import { ServiceSumOrderByAggregateInput } from './service-sum-order-by-aggregat
 
 @InputType()
 export class ServiceOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  status?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  sort?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    sort?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => ServiceCountOrderByAggregateInput, { nullable: true })
+  _count?: ServiceCountOrderByAggregateInput;
 
-    @Field(() => ServiceCountOrderByAggregateInput, {nullable:true})
-    _count?: ServiceCountOrderByAggregateInput;
+  @Field(() => ServiceAvgOrderByAggregateInput, { nullable: true })
+  _avg?: ServiceAvgOrderByAggregateInput;
 
-    @Field(() => ServiceAvgOrderByAggregateInput, {nullable:true})
-    _avg?: ServiceAvgOrderByAggregateInput;
+  @Field(() => ServiceMaxOrderByAggregateInput, { nullable: true })
+  _max?: ServiceMaxOrderByAggregateInput;
 
-    @Field(() => ServiceMaxOrderByAggregateInput, {nullable:true})
-    _max?: ServiceMaxOrderByAggregateInput;
+  @Field(() => ServiceMinOrderByAggregateInput, { nullable: true })
+  _min?: ServiceMinOrderByAggregateInput;
 
-    @Field(() => ServiceMinOrderByAggregateInput, {nullable:true})
-    _min?: ServiceMinOrderByAggregateInput;
-
-    @Field(() => ServiceSumOrderByAggregateInput, {nullable:true})
-    _sum?: ServiceSumOrderByAggregateInput;
+  @Field(() => ServiceSumOrderByAggregateInput, { nullable: true })
+  _sum?: ServiceSumOrderByAggregateInput;
 }

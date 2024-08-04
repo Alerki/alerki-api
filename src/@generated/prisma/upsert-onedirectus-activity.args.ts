@@ -7,16 +7,15 @@ import { directus_activityUpdateInput } from '../directus-activity/directus-acti
 
 @ArgsType()
 export class UpsertOnedirectusActivityArgs {
+  @Field(() => directus_activityWhereUniqueInput, { nullable: false })
+  @Type(() => directus_activityWhereUniqueInput)
+  where!: directus_activityWhereUniqueInput;
 
-    @Field(() => directus_activityWhereUniqueInput, {nullable:false})
-    @Type(() => directus_activityWhereUniqueInput)
-    where!: directus_activityWhereUniqueInput;
+  @Field(() => directus_activityCreateInput, { nullable: false })
+  @Type(() => directus_activityCreateInput)
+  create!: directus_activityCreateInput;
 
-    @Field(() => directus_activityCreateInput, {nullable:false})
-    @Type(() => directus_activityCreateInput)
-    create!: directus_activityCreateInput;
-
-    @Field(() => directus_activityUpdateInput, {nullable:false})
-    @Type(() => directus_activityUpdateInput)
-    update!: directus_activityUpdateInput;
+  @Field(() => directus_activityUpdateInput, { nullable: false })
+  @Type(() => directus_activityUpdateInput)
+  update!: directus_activityUpdateInput;
 }

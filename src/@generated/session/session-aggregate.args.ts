@@ -12,29 +12,30 @@ import { SessionMaxAggregateInput } from './session-max-aggregate.input';
 
 @ArgsType()
 export class SessionAggregateArgs {
+  @Field(() => SessionWhereInput, { nullable: true })
+  @Type(() => SessionWhereInput)
+  where?: SessionWhereInput;
 
-    @Field(() => SessionWhereInput, {nullable:true})
-    @Type(() => SessionWhereInput)
-    where?: SessionWhereInput;
+  @Field(() => [SessionOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<SessionOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [SessionOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<SessionOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => SessionWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
 
-    @Field(() => SessionWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => SessionCountAggregateInput, { nullable: true })
+  _count?: SessionCountAggregateInput;
 
-    @Field(() => SessionCountAggregateInput, {nullable:true})
-    _count?: SessionCountAggregateInput;
+  @Field(() => SessionMinAggregateInput, { nullable: true })
+  _min?: SessionMinAggregateInput;
 
-    @Field(() => SessionMinAggregateInput, {nullable:true})
-    _min?: SessionMinAggregateInput;
-
-    @Field(() => SessionMaxAggregateInput, {nullable:true})
-    _max?: SessionMaxAggregateInput;
+  @Field(() => SessionMaxAggregateInput, { nullable: true })
+  _max?: SessionMaxAggregateInput;
 }

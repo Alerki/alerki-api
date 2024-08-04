@@ -7,12 +7,13 @@ import { UserRecipientOnNotificationUpdateWithoutNotificationInput } from './use
 
 @InputType()
 export class UserRecipientOnNotificationUpdateWithWhereUniqueWithoutNotificationInput {
+  @Field(() => UserRecipientOnNotificationWhereUniqueInput, { nullable: false })
+  @Type(() => UserRecipientOnNotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => UserRecipientOnNotificationWhereUniqueInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
-
-    @Field(() => UserRecipientOnNotificationUpdateWithoutNotificationInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationUpdateWithoutNotificationInput)
-    data!: UserRecipientOnNotificationUpdateWithoutNotificationInput;
+  @Field(() => UserRecipientOnNotificationUpdateWithoutNotificationInput, {
+    nullable: false,
+  })
+  @Type(() => UserRecipientOnNotificationUpdateWithoutNotificationInput)
+  data!: UserRecipientOnNotificationUpdateWithoutNotificationInput;
 }

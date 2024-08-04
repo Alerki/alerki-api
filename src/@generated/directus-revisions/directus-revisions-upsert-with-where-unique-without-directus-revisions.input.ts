@@ -8,16 +8,19 @@ import { directus_revisionsCreateWithoutDirectus_revisionsInput } from './direct
 
 @InputType()
 export class directus_revisionsUpsertWithWhereUniqueWithoutDirectus_revisionsInput {
+  @Field(() => directus_revisionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_revisionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_revisionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_revisionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_revisionsWhereUniqueInput, 'id'>;
+  @Field(() => directus_revisionsUpdateWithoutDirectus_revisionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_revisionsUpdateWithoutDirectus_revisionsInput)
+  update!: directus_revisionsUpdateWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_revisionsUpdateWithoutDirectus_revisionsInput, {nullable:false})
-    @Type(() => directus_revisionsUpdateWithoutDirectus_revisionsInput)
-    update!: directus_revisionsUpdateWithoutDirectus_revisionsInput;
-
-    @Field(() => directus_revisionsCreateWithoutDirectus_revisionsInput, {nullable:false})
-    @Type(() => directus_revisionsCreateWithoutDirectus_revisionsInput)
-    create!: directus_revisionsCreateWithoutDirectus_revisionsInput;
+  @Field(() => directus_revisionsCreateWithoutDirectus_revisionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_revisionsCreateWithoutDirectus_revisionsInput)
+  create!: directus_revisionsCreateWithoutDirectus_revisionsInput;
 }

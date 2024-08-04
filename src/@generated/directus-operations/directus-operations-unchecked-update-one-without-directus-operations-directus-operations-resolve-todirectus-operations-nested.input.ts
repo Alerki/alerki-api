@@ -10,30 +10,60 @@ import { directus_operationsUpdateWithoutDirectus_operations_directus_operations
 
 @InputType()
 export class directus_operationsUncheckedUpdateOneWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsNestedInput {
+  @Field(
+    () =>
+      directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+  )
+  create?: directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
 
-    @Field(() => directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput)
-    create?: directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
+  @Field(
+    () =>
+      directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+  )
+  connectOrCreate?: directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
 
-    @Field(() => directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput)
-    connectOrCreate?: directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
+  @Field(
+    () =>
+      directus_operationsUpsertWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsUpsertWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+  )
+  upsert?: directus_operationsUpsertWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
 
-    @Field(() => directus_operationsUpsertWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsUpsertWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput)
-    upsert?: directus_operationsUpsertWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_operationsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_operationsWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_operationsWhereUniqueInput,
+    'id' | 'resolve' | 'reject'
+  >;
 
-    @Field(() => directus_operationsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_operationsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>;
-
-    @Field(() => directus_operationsUpdateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsUpdateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput)
-    update?: directus_operationsUpdateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
+  @Field(
+    () =>
+      directus_operationsUpdateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsUpdateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+  )
+  update?: directus_operationsUpdateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
 }

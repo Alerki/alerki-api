@@ -10,24 +10,31 @@ import { Service_translationsUpdateWithoutMasterServiceInput } from './service-t
 
 @InputType()
 export class Service_translationsUpdateOneRequiredWithoutMasterServiceNestedInput {
+  @Field(() => Service_translationsCreateWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateWithoutMasterServiceInput)
+  create?: Service_translationsCreateWithoutMasterServiceInput;
 
-    @Field(() => Service_translationsCreateWithoutMasterServiceInput, {nullable:true})
-    @Type(() => Service_translationsCreateWithoutMasterServiceInput)
-    create?: Service_translationsCreateWithoutMasterServiceInput;
+  @Field(() => Service_translationsCreateOrConnectWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateOrConnectWithoutMasterServiceInput)
+  connectOrCreate?: Service_translationsCreateOrConnectWithoutMasterServiceInput;
 
-    @Field(() => Service_translationsCreateOrConnectWithoutMasterServiceInput, {nullable:true})
-    @Type(() => Service_translationsCreateOrConnectWithoutMasterServiceInput)
-    connectOrCreate?: Service_translationsCreateOrConnectWithoutMasterServiceInput;
+  @Field(() => Service_translationsUpsertWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsUpsertWithoutMasterServiceInput)
+  upsert?: Service_translationsUpsertWithoutMasterServiceInput;
 
-    @Field(() => Service_translationsUpsertWithoutMasterServiceInput, {nullable:true})
-    @Type(() => Service_translationsUpsertWithoutMasterServiceInput)
-    upsert?: Service_translationsUpsertWithoutMasterServiceInput;
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  connect?: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
 
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    connect?: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
-
-    @Field(() => Service_translationsUpdateWithoutMasterServiceInput, {nullable:true})
-    @Type(() => Service_translationsUpdateWithoutMasterServiceInput)
-    update?: Service_translationsUpdateWithoutMasterServiceInput;
+  @Field(() => Service_translationsUpdateWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsUpdateWithoutMasterServiceInput)
+  update?: Service_translationsUpdateWithoutMasterServiceInput;
 }

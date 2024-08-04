@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteOnedirectusPanelsArgs {
-
-    @Field(() => directus_panelsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_panelsWhereUniqueInput)
-    where!: directus_panelsWhereUniqueInput;
+  @Field(() => directus_panelsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_panelsWhereUniqueInput)
+  where!: directus_panelsWhereUniqueInput;
 }

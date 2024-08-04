@@ -12,32 +12,31 @@ import { MasterProfileMaxAggregateInput } from './master-profile-max-aggregate.i
 
 @ArgsType()
 export class MasterProfileGroupByArgs {
+  @Field(() => MasterProfileWhereInput, { nullable: true })
+  @Type(() => MasterProfileWhereInput)
+  where?: MasterProfileWhereInput;
 
-    @Field(() => MasterProfileWhereInput, {nullable:true})
-    @Type(() => MasterProfileWhereInput)
-    where?: MasterProfileWhereInput;
+  @Field(() => [MasterProfileOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<MasterProfileOrderByWithAggregationInput>;
 
-    @Field(() => [MasterProfileOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<MasterProfileOrderByWithAggregationInput>;
+  @Field(() => [MasterProfileScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof MasterProfileScalarFieldEnum>;
 
-    @Field(() => [MasterProfileScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof MasterProfileScalarFieldEnum>;
+  @Field(() => MasterProfileScalarWhereWithAggregatesInput, { nullable: true })
+  having?: MasterProfileScalarWhereWithAggregatesInput;
 
-    @Field(() => MasterProfileScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MasterProfileScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => MasterProfileCountAggregateInput, { nullable: true })
+  _count?: MasterProfileCountAggregateInput;
 
-    @Field(() => MasterProfileCountAggregateInput, {nullable:true})
-    _count?: MasterProfileCountAggregateInput;
+  @Field(() => MasterProfileMinAggregateInput, { nullable: true })
+  _min?: MasterProfileMinAggregateInput;
 
-    @Field(() => MasterProfileMinAggregateInput, {nullable:true})
-    _min?: MasterProfileMinAggregateInput;
-
-    @Field(() => MasterProfileMaxAggregateInput, {nullable:true})
-    _max?: MasterProfileMaxAggregateInput;
+  @Field(() => MasterProfileMaxAggregateInput, { nullable: true })
+  _max?: MasterProfileMaxAggregateInput;
 }

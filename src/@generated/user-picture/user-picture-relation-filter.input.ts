@@ -4,10 +4,9 @@ import { UserPictureWhereInput } from './user-picture-where.input';
 
 @InputType()
 export class UserPictureRelationFilter {
+  @Field(() => UserPictureWhereInput, { nullable: true })
+  is?: UserPictureWhereInput;
 
-    @Field(() => UserPictureWhereInput, {nullable:true})
-    is?: UserPictureWhereInput;
-
-    @Field(() => UserPictureWhereInput, {nullable:true})
-    isNot?: UserPictureWhereInput;
+  @Field(() => UserPictureWhereInput, { nullable: true })
+  isNot?: UserPictureWhereInput;
 }

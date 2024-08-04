@@ -6,12 +6,11 @@ import { directus_operationsUpdateManyMutationInput } from './directus-operation
 
 @InputType()
 export class directus_operationsUpdateManyWithWhereWithoutDirectus_flowsInput {
+  @Field(() => directus_operationsScalarWhereInput, { nullable: false })
+  @Type(() => directus_operationsScalarWhereInput)
+  where!: directus_operationsScalarWhereInput;
 
-    @Field(() => directus_operationsScalarWhereInput, {nullable:false})
-    @Type(() => directus_operationsScalarWhereInput)
-    where!: directus_operationsScalarWhereInput;
-
-    @Field(() => directus_operationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_operationsUpdateManyMutationInput)
-    data!: directus_operationsUpdateManyMutationInput;
+  @Field(() => directus_operationsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_operationsUpdateManyMutationInput)
+  data!: directus_operationsUpdateManyMutationInput;
 }

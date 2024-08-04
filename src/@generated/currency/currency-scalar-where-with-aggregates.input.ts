@@ -8,40 +8,39 @@ import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullab
 
 @InputType()
 export class CurrencyScalarWhereWithAggregatesInput {
+  @Field(() => [CurrencyScalarWhereWithAggregatesInput], { nullable: true })
+  AND?: Array<CurrencyScalarWhereWithAggregatesInput>;
 
-    @Field(() => [CurrencyScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<CurrencyScalarWhereWithAggregatesInput>;
+  @Field(() => [CurrencyScalarWhereWithAggregatesInput], { nullable: true })
+  OR?: Array<CurrencyScalarWhereWithAggregatesInput>;
 
-    @Field(() => [CurrencyScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<CurrencyScalarWhereWithAggregatesInput>;
+  @Field(() => [CurrencyScalarWhereWithAggregatesInput], { nullable: true })
+  NOT?: Array<CurrencyScalarWhereWithAggregatesInput>;
 
-    @Field(() => [CurrencyScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<CurrencyScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  status?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    status?: StringWithAggregatesFilter;
+  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
+  sort?: IntNullableWithAggregatesFilter;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    sort?: IntNullableWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  user_created?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    user_created?: UuidNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  user_updated?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    user_updated?: UuidNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_updated?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_updated?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  code?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    code?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    character?: StringWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  character?: StringWithAggregatesFilter;
 }

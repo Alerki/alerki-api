@@ -7,12 +7,13 @@ import { directus_sessionsCreateWithoutDirectus_usersInput } from './directus-se
 
 @InputType()
 export class directus_sessionsCreateOrConnectWithoutDirectus_usersInput {
+  @Field(() => directus_sessionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sessionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>;
 
-    @Field(() => directus_sessionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sessionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_sessionsWhereUniqueInput, 'token'>;
-
-    @Field(() => directus_sessionsCreateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_sessionsCreateWithoutDirectus_usersInput)
-    create!: directus_sessionsCreateWithoutDirectus_usersInput;
+  @Field(() => directus_sessionsCreateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_sessionsCreateWithoutDirectus_usersInput)
+  create!: directus_sessionsCreateWithoutDirectus_usersInput;
 }

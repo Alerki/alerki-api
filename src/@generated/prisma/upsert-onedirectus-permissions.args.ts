@@ -7,16 +7,15 @@ import { directus_permissionsUpdateInput } from '../directus-permissions/directu
 
 @ArgsType()
 export class UpsertOnedirectusPermissionsArgs {
+  @Field(() => directus_permissionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_permissionsWhereUniqueInput)
+  where!: directus_permissionsWhereUniqueInput;
 
-    @Field(() => directus_permissionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_permissionsWhereUniqueInput)
-    where!: directus_permissionsWhereUniqueInput;
+  @Field(() => directus_permissionsCreateInput, { nullable: false })
+  @Type(() => directus_permissionsCreateInput)
+  create!: directus_permissionsCreateInput;
 
-    @Field(() => directus_permissionsCreateInput, {nullable:false})
-    @Type(() => directus_permissionsCreateInput)
-    create!: directus_permissionsCreateInput;
-
-    @Field(() => directus_permissionsUpdateInput, {nullable:false})
-    @Type(() => directus_permissionsUpdateInput)
-    update!: directus_permissionsUpdateInput;
+  @Field(() => directus_permissionsUpdateInput, { nullable: false })
+  @Type(() => directus_permissionsUpdateInput)
+  update!: directus_permissionsUpdateInput;
 }

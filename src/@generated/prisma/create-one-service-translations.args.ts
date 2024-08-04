@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneServiceTranslationsArgs {
-
-    @Field(() => Service_translationsCreateInput, {nullable:false})
-    @Type(() => Service_translationsCreateInput)
-    data!: Service_translationsCreateInput;
+  @Field(() => Service_translationsCreateInput, { nullable: false })
+  @Type(() => Service_translationsCreateInput)
+  data!: Service_translationsCreateInput;
 }

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneClientProfileArgs {
-
-    @Field(() => ClientProfileCreateInput, {nullable:false})
-    @Type(() => ClientProfileCreateInput)
-    data!: ClientProfileCreateInput;
+  @Field(() => ClientProfileCreateInput, { nullable: false })
+  @Type(() => ClientProfileCreateInput)
+  data!: ClientProfileCreateInput;
 }

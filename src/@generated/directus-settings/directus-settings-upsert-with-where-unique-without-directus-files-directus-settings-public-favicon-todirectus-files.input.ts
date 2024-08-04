@@ -8,16 +8,29 @@ import { directus_settingsCreateWithoutDirectus_files_directus_settings_public_f
 
 @InputType()
 export class directus_settingsUpsertWithWhereUniqueWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput {
+  @Field(() => directus_settingsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_settingsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_settingsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_settingsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>;
+  @Field(
+    () =>
+      directus_settingsUpdateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_settingsUpdateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput,
+  )
+  update!: directus_settingsUpdateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput;
 
-    @Field(() => directus_settingsUpdateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput, {nullable:false})
-    @Type(() => directus_settingsUpdateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput)
-    update!: directus_settingsUpdateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput;
-
-    @Field(() => directus_settingsCreateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput, {nullable:false})
-    @Type(() => directus_settingsCreateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput)
-    create!: directus_settingsCreateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput;
+  @Field(
+    () =>
+      directus_settingsCreateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_settingsCreateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput,
+  )
+  create!: directus_settingsCreateWithoutDirectus_files_directus_settings_public_faviconTodirectus_filesInput;
 }

@@ -8,16 +8,17 @@ import { ClientProfileWhereUniqueInput } from './client-profile-where-unique.inp
 
 @InputType()
 export class ClientProfileCreateNestedOneWithoutAppointmentInput {
+  @Field(() => ClientProfileCreateWithoutAppointmentInput, { nullable: true })
+  @Type(() => ClientProfileCreateWithoutAppointmentInput)
+  create?: ClientProfileCreateWithoutAppointmentInput;
 
-    @Field(() => ClientProfileCreateWithoutAppointmentInput, {nullable:true})
-    @Type(() => ClientProfileCreateWithoutAppointmentInput)
-    create?: ClientProfileCreateWithoutAppointmentInput;
+  @Field(() => ClientProfileCreateOrConnectWithoutAppointmentInput, {
+    nullable: true,
+  })
+  @Type(() => ClientProfileCreateOrConnectWithoutAppointmentInput)
+  connectOrCreate?: ClientProfileCreateOrConnectWithoutAppointmentInput;
 
-    @Field(() => ClientProfileCreateOrConnectWithoutAppointmentInput, {nullable:true})
-    @Type(() => ClientProfileCreateOrConnectWithoutAppointmentInput)
-    connectOrCreate?: ClientProfileCreateOrConnectWithoutAppointmentInput;
-
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:true})
-    @Type(() => ClientProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: true })
+  @Type(() => ClientProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 }

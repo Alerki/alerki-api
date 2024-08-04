@@ -8,20 +8,22 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class AggregateServiceTranslationsArgs {
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  @Type(() => Service_translationsWhereInput)
+  where?: Service_translationsWhereInput;
 
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    @Type(() => Service_translationsWhereInput)
-    where?: Service_translationsWhereInput;
+  @Field(
+    () => [Service_translationsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<Service_translationsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [Service_translationsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<Service_translationsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: true })
+  cursor?: Service_translationsWhereUniqueInput;
 
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:true})
-    cursor?: Service_translationsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

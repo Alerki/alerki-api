@@ -13,48 +13,67 @@ import { Service_translationsScalarWhereInput } from './service-translations-sca
 
 @InputType()
 export class Service_translationsUpdateManyWithoutServiceNestedInput {
+  @Field(() => [Service_translationsCreateWithoutServiceInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateWithoutServiceInput)
+  create?: Array<Service_translationsCreateWithoutServiceInput>;
 
-    @Field(() => [Service_translationsCreateWithoutServiceInput], {nullable:true})
-    @Type(() => Service_translationsCreateWithoutServiceInput)
-    create?: Array<Service_translationsCreateWithoutServiceInput>;
+  @Field(() => [Service_translationsCreateOrConnectWithoutServiceInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateOrConnectWithoutServiceInput)
+  connectOrCreate?: Array<Service_translationsCreateOrConnectWithoutServiceInput>;
 
-    @Field(() => [Service_translationsCreateOrConnectWithoutServiceInput], {nullable:true})
-    @Type(() => Service_translationsCreateOrConnectWithoutServiceInput)
-    connectOrCreate?: Array<Service_translationsCreateOrConnectWithoutServiceInput>;
+  @Field(() => [Service_translationsUpsertWithWhereUniqueWithoutServiceInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsUpsertWithWhereUniqueWithoutServiceInput)
+  upsert?: Array<Service_translationsUpsertWithWhereUniqueWithoutServiceInput>;
 
-    @Field(() => [Service_translationsUpsertWithWhereUniqueWithoutServiceInput], {nullable:true})
-    @Type(() => Service_translationsUpsertWithWhereUniqueWithoutServiceInput)
-    upsert?: Array<Service_translationsUpsertWithWhereUniqueWithoutServiceInput>;
+  @Field(() => Service_translationsCreateManyServiceInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateManyServiceInputEnvelope)
+  createMany?: Service_translationsCreateManyServiceInputEnvelope;
 
-    @Field(() => Service_translationsCreateManyServiceInputEnvelope, {nullable:true})
-    @Type(() => Service_translationsCreateManyServiceInputEnvelope)
-    createMany?: Service_translationsCreateManyServiceInputEnvelope;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  set?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  disconnect?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  delete?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsUpdateWithWhereUniqueWithoutServiceInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsUpdateWithWhereUniqueWithoutServiceInput)
+  update?: Array<Service_translationsUpdateWithWhereUniqueWithoutServiceInput>;
 
-    @Field(() => [Service_translationsUpdateWithWhereUniqueWithoutServiceInput], {nullable:true})
-    @Type(() => Service_translationsUpdateWithWhereUniqueWithoutServiceInput)
-    update?: Array<Service_translationsUpdateWithWhereUniqueWithoutServiceInput>;
+  @Field(() => [Service_translationsUpdateManyWithWhereWithoutServiceInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsUpdateManyWithWhereWithoutServiceInput)
+  updateMany?: Array<Service_translationsUpdateManyWithWhereWithoutServiceInput>;
 
-    @Field(() => [Service_translationsUpdateManyWithWhereWithoutServiceInput], {nullable:true})
-    @Type(() => Service_translationsUpdateManyWithWhereWithoutServiceInput)
-    updateMany?: Array<Service_translationsUpdateManyWithWhereWithoutServiceInput>;
-
-    @Field(() => [Service_translationsScalarWhereInput], {nullable:true})
-    @Type(() => Service_translationsScalarWhereInput)
-    deleteMany?: Array<Service_translationsScalarWhereInput>;
+  @Field(() => [Service_translationsScalarWhereInput], { nullable: true })
+  @Type(() => Service_translationsScalarWhereInput)
+  deleteMany?: Array<Service_translationsScalarWhereInput>;
 }

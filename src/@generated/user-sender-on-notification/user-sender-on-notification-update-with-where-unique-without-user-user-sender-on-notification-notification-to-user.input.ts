@@ -7,12 +7,18 @@ import { UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_noti
 
 @InputType()
 export class UserSenderOnNotificationUpdateWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput {
+  @Field(() => UserSenderOnNotificationWhereUniqueInput, { nullable: false })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => UserSenderOnNotificationWhereUniqueInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>;
-
-    @Field(() => UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput, {nullable:false})
-    @Type(() => UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput)
-    data!: UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput;
+  @Field(
+    () =>
+      UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput,
+  )
+  data!: UserSenderOnNotificationUpdateWithoutUser_UserSenderOnNotification_notificationToUserInput;
 }

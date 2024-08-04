@@ -5,19 +5,22 @@ import { MasterServiceUncheckedCreateNestedManyWithoutService_translationsInput 
 
 @InputType()
 export class Service_translationsUncheckedCreateInput {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => String, { nullable: true })
+  Service_id?: string;
 
-    @Field(() => String, {nullable:true})
-    Service_id?: string;
+  @Field(() => String, { nullable: true })
+  languages_id?: string;
 
-    @Field(() => String, {nullable:true})
-    languages_id?: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
-
-    @Field(() => MasterServiceUncheckedCreateNestedManyWithoutService_translationsInput, {nullable:true})
-    MasterService?: MasterServiceUncheckedCreateNestedManyWithoutService_translationsInput;
+  @Field(
+    () =>
+      MasterServiceUncheckedCreateNestedManyWithoutService_translationsInput,
+    { nullable: true },
+  )
+  MasterService?: MasterServiceUncheckedCreateNestedManyWithoutService_translationsInput;
 }

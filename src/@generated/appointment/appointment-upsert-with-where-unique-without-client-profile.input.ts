@@ -8,16 +8,15 @@ import { AppointmentCreateWithoutClientProfileInput } from './appointment-create
 
 @InputType()
 export class AppointmentUpsertWithWhereUniqueWithoutClientProfileInput {
+  @Field(() => AppointmentWhereUniqueInput, { nullable: false })
+  @Type(() => AppointmentWhereUniqueInput)
+  where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
 
-    @Field(() => AppointmentWhereUniqueInput, {nullable:false})
-    @Type(() => AppointmentWhereUniqueInput)
-    where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
+  @Field(() => AppointmentUpdateWithoutClientProfileInput, { nullable: false })
+  @Type(() => AppointmentUpdateWithoutClientProfileInput)
+  update!: AppointmentUpdateWithoutClientProfileInput;
 
-    @Field(() => AppointmentUpdateWithoutClientProfileInput, {nullable:false})
-    @Type(() => AppointmentUpdateWithoutClientProfileInput)
-    update!: AppointmentUpdateWithoutClientProfileInput;
-
-    @Field(() => AppointmentCreateWithoutClientProfileInput, {nullable:false})
-    @Type(() => AppointmentCreateWithoutClientProfileInput)
-    create!: AppointmentCreateWithoutClientProfileInput;
+  @Field(() => AppointmentCreateWithoutClientProfileInput, { nullable: false })
+  @Type(() => AppointmentCreateWithoutClientProfileInput)
+  create!: AppointmentCreateWithoutClientProfileInput;
 }

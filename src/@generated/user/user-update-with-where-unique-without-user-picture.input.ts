@@ -7,12 +7,14 @@ import { UserUpdateWithoutUserPictureInput } from './user-update-without-user-pi
 
 @InputType()
 export class UserUpdateWithWhereUniqueWithoutUserPictureInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserUpdateWithoutUserPictureInput, {nullable:false})
-    @Type(() => UserUpdateWithoutUserPictureInput)
-    data!: UserUpdateWithoutUserPictureInput;
+  @Field(() => UserUpdateWithoutUserPictureInput, { nullable: false })
+  @Type(() => UserUpdateWithoutUserPictureInput)
+  data!: UserUpdateWithoutUserPictureInput;
 }

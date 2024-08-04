@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class NotificationCount {
-
-    @Field(() => Int, {nullable:false})
-    UserRecipientOnNotification?: number;
+  @Field(() => Int, { nullable: false })
+  UserRecipientOnNotification?: number;
 }

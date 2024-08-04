@@ -5,25 +5,26 @@ import { directus_rolesCreateNestedOneWithoutDirectus_permissionsInput } from '.
 
 @InputType()
 export class directus_permissionsCreateInput {
+  @Field(() => String, { nullable: false })
+  collection!: string;
 
-    @Field(() => String, {nullable:false})
-    collection!: string;
+  @Field(() => String, { nullable: false })
+  action!: string;
 
-    @Field(() => String, {nullable:false})
-    action!: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  permissions?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    permissions?: any;
+  @Field(() => GraphQLJSON, { nullable: true })
+  validation?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    validation?: any;
+  @Field(() => GraphQLJSON, { nullable: true })
+  presets?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    presets?: any;
+  @Field(() => String, { nullable: true })
+  fields?: string;
 
-    @Field(() => String, {nullable:true})
-    fields?: string;
-
-    @Field(() => directus_rolesCreateNestedOneWithoutDirectus_permissionsInput, {nullable:true})
-    directus_roles?: directus_rolesCreateNestedOneWithoutDirectus_permissionsInput;
+  @Field(() => directus_rolesCreateNestedOneWithoutDirectus_permissionsInput, {
+    nullable: true,
+  })
+  directus_roles?: directus_rolesCreateNestedOneWithoutDirectus_permissionsInput;
 }

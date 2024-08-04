@@ -6,28 +6,31 @@ import { MasterProfileCreateNestedOneWithoutMasterServiceInput } from '../master
 
 @InputType()
 export class MasterServiceCreateWithoutService_translationsInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: true })
+  status?: string;
 
-    @Field(() => String, {nullable:true})
-    status?: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => Date, { nullable: false })
+  duration!: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    duration!: Date | string;
+  @Field(() => Int, { nullable: false })
+  price!: number;
 
-    @Field(() => Int, {nullable:false})
-    price!: number;
+  @Field(() => CurrencyCreateNestedOneWithoutMasterServiceInput, {
+    nullable: false,
+  })
+  Currency!: CurrencyCreateNestedOneWithoutMasterServiceInput;
 
-    @Field(() => CurrencyCreateNestedOneWithoutMasterServiceInput, {nullable:false})
-    Currency!: CurrencyCreateNestedOneWithoutMasterServiceInput;
-
-    @Field(() => MasterProfileCreateNestedOneWithoutMasterServiceInput, {nullable:false})
-    MasterProfile!: MasterProfileCreateNestedOneWithoutMasterServiceInput;
+  @Field(() => MasterProfileCreateNestedOneWithoutMasterServiceInput, {
+    nullable: false,
+  })
+  MasterProfile!: MasterProfileCreateNestedOneWithoutMasterServiceInput;
 }

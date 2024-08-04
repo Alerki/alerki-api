@@ -6,16 +6,17 @@ import { AppointmentUpdateManyWithoutClientProfileNestedInput } from '../appoint
 
 @InputType()
 export class ClientProfileUpdateWithoutUserInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
-
-    @Field(() => AppointmentUpdateManyWithoutClientProfileNestedInput, {nullable:true})
-    Appointment?: AppointmentUpdateManyWithoutClientProfileNestedInput;
+  @Field(() => AppointmentUpdateManyWithoutClientProfileNestedInput, {
+    nullable: true,
+  })
+  Appointment?: AppointmentUpdateManyWithoutClientProfileNestedInput;
 }

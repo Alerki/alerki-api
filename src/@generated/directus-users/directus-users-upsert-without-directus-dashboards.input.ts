@@ -6,12 +6,15 @@ import { directus_usersCreateWithoutDirectus_dashboardsInput } from './directus-
 
 @InputType()
 export class directus_usersUpsertWithoutDirectus_dashboardsInput {
+  @Field(() => directus_usersUpdateWithoutDirectus_dashboardsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersUpdateWithoutDirectus_dashboardsInput)
+  update!: directus_usersUpdateWithoutDirectus_dashboardsInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_dashboardsInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_dashboardsInput)
-    update!: directus_usersUpdateWithoutDirectus_dashboardsInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_dashboardsInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_dashboardsInput)
-    create!: directus_usersCreateWithoutDirectus_dashboardsInput;
+  @Field(() => directus_usersCreateWithoutDirectus_dashboardsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_dashboardsInput)
+  create!: directus_usersCreateWithoutDirectus_dashboardsInput;
 }

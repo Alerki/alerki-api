@@ -8,16 +8,19 @@ import { directus_panelsCreateWithoutDirectus_dashboardsInput } from './directus
 
 @InputType()
 export class directus_panelsUpsertWithWhereUniqueWithoutDirectus_dashboardsInput {
+  @Field(() => directus_panelsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_panelsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_panelsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_panelsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>;
+  @Field(() => directus_panelsUpdateWithoutDirectus_dashboardsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_panelsUpdateWithoutDirectus_dashboardsInput)
+  update!: directus_panelsUpdateWithoutDirectus_dashboardsInput;
 
-    @Field(() => directus_panelsUpdateWithoutDirectus_dashboardsInput, {nullable:false})
-    @Type(() => directus_panelsUpdateWithoutDirectus_dashboardsInput)
-    update!: directus_panelsUpdateWithoutDirectus_dashboardsInput;
-
-    @Field(() => directus_panelsCreateWithoutDirectus_dashboardsInput, {nullable:false})
-    @Type(() => directus_panelsCreateWithoutDirectus_dashboardsInput)
-    create!: directus_panelsCreateWithoutDirectus_dashboardsInput;
+  @Field(() => directus_panelsCreateWithoutDirectus_dashboardsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_panelsCreateWithoutDirectus_dashboardsInput)
+  create!: directus_panelsCreateWithoutDirectus_dashboardsInput;
 }

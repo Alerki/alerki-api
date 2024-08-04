@@ -9,20 +9,26 @@ import { directus_versionsWhereUniqueInput } from './directus-versions-where-uni
 
 @InputType()
 export class directus_versionsUncheckedCreateNestedManyWithoutDirectus_collectionsInput {
+  @Field(() => [directus_versionsCreateWithoutDirectus_collectionsInput], {
+    nullable: true,
+  })
+  @Type(() => directus_versionsCreateWithoutDirectus_collectionsInput)
+  create?: Array<directus_versionsCreateWithoutDirectus_collectionsInput>;
 
-    @Field(() => [directus_versionsCreateWithoutDirectus_collectionsInput], {nullable:true})
-    @Type(() => directus_versionsCreateWithoutDirectus_collectionsInput)
-    create?: Array<directus_versionsCreateWithoutDirectus_collectionsInput>;
+  @Field(
+    () => [directus_versionsCreateOrConnectWithoutDirectus_collectionsInput],
+    { nullable: true },
+  )
+  @Type(() => directus_versionsCreateOrConnectWithoutDirectus_collectionsInput)
+  connectOrCreate?: Array<directus_versionsCreateOrConnectWithoutDirectus_collectionsInput>;
 
-    @Field(() => [directus_versionsCreateOrConnectWithoutDirectus_collectionsInput], {nullable:true})
-    @Type(() => directus_versionsCreateOrConnectWithoutDirectus_collectionsInput)
-    connectOrCreate?: Array<directus_versionsCreateOrConnectWithoutDirectus_collectionsInput>;
+  @Field(() => directus_versionsCreateManyDirectus_collectionsInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_versionsCreateManyDirectus_collectionsInputEnvelope)
+  createMany?: directus_versionsCreateManyDirectus_collectionsInputEnvelope;
 
-    @Field(() => directus_versionsCreateManyDirectus_collectionsInputEnvelope, {nullable:true})
-    @Type(() => directus_versionsCreateManyDirectus_collectionsInputEnvelope)
-    createMany?: directus_versionsCreateManyDirectus_collectionsInputEnvelope;
-
-    @Field(() => [directus_versionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_versionsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_versionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_versionsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>>;
 }

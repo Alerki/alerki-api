@@ -10,23 +10,24 @@ import { SessionScalarFieldEnum } from './session-scalar-field.enum';
 
 @ArgsType()
 export class FindFirstSessionOrThrowArgs {
+  @Field(() => SessionWhereInput, { nullable: true })
+  @Type(() => SessionWhereInput)
+  where?: SessionWhereInput;
 
-    @Field(() => SessionWhereInput, {nullable:true})
-    @Type(() => SessionWhereInput)
-    where?: SessionWhereInput;
+  @Field(() => [SessionOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<SessionOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [SessionOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<SessionOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => SessionWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
 
-    @Field(() => SessionWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [SessionScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof SessionScalarFieldEnum>;
+  @Field(() => [SessionScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof SessionScalarFieldEnum>;
 }

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyUserRolesArgs {
-
-    @Field(() => UserRolesWhereInput, {nullable:true})
-    @Type(() => UserRolesWhereInput)
-    where?: UserRolesWhereInput;
+  @Field(() => UserRolesWhereInput, { nullable: true })
+  @Type(() => UserRolesWhereInput)
+  where?: UserRolesWhereInput;
 }

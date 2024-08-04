@@ -4,28 +4,31 @@ import { directus_panelsUncheckedCreateNestedManyWithoutDirectus_dashboardsInput
 
 @InputType()
 export class directus_dashboardsUncheckedCreateInput {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => String, { nullable: true })
+  icon?: string;
 
-    @Field(() => String, {nullable:true})
-    icon?: string;
+  @Field(() => String, { nullable: true })
+  note?: string;
 
-    @Field(() => String, {nullable:true})
-    note?: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => String, { nullable: true })
+  user_created?: string;
 
-    @Field(() => String, {nullable:true})
-    user_created?: string;
+  @Field(() => String, { nullable: true })
+  color?: string;
 
-    @Field(() => String, {nullable:true})
-    color?: string;
-
-    @Field(() => directus_panelsUncheckedCreateNestedManyWithoutDirectus_dashboardsInput, {nullable:true})
-    directus_panels?: directus_panelsUncheckedCreateNestedManyWithoutDirectus_dashboardsInput;
+  @Field(
+    () =>
+      directus_panelsUncheckedCreateNestedManyWithoutDirectus_dashboardsInput,
+    { nullable: true },
+  )
+  directus_panels?: directus_panelsUncheckedCreateNestedManyWithoutDirectus_dashboardsInput;
 }

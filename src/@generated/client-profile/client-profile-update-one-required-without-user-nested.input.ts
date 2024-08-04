@@ -10,24 +10,23 @@ import { ClientProfileUpdateWithoutUserInput } from './client-profile-update-wit
 
 @InputType()
 export class ClientProfileUpdateOneRequiredWithoutUserNestedInput {
+  @Field(() => ClientProfileCreateWithoutUserInput, { nullable: true })
+  @Type(() => ClientProfileCreateWithoutUserInput)
+  create?: ClientProfileCreateWithoutUserInput;
 
-    @Field(() => ClientProfileCreateWithoutUserInput, {nullable:true})
-    @Type(() => ClientProfileCreateWithoutUserInput)
-    create?: ClientProfileCreateWithoutUserInput;
+  @Field(() => ClientProfileCreateOrConnectWithoutUserInput, { nullable: true })
+  @Type(() => ClientProfileCreateOrConnectWithoutUserInput)
+  connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput;
 
-    @Field(() => ClientProfileCreateOrConnectWithoutUserInput, {nullable:true})
-    @Type(() => ClientProfileCreateOrConnectWithoutUserInput)
-    connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput;
+  @Field(() => ClientProfileUpsertWithoutUserInput, { nullable: true })
+  @Type(() => ClientProfileUpsertWithoutUserInput)
+  upsert?: ClientProfileUpsertWithoutUserInput;
 
-    @Field(() => ClientProfileUpsertWithoutUserInput, {nullable:true})
-    @Type(() => ClientProfileUpsertWithoutUserInput)
-    upsert?: ClientProfileUpsertWithoutUserInput;
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: true })
+  @Type(() => ClientProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:true})
-    @Type(() => ClientProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => ClientProfileUpdateWithoutUserInput, {nullable:true})
-    @Type(() => ClientProfileUpdateWithoutUserInput)
-    update?: ClientProfileUpdateWithoutUserInput;
+  @Field(() => ClientProfileUpdateWithoutUserInput, { nullable: true })
+  @Type(() => ClientProfileUpdateWithoutUserInput)
+  update?: ClientProfileUpdateWithoutUserInput;
 }

@@ -6,12 +6,25 @@ import { directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTod
 
 @InputType()
 export class directus_usersUpsertWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput {
+  @Field(
+    () =>
+      directus_usersUpdateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersUpdateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput,
+  )
+  update!: directus_usersUpdateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput)
-    update!: directus_usersUpdateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput)
-    create!: directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput,
+  )
+  create!: directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput;
 }

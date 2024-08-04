@@ -7,16 +7,15 @@ import { directus_sharesUpdateInput } from '../directus-shares/directus-shares-u
 
 @ArgsType()
 export class UpsertOnedirectusSharesArgs {
+  @Field(() => directus_sharesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sharesWhereUniqueInput)
+  where!: directus_sharesWhereUniqueInput;
 
-    @Field(() => directus_sharesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sharesWhereUniqueInput)
-    where!: directus_sharesWhereUniqueInput;
+  @Field(() => directus_sharesCreateInput, { nullable: false })
+  @Type(() => directus_sharesCreateInput)
+  create!: directus_sharesCreateInput;
 
-    @Field(() => directus_sharesCreateInput, {nullable:false})
-    @Type(() => directus_sharesCreateInput)
-    create!: directus_sharesCreateInput;
-
-    @Field(() => directus_sharesUpdateInput, {nullable:false})
-    @Type(() => directus_sharesUpdateInput)
-    update!: directus_sharesUpdateInput;
+  @Field(() => directus_sharesUpdateInput, { nullable: false })
+  @Type(() => directus_sharesUpdateInput)
+  update!: directus_sharesUpdateInput;
 }

@@ -7,12 +7,11 @@ import { MasterServiceWhereUniqueInput } from './master-service-where-unique.inp
 
 @ArgsType()
 export class UpdateOneMasterServiceArgs {
+  @Field(() => MasterServiceUpdateInput, { nullable: false })
+  @Type(() => MasterServiceUpdateInput)
+  data!: MasterServiceUpdateInput;
 
-    @Field(() => MasterServiceUpdateInput, {nullable:false})
-    @Type(() => MasterServiceUpdateInput)
-    data!: MasterServiceUpdateInput;
-
-    @Field(() => MasterServiceWhereUniqueInput, {nullable:false})
-    @Type(() => MasterServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
+  @Field(() => MasterServiceWhereUniqueInput, { nullable: false })
+  @Type(() => MasterServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
 }

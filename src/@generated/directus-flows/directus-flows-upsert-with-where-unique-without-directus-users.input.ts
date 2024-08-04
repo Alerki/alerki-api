@@ -8,16 +8,19 @@ import { directus_flowsCreateWithoutDirectus_usersInput } from './directus-flows
 
 @InputType()
 export class directus_flowsUpsertWithWhereUniqueWithoutDirectus_usersInput {
+  @Field(() => directus_flowsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_flowsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>;
 
-    @Field(() => directus_flowsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_flowsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>;
+  @Field(() => directus_flowsUpdateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_flowsUpdateWithoutDirectus_usersInput)
+  update!: directus_flowsUpdateWithoutDirectus_usersInput;
 
-    @Field(() => directus_flowsUpdateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_flowsUpdateWithoutDirectus_usersInput)
-    update!: directus_flowsUpdateWithoutDirectus_usersInput;
-
-    @Field(() => directus_flowsCreateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_flowsCreateWithoutDirectus_usersInput)
-    create!: directus_flowsCreateWithoutDirectus_usersInput;
+  @Field(() => directus_flowsCreateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_flowsCreateWithoutDirectus_usersInput)
+  create!: directus_flowsCreateWithoutDirectus_usersInput;
 }

@@ -7,22 +7,23 @@ import { directus_sharesUpdateOneWithoutDirectus_sessionsNestedInput } from '../
 
 @InputType()
 export class directus_sessionsUpdateWithoutDirectus_usersInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  token?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    token?: StringFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  expires?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    expires?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  ip?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    ip?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  user_agent?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    user_agent?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  origin?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    origin?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => directus_sharesUpdateOneWithoutDirectus_sessionsNestedInput, {nullable:true})
-    directus_shares?: directus_sharesUpdateOneWithoutDirectus_sessionsNestedInput;
+  @Field(() => directus_sharesUpdateOneWithoutDirectus_sessionsNestedInput, {
+    nullable: true,
+  })
+  directus_shares?: directus_sharesUpdateOneWithoutDirectus_sessionsNestedInput;
 }

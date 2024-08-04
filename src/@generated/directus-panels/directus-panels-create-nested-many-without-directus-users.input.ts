@@ -9,20 +9,25 @@ import { directus_panelsWhereUniqueInput } from './directus-panels-where-unique.
 
 @InputType()
 export class directus_panelsCreateNestedManyWithoutDirectus_usersInput {
+  @Field(() => [directus_panelsCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_panelsCreateWithoutDirectus_usersInput)
+  create?: Array<directus_panelsCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_panelsCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_panelsCreateWithoutDirectus_usersInput)
-    create?: Array<directus_panelsCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_panelsCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_panelsCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_panelsCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_panelsCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_panelsCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_panelsCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(() => directus_panelsCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_panelsCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_panelsCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_panelsCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_panelsCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_panelsCreateManyDirectus_usersInputEnvelope;
-
-    @Field(() => [directus_panelsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_panelsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_panelsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_panelsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_panelsWhereUniqueInput, 'id'>>;
 }

@@ -8,16 +8,32 @@ import { directus_usersWhereUniqueInput } from './directus-users-where-unique.in
 
 @InputType()
 export class directus_usersCreateNestedOneWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput {
+  @Field(
+    () =>
+      directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput,
+  )
+  create?: directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput)
-    create?: directus_usersCreateWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateOrConnectWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateOrConnectWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput,
+  )
+  connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateOrConnectWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateOrConnectWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput)
-    connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_files_directus_files_uploaded_byTodirectus_usersInput;
-
-    @Field(() => directus_usersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_usersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_usersWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 }

@@ -6,37 +6,38 @@ import { directus_usersCreateNestedOneWithoutDirectus_presetsInput } from '../di
 
 @InputType()
 export class directus_presetsCreateWithoutDirectus_rolesInput {
+  @Field(() => String, { nullable: true })
+  bookmark?: string;
 
-    @Field(() => String, {nullable:true})
-    bookmark?: string;
+  @Field(() => String, { nullable: true })
+  collection?: string;
 
-    @Field(() => String, {nullable:true})
-    collection?: string;
+  @Field(() => String, { nullable: true })
+  search?: string;
 
-    @Field(() => String, {nullable:true})
-    search?: string;
+  @Field(() => String, { nullable: true })
+  layout?: string;
 
-    @Field(() => String, {nullable:true})
-    layout?: string;
+  @Field(() => GraphQLJSON, { nullable: true })
+  layout_query?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    layout_query?: any;
+  @Field(() => GraphQLJSON, { nullable: true })
+  layout_options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    layout_options?: any;
+  @Field(() => Int, { nullable: true })
+  refresh_interval?: number;
 
-    @Field(() => Int, {nullable:true})
-    refresh_interval?: number;
+  @Field(() => GraphQLJSON, { nullable: true })
+  filter?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    filter?: any;
+  @Field(() => String, { nullable: true })
+  icon?: string;
 
-    @Field(() => String, {nullable:true})
-    icon?: string;
+  @Field(() => String, { nullable: true })
+  color?: string;
 
-    @Field(() => String, {nullable:true})
-    color?: string;
-
-    @Field(() => directus_usersCreateNestedOneWithoutDirectus_presetsInput, {nullable:true})
-    directus_users?: directus_usersCreateNestedOneWithoutDirectus_presetsInput;
+  @Field(() => directus_usersCreateNestedOneWithoutDirectus_presetsInput, {
+    nullable: true,
+  })
+  directus_users?: directus_usersCreateNestedOneWithoutDirectus_presetsInput;
 }

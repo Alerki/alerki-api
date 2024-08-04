@@ -12,29 +12,30 @@ import { MasterScheduleMaxAggregateInput } from './master-schedule-max-aggregate
 
 @ArgsType()
 export class MasterScheduleAggregateArgs {
+  @Field(() => MasterScheduleWhereInput, { nullable: true })
+  @Type(() => MasterScheduleWhereInput)
+  where?: MasterScheduleWhereInput;
 
-    @Field(() => MasterScheduleWhereInput, {nullable:true})
-    @Type(() => MasterScheduleWhereInput)
-    where?: MasterScheduleWhereInput;
+  @Field(() => [MasterScheduleOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<MasterScheduleOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [MasterScheduleOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<MasterScheduleOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => MasterScheduleWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterScheduleWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => MasterScheduleCountAggregateInput, { nullable: true })
+  _count?: MasterScheduleCountAggregateInput;
 
-    @Field(() => MasterScheduleCountAggregateInput, {nullable:true})
-    _count?: MasterScheduleCountAggregateInput;
+  @Field(() => MasterScheduleMinAggregateInput, { nullable: true })
+  _min?: MasterScheduleMinAggregateInput;
 
-    @Field(() => MasterScheduleMinAggregateInput, {nullable:true})
-    _min?: MasterScheduleMinAggregateInput;
-
-    @Field(() => MasterScheduleMaxAggregateInput, {nullable:true})
-    _max?: MasterScheduleMaxAggregateInput;
+  @Field(() => MasterScheduleMaxAggregateInput, { nullable: true })
+  _max?: MasterScheduleMaxAggregateInput;
 }

@@ -6,13 +6,12 @@ import { UserRolesMaxAggregate } from './user-roles-max-aggregate.output';
 
 @ObjectType()
 export class AggregateUserRoles {
+  @Field(() => UserRolesCountAggregate, { nullable: true })
+  _count?: UserRolesCountAggregate;
 
-    @Field(() => UserRolesCountAggregate, {nullable:true})
-    _count?: UserRolesCountAggregate;
+  @Field(() => UserRolesMinAggregate, { nullable: true })
+  _min?: UserRolesMinAggregate;
 
-    @Field(() => UserRolesMinAggregate, {nullable:true})
-    _min?: UserRolesMinAggregate;
-
-    @Field(() => UserRolesMaxAggregate, {nullable:true})
-    _max?: UserRolesMaxAggregate;
+  @Field(() => UserRolesMaxAggregate, { nullable: true })
+  _max?: UserRolesMaxAggregate;
 }

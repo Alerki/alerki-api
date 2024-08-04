@@ -8,19 +8,18 @@ import { Directus_notificationsMaxAggregate } from './directus-notifications-max
 
 @ObjectType()
 export class AggregateDirectus_notifications {
+  @Field(() => Directus_notificationsCountAggregate, { nullable: true })
+  _count?: Directus_notificationsCountAggregate;
 
-    @Field(() => Directus_notificationsCountAggregate, {nullable:true})
-    _count?: Directus_notificationsCountAggregate;
+  @Field(() => Directus_notificationsAvgAggregate, { nullable: true })
+  _avg?: Directus_notificationsAvgAggregate;
 
-    @Field(() => Directus_notificationsAvgAggregate, {nullable:true})
-    _avg?: Directus_notificationsAvgAggregate;
+  @Field(() => Directus_notificationsSumAggregate, { nullable: true })
+  _sum?: Directus_notificationsSumAggregate;
 
-    @Field(() => Directus_notificationsSumAggregate, {nullable:true})
-    _sum?: Directus_notificationsSumAggregate;
+  @Field(() => Directus_notificationsMinAggregate, { nullable: true })
+  _min?: Directus_notificationsMinAggregate;
 
-    @Field(() => Directus_notificationsMinAggregate, {nullable:true})
-    _min?: Directus_notificationsMinAggregate;
-
-    @Field(() => Directus_notificationsMaxAggregate, {nullable:true})
-    _max?: Directus_notificationsMaxAggregate;
+  @Field(() => Directus_notificationsMaxAggregate, { nullable: true })
+  _max?: Directus_notificationsMaxAggregate;
 }

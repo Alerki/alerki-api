@@ -7,19 +7,22 @@ import { UserUpdateManyWithoutClientProfileNestedInput } from '../user/user-upda
 
 @InputType()
 export class ClientProfileUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => AppointmentUpdateManyWithoutClientProfileNestedInput, {
+    nullable: true,
+  })
+  Appointment?: AppointmentUpdateManyWithoutClientProfileNestedInput;
 
-    @Field(() => AppointmentUpdateManyWithoutClientProfileNestedInput, {nullable:true})
-    Appointment?: AppointmentUpdateManyWithoutClientProfileNestedInput;
-
-    @Field(() => UserUpdateManyWithoutClientProfileNestedInput, {nullable:true})
-    User?: UserUpdateManyWithoutClientProfileNestedInput;
+  @Field(() => UserUpdateManyWithoutClientProfileNestedInput, {
+    nullable: true,
+  })
+  User?: UserUpdateManyWithoutClientProfileNestedInput;
 }

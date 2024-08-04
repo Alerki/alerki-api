@@ -6,12 +6,11 @@ import { CurrencyUpdateManyMutationInput } from './currency-update-many-mutation
 
 @InputType()
 export class CurrencyUpdateManyWithWhereWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput {
+  @Field(() => CurrencyScalarWhereInput, { nullable: false })
+  @Type(() => CurrencyScalarWhereInput)
+  where!: CurrencyScalarWhereInput;
 
-    @Field(() => CurrencyScalarWhereInput, {nullable:false})
-    @Type(() => CurrencyScalarWhereInput)
-    where!: CurrencyScalarWhereInput;
-
-    @Field(() => CurrencyUpdateManyMutationInput, {nullable:false})
-    @Type(() => CurrencyUpdateManyMutationInput)
-    data!: CurrencyUpdateManyMutationInput;
+  @Field(() => CurrencyUpdateManyMutationInput, { nullable: false })
+  @Type(() => CurrencyUpdateManyMutationInput)
+  data!: CurrencyUpdateManyMutationInput;
 }

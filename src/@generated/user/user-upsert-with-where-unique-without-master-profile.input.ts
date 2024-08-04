@@ -8,16 +8,18 @@ import { UserCreateWithoutMasterProfileInput } from './user-create-without-maste
 
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutMasterProfileInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
+  @Field(() => UserUpdateWithoutMasterProfileInput, { nullable: false })
+  @Type(() => UserUpdateWithoutMasterProfileInput)
+  update!: UserUpdateWithoutMasterProfileInput;
 
-    @Field(() => UserUpdateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => UserUpdateWithoutMasterProfileInput)
-    update!: UserUpdateWithoutMasterProfileInput;
-
-    @Field(() => UserCreateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => UserCreateWithoutMasterProfileInput)
-    create!: UserCreateWithoutMasterProfileInput;
+  @Field(() => UserCreateWithoutMasterProfileInput, { nullable: false })
+  @Type(() => UserCreateWithoutMasterProfileInput)
+  create!: UserCreateWithoutMasterProfileInput;
 }

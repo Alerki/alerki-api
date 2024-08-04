@@ -13,48 +13,66 @@ import { directus_dashboardsScalarWhereInput } from './directus-dashboards-scala
 
 @InputType()
 export class directus_dashboardsUncheckedUpdateManyWithoutDirectus_usersNestedInput {
+  @Field(() => [directus_dashboardsCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsCreateWithoutDirectus_usersInput)
+  create?: Array<directus_dashboardsCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_dashboardsCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_dashboardsCreateWithoutDirectus_usersInput)
-    create?: Array<directus_dashboardsCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_dashboardsCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_dashboardsCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_dashboardsCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_dashboardsCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_dashboardsCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(
+    () => [directus_dashboardsUpsertWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_dashboardsUpsertWithWhereUniqueWithoutDirectus_usersInput,
+  )
+  upsert?: Array<directus_dashboardsUpsertWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_dashboardsUpsertWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_dashboardsUpsertWithWhereUniqueWithoutDirectus_usersInput)
-    upsert?: Array<directus_dashboardsUpsertWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(() => directus_dashboardsCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_dashboardsCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_dashboardsCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_dashboardsCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_dashboardsCreateManyDirectus_usersInputEnvelope;
+  @Field(() => [directus_dashboardsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_dashboardsWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_dashboardsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_dashboardsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_dashboardsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_dashboardsWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_dashboardsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_dashboardsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_dashboardsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_dashboardsWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_dashboardsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_dashboardsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_dashboardsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_dashboardsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_dashboardsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_dashboardsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [directus_dashboardsUpdateWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_dashboardsUpdateWithWhereUniqueWithoutDirectus_usersInput,
+  )
+  update?: Array<directus_dashboardsUpdateWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_dashboardsUpdateWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_dashboardsUpdateWithWhereUniqueWithoutDirectus_usersInput)
-    update?: Array<directus_dashboardsUpdateWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(
+    () => [directus_dashboardsUpdateManyWithWhereWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_dashboardsUpdateManyWithWhereWithoutDirectus_usersInput)
+  updateMany?: Array<directus_dashboardsUpdateManyWithWhereWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_dashboardsUpdateManyWithWhereWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_dashboardsUpdateManyWithWhereWithoutDirectus_usersInput)
-    updateMany?: Array<directus_dashboardsUpdateManyWithWhereWithoutDirectus_usersInput>;
-
-    @Field(() => [directus_dashboardsScalarWhereInput], {nullable:true})
-    @Type(() => directus_dashboardsScalarWhereInput)
-    deleteMany?: Array<directus_dashboardsScalarWhereInput>;
+  @Field(() => [directus_dashboardsScalarWhereInput], { nullable: true })
+  @Type(() => directus_dashboardsScalarWhereInput)
+  deleteMany?: Array<directus_dashboardsScalarWhereInput>;
 }

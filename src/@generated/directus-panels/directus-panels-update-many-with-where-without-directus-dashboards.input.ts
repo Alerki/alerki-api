@@ -6,12 +6,11 @@ import { directus_panelsUpdateManyMutationInput } from './directus-panels-update
 
 @InputType()
 export class directus_panelsUpdateManyWithWhereWithoutDirectus_dashboardsInput {
+  @Field(() => directus_panelsScalarWhereInput, { nullable: false })
+  @Type(() => directus_panelsScalarWhereInput)
+  where!: directus_panelsScalarWhereInput;
 
-    @Field(() => directus_panelsScalarWhereInput, {nullable:false})
-    @Type(() => directus_panelsScalarWhereInput)
-    where!: directus_panelsScalarWhereInput;
-
-    @Field(() => directus_panelsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_panelsUpdateManyMutationInput)
-    data!: directus_panelsUpdateManyMutationInput;
+  @Field(() => directus_panelsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_panelsUpdateManyMutationInput)
+  data!: directus_panelsUpdateManyMutationInput;
 }

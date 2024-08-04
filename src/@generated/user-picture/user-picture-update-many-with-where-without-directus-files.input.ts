@@ -6,12 +6,11 @@ import { UserPictureUpdateManyMutationInput } from './user-picture-update-many-m
 
 @InputType()
 export class UserPictureUpdateManyWithWhereWithoutDirectus_filesInput {
+  @Field(() => UserPictureScalarWhereInput, { nullable: false })
+  @Type(() => UserPictureScalarWhereInput)
+  where!: UserPictureScalarWhereInput;
 
-    @Field(() => UserPictureScalarWhereInput, {nullable:false})
-    @Type(() => UserPictureScalarWhereInput)
-    where!: UserPictureScalarWhereInput;
-
-    @Field(() => UserPictureUpdateManyMutationInput, {nullable:false})
-    @Type(() => UserPictureUpdateManyMutationInput)
-    data!: UserPictureUpdateManyMutationInput;
+  @Field(() => UserPictureUpdateManyMutationInput, { nullable: false })
+  @Type(() => UserPictureUpdateManyMutationInput)
+  data!: UserPictureUpdateManyMutationInput;
 }

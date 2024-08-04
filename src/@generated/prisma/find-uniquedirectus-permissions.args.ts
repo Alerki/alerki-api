@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniquedirectusPermissionsArgs {
-
-    @Field(() => directus_permissionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_permissionsWhereUniqueInput)
-    where!: directus_permissionsWhereUniqueInput;
+  @Field(() => directus_permissionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_permissionsWhereUniqueInput)
+  where!: directus_permissionsWhereUniqueInput;
 }

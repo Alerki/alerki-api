@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueSessionOrThrowArgs {
-
-    @Field(() => SessionWhereUniqueInput, {nullable:false})
-    @Type(() => SessionWhereUniqueInput)
-    where!: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
+  @Field(() => SessionWhereUniqueInput, { nullable: false })
+  @Type(() => SessionWhereUniqueInput)
+  where!: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
 }

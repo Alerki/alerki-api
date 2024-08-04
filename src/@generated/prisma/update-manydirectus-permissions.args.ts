@@ -6,12 +6,11 @@ import { directus_permissionsWhereInput } from '../directus-permissions/directus
 
 @ArgsType()
 export class UpdateManydirectusPermissionsArgs {
+  @Field(() => directus_permissionsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_permissionsUpdateManyMutationInput)
+  data!: directus_permissionsUpdateManyMutationInput;
 
-    @Field(() => directus_permissionsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_permissionsUpdateManyMutationInput)
-    data!: directus_permissionsUpdateManyMutationInput;
-
-    @Field(() => directus_permissionsWhereInput, {nullable:true})
-    @Type(() => directus_permissionsWhereInput)
-    where?: directus_permissionsWhereInput;
+  @Field(() => directus_permissionsWhereInput, { nullable: true })
+  @Type(() => directus_permissionsWhereInput)
+  where?: directus_permissionsWhereInput;
 }

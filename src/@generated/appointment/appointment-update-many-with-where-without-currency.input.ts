@@ -6,12 +6,11 @@ import { AppointmentUpdateManyMutationInput } from './appointment-update-many-mu
 
 @InputType()
 export class AppointmentUpdateManyWithWhereWithoutCurrencyInput {
+  @Field(() => AppointmentScalarWhereInput, { nullable: false })
+  @Type(() => AppointmentScalarWhereInput)
+  where!: AppointmentScalarWhereInput;
 
-    @Field(() => AppointmentScalarWhereInput, {nullable:false})
-    @Type(() => AppointmentScalarWhereInput)
-    where!: AppointmentScalarWhereInput;
-
-    @Field(() => AppointmentUpdateManyMutationInput, {nullable:false})
-    @Type(() => AppointmentUpdateManyMutationInput)
-    data!: AppointmentUpdateManyMutationInput;
+  @Field(() => AppointmentUpdateManyMutationInput, { nullable: false })
+  @Type(() => AppointmentUpdateManyMutationInput)
+  data!: AppointmentUpdateManyMutationInput;
 }

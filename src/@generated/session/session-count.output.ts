@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class SessionCount {
-
-    @Field(() => Int, {nullable:false})
-    User_Session?: number;
+  @Field(() => Int, { nullable: false })
+  User_Session?: number;
 }

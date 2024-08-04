@@ -10,30 +10,37 @@ import { directus_sharesUpdateWithoutDirectus_sessionsInput } from './directus-s
 
 @InputType()
 export class directus_sharesUpdateOneWithoutDirectus_sessionsNestedInput {
+  @Field(() => directus_sharesCreateWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_sharesCreateWithoutDirectus_sessionsInput)
+  create?: directus_sharesCreateWithoutDirectus_sessionsInput;
 
-    @Field(() => directus_sharesCreateWithoutDirectus_sessionsInput, {nullable:true})
-    @Type(() => directus_sharesCreateWithoutDirectus_sessionsInput)
-    create?: directus_sharesCreateWithoutDirectus_sessionsInput;
+  @Field(() => directus_sharesCreateOrConnectWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_sharesCreateOrConnectWithoutDirectus_sessionsInput)
+  connectOrCreate?: directus_sharesCreateOrConnectWithoutDirectus_sessionsInput;
 
-    @Field(() => directus_sharesCreateOrConnectWithoutDirectus_sessionsInput, {nullable:true})
-    @Type(() => directus_sharesCreateOrConnectWithoutDirectus_sessionsInput)
-    connectOrCreate?: directus_sharesCreateOrConnectWithoutDirectus_sessionsInput;
+  @Field(() => directus_sharesUpsertWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_sharesUpsertWithoutDirectus_sessionsInput)
+  upsert?: directus_sharesUpsertWithoutDirectus_sessionsInput;
 
-    @Field(() => directus_sharesUpsertWithoutDirectus_sessionsInput, {nullable:true})
-    @Type(() => directus_sharesUpsertWithoutDirectus_sessionsInput)
-    upsert?: directus_sharesUpsertWithoutDirectus_sessionsInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_sharesWhereUniqueInput, { nullable: true })
+  @Type(() => directus_sharesWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_sharesWhereUniqueInput, {nullable:true})
-    @Type(() => directus_sharesWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_sharesUpdateWithoutDirectus_sessionsInput, {nullable:true})
-    @Type(() => directus_sharesUpdateWithoutDirectus_sessionsInput)
-    update?: directus_sharesUpdateWithoutDirectus_sessionsInput;
+  @Field(() => directus_sharesUpdateWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_sharesUpdateWithoutDirectus_sessionsInput)
+  update?: directus_sharesUpdateWithoutDirectus_sessionsInput;
 }

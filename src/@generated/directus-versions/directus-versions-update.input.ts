@@ -10,37 +10,51 @@ import { directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_
 
 @InputType()
 export class directus_versionsUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  key?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    key?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  name?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    name?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  item?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    item?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  hash?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    hash?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(
+    () => directus_revisionsUpdateManyWithoutDirectus_versionsNestedInput,
+    { nullable: true },
+  )
+  directus_revisions?: directus_revisionsUpdateManyWithoutDirectus_versionsNestedInput;
 
-    @Field(() => directus_revisionsUpdateManyWithoutDirectus_versionsNestedInput, {nullable:true})
-    directus_revisions?: directus_revisionsUpdateManyWithoutDirectus_versionsNestedInput;
+  @Field(
+    () =>
+      directus_collectionsUpdateOneRequiredWithoutDirectus_versionsNestedInput,
+    { nullable: true },
+  )
+  directus_collections?: directus_collectionsUpdateOneRequiredWithoutDirectus_versionsNestedInput;
 
-    @Field(() => directus_collectionsUpdateOneRequiredWithoutDirectus_versionsNestedInput, {nullable:true})
-    directus_collections?: directus_collectionsUpdateOneRequiredWithoutDirectus_versionsNestedInput;
+  @Field(
+    () =>
+      directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_createdTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_users_directus_versions_user_createdTodirectus_users?: directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_createdTodirectus_usersNestedInput;
 
-    @Field(() => directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_createdTodirectus_usersNestedInput, {nullable:true})
-    directus_users_directus_versions_user_createdTodirectus_users?: directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_createdTodirectus_usersNestedInput;
-
-    @Field(() => directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersNestedInput, {nullable:true})
-    directus_users_directus_versions_user_updatedTodirectus_users?: directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_users_directus_versions_user_updatedTodirectus_users?: directus_usersUpdateOneWithoutDirectus_versions_directus_versions_user_updatedTodirectus_usersNestedInput;
 }

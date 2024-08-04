@@ -9,23 +9,24 @@ import { Directus_filesScalarFieldEnum } from './directus-files-scalar-field.enu
 
 @ArgsType()
 export class FindFirstdirectusFilesOrThrowArgs {
+  @Field(() => directus_filesWhereInput, { nullable: true })
+  @Type(() => directus_filesWhereInput)
+  where?: directus_filesWhereInput;
 
-    @Field(() => directus_filesWhereInput, {nullable:true})
-    @Type(() => directus_filesWhereInput)
-    where?: directus_filesWhereInput;
+  @Field(() => [directus_filesOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_filesOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_filesOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_filesOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_filesWhereUniqueInput, { nullable: true })
+  cursor?: directus_filesWhereUniqueInput;
 
-    @Field(() => directus_filesWhereUniqueInput, {nullable:true})
-    cursor?: directus_filesWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_filesScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_filesScalarFieldEnum>;
+  @Field(() => [Directus_filesScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_filesScalarFieldEnum>;
 }

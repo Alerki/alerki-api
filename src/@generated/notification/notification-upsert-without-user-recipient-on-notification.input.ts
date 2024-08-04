@@ -6,12 +6,15 @@ import { NotificationCreateWithoutUserRecipientOnNotificationInput } from './not
 
 @InputType()
 export class NotificationUpsertWithoutUserRecipientOnNotificationInput {
+  @Field(() => NotificationUpdateWithoutUserRecipientOnNotificationInput, {
+    nullable: false,
+  })
+  @Type(() => NotificationUpdateWithoutUserRecipientOnNotificationInput)
+  update!: NotificationUpdateWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => NotificationUpdateWithoutUserRecipientOnNotificationInput, {nullable:false})
-    @Type(() => NotificationUpdateWithoutUserRecipientOnNotificationInput)
-    update!: NotificationUpdateWithoutUserRecipientOnNotificationInput;
-
-    @Field(() => NotificationCreateWithoutUserRecipientOnNotificationInput, {nullable:false})
-    @Type(() => NotificationCreateWithoutUserRecipientOnNotificationInput)
-    create!: NotificationCreateWithoutUserRecipientOnNotificationInput;
+  @Field(() => NotificationCreateWithoutUserRecipientOnNotificationInput, {
+    nullable: false,
+  })
+  @Type(() => NotificationCreateWithoutUserRecipientOnNotificationInput)
+  create!: NotificationCreateWithoutUserRecipientOnNotificationInput;
 }

@@ -6,13 +6,12 @@ import { MasterScheduleMaxAggregate } from './master-schedule-max-aggregate.outp
 
 @ObjectType()
 export class AggregateMasterSchedule {
+  @Field(() => MasterScheduleCountAggregate, { nullable: true })
+  _count?: MasterScheduleCountAggregate;
 
-    @Field(() => MasterScheduleCountAggregate, {nullable:true})
-    _count?: MasterScheduleCountAggregate;
+  @Field(() => MasterScheduleMinAggregate, { nullable: true })
+  _min?: MasterScheduleMinAggregate;
 
-    @Field(() => MasterScheduleMinAggregate, {nullable:true})
-    _min?: MasterScheduleMinAggregate;
-
-    @Field(() => MasterScheduleMaxAggregate, {nullable:true})
-    _max?: MasterScheduleMaxAggregate;
+  @Field(() => MasterScheduleMaxAggregate, { nullable: true })
+  _max?: MasterScheduleMaxAggregate;
 }

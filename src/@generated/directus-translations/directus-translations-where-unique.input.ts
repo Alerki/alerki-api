@@ -3,7 +3,6 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class directus_translationsWhereUniqueInput {
-
-    @Field(() => String, {nullable:true})
-    id?: string;
+  @Field(() => String, { nullable: true })
+  id?: string;
 }

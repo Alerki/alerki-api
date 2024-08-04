@@ -4,22 +4,21 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Directus_revisionsMinAggregate {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => Int, { nullable: true })
+  activity?: number;
 
-    @Field(() => Int, {nullable:true})
-    activity?: number;
+  @Field(() => String, { nullable: true })
+  collection?: string;
 
-    @Field(() => String, {nullable:true})
-    collection?: string;
+  @Field(() => String, { nullable: true })
+  item?: string;
 
-    @Field(() => String, {nullable:true})
-    item?: string;
+  @Field(() => Int, { nullable: true })
+  parent?: number;
 
-    @Field(() => Int, {nullable:true})
-    parent?: number;
-
-    @Field(() => String, {nullable:true})
-    version?: string;
+  @Field(() => String, { nullable: true })
+  version?: string;
 }

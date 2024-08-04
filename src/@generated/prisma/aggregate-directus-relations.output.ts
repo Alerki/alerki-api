@@ -8,19 +8,18 @@ import { Directus_relationsMaxAggregate } from './directus-relations-max-aggrega
 
 @ObjectType()
 export class AggregateDirectus_relations {
+  @Field(() => Directus_relationsCountAggregate, { nullable: true })
+  _count?: Directus_relationsCountAggregate;
 
-    @Field(() => Directus_relationsCountAggregate, {nullable:true})
-    _count?: Directus_relationsCountAggregate;
+  @Field(() => Directus_relationsAvgAggregate, { nullable: true })
+  _avg?: Directus_relationsAvgAggregate;
 
-    @Field(() => Directus_relationsAvgAggregate, {nullable:true})
-    _avg?: Directus_relationsAvgAggregate;
+  @Field(() => Directus_relationsSumAggregate, { nullable: true })
+  _sum?: Directus_relationsSumAggregate;
 
-    @Field(() => Directus_relationsSumAggregate, {nullable:true})
-    _sum?: Directus_relationsSumAggregate;
+  @Field(() => Directus_relationsMinAggregate, { nullable: true })
+  _min?: Directus_relationsMinAggregate;
 
-    @Field(() => Directus_relationsMinAggregate, {nullable:true})
-    _min?: Directus_relationsMinAggregate;
-
-    @Field(() => Directus_relationsMaxAggregate, {nullable:true})
-    _max?: Directus_relationsMaxAggregate;
+  @Field(() => Directus_relationsMaxAggregate, { nullable: true })
+  _max?: Directus_relationsMaxAggregate;
 }

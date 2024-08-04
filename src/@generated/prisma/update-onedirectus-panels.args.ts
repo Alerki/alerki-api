@@ -6,12 +6,11 @@ import { directus_panelsWhereUniqueInput } from '../directus-panels/directus-pan
 
 @ArgsType()
 export class UpdateOnedirectusPanelsArgs {
+  @Field(() => directus_panelsUpdateInput, { nullable: false })
+  @Type(() => directus_panelsUpdateInput)
+  data!: directus_panelsUpdateInput;
 
-    @Field(() => directus_panelsUpdateInput, {nullable:false})
-    @Type(() => directus_panelsUpdateInput)
-    data!: directus_panelsUpdateInput;
-
-    @Field(() => directus_panelsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_panelsWhereUniqueInput)
-    where!: directus_panelsWhereUniqueInput;
+  @Field(() => directus_panelsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_panelsWhereUniqueInput)
+  where!: directus_panelsWhereUniqueInput;
 }

@@ -5,11 +5,12 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class directus_flowsCreateManyDirectus_usersInputEnvelope {
+  @Field(() => [directus_flowsCreateManyDirectus_usersInput], {
+    nullable: false,
+  })
+  @Type(() => directus_flowsCreateManyDirectus_usersInput)
+  data!: Array<directus_flowsCreateManyDirectus_usersInput>;
 
-    @Field(() => [directus_flowsCreateManyDirectus_usersInput], {nullable:false})
-    @Type(() => directus_flowsCreateManyDirectus_usersInput)
-    data!: Array<directus_flowsCreateManyDirectus_usersInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

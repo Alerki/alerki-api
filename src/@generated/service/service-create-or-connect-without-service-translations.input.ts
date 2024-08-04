@@ -7,12 +7,13 @@ import { ServiceCreateWithoutService_translationsInput } from './service-create-
 
 @InputType()
 export class ServiceCreateOrConnectWithoutService_translationsInput {
+  @Field(() => ServiceWhereUniqueInput, { nullable: false })
+  @Type(() => ServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => ServiceWhereUniqueInput, {nullable:false})
-    @Type(() => ServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
-
-    @Field(() => ServiceCreateWithoutService_translationsInput, {nullable:false})
-    @Type(() => ServiceCreateWithoutService_translationsInput)
-    create!: ServiceCreateWithoutService_translationsInput;
+  @Field(() => ServiceCreateWithoutService_translationsInput, {
+    nullable: false,
+  })
+  @Type(() => ServiceCreateWithoutService_translationsInput)
+  create!: ServiceCreateWithoutService_translationsInput;
 }

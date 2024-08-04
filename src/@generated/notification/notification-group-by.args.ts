@@ -12,32 +12,31 @@ import { NotificationMaxAggregateInput } from './notification-max-aggregate.inpu
 
 @ArgsType()
 export class NotificationGroupByArgs {
+  @Field(() => NotificationWhereInput, { nullable: true })
+  @Type(() => NotificationWhereInput)
+  where?: NotificationWhereInput;
 
-    @Field(() => NotificationWhereInput, {nullable:true})
-    @Type(() => NotificationWhereInput)
-    where?: NotificationWhereInput;
+  @Field(() => [NotificationOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<NotificationOrderByWithAggregationInput>;
 
-    @Field(() => [NotificationOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<NotificationOrderByWithAggregationInput>;
+  @Field(() => [NotificationScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof NotificationScalarFieldEnum>;
 
-    @Field(() => [NotificationScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof NotificationScalarFieldEnum>;
+  @Field(() => NotificationScalarWhereWithAggregatesInput, { nullable: true })
+  having?: NotificationScalarWhereWithAggregatesInput;
 
-    @Field(() => NotificationScalarWhereWithAggregatesInput, {nullable:true})
-    having?: NotificationScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => NotificationCountAggregateInput, { nullable: true })
+  _count?: NotificationCountAggregateInput;
 
-    @Field(() => NotificationCountAggregateInput, {nullable:true})
-    _count?: NotificationCountAggregateInput;
+  @Field(() => NotificationMinAggregateInput, { nullable: true })
+  _min?: NotificationMinAggregateInput;
 
-    @Field(() => NotificationMinAggregateInput, {nullable:true})
-    _min?: NotificationMinAggregateInput;
-
-    @Field(() => NotificationMaxAggregateInput, {nullable:true})
-    _max?: NotificationMaxAggregateInput;
+  @Field(() => NotificationMaxAggregateInput, { nullable: true })
+  _max?: NotificationMaxAggregateInput;
 }

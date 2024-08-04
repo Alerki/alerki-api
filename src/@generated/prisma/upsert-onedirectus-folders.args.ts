@@ -7,16 +7,15 @@ import { directus_foldersUpdateInput } from '../directus-folders/directus-folder
 
 @ArgsType()
 export class UpsertOnedirectusFoldersArgs {
+  @Field(() => directus_foldersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_foldersWhereUniqueInput)
+  where!: directus_foldersWhereUniqueInput;
 
-    @Field(() => directus_foldersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_foldersWhereUniqueInput)
-    where!: directus_foldersWhereUniqueInput;
+  @Field(() => directus_foldersCreateInput, { nullable: false })
+  @Type(() => directus_foldersCreateInput)
+  create!: directus_foldersCreateInput;
 
-    @Field(() => directus_foldersCreateInput, {nullable:false})
-    @Type(() => directus_foldersCreateInput)
-    create!: directus_foldersCreateInput;
-
-    @Field(() => directus_foldersUpdateInput, {nullable:false})
-    @Type(() => directus_foldersUpdateInput)
-    update!: directus_foldersUpdateInput;
+  @Field(() => directus_foldersUpdateInput, { nullable: false })
+  @Type(() => directus_foldersUpdateInput)
+  update!: directus_foldersUpdateInput;
 }

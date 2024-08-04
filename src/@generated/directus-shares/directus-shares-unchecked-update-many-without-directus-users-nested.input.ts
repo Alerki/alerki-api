@@ -13,48 +13,61 @@ import { directus_sharesScalarWhereInput } from './directus-shares-scalar-where.
 
 @InputType()
 export class directus_sharesUncheckedUpdateManyWithoutDirectus_usersNestedInput {
+  @Field(() => [directus_sharesCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sharesCreateWithoutDirectus_usersInput)
+  create?: Array<directus_sharesCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sharesCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sharesCreateWithoutDirectus_usersInput)
-    create?: Array<directus_sharesCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_sharesCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sharesCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_sharesCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sharesCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sharesCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_sharesCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(
+    () => [directus_sharesUpsertWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_sharesUpsertWithWhereUniqueWithoutDirectus_usersInput)
+  upsert?: Array<directus_sharesUpsertWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sharesUpsertWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sharesUpsertWithWhereUniqueWithoutDirectus_usersInput)
-    upsert?: Array<directus_sharesUpsertWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(() => directus_sharesCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_sharesCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_sharesCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_sharesCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_sharesCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_sharesCreateManyDirectus_usersInputEnvelope;
+  @Field(() => [directus_sharesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sharesWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_sharesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sharesWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_sharesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sharesWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_sharesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sharesWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_sharesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sharesWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_sharesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sharesWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_sharesWhereUniqueInput], { nullable: true })
+  @Type(() => directus_sharesWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_sharesWhereUniqueInput], {nullable:true})
-    @Type(() => directus_sharesWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [directus_sharesUpdateWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_sharesUpdateWithWhereUniqueWithoutDirectus_usersInput)
+  update?: Array<directus_sharesUpdateWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sharesUpdateWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sharesUpdateWithWhereUniqueWithoutDirectus_usersInput)
-    update?: Array<directus_sharesUpdateWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(() => [directus_sharesUpdateManyWithWhereWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_sharesUpdateManyWithWhereWithoutDirectus_usersInput)
+  updateMany?: Array<directus_sharesUpdateManyWithWhereWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_sharesUpdateManyWithWhereWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_sharesUpdateManyWithWhereWithoutDirectus_usersInput)
-    updateMany?: Array<directus_sharesUpdateManyWithWhereWithoutDirectus_usersInput>;
-
-    @Field(() => [directus_sharesScalarWhereInput], {nullable:true})
-    @Type(() => directus_sharesScalarWhereInput)
-    deleteMany?: Array<directus_sharesScalarWhereInput>;
+  @Field(() => [directus_sharesScalarWhereInput], { nullable: true })
+  @Type(() => directus_sharesScalarWhereInput)
+  deleteMany?: Array<directus_sharesScalarWhereInput>;
 }

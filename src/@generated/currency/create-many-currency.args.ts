@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManyCurrencyArgs {
+  @Field(() => [CurrencyCreateManyInput], { nullable: false })
+  @Type(() => CurrencyCreateManyInput)
+  data!: Array<CurrencyCreateManyInput>;
 
-    @Field(() => [CurrencyCreateManyInput], {nullable:false})
-    @Type(() => CurrencyCreateManyInput)
-    data!: Array<CurrencyCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

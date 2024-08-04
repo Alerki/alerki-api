@@ -13,48 +13,69 @@ import { Service_translationsScalarWhereInput } from './service-translations-sca
 
 @InputType()
 export class Service_translationsUncheckedUpdateManyWithoutLanguagesNestedInput {
+  @Field(() => [Service_translationsCreateWithoutLanguagesInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateWithoutLanguagesInput)
+  create?: Array<Service_translationsCreateWithoutLanguagesInput>;
 
-    @Field(() => [Service_translationsCreateWithoutLanguagesInput], {nullable:true})
-    @Type(() => Service_translationsCreateWithoutLanguagesInput)
-    create?: Array<Service_translationsCreateWithoutLanguagesInput>;
+  @Field(() => [Service_translationsCreateOrConnectWithoutLanguagesInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateOrConnectWithoutLanguagesInput)
+  connectOrCreate?: Array<Service_translationsCreateOrConnectWithoutLanguagesInput>;
 
-    @Field(() => [Service_translationsCreateOrConnectWithoutLanguagesInput], {nullable:true})
-    @Type(() => Service_translationsCreateOrConnectWithoutLanguagesInput)
-    connectOrCreate?: Array<Service_translationsCreateOrConnectWithoutLanguagesInput>;
+  @Field(
+    () => [Service_translationsUpsertWithWhereUniqueWithoutLanguagesInput],
+    { nullable: true },
+  )
+  @Type(() => Service_translationsUpsertWithWhereUniqueWithoutLanguagesInput)
+  upsert?: Array<Service_translationsUpsertWithWhereUniqueWithoutLanguagesInput>;
 
-    @Field(() => [Service_translationsUpsertWithWhereUniqueWithoutLanguagesInput], {nullable:true})
-    @Type(() => Service_translationsUpsertWithWhereUniqueWithoutLanguagesInput)
-    upsert?: Array<Service_translationsUpsertWithWhereUniqueWithoutLanguagesInput>;
+  @Field(() => Service_translationsCreateManyLanguagesInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateManyLanguagesInputEnvelope)
+  createMany?: Service_translationsCreateManyLanguagesInputEnvelope;
 
-    @Field(() => Service_translationsCreateManyLanguagesInputEnvelope, {nullable:true})
-    @Type(() => Service_translationsCreateManyLanguagesInputEnvelope)
-    createMany?: Service_translationsCreateManyLanguagesInputEnvelope;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  set?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  disconnect?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  delete?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(() => [Service_translationsWhereUniqueInput], { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>
+  >;
 
-    @Field(() => [Service_translationsWhereUniqueInput], {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>>;
+  @Field(
+    () => [Service_translationsUpdateWithWhereUniqueWithoutLanguagesInput],
+    { nullable: true },
+  )
+  @Type(() => Service_translationsUpdateWithWhereUniqueWithoutLanguagesInput)
+  update?: Array<Service_translationsUpdateWithWhereUniqueWithoutLanguagesInput>;
 
-    @Field(() => [Service_translationsUpdateWithWhereUniqueWithoutLanguagesInput], {nullable:true})
-    @Type(() => Service_translationsUpdateWithWhereUniqueWithoutLanguagesInput)
-    update?: Array<Service_translationsUpdateWithWhereUniqueWithoutLanguagesInput>;
+  @Field(() => [Service_translationsUpdateManyWithWhereWithoutLanguagesInput], {
+    nullable: true,
+  })
+  @Type(() => Service_translationsUpdateManyWithWhereWithoutLanguagesInput)
+  updateMany?: Array<Service_translationsUpdateManyWithWhereWithoutLanguagesInput>;
 
-    @Field(() => [Service_translationsUpdateManyWithWhereWithoutLanguagesInput], {nullable:true})
-    @Type(() => Service_translationsUpdateManyWithWhereWithoutLanguagesInput)
-    updateMany?: Array<Service_translationsUpdateManyWithWhereWithoutLanguagesInput>;
-
-    @Field(() => [Service_translationsScalarWhereInput], {nullable:true})
-    @Type(() => Service_translationsScalarWhereInput)
-    deleteMany?: Array<Service_translationsScalarWhereInput>;
+  @Field(() => [Service_translationsScalarWhereInput], { nullable: true })
+  @Type(() => Service_translationsScalarWhereInput)
+  deleteMany?: Array<Service_translationsScalarWhereInput>;
 }

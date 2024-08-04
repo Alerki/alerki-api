@@ -8,16 +8,19 @@ import { directus_dashboardsWhereUniqueInput } from './directus-dashboards-where
 
 @InputType()
 export class directus_dashboardsCreateNestedOneWithoutDirectus_panelsInput {
+  @Field(() => directus_dashboardsCreateWithoutDirectus_panelsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsCreateWithoutDirectus_panelsInput)
+  create?: directus_dashboardsCreateWithoutDirectus_panelsInput;
 
-    @Field(() => directus_dashboardsCreateWithoutDirectus_panelsInput, {nullable:true})
-    @Type(() => directus_dashboardsCreateWithoutDirectus_panelsInput)
-    create?: directus_dashboardsCreateWithoutDirectus_panelsInput;
+  @Field(() => directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput)
+  connectOrCreate?: directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput;
 
-    @Field(() => directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput, {nullable:true})
-    @Type(() => directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput)
-    connectOrCreate?: directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput;
-
-    @Field(() => directus_dashboardsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_dashboardsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>;
+  @Field(() => directus_dashboardsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_dashboardsWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>;
 }

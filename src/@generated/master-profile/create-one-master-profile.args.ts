@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneMasterProfileArgs {
-
-    @Field(() => MasterProfileCreateInput, {nullable:false})
-    @Type(() => MasterProfileCreateInput)
-    data!: MasterProfileCreateInput;
+  @Field(() => MasterProfileCreateInput, { nullable: false })
+  @Type(() => MasterProfileCreateInput)
+  data!: MasterProfileCreateInput;
 }

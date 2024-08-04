@@ -4,13 +4,12 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class User_SessionMinAggregate {
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-    @Field(() => Int, {nullable:true})
-    id?: number;
+  @Field(() => String, { nullable: true })
+  User_id?: string;
 
-    @Field(() => String, {nullable:true})
-    User_id?: string;
-
-    @Field(() => String, {nullable:true})
-    Session_id?: string;
+  @Field(() => String, { nullable: true })
+  Session_id?: string;
 }

@@ -5,22 +5,21 @@ import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.inpu
 
 @InputType()
 export class directus_migrationsWhereInput {
+  @Field(() => [directus_migrationsWhereInput], { nullable: true })
+  AND?: Array<directus_migrationsWhereInput>;
 
-    @Field(() => [directus_migrationsWhereInput], {nullable:true})
-    AND?: Array<directus_migrationsWhereInput>;
+  @Field(() => [directus_migrationsWhereInput], { nullable: true })
+  OR?: Array<directus_migrationsWhereInput>;
 
-    @Field(() => [directus_migrationsWhereInput], {nullable:true})
-    OR?: Array<directus_migrationsWhereInput>;
+  @Field(() => [directus_migrationsWhereInput], { nullable: true })
+  NOT?: Array<directus_migrationsWhereInput>;
 
-    @Field(() => [directus_migrationsWhereInput], {nullable:true})
-    NOT?: Array<directus_migrationsWhereInput>;
+  @Field(() => StringFilter, { nullable: true })
+  version?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    version?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
-
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    timestamp?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  timestamp?: DateTimeNullableFilter;
 }

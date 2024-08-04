@@ -7,12 +7,21 @@ import { directus_usersCreateWithoutService_Service_user_createdTodirectus_users
 
 @InputType()
 export class directus_usersCreateOrConnectWithoutService_Service_user_createdTodirectus_usersInput {
+  @Field(() => directus_usersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_usersWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_usersWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput)
-    create!: directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput,
+  )
+  create!: directus_usersCreateWithoutService_Service_user_createdTodirectus_usersInput;
 }

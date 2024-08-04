@@ -3,28 +3,27 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class ServiceCountAggregateInput {
+  @Field(() => Boolean, { nullable: true })
+  id?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
+  @Field(() => Boolean, { nullable: true })
+  status?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
+  @Field(() => Boolean, { nullable: true })
+  sort?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    sort?: true;
+  @Field(() => Boolean, { nullable: true })
+  user_created?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    user_created?: true;
+  @Field(() => Boolean, { nullable: true })
+  date_created?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    date_created?: true;
+  @Field(() => Boolean, { nullable: true })
+  user_updated?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    user_updated?: true;
+  @Field(() => Boolean, { nullable: true })
+  date_updated?: true;
 
-    @Field(() => Boolean, {nullable:true})
-    date_updated?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    _all?: true;
+  @Field(() => Boolean, { nullable: true })
+  _all?: true;
 }

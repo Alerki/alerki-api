@@ -5,25 +5,24 @@ import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullab
 
 @InputType()
 export class UserPictureScalarWhereWithAggregatesInput {
+  @Field(() => [UserPictureScalarWhereWithAggregatesInput], { nullable: true })
+  AND?: Array<UserPictureScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserPictureScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<UserPictureScalarWhereWithAggregatesInput>;
+  @Field(() => [UserPictureScalarWhereWithAggregatesInput], { nullable: true })
+  OR?: Array<UserPictureScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserPictureScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<UserPictureScalarWhereWithAggregatesInput>;
+  @Field(() => [UserPictureScalarWhereWithAggregatesInput], { nullable: true })
+  NOT?: Array<UserPictureScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserPictureScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<UserPictureScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_updated?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_updated?: DateTimeNullableWithAggregatesFilter;
-
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    picture?: UuidWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  picture?: UuidWithAggregatesFilter;
 }

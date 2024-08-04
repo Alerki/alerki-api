@@ -5,10 +5,10 @@ services:
     image: redis:6
     container_name: cache
     ports:
-      - "6379:6379"
-  directus:
+      - '6379:6379'
+  alerki_directus:
     image: directus/directus:10.10.4
-    container_name: directus
+    container_name: alerki_directus
     ports:
       - 8055:8055
     environment:
@@ -20,9 +20,9 @@ services:
       DB_DATABASE: 'alerki_dev'
       DB_USER: 'root'
       DB_PASSWORD: 1234
-      CACHE_ENABLED: "true"
-      CACHE_STORE: "redis"
-      REDIS: "redis://cache:6379"
+      CACHE_ENABLED: 'true'
+      CACHE_STORE: 'redis'
+      REDIS: 'redis://cache:6379'
       ADMIN_EMAIL: 'root@gmail.com'
       ADMIN_PASSWORD: 'root'
     depends_on:

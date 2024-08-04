@@ -6,12 +6,11 @@ import { ClientProfileWhereInput } from './client-profile-where.input';
 
 @ArgsType()
 export class UpdateManyClientProfileArgs {
+  @Field(() => ClientProfileUpdateManyMutationInput, { nullable: false })
+  @Type(() => ClientProfileUpdateManyMutationInput)
+  data!: ClientProfileUpdateManyMutationInput;
 
-    @Field(() => ClientProfileUpdateManyMutationInput, {nullable:false})
-    @Type(() => ClientProfileUpdateManyMutationInput)
-    data!: ClientProfileUpdateManyMutationInput;
-
-    @Field(() => ClientProfileWhereInput, {nullable:true})
-    @Type(() => ClientProfileWhereInput)
-    where?: ClientProfileWhereInput;
+  @Field(() => ClientProfileWhereInput, { nullable: true })
+  @Type(() => ClientProfileWhereInput)
+  where?: ClientProfileWhereInput;
 }

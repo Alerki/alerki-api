@@ -14,35 +14,36 @@ import { ServiceMaxAggregateInput } from './service-max-aggregate.input';
 
 @ArgsType()
 export class ServiceAggregateArgs {
+  @Field(() => ServiceWhereInput, { nullable: true })
+  @Type(() => ServiceWhereInput)
+  where?: ServiceWhereInput;
 
-    @Field(() => ServiceWhereInput, {nullable:true})
-    @Type(() => ServiceWhereInput)
-    where?: ServiceWhereInput;
+  @Field(() => [ServiceOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<ServiceOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [ServiceOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<ServiceOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => ServiceWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => ServiceWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<ServiceWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => ServiceCountAggregateInput, { nullable: true })
+  _count?: ServiceCountAggregateInput;
 
-    @Field(() => ServiceCountAggregateInput, {nullable:true})
-    _count?: ServiceCountAggregateInput;
+  @Field(() => ServiceAvgAggregateInput, { nullable: true })
+  _avg?: ServiceAvgAggregateInput;
 
-    @Field(() => ServiceAvgAggregateInput, {nullable:true})
-    _avg?: ServiceAvgAggregateInput;
+  @Field(() => ServiceSumAggregateInput, { nullable: true })
+  _sum?: ServiceSumAggregateInput;
 
-    @Field(() => ServiceSumAggregateInput, {nullable:true})
-    _sum?: ServiceSumAggregateInput;
+  @Field(() => ServiceMinAggregateInput, { nullable: true })
+  _min?: ServiceMinAggregateInput;
 
-    @Field(() => ServiceMinAggregateInput, {nullable:true})
-    _min?: ServiceMinAggregateInput;
-
-    @Field(() => ServiceMaxAggregateInput, {nullable:true})
-    _max?: ServiceMaxAggregateInput;
+  @Field(() => ServiceMaxAggregateInput, { nullable: true })
+  _max?: ServiceMaxAggregateInput;
 }

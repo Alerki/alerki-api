@@ -7,22 +7,21 @@ import { ClientProfileOrderByRelevanceInput } from './client-profile-order-by-re
 
 @InputType()
 export class ClientProfileOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => AppointmentOrderByRelationAggregateInput, { nullable: true })
+  Appointment?: AppointmentOrderByRelationAggregateInput;
 
-    @Field(() => AppointmentOrderByRelationAggregateInput, {nullable:true})
-    Appointment?: AppointmentOrderByRelationAggregateInput;
+  @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
+  User?: UserOrderByRelationAggregateInput;
 
-    @Field(() => UserOrderByRelationAggregateInput, {nullable:true})
-    User?: UserOrderByRelationAggregateInput;
-
-    @Field(() => ClientProfileOrderByRelevanceInput, {nullable:true})
-    _relevance?: ClientProfileOrderByRelevanceInput;
+  @Field(() => ClientProfileOrderByRelevanceInput, { nullable: true })
+  _relevance?: ClientProfileOrderByRelevanceInput;
 }

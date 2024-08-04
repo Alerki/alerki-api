@@ -7,25 +7,24 @@ import { MasterProfileMinOrderByAggregateInput } from './master-profile-min-orde
 
 @InputType()
 export class MasterProfileOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  masterWeeklySchedule?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    masterWeeklySchedule?: keyof typeof SortOrder;
+  @Field(() => MasterProfileCountOrderByAggregateInput, { nullable: true })
+  _count?: MasterProfileCountOrderByAggregateInput;
 
-    @Field(() => MasterProfileCountOrderByAggregateInput, {nullable:true})
-    _count?: MasterProfileCountOrderByAggregateInput;
+  @Field(() => MasterProfileMaxOrderByAggregateInput, { nullable: true })
+  _max?: MasterProfileMaxOrderByAggregateInput;
 
-    @Field(() => MasterProfileMaxOrderByAggregateInput, {nullable:true})
-    _max?: MasterProfileMaxOrderByAggregateInput;
-
-    @Field(() => MasterProfileMinOrderByAggregateInput, {nullable:true})
-    _min?: MasterProfileMinOrderByAggregateInput;
+  @Field(() => MasterProfileMinOrderByAggregateInput, { nullable: true })
+  _min?: MasterProfileMinOrderByAggregateInput;
 }

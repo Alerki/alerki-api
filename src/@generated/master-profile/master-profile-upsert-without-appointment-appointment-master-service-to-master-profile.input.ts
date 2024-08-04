@@ -6,12 +6,25 @@ import { MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMaster
 
 @InputType()
 export class MasterProfileUpsertWithoutAppointment_Appointment_masterServiceToMasterProfileInput {
+  @Field(
+    () =>
+      MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+  )
+  update!: MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
 
-    @Field(() => MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput, {nullable:false})
-    @Type(() => MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput)
-    update!: MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
-
-    @Field(() => MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput, {nullable:false})
-    @Type(() => MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput)
-    create!: MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
+  @Field(
+    () =>
+      MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+  )
+  create!: MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
 }

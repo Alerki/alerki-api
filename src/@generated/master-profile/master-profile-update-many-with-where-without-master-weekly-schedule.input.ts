@@ -6,12 +6,11 @@ import { MasterProfileUpdateManyMutationInput } from './master-profile-update-ma
 
 @InputType()
 export class MasterProfileUpdateManyWithWhereWithoutMasterWeeklyScheduleInput {
+  @Field(() => MasterProfileScalarWhereInput, { nullable: false })
+  @Type(() => MasterProfileScalarWhereInput)
+  where!: MasterProfileScalarWhereInput;
 
-    @Field(() => MasterProfileScalarWhereInput, {nullable:false})
-    @Type(() => MasterProfileScalarWhereInput)
-    where!: MasterProfileScalarWhereInput;
-
-    @Field(() => MasterProfileUpdateManyMutationInput, {nullable:false})
-    @Type(() => MasterProfileUpdateManyMutationInput)
-    data!: MasterProfileUpdateManyMutationInput;
+  @Field(() => MasterProfileUpdateManyMutationInput, { nullable: false })
+  @Type(() => MasterProfileUpdateManyMutationInput)
+  data!: MasterProfileUpdateManyMutationInput;
 }

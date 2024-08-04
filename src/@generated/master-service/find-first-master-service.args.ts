@@ -10,23 +10,24 @@ import { MasterServiceScalarFieldEnum } from './master-service-scalar-field.enum
 
 @ArgsType()
 export class FindFirstMasterServiceArgs {
+  @Field(() => MasterServiceWhereInput, { nullable: true })
+  @Type(() => MasterServiceWhereInput)
+  where?: MasterServiceWhereInput;
 
-    @Field(() => MasterServiceWhereInput, {nullable:true})
-    @Type(() => MasterServiceWhereInput)
-    where?: MasterServiceWhereInput;
+  @Field(() => [MasterServiceOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<MasterServiceOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [MasterServiceOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<MasterServiceOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => MasterServiceWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterServiceWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [MasterServiceScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof MasterServiceScalarFieldEnum>;
+  @Field(() => [MasterServiceScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof MasterServiceScalarFieldEnum>;
 }

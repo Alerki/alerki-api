@@ -6,12 +6,11 @@ import { CurrencyWhereInput } from './currency-where.input';
 
 @ArgsType()
 export class UpdateManyCurrencyArgs {
+  @Field(() => CurrencyUpdateManyMutationInput, { nullable: false })
+  @Type(() => CurrencyUpdateManyMutationInput)
+  data!: CurrencyUpdateManyMutationInput;
 
-    @Field(() => CurrencyUpdateManyMutationInput, {nullable:false})
-    @Type(() => CurrencyUpdateManyMutationInput)
-    data!: CurrencyUpdateManyMutationInput;
-
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    @Type(() => CurrencyWhereInput)
-    where?: CurrencyWhereInput;
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  @Type(() => CurrencyWhereInput)
+  where?: CurrencyWhereInput;
 }

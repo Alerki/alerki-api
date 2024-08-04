@@ -7,16 +7,15 @@ import { directus_rolesUpdateInput } from '../directus-roles/directus-roles-upda
 
 @ArgsType()
 export class UpsertOnedirectusRolesArgs {
+  @Field(() => directus_rolesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_rolesWhereUniqueInput)
+  where!: directus_rolesWhereUniqueInput;
 
-    @Field(() => directus_rolesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_rolesWhereUniqueInput)
-    where!: directus_rolesWhereUniqueInput;
+  @Field(() => directus_rolesCreateInput, { nullable: false })
+  @Type(() => directus_rolesCreateInput)
+  create!: directus_rolesCreateInput;
 
-    @Field(() => directus_rolesCreateInput, {nullable:false})
-    @Type(() => directus_rolesCreateInput)
-    create!: directus_rolesCreateInput;
-
-    @Field(() => directus_rolesUpdateInput, {nullable:false})
-    @Type(() => directus_rolesUpdateInput)
-    update!: directus_rolesUpdateInput;
+  @Field(() => directus_rolesUpdateInput, { nullable: false })
+  @Type(() => directus_rolesUpdateInput)
+  update!: directus_rolesUpdateInput;
 }

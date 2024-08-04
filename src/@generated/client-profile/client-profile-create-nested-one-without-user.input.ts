@@ -8,16 +8,15 @@ import { ClientProfileWhereUniqueInput } from './client-profile-where-unique.inp
 
 @InputType()
 export class ClientProfileCreateNestedOneWithoutUserInput {
+  @Field(() => ClientProfileCreateWithoutUserInput, { nullable: true })
+  @Type(() => ClientProfileCreateWithoutUserInput)
+  create?: ClientProfileCreateWithoutUserInput;
 
-    @Field(() => ClientProfileCreateWithoutUserInput, {nullable:true})
-    @Type(() => ClientProfileCreateWithoutUserInput)
-    create?: ClientProfileCreateWithoutUserInput;
+  @Field(() => ClientProfileCreateOrConnectWithoutUserInput, { nullable: true })
+  @Type(() => ClientProfileCreateOrConnectWithoutUserInput)
+  connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput;
 
-    @Field(() => ClientProfileCreateOrConnectWithoutUserInput, {nullable:true})
-    @Type(() => ClientProfileCreateOrConnectWithoutUserInput)
-    connectOrCreate?: ClientProfileCreateOrConnectWithoutUserInput;
-
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:true})
-    @Type(() => ClientProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: true })
+  @Type(() => ClientProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 }

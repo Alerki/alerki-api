@@ -8,16 +8,22 @@ import { directus_usersCreateWithoutDirectus_rolesInput } from './directus-users
 
 @InputType()
 export class directus_usersUpsertWithWhereUniqueWithoutDirectus_rolesInput {
+  @Field(() => directus_usersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_usersWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_usersWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
+  @Field(() => directus_usersUpdateWithoutDirectus_rolesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersUpdateWithoutDirectus_rolesInput)
+  update!: directus_usersUpdateWithoutDirectus_rolesInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_rolesInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_rolesInput)
-    update!: directus_usersUpdateWithoutDirectus_rolesInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_rolesInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_rolesInput)
-    create!: directus_usersCreateWithoutDirectus_rolesInput;
+  @Field(() => directus_usersCreateWithoutDirectus_rolesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_rolesInput)
+  create!: directus_usersCreateWithoutDirectus_rolesInput;
 }

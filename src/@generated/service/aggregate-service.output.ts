@@ -8,19 +8,18 @@ import { ServiceMaxAggregate } from './service-max-aggregate.output';
 
 @ObjectType()
 export class AggregateService {
+  @Field(() => ServiceCountAggregate, { nullable: true })
+  _count?: ServiceCountAggregate;
 
-    @Field(() => ServiceCountAggregate, {nullable:true})
-    _count?: ServiceCountAggregate;
+  @Field(() => ServiceAvgAggregate, { nullable: true })
+  _avg?: ServiceAvgAggregate;
 
-    @Field(() => ServiceAvgAggregate, {nullable:true})
-    _avg?: ServiceAvgAggregate;
+  @Field(() => ServiceSumAggregate, { nullable: true })
+  _sum?: ServiceSumAggregate;
 
-    @Field(() => ServiceSumAggregate, {nullable:true})
-    _sum?: ServiceSumAggregate;
+  @Field(() => ServiceMinAggregate, { nullable: true })
+  _min?: ServiceMinAggregate;
 
-    @Field(() => ServiceMinAggregate, {nullable:true})
-    _min?: ServiceMinAggregate;
-
-    @Field(() => ServiceMaxAggregate, {nullable:true})
-    _max?: ServiceMaxAggregate;
+  @Field(() => ServiceMaxAggregate, { nullable: true })
+  _max?: ServiceMaxAggregate;
 }

@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class UserPictureCreateManyDirectus_filesInputEnvelope {
+  @Field(() => [UserPictureCreateManyDirectus_filesInput], { nullable: false })
+  @Type(() => UserPictureCreateManyDirectus_filesInput)
+  data!: Array<UserPictureCreateManyDirectus_filesInput>;
 
-    @Field(() => [UserPictureCreateManyDirectus_filesInput], {nullable:false})
-    @Type(() => UserPictureCreateManyDirectus_filesInput)
-    data!: Array<UserPictureCreateManyDirectus_filesInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

@@ -10,23 +10,24 @@ import { MasterScheduleScalarFieldEnum } from './master-schedule-scalar-field.en
 
 @ArgsType()
 export class FindFirstMasterScheduleOrThrowArgs {
+  @Field(() => MasterScheduleWhereInput, { nullable: true })
+  @Type(() => MasterScheduleWhereInput)
+  where?: MasterScheduleWhereInput;
 
-    @Field(() => MasterScheduleWhereInput, {nullable:true})
-    @Type(() => MasterScheduleWhereInput)
-    where?: MasterScheduleWhereInput;
+  @Field(() => [MasterScheduleOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<MasterScheduleOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [MasterScheduleOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<MasterScheduleOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => MasterScheduleWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterScheduleWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<MasterScheduleWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [MasterScheduleScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof MasterScheduleScalarFieldEnum>;
+  @Field(() => [MasterScheduleScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof MasterScheduleScalarFieldEnum>;
 }

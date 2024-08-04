@@ -6,12 +6,15 @@ import { directus_sharesCreateWithoutDirectus_sessionsInput } from './directus-s
 
 @InputType()
 export class directus_sharesUpsertWithoutDirectus_sessionsInput {
+  @Field(() => directus_sharesUpdateWithoutDirectus_sessionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_sharesUpdateWithoutDirectus_sessionsInput)
+  update!: directus_sharesUpdateWithoutDirectus_sessionsInput;
 
-    @Field(() => directus_sharesUpdateWithoutDirectus_sessionsInput, {nullable:false})
-    @Type(() => directus_sharesUpdateWithoutDirectus_sessionsInput)
-    update!: directus_sharesUpdateWithoutDirectus_sessionsInput;
-
-    @Field(() => directus_sharesCreateWithoutDirectus_sessionsInput, {nullable:false})
-    @Type(() => directus_sharesCreateWithoutDirectus_sessionsInput)
-    create!: directus_sharesCreateWithoutDirectus_sessionsInput;
+  @Field(() => directus_sharesCreateWithoutDirectus_sessionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_sharesCreateWithoutDirectus_sessionsInput)
+  create!: directus_sharesCreateWithoutDirectus_sessionsInput;
 }

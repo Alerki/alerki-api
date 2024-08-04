@@ -8,34 +8,33 @@ import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.inpu
 
 @InputType()
 export class ServiceScalarWhereInput {
+  @Field(() => [ServiceScalarWhereInput], { nullable: true })
+  AND?: Array<ServiceScalarWhereInput>;
 
-    @Field(() => [ServiceScalarWhereInput], {nullable:true})
-    AND?: Array<ServiceScalarWhereInput>;
+  @Field(() => [ServiceScalarWhereInput], { nullable: true })
+  OR?: Array<ServiceScalarWhereInput>;
 
-    @Field(() => [ServiceScalarWhereInput], {nullable:true})
-    OR?: Array<ServiceScalarWhereInput>;
+  @Field(() => [ServiceScalarWhereInput], { nullable: true })
+  NOT?: Array<ServiceScalarWhereInput>;
 
-    @Field(() => [ServiceScalarWhereInput], {nullable:true})
-    NOT?: Array<ServiceScalarWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  status?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    status?: StringFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  sort?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    sort?: IntNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_updated?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_updated?: UuidNullableFilter;
-
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 }

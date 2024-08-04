@@ -10,52 +10,51 @@ import { MasterProfileListRelationFilter } from '../master-profile/master-profil
 
 @InputType()
 export class MasterWeeklyScheduleWhereInput {
+  @Field(() => [MasterWeeklyScheduleWhereInput], { nullable: true })
+  AND?: Array<MasterWeeklyScheduleWhereInput>;
 
-    @Field(() => [MasterWeeklyScheduleWhereInput], {nullable:true})
-    AND?: Array<MasterWeeklyScheduleWhereInput>;
+  @Field(() => [MasterWeeklyScheduleWhereInput], { nullable: true })
+  OR?: Array<MasterWeeklyScheduleWhereInput>;
 
-    @Field(() => [MasterWeeklyScheduleWhereInput], {nullable:true})
-    OR?: Array<MasterWeeklyScheduleWhereInput>;
+  @Field(() => [MasterWeeklyScheduleWhereInput], { nullable: true })
+  NOT?: Array<MasterWeeklyScheduleWhereInput>;
 
-    @Field(() => [MasterWeeklyScheduleWhereInput], {nullable:true})
-    NOT?: Array<MasterWeeklyScheduleWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  status?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    status?: StringFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  sort?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    sort?: IntNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => BoolNullableFilter, { nullable: true })
+  monday?: BoolNullableFilter;
 
-    @Field(() => BoolNullableFilter, {nullable:true})
-    monday?: BoolNullableFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  tuesday?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    tuesday?: BoolFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  wednesday?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    wednesday?: BoolFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  thursday?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    thursday?: BoolFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  friday?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    friday?: BoolFilter;
+  @Field(() => BoolNullableFilter, { nullable: true })
+  saturday?: BoolNullableFilter;
 
-    @Field(() => BoolNullableFilter, {nullable:true})
-    saturday?: BoolNullableFilter;
+  @Field(() => BoolNullableFilter, { nullable: true })
+  sunday?: BoolNullableFilter;
 
-    @Field(() => BoolNullableFilter, {nullable:true})
-    sunday?: BoolNullableFilter;
-
-    @Field(() => MasterProfileListRelationFilter, {nullable:true})
-    MasterProfile?: MasterProfileListRelationFilter;
+  @Field(() => MasterProfileListRelationFilter, { nullable: true })
+  MasterProfile?: MasterProfileListRelationFilter;
 }

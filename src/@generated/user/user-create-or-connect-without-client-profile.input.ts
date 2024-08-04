@@ -7,12 +7,14 @@ import { UserCreateWithoutClientProfileInput } from './user-create-without-clien
 
 @InputType()
 export class UserCreateOrConnectWithoutClientProfileInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserCreateWithoutClientProfileInput, {nullable:false})
-    @Type(() => UserCreateWithoutClientProfileInput)
-    create!: UserCreateWithoutClientProfileInput;
+  @Field(() => UserCreateWithoutClientProfileInput, { nullable: false })
+  @Type(() => UserCreateWithoutClientProfileInput)
+  create!: UserCreateWithoutClientProfileInput;
 }

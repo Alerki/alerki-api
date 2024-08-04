@@ -13,48 +13,100 @@ import { UserSenderOnNotificationScalarWhereInput } from './user-sender-on-notif
 
 @InputType()
 export class UserSenderOnNotificationUpdateManyWithoutUser_UserSenderOnNotification_notificationToUserNestedInput {
+  @Field(
+    () => [
+      UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput,
+  )
+  create?: Array<UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput>;
 
-    @Field(() => [UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput)
-    create?: Array<UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_notificationToUserInput>;
+  @Field(
+    () => [
+      UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_notificationToUserInput,
+  )
+  connectOrCreate?: Array<UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_notificationToUserInput>;
 
-    @Field(() => [UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_notificationToUserInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_notificationToUserInput)
-    connectOrCreate?: Array<UserSenderOnNotificationCreateOrConnectWithoutUser_UserSenderOnNotification_notificationToUserInput>;
+  @Field(
+    () => [
+      UserSenderOnNotificationUpsertWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationUpsertWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput,
+  )
+  upsert?: Array<UserSenderOnNotificationUpsertWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput>;
 
-    @Field(() => [UserSenderOnNotificationUpsertWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationUpsertWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput)
-    upsert?: Array<UserSenderOnNotificationUpsertWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput>;
+  @Field(
+    () =>
+      UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_notificationToUserInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_notificationToUserInputEnvelope,
+  )
+  createMany?: UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_notificationToUserInputEnvelope;
 
-    @Field(() => UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_notificationToUserInputEnvelope, {nullable:true})
-    @Type(() => UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_notificationToUserInputEnvelope)
-    createMany?: UserSenderOnNotificationCreateManyUser_UserSenderOnNotification_notificationToUserInputEnvelope;
+  @Field(() => [UserSenderOnNotificationWhereUniqueInput], { nullable: true })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>>;
 
-    @Field(() => [UserSenderOnNotificationWhereUniqueInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>>;
+  @Field(() => [UserSenderOnNotificationWhereUniqueInput], { nullable: true })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  disconnect?: Array<
+    Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>
+  >;
 
-    @Field(() => [UserSenderOnNotificationWhereUniqueInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>>;
+  @Field(() => [UserSenderOnNotificationWhereUniqueInput], { nullable: true })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  delete?: Array<
+    Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>
+  >;
 
-    @Field(() => [UserSenderOnNotificationWhereUniqueInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>>;
+  @Field(() => [UserSenderOnNotificationWhereUniqueInput], { nullable: true })
+  @Type(() => UserSenderOnNotificationWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>
+  >;
 
-    @Field(() => [UserSenderOnNotificationWhereUniqueInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<UserSenderOnNotificationWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [
+      UserSenderOnNotificationUpdateWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationUpdateWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput,
+  )
+  update?: Array<UserSenderOnNotificationUpdateWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput>;
 
-    @Field(() => [UserSenderOnNotificationUpdateWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationUpdateWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput)
-    update?: Array<UserSenderOnNotificationUpdateWithWhereUniqueWithoutUser_UserSenderOnNotification_notificationToUserInput>;
+  @Field(
+    () => [
+      UserSenderOnNotificationUpdateManyWithWhereWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserSenderOnNotificationUpdateManyWithWhereWithoutUser_UserSenderOnNotification_notificationToUserInput,
+  )
+  updateMany?: Array<UserSenderOnNotificationUpdateManyWithWhereWithoutUser_UserSenderOnNotification_notificationToUserInput>;
 
-    @Field(() => [UserSenderOnNotificationUpdateManyWithWhereWithoutUser_UserSenderOnNotification_notificationToUserInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationUpdateManyWithWhereWithoutUser_UserSenderOnNotification_notificationToUserInput)
-    updateMany?: Array<UserSenderOnNotificationUpdateManyWithWhereWithoutUser_UserSenderOnNotification_notificationToUserInput>;
-
-    @Field(() => [UserSenderOnNotificationScalarWhereInput], {nullable:true})
-    @Type(() => UserSenderOnNotificationScalarWhereInput)
-    deleteMany?: Array<UserSenderOnNotificationScalarWhereInput>;
+  @Field(() => [UserSenderOnNotificationScalarWhereInput], { nullable: true })
+  @Type(() => UserSenderOnNotificationScalarWhereInput)
+  deleteMany?: Array<UserSenderOnNotificationScalarWhereInput>;
 }

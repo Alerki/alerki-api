@@ -8,28 +8,39 @@ import { UserCreateNestedManyWithoutMasterProfileInput } from '../user/user-crea
 
 @InputType()
 export class MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(
+    () =>
+      AppointmentCreateNestedManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+    { nullable: true },
+  )
+  Appointment_Appointment_masterProfileToMasterProfile?: AppointmentCreateNestedManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput;
 
-    @Field(() => AppointmentCreateNestedManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput, {nullable:true})
-    Appointment_Appointment_masterProfileToMasterProfile?: AppointmentCreateNestedManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput;
+  @Field(() => MasterWeeklyScheduleCreateNestedOneWithoutMasterProfileInput, {
+    nullable: false,
+  })
+  MasterWeeklySchedule!: MasterWeeklyScheduleCreateNestedOneWithoutMasterProfileInput;
 
-    @Field(() => MasterWeeklyScheduleCreateNestedOneWithoutMasterProfileInput, {nullable:false})
-    MasterWeeklySchedule!: MasterWeeklyScheduleCreateNestedOneWithoutMasterProfileInput;
+  @Field(() => MasterScheduleCreateNestedManyWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  MasterSchedule?: MasterScheduleCreateNestedManyWithoutMasterProfileInput;
 
-    @Field(() => MasterScheduleCreateNestedManyWithoutMasterProfileInput, {nullable:true})
-    MasterSchedule?: MasterScheduleCreateNestedManyWithoutMasterProfileInput;
+  @Field(() => MasterServiceCreateNestedManyWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  MasterService?: MasterServiceCreateNestedManyWithoutMasterProfileInput;
 
-    @Field(() => MasterServiceCreateNestedManyWithoutMasterProfileInput, {nullable:true})
-    MasterService?: MasterServiceCreateNestedManyWithoutMasterProfileInput;
-
-    @Field(() => UserCreateNestedManyWithoutMasterProfileInput, {nullable:true})
-    User?: UserCreateNestedManyWithoutMasterProfileInput;
+  @Field(() => UserCreateNestedManyWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  User?: UserCreateNestedManyWithoutMasterProfileInput;
 }

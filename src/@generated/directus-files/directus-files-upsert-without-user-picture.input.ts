@@ -6,12 +6,11 @@ import { directus_filesCreateWithoutUserPictureInput } from './directus-files-cr
 
 @InputType()
 export class directus_filesUpsertWithoutUserPictureInput {
+  @Field(() => directus_filesUpdateWithoutUserPictureInput, { nullable: false })
+  @Type(() => directus_filesUpdateWithoutUserPictureInput)
+  update!: directus_filesUpdateWithoutUserPictureInput;
 
-    @Field(() => directus_filesUpdateWithoutUserPictureInput, {nullable:false})
-    @Type(() => directus_filesUpdateWithoutUserPictureInput)
-    update!: directus_filesUpdateWithoutUserPictureInput;
-
-    @Field(() => directus_filesCreateWithoutUserPictureInput, {nullable:false})
-    @Type(() => directus_filesCreateWithoutUserPictureInput)
-    create!: directus_filesCreateWithoutUserPictureInput;
+  @Field(() => directus_filesCreateWithoutUserPictureInput, { nullable: false })
+  @Type(() => directus_filesCreateWithoutUserPictureInput)
+  create!: directus_filesCreateWithoutUserPictureInput;
 }

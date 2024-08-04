@@ -6,12 +6,11 @@ import { directus_flowsWhereInput } from '../directus-flows/directus-flows-where
 
 @ArgsType()
 export class UpdateManydirectusFlowsArgs {
+  @Field(() => directus_flowsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_flowsUpdateManyMutationInput)
+  data!: directus_flowsUpdateManyMutationInput;
 
-    @Field(() => directus_flowsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_flowsUpdateManyMutationInput)
-    data!: directus_flowsUpdateManyMutationInput;
-
-    @Field(() => directus_flowsWhereInput, {nullable:true})
-    @Type(() => directus_flowsWhereInput)
-    where?: directus_flowsWhereInput;
+  @Field(() => directus_flowsWhereInput, { nullable: true })
+  @Type(() => directus_flowsWhereInput)
+  where?: directus_flowsWhereInput;
 }

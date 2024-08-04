@@ -8,16 +8,19 @@ import { directus_rolesWhereUniqueInput } from './directus-roles-where-unique.in
 
 @InputType()
 export class directus_rolesCreateNestedOneWithoutDirectus_permissionsInput {
+  @Field(() => directus_rolesCreateWithoutDirectus_permissionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesCreateWithoutDirectus_permissionsInput)
+  create?: directus_rolesCreateWithoutDirectus_permissionsInput;
 
-    @Field(() => directus_rolesCreateWithoutDirectus_permissionsInput, {nullable:true})
-    @Type(() => directus_rolesCreateWithoutDirectus_permissionsInput)
-    create?: directus_rolesCreateWithoutDirectus_permissionsInput;
+  @Field(() => directus_rolesCreateOrConnectWithoutDirectus_permissionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesCreateOrConnectWithoutDirectus_permissionsInput)
+  connectOrCreate?: directus_rolesCreateOrConnectWithoutDirectus_permissionsInput;
 
-    @Field(() => directus_rolesCreateOrConnectWithoutDirectus_permissionsInput, {nullable:true})
-    @Type(() => directus_rolesCreateOrConnectWithoutDirectus_permissionsInput)
-    connectOrCreate?: directus_rolesCreateOrConnectWithoutDirectus_permissionsInput;
-
-    @Field(() => directus_rolesWhereUniqueInput, {nullable:true})
-    @Type(() => directus_rolesWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_rolesWhereUniqueInput, 'id'>;
+  @Field(() => directus_rolesWhereUniqueInput, { nullable: true })
+  @Type(() => directus_rolesWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_rolesWhereUniqueInput, 'id'>;
 }

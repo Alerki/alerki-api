@@ -9,20 +9,25 @@ import { MasterServiceWhereUniqueInput } from './master-service-where-unique.inp
 
 @InputType()
 export class MasterServiceCreateNestedManyWithoutService_translationsInput {
+  @Field(() => [MasterServiceCreateWithoutService_translationsInput], {
+    nullable: true,
+  })
+  @Type(() => MasterServiceCreateWithoutService_translationsInput)
+  create?: Array<MasterServiceCreateWithoutService_translationsInput>;
 
-    @Field(() => [MasterServiceCreateWithoutService_translationsInput], {nullable:true})
-    @Type(() => MasterServiceCreateWithoutService_translationsInput)
-    create?: Array<MasterServiceCreateWithoutService_translationsInput>;
+  @Field(() => [MasterServiceCreateOrConnectWithoutService_translationsInput], {
+    nullable: true,
+  })
+  @Type(() => MasterServiceCreateOrConnectWithoutService_translationsInput)
+  connectOrCreate?: Array<MasterServiceCreateOrConnectWithoutService_translationsInput>;
 
-    @Field(() => [MasterServiceCreateOrConnectWithoutService_translationsInput], {nullable:true})
-    @Type(() => MasterServiceCreateOrConnectWithoutService_translationsInput)
-    connectOrCreate?: Array<MasterServiceCreateOrConnectWithoutService_translationsInput>;
+  @Field(() => MasterServiceCreateManyService_translationsInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => MasterServiceCreateManyService_translationsInputEnvelope)
+  createMany?: MasterServiceCreateManyService_translationsInputEnvelope;
 
-    @Field(() => MasterServiceCreateManyService_translationsInputEnvelope, {nullable:true})
-    @Type(() => MasterServiceCreateManyService_translationsInputEnvelope)
-    createMany?: MasterServiceCreateManyService_translationsInputEnvelope;
-
-    @Field(() => [MasterServiceWhereUniqueInput], {nullable:true})
-    @Type(() => MasterServiceWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>>;
+  @Field(() => [MasterServiceWhereUniqueInput], { nullable: true })
+  @Type(() => MasterServiceWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>>;
 }

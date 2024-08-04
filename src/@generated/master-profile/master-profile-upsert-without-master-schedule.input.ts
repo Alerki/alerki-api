@@ -6,12 +6,15 @@ import { MasterProfileCreateWithoutMasterScheduleInput } from './master-profile-
 
 @InputType()
 export class MasterProfileUpsertWithoutMasterScheduleInput {
+  @Field(() => MasterProfileUpdateWithoutMasterScheduleInput, {
+    nullable: false,
+  })
+  @Type(() => MasterProfileUpdateWithoutMasterScheduleInput)
+  update!: MasterProfileUpdateWithoutMasterScheduleInput;
 
-    @Field(() => MasterProfileUpdateWithoutMasterScheduleInput, {nullable:false})
-    @Type(() => MasterProfileUpdateWithoutMasterScheduleInput)
-    update!: MasterProfileUpdateWithoutMasterScheduleInput;
-
-    @Field(() => MasterProfileCreateWithoutMasterScheduleInput, {nullable:false})
-    @Type(() => MasterProfileCreateWithoutMasterScheduleInput)
-    create!: MasterProfileCreateWithoutMasterScheduleInput;
+  @Field(() => MasterProfileCreateWithoutMasterScheduleInput, {
+    nullable: false,
+  })
+  @Type(() => MasterProfileCreateWithoutMasterScheduleInput)
+  create!: MasterProfileCreateWithoutMasterScheduleInput;
 }

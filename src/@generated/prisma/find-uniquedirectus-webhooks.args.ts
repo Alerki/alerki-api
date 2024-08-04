@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniquedirectusWebhooksArgs {
-
-    @Field(() => directus_webhooksWhereUniqueInput, {nullable:false})
-    @Type(() => directus_webhooksWhereUniqueInput)
-    where!: directus_webhooksWhereUniqueInput;
+  @Field(() => directus_webhooksWhereUniqueInput, { nullable: false })
+  @Type(() => directus_webhooksWhereUniqueInput)
+  where!: directus_webhooksWhereUniqueInput;
 }

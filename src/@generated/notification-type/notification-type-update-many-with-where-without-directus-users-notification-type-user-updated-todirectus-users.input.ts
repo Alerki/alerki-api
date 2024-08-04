@@ -6,12 +6,11 @@ import { NotificationTypeUpdateManyMutationInput } from './notification-type-upd
 
 @InputType()
 export class NotificationTypeUpdateManyWithWhereWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersInput {
+  @Field(() => NotificationTypeScalarWhereInput, { nullable: false })
+  @Type(() => NotificationTypeScalarWhereInput)
+  where!: NotificationTypeScalarWhereInput;
 
-    @Field(() => NotificationTypeScalarWhereInput, {nullable:false})
-    @Type(() => NotificationTypeScalarWhereInput)
-    where!: NotificationTypeScalarWhereInput;
-
-    @Field(() => NotificationTypeUpdateManyMutationInput, {nullable:false})
-    @Type(() => NotificationTypeUpdateManyMutationInput)
-    data!: NotificationTypeUpdateManyMutationInput;
+  @Field(() => NotificationTypeUpdateManyMutationInput, { nullable: false })
+  @Type(() => NotificationTypeUpdateManyMutationInput)
+  data!: NotificationTypeUpdateManyMutationInput;
 }

@@ -6,12 +6,11 @@ import { directus_relationsWhereUniqueInput } from '../directus-relations/direct
 
 @ArgsType()
 export class UpdateOnedirectusRelationsArgs {
+  @Field(() => directus_relationsUpdateInput, { nullable: false })
+  @Type(() => directus_relationsUpdateInput)
+  data!: directus_relationsUpdateInput;
 
-    @Field(() => directus_relationsUpdateInput, {nullable:false})
-    @Type(() => directus_relationsUpdateInput)
-    data!: directus_relationsUpdateInput;
-
-    @Field(() => directus_relationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_relationsWhereUniqueInput)
-    where!: directus_relationsWhereUniqueInput;
+  @Field(() => directus_relationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_relationsWhereUniqueInput)
+  where!: directus_relationsWhereUniqueInput;
 }

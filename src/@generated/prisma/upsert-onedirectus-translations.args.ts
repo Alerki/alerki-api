@@ -7,16 +7,15 @@ import { directus_translationsUpdateInput } from '../directus-translations/direc
 
 @ArgsType()
 export class UpsertOnedirectusTranslationsArgs {
+  @Field(() => directus_translationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_translationsWhereUniqueInput)
+  where!: directus_translationsWhereUniqueInput;
 
-    @Field(() => directus_translationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_translationsWhereUniqueInput)
-    where!: directus_translationsWhereUniqueInput;
+  @Field(() => directus_translationsCreateInput, { nullable: false })
+  @Type(() => directus_translationsCreateInput)
+  create!: directus_translationsCreateInput;
 
-    @Field(() => directus_translationsCreateInput, {nullable:false})
-    @Type(() => directus_translationsCreateInput)
-    create!: directus_translationsCreateInput;
-
-    @Field(() => directus_translationsUpdateInput, {nullable:false})
-    @Type(() => directus_translationsUpdateInput)
-    update!: directus_translationsUpdateInput;
+  @Field(() => directus_translationsUpdateInput, { nullable: false })
+  @Type(() => directus_translationsUpdateInput)
+  update!: directus_translationsUpdateInput;
 }

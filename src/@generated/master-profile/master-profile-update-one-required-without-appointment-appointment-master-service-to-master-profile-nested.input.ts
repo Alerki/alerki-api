@@ -10,24 +10,51 @@ import { MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMaster
 
 @InputType()
 export class MasterProfileUpdateOneRequiredWithoutAppointment_Appointment_masterServiceToMasterProfileNestedInput {
+  @Field(
+    () =>
+      MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+  )
+  create?: MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
 
-    @Field(() => MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput, {nullable:true})
-    @Type(() => MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput)
-    create?: MasterProfileCreateWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
+  @Field(
+    () =>
+      MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+  )
+  connectOrCreate?: MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
 
-    @Field(() => MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterServiceToMasterProfileInput, {nullable:true})
-    @Type(() => MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterServiceToMasterProfileInput)
-    connectOrCreate?: MasterProfileCreateOrConnectWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
+  @Field(
+    () =>
+      MasterProfileUpsertWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      MasterProfileUpsertWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+  )
+  upsert?: MasterProfileUpsertWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
 
-    @Field(() => MasterProfileUpsertWithoutAppointment_Appointment_masterServiceToMasterProfileInput, {nullable:true})
-    @Type(() => MasterProfileUpsertWithoutAppointment_Appointment_masterServiceToMasterProfileInput)
-    upsert?: MasterProfileUpsertWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: true })
+  @Type(() => MasterProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:true})
-    @Type(() => MasterProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput, {nullable:true})
-    @Type(() => MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput)
-    update?: MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
+  @Field(
+    () =>
+      MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput,
+  )
+  update?: MasterProfileUpdateWithoutAppointment_Appointment_masterServiceToMasterProfileInput;
 }

@@ -5,11 +5,18 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ServiceCreateManyDirectus_users_Service_user_updatedTodirectus_usersInputEnvelope {
+  @Field(
+    () => [
+      ServiceCreateManyDirectus_users_Service_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      ServiceCreateManyDirectus_users_Service_user_updatedTodirectus_usersInput,
+  )
+  data!: Array<ServiceCreateManyDirectus_users_Service_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [ServiceCreateManyDirectus_users_Service_user_updatedTodirectus_usersInput], {nullable:false})
-    @Type(() => ServiceCreateManyDirectus_users_Service_user_updatedTodirectus_usersInput)
-    data!: Array<ServiceCreateManyDirectus_users_Service_user_updatedTodirectus_usersInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

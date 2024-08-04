@@ -6,34 +6,33 @@ import { Directus_sessionsMaxAggregate } from './directus-sessions-max-aggregate
 
 @ObjectType()
 export class Directus_sessionsGroupBy {
+  @Field(() => String, { nullable: false })
+  token!: string;
 
-    @Field(() => String, {nullable:false})
-    token!: string;
+  @Field(() => String, { nullable: true })
+  user?: string;
 
-    @Field(() => String, {nullable:true})
-    user?: string;
+  @Field(() => Date, { nullable: false })
+  expires!: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    expires!: Date | string;
+  @Field(() => String, { nullable: true })
+  ip?: string;
 
-    @Field(() => String, {nullable:true})
-    ip?: string;
+  @Field(() => String, { nullable: true })
+  user_agent?: string;
 
-    @Field(() => String, {nullable:true})
-    user_agent?: string;
+  @Field(() => String, { nullable: true })
+  share?: string;
 
-    @Field(() => String, {nullable:true})
-    share?: string;
+  @Field(() => String, { nullable: true })
+  origin?: string;
 
-    @Field(() => String, {nullable:true})
-    origin?: string;
+  @Field(() => Directus_sessionsCountAggregate, { nullable: true })
+  _count?: Directus_sessionsCountAggregate;
 
-    @Field(() => Directus_sessionsCountAggregate, {nullable:true})
-    _count?: Directus_sessionsCountAggregate;
+  @Field(() => Directus_sessionsMinAggregate, { nullable: true })
+  _min?: Directus_sessionsMinAggregate;
 
-    @Field(() => Directus_sessionsMinAggregate, {nullable:true})
-    _min?: Directus_sessionsMinAggregate;
-
-    @Field(() => Directus_sessionsMaxAggregate, {nullable:true})
-    _max?: Directus_sessionsMaxAggregate;
+  @Field(() => Directus_sessionsMaxAggregate, { nullable: true })
+  _max?: Directus_sessionsMaxAggregate;
 }

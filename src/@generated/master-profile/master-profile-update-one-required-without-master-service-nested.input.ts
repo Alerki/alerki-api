@@ -10,24 +10,25 @@ import { MasterProfileUpdateWithoutMasterServiceInput } from './master-profile-u
 
 @InputType()
 export class MasterProfileUpdateOneRequiredWithoutMasterServiceNestedInput {
+  @Field(() => MasterProfileCreateWithoutMasterServiceInput, { nullable: true })
+  @Type(() => MasterProfileCreateWithoutMasterServiceInput)
+  create?: MasterProfileCreateWithoutMasterServiceInput;
 
-    @Field(() => MasterProfileCreateWithoutMasterServiceInput, {nullable:true})
-    @Type(() => MasterProfileCreateWithoutMasterServiceInput)
-    create?: MasterProfileCreateWithoutMasterServiceInput;
+  @Field(() => MasterProfileCreateOrConnectWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => MasterProfileCreateOrConnectWithoutMasterServiceInput)
+  connectOrCreate?: MasterProfileCreateOrConnectWithoutMasterServiceInput;
 
-    @Field(() => MasterProfileCreateOrConnectWithoutMasterServiceInput, {nullable:true})
-    @Type(() => MasterProfileCreateOrConnectWithoutMasterServiceInput)
-    connectOrCreate?: MasterProfileCreateOrConnectWithoutMasterServiceInput;
+  @Field(() => MasterProfileUpsertWithoutMasterServiceInput, { nullable: true })
+  @Type(() => MasterProfileUpsertWithoutMasterServiceInput)
+  upsert?: MasterProfileUpsertWithoutMasterServiceInput;
 
-    @Field(() => MasterProfileUpsertWithoutMasterServiceInput, {nullable:true})
-    @Type(() => MasterProfileUpsertWithoutMasterServiceInput)
-    upsert?: MasterProfileUpsertWithoutMasterServiceInput;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: true })
+  @Type(() => MasterProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:true})
-    @Type(() => MasterProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterProfileUpdateWithoutMasterServiceInput, {nullable:true})
-    @Type(() => MasterProfileUpdateWithoutMasterServiceInput)
-    update?: MasterProfileUpdateWithoutMasterServiceInput;
+  @Field(() => MasterProfileUpdateWithoutMasterServiceInput, { nullable: true })
+  @Type(() => MasterProfileUpdateWithoutMasterServiceInput)
+  update?: MasterProfileUpdateWithoutMasterServiceInput;
 }

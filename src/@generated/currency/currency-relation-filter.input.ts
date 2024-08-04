@@ -4,10 +4,9 @@ import { CurrencyWhereInput } from './currency-where.input';
 
 @InputType()
 export class CurrencyRelationFilter {
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  is?: CurrencyWhereInput;
 
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    is?: CurrencyWhereInput;
-
-    @Field(() => CurrencyWhereInput, {nullable:true})
-    isNot?: CurrencyWhereInput;
+  @Field(() => CurrencyWhereInput, { nullable: true })
+  isNot?: CurrencyWhereInput;
 }

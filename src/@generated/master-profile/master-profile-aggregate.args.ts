@@ -12,29 +12,30 @@ import { MasterProfileMaxAggregateInput } from './master-profile-max-aggregate.i
 
 @ArgsType()
 export class MasterProfileAggregateArgs {
+  @Field(() => MasterProfileWhereInput, { nullable: true })
+  @Type(() => MasterProfileWhereInput)
+  where?: MasterProfileWhereInput;
 
-    @Field(() => MasterProfileWhereInput, {nullable:true})
-    @Type(() => MasterProfileWhereInput)
-    where?: MasterProfileWhereInput;
+  @Field(() => [MasterProfileOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<MasterProfileOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [MasterProfileOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<MasterProfileOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => MasterProfileCountAggregateInput, { nullable: true })
+  _count?: MasterProfileCountAggregateInput;
 
-    @Field(() => MasterProfileCountAggregateInput, {nullable:true})
-    _count?: MasterProfileCountAggregateInput;
+  @Field(() => MasterProfileMinAggregateInput, { nullable: true })
+  _min?: MasterProfileMinAggregateInput;
 
-    @Field(() => MasterProfileMinAggregateInput, {nullable:true})
-    _min?: MasterProfileMinAggregateInput;
-
-    @Field(() => MasterProfileMaxAggregateInput, {nullable:true})
-    _max?: MasterProfileMaxAggregateInput;
+  @Field(() => MasterProfileMaxAggregateInput, { nullable: true })
+  _max?: MasterProfileMaxAggregateInput;
 }

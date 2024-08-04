@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManydirectusPermissionsArgs {
+  @Field(() => [directus_permissionsCreateManyInput], { nullable: false })
+  @Type(() => directus_permissionsCreateManyInput)
+  data!: Array<directus_permissionsCreateManyInput>;
 
-    @Field(() => [directus_permissionsCreateManyInput], {nullable:false})
-    @Type(() => directus_permissionsCreateManyInput)
-    data!: Array<directus_permissionsCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

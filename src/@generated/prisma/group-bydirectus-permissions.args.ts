@@ -9,23 +9,26 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class GroupBydirectusPermissionsArgs {
+  @Field(() => directus_permissionsWhereInput, { nullable: true })
+  @Type(() => directus_permissionsWhereInput)
+  where?: directus_permissionsWhereInput;
 
-    @Field(() => directus_permissionsWhereInput, {nullable:true})
-    @Type(() => directus_permissionsWhereInput)
-    where?: directus_permissionsWhereInput;
+  @Field(() => [directus_permissionsOrderByWithAggregationInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_permissionsOrderByWithAggregationInput>;
 
-    @Field(() => [directus_permissionsOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<directus_permissionsOrderByWithAggregationInput>;
+  @Field(() => [Directus_permissionsScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof Directus_permissionsScalarFieldEnum>;
 
-    @Field(() => [Directus_permissionsScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof Directus_permissionsScalarFieldEnum>;
+  @Field(() => directus_permissionsScalarWhereWithAggregatesInput, {
+    nullable: true,
+  })
+  having?: directus_permissionsScalarWhereWithAggregatesInput;
 
-    @Field(() => directus_permissionsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: directus_permissionsScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

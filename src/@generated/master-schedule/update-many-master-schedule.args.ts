@@ -6,12 +6,11 @@ import { MasterScheduleWhereInput } from './master-schedule-where.input';
 
 @ArgsType()
 export class UpdateManyMasterScheduleArgs {
+  @Field(() => MasterScheduleUpdateManyMutationInput, { nullable: false })
+  @Type(() => MasterScheduleUpdateManyMutationInput)
+  data!: MasterScheduleUpdateManyMutationInput;
 
-    @Field(() => MasterScheduleUpdateManyMutationInput, {nullable:false})
-    @Type(() => MasterScheduleUpdateManyMutationInput)
-    data!: MasterScheduleUpdateManyMutationInput;
-
-    @Field(() => MasterScheduleWhereInput, {nullable:true})
-    @Type(() => MasterScheduleWhereInput)
-    where?: MasterScheduleWhereInput;
+  @Field(() => MasterScheduleWhereInput, { nullable: true })
+  @Type(() => MasterScheduleWhereInput)
+  where?: MasterScheduleWhereInput;
 }

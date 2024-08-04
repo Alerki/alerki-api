@@ -5,11 +5,12 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class Service_translationsCreateManyLanguagesInputEnvelope {
+  @Field(() => [Service_translationsCreateManyLanguagesInput], {
+    nullable: false,
+  })
+  @Type(() => Service_translationsCreateManyLanguagesInput)
+  data!: Array<Service_translationsCreateManyLanguagesInput>;
 
-    @Field(() => [Service_translationsCreateManyLanguagesInput], {nullable:false})
-    @Type(() => Service_translationsCreateManyLanguagesInput)
-    data!: Array<Service_translationsCreateManyLanguagesInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

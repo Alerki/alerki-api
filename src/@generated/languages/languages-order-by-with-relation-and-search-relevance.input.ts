@@ -6,19 +6,20 @@ import { languagesOrderByRelevanceInput } from './languages-order-by-relevance.i
 
 @InputType()
 export class languagesOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  code?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    code?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  direction?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    direction?: keyof typeof SortOrder;
+  @Field(() => Service_translationsOrderByRelationAggregateInput, {
+    nullable: true,
+  })
+  Service_translations?: Service_translationsOrderByRelationAggregateInput;
 
-    @Field(() => Service_translationsOrderByRelationAggregateInput, {nullable:true})
-    Service_translations?: Service_translationsOrderByRelationAggregateInput;
-
-    @Field(() => languagesOrderByRelevanceInput, {nullable:true})
-    _relevance?: languagesOrderByRelevanceInput;
+  @Field(() => languagesOrderByRelevanceInput, { nullable: true })
+  _relevance?: languagesOrderByRelevanceInput;
 }

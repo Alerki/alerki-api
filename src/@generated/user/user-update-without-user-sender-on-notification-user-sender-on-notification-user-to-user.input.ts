@@ -12,52 +12,59 @@ import { User_SessionUpdateManyWithoutUserNestedInput } from '../user-session/us
 
 @InputType()
 export class UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  email?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    email?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  phoneNumber?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    phoneNumber?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  username?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    username?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  firstName?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstName?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  lastName?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastName?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  birthDate?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    birthDate?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    password?: StringFieldUpdateOperationsInput;
+  @Field(() => ClientProfileUpdateOneRequiredWithoutUserNestedInput, {
+    nullable: true,
+  })
+  ClientProfile?: ClientProfileUpdateOneRequiredWithoutUserNestedInput;
 
-    @Field(() => ClientProfileUpdateOneRequiredWithoutUserNestedInput, {nullable:true})
-    ClientProfile?: ClientProfileUpdateOneRequiredWithoutUserNestedInput;
+  @Field(() => MasterProfileUpdateOneWithoutUserNestedInput, { nullable: true })
+  MasterProfile?: MasterProfileUpdateOneWithoutUserNestedInput;
 
-    @Field(() => MasterProfileUpdateOneWithoutUserNestedInput, {nullable:true})
-    MasterProfile?: MasterProfileUpdateOneWithoutUserNestedInput;
+  @Field(() => UserPictureUpdateOneWithoutUserNestedInput, { nullable: true })
+  UserPicture?: UserPictureUpdateOneWithoutUserNestedInput;
 
-    @Field(() => UserPictureUpdateOneWithoutUserNestedInput, {nullable:true})
-    UserPicture?: UserPictureUpdateOneWithoutUserNestedInput;
+  @Field(() => UserRecipientOnNotificationUpdateManyWithoutUserNestedInput, {
+    nullable: true,
+  })
+  UserRecipientOnNotification?: UserRecipientOnNotificationUpdateManyWithoutUserNestedInput;
 
-    @Field(() => UserRecipientOnNotificationUpdateManyWithoutUserNestedInput, {nullable:true})
-    UserRecipientOnNotification?: UserRecipientOnNotificationUpdateManyWithoutUserNestedInput;
+  @Field(
+    () =>
+      UserSenderOnNotificationUpdateManyWithoutUser_UserSenderOnNotification_notificationToUserNestedInput,
+    { nullable: true },
+  )
+  UserSenderOnNotification_UserSenderOnNotification_notificationToUser?: UserSenderOnNotificationUpdateManyWithoutUser_UserSenderOnNotification_notificationToUserNestedInput;
 
-    @Field(() => UserSenderOnNotificationUpdateManyWithoutUser_UserSenderOnNotification_notificationToUserNestedInput, {nullable:true})
-    UserSenderOnNotification_UserSenderOnNotification_notificationToUser?: UserSenderOnNotificationUpdateManyWithoutUser_UserSenderOnNotification_notificationToUserNestedInput;
-
-    @Field(() => User_SessionUpdateManyWithoutUserNestedInput, {nullable:true})
-    User_Session?: User_SessionUpdateManyWithoutUserNestedInput;
+  @Field(() => User_SessionUpdateManyWithoutUserNestedInput, { nullable: true })
+  User_Session?: User_SessionUpdateManyWithoutUserNestedInput;
 }

@@ -6,12 +6,11 @@ import { directus_extensionsWhereUniqueInput } from '../directus-extensions/dire
 
 @ArgsType()
 export class UpdateOnedirectusExtensionsArgs {
+  @Field(() => directus_extensionsUpdateInput, { nullable: false })
+  @Type(() => directus_extensionsUpdateInput)
+  data!: directus_extensionsUpdateInput;
 
-    @Field(() => directus_extensionsUpdateInput, {nullable:false})
-    @Type(() => directus_extensionsUpdateInput)
-    data!: directus_extensionsUpdateInput;
-
-    @Field(() => directus_extensionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_extensionsWhereUniqueInput)
-    where!: directus_extensionsWhereUniqueInput;
+  @Field(() => directus_extensionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_extensionsWhereUniqueInput)
+  where!: directus_extensionsWhereUniqueInput;
 }

@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateManyMasterScheduleArgs {
+  @Field(() => [MasterScheduleCreateManyInput], { nullable: false })
+  @Type(() => MasterScheduleCreateManyInput)
+  data!: Array<MasterScheduleCreateManyInput>;
 
-    @Field(() => [MasterScheduleCreateManyInput], {nullable:false})
-    @Type(() => MasterScheduleCreateManyInput)
-    data!: Array<MasterScheduleCreateManyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

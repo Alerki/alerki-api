@@ -8,19 +8,18 @@ import { Directus_presetsMaxAggregate } from './directus-presets-max-aggregate.o
 
 @ObjectType()
 export class AggregateDirectus_presets {
+  @Field(() => Directus_presetsCountAggregate, { nullable: true })
+  _count?: Directus_presetsCountAggregate;
 
-    @Field(() => Directus_presetsCountAggregate, {nullable:true})
-    _count?: Directus_presetsCountAggregate;
+  @Field(() => Directus_presetsAvgAggregate, { nullable: true })
+  _avg?: Directus_presetsAvgAggregate;
 
-    @Field(() => Directus_presetsAvgAggregate, {nullable:true})
-    _avg?: Directus_presetsAvgAggregate;
+  @Field(() => Directus_presetsSumAggregate, { nullable: true })
+  _sum?: Directus_presetsSumAggregate;
 
-    @Field(() => Directus_presetsSumAggregate, {nullable:true})
-    _sum?: Directus_presetsSumAggregate;
+  @Field(() => Directus_presetsMinAggregate, { nullable: true })
+  _min?: Directus_presetsMinAggregate;
 
-    @Field(() => Directus_presetsMinAggregate, {nullable:true})
-    _min?: Directus_presetsMinAggregate;
-
-    @Field(() => Directus_presetsMaxAggregate, {nullable:true})
-    _max?: Directus_presetsMaxAggregate;
+  @Field(() => Directus_presetsMaxAggregate, { nullable: true })
+  _max?: Directus_presetsMaxAggregate;
 }

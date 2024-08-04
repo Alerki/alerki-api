@@ -7,12 +7,13 @@ import { Service_translationsCreateWithoutMasterServiceInput } from './service-t
 
 @InputType()
 export class Service_translationsCreateOrConnectWithoutMasterServiceInput {
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: false })
+  @Type(() => Service_translationsWhereUniqueInput)
+  where!: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
 
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:false})
-    @Type(() => Service_translationsWhereUniqueInput)
-    where!: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
-
-    @Field(() => Service_translationsCreateWithoutMasterServiceInput, {nullable:false})
-    @Type(() => Service_translationsCreateWithoutMasterServiceInput)
-    create!: Service_translationsCreateWithoutMasterServiceInput;
+  @Field(() => Service_translationsCreateWithoutMasterServiceInput, {
+    nullable: false,
+  })
+  @Type(() => Service_translationsCreateWithoutMasterServiceInput)
+  create!: Service_translationsCreateWithoutMasterServiceInput;
 }

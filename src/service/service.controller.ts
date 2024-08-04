@@ -1,13 +1,13 @@
 import { Controller, Get, Param, ParseUUIDPipe, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { FindMasterServices, GetServicesDto } from './dtos';
+// import { FindMasterServices, GetServicesDto } from './dtos';
 import { ServiceModuleService } from './services/service-module.service';
 
 @ApiTags('Service')
 @Controller('service')
 export class ServiceController {
-  // constructor(private readonly serviceModuleService: ServiceModuleService) {}
+  constructor(private readonly serviceModuleService: ServiceModuleService) {}
 
   // @Get()
   // async findService(@Query() data: GetServicesDto) {

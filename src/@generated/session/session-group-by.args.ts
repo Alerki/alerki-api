@@ -12,32 +12,31 @@ import { SessionMaxAggregateInput } from './session-max-aggregate.input';
 
 @ArgsType()
 export class SessionGroupByArgs {
+  @Field(() => SessionWhereInput, { nullable: true })
+  @Type(() => SessionWhereInput)
+  where?: SessionWhereInput;
 
-    @Field(() => SessionWhereInput, {nullable:true})
-    @Type(() => SessionWhereInput)
-    where?: SessionWhereInput;
+  @Field(() => [SessionOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<SessionOrderByWithAggregationInput>;
 
-    @Field(() => [SessionOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<SessionOrderByWithAggregationInput>;
+  @Field(() => [SessionScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof SessionScalarFieldEnum>;
 
-    @Field(() => [SessionScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof SessionScalarFieldEnum>;
+  @Field(() => SessionScalarWhereWithAggregatesInput, { nullable: true })
+  having?: SessionScalarWhereWithAggregatesInput;
 
-    @Field(() => SessionScalarWhereWithAggregatesInput, {nullable:true})
-    having?: SessionScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => SessionCountAggregateInput, { nullable: true })
+  _count?: SessionCountAggregateInput;
 
-    @Field(() => SessionCountAggregateInput, {nullable:true})
-    _count?: SessionCountAggregateInput;
+  @Field(() => SessionMinAggregateInput, { nullable: true })
+  _min?: SessionMinAggregateInput;
 
-    @Field(() => SessionMinAggregateInput, {nullable:true})
-    _min?: SessionMinAggregateInput;
-
-    @Field(() => SessionMaxAggregateInput, {nullable:true})
-    _max?: SessionMaxAggregateInput;
+  @Field(() => SessionMaxAggregateInput, { nullable: true })
+  _max?: SessionMaxAggregateInput;
 }

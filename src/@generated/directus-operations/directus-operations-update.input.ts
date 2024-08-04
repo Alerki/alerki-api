@@ -14,46 +14,66 @@ import { directus_usersUpdateOneWithoutDirectus_operationsNestedInput } from '..
 
 @InputType()
 export class directus_operationsUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  name?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    name?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  key?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    key?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  type?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    type?: StringFieldUpdateOperationsInput;
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  position_x?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    position_x?: IntFieldUpdateOperationsInput;
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  position_y?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    position_y?: IntFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    options?: any;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(
+    () => directus_flowsUpdateOneRequiredWithoutDirectus_operationsNestedInput,
+    { nullable: true },
+  )
+  directus_flows?: directus_flowsUpdateOneRequiredWithoutDirectus_operationsNestedInput;
 
-    @Field(() => directus_flowsUpdateOneRequiredWithoutDirectus_operationsNestedInput, {nullable:true})
-    directus_flows?: directus_flowsUpdateOneRequiredWithoutDirectus_operationsNestedInput;
+  @Field(
+    () =>
+      directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsNestedInput,
+    { nullable: true },
+  )
+  directus_operations_directus_operations_rejectTodirectus_operations?: directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsNestedInput;
 
-    @Field(() => directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsNestedInput, {nullable:true})
-    directus_operations_directus_operations_rejectTodirectus_operations?: directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsNestedInput;
+  @Field(
+    () =>
+      directus_operationsUpdateOneWithoutDirectus_operations_directus_operations_rejectTodirectus_operationsNestedInput,
+    { nullable: true },
+  )
+  other_directus_operations_directus_operations_rejectTodirectus_operations?: directus_operationsUpdateOneWithoutDirectus_operations_directus_operations_rejectTodirectus_operationsNestedInput;
 
-    @Field(() => directus_operationsUpdateOneWithoutDirectus_operations_directus_operations_rejectTodirectus_operationsNestedInput, {nullable:true})
-    other_directus_operations_directus_operations_rejectTodirectus_operations?: directus_operationsUpdateOneWithoutDirectus_operations_directus_operations_rejectTodirectus_operationsNestedInput;
+  @Field(
+    () =>
+      directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsNestedInput,
+    { nullable: true },
+  )
+  directus_operations_directus_operations_resolveTodirectus_operations?: directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsNestedInput;
 
-    @Field(() => directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsNestedInput, {nullable:true})
-    directus_operations_directus_operations_resolveTodirectus_operations?: directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_resolveTodirectus_operationsNestedInput;
+  @Field(
+    () =>
+      directus_operationsUpdateOneWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsNestedInput,
+    { nullable: true },
+  )
+  other_directus_operations_directus_operations_resolveTodirectus_operations?: directus_operationsUpdateOneWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsNestedInput;
 
-    @Field(() => directus_operationsUpdateOneWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsNestedInput, {nullable:true})
-    other_directus_operations_directus_operations_resolveTodirectus_operations?: directus_operationsUpdateOneWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsNestedInput;
-
-    @Field(() => directus_usersUpdateOneWithoutDirectus_operationsNestedInput, {nullable:true})
-    directus_users?: directus_usersUpdateOneWithoutDirectus_operationsNestedInput;
+  @Field(() => directus_usersUpdateOneWithoutDirectus_operationsNestedInput, {
+    nullable: true,
+  })
+  directus_users?: directus_usersUpdateOneWithoutDirectus_operationsNestedInput;
 }

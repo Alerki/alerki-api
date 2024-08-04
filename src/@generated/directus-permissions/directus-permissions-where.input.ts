@@ -9,40 +9,39 @@ import { Directus_rolesRelationFilter } from '../prisma/directus-roles-relation-
 
 @InputType()
 export class directus_permissionsWhereInput {
+  @Field(() => [directus_permissionsWhereInput], { nullable: true })
+  AND?: Array<directus_permissionsWhereInput>;
 
-    @Field(() => [directus_permissionsWhereInput], {nullable:true})
-    AND?: Array<directus_permissionsWhereInput>;
+  @Field(() => [directus_permissionsWhereInput], { nullable: true })
+  OR?: Array<directus_permissionsWhereInput>;
 
-    @Field(() => [directus_permissionsWhereInput], {nullable:true})
-    OR?: Array<directus_permissionsWhereInput>;
+  @Field(() => [directus_permissionsWhereInput], { nullable: true })
+  NOT?: Array<directus_permissionsWhereInput>;
 
-    @Field(() => [directus_permissionsWhereInput], {nullable:true})
-    NOT?: Array<directus_permissionsWhereInput>;
+  @Field(() => IntFilter, { nullable: true })
+  id?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  role?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    role?: UuidNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  collection?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    collection?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  action?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    action?: StringFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  permissions?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    permissions?: JsonNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  validation?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    validation?: JsonNullableFilter;
+  @Field(() => JsonNullableFilter, { nullable: true })
+  presets?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    presets?: JsonNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  fields?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    fields?: StringNullableFilter;
-
-    @Field(() => Directus_rolesRelationFilter, {nullable:true})
-    directus_roles?: Directus_rolesRelationFilter;
+  @Field(() => Directus_rolesRelationFilter, { nullable: true })
+  directus_roles?: Directus_rolesRelationFilter;
 }

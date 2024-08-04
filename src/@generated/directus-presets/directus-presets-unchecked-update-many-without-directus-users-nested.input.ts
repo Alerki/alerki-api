@@ -13,48 +13,62 @@ import { directus_presetsScalarWhereInput } from './directus-presets-scalar-wher
 
 @InputType()
 export class directus_presetsUncheckedUpdateManyWithoutDirectus_usersNestedInput {
+  @Field(() => [directus_presetsCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_presetsCreateWithoutDirectus_usersInput)
+  create?: Array<directus_presetsCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_presetsCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_presetsCreateWithoutDirectus_usersInput)
-    create?: Array<directus_presetsCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_presetsCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_presetsCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_presetsCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_presetsCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_presetsCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_presetsCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(
+    () => [directus_presetsUpsertWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_presetsUpsertWithWhereUniqueWithoutDirectus_usersInput)
+  upsert?: Array<directus_presetsUpsertWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_presetsUpsertWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_presetsUpsertWithWhereUniqueWithoutDirectus_usersInput)
-    upsert?: Array<directus_presetsUpsertWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(() => directus_presetsCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_presetsCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_presetsCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_presetsCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_presetsCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_presetsCreateManyDirectus_usersInputEnvelope;
+  @Field(() => [directus_presetsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_presetsWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_presetsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_presetsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_presetsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_presetsWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_presetsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_presetsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_presetsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_presetsWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_presetsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_presetsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_presetsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_presetsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_presetsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_presetsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [directus_presetsUpdateWithWhereUniqueWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_presetsUpdateWithWhereUniqueWithoutDirectus_usersInput)
+  update?: Array<directus_presetsUpdateWithWhereUniqueWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_presetsUpdateWithWhereUniqueWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_presetsUpdateWithWhereUniqueWithoutDirectus_usersInput)
-    update?: Array<directus_presetsUpdateWithWhereUniqueWithoutDirectus_usersInput>;
+  @Field(
+    () => [directus_presetsUpdateManyWithWhereWithoutDirectus_usersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_presetsUpdateManyWithWhereWithoutDirectus_usersInput)
+  updateMany?: Array<directus_presetsUpdateManyWithWhereWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_presetsUpdateManyWithWhereWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_presetsUpdateManyWithWhereWithoutDirectus_usersInput)
-    updateMany?: Array<directus_presetsUpdateManyWithWhereWithoutDirectus_usersInput>;
-
-    @Field(() => [directus_presetsScalarWhereInput], {nullable:true})
-    @Type(() => directus_presetsScalarWhereInput)
-    deleteMany?: Array<directus_presetsScalarWhereInput>;
+  @Field(() => [directus_presetsScalarWhereInput], { nullable: true })
+  @Type(() => directus_presetsScalarWhereInput)
+  deleteMany?: Array<directus_presetsScalarWhereInput>;
 }

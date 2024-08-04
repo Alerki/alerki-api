@@ -4,13 +4,12 @@ import { directus_notificationsWhereInput } from '../directus-notifications/dire
 
 @InputType()
 export class Directus_notificationsListRelationFilter {
+  @Field(() => directus_notificationsWhereInput, { nullable: true })
+  every?: directus_notificationsWhereInput;
 
-    @Field(() => directus_notificationsWhereInput, {nullable:true})
-    every?: directus_notificationsWhereInput;
+  @Field(() => directus_notificationsWhereInput, { nullable: true })
+  some?: directus_notificationsWhereInput;
 
-    @Field(() => directus_notificationsWhereInput, {nullable:true})
-    some?: directus_notificationsWhereInput;
-
-    @Field(() => directus_notificationsWhereInput, {nullable:true})
-    none?: directus_notificationsWhereInput;
+  @Field(() => directus_notificationsWhereInput, { nullable: true })
+  none?: directus_notificationsWhereInput;
 }

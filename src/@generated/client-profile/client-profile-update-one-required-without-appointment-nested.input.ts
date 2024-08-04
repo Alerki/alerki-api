@@ -10,24 +10,25 @@ import { ClientProfileUpdateWithoutAppointmentInput } from './client-profile-upd
 
 @InputType()
 export class ClientProfileUpdateOneRequiredWithoutAppointmentNestedInput {
+  @Field(() => ClientProfileCreateWithoutAppointmentInput, { nullable: true })
+  @Type(() => ClientProfileCreateWithoutAppointmentInput)
+  create?: ClientProfileCreateWithoutAppointmentInput;
 
-    @Field(() => ClientProfileCreateWithoutAppointmentInput, {nullable:true})
-    @Type(() => ClientProfileCreateWithoutAppointmentInput)
-    create?: ClientProfileCreateWithoutAppointmentInput;
+  @Field(() => ClientProfileCreateOrConnectWithoutAppointmentInput, {
+    nullable: true,
+  })
+  @Type(() => ClientProfileCreateOrConnectWithoutAppointmentInput)
+  connectOrCreate?: ClientProfileCreateOrConnectWithoutAppointmentInput;
 
-    @Field(() => ClientProfileCreateOrConnectWithoutAppointmentInput, {nullable:true})
-    @Type(() => ClientProfileCreateOrConnectWithoutAppointmentInput)
-    connectOrCreate?: ClientProfileCreateOrConnectWithoutAppointmentInput;
+  @Field(() => ClientProfileUpsertWithoutAppointmentInput, { nullable: true })
+  @Type(() => ClientProfileUpsertWithoutAppointmentInput)
+  upsert?: ClientProfileUpsertWithoutAppointmentInput;
 
-    @Field(() => ClientProfileUpsertWithoutAppointmentInput, {nullable:true})
-    @Type(() => ClientProfileUpsertWithoutAppointmentInput)
-    upsert?: ClientProfileUpsertWithoutAppointmentInput;
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: true })
+  @Type(() => ClientProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:true})
-    @Type(() => ClientProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => ClientProfileUpdateWithoutAppointmentInput, {nullable:true})
-    @Type(() => ClientProfileUpdateWithoutAppointmentInput)
-    update?: ClientProfileUpdateWithoutAppointmentInput;
+  @Field(() => ClientProfileUpdateWithoutAppointmentInput, { nullable: true })
+  @Type(() => ClientProfileUpdateWithoutAppointmentInput)
+  update?: ClientProfileUpdateWithoutAppointmentInput;
 }

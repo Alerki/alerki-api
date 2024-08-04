@@ -11,49 +11,48 @@ import { Directus_usersListRelationFilter } from '../prisma/directus-users-list-
 
 @InputType()
 export class directus_rolesWhereInput {
+  @Field(() => [directus_rolesWhereInput], { nullable: true })
+  AND?: Array<directus_rolesWhereInput>;
 
-    @Field(() => [directus_rolesWhereInput], {nullable:true})
-    AND?: Array<directus_rolesWhereInput>;
+  @Field(() => [directus_rolesWhereInput], { nullable: true })
+  OR?: Array<directus_rolesWhereInput>;
 
-    @Field(() => [directus_rolesWhereInput], {nullable:true})
-    OR?: Array<directus_rolesWhereInput>;
+  @Field(() => [directus_rolesWhereInput], { nullable: true })
+  NOT?: Array<directus_rolesWhereInput>;
 
-    @Field(() => [directus_rolesWhereInput], {nullable:true})
-    NOT?: Array<directus_rolesWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  icon?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    icon?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  description?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    description?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  ip_access?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    ip_access?: StringNullableFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  enforce_tfa?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    enforce_tfa?: BoolFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  admin_access?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    admin_access?: BoolFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  app_access?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    app_access?: BoolFilter;
+  @Field(() => Directus_permissionsListRelationFilter, { nullable: true })
+  directus_permissions?: Directus_permissionsListRelationFilter;
 
-    @Field(() => Directus_permissionsListRelationFilter, {nullable:true})
-    directus_permissions?: Directus_permissionsListRelationFilter;
+  @Field(() => Directus_presetsListRelationFilter, { nullable: true })
+  directus_presets?: Directus_presetsListRelationFilter;
 
-    @Field(() => Directus_presetsListRelationFilter, {nullable:true})
-    directus_presets?: Directus_presetsListRelationFilter;
+  @Field(() => Directus_sharesListRelationFilter, { nullable: true })
+  directus_shares?: Directus_sharesListRelationFilter;
 
-    @Field(() => Directus_sharesListRelationFilter, {nullable:true})
-    directus_shares?: Directus_sharesListRelationFilter;
-
-    @Field(() => Directus_usersListRelationFilter, {nullable:true})
-    directus_users?: Directus_usersListRelationFilter;
+  @Field(() => Directus_usersListRelationFilter, { nullable: true })
+  directus_users?: Directus_usersListRelationFilter;
 }

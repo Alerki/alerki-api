@@ -8,16 +8,19 @@ import { languagesWhereUniqueInput } from './languages-where-unique.input';
 
 @InputType()
 export class languagesCreateNestedOneWithoutService_translationsInput {
+  @Field(() => languagesCreateWithoutService_translationsInput, {
+    nullable: true,
+  })
+  @Type(() => languagesCreateWithoutService_translationsInput)
+  create?: languagesCreateWithoutService_translationsInput;
 
-    @Field(() => languagesCreateWithoutService_translationsInput, {nullable:true})
-    @Type(() => languagesCreateWithoutService_translationsInput)
-    create?: languagesCreateWithoutService_translationsInput;
+  @Field(() => languagesCreateOrConnectWithoutService_translationsInput, {
+    nullable: true,
+  })
+  @Type(() => languagesCreateOrConnectWithoutService_translationsInput)
+  connectOrCreate?: languagesCreateOrConnectWithoutService_translationsInput;
 
-    @Field(() => languagesCreateOrConnectWithoutService_translationsInput, {nullable:true})
-    @Type(() => languagesCreateOrConnectWithoutService_translationsInput)
-    connectOrCreate?: languagesCreateOrConnectWithoutService_translationsInput;
-
-    @Field(() => languagesWhereUniqueInput, {nullable:true})
-    @Type(() => languagesWhereUniqueInput)
-    connect?: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
+  @Field(() => languagesWhereUniqueInput, { nullable: true })
+  @Type(() => languagesWhereUniqueInput)
+  connect?: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
 }

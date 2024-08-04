@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class ServiceCount {
-
-    @Field(() => Int, {nullable:false})
-    Service_translations?: number;
+  @Field(() => Int, { nullable: false })
+  Service_translations?: number;
 }

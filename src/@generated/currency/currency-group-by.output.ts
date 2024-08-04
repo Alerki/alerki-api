@@ -9,46 +9,45 @@ import { CurrencyMaxAggregate } from './currency-max-aggregate.output';
 
 @ObjectType()
 export class CurrencyGroupBy {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false })
+  status!: string;
 
-    @Field(() => String, {nullable:false})
-    status!: string;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => String, { nullable: true })
+  user_created?: string;
 
-    @Field(() => String, {nullable:true})
-    user_created?: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => String, { nullable: true })
+  user_updated?: string;
 
-    @Field(() => String, {nullable:true})
-    user_updated?: string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  code!: string;
 
-    @Field(() => String, {nullable:false})
-    code!: string;
+  @Field(() => String, { nullable: false })
+  character!: string;
 
-    @Field(() => String, {nullable:false})
-    character!: string;
+  @Field(() => CurrencyCountAggregate, { nullable: true })
+  _count?: CurrencyCountAggregate;
 
-    @Field(() => CurrencyCountAggregate, {nullable:true})
-    _count?: CurrencyCountAggregate;
+  @Field(() => CurrencyAvgAggregate, { nullable: true })
+  _avg?: CurrencyAvgAggregate;
 
-    @Field(() => CurrencyAvgAggregate, {nullable:true})
-    _avg?: CurrencyAvgAggregate;
+  @Field(() => CurrencySumAggregate, { nullable: true })
+  _sum?: CurrencySumAggregate;
 
-    @Field(() => CurrencySumAggregate, {nullable:true})
-    _sum?: CurrencySumAggregate;
+  @Field(() => CurrencyMinAggregate, { nullable: true })
+  _min?: CurrencyMinAggregate;
 
-    @Field(() => CurrencyMinAggregate, {nullable:true})
-    _min?: CurrencyMinAggregate;
-
-    @Field(() => CurrencyMaxAggregate, {nullable:true})
-    _max?: CurrencyMaxAggregate;
+  @Field(() => CurrencyMaxAggregate, { nullable: true })
+  _max?: CurrencyMaxAggregate;
 }

@@ -9,20 +9,25 @@ import { UserPictureWhereUniqueInput } from './user-picture-where-unique.input';
 
 @InputType()
 export class UserPictureUncheckedCreateNestedManyWithoutDirectus_filesInput {
+  @Field(() => [UserPictureCreateWithoutDirectus_filesInput], {
+    nullable: true,
+  })
+  @Type(() => UserPictureCreateWithoutDirectus_filesInput)
+  create?: Array<UserPictureCreateWithoutDirectus_filesInput>;
 
-    @Field(() => [UserPictureCreateWithoutDirectus_filesInput], {nullable:true})
-    @Type(() => UserPictureCreateWithoutDirectus_filesInput)
-    create?: Array<UserPictureCreateWithoutDirectus_filesInput>;
+  @Field(() => [UserPictureCreateOrConnectWithoutDirectus_filesInput], {
+    nullable: true,
+  })
+  @Type(() => UserPictureCreateOrConnectWithoutDirectus_filesInput)
+  connectOrCreate?: Array<UserPictureCreateOrConnectWithoutDirectus_filesInput>;
 
-    @Field(() => [UserPictureCreateOrConnectWithoutDirectus_filesInput], {nullable:true})
-    @Type(() => UserPictureCreateOrConnectWithoutDirectus_filesInput)
-    connectOrCreate?: Array<UserPictureCreateOrConnectWithoutDirectus_filesInput>;
+  @Field(() => UserPictureCreateManyDirectus_filesInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => UserPictureCreateManyDirectus_filesInputEnvelope)
+  createMany?: UserPictureCreateManyDirectus_filesInputEnvelope;
 
-    @Field(() => UserPictureCreateManyDirectus_filesInputEnvelope, {nullable:true})
-    @Type(() => UserPictureCreateManyDirectus_filesInputEnvelope)
-    createMany?: UserPictureCreateManyDirectus_filesInputEnvelope;
-
-    @Field(() => [UserPictureWhereUniqueInput], {nullable:true})
-    @Type(() => UserPictureWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
+  @Field(() => [UserPictureWhereUniqueInput], { nullable: true })
+  @Type(() => UserPictureWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
 }

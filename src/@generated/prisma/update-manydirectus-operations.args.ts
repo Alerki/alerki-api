@@ -6,12 +6,11 @@ import { directus_operationsWhereInput } from '../directus-operations/directus-o
 
 @ArgsType()
 export class UpdateManydirectusOperationsArgs {
+  @Field(() => directus_operationsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_operationsUpdateManyMutationInput)
+  data!: directus_operationsUpdateManyMutationInput;
 
-    @Field(() => directus_operationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_operationsUpdateManyMutationInput)
-    data!: directus_operationsUpdateManyMutationInput;
-
-    @Field(() => directus_operationsWhereInput, {nullable:true})
-    @Type(() => directus_operationsWhereInput)
-    where?: directus_operationsWhereInput;
+  @Field(() => directus_operationsWhereInput, { nullable: true })
+  @Type(() => directus_operationsWhereInput)
+  where?: directus_operationsWhereInput;
 }

@@ -10,30 +10,60 @@ import { directus_operationsUpdateWithoutOther_directus_operations_directus_oper
 
 @InputType()
 export class directus_operationsUpdateOneWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsNestedInput {
+  @Field(
+    () =>
+      directus_operationsCreateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsCreateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput,
+  )
+  create?: directus_operationsCreateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput;
 
-    @Field(() => directus_operationsCreateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsCreateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput)
-    create?: directus_operationsCreateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput;
+  @Field(
+    () =>
+      directus_operationsCreateOrConnectWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsCreateOrConnectWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput,
+  )
+  connectOrCreate?: directus_operationsCreateOrConnectWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput;
 
-    @Field(() => directus_operationsCreateOrConnectWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsCreateOrConnectWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput)
-    connectOrCreate?: directus_operationsCreateOrConnectWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput;
+  @Field(
+    () =>
+      directus_operationsUpsertWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsUpsertWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput,
+  )
+  upsert?: directus_operationsUpsertWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput;
 
-    @Field(() => directus_operationsUpsertWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsUpsertWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput)
-    upsert?: directus_operationsUpsertWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_operationsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_operationsWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_operationsWhereUniqueInput,
+    'id' | 'resolve' | 'reject'
+  >;
 
-    @Field(() => directus_operationsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_operationsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>;
-
-    @Field(() => directus_operationsUpdateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsUpdateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput)
-    update?: directus_operationsUpdateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput;
+  @Field(
+    () =>
+      directus_operationsUpdateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsUpdateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput,
+  )
+  update?: directus_operationsUpdateWithoutOther_directus_operations_directus_operations_rejectTodirectus_operationsInput;
 }

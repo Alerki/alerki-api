@@ -6,13 +6,12 @@ import { MasterProfileMaxAggregate } from './master-profile-max-aggregate.output
 
 @ObjectType()
 export class AggregateMasterProfile {
+  @Field(() => MasterProfileCountAggregate, { nullable: true })
+  _count?: MasterProfileCountAggregate;
 
-    @Field(() => MasterProfileCountAggregate, {nullable:true})
-    _count?: MasterProfileCountAggregate;
+  @Field(() => MasterProfileMinAggregate, { nullable: true })
+  _min?: MasterProfileMinAggregate;
 
-    @Field(() => MasterProfileMinAggregate, {nullable:true})
-    _min?: MasterProfileMinAggregate;
-
-    @Field(() => MasterProfileMaxAggregate, {nullable:true})
-    _max?: MasterProfileMaxAggregate;
+  @Field(() => MasterProfileMaxAggregate, { nullable: true })
+  _max?: MasterProfileMaxAggregate;
 }

@@ -6,12 +6,15 @@ import { directus_rolesCreateWithoutDirectus_permissionsInput } from './directus
 
 @InputType()
 export class directus_rolesUpsertWithoutDirectus_permissionsInput {
+  @Field(() => directus_rolesUpdateWithoutDirectus_permissionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesUpdateWithoutDirectus_permissionsInput)
+  update!: directus_rolesUpdateWithoutDirectus_permissionsInput;
 
-    @Field(() => directus_rolesUpdateWithoutDirectus_permissionsInput, {nullable:false})
-    @Type(() => directus_rolesUpdateWithoutDirectus_permissionsInput)
-    update!: directus_rolesUpdateWithoutDirectus_permissionsInput;
-
-    @Field(() => directus_rolesCreateWithoutDirectus_permissionsInput, {nullable:false})
-    @Type(() => directus_rolesCreateWithoutDirectus_permissionsInput)
-    create!: directus_rolesCreateWithoutDirectus_permissionsInput;
+  @Field(() => directus_rolesCreateWithoutDirectus_permissionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesCreateWithoutDirectus_permissionsInput)
+  create!: directus_rolesCreateWithoutDirectus_permissionsInput;
 }

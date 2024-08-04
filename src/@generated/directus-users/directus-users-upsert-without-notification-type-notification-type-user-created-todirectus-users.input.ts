@@ -6,12 +6,25 @@ import { directus_usersCreateWithoutNotificationType_NotificationType_user_creat
 
 @InputType()
 export class directus_usersUpsertWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput {
+  @Field(
+    () =>
+      directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+  )
+  update!: directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
 
-    @Field(() => directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput)
-    update!: directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
-
-    @Field(() => directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput)
-    create!: directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+  )
+  create!: directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
 }

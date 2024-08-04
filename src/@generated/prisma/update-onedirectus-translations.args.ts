@@ -6,12 +6,11 @@ import { directus_translationsWhereUniqueInput } from '../directus-translations/
 
 @ArgsType()
 export class UpdateOnedirectusTranslationsArgs {
+  @Field(() => directus_translationsUpdateInput, { nullable: false })
+  @Type(() => directus_translationsUpdateInput)
+  data!: directus_translationsUpdateInput;
 
-    @Field(() => directus_translationsUpdateInput, {nullable:false})
-    @Type(() => directus_translationsUpdateInput)
-    data!: directus_translationsUpdateInput;
-
-    @Field(() => directus_translationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_translationsWhereUniqueInput)
-    where!: directus_translationsWhereUniqueInput;
+  @Field(() => directus_translationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_translationsWhereUniqueInput)
+  where!: directus_translationsWhereUniqueInput;
 }

@@ -7,12 +7,11 @@ import { AppointmentCreateWithoutCurrencyInput } from './appointment-create-with
 
 @InputType()
 export class AppointmentCreateOrConnectWithoutCurrencyInput {
+  @Field(() => AppointmentWhereUniqueInput, { nullable: false })
+  @Type(() => AppointmentWhereUniqueInput)
+  where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
 
-    @Field(() => AppointmentWhereUniqueInput, {nullable:false})
-    @Type(() => AppointmentWhereUniqueInput)
-    where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
-
-    @Field(() => AppointmentCreateWithoutCurrencyInput, {nullable:false})
-    @Type(() => AppointmentCreateWithoutCurrencyInput)
-    create!: AppointmentCreateWithoutCurrencyInput;
+  @Field(() => AppointmentCreateWithoutCurrencyInput, { nullable: false })
+  @Type(() => AppointmentCreateWithoutCurrencyInput)
+  create!: AppointmentCreateWithoutCurrencyInput;
 }

@@ -6,12 +6,13 @@ import { directus_notificationsWhereInput } from '../directus-notifications/dire
 
 @ArgsType()
 export class UpdateManydirectusNotificationsArgs {
+  @Field(() => directus_notificationsUpdateManyMutationInput, {
+    nullable: false,
+  })
+  @Type(() => directus_notificationsUpdateManyMutationInput)
+  data!: directus_notificationsUpdateManyMutationInput;
 
-    @Field(() => directus_notificationsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_notificationsUpdateManyMutationInput)
-    data!: directus_notificationsUpdateManyMutationInput;
-
-    @Field(() => directus_notificationsWhereInput, {nullable:true})
-    @Type(() => directus_notificationsWhereInput)
-    where?: directus_notificationsWhereInput;
+  @Field(() => directus_notificationsWhereInput, { nullable: true })
+  @Type(() => directus_notificationsWhereInput)
+  where?: directus_notificationsWhereInput;
 }

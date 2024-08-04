@@ -9,20 +9,27 @@ import { directus_flowsWhereUniqueInput } from './directus-flows-where-unique.in
 
 @InputType()
 export class directus_flowsCreateNestedManyWithoutDirectus_usersInput {
+  @Field(() => [directus_flowsCreateWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_flowsCreateWithoutDirectus_usersInput)
+  create?: Array<directus_flowsCreateWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_flowsCreateWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_flowsCreateWithoutDirectus_usersInput)
-    create?: Array<directus_flowsCreateWithoutDirectus_usersInput>;
+  @Field(() => [directus_flowsCreateOrConnectWithoutDirectus_usersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_flowsCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: Array<directus_flowsCreateOrConnectWithoutDirectus_usersInput>;
 
-    @Field(() => [directus_flowsCreateOrConnectWithoutDirectus_usersInput], {nullable:true})
-    @Type(() => directus_flowsCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: Array<directus_flowsCreateOrConnectWithoutDirectus_usersInput>;
+  @Field(() => directus_flowsCreateManyDirectus_usersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_flowsCreateManyDirectus_usersInputEnvelope)
+  createMany?: directus_flowsCreateManyDirectus_usersInputEnvelope;
 
-    @Field(() => directus_flowsCreateManyDirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => directus_flowsCreateManyDirectus_usersInputEnvelope)
-    createMany?: directus_flowsCreateManyDirectus_usersInputEnvelope;
-
-    @Field(() => [directus_flowsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_flowsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>>;
+  @Field(() => [directus_flowsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_flowsWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<directus_flowsWhereUniqueInput, 'id' | 'operation'>
+  >;
 }

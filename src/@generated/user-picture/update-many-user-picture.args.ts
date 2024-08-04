@@ -6,12 +6,11 @@ import { UserPictureWhereInput } from './user-picture-where.input';
 
 @ArgsType()
 export class UpdateManyUserPictureArgs {
+  @Field(() => UserPictureUpdateManyMutationInput, { nullable: false })
+  @Type(() => UserPictureUpdateManyMutationInput)
+  data!: UserPictureUpdateManyMutationInput;
 
-    @Field(() => UserPictureUpdateManyMutationInput, {nullable:false})
-    @Type(() => UserPictureUpdateManyMutationInput)
-    data!: UserPictureUpdateManyMutationInput;
-
-    @Field(() => UserPictureWhereInput, {nullable:true})
-    @Type(() => UserPictureWhereInput)
-    where?: UserPictureWhereInput;
+  @Field(() => UserPictureWhereInput, { nullable: true })
+  @Type(() => UserPictureWhereInput)
+  where?: UserPictureWhereInput;
 }

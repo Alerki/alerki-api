@@ -6,12 +6,11 @@ import { directus_webhooksWhereInput } from '../directus-webhooks/directus-webho
 
 @ArgsType()
 export class UpdateManydirectusWebhooksArgs {
+  @Field(() => directus_webhooksUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_webhooksUpdateManyMutationInput)
+  data!: directus_webhooksUpdateManyMutationInput;
 
-    @Field(() => directus_webhooksUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_webhooksUpdateManyMutationInput)
-    data!: directus_webhooksUpdateManyMutationInput;
-
-    @Field(() => directus_webhooksWhereInput, {nullable:true})
-    @Type(() => directus_webhooksWhereInput)
-    where?: directus_webhooksWhereInput;
+  @Field(() => directus_webhooksWhereInput, { nullable: true })
+  @Type(() => directus_webhooksWhereInput)
+  where?: directus_webhooksWhereInput;
 }

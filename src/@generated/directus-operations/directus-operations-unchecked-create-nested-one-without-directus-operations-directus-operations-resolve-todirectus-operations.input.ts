@@ -8,16 +8,32 @@ import { directus_operationsWhereUniqueInput } from './directus-operations-where
 
 @InputType()
 export class directus_operationsUncheckedCreateNestedOneWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput {
+  @Field(
+    () =>
+      directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+  )
+  create?: directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
 
-    @Field(() => directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput)
-    create?: directus_operationsCreateWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
+  @Field(
+    () =>
+      directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput,
+  )
+  connectOrCreate?: directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
 
-    @Field(() => directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput, {nullable:true})
-    @Type(() => directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput)
-    connectOrCreate?: directus_operationsCreateOrConnectWithoutDirectus_operations_directus_operations_resolveTodirectus_operationsInput;
-
-    @Field(() => directus_operationsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_operationsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_operationsWhereUniqueInput, 'id' | 'resolve' | 'reject'>;
+  @Field(() => directus_operationsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_operationsWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_operationsWhereUniqueInput,
+    'id' | 'resolve' | 'reject'
+  >;
 }

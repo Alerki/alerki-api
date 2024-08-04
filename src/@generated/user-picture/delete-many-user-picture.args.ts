@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyUserPictureArgs {
-
-    @Field(() => UserPictureWhereInput, {nullable:true})
-    @Type(() => UserPictureWhereInput)
-    where?: UserPictureWhereInput;
+  @Field(() => UserPictureWhereInput, { nullable: true })
+  @Type(() => UserPictureWhereInput)
+  where?: UserPictureWhereInput;
 }

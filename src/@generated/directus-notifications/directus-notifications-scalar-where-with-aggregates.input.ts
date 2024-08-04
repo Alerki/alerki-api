@@ -9,40 +9,45 @@ import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-fil
 
 @InputType()
 export class directus_notificationsScalarWhereWithAggregatesInput {
+  @Field(() => [directus_notificationsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<directus_notificationsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_notificationsScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<directus_notificationsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_notificationsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<directus_notificationsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_notificationsScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<directus_notificationsScalarWhereWithAggregatesInput>;
+  @Field(() => [directus_notificationsScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<directus_notificationsScalarWhereWithAggregatesInput>;
 
-    @Field(() => [directus_notificationsScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<directus_notificationsScalarWhereWithAggregatesInput>;
+  @Field(() => IntWithAggregatesFilter, { nullable: true })
+  id?: IntWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  timestamp?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    timestamp?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  status?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    status?: StringNullableWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  recipient?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    recipient?: UuidWithAggregatesFilter;
+  @Field(() => UuidNullableWithAggregatesFilter, { nullable: true })
+  sender?: UuidNullableWithAggregatesFilter;
 
-    @Field(() => UuidNullableWithAggregatesFilter, {nullable:true})
-    sender?: UuidNullableWithAggregatesFilter;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  subject?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    subject?: StringWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  message?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    message?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  collection?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    collection?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    item?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  item?: StringNullableWithAggregatesFilter;
 }

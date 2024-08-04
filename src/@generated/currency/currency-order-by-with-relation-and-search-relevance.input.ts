@@ -8,46 +8,49 @@ import { CurrencyOrderByRelevanceInput } from './currency-order-by-relevance.inp
 
 @InputType()
 export class CurrencyOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  status?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  sort?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    sort?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  code?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    code?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  character?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    character?: keyof typeof SortOrder;
+  @Field(() => AppointmentOrderByRelationAggregateInput, { nullable: true })
+  Appointment?: AppointmentOrderByRelationAggregateInput;
 
-    @Field(() => AppointmentOrderByRelationAggregateInput, {nullable:true})
-    Appointment?: AppointmentOrderByRelationAggregateInput;
+  @Field(() => directus_usersOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  directus_users_Currency_user_createdTodirectus_users?: directus_usersOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => directus_usersOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    directus_users_Currency_user_createdTodirectus_users?: directus_usersOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => directus_usersOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  directus_users_Currency_user_updatedTodirectus_users?: directus_usersOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => directus_usersOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    directus_users_Currency_user_updatedTodirectus_users?: directus_usersOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => MasterServiceOrderByRelationAggregateInput, { nullable: true })
+  MasterService?: MasterServiceOrderByRelationAggregateInput;
 
-    @Field(() => MasterServiceOrderByRelationAggregateInput, {nullable:true})
-    MasterService?: MasterServiceOrderByRelationAggregateInput;
-
-    @Field(() => CurrencyOrderByRelevanceInput, {nullable:true})
-    _relevance?: CurrencyOrderByRelevanceInput;
+  @Field(() => CurrencyOrderByRelevanceInput, { nullable: true })
+  _relevance?: CurrencyOrderByRelevanceInput;
 }

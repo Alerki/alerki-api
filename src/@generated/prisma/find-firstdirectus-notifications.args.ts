@@ -9,23 +9,25 @@ import { Directus_notificationsScalarFieldEnum } from './directus-notifications-
 
 @ArgsType()
 export class FindFirstdirectusNotificationsArgs {
+  @Field(() => directus_notificationsWhereInput, { nullable: true })
+  @Type(() => directus_notificationsWhereInput)
+  where?: directus_notificationsWhereInput;
 
-    @Field(() => directus_notificationsWhereInput, {nullable:true})
-    @Type(() => directus_notificationsWhereInput)
-    where?: directus_notificationsWhereInput;
+  @Field(
+    () => [directus_notificationsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<directus_notificationsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_notificationsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_notificationsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_notificationsWhereUniqueInput, { nullable: true })
+  cursor?: directus_notificationsWhereUniqueInput;
 
-    @Field(() => directus_notificationsWhereUniqueInput, {nullable:true})
-    cursor?: directus_notificationsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_notificationsScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_notificationsScalarFieldEnum>;
+  @Field(() => [Directus_notificationsScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_notificationsScalarFieldEnum>;
 }

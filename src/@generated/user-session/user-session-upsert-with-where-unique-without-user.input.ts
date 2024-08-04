@@ -8,16 +8,15 @@ import { User_SessionCreateWithoutUserInput } from './user-session-create-withou
 
 @InputType()
 export class User_SessionUpsertWithWhereUniqueWithoutUserInput {
+  @Field(() => User_SessionWhereUniqueInput, { nullable: false })
+  @Type(() => User_SessionWhereUniqueInput)
+  where!: Prisma.AtLeast<User_SessionWhereUniqueInput, 'id'>;
 
-    @Field(() => User_SessionWhereUniqueInput, {nullable:false})
-    @Type(() => User_SessionWhereUniqueInput)
-    where!: Prisma.AtLeast<User_SessionWhereUniqueInput, 'id'>;
+  @Field(() => User_SessionUpdateWithoutUserInput, { nullable: false })
+  @Type(() => User_SessionUpdateWithoutUserInput)
+  update!: User_SessionUpdateWithoutUserInput;
 
-    @Field(() => User_SessionUpdateWithoutUserInput, {nullable:false})
-    @Type(() => User_SessionUpdateWithoutUserInput)
-    update!: User_SessionUpdateWithoutUserInput;
-
-    @Field(() => User_SessionCreateWithoutUserInput, {nullable:false})
-    @Type(() => User_SessionCreateWithoutUserInput)
-    create!: User_SessionCreateWithoutUserInput;
+  @Field(() => User_SessionCreateWithoutUserInput, { nullable: false })
+  @Type(() => User_SessionCreateWithoutUserInput)
+  create!: User_SessionCreateWithoutUserInput;
 }

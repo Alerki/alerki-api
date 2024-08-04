@@ -6,12 +6,15 @@ import { directus_usersCreateWithoutDirectus_sharesInput } from './directus-user
 
 @InputType()
 export class directus_usersUpsertWithoutDirectus_sharesInput {
+  @Field(() => directus_usersUpdateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersUpdateWithoutDirectus_sharesInput)
+  update!: directus_usersUpdateWithoutDirectus_sharesInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_sharesInput)
-    update!: directus_usersUpdateWithoutDirectus_sharesInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_sharesInput)
-    create!: directus_usersCreateWithoutDirectus_sharesInput;
+  @Field(() => directus_usersCreateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_sharesInput)
+  create!: directus_usersCreateWithoutDirectus_sharesInput;
 }

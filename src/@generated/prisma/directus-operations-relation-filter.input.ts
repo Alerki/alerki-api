@@ -4,10 +4,9 @@ import { directus_operationsWhereInput } from '../directus-operations/directus-o
 
 @InputType()
 export class Directus_operationsRelationFilter {
+  @Field(() => directus_operationsWhereInput, { nullable: true })
+  is?: directus_operationsWhereInput;
 
-    @Field(() => directus_operationsWhereInput, {nullable:true})
-    is?: directus_operationsWhereInput;
-
-    @Field(() => directus_operationsWhereInput, {nullable:true})
-    isNot?: directus_operationsWhereInput;
+  @Field(() => directus_operationsWhereInput, { nullable: true })
+  isNot?: directus_operationsWhereInput;
 }

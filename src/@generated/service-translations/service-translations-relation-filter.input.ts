@@ -4,10 +4,9 @@ import { Service_translationsWhereInput } from './service-translations-where.inp
 
 @InputType()
 export class Service_translationsRelationFilter {
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  is?: Service_translationsWhereInput;
 
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    is?: Service_translationsWhereInput;
-
-    @Field(() => Service_translationsWhereInput, {nullable:true})
-    isNot?: Service_translationsWhereInput;
+  @Field(() => Service_translationsWhereInput, { nullable: true })
+  isNot?: Service_translationsWhereInput;
 }

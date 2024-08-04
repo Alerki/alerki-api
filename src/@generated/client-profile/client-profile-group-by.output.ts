@@ -6,22 +6,21 @@ import { ClientProfileMaxAggregate } from './client-profile-max-aggregate.output
 
 @ObjectType()
 export class ClientProfileGroupBy {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => ClientProfileCountAggregate, { nullable: true })
+  _count?: ClientProfileCountAggregate;
 
-    @Field(() => ClientProfileCountAggregate, {nullable:true})
-    _count?: ClientProfileCountAggregate;
+  @Field(() => ClientProfileMinAggregate, { nullable: true })
+  _min?: ClientProfileMinAggregate;
 
-    @Field(() => ClientProfileMinAggregate, {nullable:true})
-    _min?: ClientProfileMinAggregate;
-
-    @Field(() => ClientProfileMaxAggregate, {nullable:true})
-    _max?: ClientProfileMaxAggregate;
+  @Field(() => ClientProfileMaxAggregate, { nullable: true })
+  _max?: ClientProfileMaxAggregate;
 }

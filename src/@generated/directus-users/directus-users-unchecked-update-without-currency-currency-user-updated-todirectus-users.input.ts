@@ -26,136 +26,202 @@ import { directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_vers
 
 @InputType()
 export class directus_usersUncheckedUpdateWithoutCurrency_Currency_user_updatedTodirectus_usersInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  first_name?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    first_name?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  last_name?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    last_name?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  email?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    email?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  password?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    password?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  location?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    location?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  title?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    title?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  description?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    description?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  tags?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    tags?: any;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  avatar?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    avatar?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  language?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    language?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  tfa_secret?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    tfa_secret?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  status?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    status?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  role?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    role?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  token?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    token?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  last_access?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    last_access?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  last_page?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    last_page?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  provider?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    provider?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  external_identifier?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    external_identifier?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  auth_data?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    auth_data?: any;
+  @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
+  email_notifications?: NullableBoolFieldUpdateOperationsInput;
 
-    @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
-    email_notifications?: NullableBoolFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  appearance?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    appearance?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  theme_dark?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    theme_dark?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  theme_light?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    theme_light?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  theme_light_overrides?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    theme_light_overrides?: any;
+  @Field(() => GraphQLJSON, { nullable: true })
+  theme_dark_overrides?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    theme_dark_overrides?: any;
+  @Field(
+    () =>
+      CurrencyUncheckedUpdateManyWithoutDirectus_users_Currency_user_createdTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  Currency_Currency_user_createdTodirectus_users?: CurrencyUncheckedUpdateManyWithoutDirectus_users_Currency_user_createdTodirectus_usersNestedInput;
 
-    @Field(() => CurrencyUncheckedUpdateManyWithoutDirectus_users_Currency_user_createdTodirectus_usersNestedInput, {nullable:true})
-    Currency_Currency_user_createdTodirectus_users?: CurrencyUncheckedUpdateManyWithoutDirectus_users_Currency_user_createdTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_createdTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  NotificationType_NotificationType_user_createdTodirectus_users?: NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_createdTodirectus_usersNestedInput;
 
-    @Field(() => NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_createdTodirectus_usersNestedInput, {nullable:true})
-    NotificationType_NotificationType_user_createdTodirectus_users?: NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_createdTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  NotificationType_NotificationType_user_updatedTodirectus_users?: NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersNestedInput;
 
-    @Field(() => NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersNestedInput, {nullable:true})
-    NotificationType_NotificationType_user_updatedTodirectus_users?: NotificationTypeUncheckedUpdateManyWithoutDirectus_users_NotificationType_user_updatedTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_createdTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  Service_Service_user_createdTodirectus_users?: ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_createdTodirectus_usersNestedInput;
 
-    @Field(() => ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_createdTodirectus_usersNestedInput, {nullable:true})
-    Service_Service_user_createdTodirectus_users?: ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_createdTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_updatedTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  Service_Service_user_updatedTodirectus_users?: ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_updatedTodirectus_usersNestedInput;
 
-    @Field(() => ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_updatedTodirectus_usersNestedInput, {nullable:true})
-    Service_Service_user_updatedTodirectus_users?: ServiceUncheckedUpdateManyWithoutDirectus_users_Service_user_updatedTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_dashboardsUncheckedUpdateManyWithoutDirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_dashboards?: directus_dashboardsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
 
-    @Field(() => directus_dashboardsUncheckedUpdateManyWithoutDirectus_usersNestedInput, {nullable:true})
-    directus_dashboards?: directus_dashboardsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_filesUncheckedUpdateManyWithoutDirectus_users_directus_files_modified_byTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_files_directus_files_modified_byTodirectus_users?: directus_filesUncheckedUpdateManyWithoutDirectus_users_directus_files_modified_byTodirectus_usersNestedInput;
 
-    @Field(() => directus_filesUncheckedUpdateManyWithoutDirectus_users_directus_files_modified_byTodirectus_usersNestedInput, {nullable:true})
-    directus_files_directus_files_modified_byTodirectus_users?: directus_filesUncheckedUpdateManyWithoutDirectus_users_directus_files_modified_byTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_filesUncheckedUpdateManyWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_files_directus_files_uploaded_byTodirectus_users?: directus_filesUncheckedUpdateManyWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersNestedInput;
 
-    @Field(() => directus_filesUncheckedUpdateManyWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersNestedInput, {nullable:true})
-    directus_files_directus_files_uploaded_byTodirectus_users?: directus_filesUncheckedUpdateManyWithoutDirectus_users_directus_files_uploaded_byTodirectus_usersNestedInput;
+  @Field(
+    () => directus_flowsUncheckedUpdateManyWithoutDirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_flows?: directus_flowsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
 
-    @Field(() => directus_flowsUncheckedUpdateManyWithoutDirectus_usersNestedInput, {nullable:true})
-    directus_flows?: directus_flowsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_notificationsUncheckedUpdateManyWithoutDirectus_users_directus_notifications_recipientTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_notifications_directus_notifications_recipientTodirectus_users?: directus_notificationsUncheckedUpdateManyWithoutDirectus_users_directus_notifications_recipientTodirectus_usersNestedInput;
 
-    @Field(() => directus_notificationsUncheckedUpdateManyWithoutDirectus_users_directus_notifications_recipientTodirectus_usersNestedInput, {nullable:true})
-    directus_notifications_directus_notifications_recipientTodirectus_users?: directus_notificationsUncheckedUpdateManyWithoutDirectus_users_directus_notifications_recipientTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_notificationsUncheckedUpdateManyWithoutDirectus_users_directus_notifications_senderTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_notifications_directus_notifications_senderTodirectus_users?: directus_notificationsUncheckedUpdateManyWithoutDirectus_users_directus_notifications_senderTodirectus_usersNestedInput;
 
-    @Field(() => directus_notificationsUncheckedUpdateManyWithoutDirectus_users_directus_notifications_senderTodirectus_usersNestedInput, {nullable:true})
-    directus_notifications_directus_notifications_senderTodirectus_users?: directus_notificationsUncheckedUpdateManyWithoutDirectus_users_directus_notifications_senderTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_operationsUncheckedUpdateManyWithoutDirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_operations?: directus_operationsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
 
-    @Field(() => directus_operationsUncheckedUpdateManyWithoutDirectus_usersNestedInput, {nullable:true})
-    directus_operations?: directus_operationsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
+  @Field(
+    () => directus_panelsUncheckedUpdateManyWithoutDirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_panels?: directus_panelsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
 
-    @Field(() => directus_panelsUncheckedUpdateManyWithoutDirectus_usersNestedInput, {nullable:true})
-    directus_panels?: directus_panelsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
+  @Field(
+    () => directus_presetsUncheckedUpdateManyWithoutDirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_presets?: directus_presetsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
 
-    @Field(() => directus_presetsUncheckedUpdateManyWithoutDirectus_usersNestedInput, {nullable:true})
-    directus_presets?: directus_presetsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
+  @Field(
+    () => directus_sessionsUncheckedUpdateManyWithoutDirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_sessions?: directus_sessionsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
 
-    @Field(() => directus_sessionsUncheckedUpdateManyWithoutDirectus_usersNestedInput, {nullable:true})
-    directus_sessions?: directus_sessionsUncheckedUpdateManyWithoutDirectus_usersNestedInput;
+  @Field(
+    () => directus_sharesUncheckedUpdateManyWithoutDirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_shares?: directus_sharesUncheckedUpdateManyWithoutDirectus_usersNestedInput;
 
-    @Field(() => directus_sharesUncheckedUpdateManyWithoutDirectus_usersNestedInput, {nullable:true})
-    directus_shares?: directus_sharesUncheckedUpdateManyWithoutDirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_versions_user_createdTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_versions_directus_versions_user_createdTodirectus_users?: directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_versions_user_createdTodirectus_usersNestedInput;
 
-    @Field(() => directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_versions_user_createdTodirectus_usersNestedInput, {nullable:true})
-    directus_versions_directus_versions_user_createdTodirectus_users?: directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_versions_user_createdTodirectus_usersNestedInput;
-
-    @Field(() => directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersNestedInput, {nullable:true})
-    directus_versions_directus_versions_user_updatedTodirectus_users?: directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersNestedInput;
+  @Field(
+    () =>
+      directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersNestedInput,
+    { nullable: true },
+  )
+  directus_versions_directus_versions_user_updatedTodirectus_users?: directus_versionsUncheckedUpdateManyWithoutDirectus_users_directus_versions_user_updatedTodirectus_usersNestedInput;
 }

@@ -8,43 +8,42 @@ import { UuidNullableFilter } from '../prisma/uuid-nullable-filter.input';
 
 @InputType()
 export class directus_versionsScalarWhereInput {
+  @Field(() => [directus_versionsScalarWhereInput], { nullable: true })
+  AND?: Array<directus_versionsScalarWhereInput>;
 
-    @Field(() => [directus_versionsScalarWhereInput], {nullable:true})
-    AND?: Array<directus_versionsScalarWhereInput>;
+  @Field(() => [directus_versionsScalarWhereInput], { nullable: true })
+  OR?: Array<directus_versionsScalarWhereInput>;
 
-    @Field(() => [directus_versionsScalarWhereInput], {nullable:true})
-    OR?: Array<directus_versionsScalarWhereInput>;
+  @Field(() => [directus_versionsScalarWhereInput], { nullable: true })
+  NOT?: Array<directus_versionsScalarWhereInput>;
 
-    @Field(() => [directus_versionsScalarWhereInput], {nullable:true})
-    NOT?: Array<directus_versionsScalarWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => StringFilter, { nullable: true })
+  key?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    key?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  name?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    name?: StringNullableFilter;
+  @Field(() => StringFilter, { nullable: true })
+  collection?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    collection?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  item?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    item?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  hash?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    hash?: StringNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_created?: UuidNullableFilter;
 
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_created?: UuidNullableFilter;
-
-    @Field(() => UuidNullableFilter, {nullable:true})
-    user_updated?: UuidNullableFilter;
+  @Field(() => UuidNullableFilter, { nullable: true })
+  user_updated?: UuidNullableFilter;
 }

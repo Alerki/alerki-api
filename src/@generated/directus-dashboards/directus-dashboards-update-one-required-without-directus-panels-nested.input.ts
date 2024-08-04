@@ -10,24 +10,31 @@ import { directus_dashboardsUpdateWithoutDirectus_panelsInput } from './directus
 
 @InputType()
 export class directus_dashboardsUpdateOneRequiredWithoutDirectus_panelsNestedInput {
+  @Field(() => directus_dashboardsCreateWithoutDirectus_panelsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsCreateWithoutDirectus_panelsInput)
+  create?: directus_dashboardsCreateWithoutDirectus_panelsInput;
 
-    @Field(() => directus_dashboardsCreateWithoutDirectus_panelsInput, {nullable:true})
-    @Type(() => directus_dashboardsCreateWithoutDirectus_panelsInput)
-    create?: directus_dashboardsCreateWithoutDirectus_panelsInput;
+  @Field(() => directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput)
+  connectOrCreate?: directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput;
 
-    @Field(() => directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput, {nullable:true})
-    @Type(() => directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput)
-    connectOrCreate?: directus_dashboardsCreateOrConnectWithoutDirectus_panelsInput;
+  @Field(() => directus_dashboardsUpsertWithoutDirectus_panelsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsUpsertWithoutDirectus_panelsInput)
+  upsert?: directus_dashboardsUpsertWithoutDirectus_panelsInput;
 
-    @Field(() => directus_dashboardsUpsertWithoutDirectus_panelsInput, {nullable:true})
-    @Type(() => directus_dashboardsUpsertWithoutDirectus_panelsInput)
-    upsert?: directus_dashboardsUpsertWithoutDirectus_panelsInput;
+  @Field(() => directus_dashboardsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_dashboardsWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_dashboardsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_dashboardsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_dashboardsWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_dashboardsUpdateWithoutDirectus_panelsInput, {nullable:true})
-    @Type(() => directus_dashboardsUpdateWithoutDirectus_panelsInput)
-    update?: directus_dashboardsUpdateWithoutDirectus_panelsInput;
+  @Field(() => directus_dashboardsUpdateWithoutDirectus_panelsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_dashboardsUpdateWithoutDirectus_panelsInput)
+  update?: directus_dashboardsUpdateWithoutDirectus_panelsInput;
 }

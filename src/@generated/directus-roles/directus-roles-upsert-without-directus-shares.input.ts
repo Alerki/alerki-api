@@ -6,12 +6,15 @@ import { directus_rolesCreateWithoutDirectus_sharesInput } from './directus-role
 
 @InputType()
 export class directus_rolesUpsertWithoutDirectus_sharesInput {
+  @Field(() => directus_rolesUpdateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesUpdateWithoutDirectus_sharesInput)
+  update!: directus_rolesUpdateWithoutDirectus_sharesInput;
 
-    @Field(() => directus_rolesUpdateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_rolesUpdateWithoutDirectus_sharesInput)
-    update!: directus_rolesUpdateWithoutDirectus_sharesInput;
-
-    @Field(() => directus_rolesCreateWithoutDirectus_sharesInput, {nullable:false})
-    @Type(() => directus_rolesCreateWithoutDirectus_sharesInput)
-    create!: directus_rolesCreateWithoutDirectus_sharesInput;
+  @Field(() => directus_rolesCreateWithoutDirectus_sharesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesCreateWithoutDirectus_sharesInput)
+  create!: directus_rolesCreateWithoutDirectus_sharesInput;
 }

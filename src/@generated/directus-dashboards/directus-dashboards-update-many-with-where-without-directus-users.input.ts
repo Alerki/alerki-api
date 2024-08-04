@@ -6,12 +6,11 @@ import { directus_dashboardsUpdateManyMutationInput } from './directus-dashboard
 
 @InputType()
 export class directus_dashboardsUpdateManyWithWhereWithoutDirectus_usersInput {
+  @Field(() => directus_dashboardsScalarWhereInput, { nullable: false })
+  @Type(() => directus_dashboardsScalarWhereInput)
+  where!: directus_dashboardsScalarWhereInput;
 
-    @Field(() => directus_dashboardsScalarWhereInput, {nullable:false})
-    @Type(() => directus_dashboardsScalarWhereInput)
-    where!: directus_dashboardsScalarWhereInput;
-
-    @Field(() => directus_dashboardsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_dashboardsUpdateManyMutationInput)
-    data!: directus_dashboardsUpdateManyMutationInput;
+  @Field(() => directus_dashboardsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_dashboardsUpdateManyMutationInput)
+  data!: directus_dashboardsUpdateManyMutationInput;
 }

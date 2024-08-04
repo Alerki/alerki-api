@@ -10,30 +10,40 @@ import { directus_usersUpdateWithoutDirectus_sessionsInput } from './directus-us
 
 @InputType()
 export class directus_usersUpdateOneWithoutDirectus_sessionsNestedInput {
+  @Field(() => directus_usersCreateWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_sessionsInput)
+  create?: directus_usersCreateWithoutDirectus_sessionsInput;
 
-    @Field(() => directus_usersCreateWithoutDirectus_sessionsInput, {nullable:true})
-    @Type(() => directus_usersCreateWithoutDirectus_sessionsInput)
-    create?: directus_usersCreateWithoutDirectus_sessionsInput;
+  @Field(() => directus_usersCreateOrConnectWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_usersCreateOrConnectWithoutDirectus_sessionsInput)
+  connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_sessionsInput;
 
-    @Field(() => directus_usersCreateOrConnectWithoutDirectus_sessionsInput, {nullable:true})
-    @Type(() => directus_usersCreateOrConnectWithoutDirectus_sessionsInput)
-    connectOrCreate?: directus_usersCreateOrConnectWithoutDirectus_sessionsInput;
+  @Field(() => directus_usersUpsertWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_usersUpsertWithoutDirectus_sessionsInput)
+  upsert?: directus_usersUpsertWithoutDirectus_sessionsInput;
 
-    @Field(() => directus_usersUpsertWithoutDirectus_sessionsInput, {nullable:true})
-    @Type(() => directus_usersUpsertWithoutDirectus_sessionsInput)
-    upsert?: directus_usersUpsertWithoutDirectus_sessionsInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_usersWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_usersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersUpdateWithoutDirectus_sessionsInput, {nullable:true})
-    @Type(() => directus_usersUpdateWithoutDirectus_sessionsInput)
-    update?: directus_usersUpdateWithoutDirectus_sessionsInput;
+  @Field(() => directus_usersUpdateWithoutDirectus_sessionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_usersUpdateWithoutDirectus_sessionsInput)
+  update?: directus_usersUpdateWithoutDirectus_sessionsInput;
 }

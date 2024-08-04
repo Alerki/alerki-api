@@ -4,13 +4,12 @@ import { UserRecipientOnNotificationWhereInput } from './user-recipient-on-notif
 
 @InputType()
 export class UserRecipientOnNotificationListRelationFilter {
+  @Field(() => UserRecipientOnNotificationWhereInput, { nullable: true })
+  every?: UserRecipientOnNotificationWhereInput;
 
-    @Field(() => UserRecipientOnNotificationWhereInput, {nullable:true})
-    every?: UserRecipientOnNotificationWhereInput;
+  @Field(() => UserRecipientOnNotificationWhereInput, { nullable: true })
+  some?: UserRecipientOnNotificationWhereInput;
 
-    @Field(() => UserRecipientOnNotificationWhereInput, {nullable:true})
-    some?: UserRecipientOnNotificationWhereInput;
-
-    @Field(() => UserRecipientOnNotificationWhereInput, {nullable:true})
-    none?: UserRecipientOnNotificationWhereInput;
+  @Field(() => UserRecipientOnNotificationWhereInput, { nullable: true })
+  none?: UserRecipientOnNotificationWhereInput;
 }

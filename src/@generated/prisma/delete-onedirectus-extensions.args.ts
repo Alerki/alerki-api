@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteOnedirectusExtensionsArgs {
-
-    @Field(() => directus_extensionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_extensionsWhereUniqueInput)
-    where!: directus_extensionsWhereUniqueInput;
+  @Field(() => directus_extensionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_extensionsWhereUniqueInput)
+  where!: directus_extensionsWhereUniqueInput;
 }

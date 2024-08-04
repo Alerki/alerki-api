@@ -9,23 +9,24 @@ import { Directus_activityScalarFieldEnum } from './directus-activity-scalar-fie
 
 @ArgsType()
 export class FindFirstdirectusActivityOrThrowArgs {
+  @Field(() => directus_activityWhereInput, { nullable: true })
+  @Type(() => directus_activityWhereInput)
+  where?: directus_activityWhereInput;
 
-    @Field(() => directus_activityWhereInput, {nullable:true})
-    @Type(() => directus_activityWhereInput)
-    where?: directus_activityWhereInput;
+  @Field(() => [directus_activityOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_activityOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_activityOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_activityOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_activityWhereUniqueInput, { nullable: true })
+  cursor?: directus_activityWhereUniqueInput;
 
-    @Field(() => directus_activityWhereUniqueInput, {nullable:true})
-    cursor?: directus_activityWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_activityScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_activityScalarFieldEnum>;
+  @Field(() => [Directus_activityScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_activityScalarFieldEnum>;
 }

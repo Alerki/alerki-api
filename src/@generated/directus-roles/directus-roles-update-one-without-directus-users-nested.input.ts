@@ -10,30 +10,37 @@ import { directus_rolesUpdateWithoutDirectus_usersInput } from './directus-roles
 
 @InputType()
 export class directus_rolesUpdateOneWithoutDirectus_usersNestedInput {
+  @Field(() => directus_rolesCreateWithoutDirectus_usersInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesCreateWithoutDirectus_usersInput)
+  create?: directus_rolesCreateWithoutDirectus_usersInput;
 
-    @Field(() => directus_rolesCreateWithoutDirectus_usersInput, {nullable:true})
-    @Type(() => directus_rolesCreateWithoutDirectus_usersInput)
-    create?: directus_rolesCreateWithoutDirectus_usersInput;
+  @Field(() => directus_rolesCreateOrConnectWithoutDirectus_usersInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesCreateOrConnectWithoutDirectus_usersInput)
+  connectOrCreate?: directus_rolesCreateOrConnectWithoutDirectus_usersInput;
 
-    @Field(() => directus_rolesCreateOrConnectWithoutDirectus_usersInput, {nullable:true})
-    @Type(() => directus_rolesCreateOrConnectWithoutDirectus_usersInput)
-    connectOrCreate?: directus_rolesCreateOrConnectWithoutDirectus_usersInput;
+  @Field(() => directus_rolesUpsertWithoutDirectus_usersInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesUpsertWithoutDirectus_usersInput)
+  upsert?: directus_rolesUpsertWithoutDirectus_usersInput;
 
-    @Field(() => directus_rolesUpsertWithoutDirectus_usersInput, {nullable:true})
-    @Type(() => directus_rolesUpsertWithoutDirectus_usersInput)
-    upsert?: directus_rolesUpsertWithoutDirectus_usersInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_rolesWhereUniqueInput, { nullable: true })
+  @Type(() => directus_rolesWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_rolesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_rolesWhereUniqueInput, {nullable:true})
-    @Type(() => directus_rolesWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_rolesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_rolesUpdateWithoutDirectus_usersInput, {nullable:true})
-    @Type(() => directus_rolesUpdateWithoutDirectus_usersInput)
-    update?: directus_rolesUpdateWithoutDirectus_usersInput;
+  @Field(() => directus_rolesUpdateWithoutDirectus_usersInput, {
+    nullable: true,
+  })
+  @Type(() => directus_rolesUpdateWithoutDirectus_usersInput)
+  update?: directus_rolesUpdateWithoutDirectus_usersInput;
 }

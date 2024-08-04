@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class MasterServiceCreateManyCurrencyInputEnvelope {
+  @Field(() => [MasterServiceCreateManyCurrencyInput], { nullable: false })
+  @Type(() => MasterServiceCreateManyCurrencyInput)
+  data!: Array<MasterServiceCreateManyCurrencyInput>;
 
-    @Field(() => [MasterServiceCreateManyCurrencyInput], {nullable:false})
-    @Type(() => MasterServiceCreateManyCurrencyInput)
-    data!: Array<MasterServiceCreateManyCurrencyInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

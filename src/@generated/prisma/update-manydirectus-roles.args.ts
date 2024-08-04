@@ -6,12 +6,11 @@ import { directus_rolesWhereInput } from '../directus-roles/directus-roles-where
 
 @ArgsType()
 export class UpdateManydirectusRolesArgs {
+  @Field(() => directus_rolesUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_rolesUpdateManyMutationInput)
+  data!: directus_rolesUpdateManyMutationInput;
 
-    @Field(() => directus_rolesUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_rolesUpdateManyMutationInput)
-    data!: directus_rolesUpdateManyMutationInput;
-
-    @Field(() => directus_rolesWhereInput, {nullable:true})
-    @Type(() => directus_rolesWhereInput)
-    where?: directus_rolesWhereInput;
+  @Field(() => directus_rolesWhereInput, { nullable: true })
+  @Type(() => directus_rolesWhereInput)
+  where?: directus_rolesWhereInput;
 }

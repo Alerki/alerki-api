@@ -4,16 +4,19 @@ import { UserCreateNestedOneWithoutUserSenderOnNotification_UserSenderOnNotifica
 
 @InputType()
 export class UserSenderOnNotificationCreateWithoutUser_UserSenderOnNotification_userToUserInput {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
-
-    @Field(() => UserCreateNestedOneWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput, {nullable:false})
-    User_UserSenderOnNotification_notificationToUser!: UserCreateNestedOneWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput;
+  @Field(
+    () =>
+      UserCreateNestedOneWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput,
+    { nullable: false },
+  )
+  User_UserSenderOnNotification_notificationToUser!: UserCreateNestedOneWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserInput;
 }

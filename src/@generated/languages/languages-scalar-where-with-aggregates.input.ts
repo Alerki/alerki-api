@@ -5,22 +5,21 @@ import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-wi
 
 @InputType()
 export class languagesScalarWhereWithAggregatesInput {
+  @Field(() => [languagesScalarWhereWithAggregatesInput], { nullable: true })
+  AND?: Array<languagesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [languagesScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<languagesScalarWhereWithAggregatesInput>;
+  @Field(() => [languagesScalarWhereWithAggregatesInput], { nullable: true })
+  OR?: Array<languagesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [languagesScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<languagesScalarWhereWithAggregatesInput>;
+  @Field(() => [languagesScalarWhereWithAggregatesInput], { nullable: true })
+  NOT?: Array<languagesScalarWhereWithAggregatesInput>;
 
-    @Field(() => [languagesScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<languagesScalarWhereWithAggregatesInput>;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  code?: StringWithAggregatesFilter;
 
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    code?: StringWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  name?: StringNullableWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    name?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    direction?: StringNullableWithAggregatesFilter;
+  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
+  direction?: StringNullableWithAggregatesFilter;
 }

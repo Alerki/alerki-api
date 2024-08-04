@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class UserPictureCount {
-
-    @Field(() => Int, {nullable:false})
-    User?: number;
+  @Field(() => Int, { nullable: false })
+  User?: number;
 }

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneMasterWeeklyScheduleArgs {
-
-    @Field(() => MasterWeeklyScheduleCreateInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleCreateInput)
-    data!: MasterWeeklyScheduleCreateInput;
+  @Field(() => MasterWeeklyScheduleCreateInput, { nullable: false })
+  @Type(() => MasterWeeklyScheduleCreateInput)
+  data!: MasterWeeklyScheduleCreateInput;
 }

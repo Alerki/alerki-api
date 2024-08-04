@@ -8,16 +8,15 @@ import { MasterServiceUpdateInput } from './master-service-update.input';
 
 @ArgsType()
 export class UpsertOneMasterServiceArgs {
+  @Field(() => MasterServiceWhereUniqueInput, { nullable: false })
+  @Type(() => MasterServiceWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterServiceWhereUniqueInput, {nullable:false})
-    @Type(() => MasterServiceWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>;
+  @Field(() => MasterServiceCreateInput, { nullable: false })
+  @Type(() => MasterServiceCreateInput)
+  create!: MasterServiceCreateInput;
 
-    @Field(() => MasterServiceCreateInput, {nullable:false})
-    @Type(() => MasterServiceCreateInput)
-    create!: MasterServiceCreateInput;
-
-    @Field(() => MasterServiceUpdateInput, {nullable:false})
-    @Type(() => MasterServiceUpdateInput)
-    update!: MasterServiceUpdateInput;
+  @Field(() => MasterServiceUpdateInput, { nullable: false })
+  @Type(() => MasterServiceUpdateInput)
+  update!: MasterServiceUpdateInput;
 }

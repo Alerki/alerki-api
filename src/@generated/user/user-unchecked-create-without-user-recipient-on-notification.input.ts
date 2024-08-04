@@ -6,52 +6,61 @@ import { User_SessionUncheckedCreateNestedManyWithoutUserInput } from '../user-s
 
 @InputType()
 export class UserUncheckedCreateWithoutUserRecipientOnNotificationInput {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  email!: string;
 
-    @Field(() => String, {nullable:false})
-    email!: string;
+  @Field(() => String, { nullable: true })
+  phoneNumber?: string;
 
-    @Field(() => String, {nullable:true})
-    phoneNumber?: string;
+  @Field(() => String, { nullable: false })
+  username!: string;
 
-    @Field(() => String, {nullable:false})
-    username!: string;
+  @Field(() => String, { nullable: true })
+  firstName?: string;
 
-    @Field(() => String, {nullable:true})
-    firstName?: string;
+  @Field(() => String, { nullable: true })
+  lastName?: string;
 
-    @Field(() => String, {nullable:true})
-    lastName?: string;
+  @Field(() => Date, { nullable: true })
+  birthDate?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    birthDate?: Date | string;
+  @Field(() => String, { nullable: true })
+  picture?: string;
 
-    @Field(() => String, {nullable:true})
-    picture?: string;
+  @Field(() => String, { nullable: true })
+  masterProfile?: string;
 
-    @Field(() => String, {nullable:true})
-    masterProfile?: string;
+  @Field(() => String, { nullable: false })
+  clientProfile!: string;
 
-    @Field(() => String, {nullable:false})
-    clientProfile!: string;
+  @Field(() => String, { nullable: false })
+  password!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+  @Field(
+    () =>
+      UserSenderOnNotificationUncheckedCreateNestedManyWithoutUser_UserSenderOnNotification_notificationToUserInput,
+    { nullable: true },
+  )
+  UserSenderOnNotification_UserSenderOnNotification_notificationToUser?: UserSenderOnNotificationUncheckedCreateNestedManyWithoutUser_UserSenderOnNotification_notificationToUserInput;
 
-    @Field(() => UserSenderOnNotificationUncheckedCreateNestedManyWithoutUser_UserSenderOnNotification_notificationToUserInput, {nullable:true})
-    UserSenderOnNotification_UserSenderOnNotification_notificationToUser?: UserSenderOnNotificationUncheckedCreateNestedManyWithoutUser_UserSenderOnNotification_notificationToUserInput;
+  @Field(
+    () =>
+      UserSenderOnNotificationUncheckedCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput,
+    { nullable: true },
+  )
+  UserSenderOnNotification_UserSenderOnNotification_userToUser?: UserSenderOnNotificationUncheckedCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput;
 
-    @Field(() => UserSenderOnNotificationUncheckedCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput, {nullable:true})
-    UserSenderOnNotification_UserSenderOnNotification_userToUser?: UserSenderOnNotificationUncheckedCreateNestedManyWithoutUser_UserSenderOnNotification_userToUserInput;
-
-    @Field(() => User_SessionUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    User_Session?: User_SessionUncheckedCreateNestedManyWithoutUserInput;
+  @Field(() => User_SessionUncheckedCreateNestedManyWithoutUserInput, {
+    nullable: true,
+  })
+  User_Session?: User_SessionUncheckedCreateNestedManyWithoutUserInput;
 }

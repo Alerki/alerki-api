@@ -10,24 +10,25 @@ import { directus_filesUpdateWithoutUserPictureInput } from './directus-files-up
 
 @InputType()
 export class directus_filesUpdateOneRequiredWithoutUserPictureNestedInput {
+  @Field(() => directus_filesCreateWithoutUserPictureInput, { nullable: true })
+  @Type(() => directus_filesCreateWithoutUserPictureInput)
+  create?: directus_filesCreateWithoutUserPictureInput;
 
-    @Field(() => directus_filesCreateWithoutUserPictureInput, {nullable:true})
-    @Type(() => directus_filesCreateWithoutUserPictureInput)
-    create?: directus_filesCreateWithoutUserPictureInput;
+  @Field(() => directus_filesCreateOrConnectWithoutUserPictureInput, {
+    nullable: true,
+  })
+  @Type(() => directus_filesCreateOrConnectWithoutUserPictureInput)
+  connectOrCreate?: directus_filesCreateOrConnectWithoutUserPictureInput;
 
-    @Field(() => directus_filesCreateOrConnectWithoutUserPictureInput, {nullable:true})
-    @Type(() => directus_filesCreateOrConnectWithoutUserPictureInput)
-    connectOrCreate?: directus_filesCreateOrConnectWithoutUserPictureInput;
+  @Field(() => directus_filesUpsertWithoutUserPictureInput, { nullable: true })
+  @Type(() => directus_filesUpsertWithoutUserPictureInput)
+  upsert?: directus_filesUpsertWithoutUserPictureInput;
 
-    @Field(() => directus_filesUpsertWithoutUserPictureInput, {nullable:true})
-    @Type(() => directus_filesUpsertWithoutUserPictureInput)
-    upsert?: directus_filesUpsertWithoutUserPictureInput;
+  @Field(() => directus_filesWhereUniqueInput, { nullable: true })
+  @Type(() => directus_filesWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_filesWhereUniqueInput, {nullable:true})
-    @Type(() => directus_filesWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_filesUpdateWithoutUserPictureInput, {nullable:true})
-    @Type(() => directus_filesUpdateWithoutUserPictureInput)
-    update?: directus_filesUpdateWithoutUserPictureInput;
+  @Field(() => directus_filesUpdateWithoutUserPictureInput, { nullable: true })
+  @Type(() => directus_filesUpdateWithoutUserPictureInput)
+  update?: directus_filesUpdateWithoutUserPictureInput;
 }

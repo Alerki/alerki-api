@@ -10,24 +10,34 @@ import { NotificationUpdateWithoutUserRecipientOnNotificationInput } from './not
 
 @InputType()
 export class NotificationUpdateOneRequiredWithoutUserRecipientOnNotificationNestedInput {
+  @Field(() => NotificationCreateWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => NotificationCreateWithoutUserRecipientOnNotificationInput)
+  create?: NotificationCreateWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => NotificationCreateWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => NotificationCreateWithoutUserRecipientOnNotificationInput)
-    create?: NotificationCreateWithoutUserRecipientOnNotificationInput;
+  @Field(
+    () => NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput,
+    { nullable: true },
+  )
+  @Type(
+    () => NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput,
+  )
+  connectOrCreate?: NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput)
-    connectOrCreate?: NotificationCreateOrConnectWithoutUserRecipientOnNotificationInput;
+  @Field(() => NotificationUpsertWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => NotificationUpsertWithoutUserRecipientOnNotificationInput)
+  upsert?: NotificationUpsertWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => NotificationUpsertWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => NotificationUpsertWithoutUserRecipientOnNotificationInput)
-    upsert?: NotificationUpsertWithoutUserRecipientOnNotificationInput;
+  @Field(() => NotificationWhereUniqueInput, { nullable: true })
+  @Type(() => NotificationWhereUniqueInput)
+  connect?: Prisma.AtLeast<NotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => NotificationWhereUniqueInput, {nullable:true})
-    @Type(() => NotificationWhereUniqueInput)
-    connect?: Prisma.AtLeast<NotificationWhereUniqueInput, 'id'>;
-
-    @Field(() => NotificationUpdateWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => NotificationUpdateWithoutUserRecipientOnNotificationInput)
-    update?: NotificationUpdateWithoutUserRecipientOnNotificationInput;
+  @Field(() => NotificationUpdateWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => NotificationUpdateWithoutUserRecipientOnNotificationInput)
+  update?: NotificationUpdateWithoutUserRecipientOnNotificationInput;
 }

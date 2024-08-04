@@ -8,19 +8,18 @@ import { MasterWeeklyScheduleMaxAggregate } from './master-weekly-schedule-max-a
 
 @ObjectType()
 export class AggregateMasterWeeklySchedule {
+  @Field(() => MasterWeeklyScheduleCountAggregate, { nullable: true })
+  _count?: MasterWeeklyScheduleCountAggregate;
 
-    @Field(() => MasterWeeklyScheduleCountAggregate, {nullable:true})
-    _count?: MasterWeeklyScheduleCountAggregate;
+  @Field(() => MasterWeeklyScheduleAvgAggregate, { nullable: true })
+  _avg?: MasterWeeklyScheduleAvgAggregate;
 
-    @Field(() => MasterWeeklyScheduleAvgAggregate, {nullable:true})
-    _avg?: MasterWeeklyScheduleAvgAggregate;
+  @Field(() => MasterWeeklyScheduleSumAggregate, { nullable: true })
+  _sum?: MasterWeeklyScheduleSumAggregate;
 
-    @Field(() => MasterWeeklyScheduleSumAggregate, {nullable:true})
-    _sum?: MasterWeeklyScheduleSumAggregate;
+  @Field(() => MasterWeeklyScheduleMinAggregate, { nullable: true })
+  _min?: MasterWeeklyScheduleMinAggregate;
 
-    @Field(() => MasterWeeklyScheduleMinAggregate, {nullable:true})
-    _min?: MasterWeeklyScheduleMinAggregate;
-
-    @Field(() => MasterWeeklyScheduleMaxAggregate, {nullable:true})
-    _max?: MasterWeeklyScheduleMaxAggregate;
+  @Field(() => MasterWeeklyScheduleMaxAggregate, { nullable: true })
+  _max?: MasterWeeklyScheduleMaxAggregate;
 }

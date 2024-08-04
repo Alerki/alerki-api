@@ -6,25 +6,24 @@ import { Service_translationsListRelationFilter } from '../service-translations/
 
 @InputType()
 export class languagesWhereInput {
+  @Field(() => [languagesWhereInput], { nullable: true })
+  AND?: Array<languagesWhereInput>;
 
-    @Field(() => [languagesWhereInput], {nullable:true})
-    AND?: Array<languagesWhereInput>;
+  @Field(() => [languagesWhereInput], { nullable: true })
+  OR?: Array<languagesWhereInput>;
 
-    @Field(() => [languagesWhereInput], {nullable:true})
-    OR?: Array<languagesWhereInput>;
+  @Field(() => [languagesWhereInput], { nullable: true })
+  NOT?: Array<languagesWhereInput>;
 
-    @Field(() => [languagesWhereInput], {nullable:true})
-    NOT?: Array<languagesWhereInput>;
+  @Field(() => StringFilter, { nullable: true })
+  code?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    code?: StringFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  name?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    name?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  direction?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    direction?: StringNullableFilter;
-
-    @Field(() => Service_translationsListRelationFilter, {nullable:true})
-    Service_translations?: Service_translationsListRelationFilter;
+  @Field(() => Service_translationsListRelationFilter, { nullable: true })
+  Service_translations?: Service_translationsListRelationFilter;
 }

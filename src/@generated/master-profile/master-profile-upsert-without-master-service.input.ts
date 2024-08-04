@@ -6,12 +6,15 @@ import { MasterProfileCreateWithoutMasterServiceInput } from './master-profile-c
 
 @InputType()
 export class MasterProfileUpsertWithoutMasterServiceInput {
+  @Field(() => MasterProfileUpdateWithoutMasterServiceInput, {
+    nullable: false,
+  })
+  @Type(() => MasterProfileUpdateWithoutMasterServiceInput)
+  update!: MasterProfileUpdateWithoutMasterServiceInput;
 
-    @Field(() => MasterProfileUpdateWithoutMasterServiceInput, {nullable:false})
-    @Type(() => MasterProfileUpdateWithoutMasterServiceInput)
-    update!: MasterProfileUpdateWithoutMasterServiceInput;
-
-    @Field(() => MasterProfileCreateWithoutMasterServiceInput, {nullable:false})
-    @Type(() => MasterProfileCreateWithoutMasterServiceInput)
-    create!: MasterProfileCreateWithoutMasterServiceInput;
+  @Field(() => MasterProfileCreateWithoutMasterServiceInput, {
+    nullable: false,
+  })
+  @Type(() => MasterProfileCreateWithoutMasterServiceInput)
+  create!: MasterProfileCreateWithoutMasterServiceInput;
 }

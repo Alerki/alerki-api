@@ -6,19 +6,18 @@ import { LanguagesCount } from '../prisma/languages-count.output';
 
 @ObjectType()
 export class languages {
+  @Field(() => ID, { nullable: false })
+  code!: string;
 
-    @Field(() => ID, {nullable:false})
-    code!: string;
+  @Field(() => String, { nullable: true })
+  name!: string | null;
 
-    @Field(() => String, {nullable:true})
-    name!: string | null;
+  @Field(() => String, { nullable: true, defaultValue: 'ltr' })
+  direction!: string | null;
 
-    @Field(() => String, {nullable:true,defaultValue:'ltr'})
-    direction!: string | null;
+  @Field(() => [Service_translations], { nullable: true })
+  Service_translations?: Array<Service_translations>;
 
-    @Field(() => [Service_translations], {nullable:true})
-    Service_translations?: Array<Service_translations>;
-
-    @Field(() => LanguagesCount, {nullable:false})
-    _count?: LanguagesCount;
+  @Field(() => LanguagesCount, { nullable: false })
+  _count?: LanguagesCount;
 }

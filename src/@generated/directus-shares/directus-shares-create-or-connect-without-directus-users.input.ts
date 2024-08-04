@@ -7,12 +7,13 @@ import { directus_sharesCreateWithoutDirectus_usersInput } from './directus-shar
 
 @InputType()
 export class directus_sharesCreateOrConnectWithoutDirectus_usersInput {
+  @Field(() => directus_sharesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_sharesWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_sharesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_sharesWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_sharesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_sharesCreateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_sharesCreateWithoutDirectus_usersInput)
-    create!: directus_sharesCreateWithoutDirectus_usersInput;
+  @Field(() => directus_sharesCreateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_sharesCreateWithoutDirectus_usersInput)
+  create!: directus_sharesCreateWithoutDirectus_usersInput;
 }

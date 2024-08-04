@@ -12,32 +12,31 @@ import { UserRolesMaxAggregateInput } from './user-roles-max-aggregate.input';
 
 @ArgsType()
 export class UserRolesGroupByArgs {
+  @Field(() => UserRolesWhereInput, { nullable: true })
+  @Type(() => UserRolesWhereInput)
+  where?: UserRolesWhereInput;
 
-    @Field(() => UserRolesWhereInput, {nullable:true})
-    @Type(() => UserRolesWhereInput)
-    where?: UserRolesWhereInput;
+  @Field(() => [UserRolesOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<UserRolesOrderByWithAggregationInput>;
 
-    @Field(() => [UserRolesOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<UserRolesOrderByWithAggregationInput>;
+  @Field(() => [UserRolesScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof UserRolesScalarFieldEnum>;
 
-    @Field(() => [UserRolesScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof UserRolesScalarFieldEnum>;
+  @Field(() => UserRolesScalarWhereWithAggregatesInput, { nullable: true })
+  having?: UserRolesScalarWhereWithAggregatesInput;
 
-    @Field(() => UserRolesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: UserRolesScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => UserRolesCountAggregateInput, { nullable: true })
+  _count?: UserRolesCountAggregateInput;
 
-    @Field(() => UserRolesCountAggregateInput, {nullable:true})
-    _count?: UserRolesCountAggregateInput;
+  @Field(() => UserRolesMinAggregateInput, { nullable: true })
+  _min?: UserRolesMinAggregateInput;
 
-    @Field(() => UserRolesMinAggregateInput, {nullable:true})
-    _min?: UserRolesMinAggregateInput;
-
-    @Field(() => UserRolesMaxAggregateInput, {nullable:true})
-    _max?: UserRolesMaxAggregateInput;
+  @Field(() => UserRolesMaxAggregateInput, { nullable: true })
+  _max?: UserRolesMaxAggregateInput;
 }

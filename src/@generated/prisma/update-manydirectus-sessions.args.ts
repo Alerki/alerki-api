@@ -6,12 +6,11 @@ import { directus_sessionsWhereInput } from '../directus-sessions/directus-sessi
 
 @ArgsType()
 export class UpdateManydirectusSessionsArgs {
+  @Field(() => directus_sessionsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_sessionsUpdateManyMutationInput)
+  data!: directus_sessionsUpdateManyMutationInput;
 
-    @Field(() => directus_sessionsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_sessionsUpdateManyMutationInput)
-    data!: directus_sessionsUpdateManyMutationInput;
-
-    @Field(() => directus_sessionsWhereInput, {nullable:true})
-    @Type(() => directus_sessionsWhereInput)
-    where?: directus_sessionsWhereInput;
+  @Field(() => directus_sessionsWhereInput, { nullable: true })
+  @Type(() => directus_sessionsWhereInput)
+  where?: directus_sessionsWhereInput;
 }

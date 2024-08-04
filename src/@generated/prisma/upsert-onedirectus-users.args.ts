@@ -7,16 +7,15 @@ import { directus_usersUpdateInput } from '../directus-users/directus-users-upda
 
 @ArgsType()
 export class UpsertOnedirectusUsersArgs {
+  @Field(() => directus_usersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_usersWhereUniqueInput)
+  where!: directus_usersWhereUniqueInput;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_usersWhereUniqueInput)
-    where!: directus_usersWhereUniqueInput;
+  @Field(() => directus_usersCreateInput, { nullable: false })
+  @Type(() => directus_usersCreateInput)
+  create!: directus_usersCreateInput;
 
-    @Field(() => directus_usersCreateInput, {nullable:false})
-    @Type(() => directus_usersCreateInput)
-    create!: directus_usersCreateInput;
-
-    @Field(() => directus_usersUpdateInput, {nullable:false})
-    @Type(() => directus_usersUpdateInput)
-    update!: directus_usersUpdateInput;
+  @Field(() => directus_usersUpdateInput, { nullable: false })
+  @Type(() => directus_usersUpdateInput)
+  update!: directus_usersUpdateInput;
 }

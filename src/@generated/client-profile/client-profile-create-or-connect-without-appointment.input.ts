@@ -7,12 +7,11 @@ import { ClientProfileCreateWithoutAppointmentInput } from './client-profile-cre
 
 @InputType()
 export class ClientProfileCreateOrConnectWithoutAppointmentInput {
+  @Field(() => ClientProfileWhereUniqueInput, { nullable: false })
+  @Type(() => ClientProfileWhereUniqueInput)
+  where!: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => ClientProfileWhereUniqueInput, {nullable:false})
-    @Type(() => ClientProfileWhereUniqueInput)
-    where!: Prisma.AtLeast<ClientProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => ClientProfileCreateWithoutAppointmentInput, {nullable:false})
-    @Type(() => ClientProfileCreateWithoutAppointmentInput)
-    create!: ClientProfileCreateWithoutAppointmentInput;
+  @Field(() => ClientProfileCreateWithoutAppointmentInput, { nullable: false })
+  @Type(() => ClientProfileCreateWithoutAppointmentInput)
+  create!: ClientProfileCreateWithoutAppointmentInput;
 }

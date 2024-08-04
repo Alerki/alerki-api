@@ -6,12 +6,13 @@ import { UserRecipientOnNotificationUpdateManyMutationInput } from './user-recip
 
 @InputType()
 export class UserRecipientOnNotificationUpdateManyWithWhereWithoutNotificationInput {
+  @Field(() => UserRecipientOnNotificationScalarWhereInput, { nullable: false })
+  @Type(() => UserRecipientOnNotificationScalarWhereInput)
+  where!: UserRecipientOnNotificationScalarWhereInput;
 
-    @Field(() => UserRecipientOnNotificationScalarWhereInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationScalarWhereInput)
-    where!: UserRecipientOnNotificationScalarWhereInput;
-
-    @Field(() => UserRecipientOnNotificationUpdateManyMutationInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationUpdateManyMutationInput)
-    data!: UserRecipientOnNotificationUpdateManyMutationInput;
+  @Field(() => UserRecipientOnNotificationUpdateManyMutationInput, {
+    nullable: false,
+  })
+  @Type(() => UserRecipientOnNotificationUpdateManyMutationInput)
+  data!: UserRecipientOnNotificationUpdateManyMutationInput;
 }

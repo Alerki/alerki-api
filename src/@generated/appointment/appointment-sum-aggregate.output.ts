@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class AppointmentSumAggregate {
-
-    @Field(() => Int, {nullable:true})
-    price?: number;
+  @Field(() => Int, { nullable: true })
+  price?: number;
 }

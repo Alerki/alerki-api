@@ -6,12 +6,11 @@ import { directus_notificationsWhereUniqueInput } from '../directus-notification
 
 @ArgsType()
 export class UpdateOnedirectusNotificationsArgs {
+  @Field(() => directus_notificationsUpdateInput, { nullable: false })
+  @Type(() => directus_notificationsUpdateInput)
+  data!: directus_notificationsUpdateInput;
 
-    @Field(() => directus_notificationsUpdateInput, {nullable:false})
-    @Type(() => directus_notificationsUpdateInput)
-    data!: directus_notificationsUpdateInput;
-
-    @Field(() => directus_notificationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_notificationsWhereUniqueInput)
-    where!: directus_notificationsWhereUniqueInput;
+  @Field(() => directus_notificationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_notificationsWhereUniqueInput)
+  where!: directus_notificationsWhereUniqueInput;
 }

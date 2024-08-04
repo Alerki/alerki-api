@@ -6,12 +6,15 @@ import { directus_rolesCreateWithoutDirectus_usersInput } from './directus-roles
 
 @InputType()
 export class directus_rolesUpsertWithoutDirectus_usersInput {
+  @Field(() => directus_rolesUpdateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesUpdateWithoutDirectus_usersInput)
+  update!: directus_rolesUpdateWithoutDirectus_usersInput;
 
-    @Field(() => directus_rolesUpdateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_rolesUpdateWithoutDirectus_usersInput)
-    update!: directus_rolesUpdateWithoutDirectus_usersInput;
-
-    @Field(() => directus_rolesCreateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_rolesCreateWithoutDirectus_usersInput)
-    create!: directus_rolesCreateWithoutDirectus_usersInput;
+  @Field(() => directus_rolesCreateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_rolesCreateWithoutDirectus_usersInput)
+  create!: directus_rolesCreateWithoutDirectus_usersInput;
 }

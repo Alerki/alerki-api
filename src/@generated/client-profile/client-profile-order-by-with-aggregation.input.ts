@@ -7,22 +7,21 @@ import { ClientProfileMinOrderByAggregateInput } from './client-profile-min-orde
 
 @InputType()
 export class ClientProfileOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => ClientProfileCountOrderByAggregateInput, { nullable: true })
+  _count?: ClientProfileCountOrderByAggregateInput;
 
-    @Field(() => ClientProfileCountOrderByAggregateInput, {nullable:true})
-    _count?: ClientProfileCountOrderByAggregateInput;
+  @Field(() => ClientProfileMaxOrderByAggregateInput, { nullable: true })
+  _max?: ClientProfileMaxOrderByAggregateInput;
 
-    @Field(() => ClientProfileMaxOrderByAggregateInput, {nullable:true})
-    _max?: ClientProfileMaxOrderByAggregateInput;
-
-    @Field(() => ClientProfileMinOrderByAggregateInput, {nullable:true})
-    _min?: ClientProfileMinOrderByAggregateInput;
+  @Field(() => ClientProfileMinOrderByAggregateInput, { nullable: true })
+  _min?: ClientProfileMinOrderByAggregateInput;
 }

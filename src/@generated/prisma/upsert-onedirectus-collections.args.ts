@@ -7,16 +7,15 @@ import { directus_collectionsUpdateInput } from '../directus-collections/directu
 
 @ArgsType()
 export class UpsertOnedirectusCollectionsArgs {
+  @Field(() => directus_collectionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_collectionsWhereUniqueInput)
+  where!: directus_collectionsWhereUniqueInput;
 
-    @Field(() => directus_collectionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_collectionsWhereUniqueInput)
-    where!: directus_collectionsWhereUniqueInput;
+  @Field(() => directus_collectionsCreateInput, { nullable: false })
+  @Type(() => directus_collectionsCreateInput)
+  create!: directus_collectionsCreateInput;
 
-    @Field(() => directus_collectionsCreateInput, {nullable:false})
-    @Type(() => directus_collectionsCreateInput)
-    create!: directus_collectionsCreateInput;
-
-    @Field(() => directus_collectionsUpdateInput, {nullable:false})
-    @Type(() => directus_collectionsUpdateInput)
-    update!: directus_collectionsUpdateInput;
+  @Field(() => directus_collectionsUpdateInput, { nullable: false })
+  @Type(() => directus_collectionsUpdateInput)
+  update!: directus_collectionsUpdateInput;
 }

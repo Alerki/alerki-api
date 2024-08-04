@@ -13,48 +13,59 @@ import { UserPictureScalarWhereInput } from './user-picture-scalar-where.input';
 
 @InputType()
 export class UserPictureUncheckedUpdateManyWithoutDirectus_filesNestedInput {
+  @Field(() => [UserPictureCreateWithoutDirectus_filesInput], {
+    nullable: true,
+  })
+  @Type(() => UserPictureCreateWithoutDirectus_filesInput)
+  create?: Array<UserPictureCreateWithoutDirectus_filesInput>;
 
-    @Field(() => [UserPictureCreateWithoutDirectus_filesInput], {nullable:true})
-    @Type(() => UserPictureCreateWithoutDirectus_filesInput)
-    create?: Array<UserPictureCreateWithoutDirectus_filesInput>;
+  @Field(() => [UserPictureCreateOrConnectWithoutDirectus_filesInput], {
+    nullable: true,
+  })
+  @Type(() => UserPictureCreateOrConnectWithoutDirectus_filesInput)
+  connectOrCreate?: Array<UserPictureCreateOrConnectWithoutDirectus_filesInput>;
 
-    @Field(() => [UserPictureCreateOrConnectWithoutDirectus_filesInput], {nullable:true})
-    @Type(() => UserPictureCreateOrConnectWithoutDirectus_filesInput)
-    connectOrCreate?: Array<UserPictureCreateOrConnectWithoutDirectus_filesInput>;
+  @Field(() => [UserPictureUpsertWithWhereUniqueWithoutDirectus_filesInput], {
+    nullable: true,
+  })
+  @Type(() => UserPictureUpsertWithWhereUniqueWithoutDirectus_filesInput)
+  upsert?: Array<UserPictureUpsertWithWhereUniqueWithoutDirectus_filesInput>;
 
-    @Field(() => [UserPictureUpsertWithWhereUniqueWithoutDirectus_filesInput], {nullable:true})
-    @Type(() => UserPictureUpsertWithWhereUniqueWithoutDirectus_filesInput)
-    upsert?: Array<UserPictureUpsertWithWhereUniqueWithoutDirectus_filesInput>;
+  @Field(() => UserPictureCreateManyDirectus_filesInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => UserPictureCreateManyDirectus_filesInputEnvelope)
+  createMany?: UserPictureCreateManyDirectus_filesInputEnvelope;
 
-    @Field(() => UserPictureCreateManyDirectus_filesInputEnvelope, {nullable:true})
-    @Type(() => UserPictureCreateManyDirectus_filesInputEnvelope)
-    createMany?: UserPictureCreateManyDirectus_filesInputEnvelope;
+  @Field(() => [UserPictureWhereUniqueInput], { nullable: true })
+  @Type(() => UserPictureWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
 
-    @Field(() => [UserPictureWhereUniqueInput], {nullable:true})
-    @Type(() => UserPictureWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
+  @Field(() => [UserPictureWhereUniqueInput], { nullable: true })
+  @Type(() => UserPictureWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
 
-    @Field(() => [UserPictureWhereUniqueInput], {nullable:true})
-    @Type(() => UserPictureWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
+  @Field(() => [UserPictureWhereUniqueInput], { nullable: true })
+  @Type(() => UserPictureWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
 
-    @Field(() => [UserPictureWhereUniqueInput], {nullable:true})
-    @Type(() => UserPictureWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
+  @Field(() => [UserPictureWhereUniqueInput], { nullable: true })
+  @Type(() => UserPictureWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
 
-    @Field(() => [UserPictureWhereUniqueInput], {nullable:true})
-    @Type(() => UserPictureWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>>;
+  @Field(() => [UserPictureUpdateWithWhereUniqueWithoutDirectus_filesInput], {
+    nullable: true,
+  })
+  @Type(() => UserPictureUpdateWithWhereUniqueWithoutDirectus_filesInput)
+  update?: Array<UserPictureUpdateWithWhereUniqueWithoutDirectus_filesInput>;
 
-    @Field(() => [UserPictureUpdateWithWhereUniqueWithoutDirectus_filesInput], {nullable:true})
-    @Type(() => UserPictureUpdateWithWhereUniqueWithoutDirectus_filesInput)
-    update?: Array<UserPictureUpdateWithWhereUniqueWithoutDirectus_filesInput>;
+  @Field(() => [UserPictureUpdateManyWithWhereWithoutDirectus_filesInput], {
+    nullable: true,
+  })
+  @Type(() => UserPictureUpdateManyWithWhereWithoutDirectus_filesInput)
+  updateMany?: Array<UserPictureUpdateManyWithWhereWithoutDirectus_filesInput>;
 
-    @Field(() => [UserPictureUpdateManyWithWhereWithoutDirectus_filesInput], {nullable:true})
-    @Type(() => UserPictureUpdateManyWithWhereWithoutDirectus_filesInput)
-    updateMany?: Array<UserPictureUpdateManyWithWhereWithoutDirectus_filesInput>;
-
-    @Field(() => [UserPictureScalarWhereInput], {nullable:true})
-    @Type(() => UserPictureScalarWhereInput)
-    deleteMany?: Array<UserPictureScalarWhereInput>;
+  @Field(() => [UserPictureScalarWhereInput], { nullable: true })
+  @Type(() => UserPictureScalarWhereInput)
+  deleteMany?: Array<UserPictureScalarWhereInput>;
 }

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniquedirectusNotificationsOrThrowArgs {
-
-    @Field(() => directus_notificationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_notificationsWhereUniqueInput)
-    where!: directus_notificationsWhereUniqueInput;
+  @Field(() => directus_notificationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_notificationsWhereUniqueInput)
+  where!: directus_notificationsWhereUniqueInput;
 }

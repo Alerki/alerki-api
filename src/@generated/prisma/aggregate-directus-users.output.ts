@@ -6,13 +6,12 @@ import { Directus_usersMaxAggregate } from './directus-users-max-aggregate.outpu
 
 @ObjectType()
 export class AggregateDirectus_users {
+  @Field(() => Directus_usersCountAggregate, { nullable: true })
+  _count?: Directus_usersCountAggregate;
 
-    @Field(() => Directus_usersCountAggregate, {nullable:true})
-    _count?: Directus_usersCountAggregate;
+  @Field(() => Directus_usersMinAggregate, { nullable: true })
+  _min?: Directus_usersMinAggregate;
 
-    @Field(() => Directus_usersMinAggregate, {nullable:true})
-    _min?: Directus_usersMinAggregate;
-
-    @Field(() => Directus_usersMaxAggregate, {nullable:true})
-    _max?: Directus_usersMaxAggregate;
+  @Field(() => Directus_usersMaxAggregate, { nullable: true })
+  _max?: Directus_usersMaxAggregate;
 }

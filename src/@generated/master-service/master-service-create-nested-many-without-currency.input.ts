@@ -9,20 +9,21 @@ import { MasterServiceWhereUniqueInput } from './master-service-where-unique.inp
 
 @InputType()
 export class MasterServiceCreateNestedManyWithoutCurrencyInput {
+  @Field(() => [MasterServiceCreateWithoutCurrencyInput], { nullable: true })
+  @Type(() => MasterServiceCreateWithoutCurrencyInput)
+  create?: Array<MasterServiceCreateWithoutCurrencyInput>;
 
-    @Field(() => [MasterServiceCreateWithoutCurrencyInput], {nullable:true})
-    @Type(() => MasterServiceCreateWithoutCurrencyInput)
-    create?: Array<MasterServiceCreateWithoutCurrencyInput>;
+  @Field(() => [MasterServiceCreateOrConnectWithoutCurrencyInput], {
+    nullable: true,
+  })
+  @Type(() => MasterServiceCreateOrConnectWithoutCurrencyInput)
+  connectOrCreate?: Array<MasterServiceCreateOrConnectWithoutCurrencyInput>;
 
-    @Field(() => [MasterServiceCreateOrConnectWithoutCurrencyInput], {nullable:true})
-    @Type(() => MasterServiceCreateOrConnectWithoutCurrencyInput)
-    connectOrCreate?: Array<MasterServiceCreateOrConnectWithoutCurrencyInput>;
+  @Field(() => MasterServiceCreateManyCurrencyInputEnvelope, { nullable: true })
+  @Type(() => MasterServiceCreateManyCurrencyInputEnvelope)
+  createMany?: MasterServiceCreateManyCurrencyInputEnvelope;
 
-    @Field(() => MasterServiceCreateManyCurrencyInputEnvelope, {nullable:true})
-    @Type(() => MasterServiceCreateManyCurrencyInputEnvelope)
-    createMany?: MasterServiceCreateManyCurrencyInputEnvelope;
-
-    @Field(() => [MasterServiceWhereUniqueInput], {nullable:true})
-    @Type(() => MasterServiceWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>>;
+  @Field(() => [MasterServiceWhereUniqueInput], { nullable: true })
+  @Type(() => MasterServiceWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<MasterServiceWhereUniqueInput, 'id'>>;
 }

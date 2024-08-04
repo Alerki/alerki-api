@@ -4,31 +4,32 @@ import { MasterProfileCreateNestedOneWithoutMasterScheduleInput } from '../maste
 
 @InputType()
 export class MasterScheduleCreateInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: true })
+  status?: string;
 
-    @Field(() => String, {nullable:true})
-    status?: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => Date, { nullable: false })
+  date!: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+  @Field(() => Date, { nullable: true })
+  startTime?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    startTime?: Date | string;
+  @Field(() => Date, { nullable: true })
+  endTime?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    endTime?: Date | string;
+  @Field(() => Boolean, { nullable: true })
+  dayOff?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    dayOff?: boolean;
-
-    @Field(() => MasterProfileCreateNestedOneWithoutMasterScheduleInput, {nullable:false})
-    MasterProfile!: MasterProfileCreateNestedOneWithoutMasterScheduleInput;
+  @Field(() => MasterProfileCreateNestedOneWithoutMasterScheduleInput, {
+    nullable: false,
+  })
+  MasterProfile!: MasterProfileCreateNestedOneWithoutMasterScheduleInput;
 }

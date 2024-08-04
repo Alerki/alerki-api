@@ -6,12 +6,11 @@ import { directus_versionsUpdateManyMutationInput } from './directus-versions-up
 
 @InputType()
 export class directus_versionsUpdateManyWithWhereWithoutDirectus_collectionsInput {
+  @Field(() => directus_versionsScalarWhereInput, { nullable: false })
+  @Type(() => directus_versionsScalarWhereInput)
+  where!: directus_versionsScalarWhereInput;
 
-    @Field(() => directus_versionsScalarWhereInput, {nullable:false})
-    @Type(() => directus_versionsScalarWhereInput)
-    where!: directus_versionsScalarWhereInput;
-
-    @Field(() => directus_versionsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_versionsUpdateManyMutationInput)
-    data!: directus_versionsUpdateManyMutationInput;
+  @Field(() => directus_versionsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_versionsUpdateManyMutationInput)
+  data!: directus_versionsUpdateManyMutationInput;
 }

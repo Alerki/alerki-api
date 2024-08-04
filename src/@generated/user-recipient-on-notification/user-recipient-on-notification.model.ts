@@ -6,25 +6,24 @@ import { User } from '../user/user.model';
 
 @ObjectType()
 export class UserRecipientOnNotification {
+  @Field(() => ID, { nullable: false })
+  id!: string;
 
-    @Field(() => ID, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_created!: Date | null;
+  @Field(() => Date, { nullable: true })
+  date_updated!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_updated!: Date | null;
+  @Field(() => String, { nullable: false })
+  user!: string;
 
-    @Field(() => String, {nullable:false})
-    user!: string;
+  @Field(() => String, { nullable: false })
+  notification!: string;
 
-    @Field(() => String, {nullable:false})
-    notification!: string;
+  @Field(() => Notification, { nullable: false })
+  Notification?: Notification;
 
-    @Field(() => Notification, {nullable:false})
-    Notification?: Notification;
-
-    @Field(() => User, {nullable:false})
-    User?: User;
+  @Field(() => User, { nullable: false })
+  User?: User;
 }

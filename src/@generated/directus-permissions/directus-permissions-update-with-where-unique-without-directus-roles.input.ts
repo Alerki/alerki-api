@@ -7,12 +7,13 @@ import { directus_permissionsUpdateWithoutDirectus_rolesInput } from './directus
 
 @InputType()
 export class directus_permissionsUpdateWithWhereUniqueWithoutDirectus_rolesInput {
+  @Field(() => directus_permissionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_permissionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_permissionsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_permissionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_permissionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_permissionsWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_permissionsUpdateWithoutDirectus_rolesInput, {nullable:false})
-    @Type(() => directus_permissionsUpdateWithoutDirectus_rolesInput)
-    data!: directus_permissionsUpdateWithoutDirectus_rolesInput;
+  @Field(() => directus_permissionsUpdateWithoutDirectus_rolesInput, {
+    nullable: false,
+  })
+  @Type(() => directus_permissionsUpdateWithoutDirectus_rolesInput)
+  data!: directus_permissionsUpdateWithoutDirectus_rolesInput;
 }

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniquedirectusCollectionsArgs {
-
-    @Field(() => directus_collectionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_collectionsWhereUniqueInput)
-    where!: directus_collectionsWhereUniqueInput;
+  @Field(() => directus_collectionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_collectionsWhereUniqueInput)
+  where!: directus_collectionsWhereUniqueInput;
 }

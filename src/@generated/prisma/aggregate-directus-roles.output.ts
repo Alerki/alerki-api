@@ -6,13 +6,12 @@ import { Directus_rolesMaxAggregate } from './directus-roles-max-aggregate.outpu
 
 @ObjectType()
 export class AggregateDirectus_roles {
+  @Field(() => Directus_rolesCountAggregate, { nullable: true })
+  _count?: Directus_rolesCountAggregate;
 
-    @Field(() => Directus_rolesCountAggregate, {nullable:true})
-    _count?: Directus_rolesCountAggregate;
+  @Field(() => Directus_rolesMinAggregate, { nullable: true })
+  _min?: Directus_rolesMinAggregate;
 
-    @Field(() => Directus_rolesMinAggregate, {nullable:true})
-    _min?: Directus_rolesMinAggregate;
-
-    @Field(() => Directus_rolesMaxAggregate, {nullable:true})
-    _max?: Directus_rolesMaxAggregate;
+  @Field(() => Directus_rolesMaxAggregate, { nullable: true })
+  _max?: Directus_rolesMaxAggregate;
 }

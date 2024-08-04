@@ -9,23 +9,26 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class GroupBydirectusFoldersArgs {
+  @Field(() => directus_foldersWhereInput, { nullable: true })
+  @Type(() => directus_foldersWhereInput)
+  where?: directus_foldersWhereInput;
 
-    @Field(() => directus_foldersWhereInput, {nullable:true})
-    @Type(() => directus_foldersWhereInput)
-    where?: directus_foldersWhereInput;
+  @Field(() => [directus_foldersOrderByWithAggregationInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_foldersOrderByWithAggregationInput>;
 
-    @Field(() => [directus_foldersOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<directus_foldersOrderByWithAggregationInput>;
+  @Field(() => [Directus_foldersScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof Directus_foldersScalarFieldEnum>;
 
-    @Field(() => [Directus_foldersScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof Directus_foldersScalarFieldEnum>;
+  @Field(() => directus_foldersScalarWhereWithAggregatesInput, {
+    nullable: true,
+  })
+  having?: directus_foldersScalarWhereWithAggregatesInput;
 
-    @Field(() => directus_foldersScalarWhereWithAggregatesInput, {nullable:true})
-    having?: directus_foldersScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

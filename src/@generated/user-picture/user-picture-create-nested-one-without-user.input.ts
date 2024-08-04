@@ -8,16 +8,15 @@ import { UserPictureWhereUniqueInput } from './user-picture-where-unique.input';
 
 @InputType()
 export class UserPictureCreateNestedOneWithoutUserInput {
+  @Field(() => UserPictureCreateWithoutUserInput, { nullable: true })
+  @Type(() => UserPictureCreateWithoutUserInput)
+  create?: UserPictureCreateWithoutUserInput;
 
-    @Field(() => UserPictureCreateWithoutUserInput, {nullable:true})
-    @Type(() => UserPictureCreateWithoutUserInput)
-    create?: UserPictureCreateWithoutUserInput;
+  @Field(() => UserPictureCreateOrConnectWithoutUserInput, { nullable: true })
+  @Type(() => UserPictureCreateOrConnectWithoutUserInput)
+  connectOrCreate?: UserPictureCreateOrConnectWithoutUserInput;
 
-    @Field(() => UserPictureCreateOrConnectWithoutUserInput, {nullable:true})
-    @Type(() => UserPictureCreateOrConnectWithoutUserInput)
-    connectOrCreate?: UserPictureCreateOrConnectWithoutUserInput;
-
-    @Field(() => UserPictureWhereUniqueInput, {nullable:true})
-    @Type(() => UserPictureWhereUniqueInput)
-    connect?: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
+  @Field(() => UserPictureWhereUniqueInput, { nullable: true })
+  @Type(() => UserPictureWhereUniqueInput)
+  connect?: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
 }

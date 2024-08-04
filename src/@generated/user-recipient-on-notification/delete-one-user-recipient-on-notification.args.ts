@@ -6,8 +6,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteOneUserRecipientOnNotificationArgs {
-
-    @Field(() => UserRecipientOnNotificationWhereUniqueInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
+  @Field(() => UserRecipientOnNotificationWhereUniqueInput, { nullable: false })
+  @Type(() => UserRecipientOnNotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
 }

@@ -4,7 +4,6 @@ import { Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class ServiceSumAggregate {
-
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 }

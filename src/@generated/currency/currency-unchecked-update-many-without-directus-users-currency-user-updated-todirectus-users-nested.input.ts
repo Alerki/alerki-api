@@ -13,48 +13,94 @@ import { CurrencyScalarWhereInput } from './currency-scalar-where.input';
 
 @InputType()
 export class CurrencyUncheckedUpdateManyWithoutDirectus_users_Currency_user_updatedTodirectus_usersNestedInput {
+  @Field(
+    () => [
+      CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+  )
+  create?: Array<CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput], {nullable:true})
-    @Type(() => CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput)
-    create?: Array<CurrencyCreateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
+  @Field(
+    () => [
+      CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+  )
+  connectOrCreate?: Array<CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput], {nullable:true})
-    @Type(() => CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput)
-    connectOrCreate?: Array<CurrencyCreateOrConnectWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
+  @Field(
+    () => [
+      CurrencyUpsertWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyUpsertWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+  )
+  upsert?: Array<CurrencyUpsertWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [CurrencyUpsertWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput], {nullable:true})
-    @Type(() => CurrencyUpsertWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput)
-    upsert?: Array<CurrencyUpsertWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
+  @Field(
+    () =>
+      CurrencyCreateManyDirectus_users_Currency_user_updatedTodirectus_usersInputEnvelope,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyCreateManyDirectus_users_Currency_user_updatedTodirectus_usersInputEnvelope,
+  )
+  createMany?: CurrencyCreateManyDirectus_users_Currency_user_updatedTodirectus_usersInputEnvelope;
 
-    @Field(() => CurrencyCreateManyDirectus_users_Currency_user_updatedTodirectus_usersInputEnvelope, {nullable:true})
-    @Type(() => CurrencyCreateManyDirectus_users_Currency_user_updatedTodirectus_usersInputEnvelope)
-    createMany?: CurrencyCreateManyDirectus_users_Currency_user_updatedTodirectus_usersInputEnvelope;
+  @Field(() => [CurrencyWhereUniqueInput], { nullable: true })
+  @Type(() => CurrencyWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
 
-    @Field(() => [CurrencyWhereUniqueInput], {nullable:true})
-    @Type(() => CurrencyWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
+  @Field(() => [CurrencyWhereUniqueInput], { nullable: true })
+  @Type(() => CurrencyWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
 
-    @Field(() => [CurrencyWhereUniqueInput], {nullable:true})
-    @Type(() => CurrencyWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
+  @Field(() => [CurrencyWhereUniqueInput], { nullable: true })
+  @Type(() => CurrencyWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
 
-    @Field(() => [CurrencyWhereUniqueInput], {nullable:true})
-    @Type(() => CurrencyWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
+  @Field(() => [CurrencyWhereUniqueInput], { nullable: true })
+  @Type(() => CurrencyWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
 
-    @Field(() => [CurrencyWhereUniqueInput], {nullable:true})
-    @Type(() => CurrencyWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>>;
+  @Field(
+    () => [
+      CurrencyUpdateWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyUpdateWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+  )
+  update?: Array<CurrencyUpdateWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [CurrencyUpdateWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput], {nullable:true})
-    @Type(() => CurrencyUpdateWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput)
-    update?: Array<CurrencyUpdateWithWhereUniqueWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
+  @Field(
+    () => [
+      CurrencyUpdateManyWithWhereWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+    ],
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      CurrencyUpdateManyWithWhereWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput,
+  )
+  updateMany?: Array<CurrencyUpdateManyWithWhereWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
 
-    @Field(() => [CurrencyUpdateManyWithWhereWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput], {nullable:true})
-    @Type(() => CurrencyUpdateManyWithWhereWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput)
-    updateMany?: Array<CurrencyUpdateManyWithWhereWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput>;
-
-    @Field(() => [CurrencyScalarWhereInput], {nullable:true})
-    @Type(() => CurrencyScalarWhereInput)
-    deleteMany?: Array<CurrencyScalarWhereInput>;
+  @Field(() => [CurrencyScalarWhereInput], { nullable: true })
+  @Type(() => CurrencyScalarWhereInput)
+  deleteMany?: Array<CurrencyScalarWhereInput>;
 }

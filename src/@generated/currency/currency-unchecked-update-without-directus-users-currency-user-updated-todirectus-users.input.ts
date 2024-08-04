@@ -9,34 +9,37 @@ import { MasterServiceUncheckedUpdateManyWithoutCurrencyNestedInput } from '../m
 
 @InputType()
 export class CurrencyUncheckedUpdateWithoutDirectus_users_Currency_user_updatedTodirectus_usersInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  status?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    status?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  sort?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    sort?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  user_created?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    user_created?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  code?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    code?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  character?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    character?: StringFieldUpdateOperationsInput;
+  @Field(() => AppointmentUncheckedUpdateManyWithoutCurrencyNestedInput, {
+    nullable: true,
+  })
+  Appointment?: AppointmentUncheckedUpdateManyWithoutCurrencyNestedInput;
 
-    @Field(() => AppointmentUncheckedUpdateManyWithoutCurrencyNestedInput, {nullable:true})
-    Appointment?: AppointmentUncheckedUpdateManyWithoutCurrencyNestedInput;
-
-    @Field(() => MasterServiceUncheckedUpdateManyWithoutCurrencyNestedInput, {nullable:true})
-    MasterService?: MasterServiceUncheckedUpdateManyWithoutCurrencyNestedInput;
+  @Field(() => MasterServiceUncheckedUpdateManyWithoutCurrencyNestedInput, {
+    nullable: true,
+  })
+  MasterService?: MasterServiceUncheckedUpdateManyWithoutCurrencyNestedInput;
 }

@@ -10,24 +10,54 @@ import { UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_user
 
 @InputType()
 export class UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserNestedInput {
+  @Field(
+    () =>
+      UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+  )
+  create?: UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
 
-    @Field(() => UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput, {nullable:true})
-    @Type(() => UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput)
-    create?: UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
+  @Field(
+    () =>
+      UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+  )
+  connectOrCreate?: UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
 
-    @Field(() => UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput)
-    connectOrCreate?: UserCreateOrConnectWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
+  @Field(
+    () =>
+      UserUpsertWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserUpsertWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+  )
+  upsert?: UserUpsertWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
 
-    @Field(() => UserUpsertWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput, {nullable:true})
-    @Type(() => UserUpsertWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput)
-    upsert?: UserUpsertWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput, {nullable:true})
-    @Type(() => UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput)
-    update?: UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
+  @Field(
+    () =>
+      UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+  )
+  update?: UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
 }

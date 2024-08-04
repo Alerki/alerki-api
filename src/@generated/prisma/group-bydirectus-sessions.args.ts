@@ -9,23 +9,26 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class GroupBydirectusSessionsArgs {
+  @Field(() => directus_sessionsWhereInput, { nullable: true })
+  @Type(() => directus_sessionsWhereInput)
+  where?: directus_sessionsWhereInput;
 
-    @Field(() => directus_sessionsWhereInput, {nullable:true})
-    @Type(() => directus_sessionsWhereInput)
-    where?: directus_sessionsWhereInput;
+  @Field(() => [directus_sessionsOrderByWithAggregationInput], {
+    nullable: true,
+  })
+  orderBy?: Array<directus_sessionsOrderByWithAggregationInput>;
 
-    @Field(() => [directus_sessionsOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<directus_sessionsOrderByWithAggregationInput>;
+  @Field(() => [Directus_sessionsScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof Directus_sessionsScalarFieldEnum>;
 
-    @Field(() => [Directus_sessionsScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof Directus_sessionsScalarFieldEnum>;
+  @Field(() => directus_sessionsScalarWhereWithAggregatesInput, {
+    nullable: true,
+  })
+  having?: directus_sessionsScalarWhereWithAggregatesInput;
 
-    @Field(() => directus_sessionsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: directus_sessionsScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

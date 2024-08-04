@@ -7,12 +7,13 @@ import { MasterWeeklyScheduleCreateWithoutMasterProfileInput } from './master-we
 
 @InputType()
 export class MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput {
+  @Field(() => MasterWeeklyScheduleWhereUniqueInput, { nullable: false })
+  @Type(() => MasterWeeklyScheduleWhereUniqueInput)
+  where!: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterWeeklyScheduleWhereUniqueInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleWhereUniqueInput)
-    where!: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput)
-    create!: MasterWeeklyScheduleCreateWithoutMasterProfileInput;
+  @Field(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput, {
+    nullable: false,
+  })
+  @Type(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput)
+  create!: MasterWeeklyScheduleCreateWithoutMasterProfileInput;
 }

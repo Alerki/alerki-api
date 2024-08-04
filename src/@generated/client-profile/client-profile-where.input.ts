@@ -7,28 +7,27 @@ import { UserListRelationFilter } from '../user/user-list-relation-filter.input'
 
 @InputType()
 export class ClientProfileWhereInput {
+  @Field(() => [ClientProfileWhereInput], { nullable: true })
+  AND?: Array<ClientProfileWhereInput>;
 
-    @Field(() => [ClientProfileWhereInput], {nullable:true})
-    AND?: Array<ClientProfileWhereInput>;
+  @Field(() => [ClientProfileWhereInput], { nullable: true })
+  OR?: Array<ClientProfileWhereInput>;
 
-    @Field(() => [ClientProfileWhereInput], {nullable:true})
-    OR?: Array<ClientProfileWhereInput>;
+  @Field(() => [ClientProfileWhereInput], { nullable: true })
+  NOT?: Array<ClientProfileWhereInput>;
 
-    @Field(() => [ClientProfileWhereInput], {nullable:true})
-    NOT?: Array<ClientProfileWhereInput>;
+  @Field(() => UuidFilter, { nullable: true })
+  id?: UuidFilter;
 
-    @Field(() => UuidFilter, {nullable:true})
-    id?: UuidFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_created?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_created?: DateTimeNullableFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  date_updated?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    date_updated?: DateTimeNullableFilter;
+  @Field(() => AppointmentListRelationFilter, { nullable: true })
+  Appointment?: AppointmentListRelationFilter;
 
-    @Field(() => AppointmentListRelationFilter, {nullable:true})
-    Appointment?: AppointmentListRelationFilter;
-
-    @Field(() => UserListRelationFilter, {nullable:true})
-    User?: UserListRelationFilter;
+  @Field(() => UserListRelationFilter, { nullable: true })
+  User?: UserListRelationFilter;
 }

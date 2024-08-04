@@ -9,20 +9,25 @@ import { directus_foldersWhereUniqueInput } from './directus-folders-where-uniqu
 
 @InputType()
 export class directus_foldersUncheckedCreateNestedManyWithoutDirectus_foldersInput {
+  @Field(() => [directus_foldersCreateWithoutDirectus_foldersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_foldersCreateWithoutDirectus_foldersInput)
+  create?: Array<directus_foldersCreateWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_foldersCreateWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_foldersCreateWithoutDirectus_foldersInput)
-    create?: Array<directus_foldersCreateWithoutDirectus_foldersInput>;
+  @Field(() => [directus_foldersCreateOrConnectWithoutDirectus_foldersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_foldersCreateOrConnectWithoutDirectus_foldersInput)
+  connectOrCreate?: Array<directus_foldersCreateOrConnectWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_foldersCreateOrConnectWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_foldersCreateOrConnectWithoutDirectus_foldersInput)
-    connectOrCreate?: Array<directus_foldersCreateOrConnectWithoutDirectus_foldersInput>;
+  @Field(() => directus_foldersCreateManyDirectus_foldersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_foldersCreateManyDirectus_foldersInputEnvelope)
+  createMany?: directus_foldersCreateManyDirectus_foldersInputEnvelope;
 
-    @Field(() => directus_foldersCreateManyDirectus_foldersInputEnvelope, {nullable:true})
-    @Type(() => directus_foldersCreateManyDirectus_foldersInputEnvelope)
-    createMany?: directus_foldersCreateManyDirectus_foldersInputEnvelope;
-
-    @Field(() => [directus_foldersWhereUniqueInput], {nullable:true})
-    @Type(() => directus_foldersWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_foldersWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_foldersWhereUniqueInput], { nullable: true })
+  @Type(() => directus_foldersWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_foldersWhereUniqueInput, 'id'>>;
 }

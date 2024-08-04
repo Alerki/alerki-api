@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusCollectionsArgs {
-
-    @Field(() => directus_collectionsCreateInput, {nullable:false})
-    @Type(() => directus_collectionsCreateInput)
-    data!: directus_collectionsCreateInput;
+  @Field(() => directus_collectionsCreateInput, { nullable: false })
+  @Type(() => directus_collectionsCreateInput)
+  data!: directus_collectionsCreateInput;
 }

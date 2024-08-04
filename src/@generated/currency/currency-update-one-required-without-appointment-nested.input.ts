@@ -10,24 +10,25 @@ import { CurrencyUpdateWithoutAppointmentInput } from './currency-update-without
 
 @InputType()
 export class CurrencyUpdateOneRequiredWithoutAppointmentNestedInput {
+  @Field(() => CurrencyCreateWithoutAppointmentInput, { nullable: true })
+  @Type(() => CurrencyCreateWithoutAppointmentInput)
+  create?: CurrencyCreateWithoutAppointmentInput;
 
-    @Field(() => CurrencyCreateWithoutAppointmentInput, {nullable:true})
-    @Type(() => CurrencyCreateWithoutAppointmentInput)
-    create?: CurrencyCreateWithoutAppointmentInput;
+  @Field(() => CurrencyCreateOrConnectWithoutAppointmentInput, {
+    nullable: true,
+  })
+  @Type(() => CurrencyCreateOrConnectWithoutAppointmentInput)
+  connectOrCreate?: CurrencyCreateOrConnectWithoutAppointmentInput;
 
-    @Field(() => CurrencyCreateOrConnectWithoutAppointmentInput, {nullable:true})
-    @Type(() => CurrencyCreateOrConnectWithoutAppointmentInput)
-    connectOrCreate?: CurrencyCreateOrConnectWithoutAppointmentInput;
+  @Field(() => CurrencyUpsertWithoutAppointmentInput, { nullable: true })
+  @Type(() => CurrencyUpsertWithoutAppointmentInput)
+  upsert?: CurrencyUpsertWithoutAppointmentInput;
 
-    @Field(() => CurrencyUpsertWithoutAppointmentInput, {nullable:true})
-    @Type(() => CurrencyUpsertWithoutAppointmentInput)
-    upsert?: CurrencyUpsertWithoutAppointmentInput;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: true })
+  @Type(() => CurrencyWhereUniqueInput)
+  connect?: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
-    @Type(() => CurrencyWhereUniqueInput)
-    connect?: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
-
-    @Field(() => CurrencyUpdateWithoutAppointmentInput, {nullable:true})
-    @Type(() => CurrencyUpdateWithoutAppointmentInput)
-    update?: CurrencyUpdateWithoutAppointmentInput;
+  @Field(() => CurrencyUpdateWithoutAppointmentInput, { nullable: true })
+  @Type(() => CurrencyUpdateWithoutAppointmentInput)
+  update?: CurrencyUpdateWithoutAppointmentInput;
 }

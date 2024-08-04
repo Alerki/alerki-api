@@ -8,16 +8,19 @@ import { UserRecipientOnNotificationCreateWithoutUserInput } from './user-recipi
 
 @InputType()
 export class UserRecipientOnNotificationUpsertWithWhereUniqueWithoutUserInput {
+  @Field(() => UserRecipientOnNotificationWhereUniqueInput, { nullable: false })
+  @Type(() => UserRecipientOnNotificationWhereUniqueInput)
+  where!: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => UserRecipientOnNotificationWhereUniqueInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationWhereUniqueInput)
-    where!: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
+  @Field(() => UserRecipientOnNotificationUpdateWithoutUserInput, {
+    nullable: false,
+  })
+  @Type(() => UserRecipientOnNotificationUpdateWithoutUserInput)
+  update!: UserRecipientOnNotificationUpdateWithoutUserInput;
 
-    @Field(() => UserRecipientOnNotificationUpdateWithoutUserInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationUpdateWithoutUserInput)
-    update!: UserRecipientOnNotificationUpdateWithoutUserInput;
-
-    @Field(() => UserRecipientOnNotificationCreateWithoutUserInput, {nullable:false})
-    @Type(() => UserRecipientOnNotificationCreateWithoutUserInput)
-    create!: UserRecipientOnNotificationCreateWithoutUserInput;
+  @Field(() => UserRecipientOnNotificationCreateWithoutUserInput, {
+    nullable: false,
+  })
+  @Type(() => UserRecipientOnNotificationCreateWithoutUserInput)
+  create!: UserRecipientOnNotificationCreateWithoutUserInput;
 }

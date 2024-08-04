@@ -8,16 +8,19 @@ import { Service_translationsCreateWithoutLanguagesInput } from './service-trans
 
 @InputType()
 export class Service_translationsUpsertWithWhereUniqueWithoutLanguagesInput {
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: false })
+  @Type(() => Service_translationsWhereUniqueInput)
+  where!: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
 
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:false})
-    @Type(() => Service_translationsWhereUniqueInput)
-    where!: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
+  @Field(() => Service_translationsUpdateWithoutLanguagesInput, {
+    nullable: false,
+  })
+  @Type(() => Service_translationsUpdateWithoutLanguagesInput)
+  update!: Service_translationsUpdateWithoutLanguagesInput;
 
-    @Field(() => Service_translationsUpdateWithoutLanguagesInput, {nullable:false})
-    @Type(() => Service_translationsUpdateWithoutLanguagesInput)
-    update!: Service_translationsUpdateWithoutLanguagesInput;
-
-    @Field(() => Service_translationsCreateWithoutLanguagesInput, {nullable:false})
-    @Type(() => Service_translationsCreateWithoutLanguagesInput)
-    create!: Service_translationsCreateWithoutLanguagesInput;
+  @Field(() => Service_translationsCreateWithoutLanguagesInput, {
+    nullable: false,
+  })
+  @Type(() => Service_translationsCreateWithoutLanguagesInput)
+  create!: Service_translationsCreateWithoutLanguagesInput;
 }

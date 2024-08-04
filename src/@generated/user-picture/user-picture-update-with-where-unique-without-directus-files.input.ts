@@ -7,12 +7,11 @@ import { UserPictureUpdateWithoutDirectus_filesInput } from './user-picture-upda
 
 @InputType()
 export class UserPictureUpdateWithWhereUniqueWithoutDirectus_filesInput {
+  @Field(() => UserPictureWhereUniqueInput, { nullable: false })
+  @Type(() => UserPictureWhereUniqueInput)
+  where!: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
 
-    @Field(() => UserPictureWhereUniqueInput, {nullable:false})
-    @Type(() => UserPictureWhereUniqueInput)
-    where!: Prisma.AtLeast<UserPictureWhereUniqueInput, 'id'>;
-
-    @Field(() => UserPictureUpdateWithoutDirectus_filesInput, {nullable:false})
-    @Type(() => UserPictureUpdateWithoutDirectus_filesInput)
-    data!: UserPictureUpdateWithoutDirectus_filesInput;
+  @Field(() => UserPictureUpdateWithoutDirectus_filesInput, { nullable: false })
+  @Type(() => UserPictureUpdateWithoutDirectus_filesInput)
+  data!: UserPictureUpdateWithoutDirectus_filesInput;
 }

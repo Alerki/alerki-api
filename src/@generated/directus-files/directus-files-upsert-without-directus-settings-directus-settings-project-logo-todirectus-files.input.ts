@@ -6,12 +6,25 @@ import { directus_filesCreateWithoutDirectus_settings_directus_settings_project_
 
 @InputType()
 export class directus_filesUpsertWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput {
+  @Field(
+    () =>
+      directus_filesUpdateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_filesUpdateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput,
+  )
+  update!: directus_filesUpdateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput;
 
-    @Field(() => directus_filesUpdateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput, {nullable:false})
-    @Type(() => directus_filesUpdateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput)
-    update!: directus_filesUpdateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput;
-
-    @Field(() => directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput, {nullable:false})
-    @Type(() => directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput)
-    create!: directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput;
+  @Field(
+    () =>
+      directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput,
+  )
+  create!: directus_filesCreateWithoutDirectus_settings_directus_settings_project_logoTodirectus_filesInput;
 }

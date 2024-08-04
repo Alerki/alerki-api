@@ -7,42 +7,35 @@ import { Prisma } from '@prisma/client';
 import { NotificationTypeWhereUniqueInput } from './notification-type-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { NotificationTypeCountAggregateInput } from './notification-type-count-aggregate.input';
-import { NotificationTypeAvgAggregateInput } from './notification-type-avg-aggregate.input';
-import { NotificationTypeSumAggregateInput } from './notification-type-sum-aggregate.input';
 import { NotificationTypeMinAggregateInput } from './notification-type-min-aggregate.input';
 import { NotificationTypeMaxAggregateInput } from './notification-type-max-aggregate.input';
 
 @ArgsType()
 export class NotificationTypeAggregateArgs {
+  @Field(() => NotificationTypeWhereInput, { nullable: true })
+  @Type(() => NotificationTypeWhereInput)
+  where?: NotificationTypeWhereInput;
 
-    @Field(() => NotificationTypeWhereInput, {nullable:true})
-    @Type(() => NotificationTypeWhereInput)
-    where?: NotificationTypeWhereInput;
+  @Field(() => [NotificationTypeOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<NotificationTypeOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [NotificationTypeOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<NotificationTypeOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => NotificationTypeWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>;
 
-    @Field(() => NotificationTypeWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => NotificationTypeCountAggregateInput, { nullable: true })
+  _count?: NotificationTypeCountAggregateInput;
 
-    @Field(() => NotificationTypeCountAggregateInput, {nullable:true})
-    _count?: NotificationTypeCountAggregateInput;
+  @Field(() => NotificationTypeMinAggregateInput, { nullable: true })
+  _min?: NotificationTypeMinAggregateInput;
 
-    @Field(() => NotificationTypeAvgAggregateInput, {nullable:true})
-    _avg?: NotificationTypeAvgAggregateInput;
-
-    @Field(() => NotificationTypeSumAggregateInput, {nullable:true})
-    _sum?: NotificationTypeSumAggregateInput;
-
-    @Field(() => NotificationTypeMinAggregateInput, {nullable:true})
-    _min?: NotificationTypeMinAggregateInput;
-
-    @Field(() => NotificationTypeMaxAggregateInput, {nullable:true})
-    _max?: NotificationTypeMaxAggregateInput;
+  @Field(() => NotificationTypeMaxAggregateInput, { nullable: true })
+  _max?: NotificationTypeMaxAggregateInput;
 }

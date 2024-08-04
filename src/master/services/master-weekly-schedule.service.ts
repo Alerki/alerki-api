@@ -20,7 +20,6 @@ export class MasterWeeklyScheduleService {
   //   private readonly userService: UserService,
   //   private readonly masterProfileService: MasterProfileService,
   // ) {}
-
   // async create<T extends Prisma.Prisma.MasterWeeklyScheduleCreateArgs>(
   //   data: Prisma.Prisma.SelectSubset<
   //     T,
@@ -29,7 +28,6 @@ export class MasterWeeklyScheduleService {
   // ) {
   //   return this.prismaService.masterWeeklySchedule.create(data);
   // }
-
   // async updateWeeklySchedule(
   //   user: IJwtTokenData,
   //   data: UpdateMasterWeeklyScheduleDto,
@@ -46,11 +44,9 @@ export class MasterWeeklyScheduleService {
   //       },
   //     },
   //   });
-
   //   if (!userCandidate.masterProfile) {
   //     throw new BadRequestException(errorMessages.user.userIsNotAMaster);
   //   }
-
   //   const updateDate: Omit<
   //     UpdateMasterWeeklyScheduleDto,
   //     'startAt' | 'endAt'
@@ -58,23 +54,18 @@ export class MasterWeeklyScheduleService {
   //     startAt: Date | string;
   //     endAt: Date | string;
   //   } = data;
-
   //   // Check if time is valid
   //   if (data.startAt && data.endAt) {
   //     const startAt = new Date(data.startAt);
   //     setDate0(startAt);
-
   //     const endAt = new Date(data.endAt);
   //     setDate0(endAt);
-
   //     checkIfStartTimeLessThanEnd(startAt, endAt);
-
   //     updateDate.startAt = startAt;
   //     updateDate.endAt = endAt;
   //   } else if ((data.startAt && !data.endAt) || (!data.startAt && data.endAt)) {
   //     throw new BadRequestException('Start and end time both required');
   //   }
-
   //   return this.prismaService.masterWeeklySchedule.update({
   //     where: {
   //       id: userCandidate.masterProfile.weeklySchedule.id,
@@ -82,7 +73,6 @@ export class MasterWeeklyScheduleService {
   //     data: updateDate,
   //   });
   // }
-
   // async getMasterWeeklySchedule(id: string) {
   //   const masterCandidate = await this.masterProfileService.findExists({
   //     where: {
@@ -92,10 +82,8 @@ export class MasterWeeklyScheduleService {
   //       weeklySchedule: true,
   //     },
   //   });
-
   //   return masterCandidate.weeklySchedule;
   // }
-
   // async findExists<T extends Prisma.Prisma.MasterWeeklyScheduleFindFirstArgs>(
   //   data: Prisma.Prisma.SelectSubset<
   //     T,
@@ -105,15 +93,12 @@ export class MasterWeeklyScheduleService {
   // ) {
   //   const candidate =
   //     await this.prismaService.masterWeeklySchedule.findFirst(data);
-
   //   if (!candidate) {
   //     if (callback) {
   //       callback();
   //     }
-
   //     throw new NotFoundException('Master weekly schedule is not exists');
   //   }
-
   //   return candidate;
   // }
 }

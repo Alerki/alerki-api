@@ -6,12 +6,11 @@ import { directus_flowsWhereUniqueInput } from '../directus-flows/directus-flows
 
 @ArgsType()
 export class UpdateOnedirectusFlowsArgs {
+  @Field(() => directus_flowsUpdateInput, { nullable: false })
+  @Type(() => directus_flowsUpdateInput)
+  data!: directus_flowsUpdateInput;
 
-    @Field(() => directus_flowsUpdateInput, {nullable:false})
-    @Type(() => directus_flowsUpdateInput)
-    data!: directus_flowsUpdateInput;
-
-    @Field(() => directus_flowsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_flowsWhereUniqueInput)
-    where!: directus_flowsWhereUniqueInput;
+  @Field(() => directus_flowsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_flowsWhereUniqueInput)
+  where!: directus_flowsWhereUniqueInput;
 }

@@ -12,32 +12,35 @@ import { UserSenderOnNotificationMaxAggregateInput } from './user-sender-on-noti
 
 @ArgsType()
 export class UserSenderOnNotificationGroupByArgs {
+  @Field(() => UserSenderOnNotificationWhereInput, { nullable: true })
+  @Type(() => UserSenderOnNotificationWhereInput)
+  where?: UserSenderOnNotificationWhereInput;
 
-    @Field(() => UserSenderOnNotificationWhereInput, {nullable:true})
-    @Type(() => UserSenderOnNotificationWhereInput)
-    where?: UserSenderOnNotificationWhereInput;
+  @Field(() => [UserSenderOnNotificationOrderByWithAggregationInput], {
+    nullable: true,
+  })
+  orderBy?: Array<UserSenderOnNotificationOrderByWithAggregationInput>;
 
-    @Field(() => [UserSenderOnNotificationOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<UserSenderOnNotificationOrderByWithAggregationInput>;
+  @Field(() => [UserSenderOnNotificationScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof UserSenderOnNotificationScalarFieldEnum>;
 
-    @Field(() => [UserSenderOnNotificationScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof UserSenderOnNotificationScalarFieldEnum>;
+  @Field(() => UserSenderOnNotificationScalarWhereWithAggregatesInput, {
+    nullable: true,
+  })
+  having?: UserSenderOnNotificationScalarWhereWithAggregatesInput;
 
-    @Field(() => UserSenderOnNotificationScalarWhereWithAggregatesInput, {nullable:true})
-    having?: UserSenderOnNotificationScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => UserSenderOnNotificationCountAggregateInput, { nullable: true })
+  _count?: UserSenderOnNotificationCountAggregateInput;
 
-    @Field(() => UserSenderOnNotificationCountAggregateInput, {nullable:true})
-    _count?: UserSenderOnNotificationCountAggregateInput;
+  @Field(() => UserSenderOnNotificationMinAggregateInput, { nullable: true })
+  _min?: UserSenderOnNotificationMinAggregateInput;
 
-    @Field(() => UserSenderOnNotificationMinAggregateInput, {nullable:true})
-    _min?: UserSenderOnNotificationMinAggregateInput;
-
-    @Field(() => UserSenderOnNotificationMaxAggregateInput, {nullable:true})
-    _max?: UserSenderOnNotificationMaxAggregateInput;
+  @Field(() => UserSenderOnNotificationMaxAggregateInput, { nullable: true })
+  _max?: UserSenderOnNotificationMaxAggregateInput;
 }

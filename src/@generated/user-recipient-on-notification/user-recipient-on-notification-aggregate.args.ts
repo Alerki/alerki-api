@@ -12,29 +12,35 @@ import { UserRecipientOnNotificationMaxAggregateInput } from './user-recipient-o
 
 @ArgsType()
 export class UserRecipientOnNotificationAggregateArgs {
+  @Field(() => UserRecipientOnNotificationWhereInput, { nullable: true })
+  @Type(() => UserRecipientOnNotificationWhereInput)
+  where?: UserRecipientOnNotificationWhereInput;
 
-    @Field(() => UserRecipientOnNotificationWhereInput, {nullable:true})
-    @Type(() => UserRecipientOnNotificationWhereInput)
-    where?: UserRecipientOnNotificationWhereInput;
+  @Field(
+    () => [
+      UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput,
+    ],
+    { nullable: true },
+  )
+  orderBy?: Array<UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<UserRecipientOnNotificationOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => UserRecipientOnNotificationWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
 
-    @Field(() => UserRecipientOnNotificationWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<UserRecipientOnNotificationWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => UserRecipientOnNotificationCountAggregateInput, {
+    nullable: true,
+  })
+  _count?: UserRecipientOnNotificationCountAggregateInput;
 
-    @Field(() => UserRecipientOnNotificationCountAggregateInput, {nullable:true})
-    _count?: UserRecipientOnNotificationCountAggregateInput;
+  @Field(() => UserRecipientOnNotificationMinAggregateInput, { nullable: true })
+  _min?: UserRecipientOnNotificationMinAggregateInput;
 
-    @Field(() => UserRecipientOnNotificationMinAggregateInput, {nullable:true})
-    _min?: UserRecipientOnNotificationMinAggregateInput;
-
-    @Field(() => UserRecipientOnNotificationMaxAggregateInput, {nullable:true})
-    _max?: UserRecipientOnNotificationMaxAggregateInput;
+  @Field(() => UserRecipientOnNotificationMaxAggregateInput, { nullable: true })
+  _max?: UserRecipientOnNotificationMaxAggregateInput;
 }

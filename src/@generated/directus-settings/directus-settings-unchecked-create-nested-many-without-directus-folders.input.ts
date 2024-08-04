@@ -9,20 +9,25 @@ import { directus_settingsWhereUniqueInput } from './directus-settings-where-uni
 
 @InputType()
 export class directus_settingsUncheckedCreateNestedManyWithoutDirectus_foldersInput {
+  @Field(() => [directus_settingsCreateWithoutDirectus_foldersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_settingsCreateWithoutDirectus_foldersInput)
+  create?: Array<directus_settingsCreateWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_settingsCreateWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_settingsCreateWithoutDirectus_foldersInput)
-    create?: Array<directus_settingsCreateWithoutDirectus_foldersInput>;
+  @Field(() => [directus_settingsCreateOrConnectWithoutDirectus_foldersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_settingsCreateOrConnectWithoutDirectus_foldersInput)
+  connectOrCreate?: Array<directus_settingsCreateOrConnectWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_settingsCreateOrConnectWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_settingsCreateOrConnectWithoutDirectus_foldersInput)
-    connectOrCreate?: Array<directus_settingsCreateOrConnectWithoutDirectus_foldersInput>;
+  @Field(() => directus_settingsCreateManyDirectus_foldersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_settingsCreateManyDirectus_foldersInputEnvelope)
+  createMany?: directus_settingsCreateManyDirectus_foldersInputEnvelope;
 
-    @Field(() => directus_settingsCreateManyDirectus_foldersInputEnvelope, {nullable:true})
-    @Type(() => directus_settingsCreateManyDirectus_foldersInputEnvelope)
-    createMany?: directus_settingsCreateManyDirectus_foldersInputEnvelope;
-
-    @Field(() => [directus_settingsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_settingsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_settingsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_settingsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
 }

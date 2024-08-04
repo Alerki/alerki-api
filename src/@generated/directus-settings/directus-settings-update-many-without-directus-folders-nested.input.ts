@@ -13,48 +13,66 @@ import { directus_settingsScalarWhereInput } from './directus-settings-scalar-wh
 
 @InputType()
 export class directus_settingsUpdateManyWithoutDirectus_foldersNestedInput {
+  @Field(() => [directus_settingsCreateWithoutDirectus_foldersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_settingsCreateWithoutDirectus_foldersInput)
+  create?: Array<directus_settingsCreateWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_settingsCreateWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_settingsCreateWithoutDirectus_foldersInput)
-    create?: Array<directus_settingsCreateWithoutDirectus_foldersInput>;
+  @Field(() => [directus_settingsCreateOrConnectWithoutDirectus_foldersInput], {
+    nullable: true,
+  })
+  @Type(() => directus_settingsCreateOrConnectWithoutDirectus_foldersInput)
+  connectOrCreate?: Array<directus_settingsCreateOrConnectWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_settingsCreateOrConnectWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_settingsCreateOrConnectWithoutDirectus_foldersInput)
-    connectOrCreate?: Array<directus_settingsCreateOrConnectWithoutDirectus_foldersInput>;
+  @Field(
+    () => [directus_settingsUpsertWithWhereUniqueWithoutDirectus_foldersInput],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_settingsUpsertWithWhereUniqueWithoutDirectus_foldersInput,
+  )
+  upsert?: Array<directus_settingsUpsertWithWhereUniqueWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_settingsUpsertWithWhereUniqueWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_settingsUpsertWithWhereUniqueWithoutDirectus_foldersInput)
-    upsert?: Array<directus_settingsUpsertWithWhereUniqueWithoutDirectus_foldersInput>;
+  @Field(() => directus_settingsCreateManyDirectus_foldersInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_settingsCreateManyDirectus_foldersInputEnvelope)
+  createMany?: directus_settingsCreateManyDirectus_foldersInputEnvelope;
 
-    @Field(() => directus_settingsCreateManyDirectus_foldersInputEnvelope, {nullable:true})
-    @Type(() => directus_settingsCreateManyDirectus_foldersInputEnvelope)
-    createMany?: directus_settingsCreateManyDirectus_foldersInputEnvelope;
+  @Field(() => [directus_settingsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_settingsWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_settingsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_settingsWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_settingsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_settingsWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_settingsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_settingsWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_settingsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_settingsWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_settingsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_settingsWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_settingsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_settingsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
 
-    @Field(() => [directus_settingsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_settingsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>>;
+  @Field(
+    () => [directus_settingsUpdateWithWhereUniqueWithoutDirectus_foldersInput],
+    { nullable: true },
+  )
+  @Type(
+    () => directus_settingsUpdateWithWhereUniqueWithoutDirectus_foldersInput,
+  )
+  update?: Array<directus_settingsUpdateWithWhereUniqueWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_settingsUpdateWithWhereUniqueWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_settingsUpdateWithWhereUniqueWithoutDirectus_foldersInput)
-    update?: Array<directus_settingsUpdateWithWhereUniqueWithoutDirectus_foldersInput>;
+  @Field(
+    () => [directus_settingsUpdateManyWithWhereWithoutDirectus_foldersInput],
+    { nullable: true },
+  )
+  @Type(() => directus_settingsUpdateManyWithWhereWithoutDirectus_foldersInput)
+  updateMany?: Array<directus_settingsUpdateManyWithWhereWithoutDirectus_foldersInput>;
 
-    @Field(() => [directus_settingsUpdateManyWithWhereWithoutDirectus_foldersInput], {nullable:true})
-    @Type(() => directus_settingsUpdateManyWithWhereWithoutDirectus_foldersInput)
-    updateMany?: Array<directus_settingsUpdateManyWithWhereWithoutDirectus_foldersInput>;
-
-    @Field(() => [directus_settingsScalarWhereInput], {nullable:true})
-    @Type(() => directus_settingsScalarWhereInput)
-    deleteMany?: Array<directus_settingsScalarWhereInput>;
+  @Field(() => [directus_settingsScalarWhereInput], { nullable: true })
+  @Type(() => directus_settingsScalarWhereInput)
+  deleteMany?: Array<directus_settingsScalarWhereInput>;
 }

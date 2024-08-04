@@ -10,61 +10,60 @@ import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-
 
 @InputType()
 export class directus_fieldsUncheckedUpdateInput {
+  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
+  id?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  collection?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    collection?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  field?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    field?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  special?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    special?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  interface?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    interface?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    options?: any;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  display?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    display?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  display_options?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    display_options?: any;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  readonly?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    readonly?: BoolFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  hidden?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    hidden?: BoolFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  sort?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    sort?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  width?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    width?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  translations?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    translations?: any;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  note?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    note?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  conditions?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    conditions?: any;
+  @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
+  required?: NullableBoolFieldUpdateOperationsInput;
 
-    @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
-    required?: NullableBoolFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  group?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    group?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => GraphQLJSON, { nullable: true })
+  validation?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    validation?: any;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    validation_message?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  validation_message?: NullableStringFieldUpdateOperationsInput;
 }

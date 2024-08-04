@@ -1,9 +1,11 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum UserPictureOrderByRelevanceFieldEnum {
-    id = "id",
-    picture = "picture"
+  id = 'id',
+  picture = 'picture',
 }
 
-
-registerEnumType(UserPictureOrderByRelevanceFieldEnum, { name: 'UserPictureOrderByRelevanceFieldEnum', description: undefined })
+registerEnumType(UserPictureOrderByRelevanceFieldEnum, {
+  name: 'UserPictureOrderByRelevanceFieldEnum',
+  description: undefined,
+});

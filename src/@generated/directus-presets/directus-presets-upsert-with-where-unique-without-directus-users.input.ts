@@ -8,16 +8,19 @@ import { directus_presetsCreateWithoutDirectus_usersInput } from './directus-pre
 
 @InputType()
 export class directus_presetsUpsertWithWhereUniqueWithoutDirectus_usersInput {
+  @Field(() => directus_presetsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_presetsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_presetsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_presetsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_presetsWhereUniqueInput, 'id'>;
+  @Field(() => directus_presetsUpdateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_presetsUpdateWithoutDirectus_usersInput)
+  update!: directus_presetsUpdateWithoutDirectus_usersInput;
 
-    @Field(() => directus_presetsUpdateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_presetsUpdateWithoutDirectus_usersInput)
-    update!: directus_presetsUpdateWithoutDirectus_usersInput;
-
-    @Field(() => directus_presetsCreateWithoutDirectus_usersInput, {nullable:false})
-    @Type(() => directus_presetsCreateWithoutDirectus_usersInput)
-    create!: directus_presetsCreateWithoutDirectus_usersInput;
+  @Field(() => directus_presetsCreateWithoutDirectus_usersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_presetsCreateWithoutDirectus_usersInput)
+  create!: directus_presetsCreateWithoutDirectus_usersInput;
 }

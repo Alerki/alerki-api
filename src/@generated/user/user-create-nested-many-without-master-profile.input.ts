@@ -9,20 +9,26 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateNestedManyWithoutMasterProfileInput {
+  @Field(() => [UserCreateWithoutMasterProfileInput], { nullable: true })
+  @Type(() => UserCreateWithoutMasterProfileInput)
+  create?: Array<UserCreateWithoutMasterProfileInput>;
 
-    @Field(() => [UserCreateWithoutMasterProfileInput], {nullable:true})
-    @Type(() => UserCreateWithoutMasterProfileInput)
-    create?: Array<UserCreateWithoutMasterProfileInput>;
+  @Field(() => [UserCreateOrConnectWithoutMasterProfileInput], {
+    nullable: true,
+  })
+  @Type(() => UserCreateOrConnectWithoutMasterProfileInput)
+  connectOrCreate?: Array<UserCreateOrConnectWithoutMasterProfileInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutMasterProfileInput], {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutMasterProfileInput)
-    connectOrCreate?: Array<UserCreateOrConnectWithoutMasterProfileInput>;
+  @Field(() => UserCreateManyMasterProfileInputEnvelope, { nullable: true })
+  @Type(() => UserCreateManyMasterProfileInputEnvelope)
+  createMany?: UserCreateManyMasterProfileInputEnvelope;
 
-    @Field(() => UserCreateManyMasterProfileInputEnvelope, {nullable:true})
-    @Type(() => UserCreateManyMasterProfileInputEnvelope)
-    createMany?: UserCreateManyMasterProfileInputEnvelope;
-
-    @Field(() => [UserWhereUniqueInput], {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>>;
+  @Field(() => [UserWhereUniqueInput], { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<
+      UserWhereUniqueInput,
+      'id' | 'email' | 'phoneNumber' | 'username'
+    >
+  >;
 }

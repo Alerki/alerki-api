@@ -7,12 +7,13 @@ import { directus_settingsUpdateWithoutDirectus_foldersInput } from './directus-
 
 @InputType()
 export class directus_settingsUpdateWithWhereUniqueWithoutDirectus_foldersInput {
+  @Field(() => directus_settingsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_settingsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_settingsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_settingsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_settingsWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_settingsUpdateWithoutDirectus_foldersInput, {nullable:false})
-    @Type(() => directus_settingsUpdateWithoutDirectus_foldersInput)
-    data!: directus_settingsUpdateWithoutDirectus_foldersInput;
+  @Field(() => directus_settingsUpdateWithoutDirectus_foldersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_settingsUpdateWithoutDirectus_foldersInput)
+  data!: directus_settingsUpdateWithoutDirectus_foldersInput;
 }

@@ -8,16 +8,19 @@ import { directus_activityWhereUniqueInput } from './directus-activity-where-uni
 
 @InputType()
 export class directus_activityCreateNestedOneWithoutDirectus_revisionsInput {
+  @Field(() => directus_activityCreateWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_activityCreateWithoutDirectus_revisionsInput)
+  create?: directus_activityCreateWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_activityCreateWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_activityCreateWithoutDirectus_revisionsInput)
-    create?: directus_activityCreateWithoutDirectus_revisionsInput;
+  @Field(() => directus_activityCreateOrConnectWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_activityCreateOrConnectWithoutDirectus_revisionsInput)
+  connectOrCreate?: directus_activityCreateOrConnectWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_activityCreateOrConnectWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_activityCreateOrConnectWithoutDirectus_revisionsInput)
-    connectOrCreate?: directus_activityCreateOrConnectWithoutDirectus_revisionsInput;
-
-    @Field(() => directus_activityWhereUniqueInput, {nullable:true})
-    @Type(() => directus_activityWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_activityWhereUniqueInput, 'id'>;
+  @Field(() => directus_activityWhereUniqueInput, { nullable: true })
+  @Type(() => directus_activityWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_activityWhereUniqueInput, 'id'>;
 }

@@ -8,16 +8,19 @@ import { MasterWeeklyScheduleWhereUniqueInput } from './master-weekly-schedule-w
 
 @InputType()
 export class MasterWeeklyScheduleCreateNestedOneWithoutMasterProfileInput {
+  @Field(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  @Type(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput)
+  create?: MasterWeeklyScheduleCreateWithoutMasterProfileInput;
 
-    @Field(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleCreateWithoutMasterProfileInput)
-    create?: MasterWeeklyScheduleCreateWithoutMasterProfileInput;
+  @Field(() => MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput, {
+    nullable: true,
+  })
+  @Type(() => MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput)
+  connectOrCreate?: MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput;
 
-    @Field(() => MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput)
-    connectOrCreate?: MasterWeeklyScheduleCreateOrConnectWithoutMasterProfileInput;
-
-    @Field(() => MasterWeeklyScheduleWhereUniqueInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleWhereUniqueInput)
-    connect?: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
+  @Field(() => MasterWeeklyScheduleWhereUniqueInput, { nullable: true })
+  @Type(() => MasterWeeklyScheduleWhereUniqueInput)
+  connect?: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
 }

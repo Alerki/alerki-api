@@ -4,7 +4,6 @@ import { Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class MasterWeeklyScheduleAvgAggregate {
-
-    @Field(() => Float, {nullable:true})
-    sort?: number;
+  @Field(() => Float, { nullable: true })
+  sort?: number;
 }

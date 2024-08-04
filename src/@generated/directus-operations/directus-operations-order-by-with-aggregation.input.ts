@@ -9,55 +9,56 @@ import { directus_operationsSumOrderByAggregateInput } from './directus-operatio
 
 @InputType()
 export class directus_operationsOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  key?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    key?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  type?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    type?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  position_x?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    position_x?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  position_y?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    position_y?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  options?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    options?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  resolve?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    resolve?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  reject?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    reject?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  flow?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    flow?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  user_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    user_created?: keyof typeof SortOrder;
+  @Field(() => directus_operationsCountOrderByAggregateInput, {
+    nullable: true,
+  })
+  _count?: directus_operationsCountOrderByAggregateInput;
 
-    @Field(() => directus_operationsCountOrderByAggregateInput, {nullable:true})
-    _count?: directus_operationsCountOrderByAggregateInput;
+  @Field(() => directus_operationsAvgOrderByAggregateInput, { nullable: true })
+  _avg?: directus_operationsAvgOrderByAggregateInput;
 
-    @Field(() => directus_operationsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: directus_operationsAvgOrderByAggregateInput;
+  @Field(() => directus_operationsMaxOrderByAggregateInput, { nullable: true })
+  _max?: directus_operationsMaxOrderByAggregateInput;
 
-    @Field(() => directus_operationsMaxOrderByAggregateInput, {nullable:true})
-    _max?: directus_operationsMaxOrderByAggregateInput;
+  @Field(() => directus_operationsMinOrderByAggregateInput, { nullable: true })
+  _min?: directus_operationsMinOrderByAggregateInput;
 
-    @Field(() => directus_operationsMinOrderByAggregateInput, {nullable:true})
-    _min?: directus_operationsMinOrderByAggregateInput;
-
-    @Field(() => directus_operationsSumOrderByAggregateInput, {nullable:true})
-    _sum?: directus_operationsSumOrderByAggregateInput;
+  @Field(() => directus_operationsSumOrderByAggregateInput, { nullable: true })
+  _sum?: directus_operationsSumOrderByAggregateInput;
 }

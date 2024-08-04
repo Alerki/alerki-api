@@ -7,12 +7,18 @@ import { directus_notificationsCreateWithoutDirectus_users_directus_notification
 
 @InputType()
 export class directus_notificationsCreateOrConnectWithoutDirectus_users_directus_notifications_recipientTodirectus_usersInput {
+  @Field(() => directus_notificationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_notificationsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_notificationsWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_notificationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_notificationsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_notificationsWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_notificationsCreateWithoutDirectus_users_directus_notifications_recipientTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_notificationsCreateWithoutDirectus_users_directus_notifications_recipientTodirectus_usersInput)
-    create!: directus_notificationsCreateWithoutDirectus_users_directus_notifications_recipientTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_notificationsCreateWithoutDirectus_users_directus_notifications_recipientTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_notificationsCreateWithoutDirectus_users_directus_notifications_recipientTodirectus_usersInput,
+  )
+  create!: directus_notificationsCreateWithoutDirectus_users_directus_notifications_recipientTodirectus_usersInput;
 }

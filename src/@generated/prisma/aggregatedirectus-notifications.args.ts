@@ -8,20 +8,22 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class AggregatedirectusNotificationsArgs {
+  @Field(() => directus_notificationsWhereInput, { nullable: true })
+  @Type(() => directus_notificationsWhereInput)
+  where?: directus_notificationsWhereInput;
 
-    @Field(() => directus_notificationsWhereInput, {nullable:true})
-    @Type(() => directus_notificationsWhereInput)
-    where?: directus_notificationsWhereInput;
+  @Field(
+    () => [directus_notificationsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<directus_notificationsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_notificationsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_notificationsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_notificationsWhereUniqueInput, { nullable: true })
+  cursor?: directus_notificationsWhereUniqueInput;
 
-    @Field(() => directus_notificationsWhereUniqueInput, {nullable:true})
-    cursor?: directus_notificationsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

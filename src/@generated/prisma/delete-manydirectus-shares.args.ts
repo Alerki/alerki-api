@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManydirectusSharesArgs {
-
-    @Field(() => directus_sharesWhereInput, {nullable:true})
-    @Type(() => directus_sharesWhereInput)
-    where?: directus_sharesWhereInput;
+  @Field(() => directus_sharesWhereInput, { nullable: true })
+  @Type(() => directus_sharesWhereInput)
+  where?: directus_sharesWhereInput;
 }

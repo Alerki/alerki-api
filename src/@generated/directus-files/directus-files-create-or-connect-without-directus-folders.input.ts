@@ -7,12 +7,13 @@ import { directus_filesCreateWithoutDirectus_foldersInput } from './directus-fil
 
 @InputType()
 export class directus_filesCreateOrConnectWithoutDirectus_foldersInput {
+  @Field(() => directus_filesWhereUniqueInput, { nullable: false })
+  @Type(() => directus_filesWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
 
-    @Field(() => directus_filesWhereUniqueInput, {nullable:false})
-    @Type(() => directus_filesWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
-
-    @Field(() => directus_filesCreateWithoutDirectus_foldersInput, {nullable:false})
-    @Type(() => directus_filesCreateWithoutDirectus_foldersInput)
-    create!: directus_filesCreateWithoutDirectus_foldersInput;
+  @Field(() => directus_filesCreateWithoutDirectus_foldersInput, {
+    nullable: false,
+  })
+  @Type(() => directus_filesCreateWithoutDirectus_foldersInput)
+  create!: directus_filesCreateWithoutDirectus_foldersInput;
 }

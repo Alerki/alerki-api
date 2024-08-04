@@ -4,10 +4,9 @@ import { directus_revisionsWhereInput } from '../directus-revisions/directus-rev
 
 @InputType()
 export class Directus_revisionsRelationFilter {
+  @Field(() => directus_revisionsWhereInput, { nullable: true })
+  is?: directus_revisionsWhereInput;
 
-    @Field(() => directus_revisionsWhereInput, {nullable:true})
-    is?: directus_revisionsWhereInput;
-
-    @Field(() => directus_revisionsWhereInput, {nullable:true})
-    isNot?: directus_revisionsWhereInput;
+  @Field(() => directus_revisionsWhereInput, { nullable: true })
+  isNot?: directus_revisionsWhereInput;
 }

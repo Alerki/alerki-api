@@ -7,16 +7,15 @@ import { User_SessionUpdateInput } from '../user-session/user-session-update.inp
 
 @ArgsType()
 export class UpsertOneUserSessionArgs {
+  @Field(() => User_SessionWhereUniqueInput, { nullable: false })
+  @Type(() => User_SessionWhereUniqueInput)
+  where!: User_SessionWhereUniqueInput;
 
-    @Field(() => User_SessionWhereUniqueInput, {nullable:false})
-    @Type(() => User_SessionWhereUniqueInput)
-    where!: User_SessionWhereUniqueInput;
+  @Field(() => User_SessionCreateInput, { nullable: false })
+  @Type(() => User_SessionCreateInput)
+  create!: User_SessionCreateInput;
 
-    @Field(() => User_SessionCreateInput, {nullable:false})
-    @Type(() => User_SessionCreateInput)
-    create!: User_SessionCreateInput;
-
-    @Field(() => User_SessionUpdateInput, {nullable:false})
-    @Type(() => User_SessionUpdateInput)
-    update!: User_SessionUpdateInput;
+  @Field(() => User_SessionUpdateInput, { nullable: false })
+  @Type(() => User_SessionUpdateInput)
+  update!: User_SessionUpdateInput;
 }

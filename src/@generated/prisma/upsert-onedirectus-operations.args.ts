@@ -7,16 +7,15 @@ import { directus_operationsUpdateInput } from '../directus-operations/directus-
 
 @ArgsType()
 export class UpsertOnedirectusOperationsArgs {
+  @Field(() => directus_operationsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_operationsWhereUniqueInput)
+  where!: directus_operationsWhereUniqueInput;
 
-    @Field(() => directus_operationsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_operationsWhereUniqueInput)
-    where!: directus_operationsWhereUniqueInput;
+  @Field(() => directus_operationsCreateInput, { nullable: false })
+  @Type(() => directus_operationsCreateInput)
+  create!: directus_operationsCreateInput;
 
-    @Field(() => directus_operationsCreateInput, {nullable:false})
-    @Type(() => directus_operationsCreateInput)
-    create!: directus_operationsCreateInput;
-
-    @Field(() => directus_operationsUpdateInput, {nullable:false})
-    @Type(() => directus_operationsUpdateInput)
-    update!: directus_operationsUpdateInput;
+  @Field(() => directus_operationsUpdateInput, { nullable: false })
+  @Type(() => directus_operationsUpdateInput)
+  update!: directus_operationsUpdateInput;
 }

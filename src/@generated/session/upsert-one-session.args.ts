@@ -8,16 +8,15 @@ import { SessionUpdateInput } from './session-update.input';
 
 @ArgsType()
 export class UpsertOneSessionArgs {
+  @Field(() => SessionWhereUniqueInput, { nullable: false })
+  @Type(() => SessionWhereUniqueInput)
+  where!: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
 
-    @Field(() => SessionWhereUniqueInput, {nullable:false})
-    @Type(() => SessionWhereUniqueInput)
-    where!: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
+  @Field(() => SessionCreateInput, { nullable: false })
+  @Type(() => SessionCreateInput)
+  create!: SessionCreateInput;
 
-    @Field(() => SessionCreateInput, {nullable:false})
-    @Type(() => SessionCreateInput)
-    create!: SessionCreateInput;
-
-    @Field(() => SessionUpdateInput, {nullable:false})
-    @Type(() => SessionUpdateInput)
-    update!: SessionUpdateInput;
+  @Field(() => SessionUpdateInput, { nullable: false })
+  @Type(() => SessionUpdateInput)
+  update!: SessionUpdateInput;
 }

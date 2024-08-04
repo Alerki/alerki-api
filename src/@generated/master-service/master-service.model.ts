@@ -8,40 +8,39 @@ import { Service_translations } from '../service-translations/service-translatio
 
 @ObjectType()
 export class MasterService {
+  @Field(() => ID, { nullable: false })
+  id!: string;
 
-    @Field(() => ID, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false, defaultValue: 'draft' })
+  status!: string;
 
-    @Field(() => String, {nullable:false,defaultValue:'draft'})
-    status!: string;
+  @Field(() => Date, { nullable: true })
+  date_created!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_created!: Date | null;
+  @Field(() => Date, { nullable: true })
+  date_updated!: Date | null;
 
-    @Field(() => Date, {nullable:true})
-    date_updated!: Date | null;
+  @Field(() => String, { nullable: false })
+  masterProfile!: string;
 
-    @Field(() => String, {nullable:false})
-    masterProfile!: string;
+  @Field(() => Date, { nullable: false })
+  duration!: Date;
 
-    @Field(() => Date, {nullable:false})
-    duration!: Date;
+  @Field(() => Int, { nullable: false })
+  price!: number;
 
-    @Field(() => Int, {nullable:false})
-    price!: number;
+  @Field(() => String, { nullable: false })
+  currency!: string;
 
-    @Field(() => String, {nullable:false})
-    currency!: string;
+  @Field(() => Int, { nullable: false })
+  service!: number;
 
-    @Field(() => Int, {nullable:false})
-    service!: number;
+  @Field(() => Currency, { nullable: false })
+  Currency?: Currency;
 
-    @Field(() => Currency, {nullable:false})
-    Currency?: Currency;
+  @Field(() => MasterProfile, { nullable: false })
+  MasterProfile?: MasterProfile;
 
-    @Field(() => MasterProfile, {nullable:false})
-    MasterProfile?: MasterProfile;
-
-    @Field(() => Service_translations, {nullable:false})
-    Service_translations?: Service_translations;
+  @Field(() => Service_translations, { nullable: false })
+  Service_translations?: Service_translations;
 }

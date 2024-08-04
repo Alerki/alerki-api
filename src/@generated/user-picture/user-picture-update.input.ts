@@ -7,19 +7,20 @@ import { directus_filesUpdateOneRequiredWithoutUserPictureNestedInput } from '..
 
 @InputType()
 export class UserPictureUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => UserUpdateManyWithoutUserPictureNestedInput, { nullable: true })
+  User?: UserUpdateManyWithoutUserPictureNestedInput;
 
-    @Field(() => UserUpdateManyWithoutUserPictureNestedInput, {nullable:true})
-    User?: UserUpdateManyWithoutUserPictureNestedInput;
-
-    @Field(() => directus_filesUpdateOneRequiredWithoutUserPictureNestedInput, {nullable:true})
-    directus_files?: directus_filesUpdateOneRequiredWithoutUserPictureNestedInput;
+  @Field(() => directus_filesUpdateOneRequiredWithoutUserPictureNestedInput, {
+    nullable: true,
+  })
+  directus_files?: directus_filesUpdateOneRequiredWithoutUserPictureNestedInput;
 }

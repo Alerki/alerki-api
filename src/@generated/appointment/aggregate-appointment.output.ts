@@ -8,19 +8,18 @@ import { AppointmentMaxAggregate } from './appointment-max-aggregate.output';
 
 @ObjectType()
 export class AggregateAppointment {
+  @Field(() => AppointmentCountAggregate, { nullable: true })
+  _count?: AppointmentCountAggregate;
 
-    @Field(() => AppointmentCountAggregate, {nullable:true})
-    _count?: AppointmentCountAggregate;
+  @Field(() => AppointmentAvgAggregate, { nullable: true })
+  _avg?: AppointmentAvgAggregate;
 
-    @Field(() => AppointmentAvgAggregate, {nullable:true})
-    _avg?: AppointmentAvgAggregate;
+  @Field(() => AppointmentSumAggregate, { nullable: true })
+  _sum?: AppointmentSumAggregate;
 
-    @Field(() => AppointmentSumAggregate, {nullable:true})
-    _sum?: AppointmentSumAggregate;
+  @Field(() => AppointmentMinAggregate, { nullable: true })
+  _min?: AppointmentMinAggregate;
 
-    @Field(() => AppointmentMinAggregate, {nullable:true})
-    _min?: AppointmentMinAggregate;
-
-    @Field(() => AppointmentMaxAggregate, {nullable:true})
-    _max?: AppointmentMaxAggregate;
+  @Field(() => AppointmentMaxAggregate, { nullable: true })
+  _max?: AppointmentMaxAggregate;
 }

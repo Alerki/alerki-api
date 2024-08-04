@@ -7,12 +7,13 @@ import { directus_collectionsCreateWithoutDirectus_versionsInput } from './direc
 
 @InputType()
 export class directus_collectionsCreateOrConnectWithoutDirectus_versionsInput {
+  @Field(() => directus_collectionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_collectionsWhereUniqueInput)
+  where!: Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>;
 
-    @Field(() => directus_collectionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_collectionsWhereUniqueInput)
-    where!: Prisma.AtLeast<directus_collectionsWhereUniqueInput, 'collection'>;
-
-    @Field(() => directus_collectionsCreateWithoutDirectus_versionsInput, {nullable:false})
-    @Type(() => directus_collectionsCreateWithoutDirectus_versionsInput)
-    create!: directus_collectionsCreateWithoutDirectus_versionsInput;
+  @Field(() => directus_collectionsCreateWithoutDirectus_versionsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_collectionsCreateWithoutDirectus_versionsInput)
+  create!: directus_collectionsCreateWithoutDirectus_versionsInput;
 }

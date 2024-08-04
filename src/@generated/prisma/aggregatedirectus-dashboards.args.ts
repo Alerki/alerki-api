@@ -8,20 +8,22 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class AggregatedirectusDashboardsArgs {
+  @Field(() => directus_dashboardsWhereInput, { nullable: true })
+  @Type(() => directus_dashboardsWhereInput)
+  where?: directus_dashboardsWhereInput;
 
-    @Field(() => directus_dashboardsWhereInput, {nullable:true})
-    @Type(() => directus_dashboardsWhereInput)
-    where?: directus_dashboardsWhereInput;
+  @Field(
+    () => [directus_dashboardsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<directus_dashboardsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_dashboardsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_dashboardsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_dashboardsWhereUniqueInput, { nullable: true })
+  cursor?: directus_dashboardsWhereUniqueInput;
 
-    @Field(() => directus_dashboardsWhereUniqueInput, {nullable:true})
-    cursor?: directus_dashboardsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

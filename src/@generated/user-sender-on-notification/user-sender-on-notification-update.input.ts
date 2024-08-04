@@ -7,19 +7,26 @@ import { UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotifi
 
 @InputType()
 export class UserSenderOnNotificationUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_created?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_created?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  date_updated?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    date_updated?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(
+    () =>
+      UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserNestedInput,
+    { nullable: true },
+  )
+  User_UserSenderOnNotification_notificationToUser?: UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserNestedInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserNestedInput, {nullable:true})
-    User_UserSenderOnNotification_notificationToUser?: UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_notificationToUserNestedInput;
-
-    @Field(() => UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserNestedInput, {nullable:true})
-    User_UserSenderOnNotification_userToUser?: UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserNestedInput;
+  @Field(
+    () =>
+      UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserNestedInput,
+    { nullable: true },
+  )
+  User_UserSenderOnNotification_userToUser?: UserUpdateOneRequiredWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserNestedInput;
 }

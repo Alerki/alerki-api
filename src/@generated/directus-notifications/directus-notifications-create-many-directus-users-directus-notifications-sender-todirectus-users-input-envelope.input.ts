@@ -5,11 +5,18 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class directus_notificationsCreateManyDirectus_users_directus_notifications_senderTodirectus_usersInputEnvelope {
+  @Field(
+    () => [
+      directus_notificationsCreateManyDirectus_users_directus_notifications_senderTodirectus_usersInput,
+    ],
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_notificationsCreateManyDirectus_users_directus_notifications_senderTodirectus_usersInput,
+  )
+  data!: Array<directus_notificationsCreateManyDirectus_users_directus_notifications_senderTodirectus_usersInput>;
 
-    @Field(() => [directus_notificationsCreateManyDirectus_users_directus_notifications_senderTodirectus_usersInput], {nullable:false})
-    @Type(() => directus_notificationsCreateManyDirectus_users_directus_notifications_senderTodirectus_usersInput)
-    data!: Array<directus_notificationsCreateManyDirectus_users_directus_notifications_senderTodirectus_usersInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

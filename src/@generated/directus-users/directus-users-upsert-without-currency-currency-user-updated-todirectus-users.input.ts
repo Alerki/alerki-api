@@ -6,12 +6,25 @@ import { directus_usersCreateWithoutCurrency_Currency_user_updatedTodirectus_use
 
 @InputType()
 export class directus_usersUpsertWithoutCurrency_Currency_user_updatedTodirectus_usersInput {
+  @Field(
+    () =>
+      directus_usersUpdateWithoutCurrency_Currency_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersUpdateWithoutCurrency_Currency_user_updatedTodirectus_usersInput,
+  )
+  update!: directus_usersUpdateWithoutCurrency_Currency_user_updatedTodirectus_usersInput;
 
-    @Field(() => directus_usersUpdateWithoutCurrency_Currency_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutCurrency_Currency_user_updatedTodirectus_usersInput)
-    update!: directus_usersUpdateWithoutCurrency_Currency_user_updatedTodirectus_usersInput;
-
-    @Field(() => directus_usersCreateWithoutCurrency_Currency_user_updatedTodirectus_usersInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutCurrency_Currency_user_updatedTodirectus_usersInput)
-    create!: directus_usersCreateWithoutCurrency_Currency_user_updatedTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateWithoutCurrency_Currency_user_updatedTodirectus_usersInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutCurrency_Currency_user_updatedTodirectus_usersInput,
+  )
+  create!: directus_usersCreateWithoutCurrency_Currency_user_updatedTodirectus_usersInput;
 }

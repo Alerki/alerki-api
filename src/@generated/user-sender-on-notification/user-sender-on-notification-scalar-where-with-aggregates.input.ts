@@ -5,28 +5,33 @@ import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullab
 
 @InputType()
 export class UserSenderOnNotificationScalarWhereWithAggregatesInput {
+  @Field(() => [UserSenderOnNotificationScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  AND?: Array<UserSenderOnNotificationScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserSenderOnNotificationScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<UserSenderOnNotificationScalarWhereWithAggregatesInput>;
+  @Field(() => [UserSenderOnNotificationScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  OR?: Array<UserSenderOnNotificationScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserSenderOnNotificationScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<UserSenderOnNotificationScalarWhereWithAggregatesInput>;
+  @Field(() => [UserSenderOnNotificationScalarWhereWithAggregatesInput], {
+    nullable: true,
+  })
+  NOT?: Array<UserSenderOnNotificationScalarWhereWithAggregatesInput>;
 
-    @Field(() => [UserSenderOnNotificationScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<UserSenderOnNotificationScalarWhereWithAggregatesInput>;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  id?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    id?: UuidWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_created?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_created?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
+  date_updated?: DateTimeNullableWithAggregatesFilter;
 
-    @Field(() => DateTimeNullableWithAggregatesFilter, {nullable:true})
-    date_updated?: DateTimeNullableWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  user?: UuidWithAggregatesFilter;
 
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    user?: UuidWithAggregatesFilter;
-
-    @Field(() => UuidWithAggregatesFilter, {nullable:true})
-    notification?: UuidWithAggregatesFilter;
+  @Field(() => UuidWithAggregatesFilter, { nullable: true })
+  notification?: UuidWithAggregatesFilter;
 }

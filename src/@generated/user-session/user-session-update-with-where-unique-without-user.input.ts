@@ -7,12 +7,11 @@ import { User_SessionUpdateWithoutUserInput } from './user-session-update-withou
 
 @InputType()
 export class User_SessionUpdateWithWhereUniqueWithoutUserInput {
+  @Field(() => User_SessionWhereUniqueInput, { nullable: false })
+  @Type(() => User_SessionWhereUniqueInput)
+  where!: Prisma.AtLeast<User_SessionWhereUniqueInput, 'id'>;
 
-    @Field(() => User_SessionWhereUniqueInput, {nullable:false})
-    @Type(() => User_SessionWhereUniqueInput)
-    where!: Prisma.AtLeast<User_SessionWhereUniqueInput, 'id'>;
-
-    @Field(() => User_SessionUpdateWithoutUserInput, {nullable:false})
-    @Type(() => User_SessionUpdateWithoutUserInput)
-    data!: User_SessionUpdateWithoutUserInput;
+  @Field(() => User_SessionUpdateWithoutUserInput, { nullable: false })
+  @Type(() => User_SessionUpdateWithoutUserInput)
+  data!: User_SessionUpdateWithoutUserInput;
 }

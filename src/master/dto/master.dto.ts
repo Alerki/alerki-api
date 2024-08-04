@@ -11,11 +11,9 @@ import {
 } from 'class-validator';
 
 import { BaseRowsDto } from '../../shared/dto/base.dto';
-import { PaginationDto } from '../../shared/dto/Pagination.dto';
+import { PaginationDto } from '../../shared/dto/pagination.dto';
 
-export class CreateMasterServiceDto
-  implements Pick<Prisma.MasterService, 'duration' | 'price' | 'currency'>
-{
+export class CreateMasterServiceDto {
   @ApiProperty({
     description: 'Service name',
     type: 'string',
@@ -31,14 +29,6 @@ export class CreateMasterServiceDto
   })
   @IsString()
   currency: string;
-
-  @ApiProperty({
-    description: 'Service duration in milliseconds',
-    type: 'number',
-    example: 60 * 10,
-  })
-  @IsNumber()
-  duration: number;
 
   @ApiProperty({
     description: 'Service price',
@@ -166,10 +156,7 @@ export class UpdateMasterWeeklyScheduleDto
   readonly endAt: string;
 }
 
-export class MasterWeeklyScheduleDto
-  extends BaseRowsDto
-  implements Prisma.MasterWeeklySchedule
-{
+export class MasterWeeklyScheduleDto {
   @ApiProperty({
     description: 'Represents that monday is working day',
     type: Boolean,
@@ -243,10 +230,7 @@ export class MasterWeeklyScheduleDto
   readonly endAt: Date;
 }
 
-export class MasterScheduleDto
-  extends BaseRowsDto
-  implements Prisma.MasterSchedule
-{
+export class MasterScheduleDto {
   @ApiProperty({
     description: 'Master profile ID',
     type: String,

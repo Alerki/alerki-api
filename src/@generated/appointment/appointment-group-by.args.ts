@@ -14,38 +14,37 @@ import { AppointmentMaxAggregateInput } from './appointment-max-aggregate.input'
 
 @ArgsType()
 export class AppointmentGroupByArgs {
+  @Field(() => AppointmentWhereInput, { nullable: true })
+  @Type(() => AppointmentWhereInput)
+  where?: AppointmentWhereInput;
 
-    @Field(() => AppointmentWhereInput, {nullable:true})
-    @Type(() => AppointmentWhereInput)
-    where?: AppointmentWhereInput;
+  @Field(() => [AppointmentOrderByWithAggregationInput], { nullable: true })
+  orderBy?: Array<AppointmentOrderByWithAggregationInput>;
 
-    @Field(() => [AppointmentOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<AppointmentOrderByWithAggregationInput>;
+  @Field(() => [AppointmentScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof AppointmentScalarFieldEnum>;
 
-    @Field(() => [AppointmentScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof AppointmentScalarFieldEnum>;
+  @Field(() => AppointmentScalarWhereWithAggregatesInput, { nullable: true })
+  having?: AppointmentScalarWhereWithAggregatesInput;
 
-    @Field(() => AppointmentScalarWhereWithAggregatesInput, {nullable:true})
-    having?: AppointmentScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => AppointmentCountAggregateInput, { nullable: true })
+  _count?: AppointmentCountAggregateInput;
 
-    @Field(() => AppointmentCountAggregateInput, {nullable:true})
-    _count?: AppointmentCountAggregateInput;
+  @Field(() => AppointmentAvgAggregateInput, { nullable: true })
+  _avg?: AppointmentAvgAggregateInput;
 
-    @Field(() => AppointmentAvgAggregateInput, {nullable:true})
-    _avg?: AppointmentAvgAggregateInput;
+  @Field(() => AppointmentSumAggregateInput, { nullable: true })
+  _sum?: AppointmentSumAggregateInput;
 
-    @Field(() => AppointmentSumAggregateInput, {nullable:true})
-    _sum?: AppointmentSumAggregateInput;
+  @Field(() => AppointmentMinAggregateInput, { nullable: true })
+  _min?: AppointmentMinAggregateInput;
 
-    @Field(() => AppointmentMinAggregateInput, {nullable:true})
-    _min?: AppointmentMinAggregateInput;
-
-    @Field(() => AppointmentMaxAggregateInput, {nullable:true})
-    _max?: AppointmentMaxAggregateInput;
+  @Field(() => AppointmentMaxAggregateInput, { nullable: true })
+  _max?: AppointmentMaxAggregateInput;
 }

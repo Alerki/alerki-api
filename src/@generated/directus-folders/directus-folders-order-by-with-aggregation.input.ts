@@ -7,22 +7,21 @@ import { directus_foldersMinOrderByAggregateInput } from './directus-folders-min
 
 @InputType()
 export class directus_foldersOrderByWithAggregationInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  parent?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    parent?: keyof typeof SortOrder;
+  @Field(() => directus_foldersCountOrderByAggregateInput, { nullable: true })
+  _count?: directus_foldersCountOrderByAggregateInput;
 
-    @Field(() => directus_foldersCountOrderByAggregateInput, {nullable:true})
-    _count?: directus_foldersCountOrderByAggregateInput;
+  @Field(() => directus_foldersMaxOrderByAggregateInput, { nullable: true })
+  _max?: directus_foldersMaxOrderByAggregateInput;
 
-    @Field(() => directus_foldersMaxOrderByAggregateInput, {nullable:true})
-    _max?: directus_foldersMaxOrderByAggregateInput;
-
-    @Field(() => directus_foldersMinOrderByAggregateInput, {nullable:true})
-    _min?: directus_foldersMinOrderByAggregateInput;
+  @Field(() => directus_foldersMinOrderByAggregateInput, { nullable: true })
+  _min?: directus_foldersMinOrderByAggregateInput;
 }

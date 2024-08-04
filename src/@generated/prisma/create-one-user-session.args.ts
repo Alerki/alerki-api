@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneUserSessionArgs {
-
-    @Field(() => User_SessionCreateInput, {nullable:false})
-    @Type(() => User_SessionCreateInput)
-    data!: User_SessionCreateInput;
+  @Field(() => User_SessionCreateInput, { nullable: false })
+  @Type(() => User_SessionCreateInput)
+  data!: User_SessionCreateInput;
 }

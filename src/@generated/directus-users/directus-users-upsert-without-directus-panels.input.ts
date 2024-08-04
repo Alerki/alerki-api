@@ -6,12 +6,15 @@ import { directus_usersCreateWithoutDirectus_panelsInput } from './directus-user
 
 @InputType()
 export class directus_usersUpsertWithoutDirectus_panelsInput {
+  @Field(() => directus_usersUpdateWithoutDirectus_panelsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersUpdateWithoutDirectus_panelsInput)
+  update!: directus_usersUpdateWithoutDirectus_panelsInput;
 
-    @Field(() => directus_usersUpdateWithoutDirectus_panelsInput, {nullable:false})
-    @Type(() => directus_usersUpdateWithoutDirectus_panelsInput)
-    update!: directus_usersUpdateWithoutDirectus_panelsInput;
-
-    @Field(() => directus_usersCreateWithoutDirectus_panelsInput, {nullable:false})
-    @Type(() => directus_usersCreateWithoutDirectus_panelsInput)
-    create!: directus_usersCreateWithoutDirectus_panelsInput;
+  @Field(() => directus_usersCreateWithoutDirectus_panelsInput, {
+    nullable: false,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_panelsInput)
+  create!: directus_usersCreateWithoutDirectus_panelsInput;
 }

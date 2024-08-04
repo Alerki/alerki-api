@@ -1,3 +1,4 @@
+import { ArgsType, Field } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class BaseRowsDto {

@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyNotificationArgs {
-
-    @Field(() => NotificationWhereInput, {nullable:true})
-    @Type(() => NotificationWhereInput)
-    where?: NotificationWhereInput;
+  @Field(() => NotificationWhereInput, { nullable: true })
+  @Type(() => NotificationWhereInput)
+  where?: NotificationWhereInput;
 }

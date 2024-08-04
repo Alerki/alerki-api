@@ -8,16 +8,19 @@ import { directus_versionsWhereUniqueInput } from './directus-versions-where-uni
 
 @InputType()
 export class directus_versionsCreateNestedOneWithoutDirectus_revisionsInput {
+  @Field(() => directus_versionsCreateWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_versionsCreateWithoutDirectus_revisionsInput)
+  create?: directus_versionsCreateWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_versionsCreateWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_versionsCreateWithoutDirectus_revisionsInput)
-    create?: directus_versionsCreateWithoutDirectus_revisionsInput;
+  @Field(() => directus_versionsCreateOrConnectWithoutDirectus_revisionsInput, {
+    nullable: true,
+  })
+  @Type(() => directus_versionsCreateOrConnectWithoutDirectus_revisionsInput)
+  connectOrCreate?: directus_versionsCreateOrConnectWithoutDirectus_revisionsInput;
 
-    @Field(() => directus_versionsCreateOrConnectWithoutDirectus_revisionsInput, {nullable:true})
-    @Type(() => directus_versionsCreateOrConnectWithoutDirectus_revisionsInput)
-    connectOrCreate?: directus_versionsCreateOrConnectWithoutDirectus_revisionsInput;
-
-    @Field(() => directus_versionsWhereUniqueInput, {nullable:true})
-    @Type(() => directus_versionsWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>;
+  @Field(() => directus_versionsWhereUniqueInput, { nullable: true })
+  @Type(() => directus_versionsWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_versionsWhereUniqueInput, 'id'>;
 }

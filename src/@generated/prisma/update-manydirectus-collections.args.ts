@@ -6,12 +6,11 @@ import { directus_collectionsWhereInput } from '../directus-collections/directus
 
 @ArgsType()
 export class UpdateManydirectusCollectionsArgs {
+  @Field(() => directus_collectionsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_collectionsUpdateManyMutationInput)
+  data!: directus_collectionsUpdateManyMutationInput;
 
-    @Field(() => directus_collectionsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_collectionsUpdateManyMutationInput)
-    data!: directus_collectionsUpdateManyMutationInput;
-
-    @Field(() => directus_collectionsWhereInput, {nullable:true})
-    @Type(() => directus_collectionsWhereInput)
-    where?: directus_collectionsWhereInput;
+  @Field(() => directus_collectionsWhereInput, { nullable: true })
+  @Type(() => directus_collectionsWhereInput)
+  where?: directus_collectionsWhereInput;
 }

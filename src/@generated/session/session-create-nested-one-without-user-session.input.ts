@@ -8,16 +8,17 @@ import { SessionWhereUniqueInput } from './session-where-unique.input';
 
 @InputType()
 export class SessionCreateNestedOneWithoutUser_SessionInput {
+  @Field(() => SessionCreateWithoutUser_SessionInput, { nullable: true })
+  @Type(() => SessionCreateWithoutUser_SessionInput)
+  create?: SessionCreateWithoutUser_SessionInput;
 
-    @Field(() => SessionCreateWithoutUser_SessionInput, {nullable:true})
-    @Type(() => SessionCreateWithoutUser_SessionInput)
-    create?: SessionCreateWithoutUser_SessionInput;
+  @Field(() => SessionCreateOrConnectWithoutUser_SessionInput, {
+    nullable: true,
+  })
+  @Type(() => SessionCreateOrConnectWithoutUser_SessionInput)
+  connectOrCreate?: SessionCreateOrConnectWithoutUser_SessionInput;
 
-    @Field(() => SessionCreateOrConnectWithoutUser_SessionInput, {nullable:true})
-    @Type(() => SessionCreateOrConnectWithoutUser_SessionInput)
-    connectOrCreate?: SessionCreateOrConnectWithoutUser_SessionInput;
-
-    @Field(() => SessionWhereUniqueInput, {nullable:true})
-    @Type(() => SessionWhereUniqueInput)
-    connect?: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
+  @Field(() => SessionWhereUniqueInput, { nullable: true })
+  @Type(() => SessionWhereUniqueInput)
+  connect?: Prisma.AtLeast<SessionWhereUniqueInput, 'id'>;
 }

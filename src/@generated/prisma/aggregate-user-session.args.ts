@@ -8,20 +8,21 @@ import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class AggregateUserSessionArgs {
+  @Field(() => User_SessionWhereInput, { nullable: true })
+  @Type(() => User_SessionWhereInput)
+  where?: User_SessionWhereInput;
 
-    @Field(() => User_SessionWhereInput, {nullable:true})
-    @Type(() => User_SessionWhereInput)
-    where?: User_SessionWhereInput;
+  @Field(() => [User_SessionOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<User_SessionOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [User_SessionOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<User_SessionOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => User_SessionWhereUniqueInput, { nullable: true })
+  cursor?: User_SessionWhereUniqueInput;
 
-    @Field(() => User_SessionWhereUniqueInput, {nullable:true})
-    cursor?: User_SessionWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
-
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 }

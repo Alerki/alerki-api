@@ -6,12 +6,25 @@ import { UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_user
 
 @InputType()
 export class UserUpsertWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput {
+  @Field(
+    () =>
+      UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+  )
+  update!: UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
 
-    @Field(() => UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput, {nullable:false})
-    @Type(() => UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput)
-    update!: UserUpdateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
-
-    @Field(() => UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput, {nullable:false})
-    @Type(() => UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput)
-    create!: UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
+  @Field(
+    () =>
+      UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+    { nullable: false },
+  )
+  @Type(
+    () =>
+      UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput,
+  )
+  create!: UserCreateWithoutUserSenderOnNotification_UserSenderOnNotification_userToUserInput;
 }

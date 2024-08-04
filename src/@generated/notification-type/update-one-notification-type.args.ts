@@ -7,12 +7,11 @@ import { NotificationTypeWhereUniqueInput } from './notification-type-where-uniq
 
 @ArgsType()
 export class UpdateOneNotificationTypeArgs {
+  @Field(() => NotificationTypeUpdateInput, { nullable: false })
+  @Type(() => NotificationTypeUpdateInput)
+  data!: NotificationTypeUpdateInput;
 
-    @Field(() => NotificationTypeUpdateInput, {nullable:false})
-    @Type(() => NotificationTypeUpdateInput)
-    data!: NotificationTypeUpdateInput;
-
-    @Field(() => NotificationTypeWhereUniqueInput, {nullable:false})
-    @Type(() => NotificationTypeWhereUniqueInput)
-    where!: Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id' | 'name'>;
+  @Field(() => NotificationTypeWhereUniqueInput, { nullable: false })
+  @Type(() => NotificationTypeWhereUniqueInput)
+  where!: Prisma.AtLeast<NotificationTypeWhereUniqueInput, 'id'>;
 }

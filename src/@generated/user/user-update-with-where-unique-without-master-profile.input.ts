@@ -7,12 +7,14 @@ import { UserUpdateWithoutMasterProfileInput } from './user-update-without-maste
 
 @InputType()
 export class UserUpdateWithWhereUniqueWithoutMasterProfileInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
-
-    @Field(() => UserUpdateWithoutMasterProfileInput, {nullable:false})
-    @Type(() => UserUpdateWithoutMasterProfileInput)
-    data!: UserUpdateWithoutMasterProfileInput;
+  @Field(() => UserUpdateWithoutMasterProfileInput, { nullable: false })
+  @Type(() => UserUpdateWithoutMasterProfileInput)
+  data!: UserUpdateWithoutMasterProfileInput;
 }

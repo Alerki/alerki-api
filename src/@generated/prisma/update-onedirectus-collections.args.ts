@@ -6,12 +6,11 @@ import { directus_collectionsWhereUniqueInput } from '../directus-collections/di
 
 @ArgsType()
 export class UpdateOnedirectusCollectionsArgs {
+  @Field(() => directus_collectionsUpdateInput, { nullable: false })
+  @Type(() => directus_collectionsUpdateInput)
+  data!: directus_collectionsUpdateInput;
 
-    @Field(() => directus_collectionsUpdateInput, {nullable:false})
-    @Type(() => directus_collectionsUpdateInput)
-    data!: directus_collectionsUpdateInput;
-
-    @Field(() => directus_collectionsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_collectionsWhereUniqueInput)
-    where!: directus_collectionsWhereUniqueInput;
+  @Field(() => directus_collectionsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_collectionsWhereUniqueInput)
+  where!: directus_collectionsWhereUniqueInput;
 }

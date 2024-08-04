@@ -5,25 +5,27 @@ import { Service_translationsUncheckedCreateNestedManyWithoutServiceInput } from
 
 @InputType()
 export class ServiceUncheckedCreateWithoutDirectus_users_Service_user_createdTodirectus_usersInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: true })
+  status?: string;
 
-    @Field(() => String, {nullable:true})
-    status?: string;
+  @Field(() => Int, { nullable: true })
+  sort?: number;
 
-    @Field(() => Int, {nullable:true})
-    sort?: number;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => String, { nullable: true })
+  user_updated?: string;
 
-    @Field(() => String, {nullable:true})
-    user_updated?: string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
-
-    @Field(() => Service_translationsUncheckedCreateNestedManyWithoutServiceInput, {nullable:true})
-    Service_translations?: Service_translationsUncheckedCreateNestedManyWithoutServiceInput;
+  @Field(
+    () => Service_translationsUncheckedCreateNestedManyWithoutServiceInput,
+    { nullable: true },
+  )
+  Service_translations?: Service_translationsUncheckedCreateNestedManyWithoutServiceInput;
 }

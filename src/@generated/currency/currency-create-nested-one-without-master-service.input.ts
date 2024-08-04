@@ -8,16 +8,17 @@ import { CurrencyWhereUniqueInput } from './currency-where-unique.input';
 
 @InputType()
 export class CurrencyCreateNestedOneWithoutMasterServiceInput {
+  @Field(() => CurrencyCreateWithoutMasterServiceInput, { nullable: true })
+  @Type(() => CurrencyCreateWithoutMasterServiceInput)
+  create?: CurrencyCreateWithoutMasterServiceInput;
 
-    @Field(() => CurrencyCreateWithoutMasterServiceInput, {nullable:true})
-    @Type(() => CurrencyCreateWithoutMasterServiceInput)
-    create?: CurrencyCreateWithoutMasterServiceInput;
+  @Field(() => CurrencyCreateOrConnectWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => CurrencyCreateOrConnectWithoutMasterServiceInput)
+  connectOrCreate?: CurrencyCreateOrConnectWithoutMasterServiceInput;
 
-    @Field(() => CurrencyCreateOrConnectWithoutMasterServiceInput, {nullable:true})
-    @Type(() => CurrencyCreateOrConnectWithoutMasterServiceInput)
-    connectOrCreate?: CurrencyCreateOrConnectWithoutMasterServiceInput;
-
-    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
-    @Type(() => CurrencyWhereUniqueInput)
-    connect?: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: true })
+  @Type(() => CurrencyWhereUniqueInput)
+  connect?: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 }

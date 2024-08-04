@@ -7,45 +7,40 @@ import { NotificationTypeScalarFieldEnum } from './notification-type-scalar-fiel
 import { NotificationTypeScalarWhereWithAggregatesInput } from './notification-type-scalar-where-with-aggregates.input';
 import { Int } from '@nestjs/graphql';
 import { NotificationTypeCountAggregateInput } from './notification-type-count-aggregate.input';
-import { NotificationTypeAvgAggregateInput } from './notification-type-avg-aggregate.input';
-import { NotificationTypeSumAggregateInput } from './notification-type-sum-aggregate.input';
 import { NotificationTypeMinAggregateInput } from './notification-type-min-aggregate.input';
 import { NotificationTypeMaxAggregateInput } from './notification-type-max-aggregate.input';
 
 @ArgsType()
 export class NotificationTypeGroupByArgs {
+  @Field(() => NotificationTypeWhereInput, { nullable: true })
+  @Type(() => NotificationTypeWhereInput)
+  where?: NotificationTypeWhereInput;
 
-    @Field(() => NotificationTypeWhereInput, {nullable:true})
-    @Type(() => NotificationTypeWhereInput)
-    where?: NotificationTypeWhereInput;
+  @Field(() => [NotificationTypeOrderByWithAggregationInput], {
+    nullable: true,
+  })
+  orderBy?: Array<NotificationTypeOrderByWithAggregationInput>;
 
-    @Field(() => [NotificationTypeOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<NotificationTypeOrderByWithAggregationInput>;
+  @Field(() => [NotificationTypeScalarFieldEnum], { nullable: false })
+  by!: Array<keyof typeof NotificationTypeScalarFieldEnum>;
 
-    @Field(() => [NotificationTypeScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof NotificationTypeScalarFieldEnum>;
+  @Field(() => NotificationTypeScalarWhereWithAggregatesInput, {
+    nullable: true,
+  })
+  having?: NotificationTypeScalarWhereWithAggregatesInput;
 
-    @Field(() => NotificationTypeScalarWhereWithAggregatesInput, {nullable:true})
-    having?: NotificationTypeScalarWhereWithAggregatesInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => NotificationTypeCountAggregateInput, { nullable: true })
+  _count?: NotificationTypeCountAggregateInput;
 
-    @Field(() => NotificationTypeCountAggregateInput, {nullable:true})
-    _count?: NotificationTypeCountAggregateInput;
+  @Field(() => NotificationTypeMinAggregateInput, { nullable: true })
+  _min?: NotificationTypeMinAggregateInput;
 
-    @Field(() => NotificationTypeAvgAggregateInput, {nullable:true})
-    _avg?: NotificationTypeAvgAggregateInput;
-
-    @Field(() => NotificationTypeSumAggregateInput, {nullable:true})
-    _sum?: NotificationTypeSumAggregateInput;
-
-    @Field(() => NotificationTypeMinAggregateInput, {nullable:true})
-    _min?: NotificationTypeMinAggregateInput;
-
-    @Field(() => NotificationTypeMaxAggregateInput, {nullable:true})
-    _max?: NotificationTypeMaxAggregateInput;
+  @Field(() => NotificationTypeMaxAggregateInput, { nullable: true })
+  _max?: NotificationTypeMaxAggregateInput;
 }

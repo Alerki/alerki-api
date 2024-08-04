@@ -8,16 +8,15 @@ import { AppointmentUpdateInput } from './appointment-update.input';
 
 @ArgsType()
 export class UpsertOneAppointmentArgs {
+  @Field(() => AppointmentWhereUniqueInput, { nullable: false })
+  @Type(() => AppointmentWhereUniqueInput)
+  where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
 
-    @Field(() => AppointmentWhereUniqueInput, {nullable:false})
-    @Type(() => AppointmentWhereUniqueInput)
-    where!: Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>;
+  @Field(() => AppointmentCreateInput, { nullable: false })
+  @Type(() => AppointmentCreateInput)
+  create!: AppointmentCreateInput;
 
-    @Field(() => AppointmentCreateInput, {nullable:false})
-    @Type(() => AppointmentCreateInput)
-    create!: AppointmentCreateInput;
-
-    @Field(() => AppointmentUpdateInput, {nullable:false})
-    @Type(() => AppointmentUpdateInput)
-    update!: AppointmentUpdateInput;
+  @Field(() => AppointmentUpdateInput, { nullable: false })
+  @Type(() => AppointmentUpdateInput)
+  update!: AppointmentUpdateInput;
 }

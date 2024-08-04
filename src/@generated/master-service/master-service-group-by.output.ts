@@ -9,46 +9,45 @@ import { MasterServiceMaxAggregate } from './master-service-max-aggregate.output
 
 @ObjectType()
 export class MasterServiceGroupBy {
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => String, { nullable: false })
+  status!: string;
 
-    @Field(() => String, {nullable:false})
-    status!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  masterProfile!: string;
 
-    @Field(() => String, {nullable:false})
-    masterProfile!: string;
+  @Field(() => Date, { nullable: false })
+  duration!: Date | string;
 
-    @Field(() => Date, {nullable:false})
-    duration!: Date | string;
+  @Field(() => Int, { nullable: false })
+  price!: number;
 
-    @Field(() => Int, {nullable:false})
-    price!: number;
+  @Field(() => String, { nullable: false })
+  currency!: string;
 
-    @Field(() => String, {nullable:false})
-    currency!: string;
+  @Field(() => Int, { nullable: false })
+  service!: number;
 
-    @Field(() => Int, {nullable:false})
-    service!: number;
+  @Field(() => MasterServiceCountAggregate, { nullable: true })
+  _count?: MasterServiceCountAggregate;
 
-    @Field(() => MasterServiceCountAggregate, {nullable:true})
-    _count?: MasterServiceCountAggregate;
+  @Field(() => MasterServiceAvgAggregate, { nullable: true })
+  _avg?: MasterServiceAvgAggregate;
 
-    @Field(() => MasterServiceAvgAggregate, {nullable:true})
-    _avg?: MasterServiceAvgAggregate;
+  @Field(() => MasterServiceSumAggregate, { nullable: true })
+  _sum?: MasterServiceSumAggregate;
 
-    @Field(() => MasterServiceSumAggregate, {nullable:true})
-    _sum?: MasterServiceSumAggregate;
+  @Field(() => MasterServiceMinAggregate, { nullable: true })
+  _min?: MasterServiceMinAggregate;
 
-    @Field(() => MasterServiceMinAggregate, {nullable:true})
-    _min?: MasterServiceMinAggregate;
-
-    @Field(() => MasterServiceMaxAggregate, {nullable:true})
-    _max?: MasterServiceMaxAggregate;
+  @Field(() => MasterServiceMaxAggregate, { nullable: true })
+  _max?: MasterServiceMaxAggregate;
 }

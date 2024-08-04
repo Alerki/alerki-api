@@ -10,30 +10,37 @@ import { languagesUpdateWithoutService_translationsInput } from './languages-upd
 
 @InputType()
 export class languagesUpdateOneWithoutService_translationsNestedInput {
+  @Field(() => languagesCreateWithoutService_translationsInput, {
+    nullable: true,
+  })
+  @Type(() => languagesCreateWithoutService_translationsInput)
+  create?: languagesCreateWithoutService_translationsInput;
 
-    @Field(() => languagesCreateWithoutService_translationsInput, {nullable:true})
-    @Type(() => languagesCreateWithoutService_translationsInput)
-    create?: languagesCreateWithoutService_translationsInput;
+  @Field(() => languagesCreateOrConnectWithoutService_translationsInput, {
+    nullable: true,
+  })
+  @Type(() => languagesCreateOrConnectWithoutService_translationsInput)
+  connectOrCreate?: languagesCreateOrConnectWithoutService_translationsInput;
 
-    @Field(() => languagesCreateOrConnectWithoutService_translationsInput, {nullable:true})
-    @Type(() => languagesCreateOrConnectWithoutService_translationsInput)
-    connectOrCreate?: languagesCreateOrConnectWithoutService_translationsInput;
+  @Field(() => languagesUpsertWithoutService_translationsInput, {
+    nullable: true,
+  })
+  @Type(() => languagesUpsertWithoutService_translationsInput)
+  upsert?: languagesUpsertWithoutService_translationsInput;
 
-    @Field(() => languagesUpsertWithoutService_translationsInput, {nullable:true})
-    @Type(() => languagesUpsertWithoutService_translationsInput)
-    upsert?: languagesUpsertWithoutService_translationsInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => languagesWhereUniqueInput, { nullable: true })
+  @Type(() => languagesWhereUniqueInput)
+  connect?: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
 
-    @Field(() => languagesWhereUniqueInput, {nullable:true})
-    @Type(() => languagesWhereUniqueInput)
-    connect?: Prisma.AtLeast<languagesWhereUniqueInput, 'code'>;
-
-    @Field(() => languagesUpdateWithoutService_translationsInput, {nullable:true})
-    @Type(() => languagesUpdateWithoutService_translationsInput)
-    update?: languagesUpdateWithoutService_translationsInput;
+  @Field(() => languagesUpdateWithoutService_translationsInput, {
+    nullable: true,
+  })
+  @Type(() => languagesUpdateWithoutService_translationsInput)
+  update?: languagesUpdateWithoutService_translationsInput;
 }

@@ -4,16 +4,17 @@ import { UserCreateNestedManyWithoutClientProfileInput } from '../user/user-crea
 
 @InputType()
 export class ClientProfileCreateWithoutAppointmentInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
-
-    @Field(() => UserCreateNestedManyWithoutClientProfileInput, {nullable:true})
-    User?: UserCreateNestedManyWithoutClientProfileInput;
+  @Field(() => UserCreateNestedManyWithoutClientProfileInput, {
+    nullable: true,
+  })
+  User?: UserCreateNestedManyWithoutClientProfileInput;
 }

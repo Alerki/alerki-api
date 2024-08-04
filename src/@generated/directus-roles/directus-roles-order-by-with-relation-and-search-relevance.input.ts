@@ -9,43 +9,46 @@ import { directus_rolesOrderByRelevanceInput } from './directus-roles-order-by-r
 
 @InputType()
 export class directus_rolesOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  name?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  icon?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    icon?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  description?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    description?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  ip_access?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    ip_access?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  enforce_tfa?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    enforce_tfa?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  admin_access?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    admin_access?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  app_access?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    app_access?: keyof typeof SortOrder;
+  @Field(() => directus_permissionsOrderByRelationAggregateInput, {
+    nullable: true,
+  })
+  directus_permissions?: directus_permissionsOrderByRelationAggregateInput;
 
-    @Field(() => directus_permissionsOrderByRelationAggregateInput, {nullable:true})
-    directus_permissions?: directus_permissionsOrderByRelationAggregateInput;
+  @Field(() => directus_presetsOrderByRelationAggregateInput, {
+    nullable: true,
+  })
+  directus_presets?: directus_presetsOrderByRelationAggregateInput;
 
-    @Field(() => directus_presetsOrderByRelationAggregateInput, {nullable:true})
-    directus_presets?: directus_presetsOrderByRelationAggregateInput;
+  @Field(() => directus_sharesOrderByRelationAggregateInput, { nullable: true })
+  directus_shares?: directus_sharesOrderByRelationAggregateInput;
 
-    @Field(() => directus_sharesOrderByRelationAggregateInput, {nullable:true})
-    directus_shares?: directus_sharesOrderByRelationAggregateInput;
+  @Field(() => directus_usersOrderByRelationAggregateInput, { nullable: true })
+  directus_users?: directus_usersOrderByRelationAggregateInput;
 
-    @Field(() => directus_usersOrderByRelationAggregateInput, {nullable:true})
-    directus_users?: directus_usersOrderByRelationAggregateInput;
-
-    @Field(() => directus_rolesOrderByRelevanceInput, {nullable:true})
-    _relevance?: directus_rolesOrderByRelevanceInput;
+  @Field(() => directus_rolesOrderByRelevanceInput, { nullable: true })
+  _relevance?: directus_rolesOrderByRelevanceInput;
 }

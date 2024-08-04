@@ -13,48 +13,57 @@ import { AppointmentScalarWhereInput } from './appointment-scalar-where.input';
 
 @InputType()
 export class AppointmentUncheckedUpdateManyWithoutClientProfileNestedInput {
+  @Field(() => [AppointmentCreateWithoutClientProfileInput], { nullable: true })
+  @Type(() => AppointmentCreateWithoutClientProfileInput)
+  create?: Array<AppointmentCreateWithoutClientProfileInput>;
 
-    @Field(() => [AppointmentCreateWithoutClientProfileInput], {nullable:true})
-    @Type(() => AppointmentCreateWithoutClientProfileInput)
-    create?: Array<AppointmentCreateWithoutClientProfileInput>;
+  @Field(() => [AppointmentCreateOrConnectWithoutClientProfileInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentCreateOrConnectWithoutClientProfileInput)
+  connectOrCreate?: Array<AppointmentCreateOrConnectWithoutClientProfileInput>;
 
-    @Field(() => [AppointmentCreateOrConnectWithoutClientProfileInput], {nullable:true})
-    @Type(() => AppointmentCreateOrConnectWithoutClientProfileInput)
-    connectOrCreate?: Array<AppointmentCreateOrConnectWithoutClientProfileInput>;
+  @Field(() => [AppointmentUpsertWithWhereUniqueWithoutClientProfileInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentUpsertWithWhereUniqueWithoutClientProfileInput)
+  upsert?: Array<AppointmentUpsertWithWhereUniqueWithoutClientProfileInput>;
 
-    @Field(() => [AppointmentUpsertWithWhereUniqueWithoutClientProfileInput], {nullable:true})
-    @Type(() => AppointmentUpsertWithWhereUniqueWithoutClientProfileInput)
-    upsert?: Array<AppointmentUpsertWithWhereUniqueWithoutClientProfileInput>;
+  @Field(() => AppointmentCreateManyClientProfileInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => AppointmentCreateManyClientProfileInputEnvelope)
+  createMany?: AppointmentCreateManyClientProfileInputEnvelope;
 
-    @Field(() => AppointmentCreateManyClientProfileInputEnvelope, {nullable:true})
-    @Type(() => AppointmentCreateManyClientProfileInputEnvelope)
-    createMany?: AppointmentCreateManyClientProfileInputEnvelope;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  set?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    set?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  disconnect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    disconnect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  delete?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    delete?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentUpdateWithWhereUniqueWithoutClientProfileInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentUpdateWithWhereUniqueWithoutClientProfileInput)
+  update?: Array<AppointmentUpdateWithWhereUniqueWithoutClientProfileInput>;
 
-    @Field(() => [AppointmentUpdateWithWhereUniqueWithoutClientProfileInput], {nullable:true})
-    @Type(() => AppointmentUpdateWithWhereUniqueWithoutClientProfileInput)
-    update?: Array<AppointmentUpdateWithWhereUniqueWithoutClientProfileInput>;
+  @Field(() => [AppointmentUpdateManyWithWhereWithoutClientProfileInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentUpdateManyWithWhereWithoutClientProfileInput)
+  updateMany?: Array<AppointmentUpdateManyWithWhereWithoutClientProfileInput>;
 
-    @Field(() => [AppointmentUpdateManyWithWhereWithoutClientProfileInput], {nullable:true})
-    @Type(() => AppointmentUpdateManyWithWhereWithoutClientProfileInput)
-    updateMany?: Array<AppointmentUpdateManyWithWhereWithoutClientProfileInput>;
-
-    @Field(() => [AppointmentScalarWhereInput], {nullable:true})
-    @Type(() => AppointmentScalarWhereInput)
-    deleteMany?: Array<AppointmentScalarWhereInput>;
+  @Field(() => [AppointmentScalarWhereInput], { nullable: true })
+  @Type(() => AppointmentScalarWhereInput)
+  deleteMany?: Array<AppointmentScalarWhereInput>;
 }

@@ -9,20 +9,26 @@ import { directus_permissionsWhereUniqueInput } from './directus-permissions-whe
 
 @InputType()
 export class directus_permissionsUncheckedCreateNestedManyWithoutDirectus_rolesInput {
+  @Field(() => [directus_permissionsCreateWithoutDirectus_rolesInput], {
+    nullable: true,
+  })
+  @Type(() => directus_permissionsCreateWithoutDirectus_rolesInput)
+  create?: Array<directus_permissionsCreateWithoutDirectus_rolesInput>;
 
-    @Field(() => [directus_permissionsCreateWithoutDirectus_rolesInput], {nullable:true})
-    @Type(() => directus_permissionsCreateWithoutDirectus_rolesInput)
-    create?: Array<directus_permissionsCreateWithoutDirectus_rolesInput>;
+  @Field(
+    () => [directus_permissionsCreateOrConnectWithoutDirectus_rolesInput],
+    { nullable: true },
+  )
+  @Type(() => directus_permissionsCreateOrConnectWithoutDirectus_rolesInput)
+  connectOrCreate?: Array<directus_permissionsCreateOrConnectWithoutDirectus_rolesInput>;
 
-    @Field(() => [directus_permissionsCreateOrConnectWithoutDirectus_rolesInput], {nullable:true})
-    @Type(() => directus_permissionsCreateOrConnectWithoutDirectus_rolesInput)
-    connectOrCreate?: Array<directus_permissionsCreateOrConnectWithoutDirectus_rolesInput>;
+  @Field(() => directus_permissionsCreateManyDirectus_rolesInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_permissionsCreateManyDirectus_rolesInputEnvelope)
+  createMany?: directus_permissionsCreateManyDirectus_rolesInputEnvelope;
 
-    @Field(() => directus_permissionsCreateManyDirectus_rolesInputEnvelope, {nullable:true})
-    @Type(() => directus_permissionsCreateManyDirectus_rolesInputEnvelope)
-    createMany?: directus_permissionsCreateManyDirectus_rolesInputEnvelope;
-
-    @Field(() => [directus_permissionsWhereUniqueInput], {nullable:true})
-    @Type(() => directus_permissionsWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_permissionsWhereUniqueInput, 'id'>>;
+  @Field(() => [directus_permissionsWhereUniqueInput], { nullable: true })
+  @Type(() => directus_permissionsWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<directus_permissionsWhereUniqueInput, 'id'>>;
 }

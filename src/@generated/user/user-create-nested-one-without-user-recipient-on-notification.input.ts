@@ -8,16 +8,22 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateNestedOneWithoutUserRecipientOnNotificationInput {
+  @Field(() => UserCreateWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => UserCreateWithoutUserRecipientOnNotificationInput)
+  create?: UserCreateWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => UserCreateWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => UserCreateWithoutUserRecipientOnNotificationInput)
-    create?: UserCreateWithoutUserRecipientOnNotificationInput;
+  @Field(() => UserCreateOrConnectWithoutUserRecipientOnNotificationInput, {
+    nullable: true,
+  })
+  @Type(() => UserCreateOrConnectWithoutUserRecipientOnNotificationInput)
+  connectOrCreate?: UserCreateOrConnectWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => UserCreateOrConnectWithoutUserRecipientOnNotificationInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutUserRecipientOnNotificationInput)
-    connectOrCreate?: UserCreateOrConnectWithoutUserRecipientOnNotificationInput;
-
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 }

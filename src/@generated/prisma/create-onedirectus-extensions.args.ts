@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusExtensionsArgs {
-
-    @Field(() => directus_extensionsCreateInput, {nullable:false})
-    @Type(() => directus_extensionsCreateInput)
-    data!: directus_extensionsCreateInput;
+  @Field(() => directus_extensionsCreateInput, { nullable: false })
+  @Type(() => directus_extensionsCreateInput)
+  data!: directus_extensionsCreateInput;
 }

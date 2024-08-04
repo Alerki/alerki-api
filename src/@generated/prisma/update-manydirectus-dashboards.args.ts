@@ -6,12 +6,11 @@ import { directus_dashboardsWhereInput } from '../directus-dashboards/directus-d
 
 @ArgsType()
 export class UpdateManydirectusDashboardsArgs {
+  @Field(() => directus_dashboardsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_dashboardsUpdateManyMutationInput)
+  data!: directus_dashboardsUpdateManyMutationInput;
 
-    @Field(() => directus_dashboardsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_dashboardsUpdateManyMutationInput)
-    data!: directus_dashboardsUpdateManyMutationInput;
-
-    @Field(() => directus_dashboardsWhereInput, {nullable:true})
-    @Type(() => directus_dashboardsWhereInput)
-    where?: directus_dashboardsWhereInput;
+  @Field(() => directus_dashboardsWhereInput, { nullable: true })
+  @Type(() => directus_dashboardsWhereInput)
+  where?: directus_dashboardsWhereInput;
 }

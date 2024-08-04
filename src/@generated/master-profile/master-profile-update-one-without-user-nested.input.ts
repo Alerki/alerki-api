@@ -10,30 +10,29 @@ import { MasterProfileUpdateWithoutUserInput } from './master-profile-update-wit
 
 @InputType()
 export class MasterProfileUpdateOneWithoutUserNestedInput {
+  @Field(() => MasterProfileCreateWithoutUserInput, { nullable: true })
+  @Type(() => MasterProfileCreateWithoutUserInput)
+  create?: MasterProfileCreateWithoutUserInput;
 
-    @Field(() => MasterProfileCreateWithoutUserInput, {nullable:true})
-    @Type(() => MasterProfileCreateWithoutUserInput)
-    create?: MasterProfileCreateWithoutUserInput;
+  @Field(() => MasterProfileCreateOrConnectWithoutUserInput, { nullable: true })
+  @Type(() => MasterProfileCreateOrConnectWithoutUserInput)
+  connectOrCreate?: MasterProfileCreateOrConnectWithoutUserInput;
 
-    @Field(() => MasterProfileCreateOrConnectWithoutUserInput, {nullable:true})
-    @Type(() => MasterProfileCreateOrConnectWithoutUserInput)
-    connectOrCreate?: MasterProfileCreateOrConnectWithoutUserInput;
+  @Field(() => MasterProfileUpsertWithoutUserInput, { nullable: true })
+  @Type(() => MasterProfileUpsertWithoutUserInput)
+  upsert?: MasterProfileUpsertWithoutUserInput;
 
-    @Field(() => MasterProfileUpsertWithoutUserInput, {nullable:true})
-    @Type(() => MasterProfileUpsertWithoutUserInput)
-    upsert?: MasterProfileUpsertWithoutUserInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: true })
+  @Type(() => MasterProfileWhereUniqueInput)
+  connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:true})
-    @Type(() => MasterProfileWhereUniqueInput)
-    connect?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
-
-    @Field(() => MasterProfileUpdateWithoutUserInput, {nullable:true})
-    @Type(() => MasterProfileUpdateWithoutUserInput)
-    update?: MasterProfileUpdateWithoutUserInput;
+  @Field(() => MasterProfileUpdateWithoutUserInput, { nullable: true })
+  @Type(() => MasterProfileUpdateWithoutUserInput)
+  update?: MasterProfileUpdateWithoutUserInput;
 }

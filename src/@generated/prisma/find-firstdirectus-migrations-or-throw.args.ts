@@ -9,23 +9,25 @@ import { Directus_migrationsScalarFieldEnum } from './directus-migrations-scalar
 
 @ArgsType()
 export class FindFirstdirectusMigrationsOrThrowArgs {
+  @Field(() => directus_migrationsWhereInput, { nullable: true })
+  @Type(() => directus_migrationsWhereInput)
+  where?: directus_migrationsWhereInput;
 
-    @Field(() => directus_migrationsWhereInput, {nullable:true})
-    @Type(() => directus_migrationsWhereInput)
-    where?: directus_migrationsWhereInput;
+  @Field(
+    () => [directus_migrationsOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<directus_migrationsOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [directus_migrationsOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<directus_migrationsOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => directus_migrationsWhereUniqueInput, { nullable: true })
+  cursor?: directus_migrationsWhereUniqueInput;
 
-    @Field(() => directus_migrationsWhereUniqueInput, {nullable:true})
-    cursor?: directus_migrationsWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [Directus_migrationsScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof Directus_migrationsScalarFieldEnum>;
+  @Field(() => [Directus_migrationsScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof Directus_migrationsScalarFieldEnum>;
 }

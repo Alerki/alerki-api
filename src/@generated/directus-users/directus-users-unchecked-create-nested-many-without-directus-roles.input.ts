@@ -9,20 +9,30 @@ import { directus_usersWhereUniqueInput } from './directus-users-where-unique.in
 
 @InputType()
 export class directus_usersUncheckedCreateNestedManyWithoutDirectus_rolesInput {
+  @Field(() => [directus_usersCreateWithoutDirectus_rolesInput], {
+    nullable: true,
+  })
+  @Type(() => directus_usersCreateWithoutDirectus_rolesInput)
+  create?: Array<directus_usersCreateWithoutDirectus_rolesInput>;
 
-    @Field(() => [directus_usersCreateWithoutDirectus_rolesInput], {nullable:true})
-    @Type(() => directus_usersCreateWithoutDirectus_rolesInput)
-    create?: Array<directus_usersCreateWithoutDirectus_rolesInput>;
+  @Field(() => [directus_usersCreateOrConnectWithoutDirectus_rolesInput], {
+    nullable: true,
+  })
+  @Type(() => directus_usersCreateOrConnectWithoutDirectus_rolesInput)
+  connectOrCreate?: Array<directus_usersCreateOrConnectWithoutDirectus_rolesInput>;
 
-    @Field(() => [directus_usersCreateOrConnectWithoutDirectus_rolesInput], {nullable:true})
-    @Type(() => directus_usersCreateOrConnectWithoutDirectus_rolesInput)
-    connectOrCreate?: Array<directus_usersCreateOrConnectWithoutDirectus_rolesInput>;
+  @Field(() => directus_usersCreateManyDirectus_rolesInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => directus_usersCreateManyDirectus_rolesInputEnvelope)
+  createMany?: directus_usersCreateManyDirectus_rolesInputEnvelope;
 
-    @Field(() => directus_usersCreateManyDirectus_rolesInputEnvelope, {nullable:true})
-    @Type(() => directus_usersCreateManyDirectus_rolesInputEnvelope)
-    createMany?: directus_usersCreateManyDirectus_rolesInputEnvelope;
-
-    @Field(() => [directus_usersWhereUniqueInput], {nullable:true})
-    @Type(() => directus_usersWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>>;
+  @Field(() => [directus_usersWhereUniqueInput], { nullable: true })
+  @Type(() => directus_usersWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<
+      directus_usersWhereUniqueInput,
+      'id' | 'email' | 'token' | 'external_identifier'
+    >
+  >;
 }

@@ -1,8 +1,11 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum NotificationOrderByRelevanceFieldEnum {
-    id = "id"
+  id = 'id',
+  type = 'type',
 }
 
-
-registerEnumType(NotificationOrderByRelevanceFieldEnum, { name: 'NotificationOrderByRelevanceFieldEnum', description: undefined })
+registerEnumType(NotificationOrderByRelevanceFieldEnum, {
+  name: 'NotificationOrderByRelevanceFieldEnum',
+  description: undefined,
+});

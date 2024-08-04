@@ -6,12 +6,11 @@ import { directus_revisionsWhereInput } from '../directus-revisions/directus-rev
 
 @ArgsType()
 export class UpdateManydirectusRevisionsArgs {
+  @Field(() => directus_revisionsUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_revisionsUpdateManyMutationInput)
+  data!: directus_revisionsUpdateManyMutationInput;
 
-    @Field(() => directus_revisionsUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_revisionsUpdateManyMutationInput)
-    data!: directus_revisionsUpdateManyMutationInput;
-
-    @Field(() => directus_revisionsWhereInput, {nullable:true})
-    @Type(() => directus_revisionsWhereInput)
-    where?: directus_revisionsWhereInput;
+  @Field(() => directus_revisionsWhereInput, { nullable: true })
+  @Type(() => directus_revisionsWhereInput)
+  where?: directus_revisionsWhereInput;
 }

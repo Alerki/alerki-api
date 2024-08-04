@@ -6,12 +6,15 @@ import { UserCreateWithoutUserRecipientOnNotificationInput } from './user-create
 
 @InputType()
 export class UserUpsertWithoutUserRecipientOnNotificationInput {
+  @Field(() => UserUpdateWithoutUserRecipientOnNotificationInput, {
+    nullable: false,
+  })
+  @Type(() => UserUpdateWithoutUserRecipientOnNotificationInput)
+  update!: UserUpdateWithoutUserRecipientOnNotificationInput;
 
-    @Field(() => UserUpdateWithoutUserRecipientOnNotificationInput, {nullable:false})
-    @Type(() => UserUpdateWithoutUserRecipientOnNotificationInput)
-    update!: UserUpdateWithoutUserRecipientOnNotificationInput;
-
-    @Field(() => UserCreateWithoutUserRecipientOnNotificationInput, {nullable:false})
-    @Type(() => UserCreateWithoutUserRecipientOnNotificationInput)
-    create!: UserCreateWithoutUserRecipientOnNotificationInput;
+  @Field(() => UserCreateWithoutUserRecipientOnNotificationInput, {
+    nullable: false,
+  })
+  @Type(() => UserCreateWithoutUserRecipientOnNotificationInput)
+  create!: UserCreateWithoutUserRecipientOnNotificationInput;
 }

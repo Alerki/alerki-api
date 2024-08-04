@@ -10,37 +10,38 @@ import { MasterProfileOrderByRelevanceInput } from './master-profile-order-by-re
 
 @InputType()
 export class MasterProfileOrderByWithRelationAndSearchRelevanceInput {
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_created?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_created?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  date_updated?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    date_updated?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  masterWeeklySchedule?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, {nullable:true})
-    masterWeeklySchedule?: keyof typeof SortOrder;
+  @Field(() => AppointmentOrderByRelationAggregateInput, { nullable: true })
+  Appointment_Appointment_masterProfileToMasterProfile?: AppointmentOrderByRelationAggregateInput;
 
-    @Field(() => AppointmentOrderByRelationAggregateInput, {nullable:true})
-    Appointment_Appointment_masterProfileToMasterProfile?: AppointmentOrderByRelationAggregateInput;
+  @Field(() => AppointmentOrderByRelationAggregateInput, { nullable: true })
+  Appointment_Appointment_masterServiceToMasterProfile?: AppointmentOrderByRelationAggregateInput;
 
-    @Field(() => AppointmentOrderByRelationAggregateInput, {nullable:true})
-    Appointment_Appointment_masterServiceToMasterProfile?: AppointmentOrderByRelationAggregateInput;
+  @Field(() => MasterWeeklyScheduleOrderByWithRelationAndSearchRelevanceInput, {
+    nullable: true,
+  })
+  MasterWeeklySchedule?: MasterWeeklyScheduleOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => MasterWeeklyScheduleOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
-    MasterWeeklySchedule?: MasterWeeklyScheduleOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => MasterScheduleOrderByRelationAggregateInput, { nullable: true })
+  MasterSchedule?: MasterScheduleOrderByRelationAggregateInput;
 
-    @Field(() => MasterScheduleOrderByRelationAggregateInput, {nullable:true})
-    MasterSchedule?: MasterScheduleOrderByRelationAggregateInput;
+  @Field(() => MasterServiceOrderByRelationAggregateInput, { nullable: true })
+  MasterService?: MasterServiceOrderByRelationAggregateInput;
 
-    @Field(() => MasterServiceOrderByRelationAggregateInput, {nullable:true})
-    MasterService?: MasterServiceOrderByRelationAggregateInput;
+  @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
+  User?: UserOrderByRelationAggregateInput;
 
-    @Field(() => UserOrderByRelationAggregateInput, {nullable:true})
-    User?: UserOrderByRelationAggregateInput;
-
-    @Field(() => MasterProfileOrderByRelevanceInput, {nullable:true})
-    _relevance?: MasterProfileOrderByRelevanceInput;
+  @Field(() => MasterProfileOrderByRelevanceInput, { nullable: true })
+  _relevance?: MasterProfileOrderByRelevanceInput;
 }

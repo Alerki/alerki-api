@@ -7,12 +7,13 @@ import { Service_translationsUpdateWithoutServiceInput } from './service-transla
 
 @InputType()
 export class Service_translationsUpdateWithWhereUniqueWithoutServiceInput {
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: false })
+  @Type(() => Service_translationsWhereUniqueInput)
+  where!: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
 
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:false})
-    @Type(() => Service_translationsWhereUniqueInput)
-    where!: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
-
-    @Field(() => Service_translationsUpdateWithoutServiceInput, {nullable:false})
-    @Type(() => Service_translationsUpdateWithoutServiceInput)
-    data!: Service_translationsUpdateWithoutServiceInput;
+  @Field(() => Service_translationsUpdateWithoutServiceInput, {
+    nullable: false,
+  })
+  @Type(() => Service_translationsUpdateWithoutServiceInput)
+  data!: Service_translationsUpdateWithoutServiceInput;
 }

@@ -7,28 +7,41 @@ import { MasterServiceUncheckedCreateNestedManyWithoutMasterProfileInput } from 
 
 @InputType()
 export class MasterProfileUncheckedCreateWithoutUserInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:false})
-    id!: string;
+  @Field(() => Date, { nullable: true })
+  date_created?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  date_updated?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    date_updated?: Date | string;
+  @Field(() => String, { nullable: false })
+  masterWeeklySchedule!: string;
 
-    @Field(() => String, {nullable:false})
-    masterWeeklySchedule!: string;
+  @Field(
+    () =>
+      AppointmentUncheckedCreateNestedManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput,
+    { nullable: true },
+  )
+  Appointment_Appointment_masterProfileToMasterProfile?: AppointmentUncheckedCreateNestedManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput;
 
-    @Field(() => AppointmentUncheckedCreateNestedManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput, {nullable:true})
-    Appointment_Appointment_masterProfileToMasterProfile?: AppointmentUncheckedCreateNestedManyWithoutMasterProfile_Appointment_masterProfileToMasterProfileInput;
+  @Field(
+    () =>
+      AppointmentUncheckedCreateNestedManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput,
+    { nullable: true },
+  )
+  Appointment_Appointment_masterServiceToMasterProfile?: AppointmentUncheckedCreateNestedManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput;
 
-    @Field(() => AppointmentUncheckedCreateNestedManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput, {nullable:true})
-    Appointment_Appointment_masterServiceToMasterProfile?: AppointmentUncheckedCreateNestedManyWithoutMasterProfile_Appointment_masterServiceToMasterProfileInput;
+  @Field(
+    () => MasterScheduleUncheckedCreateNestedManyWithoutMasterProfileInput,
+    { nullable: true },
+  )
+  MasterSchedule?: MasterScheduleUncheckedCreateNestedManyWithoutMasterProfileInput;
 
-    @Field(() => MasterScheduleUncheckedCreateNestedManyWithoutMasterProfileInput, {nullable:true})
-    MasterSchedule?: MasterScheduleUncheckedCreateNestedManyWithoutMasterProfileInput;
-
-    @Field(() => MasterServiceUncheckedCreateNestedManyWithoutMasterProfileInput, {nullable:true})
-    MasterService?: MasterServiceUncheckedCreateNestedManyWithoutMasterProfileInput;
+  @Field(
+    () => MasterServiceUncheckedCreateNestedManyWithoutMasterProfileInput,
+    { nullable: true },
+  )
+  MasterService?: MasterServiceUncheckedCreateNestedManyWithoutMasterProfileInput;
 }

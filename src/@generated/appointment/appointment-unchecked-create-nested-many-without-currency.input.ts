@@ -9,20 +9,21 @@ import { AppointmentWhereUniqueInput } from './appointment-where-unique.input';
 
 @InputType()
 export class AppointmentUncheckedCreateNestedManyWithoutCurrencyInput {
+  @Field(() => [AppointmentCreateWithoutCurrencyInput], { nullable: true })
+  @Type(() => AppointmentCreateWithoutCurrencyInput)
+  create?: Array<AppointmentCreateWithoutCurrencyInput>;
 
-    @Field(() => [AppointmentCreateWithoutCurrencyInput], {nullable:true})
-    @Type(() => AppointmentCreateWithoutCurrencyInput)
-    create?: Array<AppointmentCreateWithoutCurrencyInput>;
+  @Field(() => [AppointmentCreateOrConnectWithoutCurrencyInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentCreateOrConnectWithoutCurrencyInput)
+  connectOrCreate?: Array<AppointmentCreateOrConnectWithoutCurrencyInput>;
 
-    @Field(() => [AppointmentCreateOrConnectWithoutCurrencyInput], {nullable:true})
-    @Type(() => AppointmentCreateOrConnectWithoutCurrencyInput)
-    connectOrCreate?: Array<AppointmentCreateOrConnectWithoutCurrencyInput>;
+  @Field(() => AppointmentCreateManyCurrencyInputEnvelope, { nullable: true })
+  @Type(() => AppointmentCreateManyCurrencyInputEnvelope)
+  createMany?: AppointmentCreateManyCurrencyInputEnvelope;
 
-    @Field(() => AppointmentCreateManyCurrencyInputEnvelope, {nullable:true})
-    @Type(() => AppointmentCreateManyCurrencyInputEnvelope)
-    createMany?: AppointmentCreateManyCurrencyInputEnvelope;
-
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 }

@@ -7,16 +7,15 @@ import { directus_settingsUpdateInput } from '../directus-settings/directus-sett
 
 @ArgsType()
 export class UpsertOnedirectusSettingsArgs {
+  @Field(() => directus_settingsWhereUniqueInput, { nullable: false })
+  @Type(() => directus_settingsWhereUniqueInput)
+  where!: directus_settingsWhereUniqueInput;
 
-    @Field(() => directus_settingsWhereUniqueInput, {nullable:false})
-    @Type(() => directus_settingsWhereUniqueInput)
-    where!: directus_settingsWhereUniqueInput;
+  @Field(() => directus_settingsCreateInput, { nullable: false })
+  @Type(() => directus_settingsCreateInput)
+  create!: directus_settingsCreateInput;
 
-    @Field(() => directus_settingsCreateInput, {nullable:false})
-    @Type(() => directus_settingsCreateInput)
-    create!: directus_settingsCreateInput;
-
-    @Field(() => directus_settingsUpdateInput, {nullable:false})
-    @Type(() => directus_settingsUpdateInput)
-    update!: directus_settingsUpdateInput;
+  @Field(() => directus_settingsUpdateInput, { nullable: false })
+  @Type(() => directus_settingsUpdateInput)
+  update!: directus_settingsUpdateInput;
 }

@@ -8,16 +8,19 @@ import { Service_translationsWhereUniqueInput } from './service-translations-whe
 
 @InputType()
 export class Service_translationsCreateNestedOneWithoutMasterServiceInput {
+  @Field(() => Service_translationsCreateWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateWithoutMasterServiceInput)
+  create?: Service_translationsCreateWithoutMasterServiceInput;
 
-    @Field(() => Service_translationsCreateWithoutMasterServiceInput, {nullable:true})
-    @Type(() => Service_translationsCreateWithoutMasterServiceInput)
-    create?: Service_translationsCreateWithoutMasterServiceInput;
+  @Field(() => Service_translationsCreateOrConnectWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => Service_translationsCreateOrConnectWithoutMasterServiceInput)
+  connectOrCreate?: Service_translationsCreateOrConnectWithoutMasterServiceInput;
 
-    @Field(() => Service_translationsCreateOrConnectWithoutMasterServiceInput, {nullable:true})
-    @Type(() => Service_translationsCreateOrConnectWithoutMasterServiceInput)
-    connectOrCreate?: Service_translationsCreateOrConnectWithoutMasterServiceInput;
-
-    @Field(() => Service_translationsWhereUniqueInput, {nullable:true})
-    @Type(() => Service_translationsWhereUniqueInput)
-    connect?: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
+  @Field(() => Service_translationsWhereUniqueInput, { nullable: true })
+  @Type(() => Service_translationsWhereUniqueInput)
+  connect?: Prisma.AtLeast<Service_translationsWhereUniqueInput, 'id' | 'name'>;
 }

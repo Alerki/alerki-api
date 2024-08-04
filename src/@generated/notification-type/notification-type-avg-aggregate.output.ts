@@ -4,10 +4,9 @@ import { Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class NotificationTypeAvgAggregate {
+  @Field(() => Float, { nullable: true })
+  id?: number;
 
-    @Field(() => Float, {nullable:true})
-    id?: number;
-
-    @Field(() => Float, {nullable:true})
-    sort?: number;
+  @Field(() => Float, { nullable: true })
+  sort?: number;
 }

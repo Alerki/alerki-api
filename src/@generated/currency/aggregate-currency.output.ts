@@ -8,19 +8,18 @@ import { CurrencyMaxAggregate } from './currency-max-aggregate.output';
 
 @ObjectType()
 export class AggregateCurrency {
+  @Field(() => CurrencyCountAggregate, { nullable: true })
+  _count?: CurrencyCountAggregate;
 
-    @Field(() => CurrencyCountAggregate, {nullable:true})
-    _count?: CurrencyCountAggregate;
+  @Field(() => CurrencyAvgAggregate, { nullable: true })
+  _avg?: CurrencyAvgAggregate;
 
-    @Field(() => CurrencyAvgAggregate, {nullable:true})
-    _avg?: CurrencyAvgAggregate;
+  @Field(() => CurrencySumAggregate, { nullable: true })
+  _sum?: CurrencySumAggregate;
 
-    @Field(() => CurrencySumAggregate, {nullable:true})
-    _sum?: CurrencySumAggregate;
+  @Field(() => CurrencyMinAggregate, { nullable: true })
+  _min?: CurrencyMinAggregate;
 
-    @Field(() => CurrencyMinAggregate, {nullable:true})
-    _min?: CurrencyMinAggregate;
-
-    @Field(() => CurrencyMaxAggregate, {nullable:true})
-    _max?: CurrencyMaxAggregate;
+  @Field(() => CurrencyMaxAggregate, { nullable: true })
+  _max?: CurrencyMaxAggregate;
 }

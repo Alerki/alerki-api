@@ -6,12 +6,11 @@ import { directus_foldersWhereInput } from '../directus-folders/directus-folders
 
 @ArgsType()
 export class UpdateManydirectusFoldersArgs {
+  @Field(() => directus_foldersUpdateManyMutationInput, { nullable: false })
+  @Type(() => directus_foldersUpdateManyMutationInput)
+  data!: directus_foldersUpdateManyMutationInput;
 
-    @Field(() => directus_foldersUpdateManyMutationInput, {nullable:false})
-    @Type(() => directus_foldersUpdateManyMutationInput)
-    data!: directus_foldersUpdateManyMutationInput;
-
-    @Field(() => directus_foldersWhereInput, {nullable:true})
-    @Type(() => directus_foldersWhereInput)
-    where?: directus_foldersWhereInput;
+  @Field(() => directus_foldersWhereInput, { nullable: true })
+  @Type(() => directus_foldersWhereInput)
+  where?: directus_foldersWhereInput;
 }

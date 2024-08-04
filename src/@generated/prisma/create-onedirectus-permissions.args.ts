@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOnedirectusPermissionsArgs {
-
-    @Field(() => directus_permissionsCreateInput, {nullable:false})
-    @Type(() => directus_permissionsCreateInput)
-    data!: directus_permissionsCreateInput;
+  @Field(() => directus_permissionsCreateInput, { nullable: false })
+  @Type(() => directus_permissionsCreateInput)
+  data!: directus_permissionsCreateInput;
 }

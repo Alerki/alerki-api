@@ -9,23 +9,24 @@ import { User_SessionScalarFieldEnum } from '../user-session/user-session-scalar
 
 @ArgsType()
 export class FindManyUserSessionArgs {
+  @Field(() => User_SessionWhereInput, { nullable: true })
+  @Type(() => User_SessionWhereInput)
+  where?: User_SessionWhereInput;
 
-    @Field(() => User_SessionWhereInput, {nullable:true})
-    @Type(() => User_SessionWhereInput)
-    where?: User_SessionWhereInput;
+  @Field(() => [User_SessionOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<User_SessionOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [User_SessionOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<User_SessionOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => User_SessionWhereUniqueInput, { nullable: true })
+  cursor?: User_SessionWhereUniqueInput;
 
-    @Field(() => User_SessionWhereUniqueInput, {nullable:true})
-    cursor?: User_SessionWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [User_SessionScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof User_SessionScalarFieldEnum>;
+  @Field(() => [User_SessionScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof User_SessionScalarFieldEnum>;
 }

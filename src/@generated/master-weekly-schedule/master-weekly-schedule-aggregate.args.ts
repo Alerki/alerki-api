@@ -14,35 +14,37 @@ import { MasterWeeklyScheduleMaxAggregateInput } from './master-weekly-schedule-
 
 @ArgsType()
 export class MasterWeeklyScheduleAggregateArgs {
+  @Field(() => MasterWeeklyScheduleWhereInput, { nullable: true })
+  @Type(() => MasterWeeklyScheduleWhereInput)
+  where?: MasterWeeklyScheduleWhereInput;
 
-    @Field(() => MasterWeeklyScheduleWhereInput, {nullable:true})
-    @Type(() => MasterWeeklyScheduleWhereInput)
-    where?: MasterWeeklyScheduleWhereInput;
+  @Field(
+    () => [MasterWeeklyScheduleOrderByWithRelationAndSearchRelevanceInput],
+    { nullable: true },
+  )
+  orderBy?: Array<MasterWeeklyScheduleOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [MasterWeeklyScheduleOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<MasterWeeklyScheduleOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => MasterWeeklyScheduleWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterWeeklyScheduleWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<MasterWeeklyScheduleWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => MasterWeeklyScheduleCountAggregateInput, { nullable: true })
+  _count?: MasterWeeklyScheduleCountAggregateInput;
 
-    @Field(() => MasterWeeklyScheduleCountAggregateInput, {nullable:true})
-    _count?: MasterWeeklyScheduleCountAggregateInput;
+  @Field(() => MasterWeeklyScheduleAvgAggregateInput, { nullable: true })
+  _avg?: MasterWeeklyScheduleAvgAggregateInput;
 
-    @Field(() => MasterWeeklyScheduleAvgAggregateInput, {nullable:true})
-    _avg?: MasterWeeklyScheduleAvgAggregateInput;
+  @Field(() => MasterWeeklyScheduleSumAggregateInput, { nullable: true })
+  _sum?: MasterWeeklyScheduleSumAggregateInput;
 
-    @Field(() => MasterWeeklyScheduleSumAggregateInput, {nullable:true})
-    _sum?: MasterWeeklyScheduleSumAggregateInput;
+  @Field(() => MasterWeeklyScheduleMinAggregateInput, { nullable: true })
+  _min?: MasterWeeklyScheduleMinAggregateInput;
 
-    @Field(() => MasterWeeklyScheduleMinAggregateInput, {nullable:true})
-    _min?: MasterWeeklyScheduleMinAggregateInput;
-
-    @Field(() => MasterWeeklyScheduleMaxAggregateInput, {nullable:true})
-    _max?: MasterWeeklyScheduleMaxAggregateInput;
+  @Field(() => MasterWeeklyScheduleMaxAggregateInput, { nullable: true })
+  _max?: MasterWeeklyScheduleMaxAggregateInput;
 }

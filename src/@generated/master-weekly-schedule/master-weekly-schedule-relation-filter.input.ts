@@ -4,10 +4,9 @@ import { MasterWeeklyScheduleWhereInput } from './master-weekly-schedule-where.i
 
 @InputType()
 export class MasterWeeklyScheduleRelationFilter {
+  @Field(() => MasterWeeklyScheduleWhereInput, { nullable: true })
+  is?: MasterWeeklyScheduleWhereInput;
 
-    @Field(() => MasterWeeklyScheduleWhereInput, {nullable:true})
-    is?: MasterWeeklyScheduleWhereInput;
-
-    @Field(() => MasterWeeklyScheduleWhereInput, {nullable:true})
-    isNot?: MasterWeeklyScheduleWhereInput;
+  @Field(() => MasterWeeklyScheduleWhereInput, { nullable: true })
+  isNot?: MasterWeeklyScheduleWhereInput;
 }

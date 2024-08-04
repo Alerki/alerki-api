@@ -9,20 +9,24 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateNestedManyWithoutUserPictureInput {
+  @Field(() => [UserCreateWithoutUserPictureInput], { nullable: true })
+  @Type(() => UserCreateWithoutUserPictureInput)
+  create?: Array<UserCreateWithoutUserPictureInput>;
 
-    @Field(() => [UserCreateWithoutUserPictureInput], {nullable:true})
-    @Type(() => UserCreateWithoutUserPictureInput)
-    create?: Array<UserCreateWithoutUserPictureInput>;
+  @Field(() => [UserCreateOrConnectWithoutUserPictureInput], { nullable: true })
+  @Type(() => UserCreateOrConnectWithoutUserPictureInput)
+  connectOrCreate?: Array<UserCreateOrConnectWithoutUserPictureInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutUserPictureInput], {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutUserPictureInput)
-    connectOrCreate?: Array<UserCreateOrConnectWithoutUserPictureInput>;
+  @Field(() => UserCreateManyUserPictureInputEnvelope, { nullable: true })
+  @Type(() => UserCreateManyUserPictureInputEnvelope)
+  createMany?: UserCreateManyUserPictureInputEnvelope;
 
-    @Field(() => UserCreateManyUserPictureInputEnvelope, {nullable:true})
-    @Type(() => UserCreateManyUserPictureInputEnvelope)
-    createMany?: UserCreateManyUserPictureInputEnvelope;
-
-    @Field(() => [UserWhereUniqueInput], {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>>;
+  @Field(() => [UserWhereUniqueInput], { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: Array<
+    Prisma.AtLeast<
+      UserWhereUniqueInput,
+      'id' | 'email' | 'phoneNumber' | 'username'
+    >
+  >;
 }

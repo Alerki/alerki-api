@@ -10,30 +10,60 @@ import { directus_usersUpdateWithoutNotificationType_NotificationType_user_creat
 
 @InputType()
 export class directus_usersUpdateOneWithoutNotificationType_NotificationType_user_createdTodirectus_usersNestedInput {
+  @Field(
+    () =>
+      directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+  )
+  create?: directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput)
-    create?: directus_usersCreateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersCreateOrConnectWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersCreateOrConnectWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+  )
+  connectOrCreate?: directus_usersCreateOrConnectWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
 
-    @Field(() => directus_usersCreateOrConnectWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersCreateOrConnectWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput)
-    connectOrCreate?: directus_usersCreateOrConnectWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersUpsertWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersUpsertWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+  )
+  upsert?: directus_usersUpsertWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
 
-    @Field(() => directus_usersUpsertWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersUpsertWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput)
-    upsert?: directus_usersUpsertWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
+  @Field(() => Boolean, { nullable: true })
+  disconnect?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  delete?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
+  @Field(() => directus_usersWhereUniqueInput, { nullable: true })
+  @Type(() => directus_usersWhereUniqueInput)
+  connect?: Prisma.AtLeast<
+    directus_usersWhereUniqueInput,
+    'id' | 'email' | 'token' | 'external_identifier'
+  >;
 
-    @Field(() => directus_usersWhereUniqueInput, {nullable:true})
-    @Type(() => directus_usersWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_usersWhereUniqueInput, 'id' | 'email' | 'token' | 'external_identifier'>;
-
-    @Field(() => directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput, {nullable:true})
-    @Type(() => directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput)
-    update?: directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
+  @Field(
+    () =>
+      directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+    { nullable: true },
+  )
+  @Type(
+    () =>
+      directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput,
+  )
+  update?: directus_usersUpdateWithoutNotificationType_NotificationType_user_createdTodirectus_usersInput;
 }

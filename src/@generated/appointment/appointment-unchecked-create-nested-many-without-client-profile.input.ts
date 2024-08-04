@@ -9,20 +9,23 @@ import { AppointmentWhereUniqueInput } from './appointment-where-unique.input';
 
 @InputType()
 export class AppointmentUncheckedCreateNestedManyWithoutClientProfileInput {
+  @Field(() => [AppointmentCreateWithoutClientProfileInput], { nullable: true })
+  @Type(() => AppointmentCreateWithoutClientProfileInput)
+  create?: Array<AppointmentCreateWithoutClientProfileInput>;
 
-    @Field(() => [AppointmentCreateWithoutClientProfileInput], {nullable:true})
-    @Type(() => AppointmentCreateWithoutClientProfileInput)
-    create?: Array<AppointmentCreateWithoutClientProfileInput>;
+  @Field(() => [AppointmentCreateOrConnectWithoutClientProfileInput], {
+    nullable: true,
+  })
+  @Type(() => AppointmentCreateOrConnectWithoutClientProfileInput)
+  connectOrCreate?: Array<AppointmentCreateOrConnectWithoutClientProfileInput>;
 
-    @Field(() => [AppointmentCreateOrConnectWithoutClientProfileInput], {nullable:true})
-    @Type(() => AppointmentCreateOrConnectWithoutClientProfileInput)
-    connectOrCreate?: Array<AppointmentCreateOrConnectWithoutClientProfileInput>;
+  @Field(() => AppointmentCreateManyClientProfileInputEnvelope, {
+    nullable: true,
+  })
+  @Type(() => AppointmentCreateManyClientProfileInputEnvelope)
+  createMany?: AppointmentCreateManyClientProfileInputEnvelope;
 
-    @Field(() => AppointmentCreateManyClientProfileInputEnvelope, {nullable:true})
-    @Type(() => AppointmentCreateManyClientProfileInputEnvelope)
-    createMany?: AppointmentCreateManyClientProfileInputEnvelope;
-
-    @Field(() => [AppointmentWhereUniqueInput], {nullable:true})
-    @Type(() => AppointmentWhereUniqueInput)
-    connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
+  @Field(() => [AppointmentWhereUniqueInput], { nullable: true })
+  @Type(() => AppointmentWhereUniqueInput)
+  connect?: Array<Prisma.AtLeast<AppointmentWhereUniqueInput, 'id'>>;
 }

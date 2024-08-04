@@ -8,16 +8,17 @@ import { directus_filesWhereUniqueInput } from './directus-files-where-unique.in
 
 @InputType()
 export class directus_filesCreateNestedOneWithoutUserPictureInput {
+  @Field(() => directus_filesCreateWithoutUserPictureInput, { nullable: true })
+  @Type(() => directus_filesCreateWithoutUserPictureInput)
+  create?: directus_filesCreateWithoutUserPictureInput;
 
-    @Field(() => directus_filesCreateWithoutUserPictureInput, {nullable:true})
-    @Type(() => directus_filesCreateWithoutUserPictureInput)
-    create?: directus_filesCreateWithoutUserPictureInput;
+  @Field(() => directus_filesCreateOrConnectWithoutUserPictureInput, {
+    nullable: true,
+  })
+  @Type(() => directus_filesCreateOrConnectWithoutUserPictureInput)
+  connectOrCreate?: directus_filesCreateOrConnectWithoutUserPictureInput;
 
-    @Field(() => directus_filesCreateOrConnectWithoutUserPictureInput, {nullable:true})
-    @Type(() => directus_filesCreateOrConnectWithoutUserPictureInput)
-    connectOrCreate?: directus_filesCreateOrConnectWithoutUserPictureInput;
-
-    @Field(() => directus_filesWhereUniqueInput, {nullable:true})
-    @Type(() => directus_filesWhereUniqueInput)
-    connect?: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
+  @Field(() => directus_filesWhereUniqueInput, { nullable: true })
+  @Type(() => directus_filesWhereUniqueInput)
+  connect?: Prisma.AtLeast<directus_filesWhereUniqueInput, 'id'>;
 }

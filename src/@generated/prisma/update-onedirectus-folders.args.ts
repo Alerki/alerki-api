@@ -6,12 +6,11 @@ import { directus_foldersWhereUniqueInput } from '../directus-folders/directus-f
 
 @ArgsType()
 export class UpdateOnedirectusFoldersArgs {
+  @Field(() => directus_foldersUpdateInput, { nullable: false })
+  @Type(() => directus_foldersUpdateInput)
+  data!: directus_foldersUpdateInput;
 
-    @Field(() => directus_foldersUpdateInput, {nullable:false})
-    @Type(() => directus_foldersUpdateInput)
-    data!: directus_foldersUpdateInput;
-
-    @Field(() => directus_foldersWhereUniqueInput, {nullable:false})
-    @Type(() => directus_foldersWhereUniqueInput)
-    where!: directus_foldersWhereUniqueInput;
+  @Field(() => directus_foldersWhereUniqueInput, { nullable: false })
+  @Type(() => directus_foldersWhereUniqueInput)
+  where!: directus_foldersWhereUniqueInput;
 }

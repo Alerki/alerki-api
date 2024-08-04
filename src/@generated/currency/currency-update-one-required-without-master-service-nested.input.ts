@@ -10,24 +10,25 @@ import { CurrencyUpdateWithoutMasterServiceInput } from './currency-update-witho
 
 @InputType()
 export class CurrencyUpdateOneRequiredWithoutMasterServiceNestedInput {
+  @Field(() => CurrencyCreateWithoutMasterServiceInput, { nullable: true })
+  @Type(() => CurrencyCreateWithoutMasterServiceInput)
+  create?: CurrencyCreateWithoutMasterServiceInput;
 
-    @Field(() => CurrencyCreateWithoutMasterServiceInput, {nullable:true})
-    @Type(() => CurrencyCreateWithoutMasterServiceInput)
-    create?: CurrencyCreateWithoutMasterServiceInput;
+  @Field(() => CurrencyCreateOrConnectWithoutMasterServiceInput, {
+    nullable: true,
+  })
+  @Type(() => CurrencyCreateOrConnectWithoutMasterServiceInput)
+  connectOrCreate?: CurrencyCreateOrConnectWithoutMasterServiceInput;
 
-    @Field(() => CurrencyCreateOrConnectWithoutMasterServiceInput, {nullable:true})
-    @Type(() => CurrencyCreateOrConnectWithoutMasterServiceInput)
-    connectOrCreate?: CurrencyCreateOrConnectWithoutMasterServiceInput;
+  @Field(() => CurrencyUpsertWithoutMasterServiceInput, { nullable: true })
+  @Type(() => CurrencyUpsertWithoutMasterServiceInput)
+  upsert?: CurrencyUpsertWithoutMasterServiceInput;
 
-    @Field(() => CurrencyUpsertWithoutMasterServiceInput, {nullable:true})
-    @Type(() => CurrencyUpsertWithoutMasterServiceInput)
-    upsert?: CurrencyUpsertWithoutMasterServiceInput;
+  @Field(() => CurrencyWhereUniqueInput, { nullable: true })
+  @Type(() => CurrencyWhereUniqueInput)
+  connect?: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
 
-    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
-    @Type(() => CurrencyWhereUniqueInput)
-    connect?: Prisma.AtLeast<CurrencyWhereUniqueInput, 'id' | 'code'>;
-
-    @Field(() => CurrencyUpdateWithoutMasterServiceInput, {nullable:true})
-    @Type(() => CurrencyUpdateWithoutMasterServiceInput)
-    update?: CurrencyUpdateWithoutMasterServiceInput;
+  @Field(() => CurrencyUpdateWithoutMasterServiceInput, { nullable: true })
+  @Type(() => CurrencyUpdateWithoutMasterServiceInput)
+  update?: CurrencyUpdateWithoutMasterServiceInput;
 }

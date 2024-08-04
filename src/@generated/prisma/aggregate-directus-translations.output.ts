@@ -6,13 +6,12 @@ import { Directus_translationsMaxAggregate } from './directus-translations-max-a
 
 @ObjectType()
 export class AggregateDirectus_translations {
+  @Field(() => Directus_translationsCountAggregate, { nullable: true })
+  _count?: Directus_translationsCountAggregate;
 
-    @Field(() => Directus_translationsCountAggregate, {nullable:true})
-    _count?: Directus_translationsCountAggregate;
+  @Field(() => Directus_translationsMinAggregate, { nullable: true })
+  _min?: Directus_translationsMinAggregate;
 
-    @Field(() => Directus_translationsMinAggregate, {nullable:true})
-    _min?: Directus_translationsMinAggregate;
-
-    @Field(() => Directus_translationsMaxAggregate, {nullable:true})
-    _max?: Directus_translationsMaxAggregate;
+  @Field(() => Directus_translationsMaxAggregate, { nullable: true })
+  _max?: Directus_translationsMaxAggregate;
 }

@@ -10,23 +10,24 @@ import { MasterProfileScalarFieldEnum } from './master-profile-scalar-field.enum
 
 @ArgsType()
 export class FindFirstMasterProfileOrThrowArgs {
+  @Field(() => MasterProfileWhereInput, { nullable: true })
+  @Type(() => MasterProfileWhereInput)
+  where?: MasterProfileWhereInput;
 
-    @Field(() => MasterProfileWhereInput, {nullable:true})
-    @Type(() => MasterProfileWhereInput)
-    where?: MasterProfileWhereInput;
+  @Field(() => [MasterProfileOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<MasterProfileOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [MasterProfileOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<MasterProfileOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => MasterProfileWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
 
-    @Field(() => MasterProfileWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<MasterProfileWhereUniqueInput, 'id'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [MasterProfileScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof MasterProfileScalarFieldEnum>;
+  @Field(() => [MasterProfileScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof MasterProfileScalarFieldEnum>;
 }

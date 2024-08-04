@@ -12,29 +12,33 @@ import { UserMaxAggregateInput } from './user-max-aggregate.input';
 
 @ArgsType()
 export class UserAggregateArgs {
+  @Field(() => UserWhereInput, { nullable: true })
+  @Type(() => UserWhereInput)
+  where?: UserWhereInput;
 
-    @Field(() => UserWhereInput, {nullable:true})
-    @Type(() => UserWhereInput)
-    where?: UserWhereInput;
+  @Field(() => [UserOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<UserOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => [UserOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
-    orderBy?: Array<UserOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  cursor?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'phoneNumber' | 'username'
+  >;
 
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    cursor?: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'phoneNumber' | 'username'>;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
+  @Field(() => UserCountAggregateInput, { nullable: true })
+  _count?: UserCountAggregateInput;
 
-    @Field(() => UserCountAggregateInput, {nullable:true})
-    _count?: UserCountAggregateInput;
+  @Field(() => UserMinAggregateInput, { nullable: true })
+  _min?: UserMinAggregateInput;
 
-    @Field(() => UserMinAggregateInput, {nullable:true})
-    _min?: UserMinAggregateInput;
-
-    @Field(() => UserMaxAggregateInput, {nullable:true})
-    _max?: UserMaxAggregateInput;
+  @Field(() => UserMaxAggregateInput, { nullable: true })
+  _max?: UserMaxAggregateInput;
 }

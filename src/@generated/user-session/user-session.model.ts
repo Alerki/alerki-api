@@ -6,19 +6,18 @@ import { User } from '../user/user.model';
 
 @ObjectType()
 export class User_Session {
+  @Field(() => ID, { nullable: false })
+  id!: number;
 
-    @Field(() => ID, {nullable:false})
-    id!: number;
+  @Field(() => String, { nullable: false })
+  User_id!: string;
 
-    @Field(() => String, {nullable:true})
-    User_id!: string | null;
+  @Field(() => String, { nullable: false })
+  Session_id!: string;
 
-    @Field(() => String, {nullable:true})
-    Session_id!: string | null;
+  @Field(() => Session, { nullable: false })
+  Session?: Session;
 
-    @Field(() => Session, {nullable:true})
-    Session?: Session | null;
-
-    @Field(() => User, {nullable:true})
-    User?: User | null;
+  @Field(() => User, { nullable: false })
+  User?: User;
 }
