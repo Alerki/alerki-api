@@ -31,7 +31,6 @@ export class AuthService {
         ],
       },
     });
-
     if (user) {
       if (user.email === body.email.toLowerCase()) {
         throw new BadRequestException('Email already exists');
@@ -39,9 +38,7 @@ export class AuthService {
         throw new BadRequestException('Username already exists');
       }
     }
-
     const hashedPassword = await hash(body.password, this.hashSalt);
-
     const newUser = await this.prismaService.users.create({
       data: {
         status: StatusEnum.PUBLISHED,
@@ -56,9 +53,7 @@ export class AuthService {
         date_created: new Date(),
       },
     })
-
     delete (newUser as { password?: string }).password;
-
     return newUser;
   }
 
@@ -69,19 +64,15 @@ export class AuthService {
         email: body.email,
       },
     });
-
     if (!user) {
       throw new BadRequestException('User not exists');
     }
-
     if (!compareSync(body.password, user.password!)) {
       throw new BadRequestException('Bad password');
     }
-
     const tokens = await this.jwtInternalService.generatePairTokens({
       id: user.id,
     });
-
     await this.prismaService.sessions.create({
       data: {
         status: StatusEnum.PUBLISHED,
@@ -90,7 +81,6 @@ export class AuthService {
         Users: user.id
       }
     })
-
     return tokens;
   }
 
