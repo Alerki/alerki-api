@@ -39,14 +39,22 @@ export class JwtInternalService {
   }
 
   async validateAccessToken(accessToken: string) {
-    return this.jwtService.verify<JWTData>(accessToken, {
-      secret: this.jwtAccessTokenSecret,
-    });
+    try {
+      return this.jwtService.verify<JWTData>(accessToken, {
+        secret: this.jwtAccessTokenSecret,
+      });
+    } catch (e) {
+      return;
+    }
   }
 
   async validateRefreshToken(refreshToken: string) {
-    return this.jwtService.verify<JWTData>(refreshToken, {
-      secret: this.jwtRefreshTokenSecret,
-    });
+    try {
+      return this.jwtService.verify<JWTData>(refreshToken, {
+        secret: this.jwtRefreshTokenSecret,
+      });
+    } catch (e) {
+      return;
+    }
   }
 }

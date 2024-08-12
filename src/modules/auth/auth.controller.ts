@@ -1,8 +1,26 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
-import { LogInDto, RegisterDto } from './dtos/auth.dto';
-import { AuthService } from './service/auth.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+
+import { AuthService } from './service/auth.service';
+import {
+  LogInDto,
+  LogOutDto,
+  RegisterDto,
+  UpdateSessionDto,
+} from './dtos/auth.dto';
 import { DeviceName } from '../../shared/decorators/device-name.decorator';
+import { JwtAuthGuard } from './guards/jwt.guard';
+import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
+import { JWTData } from './auth.interface';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -15,25 +33,42 @@ export class AuthController {
   }
 
   @Post('log-in')
-  async logIn(
-    @Body() body: LogInDto,
-    @DeviceName() deviceName: string,
-  ) {
-    return this.authService.logIn(body, deviceName);
+  async logIn(@Body() body: LogInDto, @DeviceName() deviceName: string) {
+    return await this.authService.logIn(body, deviceName);
   }
 
-  @Get('log-out')
-  async logOut() {}
+  @Delete('log-out')
+  async logOut(@Body() { refreshToken }: LogOutDto) {
+    return this.authService.logOut(refreshToken);
+  }
 
-  @Get('refresh')
-  async refresh() {}
+  @Post('refresh')
+  async refresh(@Body() { refreshToken }: LogOutDto) {
+    return this.authService.refresh(refreshToken);
+  }
 
+  @UseGuards(JwtAuthGuard)
   @Get('sessions')
-  async getSessions() {}
+  async getSessions(@GetUserFromRequest() { id }: JWTData) {
+    return this.authService.getSessions(id);
+  }
 
+  @UseGuards(JwtAuthGuard)
   @Patch('sessions/:id')
-  async updateSession() {}
+  async updateSession(
+    @GetUserFromRequest() { id: userId }: JWTData,
+    @Param('id') sessionId: string,
+    @Body() body: UpdateSessionDto,
+  ) {
+    return this.authService.updateSession(userId, sessionId, body);
+  }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('sessions/:id')
-  async deleteSession() {}
+  async deleteSession(
+    @GetUserFromRequest() { id: userId }: JWTData,
+    @Param('id') sessionsId: string,
+  ) {
+    return this.authService.deleteSession(userId, sessionsId)
+  }
 }

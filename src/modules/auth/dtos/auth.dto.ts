@@ -6,7 +6,7 @@ export class RegisterDto {
   @ApiProperty({
     description: 'User e-mail',
     type: String,
-    example: 'josh@mail.com'
+    example: 'josh@mail.com',
   })
   email: string;
 
@@ -14,7 +14,7 @@ export class RegisterDto {
   @ApiProperty({
     description: 'User name',
     type: String,
-    example: 'josh'
+    example: 'josh',
   })
   username: string;
 
@@ -22,7 +22,7 @@ export class RegisterDto {
   @ApiProperty({
     description: 'Password',
     type: String,
-    example: 'Josh01'
+    example: 'Josh01',
   })
   password: string;
 }
@@ -32,7 +32,7 @@ export class LogInDto {
   @ApiProperty({
     description: 'User e-mail',
     type: String,
-    example: 'josh@mail.com'
+    example: 'josh@mail.com',
   })
   email: string;
 
@@ -40,7 +40,30 @@ export class LogInDto {
   @ApiProperty({
     description: 'Password',
     type: String,
-    example: 'Josh01'
+    example: 'Josh01',
   })
   password: string;
+}
+
+export class RefreshDto {
+  @IsString()
+  @ApiProperty({
+    description: 'Refresh token',
+    type: String,
+    example:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMyMjI3ZGM1LWVlMDItNDFiZC04NTZkLTZlZDg1YzYzYmYwMCIsImlhdCI6MTcyMzMwMjE2OCwiZXhwIjoxNzI1ODk0MTY4fQ.ga1KQ2mbeaapAC7s8kKaUbnNy1lxDyhAvKlfVb2_dqw',
+  })
+  refreshToken: string;
+}
+
+export class LogOutDto extends RefreshDto {}
+
+export class UpdateSessionDto {
+  @IsString()
+  @ApiProperty({
+    description: 'Device name',
+    type: String,
+    example: 'iPhone 13',
+  })
+  deviceName: string;
 }

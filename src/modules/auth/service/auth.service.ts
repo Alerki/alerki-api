@@ -1,8 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Sse } from '@nestjs/common';
 import { hash, compareSync } from 'bcryptjs';
 
 import { PrismaService } from '../../../shared/modules/prisma/prisma.service';
-import { LogInDto, RegisterDto } from '../dtos/auth.dto';
+import { LogInDto, RegisterDto, UpdateSessionDto } from '../dtos/auth.dto';
 import { ENV } from 'src/modules/config';
 import { StatusEnum } from '../../../shared/enums/status.enum';
 import { JwtInternalService } from './internal-jwt.service';
@@ -27,7 +27,7 @@ export class AuthService {
           },
           {
             username: body.username.toLowerCase(),
-          }
+          },
         ],
       },
     });
@@ -38,7 +38,9 @@ export class AuthService {
         throw new BadRequestException('Username already exists');
       }
     }
+
     const hashedPassword = await hash(body.password, this.hashSalt);
+
     const newUser = await this.prismaService.users.create({
       data: {
         status: StatusEnum.PUBLISHED,
@@ -48,28 +50,91 @@ export class AuthService {
         ClientProfiles: {
           create: {
             status: StatusEnum.PUBLISHED,
-          }
+          },
         },
         date_created: new Date(),
       },
-    })
+    });
+
     delete (newUser as { password?: string }).password;
+
     return newUser;
   }
 
   async logIn(body: LogInDto, deviceName: string) {
+    const user = await this.processLogInRequest(body.email, body.password);
+    const tokens = await this.jwtInternalService.generatePairTokens({
+      id: user.id,
+    });
+
+    await this.prismaService.sessions.create({
+      data: {
+        status: StatusEnum.PUBLISHED,
+        refreshToken: tokens.refreshToken,
+        deviceName,
+        Users: user.id,
+      },
+    });
+
+    return tokens;
+  }
+
+  async logOut(refreshToken: string) {
+    const parsedToken = await this.jwtInternalService.validateRefreshToken(refreshToken);
+    if (!parsedToken) {
+      throw new BadRequestException();
+    }
+
+    const session = await this.prismaService.sessions.findFirst({
+      where: {
+        Users: parsedToken.id,
+        refreshToken,
+        status: StatusEnum.PUBLISHED,
+      },
+    });
+    if (session) {
+      await this.prismaService.sessions.delete({
+        where: {
+          id: session.id,
+        },
+      });
+    } else {
+      throw new BadRequestException('Session is not exists');
+    }
+  }
+
+  async refresh(refreshToken: string) {
+    const validatedToken =
+      await this.jwtInternalService.validateRefreshToken(refreshToken);
+    if (!validatedToken) {
+      throw new BadRequestException('Invalid refresh token');
+    }
+
+    const session = await this.prismaService.sessions.findFirst({
+      where: {
+        refreshToken,
+        status: StatusEnum.PUBLISHED,
+      },
+    });
+    if (!session) {
+      throw new BadRequestException('Session does not exists');
+    }
+
+    await this.prismaService.sessions.delete({
+      where: {
+        id: session.id,
+      },
+    });
+
     const user = await this.prismaService.users.findFirst({
       where: {
-        status: StatusEnum.PUBLISHED,
-        email: body.email,
+        id: validatedToken.id,
       },
     });
     if (!user) {
-      throw new BadRequestException('User not exists');
+      throw new BadRequestException('User does not exists');
     }
-    if (!compareSync(body.password, user.password!)) {
-      throw new BadRequestException('Bad password');
-    }
+
     const tokens = await this.jwtInternalService.generatePairTokens({
       id: user.id,
     });
@@ -77,20 +142,83 @@ export class AuthService {
       data: {
         status: StatusEnum.PUBLISHED,
         refreshToken: tokens.refreshToken,
-        deviceName,
-        Users: user.id
-      }
-    })
+        deviceName: session.deviceName,
+        Users: user.id,
+      },
+    });
+
     return tokens;
   }
 
-  async logOut() {}
+  async getSessions(userId: string) {
+    return this.prismaService.sessions.findMany({
+      where: {
+        Users: userId,
+        status: StatusEnum.PUBLISHED,
+      },
+    });
+  }
 
-  async refresh() {}
+  async updateSession(
+    userId: string,
+    sessionId: string,
+    body: UpdateSessionDto,
+  ) {
+    const session = await this.prismaService.sessions.findFirst({
+      where: {
+        id: sessionId,
+        status: StatusEnum.PUBLISHED,
+        Users: userId,
+      },
+    });
+    if (!session) {
+      throw new BadRequestException('Session does not exists');
+    }
 
-  async getSessions() {}
+    return this.prismaService.sessions.update({
+      where: {
+        id: sessionId,
+      },
+      data: {
+        deviceName: body.deviceName,
+      },
+    });
+  }
 
-  async updateSession() {}
+  async deleteSession(userId: string, sessionId: string) {
+    const session = await this.prismaService.sessions.findFirst({
+      where: {
+        id: sessionId,
+        status: StatusEnum.PUBLISHED,
+        Users: userId,
+      },
+    });
+    if (!session) {
+      throw new BadRequestException('Session does not exists');
+    }
 
-  async deleteSession() {}
+    await this.prismaService.sessions.delete({
+      where: {
+        id: session.id,
+      },
+    });
+  }
+
+  async processLogInRequest(email: string, password: string) {
+    const user = await this.prismaService.users.findFirst({
+      where: {
+        status: StatusEnum.PUBLISHED,
+        email,
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestException('User not exists');
+    }
+    if (!compareSync(password, user.password!)) {
+      throw new BadRequestException('Bad password');
+    }
+
+    return user;
+  }
 }

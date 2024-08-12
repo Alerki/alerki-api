@@ -8,7 +8,6 @@ export const evalValidator = makeValidator((value: string) => {
   if (!/^[\d+\-*/\s().]+$/.test(value)) {
     throw new Error(`Bad eval input value: ${value}`);
   }
-
   return eval(value);
 });
 
