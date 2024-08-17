@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Sse } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { hash, compareSync } from 'bcryptjs';
 
 import { CommonPrismaService } from '../../../shared/modules/prisma/prisma.service';
@@ -47,7 +47,7 @@ export class AuthService {
         email: body.email.toLowerCase(),
         username: body.username,
         password: hashedPassword,
-        ClientProfiles: {
+        ClientProfile: {
           create: {
             status: StatusEnum.PUBLISHED,
           },
@@ -72,7 +72,7 @@ export class AuthService {
         status: StatusEnum.PUBLISHED,
         refreshToken: tokens.refreshToken,
         deviceName,
-        Users: user.id,
+        UserId: user.id,
       },
     });
 
@@ -88,7 +88,7 @@ export class AuthService {
 
     const session = await this.prismaService.sessions.findFirst({
       where: {
-        Users: parsedToken.id,
+        UserId: parsedToken.id,
         refreshToken,
         status: StatusEnum.PUBLISHED,
       },
@@ -144,7 +144,7 @@ export class AuthService {
         status: StatusEnum.PUBLISHED,
         refreshToken: tokens.refreshToken,
         deviceName: session.deviceName,
-        Users: user.id,
+        UserId: user.id,
       },
     });
 
@@ -154,7 +154,7 @@ export class AuthService {
   async getSessions(userId: string) {
     return this.prismaService.sessions.findMany({
       where: {
-        Users: userId,
+        UserId: userId,
         status: StatusEnum.PUBLISHED,
       },
     });
@@ -169,7 +169,7 @@ export class AuthService {
       where: {
         id: sessionId,
         status: StatusEnum.PUBLISHED,
-        Users: userId,
+        UserId: userId,
       },
     });
     if (!session) {
@@ -191,7 +191,7 @@ export class AuthService {
       where: {
         id: sessionId,
         status: StatusEnum.PUBLISHED,
-        Users: userId,
+        UserId: userId,
       },
     });
     if (!session) {

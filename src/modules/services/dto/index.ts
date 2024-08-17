@@ -40,7 +40,7 @@ export class FindServicesArgs {
 
 @ObjectType()
 export class ServiceOmitted extends OmitType(Service, [
-  'MasterService_MasterService_ServiceToService',
+  'MasterServices',
   'directus_users_Service_user_createdTodirectus_users',
   'directus_users_Service_user_updatedTodirectus_users',
   '_count',
