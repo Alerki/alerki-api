@@ -58,3 +58,6 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # Others
 /data/
 schema.dbml
+@generated/
+schema.gql
+yarn.lock

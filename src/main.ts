@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 
@@ -7,6 +7,8 @@ import { AppModule } from './app.module';
 import { ENV } from './modules/config';
 
 async function bootstrap() {
+  const logger = new Logger('NestApplication');
+
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(
@@ -29,6 +31,6 @@ async function bootstrap() {
 
   await app
     .listen(ENV.PORT)
-    .then(() => console.log(`Nest started on http://localhost:${ENV.PORT}`));
+    .then(() => logger.log(`http://localhost:${ENV.PORT}`));
 }
 bootstrap();

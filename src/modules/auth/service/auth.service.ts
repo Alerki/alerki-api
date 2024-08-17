@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, Sse } from '@nestjs/common';
 import { hash, compareSync } from 'bcryptjs';
 
-import { PrismaService } from '../../../shared/modules/prisma/prisma.service';
+import { CommonPrismaService } from '../../../shared/modules/prisma/prisma.service';
 import { LogInDto, RegisterDto, UpdateSessionDto } from '../dtos/auth.dto';
 import { ENV } from 'src/modules/config';
 import { StatusEnum } from '../../../shared/enums/status.enum';
@@ -12,7 +12,7 @@ export class AuthService {
   private hashSalt: number;
 
   constructor(
-    private readonly prismaService: PrismaService,
+    private readonly prismaService: CommonPrismaService,
     private readonly jwtInternalService: JwtInternalService,
   ) {
     this.hashSalt = ENV.PASSWORD_HASH;
@@ -80,7 +80,8 @@ export class AuthService {
   }
 
   async logOut(refreshToken: string) {
-    const parsedToken = await this.jwtInternalService.validateRefreshToken(refreshToken);
+    const parsedToken =
+      await this.jwtInternalService.validateRefreshToken(refreshToken);
     if (!parsedToken) {
       throw new BadRequestException();
     }

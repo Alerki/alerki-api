@@ -9,6 +9,13 @@ generator dbml {
   outputName = "schema.dbml"
 }
 
+generator nestgraphql {
+  provider    = "node node_modules/prisma-nestjs-graphql"
+  output      = "../src/@generated"
+  emitSingle  = "true"
+  purgeOutput = "true"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
