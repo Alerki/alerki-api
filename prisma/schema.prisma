@@ -12,8 +12,8 @@ generator dbml {
 generator nestgraphql {
   provider    = "node node_modules/prisma-nestjs-graphql"
   output      = "../src/@generated"
-  emitSingle  = "true"
   purgeOutput = "true"
+  emitSingle  = "true"
 }
 
 datasource db {
@@ -22,22 +22,22 @@ datasource db {
 }
 
 model Appointments {
-  id                                                      String          @id @default(uuid()) @db.Uuid
-  status                                                  String          @default("draft") @db.VarChar(255)
-  date_created                                            DateTime?       @db.Timestamptz(6)
-  date_updated                                            DateTime?       @db.Timestamptz(6)
-  MasterService                                           String          @default(uuid()) @db.Uuid
-  ClientProfile                                           String?         @default(uuid()) @db.Uuid
-  duration                                                DateTime        @db.Time(6)
-  price                                                   Int
-  Currency                                                Int
-  startAt                                                 DateTime        @db.Timestamptz(6)
-  endAt                                                   DateTime        @db.Timestamptz(6)
-  confirmed                                               Boolean?
-  cancelled                                               Boolean?
-  ClientProfiles                                          ClientProfiles? @relation(fields: [ClientProfile], references: [id], onUpdate: NoAction, map: "appointments_clientprofile_foreign")
-  Currency_Appointments_CurrencyToCurrency                Currency        @relation("Appointments_CurrencyToCurrency", fields: [Currency], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_currency_foreign")
-  MasterService_Appointments_MasterServiceToMasterService MasterService   @relation("Appointments_MasterServiceToMasterService", fields: [MasterService], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_masterservice_foreign")
+  id              String          @id @default(uuid()) @db.Uuid
+  status          String          @default("draft") @db.VarChar(255)
+  date_created    DateTime?       @db.Timestamptz(6)
+  date_updated    DateTime?       @db.Timestamptz(6)
+  MasterServiceId String          @map("MasterService") @db.Uuid
+  ClientProfileId String?         @map("ClientProfile") @db.Uuid
+  duration        DateTime        @db.Time(6)
+  price           Int
+  CurrencyId      Int             @map("Currency")
+  startAt         DateTime        @db.Timestamptz(6)
+  endAt           DateTime        @db.Timestamptz(6)
+  confirmed       Boolean?
+  cancelled       Boolean?
+  ClientProfile   ClientProfiles? @relation(fields: [ClientProfileId], references: [id], onUpdate: NoAction, map: "appointments_clientprofile_foreign")
+  Currency        Currency        @relation("Appointments_CurrencyToCurrency", fields: [CurrencyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_currency_foreign")
+  MasterService   MasterService   @relation("Appointments_MasterServiceToMasterService", fields: [MasterServiceId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_masterservice_foreign")
 }
 
 model ClientProfiles {
@@ -60,67 +60,67 @@ model Currency {
   code                                                 String          @unique(map: "currency_code_unique") @db.VarChar(3)
   character                                            String          @db.VarChar(10)
   name                                                 String?         @db.VarChar(255)
-  Appointments_Appointments_CurrencyToCurrency         Appointments[]  @relation("Appointments_CurrencyToCurrency")
+  Appointments                                         Appointments[]  @relation("Appointments_CurrencyToCurrency")
   directus_users_Currency_user_createdTodirectus_users directus_users? @relation("Currency_user_createdTodirectus_users", fields: [user_created], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "currency_user_created_foreign")
   directus_users_Currency_user_updatedTodirectus_users directus_users? @relation("Currency_user_updatedTodirectus_users", fields: [user_updated], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "currency_user_updated_foreign")
-  MasterService_MasterService_CurrencyToCurrency       MasterService[] @relation("MasterService_CurrencyToCurrency")
+  MasterServices                                       MasterService[] @relation("MasterService_CurrencyToCurrency")
 }
 
 model MasterProfile {
-  id                                                                            String               @id @default(uuid()) @db.Uuid
-  status                                                                        String               @default("draft") @db.VarChar(255)
-  date_created                                                                  DateTime?            @db.Timestamptz(6)
-  date_updated                                                                  DateTime?            @db.Timestamptz(6)
-  MasterWeeklySchedule                                                          String               @unique(map: "masterprofile_masterweeklyschedule_unique") @default(uuid()) @db.Uuid
-  MasterWeeklySchedule_MasterProfile_MasterWeeklyScheduleToMasterWeeklySchedule MasterWeeklySchedule @relation("MasterProfile_MasterWeeklyScheduleToMasterWeeklySchedule", fields: [MasterWeeklySchedule], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterprofile_masterweeklyschedule_foreign")
-  MasterSchedule_MasterSchedule_MasterProfileToMasterProfile                    MasterSchedule[]     @relation("MasterSchedule_MasterProfileToMasterProfile")
-  MasterService_MasterService_MasterProfileToMasterProfile                      MasterService[]      @relation("MasterService_MasterProfileToMasterProfile")
-  Users_Users_MasterProfileToMasterProfile                                      Users[]              @relation("Users_MasterProfileToMasterProfile")
+  id                     String               @id @default(uuid()) @db.Uuid
+  status                 String               @default("draft") @db.VarChar(255)
+  date_created           DateTime?            @db.Timestamptz(6)
+  date_updated           DateTime?            @db.Timestamptz(6)
+  MasterWeeklyScheduleId String               @unique(map: "masterprofile_masterweeklyschedule_unique") @map("MasterWeeklySchedule") @db.Uuid
+  MasterWeeklySchedule   MasterWeeklySchedule @relation("MasterProfile_MasterWeeklyScheduleToMasterWeeklySchedule", fields: [MasterWeeklyScheduleId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterprofile_masterweeklyschedule_foreign")
+  MasterSchedules        MasterSchedule[]     @relation("MasterSchedule_MasterProfileToMasterProfile")
+  MasterServices         MasterService[]      @relation("MasterService_MasterProfileToMasterProfile")
+  Users                  Users[]
 }
 
 model MasterSchedule {
-  id                                                        String        @id @default(uuid()) @db.Uuid
-  status                                                    String        @default("draft") @db.VarChar(255)
-  date_created                                              DateTime?     @db.Timestamptz(6)
-  date_updated                                              DateTime?     @db.Timestamptz(6)
-  startAt                                                   DateTime      @db.Timestamptz(6)
-  endAt                                                     DateTime      @db.Timestamptz(6)
-  dayOff                                                    Boolean       @default(false)
-  MasterProfile                                             String        @default(uuid()) @db.Uuid
-  MasterProfile_MasterSchedule_MasterProfileToMasterProfile MasterProfile @relation("MasterSchedule_MasterProfileToMasterProfile", fields: [MasterProfile], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterschedule_masterprofile_foreign")
+  id              String        @id @default(uuid()) @db.Uuid
+  status          String        @default("draft") @db.VarChar(255)
+  date_created    DateTime?     @db.Timestamptz(6)
+  date_updated    DateTime?     @db.Timestamptz(6)
+  startAt         DateTime      @db.Timestamptz(6)
+  endAt           DateTime      @db.Timestamptz(6)
+  dayOff          Boolean       @default(false)
+  MasterProfileId String        @map("MasterProfile") @db.Uuid
+  MasterProfile   MasterProfile @relation("MasterSchedule_MasterProfileToMasterProfile", fields: [MasterProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterschedule_masterprofile_foreign")
 }
 
 model MasterService {
-  id                                                       String         @id @default(uuid()) @db.Uuid
-  status                                                   String         @default("draft") @db.VarChar(255)
-  date_created                                             DateTime?      @db.Timestamptz(6)
-  date_updated                                             DateTime?      @db.Timestamptz(6)
-  Service                                                  String         @default(uuid()) @db.Uuid
-  MasterProfile                                            String         @default(uuid()) @db.Uuid
-  duration                                                 DateTime       @db.Time(6)
-  price                                                    Float          @db.Real
-  Currency                                                 Int
-  Appointments_Appointments_MasterServiceToMasterService   Appointments[] @relation("Appointments_MasterServiceToMasterService")
-  Currency_MasterService_CurrencyToCurrency                Currency       @relation("MasterService_CurrencyToCurrency", fields: [Currency], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterservice_currency_foreign")
-  MasterProfile_MasterService_MasterProfileToMasterProfile MasterProfile  @relation("MasterService_MasterProfileToMasterProfile", fields: [MasterProfile], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterservice_masterprofile_foreign")
-  Service_MasterService_ServiceToService                   Service        @relation("MasterService_ServiceToService", fields: [Service], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterservice_service_foreign")
+  id              String         @id @default(uuid()) @db.Uuid
+  status          String         @default("draft") @db.VarChar(255)
+  date_created    DateTime?      @db.Timestamptz(6)
+  date_updated    DateTime?      @db.Timestamptz(6)
+  ServiceId       String         @map("Service") @db.Uuid
+  MasterProfileId String         @map("MasterProfile") @db.Uuid
+  duration        DateTime       @db.Time(6)
+  price           Float          @db.Real
+  CurrencyId      Int            @map("Currency")
+  Appointments    Appointments[] @relation("Appointments_MasterServiceToMasterService")
+  Currency        Currency       @relation("MasterService_CurrencyToCurrency", fields: [CurrencyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterservice_currency_foreign")
+  MasterProfile   MasterProfile  @relation("MasterService_MasterProfileToMasterProfile", fields: [MasterProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterservice_masterprofile_foreign")
+  Service         Service        @relation("MasterService_ServiceToService", fields: [ServiceId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterservice_service_foreign")
 }
 
 model MasterWeeklySchedule {
-  id                                                                     String         @id @default(uuid()) @db.Uuid
-  status                                                                 String         @default("draft") @db.VarChar(255)
-  date_created                                                           DateTime?      @db.Timestamptz(6)
-  date_updated                                                           DateTime?      @db.Timestamptz(6)
-  Monday                                                                 Boolean?       @default(true)
-  Tuesday                                                                Boolean?       @default(true)
-  Wednesday                                                              Boolean?       @default(true)
-  Thursday                                                               Boolean?       @default(true)
-  Friday                                                                 Boolean?       @default(true)
-  Saturday                                                               Boolean?       @default(false)
-  Sunday                                                                 Boolean?       @default(false)
-  startAt                                                                DateTime       @db.Timestamptz(6)
-  endAt                                                                  DateTime       @db.Timestamptz(6)
-  MasterProfile_MasterProfile_MasterWeeklyScheduleToMasterWeeklySchedule MasterProfile? @relation("MasterProfile_MasterWeeklyScheduleToMasterWeeklySchedule")
+  id            String         @id @default(uuid()) @db.Uuid
+  status        String         @default("draft") @db.VarChar(255)
+  date_created  DateTime?      @db.Timestamptz(6)
+  date_updated  DateTime?      @db.Timestamptz(6)
+  Monday        Boolean?       @default(true)
+  Tuesday       Boolean?       @default(true)
+  Wednesday     Boolean?       @default(true)
+  Thursday      Boolean?       @default(true)
+  Friday        Boolean?       @default(true)
+  Saturday      Boolean?       @default(false)
+  Sunday        Boolean?       @default(false)
+  startAt       DateTime       @db.Timestamptz(6)
+  endAt         DateTime       @db.Timestamptz(6)
+  MasterProfile MasterProfile? @relation("MasterProfile_MasterWeeklyScheduleToMasterWeeklySchedule")
 }
 
 model Service {
@@ -131,7 +131,7 @@ model Service {
   date_created                                        DateTime?              @db.Timestamptz(6)
   user_updated                                        String?                @default(uuid()) @db.Uuid
   date_updated                                        DateTime?              @db.Timestamptz(6)
-  MasterService_MasterService_ServiceToService        MasterService[]        @relation("MasterService_ServiceToService")
+  MasterServices                                      MasterService[]        @relation("MasterService_ServiceToService")
   directus_users_Service_user_createdTodirectus_users directus_users?        @relation("Service_user_createdTodirectus_users", fields: [user_created], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "service_user_created_foreign")
   directus_users_Service_user_updatedTodirectus_users directus_users?        @relation("Service_user_updatedTodirectus_users", fields: [user_updated], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "service_user_updated_foreign")
   Service_translations                                Service_translations[]
@@ -147,31 +147,31 @@ model Service_translations {
 }
 
 model Sessions {
-  id                          String    @id @default(uuid()) @db.Uuid
-  status                      String    @default("draft") @db.VarChar(255)
-  date_created                DateTime? @db.Timestamptz(6)
-  date_updated                DateTime? @db.Timestamptz(6)
-  Users                       String    @default(uuid()) @db.Uuid
-  refreshToken                String    @db.VarChar(1025)
-  deviceName                  String?   @default("Undefined") @db.VarChar(255)
-  Users_Sessions_UsersToUsers Users     @relation("Sessions_UsersToUsers", fields: [Users], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "sessions_users_foreign")
+  id           String    @id @default(uuid()) @db.Uuid
+  status       String    @default("draft") @db.VarChar(255)
+  date_created DateTime? @db.Timestamptz(6)
+  date_updated DateTime? @db.Timestamptz(6)
+  UserId       String    @map("Users") @db.Uuid
+  refreshToken String    @db.VarChar(1025)
+  deviceName   String?   @default("Undefined") @db.VarChar(255)
+  User         Users     @relation("Sessions_Users", fields: [UserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "sessions_users_foreign")
 }
 
 model Users {
-  id                                               String          @id @default(uuid()) @db.Uuid
-  status                                           String          @default("draft") @db.VarChar(255)
-  date_created                                     DateTime?       @db.Timestamptz(6)
-  date_updated                                     DateTime?       @db.Timestamptz(6)
-  email                                            String          @db.VarChar(320)
-  firstName                                        String?         @db.VarChar(255)
-  lastName                                         String?         @db.VarChar(255)
-  username                                         String          @db.VarChar(25)
-  password                                         String?         @db.VarChar(1024)
-  MasterProfile                                    String?         @default(uuid()) @db.Uuid
-  ClientProfile                                    String?         @default(uuid()) @db.Uuid
-  Sessions_Sessions_UsersToUsers                   Sessions[]      @relation("Sessions_UsersToUsers")
-  ClientProfiles                                   ClientProfiles? @relation(fields: [ClientProfile], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_clientprofile_foreign")
-  MasterProfile_Users_MasterProfileToMasterProfile MasterProfile?  @relation("Users_MasterProfileToMasterProfile", fields: [MasterProfile], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_masterprofile_foreign")
+  id                      String          @id @default(uuid()) @db.Uuid
+  status                  String          @default("draft") @db.VarChar(255)
+  date_created            DateTime?       @db.Timestamptz(6)
+  date_updated            DateTime?       @db.Timestamptz(6)
+  email                   String          @db.VarChar(320)
+  firstName               String?         @db.VarChar(255)
+  lastName                String?         @db.VarChar(255)
+  username                String          @db.VarChar(25)
+  password                String?         @db.VarChar(1024)
+  MasterProfileId         String?         @map("MasterProfile") @db.Uuid
+  ClientProfileId         String?         @map("ClientProfile") @db.Uuid
+  Sessions_Sessions_Users Sessions[]      @relation("Sessions_Users")
+  ClientProfile           ClientProfiles? @relation(fields: [ClientProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_clientprofile_foreign")
+  MasterProfile           MasterProfile?  @relation(fields: [MasterProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_masterprofile_foreign")
 }
 
 model directus_activity {

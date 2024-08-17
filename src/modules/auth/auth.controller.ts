@@ -20,7 +20,7 @@ import {
 import { DeviceName } from '../../shared/decorators/device-name.decorator';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
-import { JWTData } from './auth.interface';
+import { JWTData } from './interfaces';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -69,6 +69,6 @@ export class AuthController {
     @GetUserFromRequest() { id: userId }: JWTData,
     @Param('id') sessionsId: string,
   ) {
-    return this.authService.deleteSession(userId, sessionsId)
+    return this.authService.deleteSession(userId, sessionsId);
   }
 }

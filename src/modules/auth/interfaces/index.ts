@@ -1,6 +1,8 @@
 import type { Request } from 'express';
 
-import { JWTData } from '../auth.interface';
+export interface JWTData {
+  id: string;
+}
 
 export interface ProtectedRequest extends Request {
   user: JWTData;
