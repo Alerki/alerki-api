@@ -11,6 +11,7 @@ import { MasterWeeklyScheduleModule } from './modules/master-weekly-schedule/mas
 import { UserModule } from './modules/user/user.module';
 import { CurrencyModule } from './modules/currency/currency.module';
 import { MasterScheduleModule } from './modules/master-schedule/master-schedule.module';
+import { AppointmentModule } from './modules/appointment/appointment.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { MasterScheduleModule } from './modules/master-schedule/master-schedule.
     UserModule,
     CurrencyModule,
     MasterScheduleModule,
+    AppointmentModule,
   ],
 })
 export class AppModule {}
