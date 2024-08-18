@@ -52,6 +52,7 @@ export class ProfileService {
   async findProfile(select: PrismaSelect, args: FindProfileArgs) {
     const user = await this.commonPrismaService.users.findFirst({
       where: {
+        status: StatusEnum.PUBLISHED,
         username: args.username,
       },
       ...select,

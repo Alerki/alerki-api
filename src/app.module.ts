@@ -6,6 +6,8 @@ import { join } from 'path';
 import { AuthModule } from './modules/auth/auth.module';
 import { ServicesModule } from './modules/services/services.module';
 import { ProfileModule } from './modules/profile/profile.module';
+import { MasterServiceModule } from './modules/master-service/master-service.module';
+import { MasterWeeklyScheduleModule } from './modules/master-weekly-schedule/master-weekly-schedule.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { ProfileModule } from './modules/profile/profile.module';
     AuthModule,
     ServicesModule,
     ProfileModule,
+    MasterServiceModule,
+    MasterWeeklyScheduleModule,
   ],
 })
 export class AppModule {}

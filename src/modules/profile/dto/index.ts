@@ -19,7 +19,8 @@ export class UpdateProfileArgs
 }
 
 @ArgsType()
-export class FindProfileArgs {
+export class FindProfileArgs implements Pick<Users, 'username'> {
   @Field(() => String, { nullable: false })
+  @IsString()
   username: string;
 }
