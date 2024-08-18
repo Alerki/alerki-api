@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { FindServicesArgs } from './dto';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
@@ -50,5 +50,23 @@ export class ServicesService {
       skip: args.skip,
       // ...(select as any),
     });
+  }
+
+  async findServiceById(id: string) {
+    return this.commonPrismaService.service.findFirst({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async findExistsServiceById(id: string) {
+    const service = await this.findServiceById(id);
+
+    if (!service) {
+      throw new BadRequestException('User not exists');
+    }
+
+    return service;
   }
 }

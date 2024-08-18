@@ -8,6 +8,9 @@ import { ServicesModule } from './modules/services/services.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { MasterServiceModule } from './modules/master-service/master-service.module';
 import { MasterWeeklyScheduleModule } from './modules/master-weekly-schedule/master-weekly-schedule.module';
+import { UserModule } from './modules/user/user.module';
+import { CurrencyModule } from './modules/currency/currency.module';
+import { MasterScheduleModule } from './modules/master-schedule/master-schedule.module';
 
 @Module({
   imports: [
@@ -21,6 +24,9 @@ import { MasterWeeklyScheduleModule } from './modules/master-weekly-schedule/mas
     ProfileModule,
     MasterServiceModule,
     MasterWeeklyScheduleModule,
+    UserModule,
+    CurrencyModule,
+    MasterScheduleModule,
   ],
 })
 export class AppModule {}
