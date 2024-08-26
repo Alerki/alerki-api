@@ -8,6 +8,6 @@ import { CommonPrismaModule } from '../../shared/modules/prisma/prisma.module';
 @Module({
   providers: [ProfileService, ProfileResolver],
   imports: [CommonPrismaModule, AuthModule],
-  exports: [],
+  exports: [ProfileService],
 })
 export class ProfileModule {}

@@ -10,8 +10,11 @@ import {
 import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
 import { JWTData } from '../auth/interfaces';
 import { PrismaSelect } from '@paljs/plugins';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 
 @Resolver()
+@UseGuards(JwtAuthGuard)
 export class MasterScheduleResolver {
   constructor(private readonly masterScheduleService: MasterScheduleService) {}
 
@@ -41,7 +44,7 @@ export class MasterScheduleResolver {
     return this.masterScheduleService.updateMasterSchedule(select, args, user);
   }
 
-  @Mutation(() => MasterSchedule)
+  @Mutation(() => MasterSchedule, { nullable: true })
   async deleteMasterSchedule(
     @Info()
     info: GraphQLResolveInfo,

@@ -5,6 +5,7 @@ import { JWTData } from '../auth/interfaces';
 import { PrismaSelect } from '@paljs/plugins';
 import { FindProfileArgs, UpdateProfileArgs } from './dto';
 import { StatusEnum } from '../../shared/enums/status.enum';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ProfileService {
@@ -176,5 +177,51 @@ export class ProfileService {
     }
 
     throw new BadRequestException('User is not a master');
+  }
+
+  async findMasterProfileByUserId(id: string) {
+    return this.commonPrismaService.masterProfile.findFirst({
+      where: {
+        Users: {
+          some: {
+            id,
+          },
+        },
+      },
+      include: {
+        Users: true,
+      },
+    });
+  }
+
+  async findExistingMasterProfileByUserId(
+    id: string,
+    condition: (
+      masterProfile: Prisma.MasterProfileGetPayload<{
+        include: {
+          Users: true;
+        };
+      }>,
+    ) => Boolean = () => true,
+  ) {
+    const masterProfile = await this.findMasterProfileByUserId(id);
+
+    if (!masterProfile) {
+      throw new BadRequestException('Master profile not exists');
+    }
+    if (!condition(masterProfile)) {
+      throw new BadRequestException('Master profile not exists');
+    }
+
+    return masterProfile;
+  }
+
+  async findExistingPublishedMasterProfileByUserId(id: string) {
+    return this.findExistingMasterProfileByUserId(id, (masterProfile) => {
+      return (
+        masterProfile.status === StatusEnum.PUBLISHED &&
+        masterProfile.Users?.[0]?.status === StatusEnum.PUBLISHED
+      );
+    });
   }
 }
