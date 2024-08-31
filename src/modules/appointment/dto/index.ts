@@ -4,8 +4,7 @@ import { IsDate, IsString } from 'class-validator';
 
 @ArgsType()
 export class CreateAppointmentArgs
-  implements
-    Required<Pick<Appointments, 'MasterServiceId' | 'startAt' | 'endAt'>>
+  implements Required<Pick<Appointments, 'MasterServiceId' | 'startAt'>>
 {
   @Field(() => String)
   @IsString()
@@ -14,8 +13,4 @@ export class CreateAppointmentArgs
   @Field(() => String)
   @IsDate()
   startAt: Date;
-
-  @Field(() => String)
-  @IsDate()
-  endAt: Date;
 }

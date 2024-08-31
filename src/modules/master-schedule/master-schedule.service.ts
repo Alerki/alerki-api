@@ -9,6 +9,7 @@ import { JWTData } from '../auth/interfaces';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { ProfileService } from '../profile/profile.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
+import { LIST_OF_WEEK_DAYS } from '../../shared/data/date.data';
 
 @Injectable()
 export class MasterScheduleService {
@@ -157,4 +158,31 @@ export class MasterScheduleService {
       },
     });
   }
+
+  // async findMasterScheduleForTimespan(
+  //   masterProfileId: string,
+  //   startAt: Date,
+  //   endAt: Date,
+  // ) {
+  //   const weeklySchedule =
+  //     await this.commonPrismaService.masterWeeklySchedule.findFirst({
+  //       where: {
+  //         MasterProfile: {
+  //           id: masterProfileId,
+  //         },
+  //       },
+  //     });
+
+  //   if (!weeklySchedule) {
+  //     throw new BadRequestException('MasterWeeklySchedule not exists');
+  //   }
+
+  //   if (!weeklySchedule?.[LIST_OF_WEEK_DAYS[new Date().getUTCDay()]]) {
+  //     // TODO:
+  //   }
+
+  //   // if (startAt.getUTCDay() )
+
+  //   // weeklySchedule[]
+  // }
 }

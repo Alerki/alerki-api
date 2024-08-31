@@ -1,10 +1,11 @@
 import { Args, Info, Mutation, Resolver } from '@nestjs/graphql';
-import { AppointmentService } from './appointment.service';
-import { Appointments } from '../../@generated';
-import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
-import { CreateAppointmentArgs } from './dto';
 import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
+
+import { Appointments } from '../../@generated';
+import { AppointmentService } from './appointment.service';
+import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
+import { CreateAppointmentArgs } from './dto';
 import { JWTData } from '../auth/interfaces';
 
 @Resolver()
