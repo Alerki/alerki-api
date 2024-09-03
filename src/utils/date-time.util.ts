@@ -23,3 +23,15 @@ export function setNewEndOfTheDay(date: Date) {
   setEndOfTheDay(newDate);
   return newDate;
 }
+
+export function appendDateWithTime(appendDate: Date, date: Date) {
+  appendDate.setUTCHours(appendDate.getUTCHours() + date.getUTCHours());
+  appendDate.setUTCMinutes(appendDate.getUTCMinutes() + date.getUTCMinutes());
+  appendDate.setUTCSeconds(appendDate.getUTCSeconds() + date.getUTCSeconds());
+}
+
+export function appendNewDateWithTime(appendDate: Date, date: Date) {
+  const newDate = new Date(appendDate);
+  appendDateWithTime(newDate, date);
+  return newDate;
+}
