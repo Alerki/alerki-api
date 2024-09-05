@@ -35,3 +35,13 @@ export function appendNewDateWithTime(appendDate: Date, date: Date) {
   appendDateWithTime(newDate, date);
   return newDate;
 }
+
+export function generateDatesInTimespan(startAt: Date, endAt: Date) {
+  const dates: Array<Date> = [];
+  const date = new Date(startAt);
+  while (date.getTime() < endAt.getTime()) {
+    dates.push(date);
+    date.setUTCDate(date.getUTCDate() + 1);
+  }
+  return dates;
+}

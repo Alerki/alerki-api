@@ -33,8 +33,8 @@ model Appointments {
   CurrencyId      Int             @map("Currency")
   startAt         DateTime        @db.Timestamptz(6)
   endAt           DateTime        @db.Timestamptz(6)
-  confirmed       Boolean?
-  cancelled       Boolean?
+  confirmed       Boolean         @default(false)
+  cancelled       Boolean         @default(false)
   ClientProfile   ClientProfiles? @relation(fields: [ClientProfileId], references: [id], onUpdate: NoAction, map: "appointments_clientprofile_foreign")
   Currency        Currency        @relation("Appointments_CurrencyToCurrency", fields: [CurrencyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_currency_foreign")
   MasterService   MasterService   @relation("Appointments_MasterServiceToMasterService", fields: [MasterServiceId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "appointments_masterservice_foreign")

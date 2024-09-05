@@ -10,6 +10,10 @@ import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service'
 import { ProfileService } from '../profile/profile.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
 import { LIST_OF_WEEK_DAYS } from '../../shared/data/date.data';
+import {
+  appendNewDateWithTime,
+  generateDatesInTimespan,
+} from '../../utils/date-time.util';
 
 @Injectable()
 export class MasterScheduleService {
@@ -159,30 +163,103 @@ export class MasterScheduleService {
     });
   }
 
-  // async findMasterScheduleForTimespan(
-  //   masterProfileId: string,
-  //   startAt: Date,
-  //   endAt: Date,
-  // ) {
-  //   const weeklySchedule =
-  //     await this.commonPrismaService.masterWeeklySchedule.findFirst({
-  //       where: {
-  //         MasterProfile: {
-  //           id: masterProfileId,
-  //         },
-  //       },
-  //     });
+  /**
+   * Check if the timespan is available to book
+   *
+   * @param masterProfileId master profile ID
+   * @param startAt start at
+   * @param endAt end at
+   * @returns true - fix the time is available; false - if the time unavailable
+   */
+  async checkForAvailableTime(
+    masterProfileId: string,
+    startAt: Date,
+    endAt: Date,
+  ) {
+    const timespanDays = generateDatesInTimespan(startAt, endAt);
+    const UNIX_DateWIthTimeStartAt = appendNewDateWithTime(
+      new Date(0),
+      startAt,
+    );
+    const UNIX_DateWIthTimeEndAt = appendNewDateWithTime(new Date(0), endAt);
 
-  //   if (!weeklySchedule) {
-  //     throw new BadRequestException('MasterWeeklySchedule not exists');
-  //   }
+    // Get data that affects time availability
+    const masterProfile =
+      await this.commonPrismaService.masterProfile.findFirst({
+        where: {
+          id: masterProfileId,
+        },
+        include: {
+          MasterWeeklySchedule: true,
+          MasterSchedules: {
+            where: {
+              startAt: {
+                lte: endAt,
+              },
+              endAt: {
+                lte: startAt,
+              },
+            },
+          },
+          MasterServices: {
+            include: {
+              Appointments: {
+                where: {
+                  confirmed: true,
+                  cancelled: false,
+                  startAt: {
+                    lte: endAt,
+                  },
+                  endAt: {
+                    lte: startAt,
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
 
-  //   if (!weeklySchedule?.[LIST_OF_WEEK_DAYS[new Date().getUTCDay()]]) {
-  //     // TODO:
-  //   }
+    // First check schedule then weekly schedule
+    if (masterProfile?.MasterSchedules) {
+      // Check schedule
+      if (masterProfile?.MasterSchedules?.find((i) => i.dayOff)) {
+        return false;
+      }
+    } else {
+      // Check weekly schedule
+      if (masterProfile?.MasterWeeklySchedule) {
+        // Check if timespan is not day off
+        const dayOffCheck = timespanDays.find(
+          (i) =>
+            masterProfile?.MasterWeeklySchedule[
+              LIST_OF_WEEK_DAYS[i.getUTCDay()]
+            ],
+        );
+        if (dayOffCheck) {
+          return false;
+        }
 
-  //   // if (startAt.getUTCDay() )
+        // Check for available time
+        if (
+          masterProfile?.MasterWeeklySchedule?.startAt >=
+            UNIX_DateWIthTimeEndAt &&
+          masterProfile?.MasterWeeklySchedule?.endAt >= UNIX_DateWIthTimeStartAt
+        ) {
+          return false;
+        }
+      }
+    }
 
-  //   // weeklySchedule[]
-  // }
+    // Check appointments
+    if (
+      masterProfile?.MasterServices?.find(
+        (i) => i?.Appointments?.length !== undefined,
+      )
+    ) {
+      return false;
+    }
+
+    return true;
+  }
 }
