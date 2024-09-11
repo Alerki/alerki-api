@@ -19,6 +19,10 @@ export class AppointmentService {
     args: CreateAppointmentArgs,
     user: JWTData,
   ) {
+    this.masterScheduleService.checkForPastAppointmentCreationAttempt(
+      args.startAt,
+    );
+
     // Check if client profile and it's user exists and published
     const clientProfile =
       await this.commonPrismaService.clientProfiles.findFirst({
@@ -61,17 +65,11 @@ export class AppointmentService {
     const startAt = args.startAt;
     const endAt = appendNewDateWithTime(startAt, masterService.duration);
 
-    const availableToBook =
-      await this.masterScheduleService.checkForAvailableTime(
-        masterService.MasterProfileId,
-        startAt,
-        endAt,
-      );
-    console.log(availableToBook, '<< availableToBook');
-
-    if (!availableToBook) {
-      throw new BadRequestException('The time unavailable to book');
-    }
+    await this.masterScheduleService.checkForAvailableTime(
+      masterService.MasterProfileId,
+      startAt,
+      endAt,
+    );
 
     return this.commonPrismaService.appointments.create({
       data: {

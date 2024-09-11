@@ -176,6 +176,10 @@ export class MasterScheduleService {
     startAt: Date,
     endAt: Date,
   ) {
+    this.checkForPastAppointmentCreationAttempt(startAt);
+
+    let availableToBook = true;
+
     const timespanDays = generateDatesInTimespan(startAt, endAt);
     const UNIX_DateWIthTimeStartAt = appendNewDateWithTime(
       new Date(0),
@@ -232,7 +236,7 @@ export class MasterScheduleService {
     if (masterProfile.MasterSchedules.length > 0) {
       // Check schedule
       if (masterProfile.MasterSchedules.find((i) => i.dayOff)) {
-        return false;
+        availableToBook = false;
       }
     } else {
       // Check weekly schedule
@@ -245,7 +249,7 @@ export class MasterScheduleService {
             ],
         );
         if (dayOffCheck) {
-          return false;
+          availableToBook = false;
         }
 
         // Check for available time
@@ -254,7 +258,7 @@ export class MasterScheduleService {
             UNIX_DateWIthTimeEndAt &&
           masterProfile.MasterWeeklySchedule.endAt >= UNIX_DateWIthTimeStartAt
         ) {
-          return false;
+          availableToBook = false;
         }
       }
     }
@@ -265,9 +269,23 @@ export class MasterScheduleService {
         (i) => i.Appointments.length !== undefined && i.Appointments.length > 0,
       )
     ) {
-      return false;
+      availableToBook = false;
     }
 
-    return true;
+    if (!availableToBook) {
+      throw new BadRequestException('The time unavailable to book');
+    }
+  }
+
+  checkForPastAppointmentCreationAttemptBoolean(startAt: Date) {
+    return new Date().getTime() > startAt.getTime();
+  }
+
+  checkForPastAppointmentCreationAttempt(startAt: Date) {
+    if (this.checkForPastAppointmentCreationAttemptBoolean(startAt)) {
+      throw new BadRequestException(
+        'Impossible to make appointment in the past',
+      );
+    }
   }
 }
