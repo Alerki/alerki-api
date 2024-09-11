@@ -13,7 +13,7 @@ import { LIST_OF_WEEK_DAYS } from '../../shared/data/date.data';
 import {
   appendNewDateWithTime,
   generateDatesInTimespan,
-} from '../../utils/date-time.util';
+} from '../../shared/utils/date-time.util';
 
 @Injectable()
 export class MasterScheduleService {

@@ -1,5 +1,6 @@
 import { ArgsType, Field } from '@nestjs/graphql';
 import { Appointments } from '@prisma/client';
+import { PaginationDto } from '../../../shared/dto/pagination.dto';
 
 @ArgsType()
 export class CreateAppointmentArgs
@@ -11,3 +12,9 @@ export class CreateAppointmentArgs
   @Field(() => Date, { nullable: false })
   startAt: Date;
 }
+
+@ArgsType()
+export class FindManyMasterAppointmentsArgs extends PaginationDto {}
+
+@ArgsType()
+export class FindManyClientAppointmentsArgs extends PaginationDto {}
