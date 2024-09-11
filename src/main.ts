@@ -1,6 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import {
+  DocumentBuilder,
+  SwaggerDocumentOptions,
+  SwaggerModule,
+} from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
@@ -14,19 +18,23 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-      whitelist: true,
+      whitelist: false,
+      disableErrorMessages: false,
     }),
   );
   app.use(cookieParser());
   app.enableCors();
 
   // Swagger
+  const swaggerOption: SwaggerDocumentOptions = {
+    deepScanRoutes: true,
+  };
   const config = new DocumentBuilder()
     .setTitle('Alerki API')
     .setDescription('Alerki API description')
     .setVersion('0.7.0')
     .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config, swaggerOption);
   SwaggerModule.setup('api', app, document);
 
   await app

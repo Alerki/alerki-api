@@ -202,17 +202,21 @@ export class MasterScheduleService {
             },
           },
           MasterServices: {
+            where: {
+              Appointments: {
+                some: {
+                  cancelled: false,
+                  startAt: { lte: endAt },
+                  endAt: { gte: startAt },
+                },
+              },
+            },
             include: {
               Appointments: {
                 where: {
-                  confirmed: true,
                   cancelled: false,
-                  startAt: {
-                    lte: endAt,
-                  },
-                  endAt: {
-                    lte: startAt,
-                  },
+                  startAt: { lte: endAt },
+                  endAt: { gte: startAt },
                 },
               },
             },
@@ -220,19 +224,23 @@ export class MasterScheduleService {
         },
       });
 
+    if (!masterProfile) {
+      throw new BadRequestException('MasterProfile not exists');
+    }
+
     // First check schedule then weekly schedule
-    if (masterProfile?.MasterSchedules) {
+    if (masterProfile.MasterSchedules.length > 0) {
       // Check schedule
-      if (masterProfile?.MasterSchedules?.find((i) => i.dayOff)) {
+      if (masterProfile.MasterSchedules.find((i) => i.dayOff)) {
         return false;
       }
     } else {
       // Check weekly schedule
-      if (masterProfile?.MasterWeeklySchedule) {
+      if (masterProfile.MasterWeeklySchedule) {
         // Check if timespan is not day off
         const dayOffCheck = timespanDays.find(
           (i) =>
-            masterProfile?.MasterWeeklySchedule[
+            !masterProfile?.MasterWeeklySchedule[
               LIST_OF_WEEK_DAYS[i.getUTCDay()]
             ],
         );
@@ -242,9 +250,9 @@ export class MasterScheduleService {
 
         // Check for available time
         if (
-          masterProfile?.MasterWeeklySchedule?.startAt >=
+          masterProfile.MasterWeeklySchedule.startAt >=
             UNIX_DateWIthTimeEndAt &&
-          masterProfile?.MasterWeeklySchedule?.endAt >= UNIX_DateWIthTimeStartAt
+          masterProfile.MasterWeeklySchedule.endAt >= UNIX_DateWIthTimeStartAt
         ) {
           return false;
         }
@@ -253,8 +261,8 @@ export class MasterScheduleService {
 
     // Check appointments
     if (
-      masterProfile?.MasterServices?.find(
-        (i) => i?.Appointments?.length !== undefined,
+      masterProfile.MasterServices.find(
+        (i) => i.Appointments.length !== undefined && i.Appointments.length > 0,
       )
     ) {
       return false;

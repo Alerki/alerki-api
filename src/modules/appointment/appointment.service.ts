@@ -67,6 +67,7 @@ export class AppointmentService {
         startAt,
         endAt,
       );
+    console.log(availableToBook, '<< availableToBook');
 
     if (!availableToBook) {
       throw new BadRequestException('The time unavailable to book');

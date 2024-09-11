@@ -39,8 +39,10 @@ export function appendNewDateWithTime(appendDate: Date, date: Date) {
 export function generateDatesInTimespan(startAt: Date, endAt: Date) {
   const dates: Array<Date> = [];
   const date = new Date(startAt);
-  while (date.getTime() < endAt.getTime()) {
-    dates.push(date);
+  while (
+    setNewStartOfTheDay(date).getTime() <= setNewStartOfTheDay(endAt).getTime()
+  ) {
+    dates.push(new Date(date));
     date.setUTCDate(date.getUTCDate() + 1);
   }
   return dates;

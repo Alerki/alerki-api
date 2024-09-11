@@ -1,16 +1,13 @@
 import { ArgsType, Field } from '@nestjs/graphql';
 import { Appointments } from '@prisma/client';
-import { IsDate, IsString } from 'class-validator';
 
 @ArgsType()
 export class CreateAppointmentArgs
   implements Required<Pick<Appointments, 'MasterServiceId' | 'startAt'>>
 {
-  @Field(() => String)
-  @IsString()
+  @Field(() => String, { nullable: false })
   MasterServiceId: string;
 
-  @Field(() => String)
-  @IsDate()
+  @Field(() => Date, { nullable: false })
   startAt: Date;
 }

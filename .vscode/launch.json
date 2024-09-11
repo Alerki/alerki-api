@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Nest Framework",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [
+        "run",
+        "start:debug",
+        "--",
+        "--inspect-brk"
+      ],
+      "autoAttachChildProcesses": true,
+      "restart": true,
+      "sourceMaps": true,
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+    }
+  ]
+}

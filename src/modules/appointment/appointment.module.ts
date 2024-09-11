@@ -6,6 +6,7 @@ import { UserModule } from '../user/user.module';
 import { ServicesModule } from '../services/services.module';
 import { CurrencyModule } from '../currency/currency.module';
 import { AuthModule } from '../auth/auth.module';
+import { MasterScheduleModule } from '../master-schedule/master-schedule.module';
 
 @Module({
   providers: [AppointmentService, AppointmentResolver],
@@ -13,6 +14,7 @@ import { AuthModule } from '../auth/auth.module';
     AuthModule,
     CommonPrismaModule,
     UserModule,
+    MasterScheduleModule,
     ServicesModule,
     CurrencyModule,
   ],
