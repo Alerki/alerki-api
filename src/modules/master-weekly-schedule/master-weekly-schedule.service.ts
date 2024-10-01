@@ -33,8 +33,33 @@ export class MasterWeeklyScheduleService {
       throw new BadRequestException('User is not exists');
     }
 
-    if ((user.MasterProfile?.status as StatusEnum) !== StatusEnum.PUBLISHED) {
+    if (
+      !user.MasterProfileId ||
+      (user.MasterProfile?.status as StatusEnum) !== StatusEnum.PUBLISHED
+    ) {
       throw new BadRequestException('User is not a master');
+    }
+
+    if (!user.MasterProfile?.MasterWeeklyScheduleId) {
+      const { startAt, endAt } = args;
+      if (!startAt || !endAt) {
+        throw new BadRequestException(
+          'To create weekly schedule startAt and endAt are required',
+        );
+      }
+
+      return this.commonPrismaService.masterWeeklySchedule.create({
+        data: {
+          MasterProfile: {
+            connect: {
+              id: user.MasterProfileId,
+            },
+          },
+          startAt,
+          endAt,
+          ...args,
+        },
+      });
     }
 
     return this.commonPrismaService.masterWeeklySchedule.update({

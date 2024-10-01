@@ -20,6 +20,14 @@ export class RegisterDto {
 
   @IsString()
   @ApiProperty({
+    description: 'Profile type, available values: client, master',
+    type: String,
+    example: 'client',
+  })
+  profileType: 'client' | 'master';
+
+  @IsString()
+  @ApiProperty({
     description: 'Password',
     type: String,
     example: 'Josh01',

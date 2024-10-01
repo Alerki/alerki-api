@@ -19,6 +19,10 @@ export class AuthService {
   }
 
   async register(body: RegisterDto) {
+    if (!['client', 'master'].includes(body.profileType)) {
+      throw new BadRequestException();
+    }
+
     const user = await this.prismaService.users.findFirst({
       where: {
         OR: [
@@ -50,8 +54,19 @@ export class AuthService {
         ClientProfile: {
           create: {
             status: StatusEnum.PUBLISHED,
+            date_created: new Date(),
           },
         },
+        ...(body.profileType === 'master'
+          ? {
+              MasterProfile: {
+                create: {
+                  status: StatusEnum.PUBLISHED,
+                  date_created: new Date(),
+                },
+              },
+            }
+          : {}),
         date_created: new Date(),
       },
     });

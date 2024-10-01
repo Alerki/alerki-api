@@ -232,6 +232,10 @@ export class MasterScheduleService {
       throw new BadRequestException('MasterProfile not exists');
     }
 
+    if (!masterProfile.MasterWeeklySchedule) {
+      throw new BadRequestException('Master profile is not fully setup');
+    }
+
     // First check schedule then weekly schedule
     if (masterProfile.MasterSchedules.length > 0) {
       // Check schedule
@@ -240,26 +244,23 @@ export class MasterScheduleService {
       }
     } else {
       // Check weekly schedule
-      if (masterProfile.MasterWeeklySchedule) {
-        // Check if timespan is not day off
-        const dayOffCheck = timespanDays.find(
-          (i) =>
-            !masterProfile?.MasterWeeklySchedule[
-              LIST_OF_WEEK_DAYS[i.getUTCDay()]
-            ],
-        );
-        if (dayOffCheck) {
-          availableToBook = false;
-        }
+      // Check if timespan is not day off
+      const dayOffCheck = timespanDays.find(
+        (i) =>
+          !masterProfile.MasterWeeklySchedule![
+            LIST_OF_WEEK_DAYS[i.getUTCDay()]
+          ],
+      );
+      if (dayOffCheck) {
+        availableToBook = false;
+      }
 
-        // Check for available time
-        if (
-          masterProfile.MasterWeeklySchedule.startAt >=
-            UNIX_DateWIthTimeEndAt &&
-          masterProfile.MasterWeeklySchedule.endAt >= UNIX_DateWIthTimeStartAt
-        ) {
-          availableToBook = false;
-        }
+      // Check for available time
+      if (
+        masterProfile.MasterWeeklySchedule.startAt >= UNIX_DateWIthTimeEndAt &&
+        masterProfile.MasterWeeklySchedule.endAt >= UNIX_DateWIthTimeStartAt
+      ) {
+        availableToBook = false;
       }
     }
 

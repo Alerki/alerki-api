@@ -67,14 +67,14 @@ model Currency {
 }
 
 model MasterProfile {
-  id                     String               @id @default(uuid()) @db.Uuid
-  status                 String               @default("draft") @db.VarChar(255)
-  date_created           DateTime?            @db.Timestamptz(6)
-  date_updated           DateTime?            @db.Timestamptz(6)
-  MasterWeeklyScheduleId String               @unique(map: "masterprofile_masterweeklyschedule_unique") @map("MasterWeeklySchedule") @db.Uuid
-  MasterWeeklySchedule   MasterWeeklySchedule @relation("MasterProfile_MasterWeeklyScheduleToMasterWeeklySchedule", fields: [MasterWeeklyScheduleId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterprofile_masterweeklyschedule_foreign")
-  MasterSchedules        MasterSchedule[]     @relation("MasterSchedule_MasterProfileToMasterProfile")
-  MasterServices         MasterService[]      @relation("MasterService_MasterProfileToMasterProfile")
+  id                     String                @id @default(uuid()) @db.Uuid
+  status                 String                @default("draft") @db.VarChar(255)
+  date_created           DateTime?             @db.Timestamptz(6)
+  date_updated           DateTime?             @db.Timestamptz(6)
+  MasterWeeklyScheduleId String?               @unique(map: "masterprofile_masterweeklyschedule_unique") @map("MasterWeeklySchedule") @db.Uuid
+  MasterWeeklySchedule   MasterWeeklySchedule? @relation("MasterProfile_MasterWeeklyScheduleToMasterWeeklySchedule", fields: [MasterWeeklyScheduleId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "masterprofile_masterweeklyschedule_foreign")
+  MasterSchedules        MasterSchedule[]      @relation("MasterSchedule_MasterProfileToMasterProfile")
+  MasterServices         MasterService[]       @relation("MasterService_MasterProfileToMasterProfile")
   Users                  Users[]
 }
 
