@@ -6,6 +6,7 @@ import { LogInDto, RegisterDto, UpdateSessionDto } from '../dtos/auth.dto';
 import { ENV } from 'src/modules/config';
 import { StatusEnum } from '../../../shared/enums/status.enum';
 import { JwtInternalService } from './internal-jwt.service';
+import { SystemCode } from '../../../shared/data/system-codes.data';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
 
   async register(body: RegisterDto) {
     if (!['client', 'master'].includes(body.profileType)) {
-      throw new BadRequestException();
+      throw new BadRequestException(SystemCode.INVALID_INPUT);
     }
 
     const user = await this.prismaService.users.findFirst({
@@ -37,9 +38,9 @@ export class AuthService {
     });
     if (user) {
       if (user.email === body.email.toLowerCase()) {
-        throw new BadRequestException('Email already exists');
+        throw new BadRequestException(SystemCode.USER_EMAIL_ALREADY_TAKEN);
       } else {
-        throw new BadRequestException('Username already exists');
+        throw new BadRequestException(SystemCode.USER_USERNAME_ALREADY_TAKEN);
       }
     }
 
@@ -115,7 +116,7 @@ export class AuthService {
         },
       });
     } else {
-      throw new BadRequestException('Session is not exists');
+      throw new BadRequestException(SystemCode.SESSION_DOES_NOT_EXISTS);
     }
   }
 
@@ -123,7 +124,7 @@ export class AuthService {
     const validatedToken =
       await this.jwtInternalService.validateRefreshToken(refreshToken);
     if (!validatedToken) {
-      throw new BadRequestException('Invalid refresh token');
+      throw new BadRequestException(SystemCode.INVALID_REFRESH_TOKEN);
     }
 
     const session = await this.prismaService.sessions.findFirst({
@@ -133,7 +134,7 @@ export class AuthService {
       },
     });
     if (!session) {
-      throw new BadRequestException('Session does not exists');
+      throw new BadRequestException(SystemCode.SESSION_DOES_NOT_EXISTS);
     }
 
     await this.prismaService.sessions.delete({
@@ -148,7 +149,7 @@ export class AuthService {
       },
     });
     if (!user) {
-      throw new BadRequestException('User does not exists');
+      throw new BadRequestException(SystemCode.USER_NOT_EXISTS);
     }
 
     const tokens = await this.jwtInternalService.generatePairTokens({
@@ -188,7 +189,7 @@ export class AuthService {
       },
     });
     if (!session) {
-      throw new BadRequestException('Session does not exists');
+      throw new BadRequestException(SystemCode.SESSION_DOES_NOT_EXISTS);
     }
 
     return this.prismaService.sessions.update({
@@ -210,7 +211,7 @@ export class AuthService {
       },
     });
     if (!session) {
-      throw new BadRequestException('Session does not exists');
+      throw new BadRequestException(SystemCode.SESSION_DOES_NOT_EXISTS);
     }
 
     await this.prismaService.sessions.delete({
@@ -229,10 +230,10 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new BadRequestException('User not exists');
+      throw new BadRequestException(SystemCode.USER_NOT_EXISTS);
     }
     if (!compareSync(password, user.password!)) {
-      throw new BadRequestException('Bad password');
+      throw new BadRequestException(SystemCode.INVALID_PASSWORD);
     }
 
     return user;

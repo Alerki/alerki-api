@@ -202,7 +202,7 @@ export class ProfileService {
           Users: true;
         };
       }>,
-    ) => Boolean = () => true,
+    ) => boolean = () => true,
   ) {
     const masterProfile = await this.findMasterProfileByUserId(id);
 

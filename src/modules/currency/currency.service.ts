@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
+import { SystemCode } from '../../shared/data/system-codes.data';
 
 @Injectable()
 export class CurrencyService {
@@ -23,7 +24,7 @@ export class CurrencyService {
     const currency = await this.getCurrencyById(id);
 
     if (!currency) {
-      throw new BadRequestException('Currency is not exists');
+      throw new BadRequestException(SystemCode.CURRENCY_NOT_EXISTS);
     }
 
     return currency;

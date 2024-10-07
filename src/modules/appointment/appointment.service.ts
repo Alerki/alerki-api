@@ -11,6 +11,7 @@ import { StatusEnum } from '../../shared/enums/status.enum';
 import { MasterScheduleService } from '../master-schedule/master-schedule.service';
 import { appendNewDateWithTime } from '../../shared/utils/date-time.util';
 import { paginate } from '../../shared/utils/pagination.util';
+import { SystemCode } from '../../shared/data/system-codes.data';
 
 @Injectable()
 export class AppointmentService {
@@ -24,11 +25,9 @@ export class AppointmentService {
     args: CreateAppointmentArgs,
     user: JWTData,
   ) {
-    this.masterScheduleService.checkForPastAppointmentCreationAttempt(
-      args.startAt,
-    );
+    this.masterScheduleService.isStartDateValid(args.startAt);
 
-    // Check if client profile and it's user exists and published
+    // Check user profiles
     const clientProfile =
       await this.commonPrismaService.clientProfiles.findFirst({
         where: {
@@ -43,10 +42,10 @@ export class AppointmentService {
       });
 
     if (!clientProfile) {
-      throw new BadRequestException('There is no client profile');
+      throw new BadRequestException(SystemCode.NO_VALID_CLIENT_PROFILE);
     }
 
-    // Check if master service and profile and user exists and published
+    // Check if master service available
     const masterService =
       await this.commonPrismaService.masterService.findFirst({
         where: {
@@ -64,13 +63,13 @@ export class AppointmentService {
       });
 
     if (!masterService) {
-      throw new BadRequestException('Master service unavailable');
+      throw new BadRequestException(SystemCode.MASTER_SERVICE_UNAVAILABLE);
     }
 
     const startAt = args.startAt;
     const endAt = appendNewDateWithTime(startAt, masterService.duration);
 
-    await this.masterScheduleService.checkForAvailableTime(
+    await this.masterScheduleService.isTheTimeAvailableToBook(
       masterService.MasterProfileId,
       startAt,
       endAt,

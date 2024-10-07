@@ -14,6 +14,7 @@ import {
   appendNewDateWithTime,
   generateDatesInTimespan,
 } from '../../shared/utils/date-time.util';
+import { SystemCode } from '../../shared/data/system-codes.data';
 
 @Injectable()
 export class MasterScheduleService {
@@ -171,12 +172,12 @@ export class MasterScheduleService {
    * @param endAt end at
    * @returns true - fix the time is available; false - if the time unavailable
    */
-  async checkForAvailableTime(
+  async isTheTimeAvailableToBook(
     masterProfileId: string,
     startAt: Date,
     endAt: Date,
   ) {
-    this.checkForPastAppointmentCreationAttempt(startAt);
+    this.isStartDateValid(startAt);
 
     let availableToBook = true;
 
@@ -278,15 +279,15 @@ export class MasterScheduleService {
     }
   }
 
-  checkForPastAppointmentCreationAttemptBoolean(startAt: Date) {
-    return new Date().getTime() > startAt.getTime();
-  }
+  isStartDateValid(startAt: Date, throwError = true) {
+    if (new Date().getTime() > startAt.getTime()) {
+      if (throwError) {
+        throw new BadRequestException(SystemCode.INVALID_INPUT);
+      }
 
-  checkForPastAppointmentCreationAttempt(startAt: Date) {
-    if (this.checkForPastAppointmentCreationAttemptBoolean(startAt)) {
-      throw new BadRequestException(
-        'Impossible to make appointment in the past',
-      );
+      return false;
     }
+
+    return true;
   }
 }
