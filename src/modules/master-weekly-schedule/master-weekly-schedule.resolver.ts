@@ -1,5 +1,5 @@
 import { Args, Info, Mutation, Resolver } from '@nestjs/graphql';
-import { MasterWeeklyScheduleService } from './master-weekly-schedule.service';
+import { MasterWeeklyScheduleResolverService } from './master-weekly-schedule.resolver.service';
 import { MasterWeeklySchedule } from '../../@generated';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
@@ -13,7 +13,7 @@ import { PrismaSelect } from '@paljs/plugins';
 @UseGuards(JwtAuthGuard)
 export class MasterWeeklyScheduleResolver {
   constructor(
-    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
+    private readonly masterWeeklyScheduleService: MasterWeeklyScheduleResolverService,
   ) {}
 
   @Mutation(() => MasterWeeklySchedule)

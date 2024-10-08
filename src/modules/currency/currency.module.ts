@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
 
-import { CurrencyService } from './currency.service';
+import { CurrencyResolverService } from './currency.resolver.service';
 import { CurrencyResolver } from './currency.resolver';
 import { CommonPrismaModule } from '../../shared/modules/prisma/prisma.module';
+import { CurrencyService } from './currency.service';
+import { CurrencyValidationService } from './currency-validation.service';
 
 @Module({
-  providers: [CurrencyService, CurrencyResolver],
+  providers: [
+    CurrencyResolverService,
+    CurrencyResolver,
+    CurrencyService,
+    CurrencyValidationService,
+  ],
   imports: [CommonPrismaModule],
-  exports: [CurrencyService],
+  exports: [CurrencyResolverService],
 })
 export class CurrencyModule {}

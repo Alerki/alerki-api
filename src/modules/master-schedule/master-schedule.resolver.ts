@@ -1,5 +1,5 @@
 import { Args, Info, Mutation, Resolver } from '@nestjs/graphql';
-import { MasterScheduleService } from './master-schedule.service';
+import { MasterScheduleResolverService } from './master-schedule.resolver.service';
 import { MasterSchedule } from '../../@generated';
 import { GraphQLResolveInfo } from 'graphql';
 import {
@@ -16,7 +16,9 @@ import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 @Resolver()
 @UseGuards(JwtAuthGuard)
 export class MasterScheduleResolver {
-  constructor(private readonly masterScheduleService: MasterScheduleService) {}
+  constructor(
+    private readonly masterScheduleService: MasterScheduleResolverService,
+  ) {}
 
   @Mutation(() => MasterSchedule)
   async createMasterSchedule(

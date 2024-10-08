@@ -7,6 +7,7 @@ import { ENV } from 'src/modules/config';
 import { StatusEnum } from '../../../shared/enums/status.enum';
 import { JwtInternalService } from './internal-jwt.service';
 import { SystemCode } from '../../../shared/data/system-codes.data';
+import { UserService } from '../../user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
 
   constructor(
     private readonly prismaService: CommonPrismaService,
+    private readonly userService: UserService,
     private readonly jwtInternalService: JwtInternalService,
   ) {
     this.hashSalt = ENV.PASSWORD_HASH;
@@ -46,30 +48,11 @@ export class AuthService {
 
     const hashedPassword = await hash(body.password, this.hashSalt);
 
-    const newUser = await this.prismaService.users.create({
-      data: {
-        status: StatusEnum.PUBLISHED,
-        email: body.email.toLowerCase(),
-        username: body.username,
-        password: hashedPassword,
-        ClientProfile: {
-          create: {
-            status: StatusEnum.PUBLISHED,
-            date_created: new Date(),
-          },
-        },
-        ...(body.profileType === 'master'
-          ? {
-              MasterProfile: {
-                create: {
-                  status: StatusEnum.PUBLISHED,
-                  date_created: new Date(),
-                },
-              },
-            }
-          : {}),
-        date_created: new Date(),
-      },
+    const newUser = await this.userService.createNewUser({
+      email: body.email,
+      username: body.username,
+      hashedPassword,
+      profileType: body.profileType,
     });
 
     delete (newUser as { password?: string }).password;
@@ -143,14 +126,9 @@ export class AuthService {
       },
     });
 
-    const user = await this.prismaService.users.findFirst({
-      where: {
-        id: validatedToken.id,
-      },
+    const user = await this.userService.findValidUserOrThrow({
+      id: validatedToken.id,
     });
-    if (!user) {
-      throw new BadRequestException(SystemCode.USER_NOT_EXISTS);
-    }
 
     const tokens = await this.jwtInternalService.generatePairTokens({
       id: user.id,
@@ -222,16 +200,8 @@ export class AuthService {
   }
 
   async processLogInRequest(email: string, password: string) {
-    const user = await this.prismaService.users.findFirst({
-      where: {
-        status: StatusEnum.PUBLISHED,
-        email,
-      },
-    });
+    const user = await this.userService.findValidUserOrThrow({ email });
 
-    if (!user) {
-      throw new BadRequestException(SystemCode.USER_NOT_EXISTS);
-    }
     if (!compareSync(password, user.password!)) {
       throw new BadRequestException(SystemCode.INVALID_PASSWORD);
     }

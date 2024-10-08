@@ -1,32 +1,40 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
-import { StatusEnum } from '../../shared/enums/status.enum';
-import { SystemCode } from '../../shared/data/system-codes.data';
+import { Currency, Prisma } from '@prisma/client';
+import { CurrencyValidationService } from './currency-validation.service';
 
 @Injectable()
 export class CurrencyService {
-  constructor(private readonly commonPrismaService: CommonPrismaService) {}
+  constructor(
+    private readonly commonPrismaService: CommonPrismaService,
+    private readonly currencyValidationService: CurrencyValidationService,
+  ) {}
 
-  async getCurrencies() {
-    return this.commonPrismaService.currency.findMany({});
-  }
-
-  async getCurrencyById(id: number) {
-    return this.commonPrismaService.currency.findFirst({
-      where: {
-        id,
-        status: StatusEnum.PUBLISHED,
-      },
-    });
-  }
-
-  async getExistingCurrencyById(id: number) {
-    const currency = await this.getCurrencyById(id);
-
-    if (!currency) {
-      throw new BadRequestException(SystemCode.CURRENCY_NOT_EXISTS);
+  async findValidCurrency<ArgsT extends Prisma.CurrencyFindFirstArgs>(
+    where: Partial<Pick<Currency, 'id'>>,
+    args?: ArgsT,
+  ) {
+    try {
+      const currency = await this.findValidCurrencyOrThrow(where, args);
+      return currency;
+    } catch (e) {
+      return undefined;
     }
+  }
 
-    return currency;
+  async findValidCurrencyOrThrow<ArgsT extends Prisma.CurrencyFindFirstArgs>(
+    where: Partial<Pick<Currency, 'id'>>,
+    args?: ArgsT,
+  ) {
+    const currency = await this.commonPrismaService.currency.findFirst({
+      where,
+      ...args,
+    });
+
+    this.currencyValidationService.isCurrencyDefined(currency, true);
+    this.currencyValidationService.isCurrencyPublished(currency, true);
+
+    return currency! as Prisma.CurrencyGetPayload<ArgsT>;
   }
 }

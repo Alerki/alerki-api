@@ -3,7 +3,7 @@ import { UseGuards } from '@nestjs/common';
 import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
 
-import { ProfileService } from './profile.service';
+import { ProfileResolverService } from './profile.resolver.service';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { Users } from '../../@generated';
 import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
@@ -13,21 +13,41 @@ import { FindProfileArgs, UpdateProfileArgs } from './dto';
 @Resolver()
 @UseGuards(JwtAuthGuard)
 export class ProfileResolver {
-  constructor(private readonly profileService: ProfileService) {}
+  constructor(private readonly profileService: ProfileResolverService) {}
 
+  /**
+   * This query returns user own profile, so user should be authenticated
+   *
+   * @param info info
+   * @param user user data
+   * @returns profile
+   */
   @Query(() => Users)
   async getProfile(
     @Info()
     info: GraphQLResolveInfo,
     @GetUserFromRequest()
     user: JWTData,
-  ) {
+  ): Promise<Users> {
     const select = new PrismaSelect(info).value;
     return this.profileService.getProfile(user, select);
   }
 
+  /**
+   * This query returns master profile by username
+   *
+   * It checks if:
+   * - user exists
+   * - user available
+   * - master profile available
+   * - master profile is fully configured
+   *
+   * @param info
+   * @param args
+   * @returns
+   */
   @Query(() => Users)
-  async findProfile(
+  async findMasterProfile(
     @Info()
     info: GraphQLResolveInfo,
     @Args()
@@ -37,6 +57,14 @@ export class ProfileResolver {
     return this.profileService.findProfile(select, args);
   }
 
+  /**
+   * Is can be used to update profile information
+   *
+   * @param info
+   * @param user
+   * @param args
+   * @returns updated profile
+   */
   @Mutation(() => Users)
   async updateProfile(
     @Info()
@@ -50,6 +78,13 @@ export class ProfileResolver {
     return this.profileService.updateProfile(user, select, args);
   }
 
+  /**
+   * This mutation can be used to enable master profile
+   *
+   * @param info
+   * @param user
+   * @returns updated profile
+   */
   @Mutation(() => Users)
   async enableMasterProfile(
     @Info()
@@ -61,6 +96,13 @@ export class ProfileResolver {
     return this.profileService.enableMasterProfile(select, user);
   }
 
+  /**
+   * This mutation can be used to disable master profile so any client will not be able to interact with this master
+   *
+   * @param info
+   * @param user
+   * @returns updated profile
+   */
   @Mutation(() => Users)
   async disableMasterProfile(
     @Info()

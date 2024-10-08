@@ -1,11 +1,11 @@
 import { Query, Resolver } from '@nestjs/graphql';
 
-import { CurrencyService } from './currency.service';
+import { CurrencyResolverService } from './currency.resolver.service';
 import { Currency } from '../../@generated';
 
 @Resolver()
 export class CurrencyResolver {
-  constructor(private readonly currencyService: CurrencyService) {}
+  constructor(private readonly currencyService: CurrencyResolverService) {}
 
   @Query(() => [Currency])
   async getCurrencies() {

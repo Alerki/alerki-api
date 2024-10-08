@@ -1,28 +1,76 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { Prisma, Users } from '@prisma/client';
+
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
-import { Prisma } from '@prisma/client';
+import { UserValidationService } from './user-validation.service';
+
+export interface UserServiceCreateNewUser {
+  email: string;
+  username: string;
+  hashedPassword: string;
+  profileType: 'client' | 'master';
+}
 
 @Injectable()
 export class UserService {
-  constructor(private readonly commonPrismaService: CommonPrismaService) {}
+  constructor(
+    private readonly commonPrismaService: CommonPrismaService,
+    private readonly userValidationService: UserValidationService,
+  ) {}
 
-  async findUserById(id: string) {
-    return this.commonPrismaService.users.findFirst({
-      where: {
-        id,
+  async createNewUser(args: UserServiceCreateNewUser) {
+    return this.commonPrismaService.users.create({
+      data: {
         status: StatusEnum.PUBLISHED,
+        email: args.email.toLowerCase(),
+        username: args.username,
+        password: args.hashedPassword,
+        ClientProfile: {
+          create: {
+            status: StatusEnum.PUBLISHED,
+            date_created: new Date(),
+          },
+        },
+        ...(args.profileType === 'master'
+          ? {
+              MasterProfile: {
+                create: {
+                  status: StatusEnum.PUBLISHED,
+                  date_created: new Date(),
+                },
+              },
+            }
+          : {}),
+        date_created: new Date(),
       },
     });
   }
 
-  async findExistingUserById(id: string) {
-    const user = await this.findUserById(id);
-
-    if (!user) {
-      throw new BadRequestException('User not exists');
+  async findValidUser<ArgsT extends Prisma.UsersFindFirstArgs>(
+    where: Partial<Pick<Users, 'id' | 'email'>>,
+    args?: ArgsT,
+  ) {
+    try {
+      const user = await this.findValidUserOrThrow(where, args);
+      return user;
+    } catch (e) {
+      return undefined;
     }
+  }
 
-    return user;
+  async findValidUserOrThrow<ArgsT extends Prisma.UsersFindFirstArgs>(
+    where: Partial<Pick<Users, 'id' | 'email' | 'username'>>,
+    args?: ArgsT,
+  ) {
+    const user = await this.commonPrismaService.users.findFirst({
+      where,
+      ...args,
+    });
+
+    this.userValidationService.isUserDefined(user, true);
+    this.userValidationService.isUserPublished(user, true);
+
+    return user! as Prisma.UsersGetPayload<ArgsT>;
   }
 }

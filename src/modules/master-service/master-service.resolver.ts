@@ -1,7 +1,7 @@
 import { Args, Info, Mutation, Resolver } from '@nestjs/graphql';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { MasterServiceService } from './master-service.service';
+import { MasterServiceResolverService } from './master-service.resolver.service';
 import { MasterService } from '../../@generated';
 import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
 import { JWTData } from '../auth/interfaces';
@@ -17,7 +17,9 @@ import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 @Resolver()
 @UseGuards(JwtAuthGuard)
 export class MasterServiceResolver {
-  constructor(private readonly masterServiceService: MasterServiceService) {}
+  constructor(
+    private readonly masterServiceService: MasterServiceResolverService,
+  ) {}
 
   @Mutation(() => MasterService)
   async createMasterService(

@@ -8,16 +8,24 @@ import { JWTData } from '../auth/interfaces';
 import { PrismaSelect } from '@paljs/plugins';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
-import { MasterScheduleService } from '../master-schedule/master-schedule.service';
 import { appendNewDateWithTime } from '../../shared/utils/date-time.util';
 import { paginate } from '../../shared/utils/pagination.util';
 import { SystemCode } from '../../shared/data/system-codes.data';
+import { MasterScheduleService } from '../master-schedule/master-schedule.service';
+import { ProfileService } from '../profile/profile.service';
+import { MasterServiceService } from '../master-service/master-service.service';
+import { UserValidationService } from '../user/user-validation.service';
+import { ProfileValidationService } from '../profile/profile-validation.service';
 
 @Injectable()
 export class AppointmentService {
   constructor(
     private readonly commonPrismaService: CommonPrismaService,
     private readonly masterScheduleService: MasterScheduleService,
+    private readonly masterServiceService: MasterServiceService,
+    private readonly profileService: ProfileService,
+    private readonly userValidationService: UserValidationService,
+    private readonly profileValidationService: ProfileValidationService,
   ) {}
 
   async createAppointment(
@@ -47,20 +55,26 @@ export class AppointmentService {
 
     // Check if master service available
     const masterService =
-      await this.commonPrismaService.masterService.findFirst({
-        where: {
+      await this.masterServiceService.findValidMasterServiceOrThrow(
+        {
           id: args.MasterServiceId,
-          status: StatusEnum.PUBLISHED,
-          MasterProfile: {
-            status: StatusEnum.PUBLISHED,
-            Users: {
-              some: {
-                status: StatusEnum.PUBLISHED,
+        },
+        {
+          include: {
+            MasterProfile: {
+              include: {
+                Users: true,
               },
             },
           },
         },
-      });
+      );
+
+    // Check if master profile available
+    this.profileService.checkIfMasterProfileAvailableOrThrow({
+      ...masterService.MasterProfile.Users[0],
+      MasterProfile: masterService.MasterProfile,
+    });
 
     if (!masterService) {
       throw new BadRequestException(SystemCode.MASTER_SERVICE_UNAVAILABLE);

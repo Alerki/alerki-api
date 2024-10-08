@@ -1,14 +1,16 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 
 import { FindServicesArgs, ServiceOmitted } from './dto';
-import { ServicesService } from './services.service';
+import { ServicesResolverService } from './services.resolver.service';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)
 export class ServicesResolver {
-  constructor(private readonly servicesService: ServicesService) {}
+  constructor(
+    private readonly servicesResolverService: ServicesResolverService,
+  ) {}
 
   @Query(() => [ServiceOmitted])
   async findServices(
@@ -20,6 +22,6 @@ export class ServicesResolver {
     // context: ContextType,
   ) {
     // const select = new PrismaSelect(info).value;
-    return this.servicesService.finsServices(args);
+    return this.servicesResolverService.finsServices(args);
   }
 }

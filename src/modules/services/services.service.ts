@@ -1,72 +1,40 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { FindServicesArgs } from './dto';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
-import { StatusEnum } from '../../shared/enums/status.enum';
+import { Prisma, Service } from '@prisma/client';
+import { ServicesValidationService } from './services-validation.service';
 
 @Injectable()
 export class ServicesService {
-  constructor(private readonly commonPrismaService: CommonPrismaService) {}
+  constructor(
+    private readonly commonPrismaService: CommonPrismaService,
+    private readonly servicesValidationService: ServicesValidationService,
+  ) {}
 
-  async finsServices(
-    // select: PrismaSelect,
-    args: FindServicesArgs,
+  async findValidService<ArgsT extends Prisma.ServiceFindFirstArgs>(
+    where: Partial<Pick<Service, 'id'>>,
+    args?: ArgsT,
   ) {
-    return this.commonPrismaService.service.findMany({
-      where: {
-        status: StatusEnum.PUBLISHED,
-        Service_translations: {
-          some: {
-            ...(args.name
-              ? {
-                  name: {
-                    contains: args.name?.split(' ')?.join(' & '),
-                  },
-                }
-              : {}),
-            ...(args.language_code
-              ? {
-                  languages: {
-                    code: args.language_code,
-                  },
-                }
-              : {}),
-          },
-        },
-      },
-      include: {
-        Service_translations: {
-          where: {
-            languages: {
-              code: args.language_code,
-            },
-          },
-          include: {
-            languages: true,
-          },
-        },
-      },
-      take: args.take,
-      skip: args.skip,
-      // ...(select as any),
-    });
-  }
-
-  async findServiceById(id: string) {
-    return this.commonPrismaService.service.findFirst({
-      where: {
-        id,
-      },
-    });
-  }
-
-  async findExistsServiceById(id: string) {
-    const service = await this.findServiceById(id);
-
-    if (!service) {
-      throw new BadRequestException('User not exists');
+    try {
+      const service = await this.findValidServiceOrThrow(where, args);
+      return service;
+    } catch (e) {
+      return undefined;
     }
+  }
 
-    return service;
+  async findValidServiceOrThrow<ArgsT extends Prisma.ServiceFindFirstArgs>(
+    where: Partial<Pick<Service, 'id'>>,
+    args?: ArgsT,
+  ) {
+    const service = await this.commonPrismaService.service.findFirst({
+      where,
+      ...args,
+    });
+
+    this.servicesValidationService.isServiceDefined(service, true);
+    this.servicesValidationService.isServicePublished(service, true);
+
+    return service! as Prisma.ServiceGetPayload<ArgsT>;
   }
 }
