@@ -7,7 +7,11 @@ import { Users } from '../../@generated';
 import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { JWTData } from '../auth/interfaces';
-import { FindProfileArgs, UpdateProfileArgs } from './dto';
+import {
+  FindManyProfileByServiceIdArgs as FindManyMasterProfilesByServiceIdArgs,
+  FindProfileArgs as FindMasterProfilesArgs,
+  UpdateProfileArgs,
+} from './dto';
 import { ProfileResolverService } from './profile.resolver.service';
 
 @Resolver()
@@ -51,10 +55,21 @@ export class ProfileResolver {
     @Info()
     info: GraphQLResolveInfo,
     @Args()
-    args: FindProfileArgs,
+    args: FindMasterProfilesArgs,
   ) {
     const select = new PrismaSelect(info).value;
     return this.profileService.findProfile(select, args);
+  }
+
+  @Query(() => [Users])
+  async findManyMasterProfilesByServiceId(
+    @Info()
+    info: GraphQLResolveInfo,
+    @Args()
+    args: FindManyMasterProfilesByServiceIdArgs,
+  ) {
+    const select = new PrismaSelect(info).value;
+    return this.profileService.findManyMasterProfilesByServiceId(select, args);
   }
 
   /**

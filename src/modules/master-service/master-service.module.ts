@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 
 import { CommonPrismaModule } from '../../shared/modules/prisma/prisma.module';
 import { AuthModule } from '../auth/auth.module';
@@ -22,7 +22,7 @@ import { MasterServiceValidationService } from './master-service-validation.serv
     CommonPrismaModule,
     CurrencyModule,
     ServicesModule,
-    ProfileModule,
+    forwardRef(() => ProfileModule),
   ],
   exports: [MasterServiceService, MasterServiceValidationService],
 })

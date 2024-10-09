@@ -1,5 +1,6 @@
 import { ArgsType, Field } from '@nestjs/graphql';
-import { IsOptional, IsString } from 'class-validator';
+import { MasterService } from '@prisma/client';
+import { IsOptional, IsString, IsUUID } from 'class-validator';
 
 import { Users } from '../../../@generated';
 
@@ -22,5 +23,15 @@ export class UpdateProfileArgs
 export class FindProfileArgs implements Pick<Users, 'username'> {
   @Field(() => String, { nullable: false })
   @IsString()
+  @IsOptional()
   username: string;
+}
+
+@ArgsType()
+export class FindManyProfileByServiceIdArgs
+  implements Pick<MasterService, 'ServiceId'>
+{
+  @Field(() => String, { nullable: false })
+  @IsUUID()
+  ServiceId: string;
 }

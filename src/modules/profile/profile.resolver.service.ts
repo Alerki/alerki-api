@@ -5,7 +5,11 @@ import { StatusEnum } from '../../shared/enums/status.enum';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { JWTData } from '../auth/interfaces';
 import { UserService } from '../user/user.service';
-import { FindProfileArgs, UpdateProfileArgs } from './dto';
+import {
+  FindManyProfileByServiceIdArgs,
+  FindProfileArgs,
+  UpdateProfileArgs,
+} from './dto';
 import { ProfileService } from './profile.service';
 import { ProfileValidationService } from './profile-validation.service';
 
@@ -37,6 +41,39 @@ export class ProfileResolverService {
     return this.commonPrismaService.users.findFirst({
       where: {
         username: args.username,
+      },
+      ...select,
+    });
+  }
+
+  async findManyMasterProfilesByServiceId(
+    select: PrismaSelect,
+    args: FindManyProfileByServiceIdArgs,
+  ) {
+    const users =
+      await this.profileService.findManyValidMasterProfilesByServiceId(
+        args.ServiceId,
+      );
+
+    PrismaSelect.mergeDeep(select, {
+      select: {
+        MasterProfile: {
+          select: {
+            MasterServices: {
+              where: {
+                ServiceId: args.ServiceId,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return this.commonPrismaService.users.findMany({
+      where: {
+        id: {
+          in: users.map((i) => i.id),
+        },
       },
       ...select,
     });
