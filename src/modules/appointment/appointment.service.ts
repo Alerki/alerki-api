@@ -1,57 +1,54 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { PrismaSelect } from '@paljs/plugins';
+
 import {
   CreateAppointmentArgs,
   FindManyClientAppointmentsArgs,
   FindManyMasterAppointmentsArgs,
 } from './dto';
 import { JWTData } from '../auth/interfaces';
-import { PrismaSelect } from '@paljs/plugins';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
 import { appendNewDateWithTime } from '../../shared/utils/date-time.util';
 import { paginate } from '../../shared/utils/pagination.util';
-import { SystemCode } from '../../shared/data/system-codes.data';
 import { MasterScheduleService } from '../master-schedule/master-schedule.service';
 import { ProfileService } from '../profile/profile.service';
 import { MasterServiceService } from '../master-service/master-service.service';
-import { UserValidationService } from '../user/user-validation.service';
 import { ProfileValidationService } from '../profile/profile-validation.service';
 
 @Injectable()
 export class AppointmentService {
   constructor(
     private readonly commonPrismaService: CommonPrismaService,
-    private readonly masterScheduleService: MasterScheduleService,
-    private readonly masterServiceService: MasterServiceService,
     private readonly profileService: ProfileService,
-    private readonly userValidationService: UserValidationService,
     private readonly profileValidationService: ProfileValidationService,
+    private readonly masterServiceService: MasterServiceService,
+    private readonly masterScheduleService: MasterScheduleService,
   ) {}
 
+  /**
+   * Create a new appointment
+   *
+   * The client side defined by user argument
+   *
+   * @param select select
+   * @param args args
+   * @param user user data
+   * @returns a new appointment
+   */
   async createAppointment(
     select: PrismaSelect,
     args: CreateAppointmentArgs,
     user: JWTData,
   ) {
+    // Check if start time more that now
     this.masterScheduleService.isStartDateValid(args.startAt);
 
-    // Check user profiles
+    // Check user and client profile
     const clientProfile =
-      await this.commonPrismaService.clientProfiles.findFirst({
-        where: {
-          status: StatusEnum.PUBLISHED,
-          Users: {
-            some: {
-              id: user.id,
-              status: StatusEnum.PUBLISHED,
-            },
-          },
-        },
+      await this.profileService.findValidClientProfileOrThrow({
+        id: user.id,
       });
-
-    if (!clientProfile) {
-      throw new BadRequestException(SystemCode.NO_VALID_CLIENT_PROFILE);
-    }
 
     // Check if master service available
     const masterService =
@@ -71,18 +68,15 @@ export class AppointmentService {
       );
 
     // Check if master profile available
-    this.profileService.checkIfMasterProfileAvailableOrThrow({
+    this.profileValidationService.checkIfUserAndMasterProfileAvailableOrThrow({
       ...masterService.MasterProfile.Users[0],
       MasterProfile: masterService.MasterProfile,
     });
 
-    if (!masterService) {
-      throw new BadRequestException(SystemCode.MASTER_SERVICE_UNAVAILABLE);
-    }
-
     const startAt = args.startAt;
     const endAt = appendNewDateWithTime(startAt, masterService.duration);
 
+    // Check if it possible to book the time
     await this.masterScheduleService.isTheTimeAvailableToBook(
       masterService.MasterProfileId,
       startAt,

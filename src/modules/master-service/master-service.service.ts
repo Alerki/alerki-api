@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
-import { CurrencyResolverService } from '../currency/currency.resolver.service';
 import { MasterService, Prisma } from '@prisma/client';
 import { MasterServiceValidationService } from './master-service-validation.service';
 
@@ -10,7 +9,6 @@ export class MasterServiceService {
   constructor(
     private readonly commonPrismaService: CommonPrismaService,
     private readonly masterServiceValidationService: MasterServiceValidationService,
-    private readonly currencyService: CurrencyResolverService,
   ) {}
 
   async findValidMasterService<ArgsT extends Prisma.MasterServiceFindFirstArgs>(

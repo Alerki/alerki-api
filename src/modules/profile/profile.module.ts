@@ -6,6 +6,7 @@ import { AuthModule } from '../auth/auth.module';
 import { CommonPrismaModule } from '../../shared/modules/prisma/prisma.module';
 import { ProfileValidationService } from './profile-validation.service';
 import { ProfileService } from './profile.service';
+import { UserModule } from '../user/user.module';
 
 @Module({
   providers: [
@@ -14,7 +15,7 @@ import { ProfileService } from './profile.service';
     ProfileResolverService,
     ProfileValidationService,
   ],
-  imports: [CommonPrismaModule, AuthModule],
+  imports: [CommonPrismaModule, AuthModule, UserModule, ProfileModule],
   exports: [ProfileService, ProfileValidationService],
 })
 export class ProfileModule {}

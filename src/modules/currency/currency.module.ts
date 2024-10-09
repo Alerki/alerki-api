@@ -8,12 +8,12 @@ import { CurrencyValidationService } from './currency-validation.service';
 
 @Module({
   providers: [
-    CurrencyResolverService,
     CurrencyResolver,
+    CurrencyResolverService,
     CurrencyService,
     CurrencyValidationService,
   ],
   imports: [CommonPrismaModule],
-  exports: [CurrencyResolverService],
+  exports: [CurrencyService, CurrencyResolverService],
 })
 export class CurrencyModule {}

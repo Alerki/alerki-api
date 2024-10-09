@@ -6,8 +6,6 @@ import { SystemCode } from '../../shared/data/system-codes.data';
 
 @Injectable()
 export class UserValidationService {
-  constructor() {}
-
   isUserDefined(user: Users | null | undefined, throwError = false) {
     if (!user) {
       if (throwError) {

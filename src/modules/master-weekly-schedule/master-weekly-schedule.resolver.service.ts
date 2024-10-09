@@ -4,14 +4,12 @@ import { PrismaSelect } from '@paljs/plugins';
 import { UpdateMasterWeeklyScheduleArgs } from './dto';
 import { JWTData } from '../auth/interfaces';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
-import { UserService } from '../user/user.service';
 import { ProfileService } from '../profile/profile.service';
 
 @Injectable()
 export class MasterWeeklyScheduleResolverService {
   constructor(
     private readonly commonPrismaService: CommonPrismaService,
-    private readonly userService: UserService,
     private readonly profileService: ProfileService,
   ) {}
 

@@ -3,9 +3,12 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { StatusEnum } from '../../shared/enums/status.enum';
 import { ClientProfiles, MasterProfile, Prisma } from '@prisma/client';
 import { SystemCode } from '../../shared/data/system-codes.data';
+import { UserValidationService } from '../user/user-validation.service';
 
 @Injectable()
 export class ProfileValidationService {
+  constructor(private readonly userValidationService: UserValidationService) {}
+
   isMasterProfileDefined(
     masterProfile: MasterProfile | null | undefined,
     throwError = false,
@@ -110,5 +113,27 @@ export class ProfileValidationService {
     this.isClientProfilePublished(clientProfile, true);
 
     return clientProfile!;
+  }
+
+  checkIfUserAndMasterProfileAvailableOrThrow(
+    user:
+      | Prisma.UsersGetPayload<{ include: { MasterProfile: true } }>
+      | undefined
+      | null,
+  ) {
+    this.userValidationService.checkIfUserAvailableOrThrow(user);
+    this.checkIfMasterProfileAvailableOrThrow(user?.MasterProfile);
+    return user!;
+  }
+
+  checkIfUserAndClientProfileAvailableOrThrow(
+    user:
+      | Prisma.UsersGetPayload<{ include: { ClientProfile: true } }>
+      | undefined
+      | null,
+  ) {
+    this.userValidationService.checkIfUserAvailableOrThrow(user);
+    this.checkIfClientProfileAvailableOrThrow(user?.ClientProfile);
+    return user!;
   }
 }

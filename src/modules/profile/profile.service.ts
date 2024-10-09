@@ -4,13 +4,11 @@ import { Prisma } from '@prisma/client';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
 import { ProfileValidationService } from './profile-validation.service';
-import { UserValidationService } from '../user/user-validation.service';
 
 @Injectable()
 export class ProfileService {
   constructor(
     private readonly commonPrismaService: CommonPrismaService,
-    private readonly userValidationService: UserValidationService,
     private readonly profileValidationService: ProfileValidationService,
   ) {}
 
@@ -20,19 +18,6 @@ export class ProfileService {
         status: StatusEnum.PUBLISHED,
       },
     });
-  }
-
-  checkIfMasterProfileAvailableOrThrow(
-    user:
-      | Prisma.UsersGetPayload<{ include: { MasterProfile: true } }>
-      | undefined
-      | null,
-  ) {
-    this.userValidationService.checkIfUserAvailableOrThrow(user);
-    this.profileValidationService.checkIfMasterProfileAvailableOrThrow(
-      user?.MasterProfile,
-    );
-    return user!;
   }
 
   async findValidMasterProfileOrThrow(
@@ -49,6 +34,22 @@ export class ProfileService {
         ClientProfile: true,
       },
     });
-    return this.checkIfMasterProfileAvailableOrThrow(user);
+    return this.profileValidationService.checkIfUserAndMasterProfileAvailableOrThrow(
+      user,
+    );
+  }
+
+  async findValidClientProfileOrThrow(
+    where: Prisma.UsersFindFirstArgs['where'],
+  ) {
+    const user = await this.commonPrismaService.users.findFirst({
+      where,
+      include: {
+        ClientProfile: true,
+      },
+    });
+    return this.profileValidationService.checkIfUserAndClientProfileAvailableOrThrow(
+      user,
+    );
   }
 }

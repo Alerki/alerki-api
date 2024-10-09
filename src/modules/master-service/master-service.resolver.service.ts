@@ -18,10 +18,10 @@ import { ServicesService } from '../services/services.service';
 export class MasterServiceResolverService {
   constructor(
     private readonly commonPrismaService: CommonPrismaService,
-    private readonly servicesService: ServicesService,
     private readonly currencyService: CurrencyService,
-    private readonly masterServiceService: MasterServiceService,
+    private readonly servicesService: ServicesService,
     private readonly profileService: ProfileService,
+    private readonly masterServiceService: MasterServiceService,
   ) {}
 
   async createMasterService(

@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { MasterSchedule, Prisma } from '@prisma/client';
 
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { LIST_OF_WEEK_DAYS } from '../../shared/data/date.data';
@@ -8,7 +9,6 @@ import {
 } from '../../shared/utils/date-time.util';
 import { SystemCode } from '../../shared/data/system-codes.data';
 import { MasterScheduleValidationService } from './master-schedule-validatoin.service';
-import { MasterSchedule, Prisma } from '@prisma/client';
 
 @Injectable()
 export class MasterScheduleService {
@@ -53,7 +53,7 @@ export class MasterScheduleService {
   }
 
   /**
-   * Check if the timespan is available to book
+   * Check if the time is available to book
    *
    * @param masterProfileId master profile ID
    * @param startAt start at
@@ -74,7 +74,7 @@ export class MasterScheduleService {
       new Date(0),
       startAt,
     );
-    const UNIX_DateWIthTimeEndAt = appendNewDateWithTime(new Date(0), endAt);
+    const UNIX_DateWithTimeEndAt = appendNewDateWithTime(new Date(0), endAt);
 
     // Get data that affects time availability
     const masterProfile =
@@ -146,7 +146,7 @@ export class MasterScheduleService {
 
       // Check for available time
       if (
-        masterProfile.MasterWeeklySchedule.startAt >= UNIX_DateWIthTimeEndAt &&
+        masterProfile.MasterWeeklySchedule.startAt >= UNIX_DateWithTimeEndAt &&
         masterProfile.MasterWeeklySchedule.endAt >= UNIX_DateWIthTimeStartAt
       ) {
         availableToBook = false;
@@ -172,10 +172,8 @@ export class MasterScheduleService {
       if (throwError) {
         throw new BadRequestException(SystemCode.INVALID_INPUT);
       }
-
       return false;
     }
-
     return true;
   }
 }

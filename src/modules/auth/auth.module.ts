@@ -7,11 +7,12 @@ import { CommonPrismaModule } from '../../shared/modules/prisma/prisma.module';
 import { JwtInternalService } from './service/internal-jwt.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { UserModule } from '../user/user.module';
 
 @Module({
   providers: [AuthService, JwtInternalService, JwtStrategy, LocalStrategy],
   controllers: [AuthController],
-  imports: [CommonPrismaModule, JwtModule],
+  imports: [CommonPrismaModule, UserModule, JwtModule],
   exports: [JwtInternalService],
 })
 export class AuthModule {}

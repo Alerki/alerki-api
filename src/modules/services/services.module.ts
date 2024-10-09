@@ -9,12 +9,12 @@ import { ServicesService } from './services.service';
 
 @Module({
   providers: [
-    ServicesResolverService,
     ServicesResolver,
-    ServicesValidationService,
+    ServicesResolverService,
     ServicesService,
+    ServicesValidationService,
   ],
-  imports: [CommonPrismaModule, AuthModule],
-  exports: [ServicesValidationService, ServicesService],
+  imports: [AuthModule, CommonPrismaModule],
+  exports: [ServicesService, ServicesValidationService],
 })
 export class ServicesModule {}

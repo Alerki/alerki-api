@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { MasterSchedule } from '@prisma/client';
+
 import { SystemCode } from '../../shared/data/system-codes.data';
 import { StatusEnum } from '../../shared/enums/status.enum';
 
