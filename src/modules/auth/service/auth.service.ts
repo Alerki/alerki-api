@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { hash, compareSync } from 'bcryptjs';
-
-import { CommonPrismaService } from '../../../shared/modules/prisma/prisma.service';
-import { LogInDto, RegisterDto, UpdateSessionDto } from '../dtos/auth.dto';
+import { compareSync, hash } from 'bcryptjs';
 import { ENV } from 'src/modules/config';
-import { StatusEnum } from '../../../shared/enums/status.enum';
-import { JwtInternalService } from './internal-jwt.service';
+
 import { SystemCode } from '../../../shared/data/system-codes.data';
+import { StatusEnum } from '../../../shared/enums/status.enum';
+import { CommonPrismaService } from '../../../shared/modules/prisma/prisma.service';
 import { UserService } from '../../user/user.service';
+import { LogInDto, RegisterDto, UpdateSessionDto } from '../dtos/auth.dto';
+import { JwtInternalService } from './internal-jwt.service';
 
 @Injectable()
 export class AuthService {

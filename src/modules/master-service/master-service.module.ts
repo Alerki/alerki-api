@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 
-import { MasterServiceResolverService } from './master-service.resolver.service';
-import { MasterServiceResolver } from './master-service.resolver';
 import { CommonPrismaModule } from '../../shared/modules/prisma/prisma.module';
 import { AuthModule } from '../auth/auth.module';
-import { ServicesModule } from '../services/services.module';
 import { CurrencyModule } from '../currency/currency.module';
-import { MasterServiceValidationService } from './master-service-validation.service';
-import { MasterServiceService } from './master-service.service';
 import { ProfileModule } from '../profile/profile.module';
+import { ServicesModule } from '../services/services.module';
+import { MasterServiceResolver } from './master-service.resolver';
+import { MasterServiceResolverService } from './master-service.resolver.service';
+import { MasterServiceService } from './master-service.service';
+import { MasterServiceValidationService } from './master-service-validation.service';
 
 @Module({
   providers: [

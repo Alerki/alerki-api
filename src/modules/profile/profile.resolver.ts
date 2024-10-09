@@ -1,14 +1,14 @@
-import { Query, Info, Resolver, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-import { GraphQLResolveInfo } from 'graphql';
+import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
+import { GraphQLResolveInfo } from 'graphql';
 
-import { ProfileResolverService } from './profile.resolver.service';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { Users } from '../../@generated';
 import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { JWTData } from '../auth/interfaces';
 import { FindProfileArgs, UpdateProfileArgs } from './dto';
+import { ProfileResolverService } from './profile.resolver.service';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)

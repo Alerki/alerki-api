@@ -1,5 +1,6 @@
 import { ArgsType, Field } from '@nestjs/graphql';
 import { Appointments } from '@prisma/client';
+
 import { PaginationDto } from '../../../shared/dto/pagination.dto';
 
 @ArgsType()

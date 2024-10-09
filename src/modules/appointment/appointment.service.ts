@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaSelect } from '@paljs/plugins';
 
+import { StatusEnum } from '../../shared/enums/status.enum';
+import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
+import { appendNewDateWithTime } from '../../shared/utils/date-time.util';
+import { paginate } from '../../shared/utils/pagination.util';
+import { JWTData } from '../auth/interfaces';
+import { MasterScheduleService } from '../master-schedule/master-schedule.service';
+import { MasterServiceService } from '../master-service/master-service.service';
+import { ProfileService } from '../profile/profile.service';
+import { ProfileValidationService } from '../profile/profile-validation.service';
 import {
   CreateAppointmentArgs,
   FindManyClientAppointmentsArgs,
   FindManyMasterAppointmentsArgs,
 } from './dto';
-import { JWTData } from '../auth/interfaces';
-import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
-import { StatusEnum } from '../../shared/enums/status.enum';
-import { appendNewDateWithTime } from '../../shared/utils/date-time.util';
-import { paginate } from '../../shared/utils/pagination.util';
-import { MasterScheduleService } from '../master-schedule/master-schedule.service';
-import { ProfileService } from '../profile/profile.service';
-import { MasterServiceService } from '../master-service/master-service.service';
-import { ProfileValidationService } from '../profile/profile-validation.service';
 
 @Injectable()
 export class AppointmentService {

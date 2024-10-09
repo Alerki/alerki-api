@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { FindServicesArgs } from './dto';
-import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
+import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
+import { FindServicesArgs } from './dto';
 
 @Injectable()
 export class ServicesResolverService {

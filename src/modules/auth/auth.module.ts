@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 
-import { AuthService } from './service/auth.service';
-import { AuthController } from './auth.controller';
 import { CommonPrismaModule } from '../../shared/modules/prisma/prisma.module';
+import { UserModule } from '../user/user.module';
+import { AuthController } from './auth.controller';
+import { AuthService } from './service/auth.service';
 import { JwtInternalService } from './service/internal-jwt.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-import { UserModule } from '../user/user.module';
 
 @Module({
   providers: [AuthService, JwtInternalService, JwtStrategy, LocalStrategy],

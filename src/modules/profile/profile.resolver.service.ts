@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaSelect } from '@paljs/plugins';
 
+import { StatusEnum } from '../../shared/enums/status.enum';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { JWTData } from '../auth/interfaces';
-import { FindProfileArgs, UpdateProfileArgs } from './dto';
-import { StatusEnum } from '../../shared/enums/status.enum';
 import { UserService } from '../user/user.service';
+import { FindProfileArgs, UpdateProfileArgs } from './dto';
 import { ProfileService } from './profile.service';
 import { ProfileValidationService } from './profile-validation.service';
 

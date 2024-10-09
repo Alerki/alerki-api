@@ -7,8 +7,9 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { LanguagesEnum } from '../../../shared/enums/languages.enum';
+
 import { Service } from '../../../@generated';
+import { LanguagesEnum } from '../../../shared/enums/languages.enum';
 
 @ArgsType()
 export class FindServicesArgs {

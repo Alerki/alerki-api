@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { MasterService } from '@prisma/client';
 
-import { StatusEnum } from '../../shared/enums/status.enum';
 import { SystemCode } from '../../shared/data/system-codes.data';
+import { StatusEnum } from '../../shared/enums/status.enum';
 
 @Injectable()
 export class MasterServiceValidationService {

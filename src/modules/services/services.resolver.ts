@@ -1,9 +1,9 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
 
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { FindServicesArgs, ServiceOmitted } from './dto';
 import { ServicesResolverService } from './services.resolver.service';
-import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)

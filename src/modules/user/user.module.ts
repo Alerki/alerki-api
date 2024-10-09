@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { UserService } from './user.service';
 import { CommonPrismaModule } from '../../shared/modules/prisma/prisma.module';
+import { UserService } from './user.service';
 import { UserValidationService } from './user-validation.service';
 
 @Module({

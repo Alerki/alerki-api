@@ -1,16 +1,16 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaSelect } from '@paljs/plugins';
 
+import { SystemCode } from '../../shared/data/system-codes.data';
+import { StatusEnum } from '../../shared/enums/status.enum';
+import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
+import { JWTData } from '../auth/interfaces';
+import { ProfileService } from '../profile/profile.service';
 import {
   CreateMasterScheduleArgs,
   DeleteMasterScheduleArgs,
   UpdateMasterScheduleArgs,
 } from './dto';
-import { JWTData } from '../auth/interfaces';
-import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
-import { StatusEnum } from '../../shared/enums/status.enum';
-import { SystemCode } from '../../shared/data/system-codes.data';
-import { ProfileService } from '../profile/profile.service';
 import { MasterScheduleService } from './master-schedule.service';
 
 @Injectable()

@@ -1,13 +1,14 @@
-import { Args, Info, Mutation, Resolver } from '@nestjs/graphql';
-import { MasterWeeklyScheduleResolverService } from './master-weekly-schedule.resolver.service';
-import { MasterWeeklySchedule } from '../../@generated';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
-import { UpdateMasterWeeklyScheduleArgs } from './dto';
-import { GraphQLResolveInfo } from 'graphql';
-import { JWTData } from '../auth/interfaces';
-import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
+import { Args, Info, Mutation, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
+import { GraphQLResolveInfo } from 'graphql';
+
+import { MasterWeeklySchedule } from '../../@generated';
+import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { JWTData } from '../auth/interfaces';
+import { UpdateMasterWeeklyScheduleArgs } from './dto';
+import { MasterWeeklyScheduleResolverService } from './master-weekly-schedule.resolver.service';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)

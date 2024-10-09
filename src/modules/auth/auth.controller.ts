@@ -10,17 +10,17 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { AuthService } from './service/auth.service';
+import { DeviceName } from '../../shared/decorators/device-name.decorator';
+import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
 import {
   LogInDto,
   LogOutDto,
   RegisterDto,
   UpdateSessionDto,
 } from './dtos/auth.dto';
-import { DeviceName } from '../../shared/decorators/device-name.decorator';
 import { JwtAuthGuard } from './guards/jwt.guard';
-import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
 import { JWTData } from './interfaces';
+import { AuthService } from './service/auth.service';
 
 @ApiTags('Auth')
 @Controller('auth')

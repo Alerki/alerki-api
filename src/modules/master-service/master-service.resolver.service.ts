@@ -1,18 +1,18 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaSelect } from '@paljs/plugins';
 
+import { StatusEnum } from '../../shared/enums/status.enum';
+import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
+import { JWTData } from '../auth/interfaces';
+import { CurrencyService } from '../currency/currency.service';
+import { ProfileService } from '../profile/profile.service';
+import { ServicesService } from '../services/services.service';
 import {
   CreateMasterServiceArgs,
   DeleteMasterServiceArgs,
   UpdateMasterServiceArgs,
 } from './dto';
-import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
-import { JWTData } from '../auth/interfaces';
-import { StatusEnum } from '../../shared/enums/status.enum';
 import { MasterServiceService } from './master-service.service';
-import { ProfileService } from '../profile/profile.service';
-import { CurrencyService } from '../currency/currency.service';
-import { ServicesService } from '../services/services.service';
 
 @Injectable()
 export class MasterServiceResolverService {

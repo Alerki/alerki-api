@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Users } from '@prisma/client';
 
-import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { StatusEnum } from '../../shared/enums/status.enum';
+import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { UserValidationService } from './user-validation.service';
 
 export interface UserServiceCreateNewUser {

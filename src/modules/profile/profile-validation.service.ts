@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-
-import { StatusEnum } from '../../shared/enums/status.enum';
 import { ClientProfiles, MasterProfile, Prisma } from '@prisma/client';
+
 import { SystemCode } from '../../shared/data/system-codes.data';
+import { StatusEnum } from '../../shared/enums/status.enum';
 import { UserValidationService } from '../user/user-validation.service';
 
 @Injectable()

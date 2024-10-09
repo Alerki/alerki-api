@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaSelect } from '@paljs/plugins';
 
-import { UpdateMasterWeeklyScheduleArgs } from './dto';
-import { JWTData } from '../auth/interfaces';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
+import { JWTData } from '../auth/interfaces';
 import { ProfileService } from '../profile/profile.service';
+import { UpdateMasterWeeklyScheduleArgs } from './dto';
 
 @Injectable()
 export class MasterWeeklyScheduleResolverService {

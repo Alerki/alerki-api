@@ -1,17 +1,18 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Info, Mutation, Resolver } from '@nestjs/graphql';
-import { MasterScheduleResolverService } from './master-schedule.resolver.service';
-import { MasterSchedule } from '../../@generated';
+import { PrismaSelect } from '@paljs/plugins';
 import { GraphQLResolveInfo } from 'graphql';
+
+import { MasterSchedule } from '../../@generated';
+import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { JWTData } from '../auth/interfaces';
 import {
   CreateMasterScheduleArgs,
   DeleteMasterScheduleArgs,
   UpdateMasterScheduleArgs,
 } from './dto';
-import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
-import { JWTData } from '../auth/interfaces';
-import { PrismaSelect } from '@paljs/plugins';
-import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { MasterScheduleResolverService } from './master-schedule.resolver.service';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)

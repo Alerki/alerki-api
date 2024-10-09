@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { MasterSchedule, Prisma } from '@prisma/client';
 
-import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { LIST_OF_WEEK_DAYS } from '../../shared/data/date.data';
+import { SystemCode } from '../../shared/data/system-codes.data';
+import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import {
   appendNewDateWithTime,
   generateDatesInTimespan,
 } from '../../shared/utils/date-time.util';
-import { SystemCode } from '../../shared/data/system-codes.data';
 import { MasterScheduleValidationService } from './master-schedule-validatoin.service';
 
 @Injectable()

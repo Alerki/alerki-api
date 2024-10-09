@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { Currency, Prisma } from '@prisma/client';
 
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
-import { Currency, Prisma } from '@prisma/client';
 import { CurrencyValidationService } from './currency-validation.service';
 
 @Injectable()

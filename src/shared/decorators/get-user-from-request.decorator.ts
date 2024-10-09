@@ -1,19 +1,16 @@
 import {
-  BadRequestException,
   createParamDecorator,
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
+import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql';
 
 import { JWTData } from '../../modules/auth/interfaces';
 import { ContextType } from '../interfaces';
-import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql';
 
 export const GetUserFromRequest = createParamDecorator(
-  <T extends string | string[]>(
-    _: unknown,
-    context: ExecutionContext,
-  ): JWTData => {
+  // <T extends string | string[]>
+  (_: unknown, context: ExecutionContext): JWTData => {
     let request: ContextType | undefined = undefined;
 
     if (context.getType() === 'http') {
