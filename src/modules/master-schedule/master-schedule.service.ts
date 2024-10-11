@@ -16,8 +16,6 @@ import {
   generateDatesInTimespan,
   setEndOfTheDay,
 } from '../../shared/utils/date-time.util';
-import { AppointmentResolverService } from '../appointment/appointment.resolver.service';
-import { MasterWeeklyScheduleModule } from '../master-weekly-schedule/master-weekly-schedule.module';
 import { MasterWeeklyScheduleService } from '../master-weekly-schedule/master-weekly-schedule.service';
 import { ProfileService } from '../profile/profile.service';
 import { MasterDaySchedule, TimeSlots } from './dto';
