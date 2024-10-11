@@ -1,5 +1,5 @@
-import { ArgsType, Field } from '@nestjs/graphql';
-import { MasterSchedule } from '@prisma/client';
+import { ArgsType, Field, ObjectType } from '@nestjs/graphql';
+import { MasterSchedule, Users } from '@prisma/client';
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 
 @ArgsType()
@@ -48,4 +48,39 @@ export class DeleteMasterScheduleArgs
   @Field(() => String, { nullable: false })
   @IsString()
   id: string;
+}
+
+@ObjectType()
+export class TimeSlots {
+  @Field(() => Date, { nullable: false })
+  from: Date;
+
+  @Field(() => Date, { nullable: false })
+  to: Date;
+}
+
+@ObjectType()
+export class MasterDaySchedule {
+  @Field(() => Date, { nullable: false })
+  date: Date;
+
+  @Field(() => Boolean, { nullable: false })
+  available: boolean;
+
+  @Field(() => [TimeSlots], { nullable: false })
+  timeSlots: Array<TimeSlots>;
+}
+
+@ArgsType()
+export class GetMasterMonthScheduleArgs
+  implements Pick<Users, 'MasterProfileId'>
+{
+  @Field(() => String, { nullable: false })
+  MasterProfileId: string;
+
+  @Field(() => Number, { nullable: false })
+  year: number;
+
+  @Field(() => Number, { nullable: false })
+  month: number;
 }

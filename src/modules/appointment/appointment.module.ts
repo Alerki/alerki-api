@@ -6,10 +6,10 @@ import { MasterScheduleModule } from '../master-schedule/master-schedule.module'
 import { MasterServiceModule } from '../master-service/master-service.module';
 import { ProfileModule } from '../profile/profile.module';
 import { AppointmentResolver } from './appointment.resolver';
-import { AppointmentService } from './appointment.service';
+import { AppointmentResolverService } from './appointment.resolver.service';
 
 @Module({
-  providers: [AppointmentService, AppointmentResolver],
+  providers: [AppointmentResolverService, AppointmentResolver],
   imports: [
     AuthModule,
     CommonPrismaModule,
@@ -17,6 +17,6 @@ import { AppointmentService } from './appointment.service';
     MasterServiceModule,
     MasterScheduleModule,
   ],
-  exports: [AppointmentService],
+  exports: [AppointmentResolverService],
 })
 export class AppointmentModule {}

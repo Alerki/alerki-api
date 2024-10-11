@@ -9,6 +9,7 @@ import { ProfileService } from '../profile/profile.service';
 import {
   CreateMasterScheduleArgs,
   DeleteMasterScheduleArgs,
+  GetMasterMonthScheduleArgs,
   UpdateMasterScheduleArgs,
 } from './dto';
 import { MasterScheduleService } from './master-schedule.service';
@@ -167,5 +168,13 @@ export class MasterScheduleResolverService {
       },
       ...select,
     });
+  }
+
+  async getMasterMonthSchedule(args: GetMasterMonthScheduleArgs) {
+    return this.masterScheduleService.generateMonthlySchedule(
+      args.MasterProfileId,
+      args.year,
+      args.month,
+    );
   }
 }

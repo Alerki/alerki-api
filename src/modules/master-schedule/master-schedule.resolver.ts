@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Info, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { GraphQLResolveInfo } from 'graphql';
 
@@ -10,6 +10,8 @@ import { JWTData } from '../auth/interfaces';
 import {
   CreateMasterScheduleArgs,
   DeleteMasterScheduleArgs,
+  GetMasterMonthScheduleArgs,
+  MasterDaySchedule,
   UpdateMasterScheduleArgs,
 } from './dto';
 import { MasterScheduleResolverService } from './master-schedule.resolver.service';
@@ -58,5 +60,15 @@ export class MasterScheduleResolver {
   ) {
     const select = new PrismaSelect(info).value;
     return this.masterScheduleService.deleteMasterSchedule(select, args, user);
+  }
+
+  @Query(() => [MasterDaySchedule], { nullable: false })
+  async getMasterMonthSchedule(
+    @Args()
+    args: GetMasterMonthScheduleArgs,
+    // @GetUserFromRequest()
+    // user: JWTData,
+  ) {
+    return this.masterScheduleService.getMasterMonthSchedule(args);
   }
 }

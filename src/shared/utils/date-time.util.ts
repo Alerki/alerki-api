@@ -47,3 +47,25 @@ export function generateDatesInTimespan(startAt: Date, endAt: Date) {
   }
   return dates;
 }
+
+export function checkTimespansForCollision(
+  x: { start: Date; end: Date },
+  y: { start: Date; end: Date },
+) {
+  return x.start <= y.end && x.end >= y.start;
+}
+
+export function checkIfATimeIsPartOfTimespan(
+  timespan: { start: Date; end: Date },
+  y: Date,
+) {
+  return timespan.start <= y && y > timespan.end;
+}
+
+export function compareDates(dateX: Date, dateY: Date) {
+  return (
+    dateX.getUTCFullYear() === dateY.getUTCFullYear() &&
+    dateX.getUTCMonth() === dateY.getUTCMonth() &&
+    dateX.getUTCDate() === dateY.getUTCDate()
+  );
+}

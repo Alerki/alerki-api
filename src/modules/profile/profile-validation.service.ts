@@ -115,12 +115,9 @@ export class ProfileValidationService {
     return clientProfile!;
   }
 
-  checkIfUserAndMasterProfileAvailableOrThrow(
-    user:
-      | Prisma.UsersGetPayload<{ include: { MasterProfile: true } }>
-      | undefined
-      | null,
-  ) {
+  checkIfUserAndMasterProfileAvailableOrThrow<
+    T extends Prisma.UsersGetPayload<{ include: { MasterProfile: true } }>,
+  >(user: T | undefined | null) {
     this.userValidationService.checkIfUserAvailableOrThrow(user);
     this.checkIfMasterProfileAvailableOrThrow(user?.MasterProfile);
     return user!;

@@ -7,7 +7,7 @@ import { Appointments } from '../../@generated';
 import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { JWTData } from '../auth/interfaces';
-import { AppointmentService } from './appointment.service';
+import { AppointmentResolverService } from './appointment.resolver.service';
 import {
   CreateAppointmentArgs,
   FindManyClientAppointmentsArgs,
@@ -17,7 +17,9 @@ import {
 @UseGuards(JwtAuthGuard)
 @Resolver()
 export class AppointmentResolver {
-  constructor(private readonly appointmentService: AppointmentService) {}
+  constructor(
+    private readonly appointmentResolverService: AppointmentResolverService,
+  ) {}
 
   @Mutation(() => Appointments)
   async createAppointment(
@@ -29,7 +31,11 @@ export class AppointmentResolver {
     user: JWTData,
   ) {
     const select = new PrismaSelect(info).value;
-    return this.appointmentService.createAppointment(select, args, user);
+    return this.appointmentResolverService.createAppointment(
+      select,
+      args,
+      user,
+    );
   }
 
   @Query(() => [Appointments], { nullable: false })
@@ -42,7 +48,11 @@ export class AppointmentResolver {
     user: JWTData,
   ) {
     const select = new PrismaSelect(info).value;
-    return this.appointmentService.findMasterAppointments(select, args, user);
+    return this.appointmentResolverService.findMasterAppointments(
+      select,
+      args,
+      user,
+    );
   }
 
   @Query(() => [Appointments], { nullable: false })
@@ -55,6 +65,10 @@ export class AppointmentResolver {
     user: JWTData,
   ) {
     const select = new PrismaSelect(info).value;
-    return this.appointmentService.findClientAppointments(select, args, user);
+    return this.appointmentResolverService.findClientAppointments(
+      select,
+      args,
+      user,
+    );
   }
 }
