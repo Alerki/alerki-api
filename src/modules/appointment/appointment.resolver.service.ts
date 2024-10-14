@@ -45,14 +45,13 @@ export class AppointmentResolverService {
     this.masterScheduleService.isStartDateValid(args.startAt);
 
     // Check user and client profile
-    const clientProfile =
-      await this.profileService.findValidClientProfileOrThrow({
-        id: user.id,
-      });
+    const client = await this.profileService.findValidClientProfile({
+      id: user.id,
+    });
 
     // Check if master service available
     const masterService =
-      await this.masterServiceService.findValidMasterServiceOrThrow(
+      await this.masterServiceService.findValidMasterService(
         {
           id: args.MasterServiceId,
         },
@@ -61,6 +60,7 @@ export class AppointmentResolverService {
             MasterProfile: {
               include: {
                 Users: true,
+                MasterWeeklySchedule: true,
               },
             },
           },
@@ -68,6 +68,9 @@ export class AppointmentResolverService {
       );
 
     // Check if master profile available
+    // const userMaster = await this.profileService.findValidMasterProfile({
+    //   id: masterService.MasterProfileId,
+    // });
     this.profileValidationService.checkIfUserAndMasterProfileAvailableOrThrow({
       ...masterService.MasterProfile.Users[0],
       MasterProfile: masterService.MasterProfile,
@@ -87,7 +90,7 @@ export class AppointmentResolverService {
       data: {
         status: StatusEnum.PUBLISHED,
         MasterServiceId: masterService.id,
-        ClientProfileId: clientProfile.id,
+        ClientProfileId: client.ClientProfileId,
         duration: masterService.duration,
         price: masterService.price,
         CurrencyId: masterService.CurrencyId,

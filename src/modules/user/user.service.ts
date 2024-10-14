@@ -68,8 +68,8 @@ export class UserService {
       ...args,
     });
 
-    this.userValidationService.isUserDefined(user, true);
-    this.userValidationService.isUserPublished(user, true);
+    this.userValidationService.isUserDefined(user);
+    this.userValidationService.isUserPublished(user);
 
     return user! as Prisma.UsersGetPayload<ArgsT>;
   }

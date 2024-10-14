@@ -29,7 +29,7 @@ export class MasterServiceResolverService {
     args: CreateMasterServiceArgs,
     { id }: JWTData,
   ) {
-    const user = await this.profileService.findValidMasterProfileOrThrow({
+    const user = await this.profileService.findValidMasterProfile({
       id,
     });
 
@@ -71,12 +71,12 @@ export class MasterServiceResolverService {
     args: UpdateMasterServiceArgs,
     { id }: JWTData,
   ) {
-    await this.profileService.findValidMasterProfileOrThrow({
+    await this.profileService.findValidMasterProfile({
       id,
     });
 
     const masterService =
-      await this.masterServiceService.findValidMasterServiceOrThrow({
+      await this.masterServiceService.findValidMasterService({
         id: args.id,
       });
 
@@ -96,12 +96,12 @@ export class MasterServiceResolverService {
   }
 
   async deleteMasterService(args: DeleteMasterServiceArgs, { id }: JWTData) {
-    await this.profileService.findValidMasterProfileOrThrow({
+    await this.profileService.findValidMasterProfile({
       id,
     });
 
     const masterService =
-      await this.masterServiceService.findValidMasterServiceOrThrow({
+      await this.masterServiceService.findValidMasterService({
         id: args.id,
       });
 

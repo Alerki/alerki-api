@@ -1,5 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { ClientProfiles, MasterProfile, Prisma } from '@prisma/client';
+import {
+  ClientProfiles,
+  MasterProfile,
+  MasterWeeklySchedule,
+  Prisma,
+} from '@prisma/client';
 
 import { SystemCode } from '../../shared/data/system-codes.data';
 import { StatusEnum } from '../../shared/enums/status.enum';
@@ -9,128 +14,115 @@ import { UserValidationService } from '../user/user-validation.service';
 export class ProfileValidationService {
   constructor(private readonly userValidationService: UserValidationService) {}
 
-  isMasterProfileDefined(
-    masterProfile: MasterProfile | null | undefined,
-    throwError = false,
-  ) {
-    if (!masterProfile) {
-      if (throwError) {
-        throw new BadRequestException(SystemCode.MASTER_NOT_EXISTS);
-      }
-      return false;
-    }
-    return true;
-  }
-
-  isMasterProfilePublished(
-    masterProfile: MasterProfile | null | undefined,
-    throwError = false,
-  ) {
-    if (masterProfile?.status !== StatusEnum.PUBLISHED) {
-      if (throwError) {
-        throw new BadRequestException(SystemCode.MASTER_UNAVAILABLE);
-      }
-      return false;
-    }
-    return true;
-  }
-
-  isMasterProfileSetUp(
-    masterProfile: MasterProfile | null | undefined,
-    throwError = false,
-  ) {
-    // Check if weekly schedule created
-    if (!masterProfile?.MasterWeeklyScheduleId) {
-      if (throwError) {
-        throw new BadRequestException(SystemCode.MASTER_UNAVAILABLE);
-      }
-      return false;
-    }
-    return true;
-  }
-
-  checkIfMasterProfileAvailable<T extends MasterProfile>(
+  isMasterProfileDefined<T extends MasterProfile>(
     masterProfile: T | null | undefined,
-  ): T | false {
+  ): asserts masterProfile is T {
+    if (!masterProfile) {
+      throw new BadRequestException(SystemCode.MASTER_NOT_EXISTS);
+    }
+  }
+
+  isMasterProfilePublished<T extends MasterProfile>(
+    masterProfile: T | null | undefined,
+  ): asserts masterProfile is T {
+    if (masterProfile?.status !== StatusEnum.PUBLISHED) {
+      throw new BadRequestException(SystemCode.MASTER_UNAVAILABLE);
+    }
+  }
+
+  isMasterProfileSetUp<
+    T extends Prisma.MasterProfileGetPayload<{
+      include: { MasterWeeklySchedule: true };
+    }>,
+  >(
+    masterProfile: T | null | undefined,
+  ): asserts masterProfile is T & {
+    MasterWeeklySchedule: NonNullable<T['MasterWeeklySchedule']>;
+  } {
+    // Check if weekly schedule created
+    if (!masterProfile?.MasterWeeklySchedule) {
+      throw new BadRequestException(SystemCode.MASTER_UNAVAILABLE);
+    }
+  }
+
+  checkIfMasterProfileAvailable<
+    T extends Prisma.MasterProfileGetPayload<{
+      include: { MasterWeeklySchedule: true };
+    }>,
+  >(masterProfile: T | null | undefined) {
     try {
-      return this.checkIfMasterProfileAvailableOrThrow(masterProfile);
+      this.checkIfMasterProfileAvailableOrThrow(masterProfile);
     } catch (e) {
       return false;
     }
   }
 
-  checkIfMasterProfileAvailableOrThrow<T extends MasterProfile>(
+  checkIfMasterProfileAvailableOrThrow<
+    T extends Prisma.MasterProfileGetPayload<{
+      include: { MasterWeeklySchedule: true };
+    }>,
+  >(
     masterProfile: T | null | undefined,
-  ): T {
-    this.isMasterProfileDefined(masterProfile, true);
-    this.isMasterProfilePublished(masterProfile, true);
-    this.isMasterProfileSetUp(masterProfile, true);
-
-    return masterProfile!;
+  ): asserts masterProfile is T & {
+    MasterWeeklySchedule: NonNullable<T['MasterWeeklySchedule']>;
+  } {
+    this.isMasterProfileDefined(masterProfile);
+    this.isMasterProfilePublished(masterProfile);
+    this.isMasterProfileSetUp(masterProfile);
   }
 
-  isClientProfileDefined(
-    clientProfile: ClientProfiles | null | undefined,
-    throwError = false,
-  ) {
+  isClientProfileDefined<T extends ClientProfiles>(
+    clientProfile: T | null | undefined,
+  ): asserts clientProfile is T {
     if (!clientProfile) {
-      if (throwError) {
-        throw new BadRequestException(SystemCode.CLIENT_NOT_EXISTS);
-      }
-      return false;
+      throw new BadRequestException(SystemCode.CLIENT_NOT_EXISTS);
     }
-    return true;
   }
 
-  isClientProfilePublished(
-    clientProfile: ClientProfiles | null | undefined,
-    throwError = false,
-  ) {
-    // Check if weekly schedule created
+  isClientProfilePublished<T extends ClientProfiles>(
+    clientProfile: T | null | undefined,
+  ): asserts clientProfile is T {
     if (clientProfile?.status !== StatusEnum.PUBLISHED) {
-      if (throwError) {
-        throw new BadRequestException(SystemCode.CLIENT_UNAVAILABLE);
-      }
-      return false;
+      throw new BadRequestException(SystemCode.CLIENT_UNAVAILABLE);
     }
-    return true;
   }
 
   checkIfClientProfileAvailable<T extends ClientProfiles>(
     clientProfile: T | null | undefined,
-  ): T | false {
-    try {
-      return this.checkIfClientProfileAvailableOrThrow(clientProfile);
-    } catch (e) {
-      return false;
-    }
-  }
-
-  checkIfClientProfileAvailableOrThrow<T extends ClientProfiles>(
-    clientProfile: T | null | undefined,
-  ): T {
-    this.isClientProfileDefined(clientProfile, true);
-    this.isClientProfilePublished(clientProfile, true);
-
-    return clientProfile!;
+  ): asserts clientProfile is T {
+    this.isClientProfileDefined(clientProfile);
+    this.isClientProfilePublished(clientProfile);
   }
 
   checkIfUserAndMasterProfileAvailableOrThrow<
-    T extends Prisma.UsersGetPayload<{ include: { MasterProfile: true } }>,
-  >(user: T | undefined | null) {
-    this.userValidationService.checkIfUserAvailableOrThrow(user);
+    T extends Prisma.UsersGetPayload<{
+      include: {
+        MasterProfile: {
+          include: {
+            MasterWeeklySchedule: true;
+          };
+        };
+      };
+    }>,
+  >(
+    user: T | undefined | null,
+  ): asserts user is T & {
+    MasterProfile: {
+      MasterWeeklySchedule: MasterWeeklySchedule;
+    };
+  } {
+    this.userValidationService.checkIfUserAvailable(user);
     this.checkIfMasterProfileAvailableOrThrow(user?.MasterProfile);
-    return user!;
   }
 
-  checkIfUserAndClientProfileAvailableOrThrow(
-    user:
-      | Prisma.UsersGetPayload<{ include: { ClientProfile: true } }>
-      | undefined
-      | null,
-  ) {
-    this.userValidationService.checkIfUserAvailableOrThrow(user);
-    this.checkIfClientProfileAvailableOrThrow(user?.ClientProfile);
-    return user!;
+  checkIfUserAndClientProfileAvailableOrThrow<
+    T extends Prisma.UsersGetPayload<{ include: { ClientProfile: true } }>,
+  >(
+    user: T | undefined | null,
+  ): asserts user is T & {
+    ClientProfile: ClientProfiles;
+  } {
+    this.userValidationService.checkIfUserAvailable(user);
+    this.checkIfClientProfileAvailable(user?.ClientProfile);
   }
 }

@@ -38,7 +38,7 @@ export class MasterScheduleResolverService {
     }
 
     // Find master profile
-    const user = await this.profileService.findValidMasterProfileOrThrow({
+    const user = await this.profileService.findValidMasterProfile({
       id,
     });
 
@@ -90,7 +90,7 @@ export class MasterScheduleResolverService {
     }
 
     // Find master profile
-    const user = await this.profileService.findValidMasterProfileOrThrow({
+    const user = await this.profileService.findValidMasterProfile({
       id,
     });
 
@@ -141,13 +141,13 @@ export class MasterScheduleResolverService {
     { id }: JWTData,
   ) {
     // Find master profile
-    const user = await this.profileService.findValidMasterProfileOrThrow({
+    const user = await this.profileService.findValidMasterProfile({
       id,
     });
 
     // Check if there's schedule with the id
     const schedule =
-      await this.masterScheduleService.findValidMasterScheduleOrThrow(
+      await this.masterScheduleService.findValidMasterSchedule(
         {},
         {
           where: {

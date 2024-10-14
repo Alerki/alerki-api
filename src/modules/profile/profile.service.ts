@@ -22,9 +22,7 @@ export class ProfileService {
     });
   }
 
-  async findValidMasterProfileOrThrow(
-    where: Prisma.UsersFindFirstArgs['where'],
-  ) {
+  async findValidMasterProfile(where: Prisma.UsersFindFirstArgs['where']) {
     const user = await this.commonPrismaService.users.findFirst({
       where,
       include: {
@@ -36,23 +34,23 @@ export class ProfileService {
         ClientProfile: true,
       },
     });
-    return this.profileValidationService.checkIfUserAndMasterProfileAvailableOrThrow(
+    this.profileValidationService.checkIfUserAndMasterProfileAvailableOrThrow(
       user,
     );
+    return user;
   }
 
-  async findValidClientProfileOrThrow(
-    where: Prisma.UsersFindFirstArgs['where'],
-  ) {
+  async findValidClientProfile(where: Prisma.UsersFindFirstArgs['where']) {
     const user = await this.commonPrismaService.users.findFirst({
       where,
       include: {
         ClientProfile: true,
       },
     });
-    return this.profileValidationService.checkIfUserAndClientProfileAvailableOrThrow(
+    this.profileValidationService.checkIfUserAndClientProfileAvailableOrThrow(
       user,
     );
+    return user;
   }
 
   async findManyValidMasterProfilesByServiceId(ServiceId: string) {
@@ -77,6 +75,7 @@ export class ProfileService {
       include: {
         MasterProfile: {
           include: {
+            MasterWeeklySchedule: true,
             MasterServices: {
               where: {
                 ServiceId,

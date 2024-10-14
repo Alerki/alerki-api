@@ -1,5 +1,6 @@
 import { ArgsType, Field } from '@nestjs/graphql';
 import { Appointments } from '@prisma/client';
+import { IsDate } from 'class-validator';
 
 import { PaginationDto } from '../../../shared/dto/pagination.dto';
 
@@ -11,6 +12,7 @@ export class CreateAppointmentArgs
   MasterServiceId: string;
 
   @Field(() => Date, { nullable: false })
+  @IsDate()
   startAt: Date;
 }
 

@@ -18,6 +18,7 @@ import {
 } from '../../shared/utils/date-time.util';
 import { MasterWeeklyScheduleService } from '../master-weekly-schedule/master-weekly-schedule.service';
 import { ProfileService } from '../profile/profile.service';
+import { ProfileValidationService } from '../profile/profile-validation.service';
 import { MasterDaySchedule, TimeSlots } from './dto';
 import { MasterScheduleValidationService } from './master-schedule-validation.service';
 
@@ -34,23 +35,10 @@ export class MasterScheduleService {
     private readonly masterScheduleValidationService: MasterScheduleValidationService,
     private readonly masterWeeklyScheduleService: MasterWeeklyScheduleService,
     private readonly profileService: ProfileService,
+    private readonly profileValidationService: ProfileValidationService,
   ) {}
 
   async findValidMasterSchedule<
-    ArgsT extends Prisma.MasterScheduleFindFirstArgs,
-  >(where: Partial<Pick<MasterSchedule, 'id'>>, args?: ArgsT) {
-    try {
-      const masterSchedule = await this.findValidMasterScheduleOrThrow(
-        where,
-        args,
-      );
-      return masterSchedule;
-    } catch (e) {
-      return undefined;
-    }
-  }
-
-  async findValidMasterScheduleOrThrow<
     ArgsT extends Prisma.MasterScheduleFindFirstArgs,
   >(where: Partial<Pick<MasterSchedule, 'id'>>, args?: ArgsT) {
     const masterSchedule =
@@ -117,10 +105,15 @@ export class MasterScheduleService {
     const UNIX_DateWithTimeEndAt = appendNewDateWithTime(new Date(0), endAt);
 
     // Get data that affects time availability
+    // Check if master profile available or throw
+    const userMaster = await this.profileService.findValidMasterProfile({
+      MasterProfileId: masterProfileId,
+    });
+
     const masterProfile =
-      await this.commonPrismaService.masterProfile.findFirst({
+      (await this.commonPrismaService.masterProfile.findFirst({
         where: {
-          id: masterProfileId,
+          id: userMaster.MasterProfileId!,
         },
         include: {
           MasterWeeklySchedule: true,
@@ -130,7 +123,7 @@ export class MasterScheduleService {
                 lte: endAt,
               },
               endAt: {
-                lte: startAt,
+                gt: startAt,
               },
             },
           },
@@ -140,7 +133,7 @@ export class MasterScheduleService {
                 some: {
                   cancelled: false,
                   startAt: { lte: endAt },
-                  endAt: { gte: startAt },
+                  endAt: { gt: startAt },
                 },
               },
             },
@@ -149,21 +142,17 @@ export class MasterScheduleService {
                 where: {
                   cancelled: false,
                   startAt: { lte: endAt },
-                  endAt: { gte: startAt },
+                  endAt: { gt: startAt },
                 },
               },
             },
           },
         },
-      });
+      }))!;
 
-    if (!masterProfile) {
-      throw new BadRequestException('MasterProfile not exists');
-    }
-
-    if (!masterProfile.MasterWeeklySchedule) {
-      throw new BadRequestException('Master profile is not fully setup');
-    }
+    // this.profileValidationService.checkIfUserAndMasterProfileAvailableOrThrow(
+    //   userMaster,
+    // );
 
     // First check schedule then weekly schedule
     if (masterProfile.MasterSchedules.length > 0) {
@@ -177,7 +166,7 @@ export class MasterScheduleService {
       const dayOffCheck = timespanDays.find(
         (i) =>
           !this.masterWeeklyScheduleService.checkIfDayIsWorkDayFromWeeklySchedule(
-            masterProfile.MasterWeeklySchedule!,
+            userMaster.MasterProfile.MasterWeeklySchedule,
             i,
           ),
       );
@@ -187,8 +176,10 @@ export class MasterScheduleService {
 
       // Check for available time
       if (
-        masterProfile.MasterWeeklySchedule.startAt >= UNIX_DateWithTimeEndAt &&
-        masterProfile.MasterWeeklySchedule.endAt >= UNIX_DateWIthTimeStartAt
+        userMaster.MasterProfile.MasterWeeklySchedule.startAt >=
+          UNIX_DateWithTimeEndAt &&
+        userMaster.MasterProfile.MasterWeeklySchedule.endAt >=
+          UNIX_DateWIthTimeStartAt
       ) {
         availableToBook = false;
       }
@@ -261,10 +252,9 @@ export class MasterScheduleService {
     year: number,
     month: number,
   ) {
-    const masterProfile =
-      await this.profileService.findValidMasterProfileOrThrow({
-        MasterProfileId,
-      });
+    const masterProfile = await this.profileService.findValidMasterProfile({
+      MasterProfileId,
+    });
 
     const dateFrom = new Date(0);
     dateFrom.setUTCFullYear(year);
@@ -280,7 +270,7 @@ export class MasterScheduleService {
     const masterSchedules = await this.findManyValidMasterSchedules({
       MasterProfileId,
       startAt: { lte: dateTo },
-      endAt: { gte: dateFrom },
+      endAt: { gt: dateFrom },
     });
 
     const appointments = await this.commonPrismaService.appointments.findMany({
@@ -291,7 +281,7 @@ export class MasterScheduleService {
         },
         cancelled: false,
         startAt: { lte: dateTo },
-        endAt: { gte: dateFrom },
+        endAt: { gt: dateFrom },
       },
     });
 
@@ -328,7 +318,16 @@ export class MasterScheduleService {
     const availableStartDate = dayScheduleConfig.from;
     const availableEndDate = dayScheduleConfig.to;
 
-    if (appointments.length === 0) {
+    const processedAppointments = appointments
+      .filter((i) =>
+        checkTimespansForCollision(
+          { start: dayScheduleConfig.from, end: dayScheduleConfig.to },
+          { start: i.startAt, end: i.endAt },
+        ),
+      )
+      .sort((a, b) => b.startAt.getTime() - a.startAt.getTime());
+
+    if (processedAppointments.length === 0) {
       const isTimespanValid = availableStartDate < availableEndDate;
       return {
         date,
@@ -343,15 +342,6 @@ export class MasterScheduleService {
           : [],
       };
     }
-
-    const processedAppointments = appointments
-      .filter((i) =>
-        checkTimespansForCollision(
-          { start: dayScheduleConfig.from, end: dayScheduleConfig.to },
-          { start: i.startAt, end: i.endAt },
-        ),
-      )
-      .sort((a, b) => b.startAt.getTime() - a.startAt.getTime());
 
     const timeSlots: Array<TimeSlots> = [];
     processedAppointments.forEach((appointment, i, appointments) => {
@@ -369,24 +359,27 @@ export class MasterScheduleService {
           });
         }
       }
+
       // Process last appointment
       // |         |    <== available time
       //      |    |    <== appointment
       // Or
       // |         |     <== available time
       //         |    |  <== appointment
-      else if (i === appointments.length) {
-        if (appointment.endAt > availableEndDate) {
+      if (i === appointments.length - 1) {
+        if (appointment.endAt < availableEndDate) {
           timeSlots.push({
             from: appointment.endAt,
             to: availableEndDate,
           });
+          return;
         }
       }
+
       // Process middle appointments
       // |         |  <== available time
       //    |    |    <== appointment
-      else {
+      if (i !== 0 && i !== appointments.length - 1) {
         timeSlots.push({
           from: appointment.endAt,
           to: appointments[i + 1].startAt,

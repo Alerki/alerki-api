@@ -34,7 +34,7 @@ export class ProfileResolverService {
   }
 
   async findProfile(select: PrismaSelect, args: FindProfileArgs) {
-    await this.profileService.findValidMasterProfileOrThrow({
+    await this.profileService.findValidMasterProfile({
       username: args.username,
     });
 
@@ -159,10 +159,7 @@ export class ProfileResolverService {
       },
     );
 
-    this.profileValidationService.isMasterProfileDefined(
-      user.MasterProfile,
-      true,
-    );
+    this.profileValidationService.isMasterProfileDefined(user.MasterProfile);
 
     if (user.MasterProfile?.status === StatusEnum.ARCHIVED) {
       throw new BadRequestException();

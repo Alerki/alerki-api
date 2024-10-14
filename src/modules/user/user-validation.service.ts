@@ -6,41 +6,24 @@ import { StatusEnum } from '../../shared/enums/status.enum';
 
 @Injectable()
 export class UserValidationService {
-  isUserDefined(user: Users | null | undefined, throwError = false) {
+  isUserDefined<T extends Users>(
+    user: T | null | undefined,
+  ): asserts user is T {
     if (!user) {
-      if (throwError) {
-        throw new BadRequestException(SystemCode.USER_NOT_EXISTS);
-      }
-      return false;
+      throw new BadRequestException(SystemCode.USER_NOT_EXISTS);
     }
-    return true;
   }
 
-  isUserPublished(user: Users | null | undefined, throwError = false) {
+  isUserPublished<T extends Users>(
+    user: T | null | undefined,
+  ): asserts user is T {
     if (user?.status !== StatusEnum.PUBLISHED) {
-      if (throwError) {
-        throw new BadRequestException(SystemCode.USER_UNAVAILABLE);
-      }
-      return false;
+      throw new BadRequestException(SystemCode.USER_UNAVAILABLE);
     }
-    return true;
   }
 
-  checkIfUserAvailable(user: Users | null | undefined) {
-    try {
-      this.isUserDefined(user, true);
-      this.isUserPublished(user, true);
-    } catch (e) {
-      return false;
-    }
-
-    return user;
-  }
-
-  checkIfUserAvailableOrThrow(user: Users | null | undefined) {
-    this.isUserDefined(user, true);
-    this.isUserPublished(user, true);
-
-    return user;
+  checkIfUserAvailable<T extends Users>(user: T | null | undefined) {
+    this.isUserDefined(user);
+    this.isUserPublished(user);
   }
 }

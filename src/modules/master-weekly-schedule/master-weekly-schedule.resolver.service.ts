@@ -18,7 +18,7 @@ export class MasterWeeklyScheduleResolverService {
     args: UpdateMasterWeeklyScheduleArgs,
     { id }: JWTData,
   ) {
-    const user = await this.profileService.findValidMasterProfileOrThrow({
+    const user = await this.profileService.findValidMasterProfile({
       id,
     });
 

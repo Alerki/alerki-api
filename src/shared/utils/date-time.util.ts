@@ -52,7 +52,7 @@ export function checkTimespansForCollision(
   x: { start: Date; end: Date },
   y: { start: Date; end: Date },
 ) {
-  return x.start <= y.end && x.end >= y.start;
+  return x.start <= y.end && x.end > y.start;
 }
 
 export function checkIfATimeIsPartOfTimespan(
@@ -68,4 +68,14 @@ export function compareDates(dateX: Date, dateY: Date) {
     dateX.getUTCMonth() === dateY.getUTCMonth() &&
     dateX.getUTCDate() === dateY.getUTCDate()
   );
+}
+
+export function isDateValid(date: Date) {
+  if (Object.prototype.toString.call(date) === '[object Date]') {
+    if (!isNaN(date.getTime())) {
+      return true;
+    }
+  }
+
+  return false;
 }

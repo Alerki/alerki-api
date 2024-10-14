@@ -15,20 +15,6 @@ export class MasterServiceService {
     where: Pick<MasterService, 'id'>,
     args?: ArgsT,
   ) {
-    try {
-      const masterService = await this.findValidMasterServiceOrThrow(
-        where,
-        args,
-      );
-      return masterService;
-    } catch (e) {
-      return undefined;
-    }
-  }
-
-  async findValidMasterServiceOrThrow<
-    ArgsT extends Prisma.MasterServiceFindFirstArgs,
-  >(where: Pick<MasterService, 'id'>, args?: ArgsT) {
     const masterService =
       await this.commonPrismaService.masterService.findFirst({
         where,
