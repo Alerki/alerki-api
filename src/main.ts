@@ -32,6 +32,10 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Alerki API')
     .setDescription('Alerki API description')
+    .addSecurity('Bearer', {
+      type: 'http',
+      scheme: 'Bearer',
+    })
     .setVersion('0.7.0')
     .build();
   const document = SwaggerModule.createDocument(app, config, swaggerOption);

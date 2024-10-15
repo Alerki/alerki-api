@@ -169,6 +169,7 @@ model Users {
   password                String?         @db.VarChar(1024)
   MasterProfileId         String?         @map("MasterProfile") @db.Uuid
   ClientProfileId         String?         @map("ClientProfile") @db.Uuid
+  pictureUrl              String?         @db.VarChar(255)
   Sessions_Sessions_Users Sessions[]      @relation("Sessions_Users")
   ClientProfile           ClientProfiles? @relation(fields: [ClientProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_clientprofile_foreign")
   MasterProfile           MasterProfile?  @relation(fields: [MasterProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_masterprofile_foreign")

@@ -21,5 +21,12 @@ export const ENV = cleanEnv(process.env, {
   JWT_REFRESH_TOKEN_SECRET: str(),
   JWT_REFRESH_TOKEN_EXPIRES_IN: evalValidator(),
 
+  MINIO_ENDPOINT: str(),
+  MINIO_PORT: port(),
+  MINIO_ACCESS_KEY: str(),
+  MINIO_SECRET_KEY: str(),
+
+  PROFILE_PICTURE_SIZE: num(),
+
   PASSWORD_HASH: num(),
 });
