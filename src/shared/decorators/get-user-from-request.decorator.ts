@@ -1,18 +1,29 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import {
+  createParamDecorator,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql';
 
-import { IJwtTokenData } from '../../auth/interfaces';
-import { ProtectedRequest } from '../../auth/interfaces/protected-request.interface';
+import { JWTData } from '../../modules/auth/interfaces';
+import { ContextType } from '../interfaces';
 
-/**
- * Get cookies
- */
 export const GetUserFromRequest = createParamDecorator(
-  <T extends string | string[]>(
-    _: unknown,
-    ctx: ExecutionContext,
-  ): IJwtTokenData => {
-    const request: ProtectedRequest = ctx.switchToHttp().getRequest();
+  // <T extends string | string[]>
+  (_: unknown, context: ExecutionContext): JWTData => {
+    let request: ContextType | undefined = undefined;
 
-    return request.user;
+    if (context.getType() === 'http') {
+      request = context.switchToHttp().getRequest();
+    } else if (context.getType<GqlContextType>() === 'graphql') {
+      context = GqlExecutionContext.create(context);
+      request = context.switchToHttp().getNext();
+    }
+
+    if (!request) {
+      throw new UnauthorizedException();
+    }
+
+    return request.req.user;
   },
 );

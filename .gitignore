@@ -1,6 +1,7 @@
 # compiled output
-dist
-node_modules
+/dist
+/node_modules
+/build
 
 # Logs
 logs
@@ -19,7 +20,7 @@ lerna-debug.log*
 /.nyc_output
 
 # IDEs and editors
-.idea/
+/.idea
 .project
 .classpath
 .c9/
@@ -34,15 +35,29 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# Prisma
-prisma/*
-!prisma/schema.prisma
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 
-# Dot env
-.env.dev
-.env.prod
+# temp directory
+.temp
+.tmp
 
-# Docker volumes
-data/*
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-sandbox.ts
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Others
+/data/
+schema.dbml
+@generated/
+schema.gql
+yarn.lock
