@@ -68,12 +68,13 @@ export class ProfileController {
     return this.profileControllerService.updateProfilePicture(user.id, file);
   }
 
-  @Get(':id/picture')
+  @Get('picture/:pictureName')
   async getProfilePicture(
-    @Param('id', ParseUUIDPipe) id: string,
+    @Param('pictureName') pictureName: string,
     @Res() res: Response,
   ) {
-    const picture = await this.profileControllerService.getProfilePicture(id);
+    const picture =
+      await this.profileControllerService.getProfilePicture(pictureName);
     picture.pipe(res);
   }
 

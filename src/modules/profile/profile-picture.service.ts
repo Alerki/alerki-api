@@ -13,8 +13,12 @@ export class ProfilePictureService implements OnModuleInit {
     await this.minIOService.checkIfBucketExistsOrCreate(this.bucketName);
   }
 
-  buildPictureName(id: string) {
-    return id + '.' + this.format;
+  async getPicture(fileName: string) {
+    try {
+      return await this.minIOService.getImage(this.bucketName, fileName);
+    } catch (e) {
+      throw new NotFoundException();
+    }
   }
 
   async savePicture(userId: string, picture: Buffer) {
@@ -30,22 +34,15 @@ export class ProfilePictureService implements OnModuleInit {
     };
   }
 
-  async getPicture(fileName: string) {
+  async deletePicture(pictureName: string) {
     try {
-      return this.minIOService.getImage(this.bucketName, fileName);
+      return await this.minIOService.deleteItem(this.bucketName, pictureName);
     } catch (e) {
       throw new NotFoundException();
     }
   }
 
-  async deletePicture(userId: string) {
-    try {
-      return await this.minIOService.deleteItem(
-        this.bucketName,
-        this.buildPictureName(userId),
-      );
-    } catch (e) {
-      throw new NotFoundException();
-    }
+  buildPictureName(id: string) {
+    return id + '.' + this.format;
   }
 }

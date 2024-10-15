@@ -41,28 +41,8 @@ export class ProfileControllerService {
     return pictureName;
   }
 
-  async getProfilePicture(id: string) {
-    const user = await this.userService.findValidUserOrThrow({
-      id,
-    });
-
-    if (!user.pictureUrl) {
-      throw new NotFoundException();
-    }
-
-    try {
-      return this.profilePictureService.getPicture(user.pictureUrl);
-    } catch (e) {
-      await this.commonPrismaService.users.update({
-        where: {
-          id,
-        },
-        data: {
-          pictureUrl: null,
-        },
-      });
-      throw e;
-    }
+  async getProfilePicture(pictureName: string) {
+    return this.profilePictureService.getPicture(pictureName);
   }
 
   async deleteProfilePicture(id: string) {
@@ -74,7 +54,7 @@ export class ProfileControllerService {
       throw new NotFoundException();
     }
 
-    await this.profilePictureService.deletePicture(user.id);
+    await this.profilePictureService.deletePicture(user.pictureUrl);
 
     await this.commonPrismaService.users.update({
       where: {
