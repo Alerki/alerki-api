@@ -43,6 +43,6 @@ export class ProfilePictureService implements OnModuleInit {
   }
 
   buildPictureName(id: string) {
-    return id + '.' + this.format;
+    return id + '-' + Date.now() + '.' + this.format;
   }
 }

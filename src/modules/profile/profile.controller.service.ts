@@ -29,6 +29,12 @@ export class ProfileControllerService {
       processedImage,
     );
 
+    if (user.pictureUrl) {
+      try {
+        await this.profilePictureService.deletePicture(user.pictureUrl);
+      } catch (e) {}
+    }
+
     await this.commonPrismaService.users.update({
       where: {
         id,
