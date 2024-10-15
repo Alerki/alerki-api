@@ -51,7 +51,7 @@ export class ProfileControllerService {
     }
 
     try {
-      return this.profilePictureService.getPicture(user.id);
+      return this.profilePictureService.getPicture(user.pictureUrl);
     } catch (e) {
       await this.commonPrismaService.users.update({
         where: {

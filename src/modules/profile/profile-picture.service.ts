@@ -30,12 +30,9 @@ export class ProfilePictureService implements OnModuleInit {
     };
   }
 
-  async getPicture(userId: string) {
+  async getPicture(fileName: string) {
     try {
-      return this.minIOService.getImage(
-        this.bucketName,
-        this.buildPictureName(userId),
-      );
+      return this.minIOService.getImage(this.bucketName, fileName);
     } catch (e) {
       throw new NotFoundException();
     }
