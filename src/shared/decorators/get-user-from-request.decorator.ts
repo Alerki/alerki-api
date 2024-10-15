@@ -24,6 +24,12 @@ export const GetUserFromRequest = createParamDecorator(
       throw new UnauthorizedException();
     }
 
-    return request.req.user;
+    if (context.getType() === 'http') {
+      return (request as any).user;
+    } else if (context.getType<GqlContextType>() === 'graphql') {
+      return request.req.user;
+    }
+
+    throw new UnauthorizedException();
   },
 );
