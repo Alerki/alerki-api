@@ -34,13 +34,9 @@ export class ServicesResolverService {
                   },
                 }
               : {}),
-            ...(args.language_code
-              ? {
-                  languages: {
-                    code: args.language_code,
-                  },
-                }
-              : {}),
+            languages: {
+              code: args.language_code || user.Language,
+            },
           },
         },
       },
@@ -48,7 +44,7 @@ export class ServicesResolverService {
         Service_translations: {
           where: {
             languages: {
-              code: args.language_code,
+              code: args.language_code || user.Language,
             },
           },
           include: {

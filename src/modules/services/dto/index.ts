@@ -8,7 +8,6 @@ import {
   Min,
 } from 'class-validator';
 
-import { Service } from '../../../@generated';
 import { LanguagesEnum } from '../../../shared/enums/languages.enum';
 
 @ArgsType()
@@ -38,10 +37,3 @@ export class FindServicesArgs {
   @IsOptional()
   skip: number;
 }
-
-@ObjectType()
-export class ServiceOmitted extends OmitType(Service, [
-  'MasterServices',
-  'directus_users_Service_user_createdTodirectus_users',
-  'directus_users_Service_user_updatedTodirectus_users',
-]) {}
