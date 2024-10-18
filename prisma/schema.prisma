@@ -10,10 +10,12 @@ generator dbml {
 }
 
 generator nestgraphql {
-  provider    = "node node_modules/prisma-nestjs-graphql"
-  output      = "../src/@generated"
-  purgeOutput = "true"
-  emitSingle  = "true"
+  provider        = "node node_modules/prisma-nestjs-graphql"
+  output          = "../src/@generated"
+  purgeOutput     = "true"
+  emitSingle      = "true"
+  emitBlocks      = ["outputs", "models", "enums"]
+  omitModelsCount = "true"
 }
 
 datasource db {
@@ -170,8 +172,10 @@ model Users {
   MasterProfileId         String?         @map("MasterProfile") @db.Uuid
   ClientProfileId         String?         @map("ClientProfile") @db.Uuid
   pictureUrl              String?         @db.VarChar(255)
+  Language                String          @db.VarChar(255)
   Sessions_Sessions_Users Sessions[]      @relation("Sessions_Users")
   ClientProfile           ClientProfiles? @relation(fields: [ClientProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_clientprofile_foreign")
+  languages               languages       @relation(fields: [Language], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "users_language_foreign")
   MasterProfile           MasterProfile?  @relation(fields: [MasterProfileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_masterprofile_foreign")
 }
 
@@ -605,4 +609,5 @@ model languages {
   name                 String?                @db.VarChar(255)
   direction            String?                @default("ltr") @db.VarChar(255)
   Service_translations Service_translations[]
+  Users                Users[]
 }

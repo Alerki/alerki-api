@@ -18,7 +18,7 @@ export class FindServicesArgs {
   @IsOptional()
   name?: string;
 
-  @Field(() => String, { nullable: false })
+  @Field(() => String, { nullable: true })
   @IsString()
   @IsEnum(LanguagesEnum)
   @IsOptional()
@@ -44,5 +44,4 @@ export class ServiceOmitted extends OmitType(Service, [
   'MasterServices',
   'directus_users_Service_user_createdTodirectus_users',
   'directus_users_Service_user_updatedTodirectus_users',
-  '_count',
 ]) {}

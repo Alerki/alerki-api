@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
+
+import { LanguagesEnum } from '../../../shared/enums/languages.enum';
 
 export class RegisterDto {
   @IsString()
@@ -33,6 +35,18 @@ export class RegisterDto {
     example: 'Josh01',
   })
   password: string;
+
+  @IsString()
+  @IsEnum(LanguagesEnum)
+  @IsOptional()
+  @ApiProperty({
+    description: 'Language code',
+    type: String,
+    example: LanguagesEnum.English,
+    required: false,
+    default: LanguagesEnum.English,
+  })
+  language: LanguagesEnum;
 }
 
 export class LogInDto {

@@ -23,7 +23,7 @@ export class ProfileResolverService {
   ) {}
 
   async getProfile({ id }: JWTData, select?: PrismaSelect) {
-    return this.userService.findValidUserOrThrow(
+    return this.userService.findValidUser(
       {
         id,
       },
@@ -84,7 +84,7 @@ export class ProfileResolverService {
     select: PrismaSelect,
     args: UpdateProfileArgs,
   ) {
-    const user = await this.userService.findValidUserOrThrow({
+    const user = await this.userService.findValidUser({
       id,
     });
 
@@ -100,7 +100,7 @@ export class ProfileResolverService {
   }
 
   async enableMasterProfile(select: PrismaSelect, { id }: JWTData) {
-    const user = await this.userService.findValidUserOrThrow(
+    const user = await this.userService.findValidUser(
       {
         id,
       },
@@ -150,7 +150,7 @@ export class ProfileResolverService {
   }
 
   async disableMasterProfile(select: PrismaSelect, { id }: JWTData) {
-    const user = await this.userService.findValidUserOrThrow(
+    const user = await this.userService.findValidUser(
       { id },
       {
         include: {

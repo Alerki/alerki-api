@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Users } from '@prisma/client';
 
+import { LanguagesEnum } from '../../shared/enums/languages.enum';
 import { StatusEnum } from '../../shared/enums/status.enum';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import { UserValidationService } from './user-validation.service';
@@ -10,6 +11,7 @@ export interface UserServiceCreateNewUser {
   username: string;
   hashedPassword: string;
   profileType: 'client' | 'master';
+  language: LanguagesEnum;
 }
 
 @Injectable()
@@ -26,6 +28,11 @@ export class UserService {
         email: args.email.toLowerCase(),
         username: args.username,
         password: args.hashedPassword,
+        languages: {
+          connect: {
+            code: args.language || LanguagesEnum.English,
+          },
+        },
         ClientProfile: {
           create: {
             status: StatusEnum.PUBLISHED,
@@ -48,18 +55,6 @@ export class UserService {
   }
 
   async findValidUser<ArgsT extends Prisma.UsersFindFirstArgs>(
-    where: Partial<Pick<Users, 'id' | 'email'>>,
-    args?: ArgsT,
-  ) {
-    try {
-      const user = await this.findValidUserOrThrow(where, args);
-      return user;
-    } catch (e) {
-      return undefined;
-    }
-  }
-
-  async findValidUserOrThrow<ArgsT extends Prisma.UsersFindFirstArgs>(
     where: Partial<Pick<Users, 'id' | 'email' | 'username'>>,
     args?: ArgsT,
   ) {
@@ -68,8 +63,7 @@ export class UserService {
       ...args,
     });
 
-    this.userValidationService.isUserDefined(user);
-    this.userValidationService.isUserPublished(user);
+    this.userValidationService.checkIfUserAvailable(user);
 
     return user! as Prisma.UsersGetPayload<ArgsT>;
   }

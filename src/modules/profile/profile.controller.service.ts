@@ -15,7 +15,7 @@ export class ProfileControllerService {
   ) {}
 
   async updateProfilePicture(id: string, file: Express.Multer.File) {
-    const user = await this.userService.findValidUserOrThrow({
+    const user = await this.userService.findValidUser({
       id,
     });
 
@@ -52,7 +52,7 @@ export class ProfileControllerService {
   }
 
   async deleteProfilePicture(id: string) {
-    const user = await this.userService.findValidUserOrThrow({
+    const user = await this.userService.findValidUser({
       id,
     });
 
