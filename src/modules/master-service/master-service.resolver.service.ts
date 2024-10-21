@@ -41,22 +41,22 @@ export class MasterServiceResolverService {
       id: args.CurrencyId,
     });
 
-    const masterService =
+    const isAlreadyExists =
       await this.commonPrismaService.masterService.findFirst({
         where: {
-          MasterProfileId: user.MasterProfileId!,
+          MasterProfileId: user.MasterProfileId,
           ServiceId: service.id,
         },
       });
 
-    if (masterService) {
+    if (isAlreadyExists) {
       throw new BadRequestException('Service already exists');
     }
 
     return this.commonPrismaService.masterService.create({
       data: {
         status: StatusEnum.PUBLISHED,
-        MasterProfileId: user.MasterProfileId!,
+        MasterProfileId: user.MasterProfileId,
         ServiceId: service.id,
         CurrencyId: currency.id,
         duration: args.duration,
