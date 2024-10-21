@@ -23,6 +23,9 @@ export class ProfileResolverService {
   ) {}
 
   async getProfile({ id }: JWTData, select?: PrismaSelect) {
+    // PrismaSelect.mergeDeep(select, {
+    // });
+
     return this.userService.findValidUser(
       {
         id,
@@ -55,19 +58,19 @@ export class ProfileResolverService {
         args.ServiceId,
       );
 
-    PrismaSelect.mergeDeep(select, {
-      select: {
-        MasterProfile: {
-          select: {
-            MasterServices: {
-              where: {
-                ServiceId: args.ServiceId,
-              },
-            },
-          },
-        },
-      },
-    });
+    // PrismaSelect.mergeDeep(select, {
+    //   select: {
+    //     MasterProfile: {
+    //       select: {
+    //         MasterServices: {
+    //           where: {
+    //             ServiceId: args.ServiceId,
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // });
 
     return this.commonPrismaService.users.findMany({
       where: {
