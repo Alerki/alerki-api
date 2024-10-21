@@ -61,6 +61,7 @@ export class MasterServiceResolverService {
         CurrencyId: currency.id,
         duration: args.duration,
         price: args.price,
+        date_created: new Date(),
       },
       ...select,
     });
