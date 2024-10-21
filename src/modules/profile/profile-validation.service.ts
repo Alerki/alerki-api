@@ -107,6 +107,7 @@ export class ProfileValidationService {
   >(
     user: T | undefined | null,
   ): asserts user is T & {
+    MasterProfileId: string;
     MasterProfile: {
       MasterWeeklySchedule: MasterWeeklySchedule;
     };
