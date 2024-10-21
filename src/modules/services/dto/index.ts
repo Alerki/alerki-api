@@ -1,4 +1,4 @@
-import { ArgsType, Field, ObjectType, OmitType } from '@nestjs/graphql';
+import { ArgsType, Field, Int, ObjectType, OmitType } from '@nestjs/graphql';
 import {
   IsEnum,
   IsNumber,
@@ -23,14 +23,14 @@ export class FindServicesArgs {
   @IsOptional()
   language_code: LanguagesEnum;
 
-  @Field(() => Number, { nullable: true, defaultValue: 10 })
+  @Field(() => Int, { nullable: true, defaultValue: 10 })
   @IsNumber()
   @Min(1)
   @Max(100)
   @IsOptional()
   take: number;
 
-  @Field(() => Number, { nullable: true, defaultValue: 0 })
+  @Field(() => Int, { nullable: true, defaultValue: 0 })
   @IsNumber()
   @Min(0)
   @Max(1000)

@@ -1,4 +1,4 @@
-import { ArgsType, Field, ObjectType } from '@nestjs/graphql';
+import { ArgsType, Field, Int, ObjectType } from '@nestjs/graphql';
 import { MasterSchedule, Users } from '@prisma/client';
 import { IsBoolean, IsDate, IsString } from 'class-validator';
 
@@ -78,9 +78,9 @@ export class GetMasterMonthScheduleArgs
   @Field(() => String, { nullable: false })
   MasterProfileId: string;
 
-  @Field(() => Number, { nullable: false })
+  @Field(() => Int, { nullable: false })
   year: number;
 
-  @Field(() => Number, { nullable: false })
+  @Field(() => Int, { nullable: false })
   month: number;
 }
