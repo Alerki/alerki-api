@@ -19,7 +19,7 @@ export class ProfileControllerService {
       id,
     });
 
-    const processedImage = await sharp(file.buffer)
+    const processedImage = await sharp(file?.buffer)
       .resize(ENV.PROFILE_PICTURE_SIZE)
       .toFormat(this.profilePictureService.format)
       .toBuffer();

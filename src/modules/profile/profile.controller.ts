@@ -31,7 +31,7 @@ export class ProfileController {
     schema: {
       type: 'object',
       properties: {
-        image: {
+        picture: {
           type: 'string',
           format: 'binary',
         },
@@ -39,7 +39,7 @@ export class ProfileController {
     },
   })
   @UseInterceptors(
-    FileInterceptor('image', {
+    FileInterceptor('picture', {
       fileFilter: (req, file, callback) => {
         const allowedMimeTypes = [
           'image/jpeg',
