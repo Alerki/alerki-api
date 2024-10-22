@@ -15,11 +15,11 @@ export class ProfileControllerService {
   ) {}
 
   async updateProfilePicture(id: string, file: Express.Multer.File) {
-    const user = await this.userService.findValidUserOrThrow({
+    const user = await this.userService.findValidUser({
       id,
     });
 
-    const processedImage = await sharp(file.buffer)
+    const processedImage = await sharp(file?.buffer)
       .resize(ENV.PROFILE_PICTURE_SIZE)
       .toFormat(this.profilePictureService.format)
       .toBuffer();
@@ -28,6 +28,12 @@ export class ProfileControllerService {
       user.id,
       processedImage,
     );
+
+    if (user.pictureUrl) {
+      try {
+        await this.profilePictureService.deletePicture(user.pictureUrl);
+      } catch (e) {}
+    }
 
     await this.commonPrismaService.users.update({
       where: {
@@ -41,32 +47,12 @@ export class ProfileControllerService {
     return pictureName;
   }
 
-  async getProfilePicture(id: string) {
-    const user = await this.userService.findValidUserOrThrow({
-      id,
-    });
-
-    if (!user.pictureUrl) {
-      throw new NotFoundException();
-    }
-
-    try {
-      return this.profilePictureService.getPicture(user.pictureUrl);
-    } catch (e) {
-      await this.commonPrismaService.users.update({
-        where: {
-          id,
-        },
-        data: {
-          pictureUrl: null,
-        },
-      });
-      throw e;
-    }
+  async getProfilePicture(pictureName: string) {
+    return this.profilePictureService.getPicture(pictureName);
   }
 
   async deleteProfilePicture(id: string) {
-    const user = await this.userService.findValidUserOrThrow({
+    const user = await this.userService.findValidUser({
       id,
     });
 
@@ -74,7 +60,7 @@ export class ProfileControllerService {
       throw new NotFoundException();
     }
 
-    await this.profilePictureService.deletePicture(user.id);
+    await this.profilePictureService.deletePicture(user.pictureUrl);
 
     await this.commonPrismaService.users.update({
       where: {

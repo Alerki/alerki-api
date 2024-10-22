@@ -1,8 +1,11 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
 
+import { Service } from '../../@generated';
+import { GetUserFromRequest } from '../../shared/decorators/get-user-from-request.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
-import { FindServicesArgs, ServiceOmitted } from './dto';
+import { JWTData } from '../auth/interfaces';
+import { FindServicesArgs } from './dto';
 import { ServicesResolverService } from './services.resolver.service';
 
 @Resolver()
@@ -12,16 +15,16 @@ export class ServicesResolver {
     private readonly servicesResolverService: ServicesResolverService,
   ) {}
 
-  @Query(() => [ServiceOmitted])
+  @Query(() => [Service])
   async findServices(
     // @Info()
     // info: GraphQLResolveInfo,
     @Args()
     args: FindServicesArgs,
-    // @Context()
-    // context: ContextType,
+    @GetUserFromRequest()
+    user: JWTData,
   ) {
     // const select = new PrismaSelect(info).value;
-    return this.servicesResolverService.finsServices(args);
+    return this.servicesResolverService.finsServices(args, user);
   }
 }

@@ -6,6 +6,7 @@ import { join } from 'path';
 import { AppointmentModule } from './modules/appointment/appointment.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CurrencyModule } from './modules/currency/currency.module';
+import { LanguageModule } from './modules/language/language.module';
 import { MasterScheduleModule } from './modules/master-schedule/master-schedule.module';
 import { MasterServiceModule } from './modules/master-service/master-service.module';
 import { MasterWeeklyScheduleModule } from './modules/master-weekly-schedule/master-weekly-schedule.module';
@@ -30,6 +31,7 @@ import { UserModule } from './modules/user/user.module';
     CurrencyModule,
     MasterScheduleModule,
     AppointmentModule,
+    LanguageModule,
   ],
 })
 export class AppModule {}

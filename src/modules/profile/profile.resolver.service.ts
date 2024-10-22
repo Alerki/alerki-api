@@ -23,7 +23,10 @@ export class ProfileResolverService {
   ) {}
 
   async getProfile({ id }: JWTData, select?: PrismaSelect) {
-    return this.userService.findValidUserOrThrow(
+    // PrismaSelect.mergeDeep(select, {
+    // });
+
+    return this.userService.findValidUser(
       {
         id,
       },
@@ -55,19 +58,19 @@ export class ProfileResolverService {
         args.ServiceId,
       );
 
-    PrismaSelect.mergeDeep(select, {
-      select: {
-        MasterProfile: {
-          select: {
-            MasterServices: {
-              where: {
-                ServiceId: args.ServiceId,
-              },
-            },
-          },
-        },
-      },
-    });
+    // PrismaSelect.mergeDeep(select, {
+    //   select: {
+    //     MasterProfile: {
+    //       select: {
+    //         MasterServices: {
+    //           where: {
+    //             ServiceId: args.ServiceId,
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // });
 
     return this.commonPrismaService.users.findMany({
       where: {
@@ -84,9 +87,21 @@ export class ProfileResolverService {
     select: PrismaSelect,
     args: UpdateProfileArgs,
   ) {
-    const user = await this.userService.findValidUserOrThrow({
+    const user = await this.userService.findValidUser({
       id,
     });
+
+    if (args.Language) {
+      const language = await this.commonPrismaService.languages.findFirst({
+        where: {
+          code: args.Language,
+        },
+      });
+
+      if (!language) {
+        throw new BadRequestException('Language not exists');
+      }
+    }
 
     return this.commonPrismaService.users.update({
       where: {
@@ -100,7 +115,7 @@ export class ProfileResolverService {
   }
 
   async enableMasterProfile(select: PrismaSelect, { id }: JWTData) {
-    const user = await this.userService.findValidUserOrThrow(
+    const user = await this.userService.findValidUser(
       {
         id,
       },
@@ -150,7 +165,7 @@ export class ProfileResolverService {
   }
 
   async disableMasterProfile(select: PrismaSelect, { id }: JWTData) {
-    const user = await this.userService.findValidUserOrThrow(
+    const user = await this.userService.findValidUser(
       { id },
       {
         include: {

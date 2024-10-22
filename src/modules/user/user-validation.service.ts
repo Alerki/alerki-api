@@ -22,7 +22,9 @@ export class UserValidationService {
     }
   }
 
-  checkIfUserAvailable<T extends Users>(user: T | null | undefined) {
+  checkIfUserAvailable<T extends Users>(
+    user: T | null | undefined,
+  ): asserts user is T {
     this.isUserDefined(user);
     this.isUserPublished(user);
   }

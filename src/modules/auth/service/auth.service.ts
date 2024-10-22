@@ -53,6 +53,7 @@ export class AuthService {
       username: body.username,
       hashedPassword,
       profileType: body.profileType,
+      language: body.language,
     });
 
     delete (newUser as { password?: string }).password;
@@ -126,7 +127,7 @@ export class AuthService {
       },
     });
 
-    const user = await this.userService.findValidUserOrThrow({
+    const user = await this.userService.findValidUser({
       id: validatedToken.id,
     });
 
@@ -200,7 +201,7 @@ export class AuthService {
   }
 
   async processLogInRequest(email: string, password: string) {
-    const user = await this.userService.findValidUserOrThrow({ email });
+    const user = await this.userService.findValidUser({ email });
 
     if (!compareSync(password, user.password!)) {
       throw new BadRequestException(SystemCode.INVALID_PASSWORD);

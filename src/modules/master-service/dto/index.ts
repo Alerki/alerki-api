@@ -1,4 +1,4 @@
-import { ArgsType, Field } from '@nestjs/graphql';
+import { ArgsType, Field, Int } from '@nestjs/graphql';
 import { MasterService } from '@prisma/client';
 import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
 
@@ -13,11 +13,11 @@ export class CreateMasterServiceArgs
   @IsString()
   ServiceId: string;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Int, { nullable: true })
   @IsNumber()
   price: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Int, { nullable: true })
   @IsNumber()
   CurrencyId: number;
 
@@ -32,12 +32,12 @@ export class UpdateMasterServiceArgs {
   @IsString()
   id: string;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Int, { nullable: true })
   @IsNumber()
   @IsOptional()
   price: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Int, { nullable: true })
   @IsNumber()
   @IsOptional()
   CurrencyId: number;
