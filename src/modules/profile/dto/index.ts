@@ -6,7 +6,7 @@ import { Users } from '../../../@generated';
 
 @ArgsType()
 export class UpdateProfileArgs
-  implements Partial<Pick<Users, 'firstName' | 'lastName'>>
+  implements Partial<Pick<Users, 'firstName' | 'lastName' | 'Language'>>
 {
   @Field(() => String, { nullable: true })
   @IsString()
@@ -17,6 +17,11 @@ export class UpdateProfileArgs
   @IsString()
   @IsOptional()
   lastName?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsString()
+  @IsOptional()
+  Language?: string;
 }
 
 @ArgsType()

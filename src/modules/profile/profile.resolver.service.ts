@@ -91,6 +91,18 @@ export class ProfileResolverService {
       id,
     });
 
+    if (args.Language) {
+      const language = await this.commonPrismaService.languages.findFirst({
+        where: {
+          code: args.Language,
+        },
+      });
+
+      if (!language) {
+        throw new BadRequestException('Language not exists');
+      }
+    }
+
     return this.commonPrismaService.users.update({
       where: {
         id: user.id,
