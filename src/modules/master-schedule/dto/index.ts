@@ -72,7 +72,7 @@ export class MasterDaySchedule {
 }
 
 @ArgsType()
-export class GetMasterMonthScheduleArgs
+export class GetMasterAvailabilityArgs
   implements Pick<Users, 'MasterProfileId'>
 {
   @Field(() => String, { nullable: false })
@@ -84,3 +84,6 @@ export class GetMasterMonthScheduleArgs
   @Field(() => Int, { nullable: false })
   month: number;
 }
+
+@ArgsType()
+export class GetMasterMonthScheduleArgs extends GetMasterAvailabilityArgs {}
