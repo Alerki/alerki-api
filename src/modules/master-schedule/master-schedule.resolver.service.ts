@@ -9,7 +9,7 @@ import { ProfileService } from '../profile/profile.service';
 import {
   CreateMasterScheduleArgs,
   DeleteMasterScheduleArgs,
-  GetMasterMonthScheduleArgs,
+  GetMasterAvailabilityArgs,
   UpdateMasterScheduleArgs,
 } from './dto';
 import { MasterScheduleService } from './master-schedule.service';
@@ -146,16 +146,15 @@ export class MasterScheduleResolverService {
     });
 
     // Check if there's schedule with the id
-    const schedule =
-      await this.masterScheduleService.findValidMasterSchedule(
-        {},
-        {
-          where: {
-            id: args.id,
-            MasterProfileId: user!.MasterProfileId!,
-          },
+    const schedule = await this.masterScheduleService.findValidMasterSchedule(
+      {},
+      {
+        where: {
+          id: args.id,
+          MasterProfileId: user!.MasterProfileId!,
         },
-      );
+      },
+    );
 
     if (schedule.endAt.getTime() < new Date().getTime()) {
       throw new BadRequestException('Impossible to delete past schedules');
@@ -170,8 +169,16 @@ export class MasterScheduleResolverService {
     });
   }
 
-  async getMasterMonthSchedule(args: GetMasterMonthScheduleArgs) {
-    return this.masterScheduleService.generateMonthlySchedule(
+  async getMasterMonthAvailability(args: GetMasterAvailabilityArgs) {
+    return this.masterScheduleService.generateMonthAvailability(
+      args.MasterProfileId,
+      args.year,
+      args.month,
+    );
+  }
+
+  async getMasterMonthSchedule(args: GetMasterAvailabilityArgs) {
+    return this.masterScheduleService.generateMasterMonthSchedule(
       args.MasterProfileId,
       args.year,
       args.month,

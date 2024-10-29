@@ -79,3 +79,19 @@ export function isDateValid(date: Date) {
 
   return false;
 }
+
+export function createMonthDateRange(year: number, month: number) {
+  const dateFrom = new Date(0);
+  dateFrom.setUTCFullYear(year);
+  dateFrom.setUTCMonth(month - 1);
+
+  const dateTo = new Date(dateFrom);
+  dateTo.setUTCMonth(dateFrom.getUTCMonth() + 1);
+  dateTo.setUTCDate(dateTo.getUTCDate() - 1);
+  setEndOfTheDay(dateTo);
+
+  return {
+    dateFrom,
+    dateTo,
+  };
+}

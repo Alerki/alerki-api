@@ -10,6 +10,7 @@ import { JWTData } from '../auth/interfaces';
 import {
   CreateMasterScheduleArgs,
   DeleteMasterScheduleArgs,
+  GetMasterAvailabilityArgs,
   GetMasterMonthScheduleArgs,
   MasterDaySchedule,
   UpdateMasterScheduleArgs,
@@ -60,6 +61,16 @@ export class MasterScheduleResolver {
   ) {
     const select = new PrismaSelect(info).value;
     return this.masterScheduleService.deleteMasterSchedule(select, args, user);
+  }
+
+  @Query(() => [MasterDaySchedule], { nullable: false })
+  async getMasterMonthAvailability(
+    @Args()
+    args: GetMasterAvailabilityArgs,
+    // @GetUserFromRequest()
+    // user: JWTData,
+  ) {
+    return this.masterScheduleService.getMasterMonthAvailability(args);
   }
 
   @Query(() => [MasterDaySchedule], { nullable: false })

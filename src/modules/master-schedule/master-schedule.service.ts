@@ -13,8 +13,8 @@ import {
   appendNewDateWithTime,
   checkIfATimeIsPartOfTimespan,
   checkTimespansForCollision,
+  createMonthDateRange,
   generateDatesInTimespan,
-  setEndOfTheDay,
 } from '../../shared/utils/date-time.util';
 import { MasterWeeklyScheduleService } from '../master-weekly-schedule/master-weekly-schedule.service';
 import { ProfileService } from '../profile/profile.service';
@@ -247,7 +247,7 @@ export class MasterScheduleService {
     };
   }
 
-  async generateMonthlySchedule(
+  async generateMonthAvailability(
     MasterProfileId: string,
     year: number,
     month: number,
@@ -256,14 +256,7 @@ export class MasterScheduleService {
       MasterProfileId,
     });
 
-    const dateFrom = new Date(0);
-    dateFrom.setUTCFullYear(year);
-    dateFrom.setUTCMonth(month - 1);
-
-    const dateTo = new Date(dateFrom);
-    dateTo.setUTCMonth(dateFrom.getUTCMonth() + 1);
-    dateTo.setUTCDate(dateTo.getUTCDate() - 1);
-    setEndOfTheDay(dateTo);
+    const { dateFrom, dateTo } = createMonthDateRange(year, month);
 
     const days = generateDatesInTimespan(dateFrom, dateTo);
 
@@ -297,6 +290,38 @@ export class MasterScheduleService {
         dayScheduleConfig,
         appointments,
       );
+    });
+
+    return monthSchedule;
+  }
+
+  async generateMasterMonthSchedule(
+    MasterProfileId: string,
+    year: number,
+    month: number,
+  ) {
+    const masterProfile = await this.profileService.findValidMasterProfile({
+      MasterProfileId,
+    });
+
+    const { dateFrom, dateTo } = createMonthDateRange(year, month);
+
+    const days = generateDatesInTimespan(dateFrom, dateTo);
+
+    const masterSchedules = await this.findManyValidMasterSchedules({
+      MasterProfileId,
+      startAt: { lte: dateTo },
+      endAt: { gt: dateFrom },
+    });
+
+    const monthSchedule: Array<MasterDaySchedule> = days.map((day) => {
+      const dayScheduleConfig =
+        this.getScheduleConfigFromScheduleAndWeeklySchedule(
+          day,
+          masterProfile.MasterProfile!.MasterWeeklySchedule!,
+          masterSchedules,
+        );
+      return this.generateMasterDaySchedule(day, dayScheduleConfig, []);
     });
 
     return monthSchedule;
