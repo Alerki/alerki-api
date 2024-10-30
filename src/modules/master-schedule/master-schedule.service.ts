@@ -11,10 +11,11 @@ import { StatusEnum } from '../../shared/enums/status.enum';
 import { CommonPrismaService } from '../../shared/modules/prisma/prisma.service';
 import {
   appendNewDateWithTime,
-  checkIfATimeIsPartOfTimespan,
   checkTimespansForCollision,
   createMonthDateRange,
   generateDatesInTimespan,
+  setNewEndOfTheDay,
+  setNewStartOfTheDay,
 } from '../../shared/utils/date-time.util';
 import { MasterWeeklyScheduleService } from '../master-weekly-schedule/master-weekly-schedule.service';
 import { ProfileService } from '../profile/profile.service';
@@ -224,8 +225,14 @@ export class MasterScheduleService {
     weeklySchedule: MasterWeeklySchedule,
     schedules: Array<MasterSchedule>,
   ): MasterDayScheduleConfig {
+    const localStartAt = setNewStartOfTheDay(date);
+    const localEndAt = setNewEndOfTheDay(date);
+
     const schedule = schedules.find((i) =>
-      checkIfATimeIsPartOfTimespan({ start: i.startAt, end: i.endAt }, date),
+      checkTimespansForCollision(
+        { start: i.startAt, end: i.endAt },
+        { start: localStartAt, end: localEndAt },
+      ),
     );
 
     if (schedule) {

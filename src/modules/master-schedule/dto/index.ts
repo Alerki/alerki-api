@@ -1,6 +1,6 @@
 import { ArgsType, Field, Int, ObjectType } from '@nestjs/graphql';
 import { MasterSchedule, Users } from '@prisma/client';
-import { IsBoolean, IsDate, IsString } from 'class-validator';
+import { IsBoolean, IsDate } from 'class-validator';
 
 @ArgsType()
 export class CreateMasterScheduleArgs
@@ -20,34 +20,10 @@ export class CreateMasterScheduleArgs
 }
 
 @ArgsType()
-export class UpdateMasterScheduleArgs
-  implements
-    Required<Pick<MasterSchedule, 'id' | 'dayOff' | 'startAt' | 'endAt'>>
-{
-  @Field(() => String, { nullable: false })
-  @IsString()
-  id: string;
-
-  @Field(() => Boolean, { nullable: false })
-  @IsBoolean()
-  dayOff: boolean;
-
+export class GetMasterScheduleArgs {
   @Field(() => Date, { nullable: false })
   @IsDate()
-  startAt: Date;
-
-  @Field(() => Date, { nullable: false })
-  @IsDate()
-  endAt: Date;
-}
-
-@ArgsType()
-export class DeleteMasterScheduleArgs
-  implements Required<Pick<MasterSchedule, 'id'>>
-{
-  @Field(() => String, { nullable: false })
-  @IsString()
-  id: string;
+  date: Date;
 }
 
 @ObjectType()

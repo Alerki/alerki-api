@@ -9,11 +9,10 @@ import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { JWTData } from '../auth/interfaces';
 import {
   CreateMasterScheduleArgs,
-  DeleteMasterScheduleArgs,
   GetMasterAvailabilityArgs,
   GetMasterMonthScheduleArgs,
+  GetMasterScheduleArgs,
   MasterDaySchedule,
-  UpdateMasterScheduleArgs,
 } from './dto';
 import { MasterScheduleResolverService } from './master-schedule.resolver.service';
 
@@ -25,7 +24,7 @@ export class MasterScheduleResolver {
   ) {}
 
   @Mutation(() => MasterSchedule)
-  async createMasterSchedule(
+  async updateMasterSchedule(
     @Info()
     info: GraphQLResolveInfo,
     @Args()
@@ -34,33 +33,19 @@ export class MasterScheduleResolver {
     user: JWTData,
   ) {
     const select = new PrismaSelect(info).value;
-    return this.masterScheduleService.createMasterSchedule(select, args, user);
-  }
-
-  @Mutation(() => MasterSchedule)
-  async updateMasterSchedule(
-    @Info()
-    info: GraphQLResolveInfo,
-    @Args()
-    args: UpdateMasterScheduleArgs,
-    @GetUserFromRequest()
-    user: JWTData,
-  ) {
-    const select = new PrismaSelect(info).value;
     return this.masterScheduleService.updateMasterSchedule(select, args, user);
   }
 
-  @Mutation(() => MasterSchedule, { nullable: true })
-  async deleteMasterSchedule(
+  @Query(() => MasterSchedule, { nullable: true })
+  async getMasterSchedule(
     @Info()
     info: GraphQLResolveInfo,
     @Args()
-    args: DeleteMasterScheduleArgs,
+    args: GetMasterScheduleArgs,
     @GetUserFromRequest()
     user: JWTData,
   ) {
-    const select = new PrismaSelect(info).value;
-    return this.masterScheduleService.deleteMasterSchedule(select, args, user);
+    return this.masterScheduleService.getMasterSchedule(args, user);
   }
 
   @Query(() => [MasterDaySchedule], { nullable: false })
